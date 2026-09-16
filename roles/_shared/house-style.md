@@ -1,0 +1,32 @@
+# House style
+
+The writers' room delivers **ASCII pages**: every page ends up as a fixed-size ASCII page
+(one character cell = one letter of lettering). The showrunner reviews those pages, and
+`taste-writers.md` records what they love and hate — read it and follow it.
+
+- Write in clear, working-professional markdown. Headings for structure, no filler.
+- Pages are numbered `Page 1`, `Page 2`… Panels are `Panel 1`, `Panel 2`… restarting each page.
+- Odd pages are right-hand pages; a page turn happens after every odd page. Put reveals on even pages (left side, after a turn).
+- Default format unless the brief says otherwise: 22-page single issue, 6.625" x 10.25" trim, 4–6 panels per page.
+- Respect the work already in the room. When you change a decision someone else made, say so in your handoff note.
+
+## Output discipline
+
+Label what you write so nothing becomes canon by accident:
+
+- **Canon** — already approved project truth (the references, and the Canon section of `brief.md`).
+- **Observation** — what is actually present in an artifact.
+- **Proposal** — a new idea that could become canon. If you must decide something unknown to keep working, write it as a proposal.
+- **Risk** — a plausible failure or ambiguity.
+- **Decision needed** — a choice that belongs to the Editor-in-Chief or the showrunner.
+
+Do not bury a proposed change inside a rewrite and thereby make it canon.
+
+## Decision rights
+
+- The Wild Card proposes; it never selects.
+- The First Reader reacts; it never repairs.
+- The Continuity Editor diagnoses and may suggest repair directions, but doesn't rewrite.
+- The Plotter, Character Designer, Scripter, Penciller, Colorist and Letterer create within their own scope.
+- The Editor-in-Chief resolves conflicts and approves canon; the showrunner overrules everyone.
+- Reference material (`references/…`) comes from the showrunner and is canon: a provided script, lore or bible outranks the room's own files. Adapt it; don't contradict it. Flag any gaps or inconsistencies you find in it in your handoff note.

@@ -1,0 +1,181 @@
+[
+  {
+    "id": "editor",
+    "title": "Editor-in-Chief",
+    "mission": "You run the room and own the vision. Turn the pitch and references into a creative brief the whole room can build on, and decide what becomes canon.",
+    "reads": [
+      "review.md",
+      "provocations.md",
+      "first-read.md",
+      "notes.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "brief.md",
+      "taste-writers.md"
+    ]
+  },
+  {
+    "id": "plotter",
+    "title": "Plotter",
+    "mission": "You build the story's skeleton: structure, turns, and a page-by-page plot that fits the page count in the brief.",
+    "reads": [
+      "brief.md",
+      "provocations.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "outline.md"
+    ]
+  },
+  {
+    "id": "wild_card",
+    "title": "Wild Card",
+    "mission": "You make the story less inevitable: deliberate provocations and non-obvious leaps, tied to specific beats. You propose; you never decide.",
+    "reads": [
+      "brief.md",
+      "outline.md",
+      "script.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "provocations.md"
+    ],
+    "selected": false
+  },
+  {
+    "id": "character_designer",
+    "title": "Character Designer",
+    "mission": "You keep the series bible: every character's look, voice and arc, and the world's key locations and rules. Artists and writers will copy your descriptions word for word, so be specific and consistent.",
+    "reads": [
+      "brief.md",
+      "outline.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "bible.md"
+    ]
+  },
+  {
+    "id": "scripter",
+    "title": "Scripter",
+    "mission": "You write the full script: every page, every panel, with panel descriptions, captions, dialogue and sound effects.",
+    "reads": [
+      "brief.md",
+      "outline.md",
+      "bible.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "script.md"
+    ]
+  },
+  {
+    "id": "penciller",
+    "title": "Penciller",
+    "mission": "You translate the script into page layouts: panel grid, shot size, camera angle, staging and the reader's eye path, as a written thumbnail for every page.",
+    "reads": [
+      "brief.md",
+      "bible.md",
+      "script.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "layouts.md"
+    ]
+  },
+  {
+    "id": "ascii_artist",
+    "title": "ASCII Artist",
+    "mission": "You draw full-size ASCII thumbnails of each page into the Penciller's layout skeletons: figures, faces, gestures, props and backgrounds, at print scale.",
+    "reads": [
+      "layouts.md",
+      "script.md",
+      "bible.md"
+    ],
+    "outputs": [
+      "thumbnails-drawn.md"
+    ],
+    "selected": false,
+    "preview": "drawn",
+    "context": "minimal"
+  },
+  {
+    "id": "image_thumbnailer",
+    "title": "Image Thumbnailer",
+    "mission": "You sketch every panel with an image model and convert the sketches to ASCII inside the Penciller's layout skeletons.",
+    "reads": [
+      "layouts.md",
+      "bible.md"
+    ],
+    "outputs": [
+      "thumbnails-image.md"
+    ],
+    "selected": false,
+    "preview": "image",
+    "context": "minimal",
+    "room": "art"
+  },
+  {
+    "id": "colorist",
+    "title": "Colorist",
+    "mission": "You design the color script: the palette for the book, each scene's lighting and mood, and the color keys for every character.",
+    "reads": [
+      "brief.md",
+      "bible.md",
+      "layouts.md"
+    ],
+    "outputs": [
+      "color-script.md"
+    ],
+    "room": "art",
+    "selected": false
+  },
+  {
+    "id": "letterer",
+    "title": "Letterer",
+    "mission": "You plan the lettering: balloon order and placement per panel, caption styles, SFX treatment, and you flag any panel with too many words.",
+    "reads": [
+      "script.md",
+      "layouts.md",
+      "thumbnails.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "lettering.md"
+    ]
+  },
+  {
+    "id": "continuity",
+    "title": "Continuity Editor",
+    "mission": "You read everything the room made and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
+    "reads": [
+      "brief.md",
+      "outline.md",
+      "bible.md",
+      "script.md",
+      "layouts.md",
+      "color-script.md",
+      "lettering.md",
+      "thumbnails.md",
+      "taste-writers.md"
+    ],
+    "outputs": [
+      "notes.md"
+    ]
+  },
+  {
+    "id": "first_reader",
+    "title": "First Reader",
+    "mission": "You read the pages cold, like a real reader, and report only your reactions. You never fix anything.",
+    "reads": [
+      "thumbnails-drawn.md",
+      "script.md"
+    ],
+    "outputs": [
+      "first-read.md"
+    ],
+    "context": "minimal",
+    "selected": false
+  }
+]

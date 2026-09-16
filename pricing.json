@@ -1,0 +1,21 @@
+{
+  "_note": "USD per 1M tokens. Keys match the model name sent in the request (exact match, then longest prefix; 'openai/gpt-4o' also matches 'gpt-4o'). Used only when the provider doesn't report cost itself (OpenRouter does). These are list prices as last known — CHECK THEM against your provider before trusting the reports. Models missing here are logged as 'unpriced'.",
+  "_fields": "input, output, cached_input (optional), image_input (optional, image tokens in the prompt), per_image (image models that report no token usage)",
+  "_local": "Local models (Ollama, LM Studio, vLLM) cost nothing per token: add them with input 0 and output 0 so they stop showing as unpriced.",
+
+  "gpt-4o":        {"input": 2.50, "cached_input": 1.25,  "output": 10.00},
+  "gpt-4o-mini":   {"input": 0.15, "cached_input": 0.075, "output": 0.60},
+  "gpt-4.1":       {"input": 2.00, "cached_input": 0.50,  "output": 8.00},
+  "gpt-4.1-mini":  {"input": 0.40, "cached_input": 0.10,  "output": 1.60},
+  "gpt-4.1-nano":  {"input": 0.10, "cached_input": 0.025, "output": 0.40},
+  "gpt-5":         {"input": 1.25, "cached_input": 0.125, "output": 10.00},
+  "gpt-5-mini":    {"input": 0.25, "cached_input": 0.025, "output": 2.00},
+  "gpt-5-nano":    {"input": 0.05, "cached_input": 0.005, "output": 0.40},
+
+  "gpt-image-1":   {"input": 5.00, "image_input": 10.00, "output": 40.00},
+  "dall-e-3":      {"per_image": 0.04},
+
+  "claude-opus-4-5":   {"input": 5.00, "cached_input": 0.50, "output": 25.00},
+  "claude-sonnet-4-5": {"input": 3.00, "cached_input": 0.30, "output": 15.00},
+  "claude-haiku-4-5":  {"input": 1.00, "cached_input": 0.10, "output": 5.00}
+}

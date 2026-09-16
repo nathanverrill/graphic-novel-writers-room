@@ -1,0 +1,396 @@
+"""Human review rounds, page locks, the readiness gate, and page exports.
+
+A review gives every page exactly one verdict:
+
+    reroll   "this sucks"            the next AI round rewrites the page
+    love     "fuck yeah!"            locked: script, layout and ASCII never change again
+    changes  approved with changes   your edited ASCII (and/or comment) is locked as the
+                                     page; the room brings script and layout into line
+
+Submitting creates a human round (or a final round) with the verdicts, your pages,
+per-page diffs against the AI pages, and review.md — the instructions the next AI
+round works from. Locks are enforced in code on every write (enforce_locks).
+"""
+import json
+import re
+
+from . import asciitext, projects, thumbnails
+
+DRAFT = "review-draft.json"
+LOCKS = "locks.json"
+SETTINGS = "round-settings.json"
+VERDICTS = ("reroll", "love", "changes")
+LABEL = {"reroll": "👎 Re-roll", "love": "🔥 Love it", "changes": "✏️ Approved with changes"}
+DEFAULT_SETTINGS = {"pages": None, "artist": True, "max_passes": 2,
+                    "min_text_match": 0.95, "min_layout_match": 0.8}
+
+
+# ---- small json state files in the working copy ----------------------------------
+
+def _load(slug, name, default):
+    path = projects.project_dir(slug) / name
+    return json.loads(path.read_text()) if path.exists() else default
+
+
+def _save(slug, name, data):
+    (projects.project_dir(slug) / name).write_text(json.dumps(data, indent=2))
+
+
+def settings(slug):
+    return {**DEFAULT_SETTINGS, **_load(slug, SETTINGS, {})}
+
+
+def save_settings(slug, **changes):
+    current = _load(slug, SETTINGS, {})
+    current.update({k: v for k, v in changes.items() if v is not None})
+    _save(slug, SETTINGS, current)
+    return settings(slug)
+
+
+def locks(slug):
+    return {int(k): v for k, v in _load(slug, LOCKS, {}).items()}
+
+
+def draft(slug):
+    d = _load(slug, DRAFT, {})
+    d["pages"] = {int(k): v for k, v in d.get("pages", {}).items()}
+    return d
+
+
+# ---- the pages under review --------------------------------------------------------
+
+FILES = {"drawn": "thumbnails-drawn.md", "layout": "thumbnails.md"}
+
+
+def canonical_file(slug):
+    if settings(slug)["artist"] and thumbnails.parse_thumbnails(projects.read_artifact(slug, FILES["drawn"])):
+        return FILES["drawn"]
+    return FILES["layout"]
+
+
+def canonical(slug):
+    """(method, {page: parsed thumbnail}) — the ASCII page the showrunner reviews:
+    the ASCII Artist's page when it's on and has drawn, otherwise the layout render."""
+    name = canonical_file(slug)
+    method = "drawn" if name == FILES["drawn"] else "layout"
+    return method, thumbnails.parse_thumbnails(projects.read_artifact(slug, name))
+
+
+def latest_round(slug, kind=None):
+    for meta in projects.list_versions(slug):
+        if kind is None or meta.get("kind", "ai") == kind:
+            return meta
+    return None
+
+
+def state(slug):
+    """Everything the review screen needs."""
+    method, pages = canonical(slug)
+    d = draft(slug)
+    last = latest_round(slug)
+    lk = locks(slug)
+    out = {}
+    for n, p in sorted(pages.items()):
+        entry = d["pages"].get(n, {})
+        art = entry.get("art") or p["art"]
+        out[n] = {"ai_art": p["art"], "art": art, "notes": p["notes"],
+                  "verdict": entry.get("verdict"), "comment": entry.get("comment", ""),
+                  "edited": art != p["art"], "locked": lk.get(n, {}).get("verdict")}
+    open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages)
+    g = thumbnails.geometry()
+    return {"method": method, "pages": out, "round": last and last["id"],
+            "open": open_for_review, "comment": d.get("comment", ""), "settings": settings(slug),
+            "gate": last and last.get("gate"), "cols": g.cols, "rows": g.rows}
+
+
+def save_page(slug, n, verdict=None, comment=None, art=None, clear=False):
+    method, pages = canonical(slug)
+    if n not in pages:
+        raise KeyError(f"page {n}")
+    d = draft(slug)
+    entry = d["pages"].setdefault(n, {})
+    if art is not None:
+        grid, _ = thumbnails.text_to_grid(art.replace("`" * 3, "'" * 3), thumbnails.geometry())
+        art = "\n".join("".join(r) for r in grid)
+        if art == pages[n]["art"]:
+            entry.pop("art", None)
+        else:
+            entry["art"] = art
+    if comment is not None:
+        entry["comment"] = comment.strip()
+    if clear:
+        entry.pop("verdict", None)
+    if verdict is not None:
+        if verdict not in VERDICTS:
+            raise ValueError(f"verdict must be one of {VERDICTS}")
+        entry["verdict"] = verdict
+    if entry.get("verdict") == "changes" and not (entry.get("art") or entry.get("comment")):
+        raise ValueError("'approved with changes' needs an edit to the page or a comment")
+    _save(slug, DRAFT, {**d, "pages": {str(k): v for k, v in d["pages"].items()}})
+    return entry
+
+
+def save_comment(slug, comment):
+    d = draft(slug)
+    d["comment"] = comment.strip()
+    _save(slug, DRAFT, {**d, "pages": {str(k): v for k, v in d["pages"].items()}})
+
+
+# ---- script / layout sections --------------------------------------------------------
+
+def _script_span(script, n):
+    m = re.search(rf"^#+ *Page {n}\b.*?(?=^#+ *Page \d+\b|\Z)", script or "", re.S | re.M | re.I)
+    return m
+
+
+def replace_script_section(script, n, section):
+    m = _script_span(script, n)
+    if m:
+        return script[:m.start()] + section.rstrip() + "\n\n" + script[m.end():].lstrip("\n")
+    return (script or "").rstrip() + "\n\n" + section.rstrip() + "\n"
+
+
+def layout_block(spec):
+    return "```layout\n" + json.dumps(spec, indent=1) + "\n```"
+
+
+def replace_layout(markdown, n, spec):
+    for m in thumbnails.LAYOUT_RE.finditer(markdown or ""):
+        try:
+            page = int(json.loads(m.group(1)).get("page", 0))
+        except (ValueError, TypeError):
+            continue
+        if page == n:
+            return markdown[:m.start()] + layout_block(spec) + markdown[m.end():]
+    return (markdown or "").rstrip() + "\n\n" + layout_block(spec) + "\n"
+
+
+def enforce_locks(slug, name, content):
+    """Put locked pages back into a file an agent is saving. Returns (content, pages restored)."""
+    lk = locks(slug)
+    restored = []
+    if not lk:
+        return content, restored
+    if name == "script.md":
+        for n, l in lk.items():
+            if l.get("script"):
+                m = _script_span(content, n)
+                if not m or m.group(0).strip() != l["script"].strip():
+                    content = replace_script_section(content, n, l["script"])
+                    restored.append(n)
+    elif name == "layouts.md":
+        specs = {s["page"]: s for s in thumbnails.parse_layouts(content)[0]}
+        for n, l in lk.items():
+            if l.get("layout") and specs.get(n) != l["layout"]:
+                content = replace_layout(content, n, l["layout"])
+                restored.append(n)
+    elif name == canonical_file(slug):   # the reviewed pages; the other preview keeps showing its own render
+        pages = thumbnails.parse_thumbnails(content)
+        for n, l in lk.items():
+            if n in pages and (pages[n]["art"] != l["ascii"] or not pages[n]["edited"]):
+                content = thumbnails.replace_page(content, n, l["ascii"], True)
+                restored.append(n)
+    return content, sorted(set(restored))
+
+
+# ---- submitting a review ---------------------------------------------------------------
+
+def _page_instructions(n, v, comment, diff_md, has_edit):
+    if v == "love":
+        body = "LOCKED. The showrunner loves this page. Do not change it."
+    elif v == "changes":
+        body = ("LOCKED as the showrunner's version (below). Bring script.md and layouts.md into line "
+                "with it: dialogue exactly as written on the page, panels and staging as drawn."
+                if has_edit else "Approved with the comment below. Make that change and nothing else.")
+    else:
+        body = (f"RE-ROLL. Rewrite this page from scratch — a different take, not a polish. Keep what comes "
+                f"in from page {n - 1} and what goes out to page {n + 1}." if n > 1 else
+                "RE-ROLL. Rewrite this page from scratch — a different take, not a polish.")
+    parts = [f"## Page {n} — {LABEL[v]}", "", body]
+    if comment:
+        parts += ["", f"Showrunner: {comment}"]
+    if has_edit:
+        parts += ["", "What the showrunner changed on the page:", "", diff_md]
+    return "\n".join(parts)
+
+
+def submit(slug, action, comment=None):
+    """action: 'send' (to the room) or 'finalize'. Returns the new round's id."""
+    if action not in ("send", "finalize"):
+        raise ValueError("action must be 'send' or 'finalize'")
+    if comment is not None:
+        save_comment(slug, comment)
+    st = state(slug)
+    if not st["open"]:
+        raise ValueError("there is no finished AI round waiting for review")
+    pages = st["pages"]
+    missing = [n for n, p in pages.items() if not p["verdict"]]
+    if missing:
+        raise ValueError(f"every page needs a verdict — missing: {', '.join(map(str, missing))}")
+    bad = [n for n, p in pages.items() if p["verdict"] == "changes" and not (p["edited"] or p["comment"])]
+    if bad:
+        raise ValueError(f"'approved with changes' needs an edit or comment on page(s) {bad}")
+    rerolls = [n for n, p in pages.items() if p["verdict"] == "reroll"]
+    if action == "finalize" and rerolls:
+        raise ValueError(f"can't finalize with pages to re-roll: {rerolls}")
+
+    specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}
+    script = projects.read_artifact(slug, "script.md") or ""
+    geo = thumbnails.geometry()
+    h = projects.Round(slug, kind="final" if action == "finalize" else "human",
+                       reviewed_round=st["round"], action=action, method=st["method"])
+    record = {"round": h.id, "reviewed_round": st["round"], "action": action,
+              "comment": st["comment"], "pages": {}}
+    instructions = []
+    lk = locks(slug)
+    for n, p in pages.items():
+        panels = thumbnails.render_page(specs[n], geo).panels if n in specs else []
+        diff = asciitext.page_diff(p["ai_art"], p["art"], panels)
+        diff_md = asciitext.diff_markdown(diff)
+        section = _script_span(script, n)
+        section = section.group(0).strip() if section else ""
+        v = p["verdict"]
+        record["pages"][n] = {"verdict": v, "comment": p["comment"], "edited": p["edited"],
+                              "text_similarity": diff["text_similarity"],
+                              "art_similarity": diff["art_similarity"], "text_changes": diff["text"]}
+        pre = f"p{n:02d}"
+        h.write_file(f"{pre}-ascii.txt", p["art"])
+        if p["edited"]:
+            h.write_file(f"{pre}-ai-ascii.txt", p["ai_art"])
+            h.write_file(f"{pre}-diff.md", f"# Page {n}: AI ({st['round']}) → showrunner ({h.id})\n\n{diff_md}\n")
+        if section:
+            h.write_file(f"{pre}-script.md", section + "\n")
+        if n in specs:
+            h.write_file(f"{pre}-layout.json", json.dumps(specs[n], indent=2))
+        h.write_file(f"{pre}-review.md", f"# Page {n}\n\n**{LABEL[v]}**\n\n{p['comment'] or '(no comment)'}\n\n{diff_md}\n")
+        instructions.append(_page_instructions(n, v, p["comment"], diff_md, p["edited"]))
+
+        if v == "reroll":
+            lk.pop(n, None)
+        else:
+            lk[n] = {"verdict": v, "round": h.id, "ascii": p["art"],
+                     "script": section if v == "love" else None,
+                     "layout": specs.get(n) if v == "love" else None}
+
+    counts = {v: sum(1 for p in pages.values() if p["verdict"] == v) for v in VERDICTS}
+    head = [f"# Review {h.id} of {st['round']}", "",
+            f"{counts['love']} loved · {counts['changes']} approved with changes · {counts['reroll']} to re-roll", ""]
+    if st["comment"]:
+        head += ["## Showrunner's overall note", "", st["comment"], ""]
+    review_md = "\n".join(head) + "\n" + "\n\n".join(instructions) + "\n"
+    h.write("review.md", review_md)
+    h.write_file("review.json", json.dumps(record, indent=2))
+    _save(slug, LOCKS, {str(k): v for k, v in lk.items()})
+
+    # the working copy's pages: locked pages become the showrunner's; re-rolls get redrawn
+    name = FILES[st["method"]]
+    md = projects.read_artifact(slug, name) or ""
+    for n in rerolls:
+        if n in thumbnails.parse_thumbnails(md):
+            md = thumbnails.replace_page(md, n, None, False)
+    md, _ = enforce_locks(slug, name, md)
+    h.write(name, md)
+
+    if action == "finalize":
+        book = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['art']}" for n, p in pages.items())
+        h.write_file("book-ascii.txt", book + "\n")
+    _save(slug, DRAFT, {})
+    h.update(status="done", finished=projects.now(), verdicts=counts)
+    return h.id
+
+
+# ---- the readiness gate ------------------------------------------------------------------
+
+BLOCKERS_RE = re.compile(r"^\s*BLOCKERS:\s*(\d+)", re.M | re.I)
+FIX_RE = re.compile(r"^\s*FIX:\s*(.+)$", re.M | re.I)
+
+
+def dial_in(slug, n, spec, locked_ascii):
+    """How closely the layout render of page n matches the showrunner's locked page."""
+    page = thumbnails.render_page(spec)
+    render = thumbnails.compose(page)
+    frame = lambda text: "\n".join("".join(c if c in "_|+=" else " " for c in line) for line in text.split("\n"))
+    return {"text": asciitext.text_similarity(render, locked_ascii),
+            "layout": asciitext.art_similarity(frame(render), frame(locked_ascii)),
+            "diff": asciitext.diff_markdown(asciitext.page_diff(render, locked_ascii, page.panels))}
+
+
+def gate(slug, role_titles):
+    """Is the round ready for the showrunner? Returns reasons and which roles should fix what."""
+    st = settings(slug)
+    want = st["pages"]
+    specs, errors = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))
+    lk = locks(slug)
+    reasons, fix, notes = [], set(), []
+    numbers = [s["page"] for s in specs]
+    if errors:
+        reasons.append(f"{len(errors)} layout blocks don't parse")
+        notes += errors
+        fix.add("penciller")
+    if want and sorted(numbers) != list(range(1, want + 1)):
+        reasons.append(f"layouts.md has pages {numbers}, the brief asks for pages 1-{want}")
+        fix.add("penciller")
+    issues = []
+    for s in specs:
+        if lk.get(s["page"], {}).get("verdict") == "love":
+            continue
+        issues += [f"page {s['page']}: {i}" for i in thumbnails.render_page(s).issues]
+    if issues:
+        reasons.append(f"{len(issues)} layout issues")
+        notes += issues
+        fix.add("penciller")
+
+    notes_md = projects.read_artifact(slug, "notes.md") or ""
+    m = BLOCKERS_RE.search(notes_md)
+    blockers = int(m.group(1)) if m else None
+    if blockers:
+        reasons.append(f"{blockers} continuity blockers")
+        f = FIX_RE.search(notes_md)
+        for word in re.split(r"[,;/]| and ", f.group(1) if f else ""):
+            word = word.strip().lower()
+            for rid, title in role_titles.items():
+                if word and (word == rid or word == title.lower() or word in title.lower()):
+                    fix.add(rid)
+        notes.append("See the Blockers in notes.md.")
+
+    dialed = {}
+    for n, l in lk.items():
+        if l["verdict"] != "changes":
+            continue
+        spec = next((s for s in specs if s["page"] == n), None)
+        if spec is None:
+            continue
+        d = dial_in(slug, n, spec, l["ascii"])
+        dialed[n] = {"text": d["text"], "layout": d["layout"]}
+        if d["text"] < st["min_text_match"]:
+            fix.update({"scripter", "penciller"})
+            reasons.append(f"page {n} dialogue matches the showrunner's page {d['text']:.0%}")
+            notes.append(f"Page {n}: make the layout's lettering match the showrunner's page exactly.\n{d['diff']}")
+        elif d["layout"] < st["min_layout_match"]:
+            fix.add("penciller")
+            reasons.append(f"page {n} panel layout matches the showrunner's page {d['layout']:.0%}")
+            notes.append(f"Page {n}: move panels and lettering to where the showrunner drew them.\n{d['diff']}")
+    return {"ready": not reasons, "reasons": reasons, "fix": sorted(fix), "notes": notes,
+            "blockers": blockers, "layout_issues": len(issues), "pages": numbers, "dialed_in": dialed}
+
+
+# ---- per-page exports for an AI round ------------------------------------------------------
+
+def export_pages(slug, rnd):
+    """Write <round>-pNN-{ascii,render,script,layout}.* into the round folder."""
+    method, pages = canonical(slug)
+    renders = thumbnails.parse_thumbnails(projects.read_artifact(slug, "thumbnails.md"))
+    specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}
+    script = projects.read_artifact(slug, "script.md") or ""
+    for n in sorted(set(pages) | set(specs)):
+        pre = f"p{n:02d}"
+        if n in pages:
+            rnd.write_file(f"{pre}-ascii.txt", pages[n]["art"])
+        if n in renders and method != "layout":
+            rnd.write_file(f"{pre}-render.txt", renders[n]["art"])
+        if n in specs:
+            rnd.write_file(f"{pre}-layout.json", json.dumps(specs[n], indent=2))
+        section = _script_span(script, n)
+        if section:
+            rnd.write_file(f"{pre}-script.md", section.group(0).strip() + "\n")
+    return sorted(pages)

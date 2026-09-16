@@ -1,0 +1,9 @@
+.venv
+.env
+.git
+projects
+logs
+__pycache__
+roles/*/agent.json
+morgue
+skills

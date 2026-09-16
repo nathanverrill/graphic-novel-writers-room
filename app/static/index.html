@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Writers' Room</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Writers' Room <span>graphic novel</span></h1>
+  <div id="config" class="config"></div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar">
+    <h2>Projects</h2>
+    <ul id="projects"></ul>
+    <details id="new-project">
+      <summary>+ New project</summary>
+      <form id="new-project-form">
+        <input name="title" placeholder="Title" required>
+        <label class="path">Pages <input name="pages" type="number" min="1" max="200" value="7"></label>
+        <textarea name="pitch" rows="4" placeholder="The pitch: premise, characters, tone (optional)."></textarea>
+        <textarea name="draft" rows="8" placeholder="Draft script — high level, directional only (optional). Saved as references/draft-script.md."></textarea>
+        <button>Create</button>
+      </form>
+    </details>
+  </aside>
+
+  <main>
+    <div id="empty" class="empty">Pick a project or start a new one.</div>
+    <div id="workspace" hidden>
+      <section>
+        <div class="section-head">
+          <h2 id="project-title"></h2>
+          <div class="actions">
+            <button id="select-defaults" class="ghost">Defaults</button>
+            <button id="select-all" class="ghost">Select all</button>
+            <button id="select-none" class="ghost">None</button>
+          </div>
+        </div>
+        <div id="roles" class="roles"></div>
+      </section>
+
+      <section class="controls">
+        <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
+        <div class="round-bar">
+          <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
+          <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
+          <label><input id="set-artist" type="checkbox"> ASCII Artist draws the pages</label>
+          <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
+        </div>
+        <div class="actions">
+          <select id="hat" title="Optional thinking mode added to every selected role for this run">
+            <option value="">No hat</option>
+          </select>
+          <button id="run" class="ghost">Run selected roles only</button>
+          <button id="stop" class="danger" hidden>Stop</button>
+        </div>
+      </section>
+
+      <section>
+        <h3>Live feed</h3>
+        <div id="feed" class="feed"></div>
+      </section>
+
+      <section>
+        <div class="section-head">
+          <h3>Costs</h3>
+          <select id="cost-scope">
+            <option value="project">This project</option>
+            <option value="version">Selected version</option>
+            <option value="all">All projects</option>
+          </select>
+        </div>
+        <div id="costs"></div>
+      </section>
+    </div>
+  </main>
+
+  <aside class="artifacts" id="artifacts-pane" hidden>
+    <div class="section-head">
+      <h2>Files</h2>
+      <select id="version-select" title="Working copy or a saved run"></select>
+    </div>
+    <div id="version-info" class="version-info" hidden>
+      <div id="version-meta"></div>
+      <div class="actions">
+        <button id="replay" class="ghost">Show run log</button>
+        <button id="calls" class="ghost">Model calls</button>
+        <button id="restore" class="ghost">Restore this version</button>
+      </div>
+    </div>
+    <h3>References <span id="ref-count"></span></h3>
+    <ul id="references"></ul>
+    <h3 class="gallery-head">Room files</h3>
+    <ul id="artifacts"></ul>
+    <h3 class="gallery-head">Images <span id="image-count"></span></h3>
+    <div id="gallery" class="thumbs"></div>
+    <div id="viewer" hidden>
+      <div class="section-head">
+        <h3 id="viewer-name"></h3>
+        <div class="actions">
+          <button id="edit" class="ghost">Edit</button>
+          <button id="save" hidden>Save</button>
+          <button id="cancel" class="ghost" hidden>Cancel</button>
+        </div>
+      </div>
+      <article id="rendered" class="md"></article>
+      <textarea id="editor" hidden></textarea>
+    </div>
+  </aside>
+</div>
+
+<section id="review" class="review" hidden>
+  <div class="section-head">
+    <h2>Review <span id="review-round"></span> <span class="path" id="review-progress"></span></h2>
+    <div id="review-chips" class="chips"></div>
+  </div>
+  <div class="review-body">
+    <div id="review-canvas" class="review-canvas"></div>
+    <aside class="review-side">
+      <div class="page-nav">
+        <button class="ghost" id="rv-prev">‹</button><b id="rv-page"></b><button class="ghost" id="rv-next">›</button>
+      </div>
+      <div class="verdicts">
+        <button data-verdict="reroll">👎 Re-roll</button>
+        <button data-verdict="love">🔥 Love it</button>
+        <button data-verdict="changes">✏️ Approve with changes</button>
+      </div>
+      <p class="path" id="rv-hint"></p>
+      <label class="path">Comment on this page
+        <textarea id="rv-comment" rows="4" placeholder="What's wrong, what to keep, what to try…"></textarea></label>
+      <div class="actions">
+        <button class="ghost" id="rv-save">Save page</button>
+        <button class="ghost" id="rv-undo-edits">Discard my edits</button>
+      </div>
+      <details><summary class="path">Panels and notes</summary><div id="rv-notes" class="notes md"></div></details>
+      <hr>
+      <label class="path">Overall note for the room
+        <textarea id="rv-overall" rows="3"></textarea></label>
+      <div class="actions">
+        <button id="rv-send">Send to the room</button>
+        <button id="rv-final" class="ghost">Finalize</button>
+      </div>
+      <p class="path" id="rv-status"></p>
+    </aside>
+  </div>
+</section>
+
+<section id="previews" class="previews" hidden>
+  <div class="section-head">
+    <h2>Page previews <span class="path" id="preview-scale"></span></h2>
+    <div class="actions">
+      <button id="preview-prev" class="ghost">‹</button>
+      <select id="preview-page"></select>
+      <button id="preview-next" class="ghost">›</button>
+      <label class="path">zoom <input id="preview-zoom" type="range" min="4" max="14" step="0.5" value="7"></label>
+    </div>
+  </div>
+  <div id="preview-grid" class="preview-grid"></div>
+</section>
+
+<dialog id="role-dialog">
+  <form method="dialog"><button class="close ghost">Close</button></form>
+  <div id="role-detail"></div>
+</dialog>
+
+<script src="/static/ascii-editor.js"></script>
+<script src="/static/app.js"></script>
+</body>
+</html>

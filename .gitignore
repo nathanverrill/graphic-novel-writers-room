@@ -216,3 +216,16 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- writers room ---
+.env
+.venv/
+__pycache__/
+projects/*
+!projects/.gitkeep
+.DS_Store
+logs/*
+!logs/.gitkeep
+
+# per-role model configs may contain API keys; agent.example.json is the committed template
+roles/*/agent.json

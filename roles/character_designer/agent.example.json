@@ -1,0 +1,13 @@
+{
+  "_note": "Specific, consistent descriptions. The writers' room is ASCII-only, so no image generation.",
+  "_help": "null = use the .env default. Copy to agent.json (git-ignored) to customize; keys may go there as api_key / image_api_key or by env var name via api_key_env.",
+  "base_url": null,
+  "api_key_env": null,
+  "model": null,
+  "temperature": 0.7,
+  "max_tokens": 8000,
+  "generate_images": false,
+  "image_model": null,
+  "image_size": "1024x1536",
+  "image_extra": {}
+}

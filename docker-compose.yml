@@ -1,0 +1,26 @@
+# docker compose up                      -> real provider from .env
+# docker compose --profile mock up       -> also starts the fake provider;
+#                                           set OPENAI_BASE_URL=http://mock:8765/v1 in .env
+services:
+  app:
+    build: .
+    ports: ["8000:8000"]
+    env_file:
+      - path: .env
+        required: false
+    volumes:              # your files live on the host, not in the container
+      - ./roles:/app/roles
+      - ./hats:/app/hats
+      - ./references:/app/references
+      - ./projects:/app/projects
+      - ./logs:/app/logs
+      - ./pricing.json:/app/pricing.json
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # reach Ollama / LM Studio on your machine
+
+  mock:
+    profiles: [mock]
+    build: .
+    command: ["python", "tests/mock_openai.py", "8765"]
+    environment:
+      MOCK_HOST: 0.0.0.0
