@@ -1,6 +1,7 @@
 import json
 import mimetypes
 import re
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
@@ -8,11 +9,18 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import projects, review, room, thumbnails, usage
+from . import objectstore, projects, review, room, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
-app = FastAPI(title="Graphic Novel Writers' Room")
+@asynccontextmanager
+async def lifespan(_app):
+    objectstore.start()      # no-op unless S3_ENDPOINT is set
+    yield
+    objectstore.shutdown()
+
+
+app = FastAPI(title="Graphic Novel Writers' Room", lifespan=lifespan)
 STATIC = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
 
@@ -36,6 +44,7 @@ def config():
     """The .env defaults, as a role with no agent.json would see them."""
     d = AgentConfig().resolve().public()
     d["figma_token_set"] = bool(settings.figma_token)
+    d["storage"] = objectstore.describe()
     return d
 
 

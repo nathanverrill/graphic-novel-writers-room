@@ -1,41 +1,36 @@
-accordion
 anchor
 antenna
 apron
-attic
 awning
 bandage
+barcode
 basket
 battery
 beehive
 bell
 bicycle
 billboard
-birdcage
 blanket
 bridge
 broom
 bucket
+bus ticket
 button
 cable
 calendar
 candle
 canoe
-carousel
 cassette
 chalk
-chandelier
 chess clock
 chimney
-clock tower
 clothesline
-comet
 compass
 concrete
 cookpot
 crate
 crosswalk
-crown
+dam
 dice
 doorbell
 drain
@@ -45,85 +40,90 @@ dust
 elevator
 envelope
 eraser
-feather
 fence
 ferry
 fingerprint
 fishing net
 flag
 flashlight
-fog
+flood line
 footprint
 fork
 fountain
 fuse
 gate
+generator
 glove
 graffiti
+greenhouse
 guitar string
 hammock
 harbor
-harp
 helmet
 hinge
 honey
 hourglass
 ice
+invoice
 jar
 kettle
 key
-keyhole
 kite
-labyrinth
 ladder
 lantern
 laundry
+ledger
 lighthouse
 lock
 loudspeaker
 map
-marionette
+market stall
 matchbox
+meter
 microphone
 mirror
 moss
-moth
 motorbike
 mural
-music box
 nail
 needle
 nest
+noodles
 notebook
-observatory
-origami
+orchard
 oven
 padlock
 paint
 parade
 passport
 pebble
+pipe
 plank
-puppet
+pothole
 queue
 radio
 railway
+rain barrel
+receipt
+rice
 roof
 rope
 rust
 salt
+scaffold
 scale
+school bell
 seed
 shadow
 shoe
 signal
 siren
 smoke
+solar panel
 spoon
 stairwell
 stamp
 tarp
-telescope
 thermometer
 thread
 ticket
@@ -133,12 +133,12 @@ tower
 traffic light
 tram
 trumpet
-tuba
-typewriter
 umbrella
 valve
-violin
+village well
 wall
+water tank
+wheelbarrow
 whistle
 window
 wire

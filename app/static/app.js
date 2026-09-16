@@ -45,7 +45,8 @@ async function loadConfig() {
     `defaults: <b>${esc(c.model)}</b> @ ${esc(c.base_url)} · ` +
     (c.api_key_set ? "key set" : `<span class="bad">no API key</span>`) +
     ` · image model ${c.image_model ? `<b>${esc(c.image_model)}</b>` : "none"}` +
-    ` · figma ${c.figma_token_set ? "on" : "off"}`;
+    ` · figma ${c.figma_token_set ? "on" : "off"}` +
+    ` · data: ${c.storage ? `<b>${esc(c.storage)}</b>` : "local files"}`;
 }
 
 async function loadRoles() {

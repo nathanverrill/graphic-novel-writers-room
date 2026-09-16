@@ -118,10 +118,34 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-`roles/`, `references/`, `projects/`, `logs/` and `pricing.json` are mounted from this folder,
-so everything you edit and everything the room makes stays on your machine. To use a model
-server running on your machine (Ollama, LM Studio), use `http://host.docker.internal:11434/v1`
-as the base URL, not `localhost`.
+**Configuration** — `roles/`, `hats/`, `references/` and `pricing.json` — is mounted from this
+folder, so you edit it in place.
+
+**Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
+**SeaweedFS**, an S3-compatible object store whose storage is the `seaweedfs-data` Docker
+volume. The app works on a copy inside its container: on start it pulls everything from the
+bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
+on shutdown. Recreating or rebuilding the app container loses nothing; so does
+`docker compose down`. **`docker compose down -v` deletes the volume, and all project data
+with it.**
+
+```sh
+# bring an existing project folder in (it syncs up within seconds)
+docker compose cp projects/my-book app:/app/projects/my-book
+# take a copy out
+docker compose cp app:/app/projects ./backup-projects
+# bucket status, from inside the app
+docker compose exec app python -m app.objectstore status
+```
+
+The S3 API is published on `127.0.0.1:8333` for backup tools (bucket `writers-room`). Change
+the credentials with `S3_ACCESS_KEY` / `S3_SECRET_KEY` in `.env` before the first start —
+both containers read them. Any S3-compatible store works the same way: point `S3_ENDPOINT`
+at it. Without Docker, leave `S3_ENDPOINT` unset and data stays as plain files in `projects/`
+and `logs/`.
+
+To use a model server running on your machine (Ollama, LM Studio), use
+`http://host.docker.internal:11434/v1` as the base URL, not `localhost`.
 
 To use the fake provider, set `OPENAI_BASE_URL=http://mock:8765/v1` in `.env` and run
 `docker compose --profile mock up -d`.
@@ -318,4 +342,5 @@ If the endpoint rejects tool calling, the agent retries as a plain chat and save
 ## Limits
 
 - One run per project at a time.
+- With the object store, up to `S3_SYNC_SECONDS` of writes can be lost if the app container is killed without a clean stop.
 - Live runs are tracked in memory: restarting the server during a run ends it. The run's round keeps everything written up to that point, but its status stays `running`.

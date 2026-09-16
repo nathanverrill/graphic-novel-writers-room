@@ -1,6 +1,10 @@
-# docker compose up                      -> real provider from .env
-# docker compose --profile mock up       -> also starts the fake provider;
+# docker compose up -d                   -> real provider from .env
+# docker compose --profile mock up -d    -> also starts the fake provider;
 #                                           set OPENAI_BASE_URL=http://mock:8765/v1 in .env
+#
+# Project data (projects/, logs/) lives in SeaweedFS, whose storage is the
+# seaweedfs-data volume. The app keeps a working copy inside its container and
+# syncs it to the bucket every few seconds (see app/objectstore.py).
 services:
   app:
     build: .
@@ -8,15 +12,47 @@ services:
     env_file:
       - path: .env
         required: false
-    volumes:              # your files live on the host, not in the container
+    environment:
+      S3_ENDPOINT: http://seaweedfs:8333
+      S3_BUCKET: ${S3_BUCKET:-writers-room}
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-writers-room}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:-writers-room-dev-secret}
+    volumes:              # configuration stays in this folder
       - ./roles:/app/roles
       - ./hats:/app/hats
       - ./references:/app/references
-      - ./projects:/app/projects
-      - ./logs:/app/logs
       - ./pricing.json:/app/pricing.json
+    depends_on:
+      seaweedfs:
+        condition: service_healthy
+    stop_grace_period: 30s   # time for the final sync
     extra_hosts:
       - "host.docker.internal:host-gateway"   # reach Ollama / LM Studio on your machine
+
+  seaweedfs:
+    image: chrislusf/seaweedfs:4.47
+    environment:
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:-writers-room}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:-writers-room-dev-secret}
+      S3_BUCKET: ${S3_BUCKET:-writers-room}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        cat > /tmp/s3.json <<EOF
+        {"identities": [{"name": "writers-room",
+          "credentials": [{"accessKey": "$$S3_ACCESS_KEY", "secretKey": "$$S3_SECRET_KEY"}],
+          "actions": ["Admin", "Read", "Write", "List", "Tagging"]}]}
+        EOF
+        exec weed mini -dir=/data -s3.config=/tmp/s3.json -bucket=$$S3_BUCKET
+    volumes:
+      - seaweedfs-data:/data
+    ports:
+      - "127.0.0.1:8333:8333"   # S3 API, for backups and inspection from this machine
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "8333"]
+      interval: 3s
+      timeout: 3s
+      retries: 40
 
   mock:
     profiles: [mock]
@@ -24,3 +60,6 @@ services:
     command: ["python", "tests/mock_openai.py", "8765"]
     environment:
       MOCK_HOST: 0.0.0.0
+
+volumes:
+  seaweedfs-data:

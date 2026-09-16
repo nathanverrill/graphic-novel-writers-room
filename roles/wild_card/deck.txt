@@ -1,40 +1,40 @@
-Tell the scene from the point of view of the least important person in it.
-Remove the object the plot depends on.
-Let the smallest background detail become the main problem.
-Give the character who seems to be losing the information everyone needs.
+Remove the tool everyone assumes is essential.
+Let the smallest background detail become the main constraint.
+Give the apparent loser the information everyone needs.
 Reverse who is helping whom.
-Make the obvious solution impossible for a personal reason.
-Let a celebration cause the next crisis.
+Make the efficient solution socially impossible.
+Make the inefficient solution reveal hidden value.
+Let a celebration create the next crisis.
 Solve the stated problem and expose the real one.
-Let a secret come out in the wrong room.
-Replace a speech with an action that says the same thing.
-Move the key decision somewhere public.
-Let the plan work exactly as intended — and let that be the problem.
-Make a lie the kindest choice.
-Put the consequence on the page before the cause.
+Change the unit of success.
+Give the resource a voice through consequences, not narration.
+Move the key decision into a public place.
+Make the system work exactly as designed — and let that be the problem.
+Let maintenance matter more than invention.
+Remove money from one scene and see what still has value.
+Introduce a deadline caused by nature rather than authority.
 Let the map be wrong.
-Give the quietest character the power to stop everything.
-Make a shortcut create a debt.
-Let a failed attempt succeed at something unexpected.
-Make two characters right about the same thing in opposite ways.
-Make a promise impossible to keep and impossible to break.
-Let an old habit save the day.
-Turn the antagonist's best quality into the obstacle.
-Let pride prevent the obvious alliance.
-Make time, not strength, the limit.
-Show the same moment through two incompatible memories.
-Make a temporary fix become permanent.
-Let the heroes inherit a problem they didn't make.
-End the sequence on a better question instead of an answer.
-Let an animal change the outcome.
-Swap the settings of two scenes.
-Make the weather a character with a motive.
-Let the villain be right about one thing.
-Cut the scene's first and last panels. What's left?
-Make a joke land at the worst moment.
-Let the reader know something the hero never learns.
-Turn a sound into the turning point.
-Give a minor character the last word.
-Make the reunion go wrong.
-Let the hero lose the thing they were protecting — and be relieved.
-Stage the climax in the smallest possible space.
+Make the person with no formal power able to stop everything.
+Turn a waste stream into an asset, then reveal a new dependency.
+Make trust the scarce resource.
+Let two correct measurements imply opposite decisions.
+Replace a speech with a visible transaction.
+Make a shortcut create a permanent obligation.
+Put the future consequence in the foreground before the cause is understood.
+Let a failed prototype succeed at something unintended.
+Force the heroes to choose which metric they are willing to make worse.
+Make ownership more important than access.
+Make access more important than ownership.
+Let the solution travel to a place it was never designed for.
+Give an old practice a new technological partner.
+Make the antagonist a feedback loop rather than a person.
+Let status prevent the obvious collaboration.
+Make the quietest character set the boundary.
+Reveal that abundance in one place causes scarcity somewhere else.
+Make time, not money, the binding constraint.
+Make dignity the non-negotiable requirement.
+Let the evidence contradict the story everyone prefers.
+Show the same event through two incompatible but reasonable interpretations.
+Make a temporary workaround become infrastructure.
+Make the heroes inherit a system they did not design.
+End a sequence with a better question instead of an answer.
