@@ -236,8 +236,7 @@ roles/
     images/               reference images (png, jpg, webp, gif)
     figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
     figma/*.json          Figma REST API exports, for offline use
-    agent.example.json    committed default settings for this role
-    agent.json            your settings (git-ignored — may hold API keys)
+    agent.json            provider, model and tuned defaults (committed; no keys)
 ```
 
 - **Add a guide:** drop a `.md` file in the role's folder.
@@ -262,44 +261,49 @@ worth keeping.
 
 ## Per-agent settings
 
-Each role's settings file picks what that role runs on. `agent.example.json` is the committed
-template. Copy it to `agent.json` to customize; `agent.json` is git-ignored (and kept out of
-the Docker image), so it's safe to put API keys in it. The app uses `agent.json` when it
-exists, otherwise the example. Any key left out or set to `null` uses the `.env` default.
-Keys starting with `_` are comments.
+Click **⚙ Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, Anthropic,
+Gemini, Groq, Together, Mistral, DeepSeek, Ollama, LM Studio, or a custom URL), **API key**
+and **model** — with **Load models** (the provider's own list), **Test connection**, and
+**Use this provider & model for all agents**. **Show advanced** reveals everything else.
 
-```json
-{
-  "_note": "Scripter: long output, lively dialogue",
-  "base_url": "https://openrouter.ai/api/v1",
-  "api_key_env": "OPENROUTER_API_KEY",
-  "model": "anthropic/claude-sonnet-5",
-  "temperature": 0.9,
-  "max_tokens": 16000,
-  "max_steps": 16,
-  "send_images": false,
-  "extra": {"top_p": 0.95},
+**Keys are saved per provider**, in `secrets/keys.json` (git-ignored, owner-only, mounted into
+the container). One OpenRouter key serves every agent — and every model — on OpenRouter, and a
+key can never follow an agent to a different host. Keys are never shown again, logged, or
+written to `agent.json` / `run.json`. Only agents on the default provider fall back to
+`OPENAI_API_KEY` from `.env`. For a different key on one agent, set **Key from env var
+instead** in the advanced settings. The app listens on `127.0.0.1` only, because anyone who
+can reach it can use your keys.
 
-  "generate_images": true,
-  "image_base_url": null,
-  "image_api_key_env": null,
-  "image_model": "gpt-image-1",
-  "image_size": "1024x1536",
-  "image_extra": {"quality": "high"}
-}
-```
+**Each agent's `roles/<id>/agent.json` is committed** and holds its provider, model and
+**tuned defaults for that kind of agent** — no keys. Its `_why` note (shown in the advanced
+view) explains them:
 
-| Key | Meaning |
+| Agent | Temp | Max tokens | Why |
+|---|---|---|---|
+| Editor-in-Chief | 0.6 | 6,000 | judgment and consistency; sees reference images |
+| Plotter | 0.9 | 8,000 | structure with surprises |
+| Wild Card | 1.1 | 4,000 | divergent leaps; references on demand; few steps |
+| Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
+| Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
+| Penciller | 0.5 | 16,000 | valid layout JSON for every page |
+| ASCII Artist | 0.4 | 16,000 | one ~9,500-character page per call; keeps the grid intact |
+| Letterer | 0.2 | 8,000 | literal and careful |
+| Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
+| First Reader | 0.7 | 3,000 | natural reactions, minimal context |
+
+Blank or `null` fields use the `.env` defaults; keys starting with `_` are comments. When the
+UI changes a setting, the change shows up in `git diff`.
+
+| Field | Meaning |
 |---|---|
-| `base_url`, `api_key`, `api_key_env` | Provider and its key: either the key itself (`api_key`) or the **name** of an env var holding it (`api_key_env`). A role with its own `base_url` gets no key unless you give one. Keys are never shown in the UI or written to logs or `run.json`. |
-| `model`, `temperature`, `max_tokens` | Sent with every chat request. A `null` temperature sends none. |
-| `extra` | Merged into the chat request body (`top_p`, `max_completion_tokens`, `reasoning_effort`, …). |
+| `base_url`, `model` | Provider and model (usually set in the UI). |
+| `api_key_env` | Optional: the **name** of an env var holding this agent's key, instead of the provider's saved key. |
+| `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
+| `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
 | `references` | `"full"` or `"list"` — see Reference material. |
-| `generate_images` | Gives the role a `generate_image` tool. |
-| `image_*` | Same idea for `/images/generations`, including `image_api_key`. With no `image_base_url`, images use the role's chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
+| `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
-The role cards show each role's model, and **Inspect** shows its full resolved settings.
 A bad `agent.json` is flagged on the card and blocks runs that include that role.
 
 ## Rounds, runs and images

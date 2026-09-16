@@ -1,0 +1,20 @@
+{
+  "_why": "Art room. Palette decisions: cool. Sees reference images; draws color keys.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": null,
+  "model": null,
+  "api_key_env": null,
+  "temperature": 0.5,
+  "max_tokens": 6000,
+  "max_steps": 10,
+  "timeout": 300,
+  "references": "list",
+  "send_images": true,
+  "extra": {},
+  "generate_images": true,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": "1536x1024",
+  "image_extra": {}
+}

@@ -56,14 +56,14 @@ settings = Settings()
 
 @dataclass
 class AgentConfig:
-    """Everything one agent needs to talk to its models.
+    """Everything one agent needs to talk to its models, from roles/<id>/agent.json.
 
-    In agent.json, leave a key out (or set it to null) to inherit the .env default.
-    A key can be given directly (`api_key`) or by env var name (`api_key_env`).
-    agent.json is git-ignored for that reason; agent.example.json is the committed
-    template, used when a role has no agent.json.
-    A role that sets its own base_url does not inherit OPENAI_API_KEY, so a key
-    is never sent to a provider it wasn't meant for.
+    agent.json is committed: it holds the role's provider, model and tuned defaults,
+    never a key. A null (or missing) value falls back to the .env default.
+
+    Keys are looked up per provider (app/keys.py, set in the UI), or from the env
+    var named by api_key_env. Only an agent on the default provider falls back to
+    OPENAI_API_KEY, so a key is never sent to a host it wasn't saved for.
     """
     # chat
     base_url: str = None
@@ -83,30 +83,54 @@ class AgentConfig:
     image_model: str = None
     image_size: str = None
     image_extra: dict = field(default_factory=dict)
-    # literal keys (optional; otherwise resolved from *_api_key_env). Never shown or logged.
+    # resolved at load time, never read from agent.json, never shown or logged
     api_key: str = field(default=None, repr=False)
     image_api_key: str = field(default=None, repr=False)
+    key_source: str = None
+    image_key_source: str = None
 
     FILE_KEYS = ()  # filled in below
 
     @classmethod
     def load(cls, path):
         raw = json.loads(path.read_text()) if path.exists() else {}
+        try:
+            return cls.load_dict(raw)
+        except ValueError as e:
+            raise ValueError(f"{path.name}: {e}") from None
+
+    @classmethod
+    def load_dict(cls, raw):
         raw = {k: v for k, v in raw.items() if not k.startswith("_")}  # "_note" keys are comments
+        if raw.get("api_key") or raw.get("image_api_key"):
+            raise ValueError("API keys don't belong in agent.json — set them in the UI (they're saved per provider)")
+        raw.pop("api_key", None)
+        raw.pop("image_api_key", None)
         unknown = set(raw) - set(cls.FILE_KEYS)
         if unknown:
-            raise ValueError(f"{path.name}: unknown keys {sorted(unknown)}")
+            raise ValueError(f"unknown keys {sorted(unknown)}")
         cfg = cls(**{k: v for k, v in raw.items() if v is not None})
         return cfg.resolve()
 
+    @staticmethod
+    def _key(url, key_env, fallback_env=None):
+        """(key, source) for a provider: named env var, then the saved key, then a fallback env var."""
+        from . import keys
+        if key_env:
+            return env(key_env) or None, f"env:{key_env}"
+        saved = keys.get(url)
+        if saved:
+            return saved, "saved"
+        if fallback_env and env(fallback_env):
+            return env(fallback_env), f"env:{fallback_env}"
+        return None, None
+
     def resolve(self):
-        default_base = env("OPENAI_BASE_URL", "https://api.openai.com/v1")
-        if self.base_url is None:
-            self.base_url = default_base
-            self.api_key_env = self.api_key_env or "OPENAI_API_KEY"
-        self.base_url = self.base_url.rstrip("/")
-        if not self.api_key:
-            self.api_key = env(self.api_key_env) if self.api_key_env else None
+        default_base = env("OPENAI_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+        own_provider = self.base_url is not None
+        self.base_url = (self.base_url or default_base).rstrip("/")
+        self.api_key, self.key_source = self._key(
+            self.base_url, self.api_key_env, None if own_provider else "OPENAI_API_KEY")
         self.model = self.model or env("OPENAI_MODEL", "gpt-4o")
         if self.temperature is None:
             self.temperature = env_float("OPENAI_TEMPERATURE")
@@ -120,20 +144,19 @@ class AgentConfig:
         if self.references not in REFERENCE_MODES:
             raise ValueError(f"references must be one of {REFERENCE_MODES}, got {self.references!r}")
 
-        key_env = self.image_api_key_env
-        if self.image_base_url is None:
-            if env("IMAGE_BASE_URL"):  # global image host: its own key only
-                self.image_base_url = env("IMAGE_BASE_URL")
-                key_env = key_env or "IMAGE_API_KEY"
+        if self.image_base_url:                       # its own image host
+            self.image_base_url = self.image_base_url.rstrip("/")
+            self.image_api_key, self.image_key_source = self._key(self.image_base_url, self.image_api_key_env)
+        elif env("IMAGE_BASE_URL"):                   # the global image host
+            self.image_base_url = env("IMAGE_BASE_URL").rstrip("/")
+            self.image_api_key, self.image_key_source = self._key(
+                self.image_base_url, self.image_api_key_env, "IMAGE_API_KEY")
+        else:                                         # same host as chat: same key
+            self.image_base_url = self.base_url
+            if self.image_api_key_env:
+                self.image_api_key, self.image_key_source = self._key(self.image_base_url, self.image_api_key_env)
             else:
-                self.image_base_url = self.base_url
-        self.image_base_url = self.image_base_url.rstrip("/")
-        if not self.image_api_key:
-            if key_env:
-                self.image_api_key = env(key_env)
-            elif self.image_base_url == self.base_url:  # same host as chat: same key
-                self.image_api_key = self.api_key
-        self.image_api_key_env = key_env
+                self.image_api_key, self.image_key_source = self.api_key, self.key_source
         self.image_model = self.image_model or env("IMAGE_MODEL") or None
         self.image_size = self.image_size or env("IMAGE_SIZE", "1024x1024")
         return self
@@ -150,4 +173,5 @@ class AgentConfig:
         return d
 
 
-AgentConfig.FILE_KEYS = tuple(f.name for f in fields(AgentConfig))
+AgentConfig.FILE_KEYS = tuple(f.name for f in fields(AgentConfig)
+                              if f.name not in ("api_key", "image_api_key", "key_source", "image_key_source"))

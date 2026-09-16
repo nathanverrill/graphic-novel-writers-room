@@ -1,6 +1,8 @@
+import dataclasses
 import json
 import mimetypes
 import re
+import time
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -9,7 +11,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import objectstore, projects, review, room, thumbnails, usage
+from . import keys, llm, objectstore, projects, review, room, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
@@ -74,6 +76,74 @@ def role_image(role_id: str, name: str):
         raise HTTPException(404)
     path = _role_folder(role_id) / "images" / name
     return FileResponse(path, media_type=IMAGE_TYPES.get(path.suffix.lower()) or mimetypes.guess_type(path)[0])
+
+
+class SettingsChange(BaseModel):
+    changes: dict
+
+
+class ApplyProvider(BaseModel):
+    roles: list[str]
+
+
+@app.get("/api/keys")
+def saved_keys():
+    """Providers with a saved key, and which agents use each (never the keys)."""
+    roles = load_roles()
+    used = {}
+    for r in roles:
+        try:
+            used.setdefault(r.config().base_url, []).append(r.id)
+        except ValueError:
+            pass
+    return {"providers": [{"base_url": u, "used_by": used.get(u, [])} for u in keys.providers()]}
+
+
+@app.put("/api/roles/{role_id}/settings")
+def save_role_settings(role_id: str, body: SettingsChange):
+    role = not_found(get_role, role_id)
+    return not_found(role.save_settings, body.changes)
+
+
+@app.get("/api/roles/{role_id}/models")
+def role_models(role_id: str, image: bool = False):
+    role = not_found(get_role, role_id)
+    cfg = not_found(role.config)
+    if image:
+        cfg = dataclasses.replace(cfg, base_url=cfg.image_base_url, api_key=cfg.image_api_key)
+    try:
+        return {"models": llm.list_models(cfg), "base_url": cfg.base_url}
+    except llm.LLMError as e:
+        raise HTTPException(400, f"couldn't list models from {cfg.base_url}: {str(e)[:300]}")
+
+
+@app.post("/api/roles/{role_id}/test")
+def test_role(role_id: str):
+    """One tiny chat request with the role's settings (not logged to any project)."""
+    role = not_found(get_role, role_id)
+    cfg = dataclasses.replace(not_found(role.config), max_tokens=64, extra={})
+    start = time.time()
+    try:
+        reply = llm.chat(cfg, [{"role": "user", "content": "Reply with the single word OK."}])
+    except llm.LLMError as e:
+        return {"ok": False, "error": str(e)[:400], "base_url": cfg.base_url, "model": cfg.model}
+    return {"ok": True, "reply": llm.text_of(reply)[:200], "ms": round((time.time() - start) * 1000),
+            "base_url": cfg.base_url, "model": cfg.model}
+
+
+@app.post("/api/roles/{role_id}/apply-provider")
+def apply_provider(role_id: str, body: ApplyProvider):
+    """Copy this role's provider, key and model to other roles."""
+    source = not_found(get_role, role_id)
+    raw = source.raw_config()
+    changes = {k: raw.get(k) for k in ("base_url", "api_key_env", "model")}   # keys are per provider already
+    done = []
+    for rid in body.roles:
+        if rid == role_id:
+            continue
+        not_found(get_role, rid).save_settings(changes)
+        done.append(rid)
+    return {"updated": done}
 
 
 # ---- projects --------------------------------------------------------------

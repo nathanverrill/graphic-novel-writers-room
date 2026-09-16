@@ -1,9 +1,0 @@
-{
-  "_note": "Structure with surprises: a strong model, a little hotter.",
-  "_help": "null = use the .env default. Copy to agent.json (git-ignored) to customize; keys may go there as api_key / image_api_key or by env var name via api_key_env.",
-  "base_url": null,
-  "api_key_env": null,
-  "model": null,
-  "temperature": 0.9,
-  "max_tokens": 6000
-}

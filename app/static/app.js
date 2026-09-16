@@ -41,6 +41,7 @@ const ago = (t) => {
 
 async function loadConfig() {
   const c = await api("/api/config");
+  state.defaults = c;
   $("#config").innerHTML =
     `defaults: <b>${esc(c.model)}</b> @ ${esc(c.base_url)} · ` +
     (c.api_key_set ? "key set" : `<span class="bad">no API key</span>`) +
@@ -65,7 +66,10 @@ async function loadRoles() {
       ${r.config.generate_images ? `<div class="model">🖼 ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
       <div class="status">idle</div>
       <div class="spend"></div>
-      <button class="ghost" data-inspect="${r.id}">Inspect</button>
+      <span class="card-buttons">
+        <button class="ghost" data-settings="${r.id}">⚙ Model</button>
+        <button class="ghost" data-inspect="${r.id}">Inspect</button>
+      </span>
     </div>`).join("");
 }
 
@@ -96,9 +100,8 @@ function inspectRole(id) {
     <h2>${esc(r.title)}</h2>
     <p>${esc(r.mission)}</p>
     <p class="path">reads: ${r.reads.join(", ") || "—"}<br>writes: ${r.outputs.join(", ")}</p>
-    <h3>Model settings — roles/${r.id}/${r.config_file}</h3>
-    ${r.config_error ? `<p class="cfg-error">${esc(r.config_error)}</p>` : `<table class="cfg">${
-      Object.entries(r.config).map(([k, v]) => `<tr><td>${esc(k)}</td><td>${esc(JSON.stringify(v))}</td></tr>`).join("")}</table>`}
+    <p><button class="ghost" data-settings="${r.id}">⚙ Model settings</button>
+      <span class="path">${r.config_error ? esc(r.config_error) : `${esc(r.config.model)} @ ${esc(r.config.base_url)}`}</span></p>
     ${assetBlock(r.id, r.assets)}
     <h2 style="margin-top:1.5rem">Shared with every role</h2>
     ${assetBlock("_shared", state.shared)}`;
@@ -115,6 +118,10 @@ $("#role-dialog").addEventListener("toggle", async (e) => {
 
 $("#roles").addEventListener("click", (e) => {
   if (e.target.dataset.inspect) inspectRole(e.target.dataset.inspect);
+  if (e.target.dataset.settings) openSettings(e.target.dataset.settings);
+});
+$("#role-detail").addEventListener("click", (e) => {
+  if (e.target.dataset.settings) openSettings(e.target.dataset.settings);
 });
 $("#select-defaults") && ($("#select-defaults").onclick = () =>
   document.querySelectorAll("#roles input").forEach((i) => (i.checked = state.roles.find((r) => r.id === i.value)?.selected)));
@@ -805,3 +812,195 @@ async function submitReview(action) {
 }
 $("#rv-send").onclick = () => submitReview("send");
 $("#rv-final").onclick = () => submitReview("finalize");
+
+
+// ---- per-agent model settings ------------------------------------------------------
+
+const PROVIDERS = [
+  ["OpenAI", "https://api.openai.com/v1"],
+  ["OpenRouter", "https://openrouter.ai/api/v1"],
+  ["Anthropic", "https://api.anthropic.com/v1"],
+  ["Google Gemini", "https://generativelanguage.googleapis.com/v1beta/openai"],
+  ["Groq", "https://api.groq.com/openai/v1"],
+  ["Together", "https://api.together.xyz/v1"],
+  ["Mistral", "https://api.mistral.ai/v1"],
+  ["DeepSeek", "https://api.deepseek.com/v1"],
+  ["Ollama (this machine)", "http://host.docker.internal:11434/v1"],
+  ["LM Studio (this machine)", "http://host.docker.internal:1234/v1"],
+  ["Fake provider (mock)", "http://mock:8765/v1"],
+];
+
+function providerOptions(current) {
+  const known = PROVIDERS.some(([, url]) => url === current);
+  return `<option value="">Default (.env)</option>` +
+    PROVIDERS.map(([name, url]) => `<option value="${url}" ${url === current ? "selected" : ""}>${name}</option>`).join("") +
+    `<option value="custom" ${current && !known ? "selected" : ""}>Custom URL…</option>`;
+}
+
+const host = (url) => { try { return new URL(url).host; } catch { return url || ""; } };
+
+function keyPlaceholder(source, provider) {
+  if (source === "saved") return `•••••••• saved for ${host(provider)} — type to replace`;
+  if (source?.startsWith("env:")) return `from $${source.slice(4)} — type to save a key for ${host(provider)}`;
+  return `no key for ${host(provider)} — paste one`;
+}
+
+function field(label, name, value, placeholder, type = "text", extra = "") {
+  return `<label class="sf"><span>${label}</span><input name="${name}" type="${type}" value="${value ?? ""}"
+    placeholder="${esc(placeholder ?? "")}" ${extra}></label>`;
+}
+
+function triState(label, name, value, dflt) {
+  const v = value === true ? "true" : value === false ? "false" : "";
+  return `<label class="sf"><span>${label}</span><select name="${name}">
+    <option value="" ${v === "" ? "selected" : ""}>Default (${dflt ? "on" : "off"})</option>
+    <option value="true" ${v === "true" ? "selected" : ""}>On</option>
+    <option value="false" ${v === "false" ? "selected" : ""}>Off</option></select></label>`;
+}
+
+function openSettings(id, message) {
+  const r = state.roles.find((x) => x.id === id);
+  const s = r.settings;
+  const d = state.defaults || {};
+  const json = (v) => (v && Object.keys(v).length ? esc(JSON.stringify(v)) : "");
+  const custom = s.base_url && !PROVIDERS.some(([, u]) => u === s.base_url);
+  $("#role-detail").innerHTML = `
+    <h2>${esc(r.title)} — model</h2>
+    <form id="settings-form" class="settings-form" autocomplete="off">
+      <label class="sf"><span>Provider</span><select name="provider">${providerOptions(s.base_url)}</select></label>
+      <label class="sf" ${custom ? "" : "hidden"}><span>Base URL</span>
+        <input name="base_url" value="${esc(s.base_url ?? "")}" placeholder="https://…/v1"></label>
+      <label class="sf"><span>API key</span>
+        <input name="api_key" type="password" autocomplete="new-password" placeholder="${esc(keyPlaceholder(s.key_source, s.provider))}"></label>
+      ${s.key_source === "saved" ? `<label class="sf check"><span></span><span>
+        <input type="checkbox" name="clear_key"> remove the saved key for ${esc(host(s.provider))}</span></label>` : ""}
+      <label class="sf"><span>Model</span><span class="inline">
+        <input name="model" list="model-list" value="${esc(s.model ?? "")}" placeholder="${esc(d.model ?? "")} (default)">
+        <button type="button" class="ghost" data-act="models">Load models</button></span></label>
+      <datalist id="model-list"></datalist>
+      <p class="path">Keys are saved per provider, outside git — every agent on ${esc(host(s.provider))} uses the same key.</p>
+      <div class="actions">
+        <button type="submit">Save</button>
+        <button type="button" class="ghost" data-act="test">Test connection</button>
+        <button type="button" class="ghost" data-act="apply">Use this provider &amp; model for all agents</button>
+        <button type="button" class="ghost" data-act="advanced">${state.showAdvanced ? "Hide" : "Show"} advanced</button>
+      </div>
+      <p class="path" id="settings-status"></p>
+
+      <div class="advanced" ${state.showAdvanced ? "" : "hidden"}>
+        <p class="why">${esc(s.notes?.why || "")}</p>
+        <p class="path">These are this agent's defaults, saved in roles/${r.id}/agent.json (committed). Blank = the .env default.</p>
+        <div class="sf-row">
+          ${field("Temperature", "temperature", s.temperature, d.temperature ?? "provider default", "number", 'step="0.05" min="0" max="2"')}
+          ${field("Max tokens", "max_tokens", s.max_tokens, d.max_tokens ?? "provider default", "number", 'min="1"')}
+          ${field("Max steps", "max_steps", s.max_steps, d.max_steps, "number", 'min="1" max="100"')}
+          ${field("Timeout (s)", "timeout", s.timeout, d.timeout, "number", 'min="5"')}
+        </div>
+        <div class="sf-row">
+          <label class="sf"><span>References</span><select name="references">
+            <option value="">Default (${d.references})</option>
+            <option value="full" ${s.references === "full" ? "selected" : ""}>Full text in the prompt</option>
+            <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
+          ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
+        </div>
+        ${field("Key from env var instead", "api_key_env", s.api_key_env, "e.g. OPENROUTER_API_KEY")}
+        <label class="sf"><span>Extra request fields (JSON)</span>
+          <input name="extra" value="${json(s.extra)}" placeholder='e.g. {"top_p": 0.9, "reasoning_effort": "low"}'></label>
+        <fieldset><legend class="path">Images (art room)</legend>
+          ${triState("Generate images", "generate_images", s.generate_images, false)}
+          ${field("Image base URL", "image_base_url", s.image_base_url, "same provider as chat")}
+          ${field("Image API key", "image_api_key", "", keyPlaceholder(s.image_key_source, s.image_provider), "password", 'autocomplete="new-password"')}
+          ${field("Image model", "image_model", s.image_model, d.image_model || "none")}
+          ${field("Image size", "image_size", s.image_size, d.image_size)}
+        </fieldset>
+      </div>
+    </form>`;
+  if (message) {
+    $("#settings-status").textContent = message.text;
+    $("#settings-status").classList.toggle("cfg-error", !!message.bad);
+  }
+  const form = $("#settings-form");
+  const status = (msg, bad) => { const el = $("#settings-status"); el.textContent = msg; el.classList.toggle("cfg-error", !!bad); };
+  const urlInput = form.elements.base_url;
+  form.elements.provider.onchange = (e) => {
+    const v = e.target.value;
+    urlInput.closest("label").hidden = v !== "custom";
+    if (v !== "custom") urlInput.value = v;
+    status(v === (s.base_url || "") ? "" : "Save to see whether a key is already saved for this provider.");
+  };
+  form.querySelector('[data-act="advanced"]').onclick = () => {
+    state.showAdvanced = !state.showAdvanced;
+    form.querySelector(".advanced").hidden = !state.showAdvanced;
+    form.querySelector('[data-act="advanced"]').textContent = `${state.showAdvanced ? "Hide" : "Show"} advanced`;
+  };
+
+  const changes = () => {
+    const f = form.elements;
+    const out = {};
+    const put = (k, v) => { if ((v ?? "") !== (s[k] ?? "")) out[k] = v; };
+    put("base_url", f.provider.value === "custom" ? f.base_url.value.trim() : f.provider.value);
+    put("api_key_env", f.api_key_env.value.trim());
+    put("model", f.model.value.trim());
+    for (const k of ["temperature", "max_tokens", "max_steps", "timeout"]) {
+      const v = f[k].value === "" ? "" : Number(f[k].value);
+      if (String(v) !== String(s[k] ?? "")) out[k] = v;
+    }
+    put("references", f.references.value);
+    for (const k of ["send_images", "generate_images"]) {
+      const v = f[k].value === "" ? null : f[k].value === "true";
+      if (v !== (s[k] ?? null)) out[k] = v;
+    }
+    const extra = f.extra.value.trim();
+    if (extra !== (s.extra && Object.keys(s.extra).length ? JSON.stringify(s.extra) : "")) out.extra = extra;
+    for (const k of ["image_base_url", "image_model", "image_size"]) put(k, f[k].value.trim());
+    if (f.api_key.value) out.api_key = f.api_key.value.trim();
+    else if (f.clear_key?.checked) out.api_key = "";
+    if (f.image_api_key.value) out.image_api_key = f.image_api_key.value.trim();
+    return out;
+  };
+
+  const save = async () => {
+    const c = changes();
+    if (!Object.keys(c).length) return true;
+    try {
+      await api(`/api/roles/${id}/settings`, { method: "PUT", body: { changes: c } });
+    } catch (err) { status(err.message, true); return false; }
+    await loadRoles();
+    return true;
+  };
+
+  form.onsubmit = async (e) => {
+    e.preventDefault();
+    if (await save()) openSettings(id, { text: "Saved." });
+  };
+  form.querySelector('[data-act="test"]').onclick = async () => {
+    if (!(await save())) return;
+    status("Testing…");
+    const t = await api(`/api/roles/${id}/test`, { method: "POST" });
+    openSettings(id, t.ok ? { text: `✔ ${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
+                          : { text: `✖ ${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
+  };
+  form.querySelector('[data-act="models"]').onclick = async () => {
+    if (!(await save())) return;
+    openSettings(id);   // redraw with what was saved
+    const msg = (m, bad) => { $("#settings-status").textContent = m; $("#settings-status").classList.toggle("cfg-error", !!bad); };
+    msg("Loading models…");
+    try {
+      const m = await api(`/api/roles/${id}/models`);
+      $("#model-list").innerHTML = m.models.map((x) => `<option value="${esc(x)}">`).join("");
+      msg(`${m.models.length} models from ${m.base_url} — start typing in Model to pick one.`);
+      $("#settings-form").elements.model.focus();
+    } catch (err) { msg(err.message, true); }
+  };
+  form.querySelector('[data-act="apply"]').onclick = async () => {
+    if (!(await save())) return;
+    const others = state.roles.filter((x) => x.id !== id && x.room !== "art").map((x) => x.id);
+    if (!confirm(`Give all ${others.length} other writers' room agents this provider and model? (Their tuned advanced settings stay.)`)) return;
+    try {
+      const out = await api(`/api/roles/${id}/apply-provider`, { method: "POST", body: { roles: others } });
+      await loadRoles();
+      openSettings(id, { text: `Applied to ${out.updated.length} agents.` });
+    } catch (err) { status(err.message, true); }
+  };
+  if (!$("#role-dialog").open) $("#role-dialog").showModal();
+}

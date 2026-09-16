@@ -4,8 +4,8 @@
     images/       reference images sent to the model
     figma.txt     Figma URLs, one per line (# comments allowed)
     figma/*.json  Figma REST API exports, for offline use
-    agent.json          this role's provider / model / temperature / image settings
-                        (git-ignored, may hold keys; falls back to agent.example.json)
+    agent.json          this role's provider, model and tuned defaults (committed;
+                        API keys live in secrets/keys.json, per provider)
 
     deck.txt, words.txt  optional random-entry material: when present, each run
                         draws cards and a word from them (see random_entry)
@@ -23,7 +23,7 @@ import json
 import random
 from dataclasses import dataclass, field
 
-from . import figma
+from . import figma, keys
 from .config import HATS_DIR, ROLES_DIR, AgentConfig
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
@@ -53,20 +53,87 @@ class Role:
 
     @property
     def config_path(self):
-        local = self.dir / "agent.json"
-        return local if local.exists() else self.dir / "agent.example.json"
+        return self.dir / "agent.json"
 
     def config(self):
         return AgentConfig.load(self.config_path)
 
+    def raw_config(self):
+        path = self.config_path
+        return json.loads(path.read_text()) if path.exists() else {}
+
+    def settings(self):
+        """agent.json as the settings form sees it, plus where the keys come from (never the keys)."""
+        raw = self.raw_config()
+        out = {k: raw.get(k) for k in EDITABLE}
+        out["notes"] = {k[1:]: v for k, v in raw.items() if k.startswith("_")}
+        try:
+            cfg = self.config()
+            out.update(provider=cfg.base_url, key_source=cfg.key_source,
+                       image_provider=cfg.image_base_url, image_key_source=cfg.image_key_source)
+        except ValueError:
+            pass
+        return out
+
+    def save_settings(self, changes):
+        """Merge form changes into agent.json. Missing fields are left alone; "" or null means
+        "use the .env default". `api_key` / `image_api_key` are saved per provider in
+        secrets/keys.json ("" removes the provider's saved key) — never in agent.json."""
+        changes = dict(changes)
+        key = changes.pop("api_key", None)
+        image_key = changes.pop("image_api_key", None)
+        raw = self.raw_config()
+        for name, value in changes.items():
+            if name not in EDITABLE:
+                raise ValueError(f"unknown setting {name!r}")
+            raw[name] = _coerce(name, value)
+        cfg = AgentConfig.load_dict(raw)   # validates before anything is written
+        self.config_path.write_text(json.dumps(raw, indent=2) + "\n")
+        for value, url in ((key, cfg.base_url), (image_key, cfg.image_base_url)):
+            if value is None:
+                continue
+            if value.strip():
+                keys.put(url, value)
+            else:
+                keys.delete(url)
+        return self.settings()
+
     def to_dict(self):
         d = {**self.__dict__, "assets": assets(self.id), "config": None, "config_error": None,
-             "config_file": self.config_path.name}
+             "config_file": self.config_path.name, "settings": self.settings()}
         try:
             d["config"] = self.config().public()
         except (ValueError, TypeError) as e:
             d["config_error"] = str(e)
         return d
+
+
+EDITABLE = {
+    "base_url": str, "api_key_env": str, "model": str,
+    "temperature": float, "max_tokens": int, "max_steps": int, "timeout": int,
+    "send_images": bool, "extra": dict, "references": str,
+    "generate_images": bool, "image_base_url": str, "image_api_key_env": str,
+    "image_model": str, "image_size": str, "image_extra": dict,
+}
+
+
+def _coerce(key, value):
+    kind = EDITABLE[key]
+    if value is None or (isinstance(value, str) and not value.strip()):
+        return None
+    try:
+        if kind is bool:
+            return value if isinstance(value, bool) else str(value).lower() in ("1", "true", "yes", "on")
+        if kind is dict:
+            value = json.loads(value) if isinstance(value, str) else value
+            if not isinstance(value, dict):
+                raise ValueError
+            return value
+        if kind is str:
+            return str(value).strip()
+        return kind(value)
+    except (ValueError, TypeError):
+        raise ValueError(f"{key}: expected {kind.__name__}, got {value!r}") from None
 
 
 def load_roles():

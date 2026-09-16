@@ -67,11 +67,61 @@ def chat(cfg, messages, tools=None, log=None):
         body["max_tokens"] = cfg.max_tokens
     if tools:
         body["tools"] = tools
-    data = _post(cfg.base_url + "/chat/completions", cfg.api_key, body, cfg.timeout, log, "chat")
+    model_key = (cfg.base_url, cfg.model)
+    for fix in _LEARNED.get(model_key, ()):
+        _apply(body, fix)
+    for attempt in range(3):
+        try:
+            data = _post(cfg.base_url + "/chat/completions", cfg.api_key, body, cfg.timeout, log, "chat")
+            break
+        except LLMError as e:
+            fix = _relax(body, e.body) if e.status == 400 and attempt < 2 else None
+            if not fix:
+                raise
+            _LEARNED.setdefault(model_key, set()).add(fix)
     try:
         return data["choices"][0]["message"]
     except (KeyError, IndexError, TypeError):
         raise LLMError(200, json.dumps(data)) from None
+
+
+_LEARNED = {}   # (base_url, model) -> fixes that model needed, so later calls skip the retry
+
+
+def _apply(body, fix):
+    if fix == "drop_temperature":
+        body.pop("temperature", None)
+    elif fix == "max_completion_tokens" and "max_tokens" in body:
+        body["max_completion_tokens"] = body.pop("max_tokens")
+
+
+def _relax(body, error):
+    """Adapt to models that reject an optional parameter (e.g. reasoning models and
+    temperature / max_tokens). Returns the fix applied, or None."""
+    text = (error or "").lower()
+    if "temperature" in body and "temperature" in text:
+        fix = "drop_temperature"
+    elif "max_tokens" in body and "max_tokens" in text:
+        fix = "max_completion_tokens"
+    else:
+        return None
+    _apply(body, fix)
+    return fix
+
+
+def list_models(cfg, timeout=20):
+    """Model ids from the provider's OpenAI-compatible /models endpoint."""
+    headers = {"Authorization": f"Bearer {cfg.api_key}"} if cfg.api_key else {}
+    req = urllib.request.Request(cfg.base_url + "/models", headers=headers)
+    try:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            data = json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        raise LLMError(e.code, e.read().decode(errors="replace")) from None
+    except (urllib.error.URLError, TimeoutError, OSError) as e:
+        raise LLMError(0, str(getattr(e, "reason", e))) from None
+    items = data.get("data", data.get("models", [])) if isinstance(data, dict) else data
+    return sorted({(m.get("id") or m.get("name")) if isinstance(m, dict) else str(m) for m in items} - {None})
 
 
 def generate_image(cfg, prompt, size=None, log=None):

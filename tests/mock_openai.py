@@ -10,6 +10,7 @@ Responses include token usage (about 4 characters per token), so costing works.
 Set MOCK_NO_TOOLS=1 to imitate a server that rejects tool calling.
 Set MOCK_REPORT_COST=1 to imitate OpenRouter, which reports usage.cost itself.
 Set MOCK_FAIL_IMAGES=1 to make image generation fail with a 500.
+Set MOCK_STRICT=1 to reject temperature and max_tokens, like some reasoning models.
 """
 import base64
 import json
@@ -23,6 +24,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 NO_TOOLS = os.environ.get("MOCK_NO_TOOLS") == "1"
 REPORT_COST = os.environ.get("MOCK_REPORT_COST") == "1"
 FAIL_IMAGES = os.environ.get("MOCK_FAIL_IMAGES") == "1"
+STRICT = os.environ.get("MOCK_STRICT") == "1"
 
 
 def usage_for(body, message):
@@ -104,6 +106,8 @@ def text_of(msg):
 def reply(body, auth):
     msgs = body["messages"]
     system = text_of(msgs[0])
+    if "You are the" not in system:   # e.g. the settings form's "Test connection"
+        return {"role": "assistant", "content": "OK"}
     if "# Skeleton" in text_of(msgs[1]):
         skeleton = re.search(r"```text\n(.*?)\n```", text_of(msgs[1]), re.S).group(1)
         return {"role": "assistant", "content": "```text\n" + draw_on(skeleton) + "\n```"}
@@ -166,6 +170,12 @@ def reply(body, auth):
 
 
 class Handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        if self.path.endswith("/models"):
+            return self.send(200, {"object": "list", "data": [
+                {"id": m, "object": "model"} for m in ("gpt-4o", "gpt-4o-mini", "mock-large", "mock-small")]})
+        self.send(404, {"error": {"message": "not found"}})
+
     def do_POST(self):
         body = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
         auth = (self.headers.get("Authorization") or "none").replace("Bearer ", "")
@@ -181,6 +191,10 @@ class Handler(BaseHTTPRequestHandler):
                 "usage": {"input_tokens": 50, "output_tokens": 1056, "total_tokens": 1106,
                           "input_tokens_details": {"text_tokens": 50, "image_tokens": 0}},
             })
+        if STRICT and "temperature" in body:
+            return self.send(400, {"error": {"message": "Unsupported parameter: 'temperature' is not supported with this model."}})
+        if STRICT and "max_tokens" in body:
+            return self.send(400, {"error": {"message": "Unsupported parameter: 'max_tokens'. Use 'max_completion_tokens' instead."}})
         if NO_TOOLS and "tools" in body:
             return self.send(400, {"error": {"message": "tools not supported"}})
         message = reply(body, auth)

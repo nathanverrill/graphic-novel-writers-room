@@ -227,5 +227,5 @@ projects/*
 logs/*
 !logs/.gitkeep
 
-# per-role model configs may contain API keys; agent.example.json is the committed template
-roles/*/agent.json
+# API keys, saved per provider from the UI
+secrets/

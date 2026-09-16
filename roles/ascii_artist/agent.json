@@ -1,0 +1,20 @@
+{
+  "_why": "One ~9,500-character page per call: cool, to keep the grid intact, with a big output budget and a long timeout.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": null,
+  "model": null,
+  "api_key_env": null,
+  "temperature": 0.4,
+  "max_tokens": 16000,
+  "max_steps": 4,
+  "timeout": 600,
+  "references": "list",
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {}
+}

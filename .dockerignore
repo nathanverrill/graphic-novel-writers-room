@@ -4,6 +4,6 @@
 projects
 logs
 __pycache__
-roles/*/agent.json
+secrets
 morgue
 skills

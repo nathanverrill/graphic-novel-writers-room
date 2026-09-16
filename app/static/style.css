@@ -209,3 +209,19 @@ table.data .bad { color: var(--bad); }
 .verdicts button.chosen[data-verdict=changes] { background: #2563eb; border-color: #2563eb; color: #fff; }
 .review-side hr { border: 0; border-top: 1px solid var(--line); width: 100%; }
 .feed .gate { color: #fde68a; }
+
+.card-buttons { display: flex; gap: .3rem; }
+.settings-form { display: grid; gap: .55rem; }
+.sf { display: grid; grid-template-columns: 11rem 1fr; gap: .6rem; align-items: center; font-size: .82rem; }
+.sf > span:first-child { color: var(--muted); }
+.sf.check input { width: auto; margin-right: .3rem; }
+.sf .inline { display: flex; gap: .4rem; }
+.sf select { max-width: none; width: 100%; }
+.sf-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .55rem; }
+.sf-row .sf { grid-template-columns: 1fr; gap: .2rem; }
+.settings-form details { border-top: 1px solid var(--line); padding-top: .5rem; display: grid; gap: .5rem; }
+@media (max-width: 600px) { .sf { grid-template-columns: 1fr; gap: .2rem; } }
+
+.settings-form .advanced { display: grid; gap: .55rem; border-top: 1px solid var(--line); padding-top: .6rem; }
+.settings-form .why { margin: 0; font-size: .82rem; background: var(--bg); padding: .45rem .6rem; border-radius: 4px; }
+.settings-form fieldset { border: 1px solid var(--line); border-radius: 4px; display: grid; gap: .5rem; }
