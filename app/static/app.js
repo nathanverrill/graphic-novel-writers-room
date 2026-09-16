@@ -397,7 +397,7 @@ function renderPreviews() {
            <button class="ghost" data-edit="${m}">Edit</button></span>`
       : p && p.edited ? `<span class="badge">edited</span>` : "";
     const body = p
-      ? `<pre class="page" data-method="${m}">${esc(p.art)}</pre><div class="notes md">${md(p.notes || "")}</div>`
+      ? `<pre class="page" data-method="${m}">${asciiHtml(p.art, p.invert)}</pre><div class="notes md">${md(p.notes || "")}</div>`
       : `<div class="page empty" style="width:${d.cols}ch;height:${(d.rows * 1.31).toFixed(1)}em">not drawn yet</div>`;
     return `<figure class="preview" data-method="${m}"><figcaption>${label}${tools}</figcaption>${body}</figure>`;
   }).join("");
@@ -414,22 +414,32 @@ function startEdit(method) {
     <button class="ghost" data-act="cancel">Cancel</button>
     <label class="path"><input type="checkbox" data-act="paint"> paint with
       <input class="brush" maxlength="1" value="#" aria-label="brush character"></label>
-    <span class="path">type to overwrite · drag to select · ⌘C/⌘V blocks · ⌘Z undo</span>`;
+    <label class="path"><input type="checkbox" data-act="invert"> invert brush</label>
+    <span class="path">type to overwrite · drag to select · ⌘I invert · ⌘C/⌘V blocks · ⌘Z undo</span>`;
   fig.querySelector("figcaption").after(bar);
   const editor = new AsciiEditor(fig.querySelector("pre"), d.methods[method][page].art, d.cols, d.rows, {
     onChange: () => bar.querySelector('[data-act="save"]').classList.add("unsaved"),
+    invert: d.methods[method][page].invert,
   });
   state.editing = { method, page, editor };
   document.querySelectorAll("[data-edit], [data-revert], #preview-page, #preview-prev, #preview-next")
     .forEach((el) => (el.disabled = true));
   const brush = bar.querySelector(".brush");
   const paint = bar.querySelector('[data-act="paint"]');
-  const setBrush = () => { editor.brush = paint.checked ? (brush.value || "#") : null; editor.render(); };
+  const inv = bar.querySelector('[data-act="invert"]');
+  const setBrush = () => {
+    if (paint.checked && inv.checked) inv.checked = false;
+    editor.brush = paint.checked ? (brush.value || "#") : null;
+    editor.invertBrush = inv.checked;
+    editor.render();
+  };
   paint.onchange = setBrush;
   brush.oninput = setBrush;
+  inv.onchange = () => { if (inv.checked) paint.checked = false; setBrush(); };
   bar.querySelector('[data-act="save"]').onclick = async () => {
     try {
-      await api(`/api/projects/${state.project}/previews/${method}/${page}`, { method: "PUT", body: { art: editor.text() } });
+      await api(`/api/projects/${state.project}/previews/${method}/${page}`, {
+        method: "PUT", body: { art: editor.text(), invert: editor.invertText() } });
     } catch (err) { return alert(err.message); }
     stopEdit();
   };
@@ -703,7 +713,9 @@ function renderReview() {
   $("#rv-page").textContent = `Page ${n} of ${entries.length}` + (p.locked ? ` · locked (${p.locked})` : "");
   destroyReviewEditor();
   $("#review-canvas").innerHTML = `<pre class="page"></pre>`;
-  state.rvEditor = new AsciiEditor($("#review-canvas pre"), p.art, r.cols, r.rows, { onChange: updateReviewButtons, focus: false });
+  state.rvEditor = new AsciiEditor($("#review-canvas pre"), p.art, r.cols, r.rows,
+    { onChange: updateReviewButtons, focus: false, invert: p.invert });
+  state.rvEditor.invertBrush = $("#rv-invert").checked;
   $("#rv-comment").value = p.comment || "";
   if (document.activeElement !== $("#rv-overall")) $("#rv-overall").value = r.comment || "";
   $("#rv-notes").innerHTML = md(p.notes || "");
@@ -741,7 +753,10 @@ function updateReviewButtons() {
 async function savePage(body = {}) {
   const n = state.rvPage;
   const p = currentReviewPage();
-  if (state.rvEditor?.dirty) body.art = state.rvEditor.text();
+  if (state.rvEditor?.dirty) {
+    body.art = state.rvEditor.text();
+    body.invert = state.rvEditor.invertText();
+  }
   const comment = $("#rv-comment").value;
   if (comment.trim() !== (p.comment || "")) body.comment = comment;
   if (!Object.keys(body).length) return true;
@@ -772,6 +787,7 @@ $("#review-chips").addEventListener("click", (e) => {
 $("#rv-prev").onclick = () => stepReview(-1);
 $("#rv-next").onclick = () => stepReview(1);
 $("#rv-comment").oninput = updateReviewButtons;
+$("#rv-invert").onchange = (e) => { if (state.rvEditor) state.rvEditor.invertBrush = e.target.checked; };
 $("#rv-save").onclick = () => savePage();
 document.querySelectorAll("[data-verdict]").forEach((b) => (b.onclick = async () => {
   const same = currentReviewPage().verdict === b.dataset.verdict;
@@ -784,7 +800,7 @@ document.querySelectorAll("[data-verdict]").forEach((b) => (b.onclick = async ()
 $("#rv-undo-edits").onclick = async () => {
   if (!confirm("Throw away your edits to this page?")) return;
   state.rvEditor.dirty = false;
-  await savePage({ art: currentReviewPage().ai_art });
+  await savePage({ art: currentReviewPage().ai_art, invert: currentReviewPage().ai_invert || "" });
 };
 $("#rv-overall").onchange = () =>
   api(`/api/projects/${state.project}/review/comment`, { method: "PUT", body: { action: "send", comment: $("#rv-overall").value } });

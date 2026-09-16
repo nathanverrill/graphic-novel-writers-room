@@ -22,6 +22,11 @@ Item types: balloon, whisper, thought, shout, caption, sfx, figure, object.
 A page renders in three layers: art (figures, horizon; or model-drawn / image art),
 frame (panel borders), lettering (balloons, captions, SFX). Art is clipped to
 the panels; frame and lettering always win, so art can't damage them.
+
+Any cell can also be shown inverted (light on dark), e.g. a night panel. Inversion
+is a separate mask, stored after the page as a ```invert block of the same size
+("#" = inverted). A panel or an item with "invert": true starts inverted;
+lettering stays light unless its own item says "invert": true.
 """
 import hashlib
 import io
@@ -98,6 +103,7 @@ class Page:
     owner: list = None
     issues: list = field(default_factory=list)
     faces: list = field(default_factory=list)   # (label, panel, set of head cells)
+    invert: list = None                          # rows of bools: cells shown light on dark
     fills: dict = field(default_factory=dict)   # character name -> silhouette fill
     cast: dict = field(default_factory=dict)    # panel -> ["% WREN", "[=] lens"]
     sfx: dict = field(default_factory=dict)     # panel -> ["KRAKK"] (drawn as art)
@@ -309,6 +315,7 @@ def render_page(spec, geo=None):
     page = Page(number=number, side=side, geo=geo)
     page.art, page.frame = _grid(geo, " "), _grid(geo, None)
     page.letters, page.owner = _grid(geo, None), _grid(geo, None)
+    page.invert = _grid(geo, False)
     issues = page.issues
     if spec.get("side") and number and spec["side"] != ("right" if number % 2 else "left"):
         issues.append(f"Page {number} is marked {spec['side']}, but odd pages are right-hand pages")
@@ -365,6 +372,11 @@ def _draw_panel(page, p):
         f[p.y0][x] = f[p.y1][x] = "_"
     for y in range(p.y0 + 1, p.y1 + 1):
         f[y][p.x0] = f[y][p.x1] = "|"
+    if p.spec.get("invert"):
+        x0, y0, x1, y1 = p.inner
+        for y in range(y0, y1 + 1):
+            for x in range(x0, x1 + 1):
+                page.invert[y][x] = True
     if p.spec.get("horizon") is not None:
         x0, y0, x1, y1 = p.inner
         hy = y0 + round(float(p.spec["horizon"]) / 100 * (y1 - y0))
@@ -405,6 +417,8 @@ def _draw_items(page, items):
                 f"{page.fills[label.upper()]} {label}" if kind == "figure" else f"[=] {label}")
             left, top, sw, sh = _place(item, sprite, inner, issues, where)
             _stamp(page.art, sprite, left, top, inner)
+            if item.get("invert"):
+                _mark(page.invert, sprite, left, top, inner, True)
             if face:
                 page.faces.append((label, pn, {(left + x, top + y) for x, y in face}))
             figures.setdefault(pn, []).append((label.upper(), left + sw // 2, top))
@@ -454,6 +468,8 @@ def _draw_items(page, items):
 
         if kind in SPEECH and item.get("tail", "auto") != "none":
             _draw_tail(page, kind, left, top, sw, sh, speaker, figures.get(pn, []), inner)
+        # lettering stays light on dark panels unless the item asks to be inverted
+        _mark(page.invert, sprite, left, top, clip, bool(item.get("invert")), solid=kind != "sfx")
         if kind in SPEECH:
             placed_speech.append((idx, left, top, speaker))
 
@@ -468,6 +484,20 @@ def _draw_items(page, items):
         covered = sum(1 for x, y in cells if page.letters[y][x] is not None)
         if cells and covered / len(cells) > 0.4:
             issues.append(f"panel {pn}: lettering covers {round(100 * covered / len(cells))}% of {label or 'a'}'s head")
+
+
+def _mark(mask, sprite, left, top, clip, value, solid=False):
+    """Set inversion under a sprite; `solid` covers its transparent corners' insides too (balloon bodies)."""
+    x0, y0, x1, y1 = clip
+    for j, line in enumerate(sprite):
+        cells = [i for i, c in enumerate(line) if c != T]
+        if not cells:
+            continue
+        span = range(cells[0], cells[-1] + 1) if solid else cells
+        for i in span:
+            x, y = left + i, top + j
+            if x0 <= x <= x1 and y0 <= y <= y1:
+                mask[y][x] = value
 
 
 def _draw_tail(page, kind, left, top, sw, sh, speaker, figures, inner):
@@ -508,6 +538,30 @@ def compose(page, art=None):
                 if layer[y][x] is not None:
                     out[y][x] = layer[y][x]
     return "\n".join("".join(r) for r in out)
+
+
+def mask_text(mask):
+    """Rows of "#" (inverted) and " ", trailing spaces trimmed; "" when nothing is inverted."""
+    rows = ["".join("#" if v else " " for v in row).rstrip() for row in mask or []]
+    return "\n".join(rows).rstrip("\n") if any(rows) else ""
+
+
+def text_to_mask(text, geo):
+    lines = (text or "").split("\n")
+    lines = (lines + [""] * geo.rows)[:geo.rows]
+    return [[x < len(l) and l[x] != " " for x in range(geo.cols)] for l in lines]
+
+
+def compose_invert(page, mask=None):
+    """Final inversion: `mask` (e.g. an artist's) or the layout's, with lettering cells
+    kept exactly as the layout set them."""
+    base = mask or page.invert
+    out = [row[:] for row in base]
+    for y, row in enumerate(page.letters):
+        for x, c in enumerate(row):
+            if c is not None:
+                out[y][x] = page.invert[y][x]
+    return out
 
 
 def protected_count(page, art):
@@ -613,10 +667,18 @@ def _heading(number, side, edited=False, layout=None):
             + (f" <!-- layout {layout} -->" if layout else ""))
 
 
-def page_markdown(page, art_text, notes=(), spec=None):
+def _blocks(art_text, invert_text):
+    out = ["```text", art_text, "```"]
+    if invert_text and invert_text.strip():
+        out += ["```invert", invert_text.rstrip("\n"), "```"]
+    return out
+
+
+def page_markdown(page, art_text, notes=(), spec=None, invert=None):
     issues = list(page.issues) + list(notes)
-    parts = [_heading(page.number, page.side, layout=spec and layout_hash(spec)),
-             "", "```text", art_text, "```", ""]
+    invert = mask_text(page.invert) if invert is None else invert
+    parts = [_heading(page.number, page.side, layout=spec and layout_hash(spec)), "",
+             *_blocks(art_text, invert), ""]
     parts += [f"- {l}" for l in page.legend()]
     if issues:
         parts += ["", "**Issues**", ""] + [f"- ⚠ {i}" for i in issues]
@@ -632,29 +694,31 @@ def document(title, pages_md, errors=(), geo=None):
     return "\n".join(head) + "\n".join(pages_md)
 
 
-# A page section: heading, one ```text block, then free notes until the next page.
-PAGE_RE = re.compile(r"^## Page (\d+)([^\n]*)\n+```text\n(.*?)\n```\n(.*?)(?=^## Page |\Z)", re.S | re.M)
+# A page section: heading, a ```text block, an optional ```invert block, then notes until the next page.
+PAGE_RE = re.compile(r"^## Page (\d+)([^\n]*)\n+```text\n(.*?)\n```\n(?:```invert\n(.*?)\n```\n)?(.*?)(?=^## Page |\Z)",
+                     re.S | re.M)
 EDITED_NOTE = "hand-edited — kept when previews are regenerated"
 CHANGED_NOTE = "the layout changed after this page was hand-edited — revert it to see the new render"
 REVERTED_NOTE = "hand edits reverted — the page will be redrawn on the next run"
 
 
 def parse_thumbnails(markdown):
-    """thumbnails*.md -> {page: {art, notes, edited, side, layout}}"""
+    """thumbnails*.md -> {page: {art, invert, notes, edited, side, layout}}"""
     pages = {}
     for m in PAGE_RE.finditer(markdown or ""):
         rest = m.group(2)
         side = re.search(r"\((\w+)\)", rest)
         layout = re.search(r"layout ([0-9a-f]+)", rest)
         pages[int(m.group(1))] = {
-            "art": m.group(3), "notes": m.group(4).strip(), "edited": "— edited" in rest,
+            "art": m.group(3), "invert": m.group(4) or "", "notes": m.group(5).strip(), "edited": "— edited" in rest,
             "side": side.group(1) if side else "", "layout": layout.group(1) if layout else None,
         }
     return pages
 
 
 def _section(number, p):
-    return f"{_heading(number, p['side'], p['edited'], p['layout'])}\n\n```text\n{p['art']}\n```\n\n{p['notes']}\n"
+    blocks = "\n".join(_blocks(p["art"], p.get("invert", "")))
+    return f"{_heading(number, p['side'], p['edited'], p['layout'])}\n\n{blocks}\n\n{p['notes']}\n"
 
 
 def _with_note(notes, note, present):
@@ -684,8 +748,8 @@ def merge_edited(generated_md, current_md):
     return "".join(out)
 
 
-def replace_page(markdown, number, art=None, edited=None):
-    """Set a page's art and/or edited flag in a thumbnails document."""
+def replace_page(markdown, number, art=None, edited=None, invert=None):
+    """Set a page's art, inversion mask and/or edited flag in a thumbnails document."""
     matches = list(PAGE_RE.finditer(markdown or ""))
     target = next((m for m in matches if int(m.group(1)) == number), None)
     if target is None:
@@ -693,6 +757,8 @@ def replace_page(markdown, number, art=None, edited=None):
     p = parse_thumbnails(target.group(0))[number]
     if art is not None:
         p["art"] = art
+    if invert is not None:
+        p["invert"] = invert
     if edited is not None:
         p["edited"] = edited
         if not edited:

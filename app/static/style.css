@@ -225,3 +225,7 @@ table.data .bad { color: var(--bad); }
 .settings-form .advanced { display: grid; gap: .55rem; border-top: 1px solid var(--line); padding-top: .6rem; }
 .settings-form .why { margin: 0; font-size: .82rem; background: var(--bg); padding: .45rem .6rem; border-radius: 4px; }
 .settings-form fieldset { border: 1px solid var(--line); border-radius: 4px; display: grid; gap: .5rem; }
+
+.page .inv { background: #111; color: #f4f1ea; display: inline-block; height: 1.31em; vertical-align: top;
+  box-shadow: 0 1px 0 #111; }  /* one full line tall, plus a pixel for rounding: no gaps between rows */
+.review-side label input[type=checkbox] { width: auto; margin-right: .3rem; }

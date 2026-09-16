@@ -44,6 +44,8 @@ the size it will be on the page. A page is about 116 cells wide by 82 tall.
 - `shot` — establishing / wide / medium / close / extreme close. `angle` — eye / high / low / dutch / bird / worm.
 - `horizon` — 0–100, where the horizon line sits (shows camera height).
 - `bleed` — true to run the panel to the page edge.
+- `invert` — true to show the panel **light on dark** (night, darkness, a flashback). Balloons
+  and captions in it stay light unless they're inverted too.
 - `description` — what is drawn: setting, who, action, emotion. The ASCII Artist and Image
   Thumbnailer draw from this, so be concrete and use the bible's names.
 
@@ -60,6 +62,8 @@ the size it will be on the page. A page is about 116 cells wide by 82 tall.
 - `figure`: `label` (the character's name), `size` (percent of panel height), `pose` —
   standing / running / closeup, `facing` — left / right.
 - `object`: `label`, `w` and `h` (percent of panel).
+- Any item: `"invert": true` shows it light on dark — a black caption box for narration, a dark
+  figure against a light sky.
 
 Place balloons first in your head: the reader's eye goes top-left to bottom-right, and
 balloons usually sit in the top third, above the speaker, clear of faces.

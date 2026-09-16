@@ -21,6 +21,9 @@ PAGE CHECK: what changed / page-turn function / continuity flags
 
 Write the whole book — do not summarize or skip pages. Before delivering, cut redundant dialogue and verify every page has a reason to turn.
 
+When a panel should read dark — night, a blackout, a dream or flashback — say so in the
+panel description (e.g. "NIGHT, dark panel"). The pages can show any panel light on dark.
+
 Use exactly the page count in the brief, with a `## Page N` heading for every page. Pages the
 showrunner has locked are restored automatically if you change them — leave them alone.
 

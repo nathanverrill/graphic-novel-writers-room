@@ -163,13 +163,33 @@ def art_regions(before, after, tile=(12, 6), crop_limit=(60, 20)):
     return regions
 
 
-def page_diff(before, after, panels=()):
+def invert_diff(before_mask, after_mask):
+    """Cells whose inversion changed: {"on": n, "off": n, "rows": (first, last)} or None."""
+    a = [l for l in (before_mask or "").split("\n")]
+    b = [l for l in (after_mask or "").split("\n")]
+    on = off = 0
+    rows = []
+    for y in range(max(len(a), len(b))):
+        ra = a[y] if y < len(a) else ""
+        rb = b[y] if y < len(b) else ""
+        for x in range(max(len(ra), len(rb))):
+            ia = x < len(ra) and ra[x] != " "
+            ib = x < len(rb) and rb[x] != " "
+            if ia != ib:
+                on += ib
+                off += ia
+                rows.append(y)
+    return {"on": on, "off": off, "rows": (min(rows) + 1, max(rows) + 1)} if rows else None
+
+
+def page_diff(before, after, panels=(), before_mask="", after_mask=""):
     """Everything a model needs to understand a hand edit to a page."""
     regions = art_regions(before, after)
     for r in regions:
         r["panel"] = next((p.n for p in panels
                            if p.x0 <= (r["x0"] + r["x1"]) // 2 <= p.x1 and p.y0 <= (r["y0"] + r["y1"]) // 2 <= p.y1), None)
     return {"text": text_diff(before, after), "art": regions,
+            "invert": invert_diff(before_mask, after_mask),
             "text_similarity": text_similarity(before, after),
             "art_similarity": art_similarity(before, after)}
 
@@ -200,6 +220,10 @@ def diff_markdown(diff, max_regions=6):
             lines.append(f"- … and {len(diff['art']) - max_regions} more areas")
     else:
         lines.append("No art changes.")
+    inv = diff.get("invert")
+    if inv:
+        lines += ["", f"Inverted cells (light on dark) changed: {inv['on']} turned on, {inv['off']} turned off, "
+                      f"rows {inv['rows'][0]}-{inv['rows'][1]}."]
     return "\n".join(lines)
 
 

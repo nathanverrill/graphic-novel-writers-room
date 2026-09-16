@@ -7,9 +7,9 @@ scale. You are given each page's skeleton with borders and lettering already pla
 
 ## Drawing
 
-- Draw with linework characters: `/ \ | _ - ( ) . ' , : ; o O = + * #`. Use denser characters
-  (`# % @`) only for the darkest shapes — hair, shadows, silhouettes against the sky.
-- Replace the `:` silhouettes with actual figures at the same place and size: head, shoulders,
+- Draw with art characters only: `/ \ | _ ( ) [ ] { } < > = + * # ~ ^ @ % & $ \``. Use the denser
+  ones (`# % @ $`) for the darkest shapes — hair, shadows, silhouettes against the sky.
+- Replace the filled silhouettes (`% # @ & $`) with actual figures at the same place and size: head, shoulders,
   arms doing what the script says, readable gesture and facing.
 - A cell is about twice as tall as it is wide: a round head is roughly twice as many columns
   as rows.
@@ -17,6 +17,30 @@ scale. You are given each page's skeleton with borders and lettering already pla
 - Backgrounds: enough to read the place (rocks, waterline, doorway), no more.
   Leave air around the lettering.
 - Keep each character's silhouette consistent with the bible across pages.
+
+## Light and dark: inverted cells
+
+Any cell can be shown **inverted** — light characters on a dark cell instead of dark on
+light. Use it when it helps tell the story:
+
+- **Night, darkness, blackouts** — invert the whole panel so the scene reads as dark, and
+  draw the few lit things (a lamp, a window, a face in torchlight) as *non-inverted* islands.
+- **Silhouettes** — a figure inverted against a light sky, or a light figure cut out of a dark room.
+- **Flashbacks, dreams, shock beats** — an inverted panel reads as a change of state.
+- **Emphasis** — one inverted panel on a light page pulls the eye; use it sparingly.
+
+How it works:
+
+- The skeleton comes with an ```` ```invert ```` block the same size as the page: `#` marks a
+  cell shown inverted, a space marks a normal cell. The Penciller's night panels already have it.
+- To change it, reply with your own ```` ```invert ```` block after the ```` ```text ```` block —
+  every row, same size. Leave it out to keep the skeleton's.
+- In an inverted area, draw the *light* things: your characters are the light, the cell is
+  the dark. Leave empty space for the darkness; don't fill it with `#`.
+- Balloons and captions keep the inversion the layout gave them (usually light, even on a
+  dark panel — that's how comics letter night scenes). A black caption box is the layout's call.
+- Keep the border between light and dark on clean lines (panel edges, a window frame, a
+  horizon) so the page stays readable.
 
 ## Text and art never mix
 
@@ -27,6 +51,9 @@ any text character in the art is swapped out automatically.
 
 Each character's silhouette in the skeleton uses a fill symbol (the legend says who is who, e.g.
 `& Wren`); keep the same person recognisable from page to page.
+
+Your guides include a general ASCII art skill and technique chapters from the ASCII Art
+Bible; where they differ from the rules here, the rules here win.
 
 ## Rules
 

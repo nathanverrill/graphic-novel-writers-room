@@ -232,6 +232,7 @@ def previews(slug: str, version: str | None = None):
 
 class PreviewEdit(BaseModel):
     art: str
+    invert: str | None = None
 
 
 def _preview_file(slug, method):
@@ -253,7 +254,8 @@ def edit_preview(slug: str, method: str, page: int, body: PreviewEdit):
     name, md = _preview_file(slug, method)
     grid, _ = thumbnails.text_to_grid(body.art.replace(FENCE, "'" * 3), thumbnails.geometry())
     art = "\n".join("".join(r) for r in grid)
-    new = not_found(thumbnails.replace_page, md, page, art, True)
+    invert = None if body.invert is None else thumbnails.mask_text(thumbnails.text_to_mask(body.invert, thumbnails.geometry()))
+    new = not_found(thumbnails.replace_page, md, page, art, True, invert)
     projects.write_artifact(slug, name, new)
     return {"ok": True}
 
@@ -388,6 +390,7 @@ class PageReview(BaseModel):
     verdict: str | None = None
     comment: str | None = None
     art: str | None = None
+    invert: str | None = None
     clear: bool = False
 
 
@@ -433,7 +436,7 @@ def review_state(slug: str):
 @app.put("/api/projects/{slug}/review/pages/{page}")
 def review_page(slug: str, page: int, body: PageReview):
     _idle(slug)
-    return not_found(review.save_page, slug, page, body.verdict, body.comment, body.art, body.clear)
+    return not_found(review.save_page, slug, page, body.verdict, body.comment, body.art, body.clear, body.invert)
 
 
 @app.put("/api/projects/{slug}/review/comment")

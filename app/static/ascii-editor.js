@@ -5,15 +5,42 @@
 //   drag            select a rectangle       Delete / Backspace  clear it (or one cell)
 //   ⌘/Ctrl C X V    copy, cut, paste blocks (paste overwrites from the cursor)
 //   ⌘/Ctrl Z / ⇧Z   undo / redo             Esc  clear the selection
+//   ⌘/Ctrl I        invert the selection (or the cell): light on dark
 //   paint mode      drag to stamp the brush character
+//   invert brush    drag to turn inversion on (or off, if you start on an inverted cell)
+
+// Page text + inversion mask ("#" = inverted) -> HTML with inverted runs in <span class="inv">.
+function asciiHtml(art, invert) {
+  const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+  const mask = (invert || "").split("\n");
+  return art.split("\n").map((line, y) => {
+    const m = mask[y] || "";
+    let out = "", run = "", runInv = false;
+    for (let x = 0; x < line.length; x++) {
+      const inv = x < m.length && m[x] !== " ";
+      if (inv !== runInv && run) {
+        out += runInv ? `<span class="inv">${esc(run)}</span>` : esc(run);
+        run = "";
+      }
+      runInv = inv;
+      run += line[x];
+    }
+    if (run) out += runInv ? `<span class="inv">${esc(run)}</span>` : esc(run);
+    return out;
+  }).join("\n");
+}
+
 class AsciiEditor {
-  constructor(pre, text, cols, rows, { onChange, focus = true } = {}) {
+  constructor(pre, text, cols, rows, { onChange, focus = true, invert = "" } = {}) {
     this.pre = pre;
     this.cols = cols;
     this.rows = rows;
     this.onChange = onChange || (() => {});
     const lines = text.split("\n");
     this.grid = Array.from({ length: rows }, (_, y) => [...(lines[y] || "").padEnd(cols).slice(0, cols)]);
+    const masks = (invert || "").split("\n");
+    this.mask = Array.from({ length: rows }, (_, y) => Array.from({ length: cols }, (_, x) => (masks[y] || "")[x] > " "));
+    this.invertBrush = false;
     this.x = this.y = this.homeX = 0;
     this.sel = null;          // {x0, y0, x1, y1}, inclusive
     this.undoStack = [];
@@ -57,6 +84,13 @@ class AsciiEditor {
 
   text() { return this.grid.map((r) => r.join("")).join("\n"); }
 
+  invertText() {
+    const rows = this.mask.map((r) => r.map((v) => (v ? "#" : " ")).join("").trimEnd());
+    return rows.some(Boolean) ? rows.join("\n").replace(/\n+$/, "") : "";
+  }
+
+  state() { return JSON.stringify([this.text(), this.invertText()]); }
+
   // cell size from the rendered pre (1px border, no padding)
   metrics() {
     const r = this.pre.getBoundingClientRect();
@@ -72,12 +106,12 @@ class AsciiEditor {
   }
 
   render() {
-    this.pre.textContent = this.text();
+    this.pre.innerHTML = asciiHtml(this.text(), this.invertText());
     const m = this.metrics();
     Object.assign(this.caret.style, {
       left: `${1 + this.x * m.cw}px`, top: `${1 + this.y * m.ch}px`, width: `${m.cw}px`, height: `${m.ch}px`,
     });
-    this.caret.classList.toggle("paint", !!this.brush);
+    this.caret.classList.toggle("paint", !!(this.brush || this.invertBrush));
     if (this.sel) {
       const { x0, y0, x1, y1 } = this.norm();
       Object.assign(this.selBox.style, {
@@ -95,14 +129,26 @@ class AsciiEditor {
   }
 
   snapshot() {
-    this.undoStack.push(this.text());
+    this.undoStack.push(this.state());
     if (this.undoStack.length > 200) this.undoStack.shift();
     this.redoStack = [];
   }
 
-  restore(text) {
+  restore(saved) {
+    const [text, invert] = JSON.parse(saved);
     const lines = text.split("\n");
+    const masks = invert.split("\n");
     this.grid = this.grid.map((_, y) => [...lines[y]]);
+    this.mask = this.mask.map((row, y) => row.map((_, x) => (masks[y] || "")[x] > " "));
+  }
+
+  toggleInvert() {
+    this.snapshot();
+    const { x0, y0, x1, y1 } = this.sel ? this.norm() : { x0: this.x, y0: this.y, x1: this.x, y1: this.y };
+    const value = !this.mask[y0][x0];
+    for (let y = y0; y <= y1; y++) for (let x = x0; x <= x1; x++) this.mask[y][x] = value;
+    this.changed();
+    this.render();
   }
 
   changed() {
@@ -126,7 +172,13 @@ class AsciiEditor {
     this.moveTo(x, y);
     this.homeX = x;
     this.dragging = true;
-    if (this.brush) {
+    if (this.invertBrush) {
+      this.snapshot();
+      this.paintValue = !this.mask[y][x];
+      this.mask[y][x] = this.paintValue;
+      this.changed();
+      this.sel = null;
+    } else if (this.brush) {
       this.snapshot();
       this.set(x, y, this.brush);
       this.changed();
@@ -140,7 +192,11 @@ class AsciiEditor {
   mouseMove(e) {
     if (!this.dragging) return;
     const { x, y } = this.cellAt(e);
-    if (this.brush) {
+    if (this.invertBrush) {
+      this.mask[y][x] = this.paintValue;
+      this.moveTo(x, y);
+      this.changed();
+    } else if (this.brush) {
       this.set(x, y, this.brush);
       this.moveTo(x, y);
       this.changed();
@@ -185,7 +241,7 @@ class AsciiEditor {
     if (mod && lower === "z") {
       e.preventDefault();
       const [from, to] = e.shiftKey ? [this.redoStack, this.undoStack] : [this.undoStack, this.redoStack];
-      if (from.length) { to.push(this.text()); this.restore(from.pop()); this.changed(); this.render(); }
+      if (from.length) { to.push(this.state()); this.restore(from.pop()); this.changed(); this.render(); }
       return;
     }
     if (mod && (lower === "c" || lower === "x")) {
@@ -200,6 +256,11 @@ class AsciiEditor {
           this.render();
         });
       }
+      return;
+    }
+    if (mod && lower === "i") {
+      e.preventDefault();
+      this.toggleInvert();
       return;
     }
     if (mod && lower === "a") {

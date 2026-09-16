@@ -30,7 +30,10 @@ PREVIEW_HOW = (
     "panels as ASCII linework — figures, faces, gestures, props, backgrounds — following the "
     "panel descriptions, the script and the character looks. Keep every border and lettering "
     "character exactly where it is: anything drawn over them is discarded. Reply with the full "
-    "page, exactly the same number of rows and columns, in a single ```text block, and nothing else."
+    "page, exactly the same number of rows and columns, in a ```text block. Cells can also be "
+    "shown inverted (light on dark): the skeleton's ```invert block marks them with #. To change "
+    "which cells are inverted, reply with a second block, ```invert, of the same size; leave it "
+    "out to keep the skeleton's. Nothing else."
 )
 
 TOOLS = [
@@ -406,14 +409,16 @@ class Agent:
                 continue
             self.emit("thinking", step=f"page {page.number}")
             try:
+                mask = None
                 if self.role.preview == "drawn":
-                    art, notes = self.draw_page(page, script, bible, guides, figma_text, note, hat, images)
+                    art, notes, mask = self.draw_page(page, script, bible, guides, figma_text, note, hat, images)
                 else:
                     art, notes = self.image_page(page, bible, note)
             except llm.LLMError as e:
-                art, notes = None, [f"model call failed, showing the layout render: {e}"]
+                art, notes, mask = None, [f"model call failed, showing the layout render: {e}"], None
                 self.emit("warn", text=f"page {page.number}: {e}")
-            pages.append(thumbnails.page_markdown(page, thumbnails.compose(page, art), notes, spec))
+            invert = thumbnails.mask_text(thumbnails.compose_invert(page, mask))
+            pages.append(thumbnails.page_markdown(page, thumbnails.compose(page, art), notes, spec, invert))
             # keep the pages not reached yet, and any the showrunner hand-edited meanwhile
             later = [thumbnails.keep_edited(before[s["page"]], s["page"]) for s in specs[i + 1:] if s["page"] in before]
             doc = thumbnails.document(self.role.title, pages + later, errors, geo)
@@ -426,6 +431,8 @@ class Agent:
             f"Page {page.number} ({page.side}). The canvas is exactly {g.cols} columns x {g.rows} rows.",
             "# Skeleton — keep every border and lettering character where it is",
             "```text\n" + thumbnails.compose(page) + "\n```",
+            ("# Inverted cells (light on dark) in the layout\n```invert\n" + thumbnails.mask_text(page.invert) + "\n```"
+             if thumbnails.mask_text(page.invert) else "# No cells are inverted in the layout."),
             "# Panels", "\n".join(page.legend()),
             "# Script for this page", thumbnails.script_for_page(script, page.number) or "(not found in script.md)",
         ]
@@ -445,8 +452,11 @@ class Agent:
         reply = llm.chat(self.cfg, messages, log=self.log)
         self.keep_reply_images(reply)
         answer = llm.text_of(reply)
-        blocks = re.findall(r"```[a-z]*\n(.*?)```", answer, re.S)
-        drawn = max(blocks, key=len) if blocks else answer
+        blocks = re.findall(r"```([a-z]*)\n(.*?)```", answer, re.S)
+        art_blocks = [b for tag, b in blocks if tag != "invert"]
+        drawn = max(art_blocks, key=len) if art_blocks else answer
+        inverted = next((b for tag, b in blocks if tag == "invert"), None)
+        mask = thumbnails.text_to_mask(inverted.rstrip("\n"), g) if inverted is not None else None
         grid, (nrows, ncols) = thumbnails.text_to_grid(drawn.rstrip("\n"), g)
         notes = []
         lettering = {(x, y) for y, row in enumerate(page.letters) for x, c in enumerate(row) if c is not None}
@@ -455,12 +465,14 @@ class Agent:
             grid[y][x] = asciitext.art_char(c)
         if stray:
             notes.append(f"{len(stray)} text characters used as art were swapped for art characters")
+        if mask is not None:
+            notes.append("the artist set its own inverted cells")
         if (nrows, ncols) != (g.rows, g.cols):
             notes.append(f"model returned {ncols}x{nrows}; fitted to {g.cols}x{g.rows}")
         changed = thumbnails.protected_count(page, grid)
         if changed:
             notes.append(f"model drew over {changed} border/lettering cells (restored)")
-        return grid, notes
+        return grid, notes, mask
 
     def image_page(self, page, bible, note):
         if not self.cfg.image_model:

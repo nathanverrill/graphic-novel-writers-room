@@ -176,6 +176,14 @@ Three methods, compared side by side under **Page previews**:
    panel (description + the bible's look for each character), saves it, and converts it at
    the panel's exact size: stroke direction picks `- / | \`, darkness picks from ` .:-=+*#%@`.
 
+**Light and dark.** Any cell can be shown inverted (light on dark), for night scenes,
+silhouettes, flashbacks or emphasis. Inversion is a separate mask stored after each page as a
+```` ```invert ```` block (`#` = inverted) and saved with page files as `-pNN-invert.txt`.
+The Penciller sets it per panel or item (`"invert": true`; balloons stay light on dark
+panels unless inverted themselves), the ASCII Artist may send its own mask, and you can
+paint it in the editor with the **invert brush** or **⌘I** on a selection. Review diffs
+report inversion changes, and locks keep them.
+
 Methods 2 and 3 are separate roles, so the Costs view shows what each costs. Pages are
 written as they finish, so previews fill in live.
 
@@ -192,6 +200,8 @@ issues. Click **Edit** on any preview to change it on a fixed grid (the page nev
 | drag | select a rectangle; typing fills it, Delete clears it |
 | ⌘/Ctrl C, X, V | copy, cut and paste rectangular blocks |
 | ⌘/Ctrl Z, ⇧⌘Z | undo, redo |
+| ⌘/Ctrl I | invert the selection or cell (light on dark) |
+| invert brush | tick it and drag to paint inversion on (or off, starting from an inverted cell) |
 | paint | tick **paint** and drag to stamp the brush character |
 
 Saved pages are marked `— edited` in their heading and are **kept** whenever previews are
@@ -240,7 +250,7 @@ roles/
 ```
 
 - **Add a guide:** drop a `.md` file in the role's folder.
-- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts it needs, as `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`). That's about 8–28 KB per role instead of 58 KB. Edit the skill or the map in the script, then run `python tools/split_skill.py`.
+- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts it needs: the storycraft skill becomes `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`), and the ASCII art skill and the drawing chapters of the ASCII Art Bible become the ASCII Artist's `ascii-art-skill.md` and `ascii-technique.md`, headed by the page rules that override them. Edit a skill or a map in the script, then run `python tools/split_skill.py`. (`references/` is for story material only: everything in it goes to every agent.)
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Add or change a role:** edit `roles/roles.json` and create the matching folder.

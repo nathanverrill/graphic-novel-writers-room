@@ -93,9 +93,11 @@ def state(slug):
     for n, p in sorted(pages.items()):
         entry = d["pages"].get(n, {})
         art = entry.get("art") or p["art"]
-        out[n] = {"ai_art": p["art"], "art": art, "notes": p["notes"],
-                  "verdict": entry.get("verdict"), "comment": entry.get("comment", ""),
-                  "edited": art != p["art"], "locked": lk.get(n, {}).get("verdict")}
+        invert = entry["invert"] if "invert" in entry else p["invert"]
+        out[n] = {"ai_art": p["art"], "art": art, "ai_invert": p["invert"], "invert": invert,
+                  "notes": p["notes"], "verdict": entry.get("verdict"), "comment": entry.get("comment", ""),
+                  "edited": art != p["art"] or _mask(invert) != _mask(p["invert"]),
+                  "locked": lk.get(n, {}).get("verdict")}
     open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages)
     g = thumbnails.geometry()
     return {"method": method, "pages": out, "round": last and last["id"],
@@ -103,7 +105,12 @@ def state(slug):
             "gate": last and last.get("gate"), "cols": g.cols, "rows": g.rows}
 
 
-def save_page(slug, n, verdict=None, comment=None, art=None, clear=False):
+def _mask(text):
+    """Normalized inversion mask text, for comparing."""
+    return thumbnails.mask_text(thumbnails.text_to_mask(text or "", thumbnails.geometry()))
+
+
+def save_page(slug, n, verdict=None, comment=None, art=None, clear=False, invert=None):
     method, pages = canonical(slug)
     if n not in pages:
         raise KeyError(f"page {n}")
@@ -116,6 +123,12 @@ def save_page(slug, n, verdict=None, comment=None, art=None, clear=False):
             entry.pop("art", None)
         else:
             entry["art"] = art
+    if invert is not None:
+        invert = _mask(invert)
+        if invert == _mask(pages[n]["invert"]):
+            entry.pop("invert", None)
+        else:
+            entry["invert"] = invert
     if comment is not None:
         entry["comment"] = comment.strip()
     if clear:
@@ -124,7 +137,7 @@ def save_page(slug, n, verdict=None, comment=None, art=None, clear=False):
         if verdict not in VERDICTS:
             raise ValueError(f"verdict must be one of {VERDICTS}")
         entry["verdict"] = verdict
-    if entry.get("verdict") == "changes" and not (entry.get("art") or entry.get("comment")):
+    if entry.get("verdict") == "changes" and not (entry.get("art") or "invert" in entry or entry.get("comment")):
         raise ValueError("'approved with changes' needs an edit to the page or a comment")
     _save(slug, DRAFT, {**d, "pages": {str(k): v for k, v in d["pages"].items()}})
     return entry
@@ -187,8 +200,10 @@ def enforce_locks(slug, name, content):
     elif name == canonical_file(slug):   # the reviewed pages; the other preview keeps showing its own render
         pages = thumbnails.parse_thumbnails(content)
         for n, l in lk.items():
-            if n in pages and (pages[n]["art"] != l["ascii"] or not pages[n]["edited"]):
-                content = thumbnails.replace_page(content, n, l["ascii"], True)
+            invert = l.get("invert", "")
+            if n in pages and (pages[n]["art"] != l["ascii"] or not pages[n]["edited"]
+                               or _mask(pages[n]["invert"]) != _mask(invert)):
+                content = thumbnails.replace_page(content, n, l["ascii"], True, invert)
                 restored.append(n)
     return content, sorted(set(restored))
 
@@ -245,7 +260,7 @@ def submit(slug, action, comment=None):
     lk = locks(slug)
     for n, p in pages.items():
         panels = thumbnails.render_page(specs[n], geo).panels if n in specs else []
-        diff = asciitext.page_diff(p["ai_art"], p["art"], panels)
+        diff = asciitext.page_diff(p["ai_art"], p["art"], panels, p["ai_invert"], p["invert"])
         diff_md = asciitext.diff_markdown(diff)
         section = _script_span(script, n)
         section = section.group(0).strip() if section else ""
@@ -255,8 +270,12 @@ def submit(slug, action, comment=None):
                               "art_similarity": diff["art_similarity"], "text_changes": diff["text"]}
         pre = f"p{n:02d}"
         h.write_file(f"{pre}-ascii.txt", p["art"])
+        if p["invert"].strip():
+            h.write_file(f"{pre}-invert.txt", p["invert"])
         if p["edited"]:
             h.write_file(f"{pre}-ai-ascii.txt", p["ai_art"])
+            if p["ai_invert"].strip():
+                h.write_file(f"{pre}-ai-invert.txt", p["ai_invert"])
             h.write_file(f"{pre}-diff.md", f"# Page {n}: AI ({st['round']}) → showrunner ({h.id})\n\n{diff_md}\n")
         if section:
             h.write_file(f"{pre}-script.md", section + "\n")
@@ -268,7 +287,7 @@ def submit(slug, action, comment=None):
         if v == "reroll":
             lk.pop(n, None)
         else:
-            lk[n] = {"verdict": v, "round": h.id, "ascii": p["art"],
+            lk[n] = {"verdict": v, "round": h.id, "ascii": p["art"], "invert": p["invert"],
                      "script": section if v == "love" else None,
                      "layout": specs.get(n) if v == "love" else None}
 
@@ -294,6 +313,9 @@ def submit(slug, action, comment=None):
     if action == "finalize":
         book = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['art']}" for n, p in pages.items())
         h.write_file("book-ascii.txt", book + "\n")
+        inverted = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['invert']}" for n, p in pages.items() if p["invert"].strip())
+        if inverted:
+            h.write_file("book-invert.txt", inverted + "\n")
     _save(slug, DRAFT, {})
     h.update(status="done", finished=projects.now(), verdicts=counts)
     return h.id
@@ -386,6 +408,8 @@ def export_pages(slug, rnd):
         pre = f"p{n:02d}"
         if n in pages:
             rnd.write_file(f"{pre}-ascii.txt", pages[n]["art"])
+            if pages[n]["invert"].strip():
+                rnd.write_file(f"{pre}-invert.txt", pages[n]["invert"])
         if n in renders and method != "layout":
             rnd.write_file(f"{pre}-render.txt", renders[n]["art"])
         if n in specs:

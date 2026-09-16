@@ -52,7 +52,7 @@ def mock_layouts(pages, flawed):
         if flawed and n == 2:
             items.append({"panel": 3, "type": "caption", "at": "top-left", "text": "Meanwhile, at the harbor."})
         spec = {"page": n, "side": "right" if n % 2 else "left",
-                "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "horizon": 40,
+                "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "horizon": 40, "invert": n == 2,
                                                 "description": f"Page {n}: WREN climbs toward the dark lamp."}]},
                           {"h": 1, "panels": [{"w": 1, "shot": "close", "description": "The cracked lens."},
                                               {"w": 2, "shot": "medium", "description": "OTTO on the stairs."}]}],
@@ -110,7 +110,13 @@ def reply(body, auth):
         return {"role": "assistant", "content": "OK"}
     if "# Skeleton" in text_of(msgs[1]):
         skeleton = re.search(r"```text\n(.*?)\n```", text_of(msgs[1]), re.S).group(1)
-        return {"role": "assistant", "content": "```text\n" + draw_on(skeleton) + "\n```"}
+        reply_text = "```text\n" + draw_on(skeleton) + "\n```"
+        given = re.search(r"```invert\n(.*?)\n```", text_of(msgs[1]), re.S)
+        if given:   # keep the layout's night panel, and light a lamp in its corner
+            rows = given.group(1).split("\n")
+            rows[8] = rows[8][:10] + "   " + rows[8][13:]
+            reply_text += "\n```invert\n" + "\n".join(rows) + "\n```"
+        return {"role": "assistant", "content": reply_text}
     title = re.search(r"You are the (.+?) in a", system).group(1)
     outputs = (re.search(r"Your deliverables: (.+?)\. ", system)
                or re.search(r"Write (\S+\.md) in full", system))
