@@ -249,3 +249,24 @@ def report(rows):
     runs = {(r["project"], r["version"]) for r in rows}
     groups["runs"] = len(runs)
     return groups
+
+
+def role_seconds():
+    """{(role, model): [seconds per run]} from the ledger: how long each role has taken, for estimates.
+    Only real calls count (mock runs would make every estimate look instant)."""
+    runs = {}
+    if not LEDGER.exists():
+        return {}
+    for line in LEDGER.read_text().splitlines():
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if r.get("status") != 200 or "mock" in str(r.get("response_model") or r.get("model")):
+            continue
+        key = (r.get("project"), r.get("version"), r.get("role"), r.get("model"))
+        runs[key] = runs.get(key, 0) + (r.get("duration_ms") or 0) / 1000
+    out = {}
+    for (_, _, role, model), secs in runs.items():
+        out.setdefault((role, model), []).append(secs)
+    return out

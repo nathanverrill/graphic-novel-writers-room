@@ -230,7 +230,9 @@ table.data .bad { color: var(--bad); }
   box-shadow: 0 1px 0 #111; }  /* one full line tall, plus a pixel for rounding: no gaps between rows */
 .review-side label input[type=checkbox] { width: auto; margin-right: .3rem; }
 
-.prompts { padding: 1rem 1.25rem 1.25rem; border-top: 2px solid var(--ink); background: var(--panel); }
+.outputs .chips { display: flex; flex-wrap: wrap; gap: .35rem; margin: .3rem 0; }
+.outputs .chip { padding: .15rem .6rem; font-size: .78rem; }
+#prompts { margin-top: .5rem; }
 .prompt-list { display: grid; gap: .5rem; }
 .prompt-card { border: 1px solid var(--line); border-radius: 4px; background: #fff; }
 .prompt-card summary { cursor: pointer; padding: .45rem .7rem; display: flex; gap: .6rem; align-items: center; }
@@ -244,3 +246,8 @@ pre.prompt { white-space: pre-wrap; font-family: ui-monospace, monospace; font-s
 .ref-pick { display: grid; grid-template-columns: auto 1fr auto; gap: .5rem; align-items: center; font-size: .85rem; }
 .ref-pick input { width: auto; }
 #refs-summary { font-size: .75rem; }
+
+.progress { border: 1px solid var(--line, #ddd); border-radius: 6px; padding: .5rem .7rem; margin-bottom: .8rem; }
+.progress .bar { height: 8px; background: rgba(127,127,127,.2); border-radius: 4px; overflow: hidden; margin: .4rem 0; }
+.progress .bar div { height: 100%; width: 0; background: #3b82f6; transition: width .8s; }
+.progress .bar div.finished { background: #16a34a; }

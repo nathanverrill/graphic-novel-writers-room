@@ -647,7 +647,10 @@ def parse_layouts(markdown):
     specs, errors = [], []
     for i, block in enumerate(LAYOUT_RE.findall(markdown or "")):
         try:
-            spec = json.loads(block)
+            try:
+                spec = json.loads(block)
+            except ValueError:   # models often leave a trailing comma: [..., ]
+                spec = json.loads(re.sub(r",(\s*[\]}])", r"\1", block))
             if not isinstance(spec, dict):
                 raise ValueError("a layout block must be a JSON object")
             spec["page"] = int(spec.get("page", 0))

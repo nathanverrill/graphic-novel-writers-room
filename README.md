@@ -244,6 +244,17 @@ Long documents can be split so a project takes only what it needs:
 
 Rerun them after updating a source.
 
+**Progress.** Above the live feed, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
+step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
+real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
+has been waiting on the model, highlighted after 3 minutes.
+
+**Outputs.** The Outputs panel under the round bar has the page prompts (Copy / Copy all) and
+the main story files. Every finished round, review and finalize also writes them to
+`output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
+overwritten each time — every version stays in the project's rounds). **Save to output folder**
+does it on demand.
+
 **Canon or idea draft.** A reference is canon (the room must not contradict it) unless its
 first lines contain `<!-- reference: draft -->`. Idea drafts, such as a rough script written
 to get the ideas on paper, are shown to agents separately: mine them for beats and moments,

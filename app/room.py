@@ -11,7 +11,7 @@ import time
 import uuid
 
 from . import agent as agent_mod
-from . import projects, review
+from . import projects, review, usage
 from .roles import list_hats, load_roles
 
 FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
@@ -71,14 +71,16 @@ class Run:
         passes = 0
         while not g["ready"] and passes < self.plan["max_passes"]:
             passes += 1
-            self.emit("gate", ready=False, pass_n=passes, reasons=g["reasons"], fix=g["fix"])
+            fixers = self.fix_roles(g)
+            self.emit("gate", ready=False, pass_n=passes, reasons=g["reasons"], fix=g["fix"],
+                      roles=[r.id for r in fixers])
             note = "\n\n".join(filter(None, [
                 self.note,
                 f"# Revision pass {passes} of {self.plan['max_passes']} — the round isn't ready yet",
                 "Fix only these problems, and touch nothing else:\n- " + "\n- ".join(g["reasons"]),
                 "\n\n".join(g["notes"][:40]),
             ]))
-            self.run_roles(self.fix_roles(g), note, passes + 1)
+            self.run_roles(fixers, note, passes + 1)
             g = review.gate(self.slug, titles)
         summary = {k: g[k] for k in ("ready", "reasons", "blockers", "layout_issues", "pages", "dialed_in")}
         self.version.update(gate=summary, passes=passes)
@@ -88,7 +90,11 @@ class Run:
 
     def work(self):
         self.emit("run_start", roles=[r.id for r in self.roles], version=self.version.id, hat=self.hat,
-                  writing_round=self.plan and self.plan["kind"])
+                  writing_round=self.plan and self.plan["kind"],
+                  max_passes=self.plan["max_passes"] if self.plan else 0,
+                  estimates=estimates(self.plan["all"] if self.plan else self.roles),
+                  pass_seconds=sum(estimates([r for r in self.plan["all"] if r.id in REVISION_ROUND]).values())
+                  if self.plan else 0)
         status = "error"
         try:
             self.run_roles(self.roles, self.note)
@@ -114,6 +120,18 @@ class Run:
 
 
 RUNS = {}
+DEFAULT_ROLE_SECONDS = 120
+
+
+def estimates(roles):
+    """{role: seconds} — the median of the role's past runs, with its current model if it has any."""
+    past = usage.role_seconds()
+    out = {}
+    for r in roles:
+        model = r.config().model
+        runs = past.get((r.id, model)) or [s for (role, _), v in past.items() if role == r.id for s in v]
+        out[r.id] = round(sorted(runs)[len(runs) // 2]) if runs else DEFAULT_ROLE_SECONDS
+    return out
 
 
 def active_run(slug):

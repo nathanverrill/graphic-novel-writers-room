@@ -63,7 +63,25 @@
         </div>
       </section>
 
+<section id="outputs" class="outputs">
+        <div class="section-head">
+          <h3>Outputs <span class="path">— page prompts: paste one page at a time into an image model</span></h3>
+          <div class="actions">
+            <button id="prompts-copy-all">Copy all pages</button>
+            <button id="export" class="ghost" title="Write the page prompts and story files to the output folder">Save to output folder</button>
+          </div>
+        </div>
+        <div id="output-files" class="chips"></div>
+        <p class="path" id="output-where"></p>
+        <div id="prompts" hidden><div id="prompt-list" class="prompt-list"></div></div>
+      </section>
+
       <section>
+        <div id="progress" class="progress" hidden>
+          <div class="progress-line"><b id="pg-step"></b> <span class="path" id="pg-times"></span></div>
+          <div class="bar"><div id="pg-bar"></div></div>
+          <div class="path" id="pg-wait"></div>
+        </div>
         <h3>Live feed</h3>
         <div id="feed" class="feed"></div>
       </section>
@@ -157,15 +175,7 @@
   </div>
 </section>
 
-<section id="prompts" class="prompts" hidden>
-  <div class="section-head">
-    <h2>Page prompts <span class="path">— paste one page at a time into an image model</span></h2>
-    <div class="actions">
-      <button id="prompts-copy-all">Copy all pages</button>
-    </div>
-  </div>
-  <div id="prompt-list" class="prompt-list"></div>
-</section>
+
 
 <section id="previews" class="previews" hidden>
   <div class="section-head">

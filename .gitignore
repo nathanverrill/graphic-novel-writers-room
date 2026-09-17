@@ -226,6 +226,8 @@ projects/*
 .DS_Store
 logs/*
 !logs/.gitkeep
+output/*
+!output/.gitkeep
 
 # API keys, saved per provider from the UI
 secrets/

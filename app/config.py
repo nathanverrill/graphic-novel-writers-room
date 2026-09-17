@@ -14,6 +14,7 @@ PROJECTS_DIR = ROOT / "projects"
 REFERENCES_DIR = ROOT / "references"   # shared by every project
 HATS_DIR = ROOT / "hats"               # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
+OUTPUT_DIR = ROOT / "output"           # the latest deliverables, easy to find on your computer
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
 

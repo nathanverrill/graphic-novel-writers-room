@@ -170,6 +170,9 @@ async function openProject(slug) {
   $("#viewer").hidden = true;
   $("#project-title").textContent = slug;
   $("#feed").innerHTML = "";
+  state.progress = null;
+  clearInterval(state.progressTimer);
+  renderProgress();
   state.roles.forEach((r) => setRoleStatus(r.id, null, "idle"));
   state.previews = null;
   $("#previews").hidden = true;
@@ -230,6 +233,11 @@ async function refreshArtifacts(fresh) {
   loadCosts();
   loadPreviews();
   loadPrompts();
+  const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
+  $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
+    `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
+  $("#output-where").innerHTML = `Each finished round also saves these on your computer in ` +
+    `<code>writers-room/${esc(p.output)}/</code> (page-prompts.md, pages/, story/).`;
 
   $("#artifacts").innerHTML = files.slice().reverse().map((a) => `
     <li data-name="${a.name}" class="${a.name === state.artifact ? "active" : ""} ${a.name === fresh ? "fresh" : ""}">
@@ -519,6 +527,7 @@ function log(html, cls = "") {
 const title = (id) => state.roles.find((r) => r.id === id)?.title || id;
 
 function handle(ev, replay = false) {
+  if (!replay) track(ev);
   const who = ev.role ? `<span class="who">[${esc(title(ev.role))}]</span> ` : "";
   const live = !replay;
   switch (ev.type) {
@@ -590,6 +599,63 @@ function handle(ev, replay = false) {
       log(`✖ ${esc(ev.text)}`, "err");
       break;
   }
+}
+
+// ---- progress: which step, how long so far, roughly how long to go ------------------
+
+function track(ev) {
+  let p = state.progress;
+  if (ev.type === "run_start") {
+    p = state.progress = { start: ev.t, queue: ev.roles, est: ev.estimates || {}, passes: ev.max_passes || 0,
+      passSecs: ev.pass_seconds || 0, pass: 1, done: [], role: null };
+    clearInterval(state.progressTimer);
+    state.progressTimer = setInterval(renderProgress, 1000);
+  }
+  if (!p) return;
+  p.lastT = ev.t;
+  p.lastType = ev.type;
+  if (ev.type === "role_start") Object.assign(p, { role: ev.role, roleStart: ev.t });
+  if (ev.type === "role_done") { p.done.push(ev.role); p.role = null; }
+  if (ev.type === "gate" && !ev.final) Object.assign(p, { pass: ev.pass_n + 1, queue: ev.roles || ev.fix, done: [] });
+  if (["run_done", "run_stopped", "error"].includes(ev.type)) p.end = p.end || ev.t;
+  renderProgress();
+}
+
+const dur = (s) => (s < 60 ? `${Math.round(s)}s` : s < 3600 ? `${Math.floor(s / 60)}m ${String(Math.round(s % 60)).padStart(2, "0")}s`
+  : `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`);
+
+function renderProgress() {
+  const p = state.progress;
+  $("#progress").hidden = !p;
+  if (!p) return;
+  const now = p.end || Date.now() / 1000;
+  const est = (id) => p.est[id] ?? 120;
+  const total = p.queue.reduce((t, id) => t + est(id), 0) || 1;
+  const inRole = p.role ? now - p.roleStart : 0;
+  const doneSecs = p.done.reduce((t, id) => t + est(id), 0);
+  const current = p.role ? Math.min(inRole, est(p.role) * 0.95) : 0;
+  const left = p.queue.filter((id) => !p.done.includes(id) && id !== p.role).reduce((t, id) => t + est(id), 0)
+    + (p.role ? Math.max(0, est(p.role) - inRole) : 0);
+  const step = Math.min(p.done.length + (p.role ? 1 : 0), p.queue.length);
+  const passText = p.passes ? `Pass ${p.pass} of up to ${p.passes + 1} · ` : "";
+  $("#pg-bar").style.width = `${p.end ? 100 : Math.round(100 * (doneSecs + current) / total)}%`;
+  $("#pg-bar").classList.toggle("finished", !!p.end);
+  if (p.end) {
+    $("#pg-step").textContent = `Finished in ${dur(p.end - p.start)}`;
+    $("#pg-times").textContent = "";
+    $("#pg-wait").textContent = "";
+    clearInterval(state.progressTimer);
+    return;
+  }
+  $("#pg-step").textContent = `${passText}step ${step} of ${p.queue.length}` + (p.role ? `: ${title(p.role)}` : "");
+  const long = p.role && inRole > est(p.role);
+  $("#pg-times").textContent = `${dur(now - p.start)} elapsed · ` +
+    (long ? `${title(p.role)} is running past its usual ${dur(est(p.role))}` : `about ${dur(left)} left in this pass`) +
+    (p.passes && p.pass <= p.passes ? ` (+ about ${dur(p.passSecs)} per fix pass, if needed)` : "");
+  const quiet = now - p.lastT;
+  $("#pg-wait").textContent = p.lastType === "thinking" ? `waiting on the model for ${dur(quiet)}`
+    : quiet > 5 ? `last activity ${dur(quiet)} ago` : "working";
+  $("#pg-wait").classList.toggle("cfg-error", quiet > 180);
 }
 
 function closeStream() {
@@ -1049,6 +1115,7 @@ async function loadPrompts() {
   state.prompts = d;
   const pages = Object.keys(d.pages).sort((a, b) => a - b);
   $("#prompts").hidden = !pages.length;
+  $("#prompts-copy-all").disabled = !pages.length;
   $("#prompt-list").innerHTML = pages.map((n) => `
     <details class="prompt-card" data-page="${n}">
       <summary><b>Page ${n}</b> <span class="path">${d.pages[n].length.toLocaleString()} characters</span>
@@ -1080,6 +1147,17 @@ $("#prompt-list").addEventListener("click", (e) => {
   e.preventDefault();
   copyText(state.prompts.pages[n], e.target);
 });
+$("#output-files").addEventListener("click", (e) => {
+  const name = e.target.dataset.name;
+  if (name) showArtifact(name);
+});
+$("#export").onclick = async (e) => {
+  try {
+    const { folder } = await api(`/api/projects/${state.project}/export`, { method: "POST" });
+    e.target.textContent = `Saved to ${folder}/`;
+    setTimeout(() => (e.target.textContent = "Save to output folder"), 2500);
+  } catch (err) { alert(err.message); }
+};
 $("#prompts-copy-all").onclick = (e) => copyText(state.prompts.book, e.target);
 $("#rv-prompt-copy").onclick = (e) => {
   e.preventDefault();

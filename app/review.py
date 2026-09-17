@@ -314,6 +314,7 @@ def submit(slug, action, comment=None):
     for n, text in page_prompts.items():
         h.write_file(f"p{n:02d}-prompt.md", text)
     h.write("page-prompts.md", book_prompts)
+    projects.export_output(slug, page_prompts, book_prompts, h.id)
     if action == "finalize":
         h.write_file("book-prompts.md", book_prompts)
         book = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['art']}" for n, p in pages.items())
@@ -410,6 +411,7 @@ def export_pages(slug, rnd):
     rnd.write("page-prompts.md", book_prompts)
     for n, text in page_prompts.items():
         rnd.write_file(f"p{n:02d}-prompt.md", text)
+    projects.export_output(slug, page_prompts, book_prompts, rnd.id)
     method, pages = canonical(slug)
     renders = thumbnails.parse_thumbnails(projects.read_artifact(slug, "thumbnails.md"))
     specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}

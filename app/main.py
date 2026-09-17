@@ -190,7 +190,14 @@ def get_project(slug: str):
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
-            "library": projects.library()}
+            "library": projects.library(),
+            "output": f"output/{slug}"}
+
+
+@app.post("/api/projects/{slug}/export")
+def export_project(slug: str):
+    pages, book = prompts.build(slug)
+    return {"folder": not_found(projects.export_output, slug, pages, book, "working-copy")}
 
 
 @app.get("/api/projects/{slug}/images/{name}")

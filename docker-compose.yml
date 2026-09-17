@@ -23,6 +23,7 @@ services:
       - ./references:/app/references
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
+      - ./output:/app/output         # the latest page prompts and story files, per project
     depends_on:
       seaweedfs:
         condition: service_healthy

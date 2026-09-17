@@ -30,7 +30,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import PROJECTS_DIR, REFERENCES_DIR
+from .config import OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -221,6 +221,23 @@ def write_artifact(slug, name, content):
 
 
 # ---- rounds ----------------------------------------------------------------
+
+def export_output(slug, page_prompts, book_prompts, round_id):
+    """Copy the deliverables to output/<slug>/ (overwritten each time), where they're easy to find:
+    page-prompts.md, pages/pNN-prompt.md and the room's story files."""
+    out = OUTPUT_DIR / slug
+    for sub in ("pages", "story"):
+        shutil.rmtree(out / sub, ignore_errors=True)
+        (out / sub).mkdir(parents=True)
+    (out / "page-prompts.md").write_text(book_prompts)
+    for n, text in page_prompts.items():
+        (out / "pages" / f"p{n:02d}-prompt.md").write_text(text)
+    for a in list_artifacts(slug):
+        if a["name"].endswith(".md") and a["name"] != "page-prompts.md":
+            shutil.copyfile(project_dir(slug) / a["name"], out / "story" / a["name"])
+    (out / "ROUND.txt").write_text(f"{slug}-{round_id}, exported {now()}\n")
+    return f"output/{slug}"
+
 
 def list_versions(slug):
     """All rounds, newest first."""
