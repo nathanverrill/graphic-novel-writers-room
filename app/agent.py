@@ -149,16 +149,28 @@ class Agent:
         text = [f"Project: {self.slug}", "# Pitch", pitch]
 
         refs = {} if r.minimal else projects.reference_files(self.slug)
-        if refs and self.cfg.references == "full":
-            text.append("# Reference material from the showrunner\n"
-                        "Treat these as canon. Where they conflict with the room's files, "
-                        "the references win unless the showrunner's note says otherwise.")
-            text += [f"## {REF_PREFIX}{n}\n\n{p.read_text()}" for n, p in refs.items()]
-        elif refs:
-            text.append("# Reference material from the showrunner (canon)\n"
-                        "Read what you need with read_artifact:\n"
-                        + "\n".join(f"- {REF_PREFIX}{n} ({p.stat().st_size // 1000 or 1} KB)"
-                                    for n, p in refs.items()))
+        kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
+        groups = [
+            ("canon", "# Reference material from the showrunner — canon\n"
+                      "Treat these as canon. Where they conflict with the room's files, "
+                      "the references win unless the showrunner's note says otherwise."),
+            ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
+                      "These were put together to get ideas on paper. Mine them for story beats, "
+                      "intent, moments and lines worth keeping, but write the room's own, better "
+                      "version: don't copy their structure, pacing, dialogue or page breakdown. "
+                      "Where a draft conflicts with the canon references, the canon wins."),
+        ]
+        for kind, heading in groups:
+            chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
+            if not chosen:
+                continue
+            if self.cfg.references == "full":
+                text.append(heading)
+                text += [f"## {REF_PREFIX}{n}\n\n{p.read_text()}" for n, p in chosen.items()]
+            else:
+                text.append(heading + "\nRead what you need with read_artifact:\n"
+                            + "\n".join(f"- {REF_PREFIX}{n} ({p.stat().st_size // 1000 or 1} KB)"
+                                        for n, p in chosen.items()))
 
         for name in r.reads:
             content = projects.read_artifact(self.slug, name)

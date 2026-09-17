@@ -224,13 +224,34 @@ what was adopted from each and why the rest wasn't. Nothing in it reaches an age
 Put your source material — a script, lore, series bible, style notes — in `.md` files in:
 
 ```
-references/                     shared by every project
+references/                     the shared library
+references/sources/             originals that tools split up (agents never read this)
 projects/<slug>/references/     this project only (a file with the same name wins)
 ```
 
-Any number of files works, including none. Every agent gets them as canon, and the Files
-pane lists them (read-only). With references in place the pitch is optional. Each round
-keeps a copy of the references its run used, and `run.json` records a hash of each.
+**Each project picks which library files it uses** (**References…** next to **Write round**;
+default: all). Every agent gets the chosen files on every call, so pick only what the book
+needs — the bar shows how many KB that is per call. With references in place the pitch is
+optional. Each round keeps a copy of the references it used, and `run.json` records a hash of each.
+
+Long documents can be split so a project takes only what it needs:
+
+- `python tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
+  `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
+  chapter's canon row, principle, character interaction map and script revision flags).
+- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_JUL_30.md` into
+  `SCRIPT_DRAFT_JUL_30_CHAPTER_<n>.md`, each marked as an idea draft.
+
+Rerun them after updating a source.
+
+**Canon or idea draft.** A reference is canon (the room must not contradict it) unless its
+first lines contain `<!-- reference: draft -->`. Idea drafts, such as a rough script written
+to get the ideas on paper, are shown to agents separately: mine them for beats and moments,
+but write the room's own script. The References… dialog labels them.
+
+**Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
+the top-left corner (`PAGE 2`). Set **Chapter** in the round bar and page 1 reads
+`CHAPTER 4 — PAGE 1`.
 
 How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 

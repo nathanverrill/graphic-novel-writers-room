@@ -47,8 +47,11 @@
       <section class="controls">
         <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
         <div class="round-bar">
+          <label>Chapter <input id="set-chapter" type="number" min="1" max="99"></label>
           <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
           <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
+          <button id="pick-refs" class="ghost" type="button">References…</button>
+          <span class="path" id="refs-summary"></span>
           <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
         </div>
         <div class="actions">

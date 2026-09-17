@@ -189,7 +189,8 @@ def get_project(slug: str):
             "versions": projects.list_versions(slug),
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
-            "settings": review.settings(slug)}
+            "settings": review.settings(slug),
+            "library": projects.library()}
 
 
 @app.get("/api/projects/{slug}/images/{name}")
@@ -392,7 +393,9 @@ def get_round_file(slug: str, version: str, name: str):
 
 class RoundSettings(BaseModel):
     pages: int | None = None
+    chapter: int | None = None
     max_passes: int | None = None
+    references: list[str] | None = None   # library files to use; ["*"] = all
 
 
 class RoundRequest(BaseModel):
@@ -423,6 +426,11 @@ def update_settings(slug: str, body: RoundSettings):
     not_found(projects.project_dir, slug)
     if body.max_passes is not None and not 0 <= body.max_passes <= 10:
         raise HTTPException(400, "max_passes must be 0-10")
+    if body.references not in (None, ["*"]):
+        known = {f["name"] for f in projects.library()}
+        unknown = [r for r in body.references if r not in known]
+        if unknown:
+            raise HTTPException(400, f"not in references/: {', '.join(unknown)}")
     return review.save_settings(slug, **body.model_dump())
 
 

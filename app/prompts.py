@@ -12,6 +12,7 @@ word for word (a model would paraphrase them and the characters would drift):
     panels        shot, angle, light, what happens, who is where, exact lettering
     script        the page's script, for reference
 """
+import json
 import re
 
 from . import projects, thumbnails
@@ -170,8 +171,11 @@ def page_prompt(spec, ctx):
         for name in (i.get("label") if i.get("type") == "figure" else None, i.get("speaker")):
             if name and name.upper() not in [n.upper() for n in names]:
                 names.append(name)
+    chapter = ctx.get("chapter")
+    label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     out = [
-        f"## Page {number}" + (f" of {ctx['pages']}" if ctx.get("pages") else "") + f" — {ctx['title']}",
+        f"## Page {number}" + (f" of {ctx['pages']}" if ctx.get("pages") else "") + f" — {ctx['title']}"
+        + (f", chapter {chapter}" if chapter else ""),
         "",
         f"Draw one finished comic book page: a portrait page, {ctx['trim']} (about 2:3), the "
         f"{side}-hand page of the book, with {len(panel_specs)} panels. Fully inked and colored, "
@@ -186,6 +190,7 @@ def page_prompt(spec, ctx):
         for name in names:
             look = clean_look(thumbnails.looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
+    out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
     out += ["", "**Page layout, top to bottom:**", *layout_lines(spec), ""]
     by_panel = {}
     for item in items:
@@ -194,8 +199,8 @@ def page_prompt(spec, ctx):
         out += [panel_block(n, p, by_panel.get(n, []), spec), ""]
     out += [
         "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
-        "all-caps comic lettering, and add no other text (no titles, page numbers, signatures or "
-        "watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
+        "all-caps comic lettering, and add no other text apart from the light-blue page number "
+        "(no titles, signatures or watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
         "characters' looks identical to their descriptions.",
     ]
     script = thumbnails.script_for_page(ctx["script"], number)
@@ -213,9 +218,12 @@ def context(slug, version=None):
     if m:
         pages = int(m.group(1))
     w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
+    settings_file = projects.project_dir(slug) / "round-settings.json"
+    chapter = json.loads(settings_file.read_text()).get("chapter") if settings_file.exists() else None
     return {
         "title": book_title(read("pitch.md")),
         "pages": pages,
+        "chapter": chapter,
         "style": section(read("brief.md"), "visual", "style", "look"),
         "bible": read("bible.md"),
         "script": read("script.md"),

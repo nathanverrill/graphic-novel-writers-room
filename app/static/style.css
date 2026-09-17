@@ -239,3 +239,8 @@ pre.prompt { white-space: pre-wrap; font-family: ui-monospace, monospace; font-s
   margin: 0; padding: .7rem .9rem; background: var(--bg); max-height: 60vh; overflow: auto; }
 #rv-prompt-box summary { display: flex; align-items: center; gap: .5rem; }
 #rv-prompt-box summary button { padding: .05rem .5rem; font-size: .72rem; }
+
+.ref-list { display: grid; gap: .3rem; margin: .6rem 0; }
+.ref-pick { display: grid; grid-template-columns: auto 1fr auto; gap: .5rem; align-items: center; font-size: .85rem; }
+.ref-pick input { width: auto; }
+#refs-summary { font-size: .75rem; }

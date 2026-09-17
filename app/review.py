@@ -21,7 +21,7 @@ LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 VERDICTS = ("reroll", "love", "changes")
 LABEL = {"reroll": "👎 Re-roll", "love": "🔥 Love it", "changes": "✏️ Approved with changes"}
-DEFAULT_SETTINGS = {"pages": None, "max_passes": 2,
+DEFAULT_SETTINGS = {"pages": None, "chapter": None, "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8}
 
 
@@ -43,6 +43,8 @@ def settings(slug):
 def save_settings(slug, **changes):
     current = _load(slug, SETTINGS, {})
     current.update({k: v for k, v in changes.items() if v is not None})
+    if changes.get("references") == ["*"]:   # back to "every library file"
+        current.pop("references", None)
     _save(slug, SETTINGS, current)
     return settings(slug)
 

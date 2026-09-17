@@ -217,7 +217,14 @@ async function refreshArtifacts(fresh) {
   $("#version-info").hidden = !state.version;
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
+  if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
   if (document.activeElement !== $("#set-passes")) $("#set-passes").value = s.max_passes ?? 2;
+  state.library = p.library || [];
+  state.refChoice = s.references;   // null = every library file
+  const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
+  const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
+  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB per agent call`;
+  $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
   $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("references/");
   loadCosts();
@@ -230,7 +237,7 @@ async function refreshArtifacts(fresh) {
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
     <li data-name="references/${esc(r.name)}" class="${"references/" + r.name === state.artifact ? "active" : ""}">
-      <span>${esc(r.name)}</span><small><span class="src">${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
+      <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
     || `<li class="path">none — add .md files to references/ or projects/${esc(state.project)}/references/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
@@ -657,10 +664,11 @@ async function saveSettings() {
   try {
     await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: {
       pages: $("#set-pages").value ? Number($("#set-pages").value) : null,
+      chapter: $("#set-chapter").value ? Number($("#set-chapter").value) : null,
       max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value) } });
   } catch (err) { alert(err.message); }
 }
-["#set-pages", "#set-passes"].forEach((id) => ($(id).onchange = saveSettings));
+["#set-chapter", "#set-pages", "#set-passes"].forEach((id) => ($(id).onchange = saveSettings));
 
 $("#write-round").onclick = async () => {
   try {
@@ -1076,4 +1084,47 @@ $("#prompts-copy-all").onclick = (e) => copyText(state.prompts.book, e.target);
 $("#rv-prompt-copy").onclick = (e) => {
   e.preventDefault();
   copyText(state.prompts?.pages?.[String(state.rvPage)] || "", e.target);
+};
+
+
+// ---- which shared reference files this project uses ------------------------------------
+
+$("#pick-refs").onclick = () => {
+  const chosen = state.refChoice;
+  const rows = state.library.map((f) => `
+    <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
+      <span>${esc(f.name)}${f.kind === "draft" ? ' <span class="badge">idea draft</span>' : ""}</span>
+      <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`).join("");
+  $("#role-detail").innerHTML = `
+    <h2>References for ${esc(state.project)}</h2>
+    <p class="path">Files in the shared <code>references/</code> library this project uses. Every agent gets the
+      chosen files (in full, unless its advanced settings say "names only") on every call, so pick only what
+      this book needs. Files in the project's own references/ folder are always used.</p>
+    <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
+    <p class="path" id="ref-total"></p>
+    <div class="actions">
+      <button id="ref-save">Save</button>
+      <button class="ghost" id="ref-all">Select all</button>
+      <button class="ghost" id="ref-none">Select none</button>
+    </div>`;
+  const boxes = () => [...document.querySelectorAll('.ref-list input')];
+  const total = () => {
+    const kb = Math.round(state.library.filter((f) => boxes().find((b) => b.value === f.name)?.checked)
+      .reduce((t, f) => t + f.size, 0) / 1000);
+    $("#ref-total").textContent = `${kb} KB per agent call (about ${Math.round(kb / 4)}k tokens)`;
+  };
+  document.querySelector(".ref-list").onchange = total;
+  $("#ref-all").onclick = () => { boxes().forEach((b) => (b.checked = true)); total(); };
+  $("#ref-none").onclick = () => { boxes().forEach((b) => (b.checked = false)); total(); };
+  $("#ref-save").onclick = async () => {
+    const picked = boxes().filter((b) => b.checked).map((b) => b.value);
+    const all = picked.length === state.library.length;
+    try {
+      await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: { references: all ? ["*"] : picked } });
+    } catch (err) { return alert(err.message); }
+    $("#role-dialog").close();
+    refreshArtifacts();
+  };
+  total();
+  $("#role-dialog").showModal();
 };

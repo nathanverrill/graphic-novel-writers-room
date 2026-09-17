@@ -19,8 +19,9 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the project and round, so a file means the same thing
 wherever it ends up.
 
-Reference files come from references/ at the repo root (shared by all projects)
-and projects/<slug>/references/ (a file with the same name wins).
+Reference files come from references/ at the repo root (a shared library) and
+projects/<slug>/references/ (a file with the same name wins). A project can pick
+which library files it uses ("references" in round-settings.json; default: all).
 """
 import hashlib
 import json
@@ -67,7 +68,7 @@ def create_project(title, pitch, pages=None, draft=None):
     (path / "references").mkdir()
     if draft and draft.strip():
         (path / "references" / "draft-script.md").write_text(
-            "# Draft script (high level, directional only)\n\n"
+            f"<!-- {DRAFT_MARK} -->\n# Draft script (high level, directional only)\n\n"
             "Treat this as the showrunner's direction, not as finished pages: keep its intent, "
             f"improve everything else.\n\n{draft.strip()}\n")
     if pages:
@@ -163,17 +164,47 @@ def reference_files(slug, version=None):
         for p in sorted(folder.glob(pre + "*.md")) if folder.is_dir() else []:
             found[p.name[len(pre):]] = p
         return found
+    chosen = library_selection(slug)
     for folder in (REFERENCES_DIR, project_dir(slug) / "references"):
         if folder.is_dir():
             for p in sorted(folder.glob("*.md")):  # any file name; lookups go through this dict
-                if not p.name.startswith("."):
-                    found[p.name] = p
+                if p.name.startswith("."):
+                    continue
+                if folder == REFERENCES_DIR and chosen is not None and p.name not in chosen:
+                    continue
+                found[p.name] = p
     return found
+
+
+DRAFT_MARK = "reference: draft"
+
+
+def reference_kind(path):
+    """"draft" if the file says so near the top (<!-- reference: draft -->), else "canon"."""
+    with path.open(errors="replace") as f:
+        return "draft" if DRAFT_MARK in f.read(400) else "canon"
+
+
+def library():
+    """The shared reference files: [{name, size}]."""
+    if not REFERENCES_DIR.is_dir():
+        return []
+    return [{"name": p.name, "size": p.stat().st_size, "kind": reference_kind(p)}
+            for p in sorted(REFERENCES_DIR.glob("*.md")) if not p.name.startswith(".")]
+
+
+def library_selection(slug):
+    """The library files a project uses, or None for all of them."""
+    path = project_dir(slug) / "round-settings.json"
+    if not path.exists():
+        return None
+    chosen = json.loads(path.read_text()).get("references")
+    return None if chosen is None else set(chosen)
 
 
 def list_references(slug, version=None):
     root = project_dir(slug)
-    return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime,
+    return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime, "kind": reference_kind(p),
              "source": "project" if p.parent == root / "references" else
                        "shared" if p.parent == REFERENCES_DIR else "version"}
             for n, p in reference_files(slug, version).items()]
