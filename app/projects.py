@@ -89,7 +89,7 @@ def check_image(name):
 
 
 ROUND_RE = re.compile(r"^r(\d{2,})-(ai|human|final)$")
-ROUND_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(md|txt|json|jsonl)$")
+ROUND_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(md|txt|json|jsonl|svg)$")
 PAGE_FILE_RE = re.compile(r"^p\d{2,}-")
 
 
@@ -222,7 +222,24 @@ def write_artifact(slug, name, content):
 
 # ---- rounds ----------------------------------------------------------------
 
-def export_output(slug, page_prompts, book_prompts, round_id):
+def save_page_art(slug, page, data, ext="png"):
+    """The page's finished art (no lettering), as uploaded by the showrunner."""
+    folder = project_dir(slug) / "images"
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob(f"{slug}-p{page:02d}-art.*"):
+        old.unlink()
+    name = f"{slug}-p{page:02d}-art.{ext}"
+    (folder / name).write_bytes(data)
+    return f"images/{name}"
+
+
+def page_art(slug, page):
+    folder = project_dir(slug) / "images"
+    found = sorted(folder.glob(f"{slug}-p{page:02d}-art.*")) if folder.is_dir() else []
+    return f"images/{found[0].name}" if found else None
+
+
+def export_output(slug, page_prompts, book_prompts, round_id, letters=None):
     """Copy the deliverables to output/<slug>/ (overwritten each time), where they're easy to find:
     page-prompts.md, pages/pNN-prompt.md and the room's story files."""
     out = OUTPUT_DIR / slug
@@ -232,6 +249,8 @@ def export_output(slug, page_prompts, book_prompts, round_id):
     (out / "page-prompts.md").write_text(book_prompts)
     for n, text in page_prompts.items():
         (out / "pages" / f"p{n:02d}-prompt.md").write_text(text)
+    for n, svg in (letters or {}).items():
+        (out / "pages" / f"p{n:02d}-letters.svg").write_text(svg)
     for a in list_artifacts(slug):
         if a["name"].endswith(".md") and a["name"] != "page-prompts.md":
             shutil.copyfile(project_dir(slug) / a["name"], out / "story" / a["name"])

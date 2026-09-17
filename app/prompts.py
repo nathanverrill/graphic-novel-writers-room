@@ -135,7 +135,15 @@ def panel_block(n, panel_spec, items, page_spec):
             else:
                 lines.append(f"- {label} — {where(f)}")
     lettering = [i for i in items if i.get("type") in KIND or i.get("type") == "sfx"]
-    if lettering:
+    if lettering and page_spec.get("text_layer"):
+        lines += ["", "**Keep these areas clear — the lettering is added afterwards as a separate layer, "
+                  "so draw no words here, just uncluttered art with room for a balloon:**", ""]
+        for i, item in enumerate(lettering, 1):
+            kind = item.get("type")
+            room = "a sound effect" if kind == "sfx" else f"a {KIND[kind].split('(')[0].strip().lower()}"
+            words = len(str(item.get("text", "")).split())
+            lines.append(f"{i}. {where(item)} — space for {room} of about {words} words")
+    elif lettering:
         lines += ["", "**Lettering, in reading order (letter exactly this, nothing else):**", ""]
         for i, item in enumerate(lettering, 1):
             kind = item.get("type")
@@ -161,7 +169,8 @@ def panel_block(n, panel_spec, items, page_spec):
 
 
 def page_prompt(spec, ctx):
-    """One page's prompt. ctx: title, pages, style, bible, script, trim."""
+    """One page's prompt. In "layer" mode the art is drawn with no text at all and the
+    lettering is rendered separately (see lettering.py)."""
     number = spec.get("page", 0)
     side = spec.get("side") or ("right" if number % 2 else "left")
     items = spec.get("items") or []
@@ -190,19 +199,30 @@ def page_prompt(spec, ctx):
         for name in names:
             look = clean_look(thumbnails.looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
-    out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
+    if ctx.get("lettering") != "layer":
+        out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
     out += ["", "**Page layout, top to bottom:**", *layout_lines(spec), ""]
     by_panel = {}
     for item in items:
         by_panel.setdefault(item.get("panel"), []).append(item)
+    layer = ctx.get("lettering") == "layer"
     for n, p in enumerate(panel_specs, 1):
-        out += [panel_block(n, p, by_panel.get(n, []), spec), ""]
-    out += [
-        "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
-        "all-caps comic lettering, and add no other text apart from the light-blue page number "
-        "(no titles, signatures or watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
-        "characters' looks identical to their descriptions.",
-    ]
+        out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer)), ""]
+    if layer:
+        out += [
+            "**Rules:** draw NO text anywhere on this page — no balloons, no captions, no sound "
+            "effects, no page number, no titles, signatures or watermarks. The lettering is added "
+            "afterwards on a transparent layer, so leave the areas listed under each panel "
+            "uncluttered (sky, wall, shadow — nothing the reader needs to see). Keep the "
+            "characters' looks identical to their descriptions.",
+        ]
+    else:
+        out += [
+            "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
+            "all-caps comic lettering, and add no other text apart from the light-blue page number "
+            "(no titles, signatures or watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
+            "characters' looks identical to their descriptions.",
+        ]
     script = thumbnails.script_for_page(ctx["script"], number)
     if script:
         fence = "`" * 3
@@ -219,11 +239,13 @@ def context(slug, version=None):
         pages = int(m.group(1))
     w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
     settings_file = projects.project_dir(slug) / "round-settings.json"
-    chapter = json.loads(settings_file.read_text()).get("chapter") if settings_file.exists() else None
+    settings = json.loads(settings_file.read_text()) if settings_file.exists() else {}
+    chapter = settings.get("chapter")
     return {
         "title": book_title(read("pitch.md")),
         "pages": pages,
         "chapter": chapter,
+        "lettering": settings.get("lettering", "art"),
         "style": section(read("brief.md"), "visual", "style", "look"),
         "bible": read("bible.md"),
         "script": read("script.md"),

@@ -239,8 +239,8 @@ Long documents can be split so a project takes only what it needs:
 - `python tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
   `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
   chapter's canon row, principle, character interaction map and script revision flags).
-- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_JUL_30.md` into
-  `SCRIPT_DRAFT_JUL_30_CHAPTER_<n>.md`, each marked as an idea draft.
+- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
+  `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
 
@@ -248,6 +248,30 @@ Rerun them after updating a source.
 step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
 real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
 has been waiting on the model, highlighted after 3 minutes.
+
+**Lettering as its own layer.** Set **Lettering** in the round bar to *separate layer* and the
+page prompts ask the image model for finished art with **no text at all**, keeping the balloon
+areas uncluttered. The room then draws the lettering itself, from the layout's items, as a
+transparent SVG over the art — so the words are exactly what you typed, and changing a line never
+touches the art. The **Lettering** panel is side by side: the page on the left (your uploaded art
+with the text layer over it), every balloon, caption and sound effect on the right. Edit the words
+or move a balloon to one of nine spots in its panel, and the layer redraws; the change is written
+back to `layouts.md`, so the next round and the page prompts say the same thing. **Upload art**
+attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
+`pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
+
+**Page count.** You own it: set **Pages** in the round bar, or use − / + in the review. The room
+can propose a different count by writing one line in `notes.md` —
+`PAGE COUNT: 5 — the Leona reveal needs a page of its own` — which shows up in the review as a
+suggestion with a button to accept it. Nothing changes the count without you.
+
+**Your notes.** Under the round bar there's a box to jot thoughts while you watch — half-formed
+ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
+until something takes them: the next **Write round** folds them into the room's brief, and
+submitting a review adds them to `review.md`; either way they're saved in that round's folder and
+marked used. **Tidy into feedback** is one model call (the Editor's model) that groups the pile
+by theme and drops the text into your note box to edit before sending — it doesn't spend the
+notes. ✕ drops a note you've changed your mind about.
 
 **Outputs.** The Outputs panel under the round bar has the page prompts (Copy / Copy all) and
 the main story files. Every finished round, review and finalize also writes them to

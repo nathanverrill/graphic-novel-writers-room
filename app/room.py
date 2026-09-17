@@ -11,6 +11,7 @@ import time
 import uuid
 
 from . import agent as agent_mod
+from . import notes as notes_mod
 from . import projects, review, usage
 from .roles import list_hats, load_roles
 
@@ -171,8 +172,14 @@ def start_round(slug, note=None, hat=None):
                   projects.read_artifact(slug, "review.md") or ""]
     if note:
         parts.append(f"Showrunner's note for this round: {note}")
+    jotted = notes_mod.take(slug, "pending")   # the round id isn't known until the Run is made
+    if jotted:
+        parts.append(jotted)
     plan = {"kind": kind, "max_passes": int(st["max_passes"]), "all": roles}
     run = Run(slug, roles, "\n\n".join(p for p in parts if p), hat, plan)
+    if jotted:
+        notes_mod.mark_used(slug, [n["id"] for n in notes_mod._all(slug) if n["used_in"] == "pending"], run.version.id)
+        run.version.write_file("showrunner-notes.md", jotted)
     RUNS[run.id] = run
     threading.Thread(target=run.work, daemon=True).start()
     return run

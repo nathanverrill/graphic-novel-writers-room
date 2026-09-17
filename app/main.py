@@ -1,3 +1,4 @@
+import base64
 import dataclasses
 import json
 import mimetypes
@@ -11,7 +12,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, llm, objectstore, projects, prompts, review, room, thumbnails, usage
+from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
@@ -197,7 +198,8 @@ def get_project(slug: str):
 @app.post("/api/projects/{slug}/export")
 def export_project(slug: str):
     pages, book = prompts.build(slug)
-    return {"folder": not_found(projects.export_output, slug, pages, book, "working-copy")}
+    return {"folder": not_found(projects.export_output, slug, pages, book, "working-copy",
+                                review.text_layers(slug))}
 
 
 @app.get("/api/projects/{slug}/images/{name}")
@@ -396,11 +398,95 @@ def get_round_file(slug: str, version: str, name: str):
     return content
 
 
+# ---- lettering: the text layer over art drawn without text -----------------------
+
+class LetteringEdit(BaseModel):
+    changes: dict[str, dict]
+
+
+class PageArt(BaseModel):
+    data_url: str
+
+
+def _lettering(slug, page, version=None):
+    spec = lettering.page_spec(slug, page, version)
+    if not spec:
+        raise HTTPException(404, f"no layout for page {page}")
+    ctx = prompts.context(slug, version)
+    return {"page": page, "items": lettering.items(spec), "svg": lettering.svg(spec, ctx),
+            "spots": list(lettering.ANCHORS),
+            "art": projects.page_art(slug, page), "mode": ctx.get("lettering", "art"),
+            "size": lettering.page_size()}
+
+
+@app.get("/api/projects/{slug}/lettering/{page}")
+def get_lettering(slug: str, page: int, version: str | None = None):
+    return _lettering(slug, page, version)
+
+
+@app.put("/api/projects/{slug}/lettering/{page}")
+def put_lettering(slug: str, page: int, edit: LetteringEdit):
+    try:
+        lettering.set_items(slug, page, edit.changes)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return _lettering(slug, page)
+
+
+@app.post("/api/projects/{slug}/lettering/{page}/art")
+def put_page_art(slug: str, page: int, art: PageArt):
+    """The page's art with no lettering on it, as a data: URL from the file picker."""
+    head, _, b64 = art.data_url.partition(",")
+    if not b64 or "image/" not in head:
+        raise HTTPException(400, "expected an image data URL")
+    ext = head.split("image/")[1].split(";")[0].replace("jpeg", "jpg")
+    if ext not in ("png", "jpg", "webp", "gif"):
+        raise HTTPException(400, f"unsupported image type {ext!r}")
+    path = projects.save_page_art(slug, page, base64.b64decode(b64), ext)
+    return {"art": path}
+
+
+# ---- showrunner notes ----------------------------------------------------------
+
+class Note(BaseModel):
+    text: str
+    page: int | None = None
+
+
+@app.get("/api/projects/{slug}/notes")
+def get_notes(slug: str):
+    return {"pending": notes.pending(slug), "all": notes._all(slug)}
+
+
+@app.post("/api/projects/{slug}/notes")
+def add_note(slug: str, note: Note):
+    try:
+        return notes.add(slug, note.text, note.page)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/notes/{note_id}")
+def drop_note(slug: str, note_id: int):
+    notes.drop(slug, note_id)
+    return {"ok": True}
+
+
+@app.post("/api/projects/{slug}/notes/synthesize")
+def synthesize_notes(slug: str):
+    """One model call that turns the jotted notes into organized feedback."""
+    try:
+        return notes.synthesize(slug)
+    except (ValueError, llm.LLMError) as e:
+        raise HTTPException(400, str(e))
+
+
 # ---- writing rounds and review -------------------------------------------------
 
 class RoundSettings(BaseModel):
     pages: int | None = None
     chapter: int | None = None
+    lettering: str | None = None   # "art" (the model letters it) or "layer" (we do)
     max_passes: int | None = None
     references: list[str] | None = None   # library files to use; ["*"] = all
 

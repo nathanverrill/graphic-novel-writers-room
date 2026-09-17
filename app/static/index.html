@@ -47,6 +47,10 @@
       <section class="controls">
         <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
         <div class="round-bar">
+          <label>Lettering <select id="set-lettering">
+            <option value="art">in the art</option>
+            <option value="layer">separate layer</option>
+          </select></label>
           <label>Chapter <input id="set-chapter" type="number" min="1" max="99"></label>
           <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
           <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
@@ -76,12 +80,46 @@
         <div id="prompts" hidden><div id="prompt-list" class="prompt-list"></div></div>
       </section>
 
+      <section id="lettering" hidden>
+        <div class="section-head">
+          <h3>Lettering <span class="path">— the text layer, over art drawn without any text</span></h3>
+          <div class="actions">
+            <button id="let-prev" class="ghost">‹</button>
+            <select id="let-page"></select>
+            <button id="let-next" class="ghost">›</button>
+            <label class="ghost file">Upload art<input id="let-art" type="file" accept="image/*" hidden></label>
+            <a id="let-svg" class="ghost button" download>Download text layer</a>
+          </div>
+        </div>
+        <div class="letter-body">
+          <div class="page-canvas" id="let-canvas">
+            <img id="let-art-img" alt="page art" hidden>
+            <img id="let-layer" alt="text layer">
+          </div>
+          <div class="letter-text" id="let-items"></div>
+        </div>
+        <p class="path" id="let-status"></p>
+      </section>
+
       <section>
         <div id="progress" class="progress" hidden>
           <div class="progress-line"><b id="pg-step"></b> <span class="path" id="pg-times"></span></div>
           <div class="bar"><div id="pg-bar"></div></div>
           <div class="path" id="pg-wait"></div>
         </div>
+        <div class="jot">
+          <label class="path" for="jot-text">Your notes while you watch — half-thoughts welcome; the next
+            round and your review both pick them up</label>
+          <div class="jot-row">
+            <textarea id="jot-text" rows="2" placeholder="Oh yeah — Ada's mother should feel dangerous, not warm… (⌘⏎ to add)"></textarea>
+            <div class="actions">
+              <button id="jot-add" type="button">Add note</button>
+              <button id="jot-tidy" class="ghost" type="button" title="One model call: groups your notes into feedback you can edit">Tidy into feedback</button>
+            </div>
+          </div>
+          <ul id="jot-list" class="jot-list"></ul>
+        </div>
+
         <h3>Live feed</h3>
         <div id="feed" class="feed"></div>
       </section>
@@ -145,6 +183,13 @@
       <div class="page-nav">
         <button class="ghost" id="rv-prev">‹</button><b id="rv-page"></b><button class="ghost" id="rv-next">›</button>
       </div>
+      <div class="pages-bar">
+        <span class="path">Pages</span>
+        <button class="ghost" id="rv-fewer" title="One page fewer in the next round">−</button>
+        <b id="rv-pages"></b>
+        <button class="ghost" id="rv-more" title="One page more in the next round">+</button>
+      </div>
+      <div id="rv-proposal" class="proposal" hidden></div>
       <div class="verdicts">
         <button data-verdict="reroll">👎 Re-roll</button>
         <button data-verdict="love">🔥 Love it</button>

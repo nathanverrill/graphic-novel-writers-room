@@ -14,14 +14,14 @@ round works from. Locks are enforced in code on every write (enforce_locks).
 import json
 import re
 
-from . import asciitext, projects, prompts, thumbnails
+from . import asciitext, lettering, notes, projects, prompts, thumbnails
 
 DRAFT = "review-draft.json"
 LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 VERDICTS = ("reroll", "love", "changes")
 LABEL = {"reroll": "👎 Re-roll", "love": "🔥 Love it", "changes": "✏️ Approved with changes"}
-DEFAULT_SETTINGS = {"pages": None, "chapter": None, "max_passes": 2, "references": None,
+DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8}
 
 
@@ -83,6 +83,26 @@ def latest_round(slug, kind=None):
     return None
 
 
+PAGE_COUNT_RE = re.compile(r"^\s*\**PAGE COUNT:?\**\s*(\d+)\s*[—:-]*\s*(.*)$", re.M | re.I)
+
+
+def page_proposal(slug):
+    """The room can ask for more or fewer pages by putting a line in notes.md:
+
+        PAGE COUNT: 5 — the Leona reveal needs a page of its own
+
+    It's only a proposal: the count doesn't change until the showrunner accepts it."""
+    m = PAGE_COUNT_RE.search(projects.read_artifact(slug, "notes.md") or "")
+    if not m:
+        return None
+    want = int(m.group(1))
+    now = settings(slug)["pages"]
+    if not want or want == now:
+        return None
+    return {"pages": want, "now": now, "reason": m.group(2).strip(),
+            "direction": "expand" if now and want > now else "contract"}
+
+
 def state(slug):
     """Everything the review screen needs."""
     method, pages = canonical(slug)
@@ -102,7 +122,8 @@ def state(slug):
     g = thumbnails.geometry()
     return {"method": method, "pages": out, "round": last and last["id"],
             "open": open_for_review, "comment": d.get("comment", ""), "settings": settings(slug),
-            "gate": last and last.get("gate"), "cols": g.cols, "rows": g.rows}
+            "gate": last and last.get("gate"), "cols": g.cols, "rows": g.rows,
+            "page_proposal": page_proposal(slug)}
 
 
 def _mask(text):
@@ -296,6 +317,10 @@ def submit(slug, action, comment=None):
             f"{counts['love']} loved · {counts['changes']} approved with changes · {counts['reroll']} to re-roll", ""]
     if st["comment"]:
         head += ["## Showrunner's overall note", "", st["comment"], ""]
+    jotted = notes.take(slug, h.id)
+    if jotted:
+        head += [jotted, ""]
+        h.write_file("showrunner-notes.md", jotted)
     review_md = "\n".join(head) + "\n" + "\n\n".join(instructions) + "\n"
     h.write("review.md", review_md)
     h.write_file("review.json", json.dumps(record, indent=2))
@@ -314,7 +339,10 @@ def submit(slug, action, comment=None):
     for n, text in page_prompts.items():
         h.write_file(f"p{n:02d}-prompt.md", text)
     h.write("page-prompts.md", book_prompts)
-    projects.export_output(slug, page_prompts, book_prompts, h.id)
+    letters = text_layers(slug)
+    for n, svg in letters.items():
+        h.write_file(f"p{n:02d}-letters.svg", svg)
+    projects.export_output(slug, page_prompts, book_prompts, h.id, letters)
     if action == "finalize":
         h.write_file("book-prompts.md", book_prompts)
         book = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['art']}" for n, p in pages.items())
@@ -404,6 +432,13 @@ def gate(slug, role_titles):
 
 # ---- per-page exports for an AI round ------------------------------------------------------
 
+def text_layers(slug, version=None):
+    """{page: SVG} — the lettering as its own transparent layer, for art drawn without text."""
+    specs, _ = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md", version))
+    ctx = prompts.context(slug, version)
+    return {s["page"]: lettering.svg(s, ctx) for s in specs}
+
+
 def export_pages(slug, rnd):
     """Write <round>-pNN-{prompt,ascii,script,layout}.* into the round folder, and the
     page prompts (the room's deliverable) into the working copy and the round."""
@@ -411,7 +446,10 @@ def export_pages(slug, rnd):
     rnd.write("page-prompts.md", book_prompts)
     for n, text in page_prompts.items():
         rnd.write_file(f"p{n:02d}-prompt.md", text)
-    projects.export_output(slug, page_prompts, book_prompts, rnd.id)
+    letters = text_layers(slug)
+    for n, svg in letters.items():
+        rnd.write_file(f"p{n:02d}-letters.svg", svg)
+    projects.export_output(slug, page_prompts, book_prompts, rnd.id, letters)
     method, pages = canonical(slug)
     renders = thumbnails.parse_thumbnails(projects.read_artifact(slug, "thumbnails.md"))
     specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}

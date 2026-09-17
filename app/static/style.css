@@ -251,3 +251,25 @@ pre.prompt { white-space: pre-wrap; font-family: ui-monospace, monospace; font-s
 .progress .bar { height: 8px; background: rgba(127,127,127,.2); border-radius: 4px; overflow: hidden; margin: .4rem 0; }
 .progress .bar div { height: 100%; width: 0; background: #3b82f6; transition: width .8s; }
 .progress .bar div.finished { background: #16a34a; }
+
+.jot { border: 1px dashed var(--line); border-radius: 6px; padding: .5rem .7rem; margin-bottom: .8rem; }
+.jot-row { display: flex; gap: .5rem; align-items: flex-start; }
+.jot-row textarea { flex: 1; }
+.jot-row .actions { flex-direction: column; gap: .3rem; }
+.jot-list { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .2rem; font-size: .82rem; }
+.jot-list li { display: flex; gap: .4rem; align-items: baseline; }
+.jot-list .drop { margin-left: auto; padding: 0 .35rem; font-size: .7rem; }
+
+.letter-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1rem; align-items: start; }
+.page-canvas { position: relative; background: #fff; border: 1px solid var(--line); }
+.page-canvas img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.letter-text { display: grid; gap: .5rem; max-height: 70vh; overflow-y: auto; }
+.letter-item { display: grid; gap: .15rem; }
+.letter-item textarea { width: 100%; font-family: ui-monospace, monospace; font-size: .8rem; }
+label.file { display: inline-block; cursor: pointer; }
+a.button { text-decoration: none; display: inline-block; }
+@media (max-width: 900px) { .letter-body { grid-template-columns: 1fr; } }
+
+.pages-bar { display: flex; align-items: center; gap: .4rem; margin-bottom: .4rem; }
+.proposal { background: #fef9c3; border: 1px solid #fde68a; border-radius: 4px; padding: .35rem .5rem;
+  font-size: .8rem; margin-bottom: .5rem; }

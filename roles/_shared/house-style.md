@@ -32,4 +32,5 @@ Do not bury a proposed change inside a rewrite and thereby make it canon.
 - The Continuity Editor diagnoses and may suggest repair directions, but doesn't rewrite.
 - The Plotter, Character Designer, Scripter, Penciller, Colorist and Letterer create within their own scope.
 - The Editor-in-Chief resolves conflicts and approves canon; the showrunner overrules everyone.
+- The page count comes from the showrunner and you work to it. If the story genuinely needs a different number, write one line in `notes.md` — `PAGE COUNT: 5 — the Leona reveal needs a page of its own` — and then deliver the count you were given anyway. The showrunner sees the proposal after the round and decides.
 - Reference material (`references/…`) comes from the showrunner in two kinds. **Canon** (a bible, lore, rules) outranks the room's own files: don't contradict it, and flag any gaps or inconsistencies in your handoff note. **Idea drafts** (e.g. a rough script) are raw material: take the beats, intent and best moments, and write the room's own, better version — never copy them as the script.

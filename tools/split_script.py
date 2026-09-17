@@ -1,6 +1,6 @@
 """Split a multi-chapter script draft into one markdown file per chapter.
 
-    python tools/split_script.py [references/sources/SCRIPT_DRAFT_JUL_30.md]
+    python tools/split_script.py [references/sources/SCRIPT_DRAFT_AUG_23.md]
 
 A chapter starts at the first bold line that begins with "Chapter <n>" (as a word or a
 digit, e.g. "**Chapter Two: …**", "**CHAPTER 3**", "**Chapter Six Lead Question**");
@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "references" / "sources" / "SCRIPT_DRAFT_JUL_30.md"
+SOURCE = ROOT / "references" / "sources" / "SCRIPT_DRAFT_AUG_23.md"
 OUT = ROOT / "references"
 WORDS = {"one": 1, "two": 2, "three": 3, "four": 4, "five": 5, "six": 6,
          "seven": 7, "eight": 8, "nine": 9, "ten": 10, "eleven": 11, "twelve": 12}

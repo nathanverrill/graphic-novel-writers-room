@@ -221,6 +221,7 @@ async function refreshArtifacts(fresh) {
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
   if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
+  $("#set-lettering").value = s.lettering || "art";
   if (document.activeElement !== $("#set-passes")) $("#set-passes").value = s.max_passes ?? 2;
   state.library = p.library || [];
   state.refChoice = s.references;   // null = every library file
@@ -233,6 +234,7 @@ async function refreshArtifacts(fresh) {
   loadCosts();
   loadPreviews();
   loadPrompts();
+  loadNotes();
   const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
   $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
     `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
@@ -601,6 +603,138 @@ function handle(ev, replay = false) {
   }
 }
 
+// ---- lettering: edit the words, re-render the text layer ------------------------------
+
+async function loadLettering(page) {
+  if (!state.project) return;
+  const pages = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
+  $("#lettering").hidden = !pages.length;
+  if (!pages.length) return;
+  state.letterPage = pages.includes(page) ? page : (pages.includes(state.letterPage) ? state.letterPage : pages[0]);
+  $("#let-page").innerHTML = pages.map((n) => `<option value="${n}">Page ${n}</option>`).join("");
+  $("#let-page").value = state.letterPage;
+  let d;
+  try {
+    d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}`);
+  } catch (err) { return ($("#let-status").textContent = err.message); }
+  state.lettering = d;
+  $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
+  $("#let-svg").href = $("#let-layer").src;
+  $("#let-svg").download = `${state.project}-p${String(d.page).padStart(2, "0")}-letters.svg`;
+  $("#let-canvas").style.aspectRatio = `${d.size[0]} / ${d.size[1]}`;
+  const art = $("#let-art-img");
+  art.hidden = !d.art;
+  if (d.art) art.src = `${base()}${d.art}?t=${Date.now()}`;
+  $("#let-items").innerHTML = d.items.map((it) => `
+    <label class="letter-item">
+      <span class="path">panel ${it.panel ?? "?"} · ${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}
+        <select data-spot="${it.i}">${d.spots.map((s) =>
+          `<option ${s === (it.at || "middle") ? "selected" : ""}>${s}</option>`).join("")}</select></span>
+      <textarea data-i="${it.i}" rows="2">${esc(it.text || "")}</textarea>
+    </label>`).join("") || "<p class='path'>no balloons or captions on this page yet</p>";
+  $("#let-status").textContent = d.mode === "layer" ? "" :
+    "Lettering is set to \"in the art\", so the page prompts still ask the image model to letter the page.";
+}
+
+async function saveLettering() {
+  const changes = {};
+  document.querySelectorAll("#let-items textarea").forEach((t) => {
+    const was = state.lettering.items.find((i) => String(i.i) === t.dataset.i);
+    if (was && (was.text || "") !== t.value.trim()) changes[t.dataset.i] = { text: t.value };
+  });
+  document.querySelectorAll("#let-items select[data-spot]").forEach((s) => {
+    const was = state.lettering.items.find((i) => String(i.i) === s.dataset.spot);
+    if (was && (was.at || "middle") !== s.value) changes[s.dataset.spot] = { ...(changes[s.dataset.spot] || {}), at: s.value };
+  });
+  if (!Object.keys(changes).length) return;
+  $("#let-status").textContent = "saving…";
+  try {
+    const d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}`,
+      { method: "PUT", body: { changes } });
+    state.lettering = d;
+    $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
+    $("#let-svg").href = $("#let-layer").src;
+    $("#let-status").textContent = `saved — layouts.md and the page prompts now say this`;
+    loadPrompts();
+  } catch (err) { $("#let-status").textContent = err.message; }
+}
+
+$("#let-items").addEventListener("change", saveLettering);
+$("#let-page").onchange = () => loadLettering(Number($("#let-page").value));
+$("#let-prev").onclick = () => stepLettering(-1);
+$("#let-next").onclick = () => stepLettering(1);
+function stepLettering(delta) {
+  const pages = [...$("#let-page").options].map((o) => Number(o.value));
+  const i = pages.indexOf(state.letterPage);
+  if (i > -1 && pages[i + delta]) loadLettering(pages[i + delta]);
+}
+$("#let-art").onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const data_url = await new Promise((ok) => {
+    const r = new FileReader();
+    r.onload = () => ok(r.result);
+    r.readAsDataURL(file);
+  });
+  $("#let-status").textContent = "uploading art…";
+  try {
+    await api(`/api/projects/${state.project}/lettering/${state.letterPage}/art`, { method: "POST", body: { data_url } });
+    $("#let-status").textContent = "art saved — the text layer sits on top of it";
+    loadLettering(state.letterPage);
+  } catch (err) { $("#let-status").textContent = err.message; }
+  e.target.value = "";
+};
+
+// ---- showrunner notes: jot while you watch --------------------------------------------
+
+async function loadNotes() {
+  if (!state.project) return;
+  const { pending } = await api(`/api/projects/${state.project}/notes`);
+  state.notes = pending;
+  $("#jot-list").innerHTML = pending.map((n) => `
+    <li data-id="${n.id}"><span class="path">${new Date(n.t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}${
+      n.page ? ` · page ${n.page}` : ""}</span> ${esc(n.text)}
+      <button class="ghost drop" data-id="${n.id}" title="Drop this note" type="button">✕</button></li>`).join("")
+    || "<li class='path'>no notes yet — they're spent when a round or a review takes them</li>";
+  $("#jot-tidy").disabled = !pending.length;
+}
+
+async function addNote() {
+  const text = $("#jot-text").value.trim();
+  if (!text) return;
+  const page = !$("#review").hidden ? state.rvPage : null;
+  await api(`/api/projects/${state.project}/notes`, { method: "POST", body: { text, page } });
+  $("#jot-text").value = "";
+  loadNotes();
+}
+
+$("#jot-add").onclick = addNote;
+$("#jot-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); addNote(); }
+});
+$("#jot-list").addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id || !e.target.classList.contains("drop")) return;
+  await api(`/api/projects/${state.project}/notes/${id}`, { method: "DELETE" });
+  loadNotes();
+});
+$("#jot-tidy").onclick = async (e) => {
+  const label = e.target.textContent;
+  e.target.textContent = "Tidying…";
+  e.target.disabled = true;
+  try {
+    const r = await api(`/api/projects/${state.project}/notes/synthesize`, { method: "POST" });
+    const box = !$("#review").hidden ? $("#rv-overall") : $("#note");
+    box.value = [box.value.trim(), r.text].filter(Boolean).join("\n\n");
+    box.focus();
+    box.dispatchEvent(new Event("change"));
+    log(`<span class="cost">✎ tidied ${r.notes} notes into feedback with ${esc(r.model)}` +
+      `${r.cost_usd != null ? ` · ${usd(r.cost_usd)}` : ""} — edit it before sending</span>`);
+  } catch (err) { alert(err.message); }
+  e.target.textContent = label;
+  e.target.disabled = false;
+};
+
 // ---- progress: which step, how long so far, roughly how long to go ------------------
 
 function track(ev) {
@@ -682,7 +816,7 @@ function attach(runId, after) {
     state.lastEvent = ev.i + 1;
     handle(ev);
   };
-  src.addEventListener("end", () => { closeStream(); refreshArtifacts(); loadReview(false); loadPreviews(); });
+  src.addEventListener("end", () => { closeStream(); refreshArtifacts(); loadReview(false); loadPreviews(); loadNotes(); });
   src.onerror = () => {
     // reconnect from where we left off instead of replaying
     src.close();
@@ -702,6 +836,7 @@ $("#run").onclick = async () => {
     state.version = null;
     attach(run_id, 0);
     refreshArtifacts();
+    loadNotes();
   } catch (err) { alert(err.message); }
 };
 
@@ -731,10 +866,11 @@ async function saveSettings() {
     await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: {
       pages: $("#set-pages").value ? Number($("#set-pages").value) : null,
       chapter: $("#set-chapter").value ? Number($("#set-chapter").value) : null,
+      lettering: $("#set-lettering").value,
       max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value) } });
   } catch (err) { alert(err.message); }
 }
-["#set-chapter", "#set-pages", "#set-passes"].forEach((id) => ($(id).onchange = saveSettings));
+["#set-chapter", "#set-pages", "#set-passes", "#set-lettering"].forEach((id) => ($(id).onchange = saveSettings));
 
 $("#write-round").onclick = async () => {
   try {
@@ -748,6 +884,7 @@ $("#write-round").onclick = async () => {
     $("#review").hidden = true;
     attach(run_id, 0);
     refreshArtifacts();
+    loadNotes();
   } catch (err) { alert(err.message); }
 };
 
@@ -797,9 +934,29 @@ function renderReview() {
   if (document.activeElement !== $("#rv-overall")) $("#rv-overall").value = r.comment || "";
   $("#rv-notes").innerHTML = md(p.notes || "");
   $("#rv-prompt").textContent = state.prompts?.pages?.[n] || "(no prompt for this page yet)";
+  $("#rv-pages").textContent = r.settings.pages ?? entries.length;
+  const prop = r.page_proposal;
+  $("#rv-proposal").hidden = !prop;
+  if (prop) {
+    $("#rv-proposal").innerHTML =
+      `The room suggests <b>${prop.pages} pages</b> (${prop.direction === "expand" ? "expand" : "contract"}` +
+      `${prop.now ? ` from ${prop.now}` : ""})${prop.reason ? `: ${esc(prop.reason)}` : ""} ` +
+      `<button class="ghost" id="rv-accept-pages">Use ${prop.pages}</button>`;
+    $("#rv-accept-pages").onclick = () => setPages(prop.pages);
+  }
   document.querySelectorAll("[data-verdict]").forEach((b) => b.classList.toggle("chosen", b.dataset.verdict === p.verdict));
   updateReviewButtons();
 }
+
+async function setPages(n) {
+  n = Math.max(1, Number(n) || 1);
+  await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: { pages: n } });
+  $("#set-pages").value = n;
+  await loadReview();
+  log(`<span class="gate">the next round works to ${n} pages</span>`);
+}
+$("#rv-more").onclick = () => setPages(Number($("#rv-pages").textContent) + 1);
+$("#rv-fewer").onclick = () => setPages(Number($("#rv-pages").textContent) - 1);
 
 function reviewDirty() {
   const p = currentReviewPage();
@@ -1123,6 +1280,7 @@ async function loadPrompts() {
       <pre class="prompt">${esc(d.pages[n])}</pre>
     </details>`).join("");
   if (state.review && !$("#review").hidden) renderReview();
+  loadLettering(state.letterPage);   // needs state.prompts for the page list
 }
 
 async function copyText(text, button) {
