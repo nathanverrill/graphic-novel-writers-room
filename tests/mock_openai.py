@@ -25,6 +25,7 @@ NO_TOOLS = os.environ.get("MOCK_NO_TOOLS") == "1"
 REPORT_COST = os.environ.get("MOCK_REPORT_COST") == "1"
 FAIL_IMAGES = os.environ.get("MOCK_FAIL_IMAGES") == "1"
 STRICT = os.environ.get("MOCK_STRICT") == "1"
+THINKER = os.environ.get("MOCK_THINKER") == "1"   # spends the whole budget thinking unless reasoning is capped
 
 
 def usage_for(body, message):
@@ -79,6 +80,23 @@ def draw_on(skeleton):
     return "\n".join(lines[:-1])      # and return one row short
 
 
+def draw_panel(msgs):
+    """Imitate the per-panel artist: first try returns the canvas untouched (to exercise the
+    quality check), later tries fill it with texture around the lettering."""
+    canvas = re.search(r"```text\n(.*?)\n```", text_of(msgs[1]), re.S).group(1)
+    rows = [l for l in canvas.split("\n") if re.match(r"^\d\d\|", l)]
+    retrying = any("Problems with that panel" in text_of(m) for m in msgs if m["role"] == "user")
+    if not retrying and len(msgs) == 2:
+        return "```text\n" + "\n".join(rows) + "\n```"
+    out = []
+    for i, row in enumerate(rows):
+        n, content = row[:2], row[3:-1]
+        drawn = "".join(c if c not in " %#@&$" else ("/\\_|~#"[(i + j) % 6] if (i + j) % 3 else " ")
+                        for j, c in enumerate(content))
+        out.append(f"{n}|{drawn}|")
+    return "```text\n" + "\n".join(out) + "\n```"
+
+
 def png(r, g, b, w=64, h=96, shape=False):
     if shape:  # dark head and body on white, so image->ASCII has something to show
         rows = []
@@ -108,6 +126,8 @@ def reply(body, auth):
     system = text_of(msgs[0])
     if "You are the" not in system:   # e.g. the settings form's "Test connection"
         return {"role": "assistant", "content": "OK"}
+    if "# Canvas" in text_of(msgs[1]):
+        return {"role": "assistant", "content": draw_panel(msgs)}
     if "# Skeleton" in text_of(msgs[1]):
         skeleton = re.search(r"```text\n(.*?)\n```", text_of(msgs[1]), re.S).group(1)
         reply_text = "```text\n" + draw_on(skeleton) + "\n```"
@@ -203,6 +223,12 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(400, {"error": {"message": "Unsupported parameter: 'max_tokens'. Use 'max_completion_tokens' instead."}})
         if NO_TOOLS and "tools" in body:
             return self.send(400, {"error": {"message": "tools not supported"}})
+        if THINKER and not (body.get("reasoning") or {}).get("max_tokens"):
+            n = body.get("max_tokens", 1000)
+            return self.send(200, {"id": "mock", "model": body["model"], "choices": [{"index": 0, "finish_reason": "length",
+                "message": {"role": "assistant", "content": None, "reasoning": "thinking..."}}],
+                "usage": {"prompt_tokens": 1000, "completion_tokens": n, "total_tokens": 1000 + n,
+                          "completion_tokens_details": {"reasoning_tokens": n}}})
         message = reply(body, auth)
         self.send(200, {"id": "mock", "object": "chat.completion", "model": body["model"] + "-2026-01-01",
                         "choices": [{"index": 0, "message": message, "finish_reason": "stop"}],

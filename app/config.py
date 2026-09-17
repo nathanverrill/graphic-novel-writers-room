@@ -71,11 +71,16 @@ class AgentConfig:
     model: str = None
     temperature: float = None
     max_tokens: int = None
+    thinking_budget: int = None   # cap on a reasoning model's thinking tokens (None = the provider's default)
     max_steps: int = None
     timeout: int = None
     send_images: bool = None
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
     references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
+    # ASCII Artist
+    min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)
+    refine_passes: int = None     # "look at it and improve it" passes per panel (default 1)
+    parallel: int = None          # panels drawn at once (default 3)
     # images
     generate_images: bool = False
     image_base_url: str = None

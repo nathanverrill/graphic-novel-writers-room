@@ -909,6 +909,7 @@ function openSettings(id, message) {
         <div class="sf-row">
           ${field("Temperature", "temperature", s.temperature, d.temperature ?? "provider default", "number", 'step="0.05" min="0" max="2"')}
           ${field("Max tokens", "max_tokens", s.max_tokens, d.max_tokens ?? "provider default", "number", 'min="1"')}
+          ${field("Thinking budget", "thinking_budget", s.thinking_budget, "provider default", "number", 'min="0" step="256"')}
           ${field("Max steps", "max_steps", s.max_steps, d.max_steps, "number", 'min="1" max="100"')}
           ${field("Timeout (s)", "timeout", s.timeout, d.timeout, "number", 'min="5"')}
         </div>
@@ -919,6 +920,11 @@ function openSettings(id, message) {
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
           ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
         </div>
+        ${r.preview === "drawn" ? `<div class="sf-row">
+          ${field("Min ink per panel", "min_density", s.min_density, "0.25", "number", 'step="0.05" min="0" max="0.9"')}
+          ${field("Improve passes", "refine_passes", s.refine_passes, "1", "number", 'min="0" max="3"')}
+          ${field("Panels at once", "parallel", s.parallel, "3", "number", 'min="1" max="8"')}
+        </div>` : ""}
         ${field("Key from env var instead", "api_key_env", s.api_key_env, "e.g. OPENROUTER_API_KEY")}
         <label class="sf"><span>Extra request fields (JSON)</span>
           <input name="extra" value="${json(s.extra)}" placeholder='e.g. {"top_p": 0.9, "reasoning_effort": "low"}'></label>
@@ -957,7 +963,8 @@ function openSettings(id, message) {
     put("base_url", f.provider.value === "custom" ? f.base_url.value.trim() : f.provider.value);
     put("api_key_env", f.api_key_env.value.trim());
     put("model", f.model.value.trim());
-    for (const k of ["temperature", "max_tokens", "max_steps", "timeout"]) {
+    for (const k of ["temperature", "max_tokens", "thinking_budget", "max_steps", "timeout", "min_density", "refine_passes", "parallel"]) {
+      if (!f[k]) continue;
       const v = f[k].value === "" ? "" : Number(f[k].value);
       if (String(v) !== String(s[k] ?? "")) out[k] = v;
     }

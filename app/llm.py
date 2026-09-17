@@ -65,6 +65,8 @@ def chat(cfg, messages, tools=None, log=None):
         body["temperature"] = cfg.temperature
     if cfg.max_tokens:
         body["max_tokens"] = cfg.max_tokens
+    if cfg.thinking_budget is not None:
+        _thinking(body, cfg.base_url, cfg.thinking_budget)
     if tools:
         body["tools"] = tools
     model_key = (cfg.base_url, cfg.model)
@@ -80,17 +82,35 @@ def chat(cfg, messages, tools=None, log=None):
                 raise
             _LEARNED.setdefault(model_key, set()).add(fix)
     try:
-        return data["choices"][0]["message"]
+        message = dict(data["choices"][0]["message"])
     except (KeyError, IndexError, TypeError):
         raise LLMError(200, json.dumps(data)) from None
+    message["finish_reason"] = data["choices"][0].get("finish_reason")   # e.g. "length": cut off
+    return message
 
 
 _LEARNED = {}   # (base_url, model) -> fixes that model needed, so later calls skip the retry
 
 
+def _thinking(body, base_url, budget):
+    """Cap a reasoning model's thinking, in each provider's own terms. Thinking counts
+    against max_tokens, so an uncapped model can spend the whole budget and say nothing."""
+    host = base_url.split("//", 1)[-1].split("/", 1)[0]
+    if host.endswith("openrouter.ai"):
+        body.setdefault("reasoning", {"max_tokens": budget} if budget else {"effort": "low"})
+    elif host.endswith("api.openai.com"):
+        body.setdefault("reasoning_effort", "minimal" if budget <= 1024 else "low" if budget <= 4096 else "medium")
+    elif host.endswith("api.anthropic.com"):
+        if budget >= 1024:
+            body.setdefault("thinking", {"type": "enabled", "budget_tokens": budget})
+
+
 def _apply(body, fix):
     if fix == "drop_temperature":
         body.pop("temperature", None)
+    elif fix == "drop_thinking":
+        for k in ("reasoning", "reasoning_effort", "thinking"):
+            body.pop(k, None)
     elif fix == "max_completion_tokens" and "max_tokens" in body:
         body["max_completion_tokens"] = body.pop("max_tokens")
 
@@ -99,7 +119,10 @@ def _relax(body, error):
     """Adapt to models that reject an optional parameter (e.g. reasoning models and
     temperature / max_tokens). Returns the fix applied, or None."""
     text = (error or "").lower()
-    if "temperature" in body and "temperature" in text:
+    if any(k in body for k in ("reasoning", "reasoning_effort", "thinking")) and (
+            "reasoning" in text or "thinking" in text):
+        fix = "drop_thinking"
+    elif "temperature" in body and "temperature" in text:
         fix = "drop_temperature"
     elif "max_tokens" in body and "max_tokens" in text:
         fix = "max_completion_tokens"

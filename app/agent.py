@@ -16,25 +16,13 @@ import base64
 import json
 import re
 
-from . import asciitext, llm, projects, review, thumbnails
+from . import artist, asciitext, llm, projects, review, thumbnails
 from .roles import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
 REF_PREFIX = "references/"
 
-PREVIEW_HOW = (
-    "# How to work\n"
-    "You get one page at a time: a skeleton drawn at exact print scale (one character cell = "
-    "one letter of lettering), with the panel borders and lettering already placed, and rough "
-    "':' silhouettes and '_' horizon lines showing where things go. Draw the page's art into the "
-    "panels as ASCII linework — figures, faces, gestures, props, backgrounds — following the "
-    "panel descriptions, the script and the character looks. Keep every border and lettering "
-    "character exactly where it is: anything drawn over them is discarded. Reply with the full "
-    "page, exactly the same number of rows and columns, in a ```text block. Cells can also be "
-    "shown inverted (light on dark): the skeleton's ```invert block marks them with #. To change "
-    "which cells are inverted, reply with a second block, ```invert, of the same size; leave it "
-    "out to keep the skeleton's. Nothing else."
-)
+PREVIEW_HOW = artist.PANEL_HOW
 
 TOOLS = [
     {"type": "function", "function": {
@@ -411,7 +399,7 @@ class Agent:
             try:
                 mask = None
                 if self.role.preview == "drawn":
-                    art, notes, mask = self.draw_page(page, script, bible, guides, figma_text, note, hat, images)
+                    art, notes = artist.draw_page(self, page, script, bible, guides, figma_text, note, hat)
                 else:
                     art, notes = self.image_page(page, bible, note)
             except llm.LLMError as e:
@@ -424,55 +412,6 @@ class Agent:
             doc = thumbnails.document(self.role.title, pages + later, errors, geo)
             self.save(target, thumbnails.merge_edited(doc, projects.read_artifact(self.slug, target)))
         return self.wrap_up(f"Drew {len(pages)} pages into {target}.")
-
-    def draw_page(self, page, script, bible, guides, figma_text, note, hat, images):
-        g = page.geo
-        text = [
-            f"Page {page.number} ({page.side}). The canvas is exactly {g.cols} columns x {g.rows} rows.",
-            "# Skeleton — keep every border and lettering character where it is",
-            "```text\n" + thumbnails.compose(page) + "\n```",
-            ("# Inverted cells (light on dark) in the layout\n```invert\n" + thumbnails.mask_text(page.invert) + "\n```"
-             if thumbnails.mask_text(page.invert) else "# No cells are inverted in the layout."),
-            "# Panels", "\n".join(page.legend()),
-            "# Script for this page", thumbnails.script_for_page(script, page.number) or "(not found in script.md)",
-        ]
-        if bible:
-            text += ["# Character and location looks (bible.md)", bible[:12000]]
-        taste = projects.read_artifact(self.slug, "taste-writers.md")
-        if taste:
-            text += ["# The showrunner's taste (taste-writers.md)", taste]
-        if note:
-            text += ["# Note from the showrunner", note]
-        content = [{"type": "text", "text": "\n\n".join(text)}]
-        for _, mime, data in images:
-            content.append({"type": "image_url", "image_url": {
-                "url": f"data:{mime};base64,{base64.b64encode(data).decode()}"}})
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, False, hat)},
-                    {"role": "user", "content": content}]
-        reply = llm.chat(self.cfg, messages, log=self.log)
-        self.keep_reply_images(reply)
-        answer = llm.text_of(reply)
-        blocks = re.findall(r"```([a-z]*)\n(.*?)```", answer, re.S)
-        art_blocks = [b for tag, b in blocks if tag != "invert"]
-        drawn = max(art_blocks, key=len) if art_blocks else answer
-        inverted = next((b for tag, b in blocks if tag == "invert"), None)
-        mask = thumbnails.text_to_mask(inverted.rstrip("\n"), g) if inverted is not None else None
-        grid, (nrows, ncols) = thumbnails.text_to_grid(drawn.rstrip("\n"), g)
-        notes = []
-        lettering = {(x, y) for y, row in enumerate(page.letters) for x, c in enumerate(row) if c is not None}
-        stray = asciitext.art_violations(grid, lettering)
-        for x, y, c in stray:   # text characters are for text only
-            grid[y][x] = asciitext.art_char(c)
-        if stray:
-            notes.append(f"{len(stray)} text characters used as art were swapped for art characters")
-        if mask is not None:
-            notes.append("the artist set its own inverted cells")
-        if (nrows, ncols) != (g.rows, g.cols):
-            notes.append(f"model returned {ncols}x{nrows}; fitted to {g.cols}x{g.rows}")
-        changed = thumbnails.protected_count(page, grid)
-        if changed:
-            notes.append(f"model drew over {changed} border/lettering cells (restored)")
-        return grid, notes, mask
 
     def image_page(self, page, bible, note):
         if not self.cfg.image_model:

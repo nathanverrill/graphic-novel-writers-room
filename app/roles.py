@@ -110,8 +110,9 @@ class Role:
 
 EDITABLE = {
     "base_url": str, "api_key_env": str, "model": str,
-    "temperature": float, "max_tokens": int, "max_steps": int, "timeout": int,
+    "temperature": float, "max_tokens": int, "thinking_budget": int, "max_steps": int, "timeout": int,
     "send_images": bool, "extra": dict, "references": str,
+    "min_density": float, "refine_passes": int, "parallel": int,
     "generate_images": bool, "image_base_url": str, "image_api_key_env": str,
     "image_model": str, "image_size": str, "image_extra": dict,
 }
