@@ -1,0 +1,237 @@
+"""Page prompts — the writers' room's deliverable.
+
+For every page, one self-contained markdown prompt to paste into an image model
+(outside the room) to draw the finished comic page. Assembled in code, not by a
+model, so it always matches the room's files and the character descriptions go in
+word for word (a model would paraphrase them and the characters would drift):
+
+    format        trim, orientation, left/right page
+    style         the brief's visual direction (the same on every page)
+    characters    the bible's description of everyone on the page, verbatim
+    layout        rows and panels with their share of the page
+    panels        shot, angle, light, what happens, who is where, exact lettering
+    script        the page's script, for reference
+"""
+import re
+
+from . import projects, thumbnails
+from .config import env
+
+WHERE = {
+    "top-left": "top left", "top": "top center", "top-right": "top right",
+    "left": "middle left", "middle": "center", "center": "center", "right": "middle right",
+    "bottom-left": "bottom left", "bottom": "bottom center", "bottom-right": "bottom right",
+}
+KIND = {
+    "balloon": "Speech balloon", "whisper": "Whisper balloon (dashed outline)",
+    "thought": "Thought bubble (cloud with bubble trail)", "shout": "Burst balloon (spiky outline, shouting)",
+    "caption": "Caption box",
+}
+SFX_SIZE = {"small": "small", "medium": "medium", "large": "large, bold", "huge": "huge, dramatic"}
+HOW_TO_USE = """How to use: paste one page's prompt (everything under its heading) into an image model
+that can draw comic pages, one page at a time. Keep the same model and settings for the whole
+book so the style and characters stay consistent."""
+
+
+def section(markdown, *words):
+    """The body of the first heading that contains any of `words` (case-insensitive)."""
+    lines = (markdown or "").split("\n")
+    for i, line in enumerate(lines):
+        m = re.match(r"^(#+)\s+(.*)", line)
+        if m and any(w in m.group(2).lower() for w in words):
+            level = len(m.group(1))
+            body = []
+            for nxt in lines[i + 1:]:
+                h = re.match(r"^(#+)\s", nxt)
+                if h and len(h.group(1)) <= level:
+                    break
+                body.append(nxt)
+            return "\n".join(body).strip()
+    m = re.search(r"\*\*[^*]*(" + "|".join(words) + r")[^*]*\*\*\s*[—:-]?\s*(.+)", markdown or "", re.I)
+    return m.group(2).strip() if m else ""
+
+
+def clean_look(text):
+    """A bible paragraph as one line: no headings, no "Visual lock" label."""
+    lines = [l.strip() for l in (text or "").split("\n") if l.strip() and not l.lstrip().startswith("#")]
+    joined = " ".join(lines)
+    return re.sub(r"^\W*visual lock\W*", "", joined, flags=re.I).strip()
+
+
+def book_title(pitch):
+    m = re.search(r"^#\s+(.+)$", pitch or "", re.M)
+    return m.group(1).strip() if m else "Untitled"
+
+
+def where(item):
+    if "x" in item or "y" in item:
+        x, y = float(item.get("x", 50)), float(item.get("y", 50))
+        h = "left" if x < 34 else "right" if x > 66 else "center"
+        v = "upper" if y < 34 else "lower" if y > 66 else "middle"
+        return "center" if (h, v) == ("center", "middle") else f"{v} {h}"
+    return WHERE.get(item.get("at", "middle"), item.get("at", "center"))
+
+
+def share(part, whole):
+    pct = round(100 * part / whole)
+    for frac, label in ((100, "the full"), (50, "half the"), (33, "a third of the"), (67, "two thirds of the"),
+                        (25, "a quarter of the"), (75, "three quarters of the")):
+        if abs(pct - frac) <= 2:
+            return f"{label}"
+    return f"about {pct}% of the"
+
+
+def layout_lines(spec):
+    tiers = spec.get("tiers") or []
+    total_h = sum(float(t.get("h", t.get("height", 1))) for t in tiers) or 1
+    out, n = [], 0
+    for ti, tier in enumerate(tiers):
+        h = float(tier.get("h", tier.get("height", 1)))
+        panels = tier.get("panels") or [{}]
+        total_w = sum(float(p.get("w", 1)) for p in panels) or 1
+        pos = "top" if ti == 0 else "bottom" if ti == len(tiers) - 1 else "middle"
+        cells = []
+        for pi, p in enumerate(panels):
+            n += 1
+            side = ("" if len(panels) == 1 else
+                    "left" if pi == 0 else "right" if pi == len(panels) - 1 else "center")
+            width = "full width" if len(panels) == 1 else f"{side}, {share(float(p.get('w', 1)), total_w)} width"
+            extra = ", bleeding off the page edge" if p.get("bleed") else ""
+            cells.append(f"panel {n} ({width}{extra})")
+        out.append(f"- Row {ti + 1} ({pos}, {share(h, total_h)} page height): " + "; ".join(cells))
+    return out
+
+
+def size_phrase(item):
+    if item.get("pose") == "closeup":
+        return "close-up, head and shoulders filling the panel"
+    size = float(item.get("size", 70))
+    return ("full figure, small in the frame" if size < 35 else
+            "full figure, about half the panel height" if size < 60 else
+            "full figure, most of the panel height" if size < 90 else
+            "full figure, filling the panel height")
+
+
+def panel_block(n, panel_spec, items, page_spec):
+    s = panel_spec
+    bits = [b.upper() for b in (s.get("shot"), s.get("angle") and f"{s['angle']} angle") if b]
+    head = f"### Panel {n}" + (f" — {', '.join(bits)}" if bits else "")
+    lines = [head, "", f"**Scene:** {s.get('description') or '(no description given)'}"]
+    if s.get("invert"):
+        lines += ["", "**Light:** dark panel — night or darkness; lit mostly by the few light sources in the scene."]
+    if s.get("horizon") is not None and not 34 <= float(s["horizon"]) <= 66:
+        lines += ["", f"**Camera:** horizon {'high' if float(s['horizon']) < 34 else 'low'} in the frame."]
+    figures = [i for i in items if i.get("type") in ("figure", "object")]
+    if figures:
+        lines += ["", "**Who and what is where:**", ""]
+        for f in figures:
+            label = f.get("label") or f.get("text") or "object"
+            if f.get("type") == "figure":
+                facing = f", facing {f['facing']}" if f.get("facing") else ""
+                pose = f", {f['pose']}" if f.get("pose") not in (None, "standing", "closeup") else ""
+                dark = ", silhouetted" if f.get("invert") else ""
+                lines.append(f"- {label.upper()} — {where(f)}; {size_phrase(f)}{facing}{pose}{dark}")
+            else:
+                lines.append(f"- {label} — {where(f)}")
+    lettering = [i for i in items if i.get("type") in KIND or i.get("type") == "sfx"]
+    if lettering:
+        lines += ["", "**Lettering, in reading order (letter exactly this, nothing else):**", ""]
+        for i, item in enumerate(lettering, 1):
+            kind = item.get("type")
+            text = " ".join(str(item.get("text", "")).split())
+            speaker = (item.get("speaker") or "").upper()
+            if kind in KIND and speaker and text.upper().startswith(speaker + ":"):
+                text = text[len(speaker) + 1:].strip()
+            if kind == "sfx":
+                desc = f"Sound effect, {SFX_SIZE.get(item.get('size', 'medium'), 'medium')}, drawn into the art"
+            else:
+                desc = KIND[kind]
+                if speaker and kind != "caption":
+                    tail = item.get("tail", "auto")
+                    desc += f" from {speaker}" + (" (speaker off-panel, no tail)" if tail == "none" else "")
+            extras = []
+            if item.get("breakout"):
+                extras.append("breaking out over the panel border")
+            if item.get("invert"):
+                extras.append("light text on a black box")
+            extra = f" ({'; '.join(extras)})" if extras else ""
+            lines.append(f"{i}. {desc}, {where(item)}{extra}: \"{text.upper()}\"")
+    return "\n".join(lines)
+
+
+def page_prompt(spec, ctx):
+    """One page's prompt. ctx: title, pages, style, bible, script, trim."""
+    number = spec.get("page", 0)
+    side = spec.get("side") or ("right" if number % 2 else "left")
+    items = spec.get("items") or []
+    panel_specs = [p for t in spec.get("tiers") or [] for p in (t.get("panels") or [{}])]
+    names = []
+    for i in items:
+        for name in (i.get("label") if i.get("type") == "figure" else None, i.get("speaker")):
+            if name and name.upper() not in [n.upper() for n in names]:
+                names.append(name)
+    out = [
+        f"## Page {number}" + (f" of {ctx['pages']}" if ctx.get("pages") else "") + f" — {ctx['title']}",
+        "",
+        f"Draw one finished comic book page: a portrait page, {ctx['trim']} (about 2:3), the "
+        f"{side}-hand page of the book, with {len(panel_specs)} panels. Fully inked and colored, "
+        "clean panel borders with even white gutters, and professional comic lettering.",
+        "",
+        "**Style (the same on every page):**",
+        "",
+        ctx["style"] or "(no visual direction in the brief yet)",
+    ]
+    if names:
+        out += ["", "**Characters — draw them exactly as described:**", ""]
+        for name in names:
+            look = clean_look(thumbnails.looks_for(ctx["bible"], [name]))
+            out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
+    out += ["", "**Page layout, top to bottom:**", *layout_lines(spec), ""]
+    by_panel = {}
+    for item in items:
+        by_panel.setdefault(item.get("panel"), []).append(item)
+    for n, p in enumerate(panel_specs, 1):
+        out += [panel_block(n, p, by_panel.get(n, []), spec), ""]
+    out += [
+        "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
+        "all-caps comic lettering, and add no other text (no titles, page numbers, signatures or "
+        "watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
+        "characters' looks identical to their descriptions.",
+    ]
+    script = thumbnails.script_for_page(ctx["script"], number)
+    if script:
+        fence = "`" * 3
+        out += ["", "**The page's script, for reference:**", "", fence + "text",
+                script.replace(fence, "'" * 3), fence]
+    return "\n".join(out).strip() + "\n"
+
+
+def context(slug, version=None):
+    read = lambda name: projects.read_artifact(slug, name, version) or ""
+    pages = None
+    m = re.search(r"Target length:\s*(\d+)", read("pitch.md"))
+    if m:
+        pages = int(m.group(1))
+    w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
+    return {
+        "title": book_title(read("pitch.md")),
+        "pages": pages,
+        "style": section(read("brief.md"), "visual", "style", "look"),
+        "bible": read("bible.md"),
+        "script": read("script.md"),
+        "trim": f"{w_in:g} x {h_in:g} inches",
+    }
+
+
+def build(slug, version=None):
+    """({page: prompt}, book markdown) from the working copy or a round."""
+    specs, errors = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md", version))
+    ctx = context(slug, version)
+    pages = {s["page"]: page_prompt(s, ctx) for s in specs}
+    head = [f"# Page prompts — {ctx['title']}", "", HOW_TO_USE, ""]
+    if errors:
+        head += ["**Layout errors (these pages are missing):**", ""] + [f"- {e}" for e in errors] + [""]
+    if not pages:
+        head.append("_No page layouts yet — run the room first._")
+    book = "\n".join(head) + "\n" + "\n---\n\n".join(pages[n] for n in sorted(pages))
+    return pages, book

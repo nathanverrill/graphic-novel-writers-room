@@ -1,14 +1,15 @@
-# Layout blocks (drives the ASCII page previews)
+# Layout blocks (drive the page prompts and the layout sketch)
 
 For **every page**, after your written thumbnail, add one fenced `layout` block of JSON.
+It is the source of the room's deliverable: each page's **prompt for an image model** is
+assembled from it — the layout, every panel's shot and `description`, who stands where, and
+the exact lettering — so write the descriptions as instructions to an illustrator.
 Each time you save `layouts.md` the app draws every page at print scale into
 `thumbnails.md` and tells you about problems (overlapping balloons, copy that doesn't
 fit, reading-order conflicts, lettering over faces, panels too small). Fix what you can
 and save again; flag copy-length problems for the Scripter and Letterer.
 
-The pages are the product: the writers' room delivers ASCII pages. Letters, digits and simple
-punctuation appear only as text (balloons, captions, sound effects, signs) — never as drawing —
-so text and art can be compared separately.
+The layout is also drawn as an ASCII sketch at print scale, which the showrunner reviews.
 
 Scale: one character cell is one letter of lettering, so a balloon in the preview is
 the size it will be on the page. A page is about 116 cells wide by 82 tall.
@@ -46,8 +47,10 @@ the size it will be on the page. A page is about 116 cells wide by 82 tall.
 - `bleed` — true to run the panel to the page edge.
 - `invert` — true to show the panel **light on dark** (night, darkness, a flashback). Balloons
   and captions in it stay light unless they're inverted too.
-- `description` — what is drawn: setting, who, action, emotion. The ASCII Artist and Image
-  Thumbnailer draw from this, so be concrete and use the bible's names.
+- `description` — what is drawn, as an instruction to the illustrator: setting and time of day,
+  who is doing what, expressions and body language, key props, lighting and mood, composition
+  (foreground / background). Use the bible's names; the image model gets their descriptions.
+  One to three vivid sentences.
 
 ## Items (in reading order — balloons are read in the order listed)
 

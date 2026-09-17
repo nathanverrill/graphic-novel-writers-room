@@ -229,3 +229,13 @@ table.data .bad { color: var(--bad); }
 .page .inv { background: #111; color: #f4f1ea; display: inline-block; height: 1.31em; vertical-align: top;
   box-shadow: 0 1px 0 #111; }  /* one full line tall, plus a pixel for rounding: no gaps between rows */
 .review-side label input[type=checkbox] { width: auto; margin-right: .3rem; }
+
+.prompts { padding: 1rem 1.25rem 1.25rem; border-top: 2px solid var(--ink); background: var(--panel); }
+.prompt-list { display: grid; gap: .5rem; }
+.prompt-card { border: 1px solid var(--line); border-radius: 4px; background: #fff; }
+.prompt-card summary { cursor: pointer; padding: .45rem .7rem; display: flex; gap: .6rem; align-items: center; }
+.prompt-card summary button { margin-left: auto; padding: .1rem .6rem; font-size: .75rem; }
+pre.prompt { white-space: pre-wrap; font-family: ui-monospace, monospace; font-size: .75rem; line-height: 1.45;
+  margin: 0; padding: .7rem .9rem; background: var(--bg); max-height: 60vh; overflow: auto; }
+#rv-prompt-box summary { display: flex; align-items: center; gap: .5rem; }
+#rv-prompt-box summary button { padding: .05rem .5rem; font-size: .72rem; }

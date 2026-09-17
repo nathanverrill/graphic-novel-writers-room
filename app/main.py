@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, llm, objectstore, projects, review, room, thumbnails, usage
+from . import keys, llm, objectstore, projects, prompts, review, room, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
@@ -218,6 +218,21 @@ def put_artifact(slug: str, name: str, body: ArtifactBody):
 PREVIEW_FILES = {"layout": "thumbnails.md", "drawn": "thumbnails-drawn.md", "image": "thumbnails-image.md"}
 
 
+@app.get("/api/projects/{slug}/prompts")
+def page_prompts(slug: str, version: str | None = None):
+    """The room's deliverable: one image-model prompt per page. Live from the working copy,
+    or as a round saved them."""
+    if version is None:
+        pages, book = not_found(prompts.build, slug)
+    else:
+        book = not_found(projects.read_artifact, slug, "page-prompts.md", version) or ""
+        pre = projects.prefix(slug, version)
+        folder = not_found(projects._folder, slug, version)
+        pages = {int(p.name[len(pre) + 1:].split("-")[0]): p.read_text()
+                 for p in folder.glob(f"{pre}p*-prompt.md")}
+    return {"pages": pages, "book": book}
+
+
 @app.get("/api/projects/{slug}/previews")
 def previews(slug: str, version: str | None = None):
     """ASCII page previews from each method, keyed by method then page number."""
@@ -377,7 +392,6 @@ def get_round_file(slug: str, version: str, name: str):
 
 class RoundSettings(BaseModel):
     pages: int | None = None
-    artist: bool | None = None
     max_passes: int | None = None
 
 

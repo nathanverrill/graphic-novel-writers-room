@@ -14,8 +14,8 @@ from . import agent as agent_mod
 from . import projects, review
 from .roles import list_hats, load_roles
 
-FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "ascii_artist", "continuity"]
-REVISION_ROUND = ["editor", "scripter", "penciller", "ascii_artist", "continuity"]
+FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
+REVISION_ROUND = ["editor", "scripter", "penciller", "continuity"]
 
 
 class Run:
@@ -62,8 +62,6 @@ class Run:
 
     def fix_roles(self, g):
         wanted = set(g["fix"])
-        if wanted & {"scripter", "penciller"}:
-            wanted.add("ascii_artist")
         wanted.add("continuity")
         return [r for r in self.plan["all"] if r.id in wanted]
 
@@ -143,8 +141,7 @@ def start_round(slug, note=None, hat=None):
     last = review.latest_round(slug)
     kind = "revision" if last and last.get("kind") == "human" else "first"
     by_id = {r.id: r for r in load_roles()}
-    order = [i for i in (REVISION_ROUND if kind == "revision" else FIRST_ROUND)
-             if i in by_id and (st["artist"] or i != "ascii_artist")]
+    order = [i for i in (REVISION_ROUND if kind == "revision" else FIRST_ROUND) if i in by_id]
     roles = [by_id[i] for i in order]
     _check_configs(roles)
     parts = []

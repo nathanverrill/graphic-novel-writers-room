@@ -1,8 +1,11 @@
 # House style
 
-The writers' room delivers **ASCII pages**: every page ends up as a fixed-size ASCII page
-(one character cell = one letter of lettering). The showrunner reviews those pages, and
-`taste-writers.md` records what they love and hate — read it and follow it.
+The writers' room delivers **page prompts** (`page-prompts.md`): for every page, a complete
+brief that an image model uses to draw the finished page. They're assembled from the brief's
+visual direction, the bible's character descriptions (word for word), the Penciller's layout
+blocks and the script's lettering — so all of those must be precise. The showrunner reviews
+each page as an ASCII layout sketch, and `taste-writers.md` records what they love and hate —
+read it and follow it.
 
 - Write in clear, working-professional markdown. Headings for structure, no filler.
 - Pages are numbered `Page 1`, `Page 2`… Panels are `Panel 1`, `Panel 2`… restarting each page.

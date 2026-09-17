@@ -85,22 +85,6 @@
     ]
   },
   {
-    "id": "ascii_artist",
-    "title": "ASCII Artist",
-    "mission": "You draw full-size ASCII thumbnails of each page into the Penciller's layout skeletons: figures, faces, gestures, props and backgrounds, at print scale.",
-    "reads": [
-      "layouts.md",
-      "script.md",
-      "bible.md"
-    ],
-    "outputs": [
-      "thumbnails-drawn.md"
-    ],
-    "selected": false,
-    "preview": "drawn",
-    "context": "minimal"
-  },
-  {
     "id": "image_thumbnailer",
     "title": "Image Thumbnailer",
     "mission": "You sketch every panel with an image model and convert the sketches to ASCII inside the Penciller's layout skeletons.",
@@ -169,8 +153,8 @@
     "title": "First Reader",
     "mission": "You read the pages cold, like a real reader, and report only your reactions. You never fix anything.",
     "reads": [
-      "thumbnails-drawn.md",
-      "script.md"
+      "script.md",
+      "thumbnails.md"
     ],
     "outputs": [
       "first-read.md"

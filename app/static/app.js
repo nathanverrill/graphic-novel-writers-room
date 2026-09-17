@@ -173,6 +173,8 @@ async function openProject(slug) {
   state.roles.forEach((r) => setRoleStatus(r.id, null, "idle"));
   state.previews = null;
   $("#previews").hidden = true;
+  state.prompts = null;
+  $("#prompts").hidden = true;
   destroyReviewEditor();
   state.review = null;
   $("#review").hidden = true;
@@ -216,10 +218,11 @@ async function refreshArtifacts(fresh) {
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
   if (document.activeElement !== $("#set-passes")) $("#set-passes").value = s.max_passes ?? 2;
-  $("#set-artist").checked = s.artist !== false;
+
   $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("references/");
   loadCosts();
   loadPreviews();
+  loadPrompts();
 
   $("#artifacts").innerHTML = files.slice().reverse().map((a) => `
     <li data-name="${a.name}" class="${a.name === state.artifact ? "active" : ""} ${a.name === fresh ? "fresh" : ""}">
@@ -367,7 +370,7 @@ $("#cost-scope").onchange = loadCosts;
 
 // ---- page previews --------------------------------------------------------
 
-const PREVIEW_METHODS = { layout: "Layout render", drawn: "Model-drawn (ASCII Artist)" };
+const PREVIEW_METHODS = { layout: "Layout sketch" };
 
 async function loadPreviews() {
   if (!state.project) return;
@@ -549,6 +552,7 @@ function handle(ev, replay = false) {
     case "artifact":
       log(`${who}<span class="art">✎ wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
+      if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
     case "warn": log(`${who}<span class="warn">⚠ ${esc(ev.text)}</span>`); break;
@@ -653,11 +657,10 @@ async function saveSettings() {
   try {
     await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: {
       pages: $("#set-pages").value ? Number($("#set-pages").value) : null,
-      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value),
-      artist: $("#set-artist").checked } });
+      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value) } });
   } catch (err) { alert(err.message); }
 }
-["#set-pages", "#set-passes", "#set-artist"].forEach((id) => ($(id).onchange = saveSettings));
+["#set-pages", "#set-passes"].forEach((id) => ($(id).onchange = saveSettings));
 
 $("#write-round").onclick = async () => {
   try {
@@ -719,6 +722,7 @@ function renderReview() {
   $("#rv-comment").value = p.comment || "";
   if (document.activeElement !== $("#rv-overall")) $("#rv-overall").value = r.comment || "";
   $("#rv-notes").innerHTML = md(p.notes || "");
+  $("#rv-prompt").textContent = state.prompts?.pages?.[n] || "(no prompt for this page yet)";
   document.querySelectorAll("[data-verdict]").forEach((b) => b.classList.toggle("chosen", b.dataset.verdict === p.verdict));
   updateReviewButtons();
 }
@@ -1027,3 +1031,49 @@ function openSettings(id, message) {
   };
   if (!$("#role-dialog").open) $("#role-dialog").showModal();
 }
+
+
+// ---- page prompts: the room's deliverable -------------------------------------------
+
+async function loadPrompts() {
+  if (!state.project) return;
+  const d = await api(`/api/projects/${state.project}/prompts${state.version ? `?version=${state.version}` : ""}`);
+  state.prompts = d;
+  const pages = Object.keys(d.pages).sort((a, b) => a - b);
+  $("#prompts").hidden = !pages.length;
+  $("#prompt-list").innerHTML = pages.map((n) => `
+    <details class="prompt-card" data-page="${n}">
+      <summary><b>Page ${n}</b> <span class="path">${d.pages[n].length.toLocaleString()} characters</span>
+        <button class="ghost" data-copy="${n}" type="button">Copy</button></summary>
+      <pre class="prompt">${esc(d.pages[n])}</pre>
+    </details>`).join("");
+  if (state.review && !$("#review").hidden) renderReview();
+}
+
+async function copyText(text, button) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {   // clipboard blocked: select the text so ⌘C works
+    const t = document.createElement("textarea");
+    t.value = text;
+    document.body.append(t);
+    t.select();
+    document.execCommand("copy");
+    t.remove();
+  }
+  const label = button.textContent;
+  button.textContent = "Copied";
+  setTimeout(() => (button.textContent = label), 1200);
+}
+
+$("#prompt-list").addEventListener("click", (e) => {
+  const n = e.target.dataset.copy;
+  if (!n) return;
+  e.preventDefault();
+  copyText(state.prompts.pages[n], e.target);
+});
+$("#prompts-copy-all").onclick = (e) => copyText(state.prompts.book, e.target);
+$("#rv-prompt-copy").onclick = (e) => {
+  e.preventDefault();
+  copyText(state.prompts?.pages?.[String(state.rvPage)] || "", e.target);
+};

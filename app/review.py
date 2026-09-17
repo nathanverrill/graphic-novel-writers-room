@@ -14,14 +14,14 @@ round works from. Locks are enforced in code on every write (enforce_locks).
 import json
 import re
 
-from . import asciitext, projects, thumbnails
+from . import asciitext, projects, prompts, thumbnails
 
 DRAFT = "review-draft.json"
 LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 VERDICTS = ("reroll", "love", "changes")
 LABEL = {"reroll": "👎 Re-roll", "love": "🔥 Love it", "changes": "✏️ Approved with changes"}
-DEFAULT_SETTINGS = {"pages": None, "artist": True, "max_passes": 2,
+DEFAULT_SETTINGS = {"pages": None, "max_passes": 2,
                     "min_text_match": 0.95, "min_layout_match": 0.8}
 
 
@@ -63,14 +63,12 @@ FILES = {"drawn": "thumbnails-drawn.md", "layout": "thumbnails.md"}
 
 
 def canonical_file(slug):
-    if settings(slug)["artist"] and thumbnails.parse_thumbnails(projects.read_artifact(slug, FILES["drawn"])):
-        return FILES["drawn"]
     return FILES["layout"]
 
 
 def canonical(slug):
-    """(method, {page: parsed thumbnail}) — the ASCII page the showrunner reviews:
-    the ASCII Artist's page when it's on and has drawn, otherwise the layout render."""
+    """(method, {page: parsed thumbnail}) — the page sketch the showrunner reviews: the
+    ASCII layout render of the Penciller's layout."""
     name = canonical_file(slug)
     method = "drawn" if name == FILES["drawn"] else "layout"
     return method, thumbnails.parse_thumbnails(projects.read_artifact(slug, name))
@@ -310,7 +308,12 @@ def submit(slug, action, comment=None):
     md, _ = enforce_locks(slug, name, md)
     h.write(name, md)
 
+    page_prompts, book_prompts = prompts.build(slug)
+    for n, text in page_prompts.items():
+        h.write_file(f"p{n:02d}-prompt.md", text)
+    h.write("page-prompts.md", book_prompts)
     if action == "finalize":
+        h.write_file("book-prompts.md", book_prompts)
         book = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['art']}" for n, p in pages.items())
         h.write_file("book-ascii.txt", book + "\n")
         inverted = "\n\n".join(f"{'=' * 20} PAGE {n} {'=' * 20}\n{p['invert']}" for n, p in pages.items() if p["invert"].strip())
@@ -399,7 +402,12 @@ def gate(slug, role_titles):
 # ---- per-page exports for an AI round ------------------------------------------------------
 
 def export_pages(slug, rnd):
-    """Write <round>-pNN-{ascii,render,script,layout}.* into the round folder."""
+    """Write <round>-pNN-{prompt,ascii,script,layout}.* into the round folder, and the
+    page prompts (the room's deliverable) into the working copy and the round."""
+    page_prompts, book_prompts = prompts.build(slug)
+    rnd.write("page-prompts.md", book_prompts)
+    for n, text in page_prompts.items():
+        rnd.write_file(f"p{n:02d}-prompt.md", text)
     method, pages = canonical(slug)
     renders = thumbnails.parse_thumbnails(projects.read_artifact(slug, "thumbnails.md"))
     specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}

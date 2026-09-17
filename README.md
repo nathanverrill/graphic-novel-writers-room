@@ -1,71 +1,87 @@
 # Writers' Room
 
-A web-based, agentic writers' room for graphic novels whose product is **ASCII pages**.
-Give it a directional draft script and a page count; the room writes until the pages are
-ready, you review every page (👎 re-roll · 🔥 love it · ✏️ approve with changes, editing the
-ASCII in place), and the room revises from your verdicts, edits and diffs — round after
-round, each saved in full. Every role is guided by its own markdown, images and Figma files
-and runs on its own provider, model and settings; every model call is logged with its tokens
-and dollar cost.
+A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
+for every page, a complete markdown brief you paste into an image model (outside the room)
+to draw the finished page. Give it a directional draft script and a page count; the room
+writes until the pages are ready, you review every page as a layout sketch (👎 re-roll ·
+🔥 love it · ✏️ approve with changes), and the room revises from your verdicts, edits and
+diffs — round after round, each saved in full. Every role is guided by its own markdown,
+images and Figma files and runs on its own provider, model and settings; every model call is
+logged with its tokens and dollar cost.
 
-The art room — which will take these ASCII pages and the brief, with its own taste — is a
-separate, later room. Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and
-are hidden here.
+The art room — which will draw pages itself, with its own taste — is a separate, later room.
+Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
 
 | Order | Role | Writes | Notes |
 |---|---|---|---|
-| 1 | Editor-in-Chief | `brief.md` | owns canon and the decision log |
+| 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
 | 3 | Wild Card | `provocations.md` | off by default; proposes, never decides |
-| 4 | Character Designer | `bible.md` | draws character sheets |
+| 4 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
 | 5 | Scripter | `script.md` | |
-| 6 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks drive the ASCII page previews |
-| 7 | ASCII Artist | `thumbnails-drawn.md` | draws each page in ASCII — the pages you review |
-| 8 | Letterer | `lettering.md` | optional; reads the thumbnails |
-| 9 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
-| 10 | First Reader | `first-read.md` | off by default; cold read of the pages, reactions only |
+| 6 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
+| 7 | Letterer | `lettering.md` | optional |
+| 8 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
+| 9 | First Reader | `first-read.md` | off by default; cold read, reactions only |
 
 The Editor-in-Chief also keeps `taste-writers.md`: what you love and hate, learned from your
 reviews, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `roles/_shared/house-style.md`).
+
+## Page prompts — the deliverable
+
+`page-prompts.md` (in the project, and in every round) has one section per page. Each is
+self-contained, so you can paste a single page into an image model:
+
+- **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
+- **Style** — the brief's visual direction, the same on every page.
+- **Characters** — the bible's visual lock for everyone on the page, word for word.
+- **Layout** — rows and panels with their share of the page, bleeds.
+- **Panels** — shot and angle, the Penciller's scene description, light, who stands where
+  and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
+- **Rules**, and the page's script for reference.
+
+They're **assembled in code**, not written by a model: free, always in step with the room's
+files, and the character descriptions never get paraphrased. In the app, **Page prompts** has
+a **Copy** button per page and **Copy all pages**; the review screen shows the prompt for the
+page you're reviewing. Each round also saves `-pNN-prompt.md` per page, and the final round
+saves `book-prompts.md`. So the prompts are only as good as the brief's visual direction, the
+bible's visual locks and the Penciller's panel descriptions — that's where to push the room.
 
 ## Writing rounds and review
 
 1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
    script (high level, directional; saved as `references/draft-script.md`).
 2. **Write round** — the room runs Editor → Plotter → Character Designer → Scripter →
-   Penciller → ASCII Artist → Continuity Editor, then checks the **readiness gate**:
-   exactly the right pages, zero layout issues, zero continuity blockers, and locked pages
-   matched. If it fails, only the roles that can fix it run again (up to **Fix passes**,
-   default 2). Readiness is measured, not the model's opinion.
-3. **Review** — step through the pages (‹ › or the chips). Each page needs one verdict:
+   Penciller → Continuity Editor, then checks the **readiness gate**: exactly the right
+   pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
+   fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
+   Readiness is measured, not the model's opinion. The page prompts are written at the end.
+3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
+   (editable in place) and its prompt. Each page needs one verdict:
 
    | | Verdict | What happens |
    |---|---|---|
    | 👎 | **Re-roll** | the next round rewrites the page, keeping what flows in and out of it |
-   | 🔥 | **Love it** | locked — script section, layout and ASCII never change again |
-   | ✏️ | **Approve with changes** | only once you've **edited the page or commented**; your page is locked and the room brings script and layout into line with it |
+   | 🔥 | **Love it** | locked — script section, layout and sketch never change again |
+   | ✏️ | **Approve with changes** | only once you've **edited the sketch or commented**; your version is locked and the room brings script and layout into line with it |
 
-   The page is editable right there (see *Editing a preview in place*). Your verdicts,
-   comments and edits are saved as you go.
+   Your verdicts, comments and edits are saved as you go.
 4. **Send to the room** (when anything isn't 🔥) or **Finalize** (when nothing is 👎) —
    both need every page decided. Sending saves your review as a human round and starts a
    revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller fix the flagged pages, the ASCII Artist redraws only pages
-   whose layout changed, and the gate checks that ✏️ pages now match yours
-   (`min_text_match` / `min_layout_match` in `round-settings.json`).
+   the Scripter and Penciller fix the flagged pages, and the gate checks that ✏️ pages now
+   match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
 
-### The text rule
+### The text rule (sketches)
 
-Letters, digits and `. , ! ? ' " - : ;` appear **only as text** (dialogue, captions, sound
-effects, signs); art uses every other character. So a page splits into a text layer and an
-art layer, and a diff is a clean dialogue diff plus an art diff. The renderer follows the
-rule (panel borders `_ |`, balloons `_ ~ ( ) / \`, captions `+ = |`, figures filled with
-`% # @ & $` — the legend says who is who), and text characters in model-drawn art are swapped
-for art characters automatically. Your edits are diffed the same way: text changes are
-listed word for word, art changes as before/after crops by panel.
+In the layout sketch, letters, digits and `. , ! ? ' " - : ;` appear **only as text**
+(dialogue, captions, sound effects, signs); drawing uses every other character (panel borders
+`_ |`, balloons `_ ~ ( ) / \`, captions `+ = |`, figures filled with `% # @ & $` — the legend
+says who is who). So your sketch edits diff cleanly: text changes word for word, art changes
+as before/after crops by panel.
 
 ## Rounds and file names
 
@@ -74,19 +90,19 @@ file means the same thing wherever it ends up:
 
 ```
 projects/<slug>/rounds/
-  <slug>-r01-ai/        the room's pages
-    <slug>-r01-ai-script.md, -layouts.md, -brief.md, -taste-writers.md …   book files
-    <slug>-r01-ai-p03-ascii.txt      the page you review
-    <slug>-r01-ai-p03-render.txt     the layout render
+  <slug>-r01-ai/        the room's work
+    <slug>-r01-ai-page-prompts.md, -script.md, -layouts.md, -brief.md, -taste-writers.md …
+    <slug>-r01-ai-p03-prompt.md      the page's prompt for the image model
+    <slug>-r01-ai-p03-ascii.txt      the page's layout sketch
     <slug>-r01-ai-p03-script.md      the page's script section
     <slug>-r01-ai-p03-layout.json    the page's layout block
     <slug>-r01-ai-run.json, -events.jsonl, -calls.jsonl, calls/<slug>-r01-ai-call-0007-….json
   <slug>-r02-human/     your review
     <slug>-r02-human-review.json / -review.md          verdicts, comments, instructions
-    <slug>-r02-human-p02-ascii.txt / -p02-ai-ascii.txt your page and the AI page it came from
+    <slug>-r02-human-p02-ascii.txt / -p02-ai-ascii.txt your sketch and the room's
     <slug>-r02-human-p02-diff.md                       text and art diff
   <slug>-r03-ai/        the revision
-  <slug>-r04-final/     the approved book, plus <slug>-r04-final-book-ascii.txt
+  <slug>-r04-final/     the approved book: <slug>-r04-final-book-prompts.md, per-page prompts
 ```
 
 Rounds are numbered in one sequence. The working copy (`projects/<slug>/*.md`) is the live
@@ -152,46 +168,36 @@ To use the fake provider, set `OPENAI_BASE_URL=http://mock:8765/v1` in `.env` an
 
 After changing `.env`, run `docker compose up -d` again to apply it.
 
-## ASCII page previews
+## Layout sketch
 
-Page previews are ASCII art at **print scale**: one character cell is one letter of
-lettering. At `LETTERING_PT=7.5` a cell is ~0.057" wide and one lettering line (0.125")
-tall, so a 6.625" x 10.25" page (`PAGE_TRIM`) is 116 x 82 cells, and a balloon in the
-preview is the size it will be on the page. The UI draws cells at that same 2.18:1
-ratio, so pages show in their true proportions.
+The sketch is ASCII art at **print scale**: one character cell is one letter of lettering. At
+`LETTERING_PT=7.5` a cell is ~0.057" wide and one lettering line (0.125") tall, so a
+6.625" x 10.25" page (`PAGE_TRIM`) is 116 x 82 cells, and a balloon in the sketch is the size
+it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages show in their
+true proportions.
 
-Three methods, compared side by side under **Page previews**:
-
-1. **Layout render** (always) — the Penciller writes a ```` ```layout ```` JSON block per
-   page (format: `roles/penciller/layout-format.md`). Every save of `layouts.md` — by the
-   Penciller or by you in the editor — redraws `thumbnails.md`: panel borders, gutters,
-   bleeds, horizon lines, balloons/whispers/thoughts/shouts with tails pointing at the
-   speaker, captions, figlet sound effects, figure silhouettes. The renderer reports
-   overlapping lettering, copy that doesn't fit, over-wordy panels, reading-order conflicts,
-   lettering over faces, tiny panels and left/right page mistakes back to the Penciller.
-2. **Model-drawn** — the ASCII Artist gets each page's skeleton and draws the art into it,
-   one call per page. Borders and lettering are laid back on top, so the model can't damage
-   them; size mismatches and overwritten cells are noted under the page.
-3. **Image → ASCII** — the Image Thumbnailer asks the image model for a rough sketch of each
-   panel (description + the bible's look for each character), saves it, and converts it at
-   the panel's exact size: stroke direction picks `- / | \`, darkness picks from ` .:-=+*#%@`.
+The Penciller writes a ```` ```layout ```` JSON block per page (format:
+`roles/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
+in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
+balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
+effects and figure placeholders, in code and for free. The renderer reports overlapping
+lettering, copy that doesn't fit, over-wordy panels, reading-order conflicts, lettering over
+faces, tiny panels and left/right page mistakes back to the Penciller.
 
 **Light and dark.** Any cell can be shown inverted (light on dark), for night scenes,
 silhouettes, flashbacks or emphasis. Inversion is a separate mask stored after each page as a
-```` ```invert ```` block (`#` = inverted) and saved with page files as `-pNN-invert.txt`.
-The Penciller sets it per panel or item (`"invert": true`; balloons stay light on dark
-panels unless inverted themselves), the ASCII Artist may send its own mask, and you can
-paint it in the editor with the **invert brush** or **⌘I** on a selection. Review diffs
-report inversion changes, and locks keep them.
+```` ```invert ```` block (`#` = inverted) and saved as `-pNN-invert.txt`. The Penciller sets
+it per panel or item (`"invert": true` — which also tells the image model the panel is dark),
+and you can paint it in the editor with the **invert brush** or **⌘I**. Review diffs report
+inversion changes, and locks keep them.
 
-Methods 2 and 3 are separate roles, so the Costs view shows what each costs. Pages are
-written as they finish, so previews fill in live.
+(The ASCII Artist, which drew full pages in ASCII, is retired to `morgue/ascii_artist/`.)
 
-### Editing a preview in place
+### Editing the sketch in place
 
-Each preview is plain markdown — `thumbnails.md`, `thumbnails-drawn.md`,
-`thumbnails-image.md` — with one ```` ```text ```` block per page, then the panel legend and
-issues. Click **Edit** on any preview to change it on a fixed grid (the page never reflows):
+The sketch is plain markdown (`thumbnails.md`): one ```` ```text ```` block per page, then the
+panel legend and issues. Click **Edit** (or edit on the review screen) to change it on a fixed
+grid — the page never reflows:
 
 | | |
 |---|---|
@@ -204,11 +210,9 @@ issues. Click **Edit** on any preview to change it on a fixed grid (the page nev
 | invert brush | tick it and drag to paint inversion on (or off, starting from an inverted cell) |
 | paint | tick **paint** and drag to stamp the brush character |
 
-Saved pages are marked `— edited` in their heading and are **kept** whenever previews are
-regenerated: the Penciller saving `layouts.md` doesn't overwrite them, and the ASCII Artist
-and Image Thumbnailer skip them (no model call). If the page's layout changes afterwards,
-the page gets a warning. **Revert** drops the mark — the layout render redraws immediately,
-the other two on their next run. Past rounds are read-only.
+Saved pages are marked `— edited` and are **kept** when the sketch is redrawn; if the page's
+layout changes afterwards, the page gets a warning. **Revert** drops the mark and redraws.
+Past rounds are read-only.
 
 ## Morgue
 
@@ -250,7 +254,7 @@ roles/
 ```
 
 - **Add a guide:** drop a `.md` file in the role's folder.
-- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts it needs: the storycraft skill becomes `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`), and the ASCII art skill and the drawing chapters of the ASCII Art Bible become the ASCII Artist's `ascii-art-skill.md` and `ascii-technique.md`, headed by the page rules that override them. Edit a skill or a map in the script, then run `python tools/split_skill.py`. (`references/` is for story material only: everything in it goes to every agent.)
+- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts of the storycraft skill it needs, as `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`). Edit the skill or the map in the script, then run `python tools/split_skill.py`. (The ASCII art skill and bible in `skills/` served the retired ASCII Artist. `references/` is for story material only: everything in it goes to every agent.)
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Add or change a role:** edit `roles/roles.json` and create the matching folder.
@@ -296,7 +300,6 @@ view) explains them:
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
 | Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
 | Penciller | 0.5 | 16,000 | valid layout JSON for every page |
-| ASCII Artist | 0.4 | 16,000 | one ~9,500-character page per call; keeps the grid intact |
 | Letterer | 0.2 | 8,000 | literal and careful |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
 | First Reader | 0.7 | 3,000 | natural reactions, minimal context |

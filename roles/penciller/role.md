@@ -11,7 +11,7 @@ Page-turn hook: …
 Flags: continuity / production issues
 ```
 
-Then add the page's `layout` block (see your layout-format guide) — it drives the ASCII page previews.
+Then add the page's `layout` block (see your layout-format guide). Each page's prompt for the image model is built from it, so its panel descriptions are the illustrator's instructions.
 
 Use the character visual locks from `bible.md` word for word when you mention a character's look.
 If you were given reference images or Figma frames, describe how the layouts follow them.

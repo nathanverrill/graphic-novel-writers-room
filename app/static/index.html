@@ -49,7 +49,6 @@
         <div class="round-bar">
           <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
           <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
-          <label><input id="set-artist" type="checkbox"> ASCII Artist draws the pages</label>
           <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
         </div>
         <div class="actions">
@@ -140,6 +139,9 @@
         <button class="ghost" id="rv-undo-edits">Discard my edits</button>
       </div>
       <details><summary class="path">Panels and notes</summary><div id="rv-notes" class="notes md"></div></details>
+      <details id="rv-prompt-box"><summary class="path">Prompt for this page
+        <button class="ghost" id="rv-prompt-copy" type="button">Copy</button></summary>
+        <pre id="rv-prompt" class="prompt"></pre></details>
       <hr>
       <label class="path">Overall note for the room
         <textarea id="rv-overall" rows="3"></textarea></label>
@@ -150,6 +152,16 @@
       <p class="path" id="rv-status"></p>
     </aside>
   </div>
+</section>
+
+<section id="prompts" class="prompts" hidden>
+  <div class="section-head">
+    <h2>Page prompts <span class="path">— paste one page at a time into an image model</span></h2>
+    <div class="actions">
+      <button id="prompts-copy-all">Copy all pages</button>
+    </div>
+  </div>
+  <div id="prompt-list" class="prompt-list"></div>
 </section>
 
 <section id="previews" class="previews" hidden>
