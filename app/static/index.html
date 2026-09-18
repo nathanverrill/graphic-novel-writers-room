@@ -271,15 +271,13 @@
       </div>
       <div id="rv-proposal" class="proposal" hidden></div>
       <div class="verdicts">
-        <button data-verdict="reroll">Re-roll</button>
-        <button data-verdict="love">Love it</button>
-        <button data-verdict="changes">Approve with changes</button>
+        <button id="rv-keep"></button>
       </div>
       <p class="path" id="rv-hint"></p>
       <label class="path"><input type="checkbox" id="rv-invert"> invert brush — drag to show cells light on dark
         (⌘I inverts a selection)</label>
-      <label class="path">Comment on this page
-        <textarea id="rv-comment" rows="4" placeholder="What's wrong, what to keep, what to try…"></textarea></label>
+      <label class="path">Note on this page — what you want changed, in your words
+        <textarea id="rv-comment" rows="4" placeholder="Otto gets the last word here; lose the second caption…"></textarea></label>
       <div class="actions">
         <button class="ghost" id="rv-save">Save page</button>
         <button class="ghost" id="rv-undo-edits">Discard my edits</button>

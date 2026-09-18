@@ -3,9 +3,9 @@
 A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
 to draw the finished page. Give it a directional draft script and a page count; the room
-writes until the pages are ready, you review every page as a layout sketch (re-roll ·
-love it · approve with changes), and the room revises from your verdicts, edits and
-diffs — round after round, each saved in full. Every role is guided by its own markdown,
+writes until the pages are ready, you review every page as a layout sketch — keep the ones
+that are done, say what you want on the rest — and the room revises from your notes, edits
+and diffs — round after round, each saved in full. Every role is guided by its own markdown,
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
@@ -24,8 +24,8 @@ Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidde
 | 8 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
 | 9 | First Reader | `first-read.md` | off by default; cold read, reactions only |
 
-The Editor-in-Chief also keeps `taste-writers.md`: what you love and hate, learned from your
-reviews, which every writer reads. Everything is labeled canon, observation, proposal, risk
+The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
+reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `roles/_shared/house-style.md`).
 
 ## The screen
@@ -100,20 +100,19 @@ bible's visual locks and the Penciller's panel descriptions — that's where to 
    fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
    Readiness is measured, not the model's opinion. The page prompts are written at the end.
 3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
-   (editable in place) and its prompt. Each page needs one verdict:
+   (editable in place) and its prompt. A page is one of two things:
 
-   | Verdict | What happens |
+   | | What happens |
    |---|---|
-   | **Re-roll** | the next round rewrites the page, keeping what flows in and out of it |
-   | **Love it** | locked — script section, layout and sketch never change again |
-   | **Approve with changes** | only once you've **edited the sketch or commented**; your version is locked and the room brings script and layout into line with it |
+   | **Kept** | done: script section, layout and sketch are locked and never change again |
+   | **Open** | the room can work on it. Edit the sketch or write a note and it works from that; an edited page is locked as your version and the room brings script and layout into line with it. Say nothing and the room carries on with the page as it sees fit |
 
-   Your verdicts, comments and edits are saved as you go.
-4. **Send to the room** (when a page is anything but loved) or **Finalize** (when none is a re-roll) —
-   both need every page decided. Sending saves your review as a human round and starts a
+   Nothing has to be decided: keep what's finished, say what you want on the rest. Your
+   notes and edits are saved as you go.
+4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
    revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller fix the flagged pages, and the gate checks that approved-with-changes pages now
-   match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
+   the Scripter and Penciller work the open pages, and the gate checks that the pages you
+   redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
 
@@ -140,7 +139,7 @@ projects/<slug>/rounds/
     <slug>-r01-ai-p03-layout.json    the page's layout block
     <slug>-r01-ai-run.json, -events.jsonl, -calls.jsonl, calls/<slug>-r01-ai-call-0007-….json
   <slug>-r02-human/     your review
-    <slug>-r02-human-review.json / -review.md          verdicts, comments, instructions
+    <slug>-r02-human-review.json / -review.md          what you kept, notes, instructions
     <slug>-r02-human-p02-ascii.txt / -p02-ai-ascii.txt your sketch and the room's
     <slug>-r02-human-p02-diff.md                       text and art diff
   <slug>-r03-ai/        the revision
@@ -314,7 +313,7 @@ go to the writers still to come`). The notes are marked used by that round and s
 **Stop** still ends the round outright, and works while it's held.
 
 **Keeping a page.** Above the panel map, **Keep this page** marks the page as it stands —
-the same lock a *love it* verdict writes in the review, but you can set it while the room is working
+the same lock the review writes when you keep a page, but you can set it while the room is working
 (pause first if you want to stop it mid-round). From then on the page's script section, layout
 block and sketch are put back into whatever an agent saves, the writer is told its changes to
 that page were discarded, and the readiness gate stops reporting layout issues for it. Click

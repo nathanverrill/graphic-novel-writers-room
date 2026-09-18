@@ -558,11 +558,10 @@ class RoundRequest(BaseModel):
 
 
 class PageReview(BaseModel):
-    verdict: str | None = None
+    kept: bool | None = None       # the page is done and locked; everything else is feedback
     comment: str | None = None
     art: str | None = None
     invert: str | None = None
-    clear: bool = False
 
 
 class Submit(BaseModel):
@@ -612,7 +611,7 @@ def review_state(slug: str):
 @app.put("/api/projects/{slug}/review/pages/{page}")
 def review_page(slug: str, page: int, body: PageReview):
     _idle(slug)
-    return not_found(review.save_page, slug, page, body.verdict, body.comment, body.art, body.clear, body.invert)
+    return not_found(review.save_page, slug, page, body.kept, body.comment, body.art, body.invert)
 
 
 @app.put("/api/projects/{slug}/review/comment")

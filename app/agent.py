@@ -268,8 +268,8 @@ class Agent:
         if not specs and not feedback:
             return " No ```layout blocks found, so no thumbnails were drawn."
         md, _ = review.enforce_locks(self.slug, "thumbnails.md", md)
-        loved = {n for n, l in review.locks(self.slug).items() if l["verdict"] == "love"}
-        feedback = [f for f in feedback if page_of(f) not in loved]   # nothing to fix on loved pages
+        kept = {n for n, l in review.locks(self.slug).items() if l.get("kind") == review.KEPT}
+        feedback = [f for f in feedback if page_of(f) not in kept]   # nothing to fix on a kept page
         self.version.write("thumbnails.md", md)
         self.emit("artifact", name="thumbnails.md")
         self.emit("thumbnails", pages=len(specs), issues=len(feedback))

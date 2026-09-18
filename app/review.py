@@ -1,15 +1,17 @@
 """Human review rounds, page locks, the readiness gate, and page exports.
 
-A review gives every page exactly one verdict:
+A review says one of two things about a page, and neither is a grade:
 
-    reroll   "this sucks"            the next AI round rewrites the page
-    love     "fuck yeah!"            locked: script, layout and ASCII never change again
-    changes  approved with changes   your edited ASCII (and/or comment) is locked as the
-                                     page; the room brings script and layout into line
+    kept     the page is done. Script, layout and sketch are locked and never change again.
+    open     the room can work on it. Anything you say about it — a comment, an edit to the
+             sketch — is feedback it works from; an edited page is locked as your version
+             and the room brings script and layout into line with it.
 
-Submitting creates a human round (or a final round) with the verdicts, your pages,
-per-page diffs against the AI pages, and review.md — the instructions the next AI
-round works from. Locks are enforced in code on every write (enforce_locks).
+A page you say nothing about is simply open: the room carries on with it.
+
+Submitting creates a human round (or a final round) with your pages, per-page diffs
+against the AI pages, and review.md — the instructions the next AI round works from.
+Locks are enforced in code on every write (enforce_locks).
 """
 import json
 import re
@@ -19,8 +21,8 @@ from . import asciitext, lettering, notes, projects, prompts, thumbnails
 DRAFT = "review-draft.json"
 LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
-VERDICTS = ("reroll", "love", "changes")
-LABEL = {"reroll": "Re-roll", "love": "Love it", "changes": "Approved with changes"}
+KEPT, EDITED = "keep", "edited"        # the two kinds of lock a page can carry
+OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdicts went away
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8}
 
@@ -50,7 +52,11 @@ def save_settings(slug, **changes):
 
 
 def locks(slug):
-    return {int(k): v for k, v in _load(slug, LOCKS, {}).items()}
+    out = {}
+    for k, v in _load(slug, LOCKS, {}).items():
+        kind = v.get("kind") or OLD_KINDS.get(v.get("verdict"), v.get("verdict"))
+        out[int(k)] = {**v, "kind": kind}
+    return out
 
 
 def draft(slug):
@@ -115,9 +121,9 @@ def state(slug):
         art = entry.get("art") or p["art"]
         invert = entry["invert"] if "invert" in entry else p["invert"]
         out[n] = {"ai_art": p["art"], "art": art, "ai_invert": p["invert"], "invert": invert,
-                  "notes": p["notes"], "verdict": entry.get("verdict"), "comment": entry.get("comment", ""),
+                  "notes": p["notes"], "kept": bool(entry.get("kept")), "comment": entry.get("comment", ""),
                   "edited": art != p["art"] or _mask(invert) != _mask(p["invert"]),
-                  "locked": lk.get(n, {}).get("verdict")}
+                  "locked": lk.get(n, {}).get("kind")}
     open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages)
     g = thumbnails.geometry()
     return {"method": method, "pages": out, "round": last and last["id"],
@@ -131,7 +137,7 @@ def _mask(text):
     return thumbnails.mask_text(thumbnails.text_to_mask(text or "", thumbnails.geometry()))
 
 
-def save_page(slug, n, verdict=None, comment=None, art=None, clear=False, invert=None):
+def save_page(slug, n, kept=None, comment=None, art=None, invert=None):
     method, pages = canonical(slug)
     if n not in pages:
         raise KeyError(f"page {n}")
@@ -152,14 +158,8 @@ def save_page(slug, n, verdict=None, comment=None, art=None, clear=False, invert
             entry["invert"] = invert
     if comment is not None:
         entry["comment"] = comment.strip()
-    if clear:
-        entry.pop("verdict", None)
-    if verdict is not None:
-        if verdict not in VERDICTS:
-            raise ValueError(f"verdict must be one of {VERDICTS}")
-        entry["verdict"] = verdict
-    if entry.get("verdict") == "changes" and not (entry.get("art") or "invert" in entry or entry.get("comment")):
-        raise ValueError("'approved with changes' needs an edit to the page or a comment")
+    if kept is not None:
+        entry["kept"] = bool(kept)
     _save(slug, DRAFT, {**d, "pages": {str(k): v for k, v in d["pages"].items()}})
     return entry
 
@@ -200,7 +200,7 @@ def replace_layout(markdown, n, spec):
 
 
 def keep_page(slug, page, where="kept mid-round"):
-    """Keep a page as it stands: the same lock a "love it" review verdict writes, set while the room works.
+    """Keep a page as it stands: the same lock a review writes, set while the room is working.
 
     From here on enforce_locks puts this page's script section, layout block and sketch back
     into whatever an agent saves, and the gate stops reporting layout issues for it."""
@@ -212,7 +212,7 @@ def keep_page(slug, page, where="kept mid-round"):
     drawn = pages.get(page, {})
     section = _script_span(projects.read_artifact(slug, "script.md") or "", page)
     lk = locks(slug)
-    lk[page] = {"verdict": "love", "round": where, "ascii": drawn.get("art", ""),
+    lk[page] = {"kind": KEPT, "round": where, "ascii": drawn.get("art", ""),
                 "invert": drawn.get("invert", ""), "script": section.group(0).strip() if section else None,
                 "layout": spec}
     _save(slug, LOCKS, {str(k): v for k, v in lk.items()})
@@ -228,7 +228,7 @@ def release_page(slug, page):
 
 def kept(slug):
     """{page: what keeps it} — pages the room must leave alone."""
-    return {n: l.get("round") for n, l in locks(slug).items() if l.get("verdict") == "love"}
+    return {n: l.get("round") for n, l in locks(slug).items() if l.get("kind") == KEPT}
 
 
 def enforce_locks(slug, name, content):
@@ -263,18 +263,18 @@ def enforce_locks(slug, name, content):
 
 # ---- submitting a review ---------------------------------------------------------------
 
-def _page_instructions(n, v, comment, diff_md, has_edit):
-    if v == "love":
-        body = "LOCKED. The showrunner loves this page. Do not change it."
-    elif v == "changes":
-        body = ("LOCKED as the showrunner's version (below). Bring script.md and layouts.md into line "
-                "with it: dialogue exactly as written on the page, panels and staging as drawn."
-                if has_edit else "Approved with the comment below. Make that change and nothing else.")
+def _page_instructions(n, kept, comment, diff_md, has_edit):
+    if kept:
+        head, body = "kept", "LOCKED. This page is done. Do not change it."
+    elif has_edit:
+        head, body = "the showrunner's version", (
+            "LOCKED as the showrunner's version (below). Bring script.md and layouts.md into line "
+            "with it: dialogue exactly as written on the page, panels and staging as drawn.")
+    elif comment:
+        head, body = "open, with a note", "Work on this page from the note below, and change nothing else."
     else:
-        body = (f"RE-ROLL. Rewrite this page from scratch — a different take, not a polish. Keep what comes "
-                f"in from page {n - 1} and what goes out to page {n + 1}." if n > 1 else
-                "RE-ROLL. Rewrite this page from scratch — a different take, not a polish.")
-    parts = [f"## Page {n} — {LABEL[v]}", "", body]
+        head, body = "open", "The showrunner said nothing about this page. Carry on with it."
+    parts = [f"## Page {n} — {head}", "", body]
     if comment:
         parts += ["", f"Showrunner: {comment}"]
     if has_edit:
@@ -292,15 +292,7 @@ def submit(slug, action, comment=None):
     if not st["open"]:
         raise ValueError("there is no finished AI round waiting for review")
     pages = st["pages"]
-    missing = [n for n, p in pages.items() if not p["verdict"]]
-    if missing:
-        raise ValueError(f"every page needs a verdict — missing: {', '.join(map(str, missing))}")
-    bad = [n for n, p in pages.items() if p["verdict"] == "changes" and not (p["edited"] or p["comment"])]
-    if bad:
-        raise ValueError(f"'approved with changes' needs an edit or comment on page(s) {bad}")
-    rerolls = [n for n, p in pages.items() if p["verdict"] == "reroll"]
-    if action == "finalize" and rerolls:
-        raise ValueError(f"can't finalize with pages to re-roll: {rerolls}")
+    loose = [n for n, p in pages.items() if not (p["kept"] or p["edited"] or p["comment"])]
 
     specs = {s["page"]: s for s in thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))[0]}
     script = projects.read_artifact(slug, "script.md") or ""
@@ -317,8 +309,8 @@ def submit(slug, action, comment=None):
         diff_md = asciitext.diff_markdown(diff)
         section = _script_span(script, n)
         section = section.group(0).strip() if section else ""
-        v = p["verdict"]
-        record["pages"][n] = {"verdict": v, "comment": p["comment"], "edited": p["edited"],
+        kept = p["kept"]
+        record["pages"][n] = {"kept": kept, "comment": p["comment"], "edited": p["edited"],
                               "text_similarity": diff["text_similarity"],
                               "art_similarity": diff["art_similarity"], "text_changes": diff["text"]}
         pre = f"p{n:02d}"
@@ -334,19 +326,25 @@ def submit(slug, action, comment=None):
             h.write_file(f"{pre}-script.md", section + "\n")
         if n in specs:
             h.write_file(f"{pre}-layout.json", json.dumps(specs[n], indent=2))
-        h.write_file(f"{pre}-review.md", f"# Page {n}\n\n**{LABEL[v]}**\n\n{p['comment'] or '(no comment)'}\n\n{diff_md}\n")
-        instructions.append(_page_instructions(n, v, p["comment"], diff_md, p["edited"]))
+        label = "kept" if kept else "the showrunner's version" if p["edited"] else "open"
+        h.write_file(f"{pre}-review.md",
+                     f"# Page {n}\n\n**{label}**\n\n{p['comment'] or '(no comment)'}\n\n{diff_md}\n")
+        instructions.append(_page_instructions(n, kept, p["comment"], diff_md, p["edited"]))
 
-        if v == "reroll":
+        if kept or p["edited"]:
+            lk[n] = {"kind": KEPT if kept else EDITED, "round": h.id,
+                     "ascii": p["art"], "invert": p["invert"],
+                     "script": section if kept else None,
+                     "layout": specs.get(n) if kept else None}
+        else:                       # nothing holds this page: the room is free to redraw it
             lk.pop(n, None)
-        else:
-            lk[n] = {"verdict": v, "round": h.id, "ascii": p["art"], "invert": p["invert"],
-                     "script": section if v == "love" else None,
-                     "layout": specs.get(n) if v == "love" else None}
 
-    counts = {v: sum(1 for p in pages.values() if p["verdict"] == v) for v in VERDICTS}
+    counts = {"kept": sum(1 for p in pages.values() if p["kept"]),
+              "edited": sum(1 for p in pages.values() if p["edited"] and not p["kept"]),
+              "noted": sum(1 for p in pages.values() if p["comment"] and not p["kept"] and not p["edited"])}
     head = [f"# Review {h.id} of {st['round']}", "",
-            f"{counts['love']} loved · {counts['changes']} approved with changes · {counts['reroll']} to re-roll", ""]
+            f"{counts['kept']} kept · {counts['edited']} redrawn by the showrunner · "
+            f"{counts['noted']} with a note", ""]
     if st["comment"]:
         head += ["## Showrunner's overall note", "", st["comment"], ""]
     jotted = notes.take(slug, h.id)
@@ -358,10 +356,10 @@ def submit(slug, action, comment=None):
     h.write_file("review.json", json.dumps(record, indent=2))
     _save(slug, LOCKS, {str(k): v for k, v in lk.items()})
 
-    # the working copy's pages: locked pages become the showrunner's; re-rolls get redrawn
+    # the working copy's pages: locked pages become the showrunner's; the rest get redrawn
     name = FILES[st["method"]]
     md = projects.read_artifact(slug, name) or ""
-    for n in rerolls:
+    for n in loose:
         if n in thumbnails.parse_thumbnails(md):
             md = thumbnails.replace_page(md, n, None, False)
     md, _ = enforce_locks(slug, name, md)
@@ -383,7 +381,7 @@ def submit(slug, action, comment=None):
         if inverted:
             h.write_file("book-invert.txt", inverted + "\n")
     _save(slug, DRAFT, {})
-    h.update(status="done", finished=projects.now(), verdicts=counts)
+    h.update(status="done", finished=projects.now(), counts=counts)
     return h.id
 
 
@@ -420,7 +418,7 @@ def gate(slug, role_titles):
         fix.add("penciller")
     issues = []
     for s in specs:
-        if lk.get(s["page"], {}).get("verdict") == "love":
+        if lk.get(s["page"], {}).get("kind") == KEPT:
             continue
         issues += [f"page {s['page']}: {i}" for i in thumbnails.render_page(s).issues]
     if issues:
@@ -443,7 +441,7 @@ def gate(slug, role_titles):
 
     dialed = {}
     for n, l in lk.items():
-        if l["verdict"] != "changes":
+        if l.get("kind") != EDITED:
             continue
         spec = next((s for s in specs if s["page"] == n), None)
         if spec is None:

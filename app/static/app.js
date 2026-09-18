@@ -213,7 +213,7 @@ async function refreshArtifacts(fresh) {
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
       `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}${v.hat ? `, ${esc(v.hat)} hat` : ""}` +
-      (v.verdicts ? `<br>${v.verdicts.love} loved · ${v.verdicts.changes} with changes · ${v.verdicts.reroll} to re-roll` : "") +
+      (v.counts ? `<br>${v.counts.kept} kept · ${v.counts.edited} redrawn by you · ${v.counts.noted} with a note` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
       (v.note ? `<br>Note: ${esc(v.note)}` : "") +
@@ -1241,7 +1241,6 @@ $("#write-round").onclick = async () => {
 
 // ---- review -------------------------------------------------------------------
 
-const VERDICT_MARK = { love: "keep", changes: "changes", reroll: "re-roll" };
 
 function destroyReviewEditor() {
   state.rvEditor?.destroy();
@@ -1258,7 +1257,7 @@ async function loadReview(keepPage = true) {
   if (!show) { destroyReviewEditor(); return; }
   const pages = Object.keys(r.pages);
   if (!keepPage || !pages.includes(String(state.rvPage))) {
-    state.rvPage = pages.find((n) => !r.pages[n].verdict) || pages[0];
+    state.rvPage = pages.find((n) => !r.pages[n].kept) || pages[0];
   }
   renderReview();
   if (state.previews) renderPreviews();
@@ -1272,10 +1271,13 @@ function renderReview() {
   const p = r.pages[n];
   const entries = Object.entries(r.pages);
   $("#review-round").textContent = r.round;
-  $("#review-progress").textContent = `${entries.filter(([, x]) => x.verdict).length} of ${entries.length} pages decided`;
+  const kept = entries.filter(([, x]) => x.kept).length;
+  $("#review-progress").textContent =
+    `${kept} of ${entries.length} pages kept — the rest stay open for the room`;
   $("#review-chips").innerHTML = entries.map(([k, x]) =>
-    `<button class="chip ${k === n ? "active" : ""} ${x.verdict || ""}" data-page="${k}" title="${x.locked ? `locked (${x.locked})` : ""}">` +
-    `p${k.padStart(2, "0")} ${VERDICT_MARK[x.verdict] || "·"}${x.edited ? " (edited)" : ""}</button>`).join("");
+    `<button class="chip ${k === n ? "active" : ""} ${x.kept ? "kept" : x.edited || x.comment ? "noted" : ""}" ` +
+    `data-page="${k}">p${k.padStart(2, "0")}` +
+    `${x.kept ? " kept" : x.edited ? " edited" : x.comment ? " note" : ""}</button>`).join("");
   $("#rv-page").textContent = `Page ${n} of ${entries.length}` + (p.locked ? ` · locked (${p.locked})` : "");
   destroyReviewEditor();
   $("#review-canvas").innerHTML = `<pre class="page"></pre>`;
@@ -1296,7 +1298,6 @@ function renderReview() {
       `<button class="ghost" id="rv-accept-pages">Use ${prop.pages}</button>`;
     $("#rv-accept-pages").onclick = () => setPages(prop.pages);
   }
-  document.querySelectorAll("[data-verdict]").forEach((b) => b.classList.toggle("chosen", b.dataset.verdict === p.verdict));
   updateReviewButtons();
 }
 
@@ -1319,22 +1320,21 @@ function updateReviewButtons() {
   const r = state.review;
   if (!r) return;
   const p = currentReviewPage();
-  const canChange = p.edited || state.rvEditor?.dirty || $("#rv-comment").value.trim();
-  $('[data-verdict="changes"]').disabled = !canChange;
-  $("#rv-hint").textContent = canChange ? "" : "Edit the page or write a comment to approve it with changes.";
+  $("#rv-keep").textContent = p.kept ? "Kept — open it again" : "Keep this page";
+  $("#rv-keep").classList.toggle("chosen", !!p.kept);
+  $("#rv-hint").textContent = p.kept
+    ? "Locked: script, layout and sketch stay exactly as they are."
+    : "Open: edit the page or write a note, and the room works from it.";
   $("#rv-undo-edits").disabled = !(p.edited || state.rvEditor?.dirty);
   $("#rv-save").disabled = !reviewDirty();
   const all = Object.values(r.pages);
-  const decided = all.every((x) => x.verdict);
-  const rerolls = all.filter((x) => x.verdict === "reroll").length;
-  const changes = all.filter((x) => x.verdict !== "love").length;
-  $("#rv-send").disabled = !decided || !changes;
-  $("#rv-final").disabled = !decided || rerolls > 0;
-  $("#rv-status").textContent = !decided
-    ? `Give every page a verdict: ${all.length - all.filter((x) => x.verdict).length} left.`
-    : rerolls ? `${rerolls} page(s) to re-roll — send to the room.`
-    : changes ? "Send to the room to sync your changes, or finalize the book as it is."
-    : "Every page is loved. Finalize, or keep iterating.";
+  const kept = all.filter((x) => x.kept).length;
+  const said = all.filter((x) => !x.kept && (x.edited || x.comment)).length;
+  $("#rv-send").disabled = kept === all.length;
+  $("#rv-status").textContent = kept === all.length
+    ? "Every page is kept. Finalize the book."
+    : `${kept} kept · ${said} with your notes or edits · ${all.length - kept - said} untouched. ` +
+      "Send to the room, or finalize the book as it is.";
 }
 
 async function savePage(body = {}) {
@@ -1376,14 +1376,7 @@ $("#rv-next").onclick = () => stepReview(1);
 $("#rv-comment").oninput = updateReviewButtons;
 $("#rv-invert").onchange = (e) => { if (state.rvEditor) state.rvEditor.invertBrush = e.target.checked; };
 $("#rv-save").onclick = () => savePage();
-document.querySelectorAll("[data-verdict]").forEach((b) => (b.onclick = async () => {
-  const same = currentReviewPage().verdict === b.dataset.verdict;
-  const ok = await savePage(same ? { clear: true } : { verdict: b.dataset.verdict });
-  if (ok && !same) {   // on to the next undecided page
-    const next = Object.entries(state.review.pages).find(([, x]) => !x.verdict);
-    if (next && b.dataset.verdict !== "changes") goToPage(next[0]);
-  }
-}));
+$("#rv-keep").onclick = () => savePage({ kept: !currentReviewPage().kept });
 $("#rv-undo-edits").onclick = async () => {
   if (!confirm("Throw away your edits to this page?")) return;
   state.rvEditor.dirty = false;
@@ -1395,8 +1388,10 @@ $("#rv-overall").onchange = () =>
 async function submitReview(action) {
   if (!(await savePage())) return;
   const r = state.review;
-  const counts = Object.values(r.pages).reduce((c, x) => ({ ...c, [x.verdict]: (c[x.verdict] || 0) + 1 }), {});
-  const summary = `${counts.love || 0} kept · ${counts.changes || 0} with changes · ${counts.reroll || 0} to re-roll`;
+  const all = Object.values(r.pages);
+  const kept = all.filter((x) => x.kept).length;
+  const said = all.filter((x) => !x.kept && (x.edited || x.comment)).length;
+  const summary = `${kept} kept · ${said} with your notes or edits`;
   if (!confirm(action === "finalize"
     ? `Finalize the book from ${r.round}? (${summary})`
     : `Send your review of ${r.round} to the room? (${summary}) The room starts revising right away.`)) return;
