@@ -159,10 +159,36 @@ class Run:
             with self.cond:
                 self.done = True
                 self.cond.notify_all()
+        if status == "done" and self.plan:
+            threading.Thread(target=auto_step, args=(self.slug, self), daemon=True).start()
 
 
 RUNS = {}
 DEFAULT_ROLE_SECONDS = 120
+
+
+def auto_step(slug, run):
+    """Auto mode: when a writing round ends, go again without waiting for a review.
+
+    The round that just finished is handed back with nothing said about any page — every page
+    open, no notes — which is what an empty review means, and the next round starts from it.
+    The loop stops when the gate comes back ready, when the round budget is spent, or when
+    the showrunner sets Auto rounds to 0; then the book is finalized. Nothing else changes:
+    each writer still runs on its own model and settings."""
+    left = int(review.settings(slug).get("auto_rounds") or 0)
+    if left <= 0:
+        return
+    ready = bool((run.version.meta.get("gate") or {}).get("ready"))
+    review.save_settings(slug, auto_rounds=max(0, left - 1))
+    try:
+        if ready or left <= 1:
+            review.submit(slug, "finalize")
+            review.save_settings(slug, auto_rounds=0)
+            return
+        review.submit(slug, "send")
+        start_round(slug, hat=run.hat)
+    except (ValueError, RuntimeError):
+        review.save_settings(slug, auto_rounds=0)     # something is wrong: stop rather than spin
 
 
 def estimates(roles):

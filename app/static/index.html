@@ -35,6 +35,8 @@
       <div class="work-head">
         <h2 id="project-title"></h2>
         <div class="actions">
+          <span class="path" id="auto-state" hidden></span>
+          <button id="auto-stop" class="ghost" hidden title="Stop after this round and wait for your review">Stop auto</button>
           <button id="go-review" class="ghost" hidden title="Your review is waiting below">Review ↓</button>
           <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
           <button id="pause" class="ghost" hidden title="Hold the round as soon as the writer at work finishes">Pause</button>
@@ -145,6 +147,10 @@
             <label>Chapter <input id="set-chapter" type="number" min="1" max="99"></label>
             <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
             <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
+            <label title="Keep going without a review for this many more rounds: each round hands itself
+back with nothing said about any page, and the book is finalized when the gate comes back ready or
+the count runs out. 0 stops after the next round.">Auto rounds
+              <input id="set-auto" type="number" min="0" max="20"></label>
             <button id="pick-refs" class="ghost" type="button">References…</button>
             <span class="path" id="refs-summary"></span>
           </div>

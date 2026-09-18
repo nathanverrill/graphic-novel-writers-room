@@ -303,6 +303,18 @@ thing. **Upload art**
 attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
+**Auto rounds.** **Auto rounds** in **The room** tab runs the book without you. After each
+writing round the room hands the round back to itself — every page open, nothing said about any
+of them — and starts the next one, counting down as it goes. It stops and finalizes the book
+when the readiness gate comes back ready, or when the count runs out. The header shows how many
+rounds are left and **Stop auto** ends it after the current round; **Pause**, **Stop** and
+**Keep this page** all still work while it runs, and each writer still runs on its own model and
+settings.
+
+What the gate measures is structure — page count, layout issues, continuity blockers, locked
+pages matched — not whether the book is any good. A run that finishes clean is a draft nobody
+has read yet.
+
 **Holding the room.** **Pause** stops the round at the next clean break: the writer at work
 finishes and hands off, and the round waits there — same version, same place in the order,
 nothing torn down. While it's held, change any writer's model, temperature or anything else in

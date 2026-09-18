@@ -549,6 +549,7 @@ class RoundSettings(BaseModel):
     chapter: int | None = None
     lettering: str | None = None   # "art" (the model letters it) or "layer" (we do)
     max_passes: int | None = None
+    auto_rounds: int | None = None  # keep going without a review for this many more rounds
     references: list[str] | None = None   # library files to use; ["*"] = all
 
 
@@ -579,6 +580,8 @@ def update_settings(slug: str, body: RoundSettings):
     not_found(projects.project_dir, slug)
     if body.max_passes is not None and not 0 <= body.max_passes <= 10:
         raise HTTPException(400, "max_passes must be 0-10")
+    if body.auto_rounds is not None and not 0 <= body.auto_rounds <= 20:
+        raise HTTPException(400, "auto_rounds must be 0-20")
     if body.references not in (None, ["*"]):
         known = {f["name"] for f in projects.library()}
         unknown = [r for r in body.references if r not in known]

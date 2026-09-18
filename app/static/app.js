@@ -229,6 +229,8 @@ async function refreshArtifacts(fresh) {
   if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
   $("#set-lettering").value = s.lettering || "art";
   if (document.activeElement !== $("#set-passes")) $("#set-passes").value = s.max_passes ?? 2;
+  if (document.activeElement !== $("#set-auto")) $("#set-auto").value = s.auto_rounds ?? 0;
+  showAuto(s.auto_rounds || 0);
   state.library = p.library || [];
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
@@ -1155,6 +1157,21 @@ $("#pause").onclick = async () => {
 $("#resume").onclick = resumeRun;
 $("#held-resume").onclick = resumeRun;
 
+async function followNextRound(tries = 12) {
+  /* auto mode hands the round back and starts another; pick the new run up and keep watching */
+  for (let i = 0; i < tries && !state.runId; i++) {
+    await new Promise((r) => setTimeout(r, 1000));
+    const p = await api(`/api/projects/${state.project}`).catch(() => null);
+    if (p?.active_run) {
+      log("auto: the room takes the round back and starts another", "gate");
+      $("#feed").innerHTML = "";
+      return attach(p.active_run, 0);
+    }
+    if (p && !state.auto) return;
+  }
+  refreshArtifacts();
+}
+
 function attach(runId, after) {
   if (state.source) state.source.close();
   state.runId = runId;
@@ -1167,7 +1184,14 @@ function attach(runId, after) {
     state.lastEvent = ev.i + 1;
     handle(ev);
   };
-  src.addEventListener("end", () => { closeStream(); refreshArtifacts(); loadReview(false); loadPreviews(); loadNotes(); });
+  src.addEventListener("end", async () => {
+    closeStream();
+    await refreshArtifacts();
+    loadReview(false);
+    loadPreviews();
+    loadNotes();
+    if (state.auto) followNextRound();     // auto mode starts the next round on its own
+  });
   src.onerror = () => {
     // reconnect from where we left off instead of replaying
     src.close();
@@ -1218,10 +1242,26 @@ async function saveSettings() {
       pages: $("#set-pages").value ? Number($("#set-pages").value) : null,
       chapter: $("#set-chapter").value ? Number($("#set-chapter").value) : null,
       lettering: $("#set-lettering").value,
-      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value) } });
+      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value),
+      auto_rounds: $("#set-auto").value === "" ? null : Number($("#set-auto").value) } });
+    showAuto(Number($("#set-auto").value) || 0);
   } catch (err) { alert(err.message); }
 }
-["#set-chapter", "#set-pages", "#set-passes", "#set-lettering"].forEach((id) => ($(id).onchange = saveSettings));
+["#set-chapter", "#set-pages", "#set-passes", "#set-lettering", "#set-auto"].forEach((id) => ($(id).onchange = saveSettings));
+
+function showAuto(rounds) {
+  /* auto mode: the room hands each round back to itself until the gate is ready */
+  state.auto = rounds;
+  $("#auto-state").hidden = !rounds;
+  $("#auto-stop").hidden = !rounds;
+  $("#auto-state").textContent = rounds ? `auto: ${rounds} more round${rounds === 1 ? "" : "s"} without you` : "";
+}
+
+$("#auto-stop").onclick = async () => {
+  $("#set-auto").value = 0;
+  await saveSettings();
+  log("auto off — the room stops after this round and waits for your review", "gate");
+};
 
 $("#write-round").onclick = async () => {
   try {
