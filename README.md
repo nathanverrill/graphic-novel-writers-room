@@ -565,6 +565,18 @@ and in the same code: pages you have kept are put back, your standing rules are 
 saving `layouts.md` redraws the sketch. `finish` is not served — it ends an agent's turn, which
 means nothing from outside.
 
+## Always the file on disk
+
+Nothing about an agent is cached between turns. Every time an agent takes the floor it reads
+its guides, its `agent.json`, the tool files in `agents/tools/`, and whichever library files it
+carries, straight from disk — so editing a `.md` while a round is running changes what the next
+writer sees, and pausing the round to edit one is a real way to work. The same goes for the
+tools served over MCP: their descriptions are re-read before a client is shown them.
+
+The exceptions are not markdown: code under `app/` is baked into the Docker image and needs
+`docker compose up -d --build app`, Figma pulls are cached per process, and the browser caches
+the app's own JS and CSS (a hard reload picks up a new build).
+
 ## Call logs and costs
 
 Every model call — chat and image, successful or failed — is recorded three ways:

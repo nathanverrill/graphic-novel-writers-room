@@ -20,15 +20,34 @@ from mcp.server.mcpserver import MCPServer
 from . import projects, prompts, review, rules, thumbnails
 from .agents import load_tools
 
-SERVED = ("list_artifacts", "read_artifact", "write_artifact")
 PROJECT_ARG = "The project to act on, e.g. 'prosperity'. Call list_projects to see them."
+EXTRA = {   # what a client outside a round needs that an agent mid-round does not
+    "list_artifacts": "Takes the project to list.",
+    "read_artifact": PROJECT_ARG,
+}
+OWN = {     # tools with no agent equivalent, or whose meaning changes outside a round
+    "list_projects": "List the room's projects by name.",
+    "write_artifact":
+        "Write (overwrite) one of a project's room files with its complete markdown content — "
+        "brief.md, outline.md, bible.md, script.md, layouts.md, notes.md. Pages the showrunner "
+        "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
+        "the sketch, exactly as when an agent saves.",
+    "page_prompts":
+        "The page prompts for a project: one complete markdown brief per page, ready to paste "
+        "into an image model. Omit the page for all of them.",
+}
 
 
-def described(name, extra=""):
-    """A tool's description from agents/tools/<name>.json, so the wording has one home."""
+def described(name):
+    """This tool's description, read from agents/tools/<name>.json every time it is asked for.
+
+    Edit the file and the next client to list the tools sees the new wording — the same way an
+    agent reads its guides and its settings at the start of every turn."""
+    if name in OWN:
+        return OWN[name]
     tool = load_tools().get(name)
     text = tool["function"]["description"] if tool else name
-    return f"{text} {extra}".strip()
+    return f"{text} {EXTRA.get(name, '')}".strip()
 
 
 def save(slug, name, content):
@@ -58,17 +77,17 @@ def build():
                      "where a book stands; write one to change what the next round starts from.",
     )
 
-    @room.tool(description="List the room's projects by name.")
+    @room.tool(description=described("list_projects"))
     def list_projects() -> str:
         return json.dumps(projects.list_projects())
 
-    @room.tool(description=described("list_artifacts", "Takes the project to list."))
+    @room.tool(description=described("list_artifacts"))
     def list_artifacts(project: str) -> str:
         names = [a["name"] for a in projects.list_artifacts(project)]
         names += [f"references/{n}" for n in projects.reference_files(project)]
         return json.dumps(names)
 
-    @room.tool(description=described("read_artifact", PROJECT_ARG))
+    @room.tool(description=described("read_artifact"))
     def read_artifact(project: str, name: str) -> str:
         if name.startswith("references/"):
             content = projects.read_reference(project, name[len("references/"):])
@@ -76,20 +95,33 @@ def build():
             content = projects.read_artifact(project, name)
         return content if content is not None else f"No file named {name!r} in {project}."
 
-    @room.tool(description="Write (overwrite) one of a project's room files with its complete "
-                           "markdown content — brief.md, outline.md, bible.md, script.md, "
-                           "layouts.md, notes.md. Pages the showrunner has kept are restored, "
-                           "their standing rules are put back, and saving layouts.md redraws the "
-                           "sketch, exactly as when an agent saves.")
+    @room.tool(description=described("write_artifact"))
     def write_artifact(project: str, name: str, content: str) -> str:
         return save(project, name, content)
 
-    @room.tool(description="The page prompts for a project: one complete markdown brief per page, "
-                           "ready to paste into an image model. Omit the page for all of them.")
+    @room.tool(description=described("page_prompts"))
     def page_prompts(project: str, page: int | None = None) -> str:
         pages, book = prompts.build(project)
         if page is None:
             return book
         return pages.get(page, f"No page {page} in {project} (pages: {sorted(pages)}).")
 
+    refresh(room)
+    listed = room.list_tools
+
+    async def list_tools():        # re-read the wording before anyone is shown it
+        refresh(room)
+        return await listed()
+
+    room.list_tools = list_tools
+    return room
+
+
+def refresh(room):
+    """Re-read every served tool's description from disk.
+
+    Called before a client lists the tools, so editing agents/tools/*.json takes effect on the
+    next call rather than the next restart."""
+    for tool in room._tool_manager.list_tools():
+        tool.description = described(tool.name)
     return room
