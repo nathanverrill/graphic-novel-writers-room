@@ -5,17 +5,22 @@ for every page, a complete markdown brief you paste into an image model (outside
 to draw the finished page. Give it a directional draft script and a page count; the room
 writes until the pages are ready, you review every page as a layout sketch — keep the ones
 that are done, say what you want on the rest — and the room revises from your notes, edits
-and diffs — round after round, each saved in full. Every role is guided by its own markdown,
+and diffs — round after round, each saved in full. Every agent is guided by its own markdown,
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
+Everything the room can read — the canon, the idea drafts, the craft and worldbuilding skills,
+each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
+about a second after you save a file. The same tools the agents call are served over MCP, so a
+chat client or an editor can work on a book without the screen.
+
 The art room — which will draw pages itself, with its own taste — is a separate, later room.
-Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
+Its agents (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
 
 A writing round runs six of them, in this order. The other three are there when you want them,
 and run only if you tick them and press **Run selected roles only**.
 
-| In a round | Role | Writes | Notes |
+| In a round | Agent | Writes | Notes |
 |---|---|---|---|
 | 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
@@ -43,7 +48,7 @@ Projects on the left; the book in the middle; what the room is doing on the righ
 | Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
 | Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
 | Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
-| Middle, under the tabs | **Stats** — what the room has spent, by project, round or role |
+| Middle, under the tabs | **Stats** — what the room has spent, by project, round or agent |
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
@@ -168,6 +173,10 @@ cp .env.example .env        # set OPENAI_BASE_URL, OPENAI_API_KEY, OPENAI_MODEL
 
 Open http://localhost:8000.
 
+Search is optional and needs two more things: OpenSearch (`docker compose up -d opensearch`, or
+the whole stack) and Ollama on your machine with `ollama pull embeddinggemma`. Without them the
+room runs exactly as before.
+
 To try it with no key and no bill, use the mock endpoint (it fakes chat, images and token usage;
 `MOCK_REPORT_COST=1` imitates a provider that reports its own cost):
 
@@ -183,16 +192,22 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-**Configuration** — `agents/` (with its skills and tools), `hats/`, `references/` and `pricing.json` — is mounted
-from this folder, so you edit it in place.
+`docker compose up -d` brings up three services: the **app**, **SeaweedFS** for project data,
+and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
+`host.docker.internal:11434`.
+
+**Configuration** — `agents/` (with its skills and tools), `hats/`, `references/` and
+`pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
+reindexed about a second later.
 
 **Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
 **SeaweedFS**, an S3-compatible object store whose storage is the `seaweedfs-data` Docker
 volume. The app works on a copy inside its container: on start it pulls everything from the
 bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
 on shutdown. Recreating or rebuilding the app container loses nothing; so does
-`docker compose down`. **`docker compose down -v` deletes the volume, and all project data
-with it.**
+`docker compose down`. **`docker compose down -v` deletes the volumes, and all project data
+with them** — the search index in `opensearch-data` is rebuilt from the files, so losing that
+one costs only the time to re-embed.
 
 ```sh
 # bring an existing project folder in (it syncs up within seconds)
@@ -337,8 +352,8 @@ from any tab without opening **The room**. Under it, the live feed; **Expand** o
 the window to read properly, **Close the feed** or Escape puts it back.
 
 **Progress.** Above the live feed in the watch pad, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
-step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
-real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
+step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each agent's past
+real runs from `logs/usage.jsonl`, 2 minutes for an agent with no history), and how long the room
 has been waiting on the model, highlighted after 3 minutes.
 
 **Lettering as its own layer.** Set **Lettering** in **The room** tab to *separate layer* and the
@@ -483,7 +498,7 @@ agents/
 
 `hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
 yellow value, red reaction, green possibility). Pick one in the hat menu next to **Run**
-and it's added to every selected role for that run; the round records which hat was used.
+and it's added to every selected agent for that run; the round records which hat was used.
 Hats are modes, not jobs: e.g. run the Continuity Editor in the yellow hat to find what's
 worth keeping.
 
@@ -528,12 +543,12 @@ UI changes a setting, the change shows up in `git diff`.
 | `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
-| `tools` | Which tools from `agents/tools/` this agent may call. Empty means all it can use. |
+| `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
 | `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
-A bad `agent.json` is flagged on the card and blocks runs that include that role.
+A bad `agent.json` is flagged on the card and blocks runs that include that agent.
 
 ## Rounds, runs and images
 
@@ -555,18 +570,39 @@ craft and worldbuilding skills, and each project's own files.
 
 A passage is a markdown section carrying its heading path, so a hit reads
 `triangle-money.md › The big truths › Three countries, three money cultures` instead of naming a
-22 KB file. Indexing is by content hash: an unchanged passage is not re-embedded, which makes a
-re-index after a round take under a second.
+22 KB file. Indexing is keyed by content hash — an unchanged passage is never re-embedded — so
+the first pass over this library is 642 passages in about four minutes, and a pass with nothing
+changed is 0.3 s.
+
+The index lives in the `opensearch-data` Docker volume and is published on
+`127.0.0.1:9200`, so you can query it yourself:
+
+```sh
+curl -s 'localhost:9200/writers-room/_count'
+curl -s localhost:8000/api/search/health          # what is up, and how much is indexed
+curl -s 'localhost:8000/api/search?q=water+permits&scope=skills&mode=keywords'
+```
 
 **Who searches.** The **Files** pane has the search box — pick hybrid, keywords or meaning, and
-a scope, and click a hit to open the file. The agents have it as a tool (`agents/tools/search.json`),
+a scope, and click a hit to open that file, whether or not this round carries it. The agents have it as a tool (`agents/tools/search.json`),
 so a writer can reach the whole library without carrying it. MCP clients get `search_room` and
 `reindex`.
 
 **Staying current.** The app watches every file the index covers and reindexes the ones that
-change — about half a second after you save a skill, a reference or a page, and the same for what
-an agent writes mid-round. One changed file costs one file's work: the passages it lost are
-dropped, the ones it gained are embedded, everything else is left alone.
+change: **an edit is searchable in about a second** — 0.16 s for a host save to reach the
+container, up to 0.5 s of poll, 0.3 s to embed the changed passage and refresh. The same applies
+to what an agent writes mid-round, so a page the Penciller has just written is searchable while
+the round is still going.
+
+One changed file costs one file's work: the passages it lost are dropped, the ones it gained are
+embedded, everything else is left alone. Re-chunking a 37 KB file with nothing changed takes
+0.32 s and re-embeds nothing.
+
+It polls (twice a second, a few dozen `stat` calls) rather than using an OS file watcher,
+because the app runs in the container while you edit on the host: macOS bind mounts do not
+forward inotify events, so a watcher would see what the agents write and stay silent for
+everything you save. Running the app natively instead makes an OS watcher the better choice —
+only the trigger would change.
 
 **Running it.** `docker compose up -d` starts OpenSearch beside the app, which indexes on start
 and watches from then on. Ollama runs on your machine with `ollama pull embeddinggemma`.
@@ -575,7 +611,7 @@ them to fall back to `list_artifacts` and `read_artifact`.
 
 ## The room's tools, over MCP
 
-The five tools an agent calls are defined in `agents/tools/`. The room also serves them over
+The six tools an agent calls are defined in `agents/tools/`. The room also serves them over
 MCP, so a chat client, an editor or another agent can work on a book without going through the
 screen:
 
@@ -589,6 +625,8 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 | `list_artifacts` | a project's room files and its reference material |
 | `read_artifact` | one file, e.g. `script.md` or `references/ALPHA.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
+| `search_room` | hybrid search over the library, the skills and a project's files |
+| `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
 | `page_prompts` | the deliverable: every page's prompt, or one page's |
 
 Outside a round there is no agent, so every tool takes the project it acts on and
@@ -619,23 +657,23 @@ rounds/<slug>-r03-ai/<slug>-r03-ai-calls.jsonl                           one sum
 logs/usage.jsonl                                               the same lines, across all projects
 ```
 
-A summary line has: project, round (`version`), role, kind (`chat`/`image`), provider host, model,
+A summary line has: project, round (`version`), agent, kind (`chat`/`image`), provider host, model,
 input / cached / image / output / reasoning tokens, `cost_usd`, `cost_source`, duration,
 HTTP status, error, and the path to the full log.
 
 - **Cost** comes from the provider when it reports one (`usage.cost`, which OpenRouter returns). Otherwise it's worked out from `pricing.json` (USD per 1M tokens, or `per_image`). A model found in neither is logged as `unpriced` and flagged in the UI. **Check `pricing.json` against your providers' current prices**; the file reloads automatically when you change it.
 - **Images** inside requests and responses (base64) are saved once to `calls/blobs/` and replaced by `<blob:calls/blobs/…>`, so logs stay readable. API keys are never logged.
-- **In the UI:** each call shows its tokens and cost in the live feed, and role cards show what their last run cost. The **Costs** section breaks spending down by role, by provider/model, by role × provider/model, and by chat vs image, for this project, a selected round, or all projects. A round's **Model calls** button lists its calls, with links to the full JSON.
+- **In the UI:** each call shows its tokens and cost in the live feed, and agent cards show what their last run cost. The **Costs** section breaks spending down by role, by provider/model, by role × provider/model, and by chat vs image, for this project, a selected round, or all projects. A round's **Model calls** button lists its calls, with links to the full JSON.
 - **Your own analysis:** `logs/usage.jsonl` loads straight into pandas: `pd.read_json("logs/usage.jsonl", lines=True)`.
-- **Totals:** each round's `run.json` has a `usage` block with totals per role.
+- **Totals:** each round's `run.json` has a `usage` block with totals per agent.
 
 ## How an agent works
 
 `app/agent.py` is a plain loop:
 
-1. The system prompt is the role's mission plus its guides and Figma summaries.
+1. The system prompt is the agent's mission plus its guides and Figma summaries.
 2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, your note, and the images.
-3. The model calls tools — `list_artifacts`, `read_artifact`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
+3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 
 If the endpoint rejects tool calling, the agent retries as a plain chat and saves the reply as its deliverable.
@@ -643,5 +681,9 @@ If the endpoint rejects tool calling, the agent retries as a plain chat and save
 ## Limits
 
 - One run per project at a time.
+- Search is optional: without OpenSearch or Ollama the room works, and the agents' `search` tool
+  tells them to fall back to `list_artifacts` and `read_artifact`.
+- The MCP endpoint and the API have no authentication. Both are bound to `127.0.0.1`; anything
+  that can reach them can read and write your books.
 - With the object store, up to `S3_SYNC_SECONDS` of writes can be lost if the app container is killed without a clean stop.
 - Live runs are tracked in memory: restarting the server during a run ends it. The run's round keeps everything written up to that point, but its status stays `running`.
