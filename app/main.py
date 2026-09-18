@@ -398,6 +398,15 @@ def get_round_file(slug: str, version: str, name: str):
     return content
 
 
+@app.get("/api/projects/{slug}/pages/{page}")
+def get_page_view(slug: str, page: int, version: str | None = None):
+    """The page as the screen shows it: the panel map, and each panel's description and dialog."""
+    spec = lettering.page_spec(slug, page, version)
+    if not spec:
+        raise HTTPException(404, f"no layout for page {page}")
+    return prompts.page_view(spec)
+
+
 # ---- lettering: the text layer over art drawn without text -----------------------
 
 class LetteringEdit(BaseModel):
@@ -428,6 +437,16 @@ def get_lettering(slug: str, page: int, version: str | None = None):
 def put_lettering(slug: str, page: int, edit: LetteringEdit):
     try:
         lettering.set_items(slug, page, edit.changes)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return _lettering(slug, page)
+
+
+@app.delete("/api/projects/{slug}/lettering/{page}/items/{index}")
+def delete_lettering_item(slug: str, page: int, index: int):
+    """Drop one balloon, caption or sound effect from the page."""
+    try:
+        lettering.delete_item(slug, page, index)
     except ValueError as e:
         raise HTTPException(400, str(e))
     return _lettering(slug, page)

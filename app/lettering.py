@@ -216,7 +216,6 @@ def page_items(slug, page, version=None):
 
 def set_items(slug, page, changes):
     """changes: {item index: {"text": ..., "at": ...}}. Rewrites that page's block in layouts.md."""
-    md = projects.read_artifact(slug, "layouts.md") or ""
     spec = page_spec(slug, page)
     if not spec:
         raise ValueError(f"no layout for page {page}")
@@ -235,8 +234,35 @@ def set_items(slug, page, changes):
             all_items[i]["at"] = change["at"]
             all_items[i].pop("x", None)
             all_items[i].pop("y", None)
-    projects.write_artifact(slug, "layouts.md", replace_block(md, page, spec))
+    write_spec(slug, page, spec)
     return spec
+
+
+def delete_item(slug, page, index):
+    """Drop one balloon, caption or sound effect from the page."""
+    spec = page_spec(slug, page)
+    if not spec:
+        raise ValueError(f"no layout for page {page}")
+    all_items = spec.get("items") or []
+    index = int(index)
+    if not 0 <= index < len(all_items):
+        raise ValueError(f"no item {index} on page {page}")
+    kind = all_items[index].get("type")
+    if kind not in KINDS:
+        raise ValueError(f"item {index} on page {page} is a {kind}, not lettering")
+    all_items.pop(index)
+    spec["items"] = all_items
+    write_spec(slug, page, spec)
+    return spec
+
+
+def write_spec(slug, page, spec):
+    """Save the page's layout block, and redraw the sketch, which is drawn from it."""
+    md = projects.read_artifact(slug, "layouts.md") or ""
+    layouts = replace_block(md, page, spec)
+    projects.write_artifact(slug, "layouts.md", layouts)
+    drawn, _, _ = thumbnails.render_layouts(layouts, projects.read_artifact(slug, "thumbnails.md"))
+    projects.write_artifact(slug, "thumbnails.md", drawn)
 
 
 def replace_block(markdown, page, spec):
