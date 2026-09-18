@@ -564,7 +564,7 @@ so a writer can reach the whole library without carrying it. MCP clients get `se
 `reindex`.
 
 **Staying current.** The app watches every file the index covers and reindexes the ones that
-change — a couple of seconds after you save a skill, a reference or a page, and the same for what
+change — about half a second after you save a skill, a reference or a page, and the same for what
 an agent writes mid-round. One changed file costs one file's work: the passages it lost are
 dropped, the ones it gained are embedded, everything else is left alone.
 

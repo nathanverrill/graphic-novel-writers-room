@@ -360,11 +360,12 @@ def forget(path):
             pass
 
 
-def watch(interval=2, on_change=lambda msg: None):
+def watch(interval=0.5, on_change=lambda msg: None):
     """Poll the watched files and reindex the ones that changed. One file, one file's work.
 
-    Polling rather than an OS watcher: a few dozen stat calls every couple of seconds is
-    nothing, and it behaves the same on a laptop, in Docker and over a mounted volume."""
+    Polling rather than an OS watcher: a few dozen stat calls twice a second is nothing, and it
+    behaves the same on a laptop, in Docker and over a bind mount — where inotify does not see
+    what you save on the host at all."""
     import time
     seen = watched()
     while True:
