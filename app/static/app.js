@@ -54,6 +54,7 @@ async function loadRoles() {
   const data = await api("/api/roles");
   state.roles = data.roles;
   state.shared = data.shared;
+  renderAgents();
   $("#hat").innerHTML = `<option value="">No hat</option>` +
     data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
   $("#roles").innerHTML = data.roles.filter((r) => r.room !== "art").map((r) => `
@@ -63,23 +64,62 @@ async function loadRoles() {
       <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
-      ${r.config.generate_images ? `<div class="model">🖼 ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
+      ${r.config.generate_images ? `<div class="model">images: ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
       <div class="status">idle</div>
       <div class="spend"></div>
       <span class="card-buttons">
-        <button class="ghost" data-settings="${r.id}">⚙ Model</button>
+        <button class="ghost" data-settings="${r.id}">Model</button>
         <button class="ghost" data-inspect="${r.id}">Inspect</button>
       </span>
     </div>`).join("");
 }
 
 function setRoleStatus(id, cls, text) {
+  state.status = { ...(state.status || {}), [id]: { cls, text } };
+  renderAgents();
   const el = $(`#role-${id}`);
   if (!el) return;
   el.classList.remove("working", "done", "error");
   if (cls) el.classList.add(cls);
   el.querySelector(".status").textContent = text;
 }
+
+// ---- the roster: who is working, from any tab ----------------------------------------
+
+function renderAgents() {
+  const roles = (state.roles || []).filter((r) => r.room !== "art");
+  if (!roles.length) return;
+  const st = state.status || {};
+  $("#agents").innerHTML = roles.map((r) => {
+    const s = st[r.id] || {};
+    const spend = state.spend?.[r.id];
+    return `
+      <li class="agent ${s.cls || ""}" title="${esc(r.config?.model || "")}">
+        <span class="dot"></span>
+        <span class="who">${esc(r.title)}</span>
+        <span class="state path">${esc(s.text || "idle")}</span>
+        ${spend ? `<span class="spend path">${spend}</span>` : ""}
+      </li>`;
+  }).join("");
+  const working = roles.filter((r) => st[r.id]?.cls === "working").map((r) => r.title);
+  const done = roles.filter((r) => st[r.id]?.cls === "done").length;
+  $("#agents-note").textContent = working.length ? `${working.join(", ")} at work`
+    : done ? `${done} of ${roles.length} have run` : "idle";
+}
+
+function showFeed(open) {
+  document.body.classList.toggle("feed-open", open);
+  $("#feed-expand").textContent = open ? "Collapse" : "Expand";
+  $("#feed-close").hidden = !open;
+  const feed = $("#feed");
+  feed.scrollTop = feed.scrollHeight;
+}
+
+$("#feed-expand").onclick = () => showFeed(!document.body.classList.contains("feed-open"));
+$("#feed-close").onclick = () => showFeed(false);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && document.body.classList.contains("feed-open")) showFeed(false);
+});
 
 function assetBlock(folder, a) {
   const guides = a.guides.map((g) => `
@@ -100,7 +140,7 @@ function inspectRole(id) {
     <h2>${esc(r.title)}</h2>
     <p>${esc(r.mission)}</p>
     <p class="path">reads: ${r.reads.join(", ") || "—"}<br>writes: ${r.outputs.join(", ")}</p>
-    <p><button class="ghost" data-settings="${r.id}">⚙ Model settings</button>
+    <p><button class="ghost" data-settings="${r.id}">Model settings</button>
       <span class="path">${r.config_error ? esc(r.config_error) : `${esc(r.config.model)} @ ${esc(r.config.base_url)}`}</span></p>
     ${assetBlock(r.id, r.assets)}
     <h2 style="margin-top:1.5rem">Shared with every role</h2>
@@ -167,19 +207,29 @@ async function openProject(slug) {
   $("#empty").hidden = true;
   $("#workspace").hidden = false;
   $("#artifacts-pane").hidden = false;
+  $("#watch-pane").hidden = false;
   $("#viewer").hidden = true;
   $("#project-title").textContent = slug;
   $("#feed").innerHTML = "";
+  state.progress = null;
+  clearInterval(state.progressTimer);
+  renderProgress();
+  state.spend = {};
   state.roles.forEach((r) => setRoleStatus(r.id, null, "idle"));
   state.previews = null;
   $("#previews").hidden = true;
+  state.build = null;
+  renderPageBuild();
   state.prompts = null;
   $("#prompts").hidden = true;
+  $('#tabs button[data-tab="lettering"]').hidden = true;
+  showTab("pages");
   destroyReviewEditor();
   state.review = null;
   $("#review").hidden = true;
   await loadProjects();
   const p = await refreshArtifacts();
+  refreshPageBuild();
   if (p.active_run) attach(p.active_run, 0);
   else showArtifact("pitch.md");
   loadReview(false);
@@ -204,7 +254,7 @@ async function refreshArtifacts(fresh) {
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
       `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}${v.hat ? `, ${esc(v.hat)} hat` : ""}` +
-      (v.verdicts ? `<br>🔥 ${v.verdicts.love} · ✏️ ${v.verdicts.changes} · 👎 ${v.verdicts.reroll}` : "") +
+      (v.counts ? `<br>${v.counts.kept} kept · ${v.counts.edited} redrawn by you · ${v.counts.noted} with a note` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
       (v.note ? `<br>Note: ${esc(v.note)}` : "") +
@@ -218,7 +268,10 @@ async function refreshArtifacts(fresh) {
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
   if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
+  $("#set-lettering").value = s.lettering || "art";
   if (document.activeElement !== $("#set-passes")) $("#set-passes").value = s.max_passes ?? 2;
+  if (document.activeElement !== $("#set-auto")) $("#set-auto").value = s.auto_rounds ?? 0;
+  showAuto(s.auto_rounds || 0);
   state.library = p.library || [];
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
@@ -230,6 +283,13 @@ async function refreshArtifacts(fresh) {
   loadCosts();
   loadPreviews();
   loadPrompts();
+  loadNotes();
+  loadRules();
+  const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
+  $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
+    `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
+  $("#output-where").innerHTML = `Each finished round also saves these on your computer in ` +
+    `<code>writers-room/${esc(p.output)}/</code> (page-prompts.md, pages/, story/).`;
 
   $("#artifacts").innerHTML = files.slice().reverse().map((a) => `
     <li data-name="${a.name}" class="${a.name === state.artifact ? "active" : ""} ${a.name === fresh ? "fresh" : ""}">
@@ -392,6 +452,197 @@ async function loadPreviews() {
   renderPreviews();
 }
 
+// ---- page layout: the page builds itself as each writer's file lands -------------------
+//
+// The room writes the whole book; this screen watches one page of it (the usability
+// experiment: page 1). Nothing here is streamed token by token — each writer's file
+// lands whole, and the page takes another step:
+//
+//   outline.md   the Plotter's beat for the page
+//   script.md    panels with their description and dialog, in script form — the cards fill
+//   layouts.md   the Penciller's boxes appear, and the cards become the real panels
+//   notes.md     the Continuity Editor's flags for the page
+
+const BUILD_PAGE = 1;
+const PAGE_ASPECT = 6.625 / 10.25;      // trim, for the empty frame before there is a layout
+
+async function refreshPageBuild() {
+  if (!state.project) return;
+  const text = async (name) => {
+    try { return await api(`/api/projects/${state.project}/artifacts/${name}`); } catch { return ""; }
+  };
+  const [layout, outline, script, notes] = await Promise.all([
+    api(`/api/projects/${state.project}/pages/${BUILD_PAGE}`).catch(() => null),
+    text("outline.md"), text("script.md"), text("notes.md"),
+  ]);
+  state.build = {
+    layout,
+    beat: pageLine(outline, BUILD_PAGE),
+    panels: scriptPanels(pageSection(script, BUILD_PAGE)),
+    flags: (notes || "").split("\n").filter((l) => pageRe(BUILD_PAGE).test(l) && l.trim()).slice(0, 4),
+  };
+  renderPageBuild();
+}
+
+const pageRe = (n) => new RegExp(`\\bpage\\s*${n}\\b`, "i");
+
+function pageLine(md, page) {
+  const line = (md || "").split("\n").find((l) => pageRe(page).test(l) && l.trim().length > 8) || "";
+  return line.replace(/^[-*#\s|]+/, "").replace(/\*\*|\$\\rightarrow\$/g, "")
+             .replace(/\s*\|\s*/g, " · ").replace(/\s+/g, " ").trim();
+}
+
+function pageSection(md, page) {
+  /* the body under the "## Page N" heading, up to the next heading of the same level */
+  const lines = (md || "").split("\n");
+  const i = lines.findIndex((l) => /^#{1,6}\s/.test(l) && pageRe(page).test(l));
+  if (i < 0) return "";
+  const level = lines[i].match(/^#+/)[0].length;
+  const out = [];
+  for (const line of lines.slice(i + 1)) {
+    const h = line.match(/^(#+)\s/);
+    if (h && h[1].length <= level) break;
+    out.push(line);
+  }
+  return out.join("\n");
+}
+
+function scriptPanels(body) {
+  /* a script page as panels: "**Panel 1.** …" then "ELARA (whisper): …" / "CAPTION: …" lines */
+  const panels = [];
+  let cur = null;
+  for (const raw of (body || "").split("\n")) {
+    const line = raw.replace(/\*\*/g, "").replace(/^[*_#\s]+|[*_\s]+$/g, "");
+    if (!line) continue;
+    const p = line.match(/^panel\s*(\d+)\s*[.:)—-]*\s*(.*)$/i);
+    if (p) { cur = { n: Number(p[1]), description: p[2] || "", dialog: [] }; panels.push(cur); continue; }
+    if (!cur) continue;
+    const d = line.match(/^([A-Za-z][A-Za-z0-9 .'’()-]{0,28})\s*:\s*(.+)$/);
+    if (d && !/^page\b/i.test(d[1])) cur.dialog.push({ label: d[1].toUpperCase(), text: d[2] });
+    else if (!d) cur.description += (cur.description ? " " : "") + line;
+  }
+  return panels;
+}
+
+function renderPageBuild() {
+  const b = state.build || {};
+  const d = b.layout;
+  $("#pv-page").textContent = BUILD_PAGE;
+  $("#pv-frame-n").textContent = BUILD_PAGE;
+  $("#pv-beat").hidden = !b.beat;
+  $("#pv-beat").textContent = b.beat;
+  $("#pv-map").hidden = !d;
+  $("#pv-frame").hidden = !!d;
+  $("#pv-note").textContent = d
+    ? `${d.panels.length} panel${d.panels.length === 1 ? "" : "s"}${d.bleeds ? " · * bleeds off the page edge" : ""}`
+    : b.panels?.length ? `${b.panels.length} panels in the script` : "";
+  $("#pv-stage").textContent = d ? "laid out by the Penciller"
+    : b.panels?.length ? "written — waiting for the Penciller's layout"
+    : b.beat ? "plotted — waiting for the Scripter"
+    : state.runId ? "the room is at work…" : "nothing written for this page yet";
+  $("#pv-keep").hidden = !d;
+  if (d) {
+    $("#pv-keep").textContent = d.kept ? "Kept — let the room work on it again" : "Keep this page";
+    $("#pv-keep").title = d.kept
+      ? `Kept (${d.kept}). Click to release it.`
+      : "The room leaves this page alone from here — script, layout and sketch are put back if an agent changes them";
+    $("#pv-keep").classList.toggle("kept", !!d.kept);
+    $("#pv-map").innerHTML = mapHtml(d);
+  }
+  const cards = d ? d.panels.map(panelCard)
+    : (b.panels || []).map(scriptCard);
+  $("#pv-panels").innerHTML = cards.join("") || `
+    <article class="pv-panel waiting">
+      <h4>Panel 1</h4>
+      <div class="pv-sec"><h5>Description</h5><p class="path">waiting for the room</p></div>
+      <div class="pv-sec"><h5>Dialog</h5><p class="path">waiting for the room</p></div>
+    </article>`;
+  if (b.flags?.length) {
+    $("#pv-panels").insertAdjacentHTML("beforeend",
+      `<div class="pv-flags"><b class="path">Continuity</b>${b.flags.map((f) => `<p>${esc(f)}</p>`).join("")}</div>`);
+  }
+}
+
+function mapHtml(d) {
+  return d.map.map((line, row) => {
+    const here = d.labels.filter((l) => l.row === row).sort((a, b) => a.col - b.col);
+    let out = "", at = 0;
+    for (const l of here) {
+      out += esc(line.slice(at, l.col)) + `<b class="pv-num" data-panel="${l.n}" title="Panel ${l.n}">${esc(l.text)}</b>`;
+      at = l.col + l.text.length;
+    }
+    return out + esc(line.slice(at));
+  }).join("\n");
+}
+
+function scriptCard(p) {
+  const dialog = p.dialog.map((d) => `
+    <li class="pv-line"><span class="path">${esc(d.label)}</span><q>${esc(d.text)}</q></li>`).join("");
+  return `
+    <article class="pv-panel draft" data-panel="${p.n}">
+      <h4>Panel ${p.n} <span class="badge">from the script</span></h4>
+      <div class="pv-sec">
+        <h5>Description</h5>
+        <p>${esc(p.description) || "<i class='path'>nothing written yet</i>"}</p>
+      </div>
+      <div class="pv-sec">
+        <h5>Dialog</h5>
+        ${dialog ? `<ol class="pv-dialog">${dialog}</ol>` : "<p class='path'>no lettering in this panel</p>"}
+      </div>
+    </article>`;
+}
+
+function panelCard(p) {
+  const figures = p.figures.map((f) => `<li><b>${esc(f.who)}</b> — ${esc(f.what)}</li>`).join("");
+  const dialog = p.dialog.map((d) => `
+    <li class="pv-line ${esc(d.kind)}">
+      <span class="path">${esc(d.label)} · ${esc(d.where)}</span>
+      <q>${esc(d.text)}</q></li>`).join("");
+  return `
+    <article class="pv-panel" data-panel="${p.n}">
+      <h4>Panel ${p.n}${p.shot ? ` <span class="path">${esc(p.shot)}</span>` : ""}</h4>
+      <p class="path pv-place">${esc(p.place)}</p>
+      <div class="pv-sec">
+        <h5>Description</h5>
+        <p>${esc(p.description) || "<i class='path'>nothing written for this panel yet</i>"}</p>
+        ${p.notes.map((n) => `<p class="path">${esc(n)}</p>`).join("")}
+        ${figures ? `<ul class="pv-figures">${figures}</ul>` : ""}
+      </div>
+      <div class="pv-sec">
+        <h5>Dialog</h5>
+        ${dialog ? `<ol class="pv-dialog">${dialog}</ol>` : "<p class='path'>no lettering in this panel</p>"}
+      </div>
+    </article>`;
+}
+
+function highlightPanel(n) {
+  document.querySelectorAll(".pv-num").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
+  document.querySelectorAll(".pv-panel").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
+}
+
+$("#pv-keep").onclick = async () => {
+  const kept = state.build?.layout?.kept;
+  const path = `/api/projects/${state.project}/pages/${BUILD_PAGE}/keep`;
+  try {
+    await api(path, { method: kept ? "DELETE" : "POST" });
+    log(kept ? `page ${BUILD_PAGE} released — the room can work on it again`
+             : `page ${BUILD_PAGE} kept as it is — the room leaves it alone`, "gate");
+    refreshPageBuild();
+  } catch (err) { alert(err.message); }
+};
+
+$("#pv-map").onclick = (e) => {
+  const num = e.target.closest(".pv-num");
+  if (!num) return;
+  highlightPanel(num.dataset.panel);
+  $(`.pv-panel[data-panel="${num.dataset.panel}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+};
+$("#pv-panels").onmouseover = (e) => {
+  const card = e.target.closest(".pv-panel");
+  if (card) highlightPanel(card.dataset.panel);
+};
+$("#pv-panels").onmouseleave = () => highlightPanel(null);
+
 function renderPreviews() {
   const d = state.previews;
   if (!d || !d.pages.length) return;
@@ -411,6 +662,11 @@ function renderPreviews() {
       : `<div class="page empty" style="width:${d.cols}ch;height:${(d.rows * 1.31).toFixed(1)}em">not drawn yet</div>`;
     return `<figure class="preview" data-method="${m}"><figcaption>${label}${tools}</figcaption>${body}</figure>`;
   }).join("");
+  openPagePrompt(page);
+}
+
+function openPagePrompt(page) {
+  document.querySelectorAll("#prompt-list details").forEach((d) => (d.open = d.dataset.page === String(page)));
 }
 
 function startEdit(method) {
@@ -519,24 +775,25 @@ function log(html, cls = "") {
 const title = (id) => state.roles.find((r) => r.id === id)?.title || id;
 
 function handle(ev, replay = false) {
+  if (!replay) track(ev);
   const who = ev.role ? `<span class="who">[${esc(title(ev.role))}]</span> ` : "";
   const live = !replay;
   switch (ev.type) {
     case "run_start":
-      log(`▶ room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
+      log(`room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
       break;
     case "gate":
       log(v_gate(ev), "gate");
       break;
     case "round_ready":
-      log(`✔ pages ${ev.pages.join(", ")} are ready for your review (${esc(ev.version)})`, "gate");
+      log(`pages ${ev.pages.join(", ")} are ready for your review (${esc(ev.version)})`, "gate");
       break;
     case "thumbnails":
-      log(`${who}<span class="img">▦ drew ${ev.pages} page previews` +
+      log(`${who}<span class="img">drew ${ev.pages} page previews` +
         `${ev.issues ? ` · ${ev.issues} layout issues sent back` : " · no layout issues"}</span>`);
       break;
     case "random_entry":
-      log(`${who}<span class="img">🎲 cards: ${ev.cards.map(esc).join(" · ")}` +
+      log(`${who}<span class="img">cards: ${ev.cards.map(esc).join(" · ")}` +
         `${ev.word ? ` · word: ${esc(ev.word)}` : ""}${ev.target ? ` · target: ${esc(ev.target)}` : ""}</span>`);
       break;
     case "role_start": live && setRoleStatus(ev.role, "working", "working…"); log(`${who}takes the floor`); break;
@@ -547,22 +804,23 @@ function handle(ev, replay = false) {
         (ev.references?.length ? `, ${ev.references.length} references (${ev.references_mode}, ${num(ev.reference_chars)} chars)` : ""), "dim");
       break;
     case "thinking": live && setRoleStatus(ev.role, "working", `working… step ${ev.step}`); break;
-    case "image_start": log(`${who}<span class="img">🖼 drawing ${esc(ev.name || "")} with ${esc(ev.model)}…</span>`); break;
+    case "image_start": log(`${who}<span class="img">drawing ${esc(ev.name || "")} with ${esc(ev.model)}…</span>`); break;
     case "image": {
       const src = `/api/projects/${state.project}/${ev.path}`;
-      log(`${who}<span class="img">🖼 saved ${esc(ev.path)}</span><a href="${src}" target="_blank"><img src="${src}"></a>`);
+      log(`${who}<span class="img">saved ${esc(ev.path)}</span><a href="${src}" target="_blank"><img src="${src}"></a>`);
       if (live) refreshArtifacts();
       break;
     }
     case "message": log(`${who}<div class="msg">${esc(ev.text)}</div>`); break;
     case "tool": log(`${who}<span class="tool">${esc(ev.name)}</span> ${esc(JSON.stringify(ev.args))}`); break;
     case "artifact":
-      log(`${who}<span class="art">✎ wrote ${esc(ev.name)}</span>`);
+      log(`${who}<span class="art">wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
       if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
+      if (live && ["outline.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
-    case "warn": log(`${who}<span class="warn">⚠ ${esc(ev.text)}</span>`); break;
+    case "warn": log(`${who}<span class="warn">${esc(ev.text)}</span>`); break;
     case "usage":
       log(`${who}<span class="cost">$ ${esc(ev.kind)} ${esc(ev.provider)} ${esc(ev.model)} · ` +
         `${num(ev.input_tokens)} in / ${num(ev.output_tokens)} out · ` +
@@ -573,6 +831,8 @@ function handle(ev, replay = false) {
       if (live) {
         const el = $(`#role-${ev.role} .spend`);
         if (el) el.textContent = `last run ${usd(ev.cost_usd)} · ${num(ev.input_tokens + ev.output_tokens)} tok`;
+        state.spend = { ...(state.spend || {}), [ev.role]: usd(ev.cost_usd) };
+        renderAgents();
       }
       log(`${who}<span class="cost">spent ${usd(ev.cost_usd)} over ${ev.calls} calls` +
         `${ev.unpriced_calls ? ` (${ev.unpriced_calls} unpriced)` : ""}</span>`);
@@ -583,13 +843,320 @@ function handle(ev, replay = false) {
       if (live) loadCosts();
       break;
     case "role_done": live && setRoleStatus(ev.role, "done", "done"); log(`${who}handoff: ${esc(ev.note)}`); break;
-    case "run_done": log(`■ room adjourned — saved as ${ev.version || "a new version"}`, "dim"); break;
-    case "run_stopped": log("■ stopped by showrunner", "warn"); break;
+    case "paused":
+      log(`held${ev.after_title ? ` after ${esc(ev.after_title)}` : ""} — ${esc(ev.title)} hasn't started.` +
+          " Change settings or add notes, then resume.", "warn");
+      if (live) { setHeld(ev); $("#pause").disabled = false; }
+      break;
+    case "resumed": {
+      const settings = Object.entries(ev.changed || {}).map(([r, fields]) =>
+        `${title(r)} → ${Object.entries(fields).map(([k, v]) => `${esc(k)} ${esc(String(v))}`).join(", ")}`);
+      const what = [settings.join(" · "),
+                    ev.notes ? "your notes go to the writers still to come" : ""].filter(Boolean).join(" · ");
+      log(`carrying on${what ? ` — ${what}` : ""}`, "gate");
+      if (live) { setHeld(null); loadRoles(); loadNotes(); }
+      break;
+    }
+    case "run_done":
+      log(`room adjourned — saved as ${ev.version || "a new version"}`, "dim");
+      if (live) refreshPageBuild();
+      break;
+    case "run_stopped": log("stopped by the showrunner", "warn"); break;
     case "error":
       if (live) document.querySelectorAll(".role.working").forEach((el) => setRoleStatus(el.id.slice(5), "error", "error"));
-      log(`✖ ${esc(ev.text)}`, "err");
+      log(`${esc(ev.text)}`, "err");
       break;
   }
+}
+
+// ---- tabs: the pages are the room's front page; the room's own settings are a tab ------
+
+function showTab(name) {
+  const tab = $(`#tabs button[data-tab="${name}"]`);
+  if (!tab || tab.hidden) name = "pages";
+  state.tab = name;
+  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".tab-panel").forEach((p) => (p.hidden = p.dataset.panel !== name));
+}
+
+$("#go-review").onclick = () => $("#review").scrollIntoView({ behavior: "smooth" });
+
+$("#tabs").onclick = (e) => {
+  const b = e.target.closest("button[data-tab]");
+  if (b) showTab(b.dataset.tab);
+};
+
+// ---- lettering: edit the words, re-render the text layer ------------------------------
+
+async function loadLettering(page) {
+  if (!state.project) return;
+  const pages = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
+  $("#lettering").hidden = !pages.length;
+  $('#tabs button[data-tab="lettering"]').hidden = !pages.length;
+  if (!pages.length) {
+    if (state.tab === "lettering") showTab("pages");
+    return;
+  }
+  state.letterPage = pages.includes(page) ? page : (pages.includes(state.letterPage) ? state.letterPage : pages[0]);
+  $("#let-page").innerHTML = pages.map((n) => `<option value="${n}">Page ${n}</option>`).join("");
+  $("#let-page").value = state.letterPage;
+  let d;
+  try {
+    d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}`);
+  } catch (err) { return ($("#let-status").textContent = err.message); }
+  state.lettering = d;
+  $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
+  $("#let-svg").href = $("#let-layer").src;
+  $("#let-svg").download = `${state.project}-p${String(d.page).padStart(2, "0")}-letters.svg`;
+  $("#let-canvas").style.aspectRatio = `${d.size[0]} / ${d.size[1]}`;
+  const art = $("#let-art-img");
+  art.hidden = !d.art;
+  if (d.art) art.src = `${base()}${d.art}?t=${Date.now()}`;
+  renderLetterItems(d);
+  $("#let-status").textContent = d.mode === "layer" ? "" :
+    "Lettering is set to \"in the art\", so the page prompts still ask the image model to letter the page.";
+}
+
+function renderLetterItems(d) {
+  $("#let-items").innerHTML = d.items.map((it) => `
+    <div class="letter-item">
+      <span class="path">panel ${it.panel ?? "?"} · ${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}
+        <select data-spot="${it.i}">${d.spots.map((s) =>
+          `<option ${s === (it.at || "middle") ? "selected" : ""}>${s}</option>`).join("")}</select>
+        <button class="ghost drop" data-del="${it.i}" title="Delete this ${esc(it.type)}" type="button">x</button></span>
+      <textarea data-i="${it.i}" rows="2">${esc(it.text || "")}</textarea>
+    </div>`).join("") || "<p class='path'>no balloons or captions on this page yet</p>";
+}
+
+function showLettering(d) {
+  state.lettering = d;
+  $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
+  $("#let-svg").href = $("#let-layer").src;
+}
+
+async function saveLettering() {
+  const changes = {};
+  document.querySelectorAll("#let-items textarea").forEach((t) => {
+    const was = state.lettering.items.find((i) => String(i.i) === t.dataset.i);
+    if (was && (was.text || "") !== t.value.trim()) changes[t.dataset.i] = { text: t.value };
+  });
+  document.querySelectorAll("#let-items select[data-spot]").forEach((s) => {
+    const was = state.lettering.items.find((i) => String(i.i) === s.dataset.spot);
+    if (was && (was.at || "middle") !== s.value) changes[s.dataset.spot] = { ...(changes[s.dataset.spot] || {}), at: s.value };
+  });
+  if (!Object.keys(changes).length) return;
+  $("#let-status").textContent = "saving…";
+  try {
+    const d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}`,
+      { method: "PUT", body: { changes } });
+    showLettering(d);
+    $("#let-status").textContent = `saved — layouts.md, the sketch and the page prompts now say this`;
+    loadPrompts();
+    loadPreviews();
+  } catch (err) { $("#let-status").textContent = err.message; }
+}
+
+async function deleteLetterItem(index) {
+  const it = state.lettering.items.find((i) => String(i.i) === String(index));
+  const what = it ? `this ${it.type}${it.text ? ` — “${it.text}”` : ""}` : "this item";
+  if (!confirm(`Delete ${what}? It leaves the layout, the sketch and the page prompt.`)) return;
+  $("#let-status").textContent = "deleting…";
+  try {
+    const d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}/items/${index}`,
+      { method: "DELETE" });
+    showLettering(d);
+    renderLetterItems(d);
+    await loadPrompts();       // reloads this page's items, with their indexes closed up
+    loadPreviews();
+    $("#let-status").textContent = "deleted — layouts.md, the sketch and the page prompts now agree";
+  } catch (err) { $("#let-status").textContent = err.message; }
+}
+
+$("#let-items").addEventListener("change", saveLettering);
+$("#let-items").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-del]");
+  if (btn) deleteLetterItem(btn.dataset.del);
+});
+$("#let-page").onchange = () => loadLettering(Number($("#let-page").value));
+$("#let-prev").onclick = () => stepLettering(-1);
+$("#let-next").onclick = () => stepLettering(1);
+function stepLettering(delta) {
+  const pages = [...$("#let-page").options].map((o) => Number(o.value));
+  const i = pages.indexOf(state.letterPage);
+  if (i > -1 && pages[i + delta]) loadLettering(pages[i + delta]);
+}
+$("#let-art").onchange = async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const data_url = await new Promise((ok) => {
+    const r = new FileReader();
+    r.onload = () => ok(r.result);
+    r.readAsDataURL(file);
+  });
+  $("#let-status").textContent = "uploading art…";
+  try {
+    await api(`/api/projects/${state.project}/lettering/${state.letterPage}/art`, { method: "POST", body: { data_url } });
+    $("#let-status").textContent = "art saved — the text layer sits on top of it";
+    loadLettering(state.letterPage);
+  } catch (err) { $("#let-status").textContent = err.message; }
+  e.target.value = "";
+};
+
+// ---- showrunner notes: jot while you watch --------------------------------------------
+
+async function loadNotes() {
+  if (!state.project) return;
+  const { pending } = await api(`/api/projects/${state.project}/notes`);
+  state.notes = pending;
+  $("#jot-list").innerHTML = pending.map((n) => `
+    <li data-id="${n.id}"><span class="path">${new Date(n.t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}${
+      n.page ? ` · page ${n.page}` : ""}</span> ${esc(n.text)}
+      <button class="ghost promote" data-id="${n.id}" title="Make this a standing rule instead" type="button">Make a rule</button>
+      <button class="ghost drop" data-id="${n.id}" title="Drop this note" type="button">x</button></li>`).join("")
+    || "<li class='path'>no notes yet — they're spent when a round or a review takes them</li>";
+  $("#jot-tidy").disabled = !pending.length;
+}
+
+// ---- standing rules: what the room must always or never do ----------------------------
+
+async function loadRules() {
+  if (!state.project) return;
+  const { rules } = await api(`/api/projects/${state.project}/rules`);
+  state.rules = rules;
+  $("#rule-list").innerHTML = rules.map((r) => `
+    <li data-id="${r.id}"><span class="kind">${esc(r.kind)}</span> ${esc(r.text)}
+      <button class="ghost drop" data-id="${r.id}" title="Drop this rule" type="button">x</button></li>`).join("")
+    || "<li class='path'>no rules yet — a rule holds for every round, a note only for the next one</li>";
+}
+
+async function addRule(text, kind) {
+  try {
+    await api(`/api/projects/${state.project}/rules`, { method: "POST", body: { text, kind } });
+  } catch (err) { return alert(err.message); }
+  loadRules();
+  refreshArtifacts();          // taste-writers.md now carries it
+}
+
+$("#rule-add").onclick = async () => {
+  const text = $("#rule-text").value.trim();
+  if (!text) return;
+  $("#rule-text").value = "";
+  await addRule(text, $("#rule-kind").value);
+  if (state.promoting) {          // it came from a note: the note's work is done
+    await api(`/api/projects/${state.project}/notes/${state.promoting}`, { method: "DELETE" });
+    state.promoting = null;
+    loadNotes();
+  }
+};
+$("#rule-text").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#rule-add").click(); });
+$("#rule-list").addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id || !e.target.classList.contains("drop")) return;
+  await api(`/api/projects/${state.project}/rules/${id}`, { method: "DELETE" });
+  loadRules();
+  refreshArtifacts();
+});
+
+async function addNote() {
+  const text = $("#jot-text").value.trim();
+  if (!text) return;
+  const page = !$("#review").hidden ? state.rvPage : null;
+  await api(`/api/projects/${state.project}/notes`, { method: "POST", body: { text, page } });
+  $("#jot-text").value = "";
+  loadNotes();
+}
+
+$("#jot-add").onclick = addNote;
+$("#jot-text").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); addNote(); }
+});
+$("#jot-list").addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return;
+  if (e.target.classList.contains("promote")) {       // a note for one round becomes a rule for all of them
+    const note = state.notes.find((n) => String(n.id) === String(id));
+    if (!note) return;
+    state.promoting = id;                             // say always / never / remember, then Add rule
+    $("#rule-text").value = note.text;
+    $("#rule-kind").focus();
+    return;
+  }
+  if (!e.target.classList.contains("drop")) return;
+  await api(`/api/projects/${state.project}/notes/${id}`, { method: "DELETE" });
+  loadNotes();
+});
+$("#jot-tidy").onclick = async (e) => {
+  const label = e.target.textContent;
+  e.target.textContent = "Tidying…";
+  e.target.disabled = true;
+  try {
+    const r = await api(`/api/projects/${state.project}/notes/synthesize`, { method: "POST" });
+    const box = !$("#review").hidden ? $("#rv-overall") : $("#note");
+    box.value = [box.value.trim(), r.text].filter(Boolean).join("\n\n");
+    box.focus();
+    box.dispatchEvent(new Event("change"));
+    log(`<span class="cost">tidied ${r.notes} notes into feedback with ${esc(r.model)}` +
+      `${r.cost_usd != null ? ` · ${usd(r.cost_usd)}` : ""} — edit it before sending</span>`);
+  } catch (err) { alert(err.message); }
+  e.target.textContent = label;
+  e.target.disabled = false;
+};
+
+// ---- progress: which step, how long so far, roughly how long to go ------------------
+
+function track(ev) {
+  let p = state.progress;
+  if (ev.type === "run_start") {
+    p = state.progress = { start: ev.t, queue: ev.roles, est: ev.estimates || {}, passes: ev.max_passes || 0,
+      passSecs: ev.pass_seconds || 0, pass: 1, done: [], role: null };
+    clearInterval(state.progressTimer);
+    state.progressTimer = setInterval(renderProgress, 1000);
+  }
+  if (!p) return;
+  p.lastT = ev.t;
+  p.lastType = ev.type;
+  if (ev.type === "role_start") Object.assign(p, { role: ev.role, roleStart: ev.t });
+  if (ev.type === "role_done") { p.done.push(ev.role); p.role = null; }
+  if (ev.type === "gate" && !ev.final) Object.assign(p, { pass: ev.pass_n + 1, queue: ev.roles || ev.fix, done: [] });
+  if (["run_done", "run_stopped", "error"].includes(ev.type)) p.end = p.end || ev.t;
+  renderProgress();
+}
+
+const dur = (s) => (s < 60 ? `${Math.round(s)}s` : s < 3600 ? `${Math.floor(s / 60)}m ${String(Math.round(s % 60)).padStart(2, "0")}s`
+  : `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`);
+
+function renderProgress() {
+  const p = state.progress;
+  $("#progress").hidden = !p;
+  if (!p) return;
+  const now = p.end || Date.now() / 1000;
+  const est = (id) => p.est[id] ?? 120;
+  const total = p.queue.reduce((t, id) => t + est(id), 0) || 1;
+  const inRole = p.role ? now - p.roleStart : 0;
+  const doneSecs = p.done.reduce((t, id) => t + est(id), 0);
+  const current = p.role ? Math.min(inRole, est(p.role) * 0.95) : 0;
+  const left = p.queue.filter((id) => !p.done.includes(id) && id !== p.role).reduce((t, id) => t + est(id), 0)
+    + (p.role ? Math.max(0, est(p.role) - inRole) : 0);
+  const step = Math.min(p.done.length + (p.role ? 1 : 0), p.queue.length);
+  const passText = p.passes ? `Pass ${p.pass} of up to ${p.passes + 1} · ` : "";
+  $("#pg-bar").style.width = `${p.end ? 100 : Math.round(100 * (doneSecs + current) / total)}%`;
+  $("#pg-bar").classList.toggle("finished", !!p.end);
+  if (p.end) {
+    $("#pg-step").textContent = `Finished in ${dur(p.end - p.start)}`;
+    $("#pg-times").textContent = "";
+    $("#pg-wait").textContent = "";
+    clearInterval(state.progressTimer);
+    return;
+  }
+  $("#pg-step").textContent = `${passText}step ${step} of ${p.queue.length}` + (p.role ? `: ${title(p.role)}` : "");
+  const long = p.role && inRole > est(p.role);
+  $("#pg-times").textContent = `${dur(now - p.start)} elapsed · ` +
+    (long ? `${title(p.role)} is running past its usual ${dur(est(p.role))}` : `about ${dur(left)} left in this pass`) +
+    (p.passes && p.pass <= p.passes ? ` (+ about ${dur(p.passSecs)} per fix pass, if needed)` : "");
+  const quiet = now - p.lastT;
+  $("#pg-wait").textContent = p.lastType === "thinking" ? `waiting on the model for ${dur(quiet)}`
+    : quiet > 5 ? `last activity ${dur(quiet)} ago` : "working";
+  $("#pg-wait").classList.toggle("cfg-error", quiet > 180);
 }
 
 function closeStream() {
@@ -602,6 +1169,50 @@ function closeStream() {
 function setRunning(on) {
   $("#run").disabled = on;
   $("#stop").hidden = !on;
+  $("#pause").hidden = !on;
+  if (!on) setHeld(null);
+}
+
+function setHeld(ev) {
+  /* ev: the "paused" event while the round waits between two writers; null when it runs on */
+  state.held = ev;
+  $("#held").hidden = !ev;
+  $("#resume").hidden = !ev;
+  $("#pause").hidden = !!ev || !state.runId;
+  if (!ev) return;
+  $("#held-after").textContent = ev.after_title || "the last writer";
+  $("#held-next").textContent = ev.title || "the next writer";
+}
+
+async function resumeRun() {
+  if (!state.runId) return;
+  log("…carrying on", "dim");
+  await api(`/api/runs/${state.runId}/resume`, { method: "POST" });
+  setHeld(null);
+}
+
+$("#pause").onclick = async () => {
+  if (!state.runId) return;
+  await api(`/api/runs/${state.runId}/pause`, { method: "POST" });
+  log("…holding as soon as this writer finishes", "warn");
+  $("#pause").disabled = true;
+};
+$("#resume").onclick = resumeRun;
+$("#held-resume").onclick = resumeRun;
+
+async function followNextRound(tries = 12) {
+  /* auto mode hands the round back and starts another; pick the new run up and keep watching */
+  for (let i = 0; i < tries && !state.runId; i++) {
+    await new Promise((r) => setTimeout(r, 1000));
+    const p = await api(`/api/projects/${state.project}`).catch(() => null);
+    if (p?.active_run) {
+      log("auto: the room takes the round back and starts another", "gate");
+      $("#feed").innerHTML = "";
+      return attach(p.active_run, 0);
+    }
+    if (p && !state.auto) return;
+  }
+  refreshArtifacts();
 }
 
 function attach(runId, after) {
@@ -616,7 +1227,14 @@ function attach(runId, after) {
     state.lastEvent = ev.i + 1;
     handle(ev);
   };
-  src.addEventListener("end", () => { closeStream(); refreshArtifacts(); loadReview(false); loadPreviews(); });
+  src.addEventListener("end", async () => {
+    closeStream();
+    await refreshArtifacts();
+    loadReview(false);
+    loadPreviews();
+    loadNotes();
+    if (state.auto) followNextRound();     // auto mode starts the next round on its own
+  });
   src.onerror = () => {
     // reconnect from where we left off instead of replaying
     src.close();
@@ -636,6 +1254,7 @@ $("#run").onclick = async () => {
     state.version = null;
     attach(run_id, 0);
     refreshArtifacts();
+    loadNotes();
   } catch (err) { alert(err.message); }
 };
 
@@ -654,9 +1273,9 @@ $("#stop").onclick = () => {
 
 function v_gate(ev) {
   if (ev.final) {
-    return ev.ready ? "✔ gate passed" : `⚠ gate still failing: ${ev.reasons.map(esc).join("; ")}`;
+    return ev.ready ? "gate passed" : `gate still failing: ${ev.reasons.map(esc).join("; ")}`;
   }
-  return `↻ fix pass ${ev.pass_n}: ${ev.reasons.map(esc).join("; ")} → ${ev.fix.map(title).join(", ")}`;
+  return `fix pass ${ev.pass_n}: ${ev.reasons.map(esc).join("; ")} → ${ev.fix.map(title).join(", ")}`;
 }
 
 async function saveSettings() {
@@ -665,10 +1284,27 @@ async function saveSettings() {
     await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: {
       pages: $("#set-pages").value ? Number($("#set-pages").value) : null,
       chapter: $("#set-chapter").value ? Number($("#set-chapter").value) : null,
-      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value) } });
+      lettering: $("#set-lettering").value,
+      max_passes: $("#set-passes").value === "" ? null : Number($("#set-passes").value),
+      auto_rounds: $("#set-auto").value === "" ? null : Number($("#set-auto").value) } });
+    showAuto(Number($("#set-auto").value) || 0);
   } catch (err) { alert(err.message); }
 }
-["#set-chapter", "#set-pages", "#set-passes"].forEach((id) => ($(id).onchange = saveSettings));
+["#set-chapter", "#set-pages", "#set-passes", "#set-lettering", "#set-auto"].forEach((id) => ($(id).onchange = saveSettings));
+
+function showAuto(rounds) {
+  /* auto mode: the room hands each round back to itself until the gate is ready */
+  state.auto = rounds;
+  $("#auto-state").hidden = !rounds;
+  $("#auto-stop").hidden = !rounds;
+  $("#auto-state").textContent = rounds ? `auto: ${rounds} more round${rounds === 1 ? "" : "s"} without you` : "";
+}
+
+$("#auto-stop").onclick = async () => {
+  $("#set-auto").value = 0;
+  await saveSettings();
+  log("auto off — the room stops after this round and waits for your review", "gate");
+};
 
 $("#write-round").onclick = async () => {
   try {
@@ -676,18 +1312,18 @@ $("#write-round").onclick = async () => {
       method: "POST", body: { note: $("#note").value, hat: $("#hat").value } });
     $("#note").value = "";
     $("#feed").innerHTML = "";
-    log(kind === "revision" ? "▶ revision round — working from your review" : "▶ writing round", "dim");
+    log(kind === "revision" ? "revision round — working from your review" : "writing round", "dim");
     state.version = null;
     destroyReviewEditor();
     $("#review").hidden = true;
     attach(run_id, 0);
     refreshArtifacts();
+    loadNotes();
   } catch (err) { alert(err.message); }
 };
 
 // ---- review -------------------------------------------------------------------
 
-const VERDICT_ICON = { love: "🔥", changes: "✏️", reroll: "👎" };
 
 function destroyReviewEditor() {
   state.rvEditor?.destroy();
@@ -700,10 +1336,11 @@ async function loadReview(keepPage = true) {
   state.review = r;
   const show = r.open && !state.version && !state.runId;
   $("#review").hidden = !show;
+  $("#go-review").hidden = !show;
   if (!show) { destroyReviewEditor(); return; }
   const pages = Object.keys(r.pages);
   if (!keepPage || !pages.includes(String(state.rvPage))) {
-    state.rvPage = pages.find((n) => !r.pages[n].verdict) || pages[0];
+    state.rvPage = pages.find((n) => !r.pages[n].kept) || pages[0];
   }
   renderReview();
   if (state.previews) renderPreviews();
@@ -717,10 +1354,13 @@ function renderReview() {
   const p = r.pages[n];
   const entries = Object.entries(r.pages);
   $("#review-round").textContent = r.round;
-  $("#review-progress").textContent = `${entries.filter(([, x]) => x.verdict).length} of ${entries.length} pages decided`;
+  const kept = entries.filter(([, x]) => x.kept).length;
+  $("#review-progress").textContent =
+    `${kept} of ${entries.length} pages kept — the rest stay open for the room`;
   $("#review-chips").innerHTML = entries.map(([k, x]) =>
-    `<button class="chip ${k === n ? "active" : ""} ${x.verdict || ""}" data-page="${k}" title="${x.locked ? `locked (${x.locked})` : ""}">` +
-    `p${k.padStart(2, "0")} ${VERDICT_ICON[x.verdict] || "·"}${x.edited ? " ✎" : ""}</button>`).join("");
+    `<button class="chip ${k === n ? "active" : ""} ${x.kept ? "kept" : x.edited || x.comment ? "noted" : ""}" ` +
+    `data-page="${k}">p${k.padStart(2, "0")}` +
+    `${x.kept ? " kept" : x.edited ? " edited" : x.comment ? " note" : ""}</button>`).join("");
   $("#rv-page").textContent = `Page ${n} of ${entries.length}` + (p.locked ? ` · locked (${p.locked})` : "");
   destroyReviewEditor();
   $("#review-canvas").innerHTML = `<pre class="page"></pre>`;
@@ -731,9 +1371,28 @@ function renderReview() {
   if (document.activeElement !== $("#rv-overall")) $("#rv-overall").value = r.comment || "";
   $("#rv-notes").innerHTML = md(p.notes || "");
   $("#rv-prompt").textContent = state.prompts?.pages?.[n] || "(no prompt for this page yet)";
-  document.querySelectorAll("[data-verdict]").forEach((b) => b.classList.toggle("chosen", b.dataset.verdict === p.verdict));
+  $("#rv-pages").textContent = r.settings.pages ?? entries.length;
+  const prop = r.page_proposal;
+  $("#rv-proposal").hidden = !prop;
+  if (prop) {
+    $("#rv-proposal").innerHTML =
+      `The room suggests <b>${prop.pages} pages</b> (${prop.direction === "expand" ? "expand" : "contract"}` +
+      `${prop.now ? ` from ${prop.now}` : ""})${prop.reason ? `: ${esc(prop.reason)}` : ""} ` +
+      `<button class="ghost" id="rv-accept-pages">Use ${prop.pages}</button>`;
+    $("#rv-accept-pages").onclick = () => setPages(prop.pages);
+  }
   updateReviewButtons();
 }
+
+async function setPages(n) {
+  n = Math.max(1, Number(n) || 1);
+  await api(`/api/projects/${state.project}/settings`, { method: "PUT", body: { pages: n } });
+  $("#set-pages").value = n;
+  await loadReview();
+  log(`<span class="gate">the next round works to ${n} pages</span>`);
+}
+$("#rv-more").onclick = () => setPages(Number($("#rv-pages").textContent) + 1);
+$("#rv-fewer").onclick = () => setPages(Number($("#rv-pages").textContent) - 1);
 
 function reviewDirty() {
   const p = currentReviewPage();
@@ -744,22 +1403,21 @@ function updateReviewButtons() {
   const r = state.review;
   if (!r) return;
   const p = currentReviewPage();
-  const canChange = p.edited || state.rvEditor?.dirty || $("#rv-comment").value.trim();
-  $('[data-verdict="changes"]').disabled = !canChange;
-  $("#rv-hint").textContent = canChange ? "" : "Edit the page or write a comment to approve it with changes.";
+  $("#rv-keep").textContent = p.kept ? "Kept — open it again" : "Keep this page";
+  $("#rv-keep").classList.toggle("chosen", !!p.kept);
+  $("#rv-hint").textContent = p.kept
+    ? "Locked: script, layout and sketch stay exactly as they are."
+    : "Open: edit the page or write a note, and the room works from it.";
   $("#rv-undo-edits").disabled = !(p.edited || state.rvEditor?.dirty);
   $("#rv-save").disabled = !reviewDirty();
   const all = Object.values(r.pages);
-  const decided = all.every((x) => x.verdict);
-  const rerolls = all.filter((x) => x.verdict === "reroll").length;
-  const changes = all.filter((x) => x.verdict !== "love").length;
-  $("#rv-send").disabled = !decided || !changes;
-  $("#rv-final").disabled = !decided || rerolls > 0;
-  $("#rv-status").textContent = !decided
-    ? `Give every page a verdict: ${all.length - all.filter((x) => x.verdict).length} left.`
-    : rerolls ? `${rerolls} page(s) to re-roll — send to the room.`
-    : changes ? "Send to the room to sync your changes, or finalize the book as it is."
-    : "Every page is loved. Finalize, or keep iterating.";
+  const kept = all.filter((x) => x.kept).length;
+  const said = all.filter((x) => !x.kept && (x.edited || x.comment)).length;
+  $("#rv-send").disabled = kept === all.length;
+  $("#rv-status").textContent = kept === all.length
+    ? "Every page is kept. Finalize the book."
+    : `${kept} kept · ${said} with your notes or edits · ${all.length - kept - said} untouched. ` +
+      "Send to the room, or finalize the book as it is.";
 }
 
 async function savePage(body = {}) {
@@ -801,14 +1459,7 @@ $("#rv-next").onclick = () => stepReview(1);
 $("#rv-comment").oninput = updateReviewButtons;
 $("#rv-invert").onchange = (e) => { if (state.rvEditor) state.rvEditor.invertBrush = e.target.checked; };
 $("#rv-save").onclick = () => savePage();
-document.querySelectorAll("[data-verdict]").forEach((b) => (b.onclick = async () => {
-  const same = currentReviewPage().verdict === b.dataset.verdict;
-  const ok = await savePage(same ? { clear: true } : { verdict: b.dataset.verdict });
-  if (ok && !same) {   // on to the next undecided page
-    const next = Object.entries(state.review.pages).find(([, x]) => !x.verdict);
-    if (next && b.dataset.verdict !== "changes") goToPage(next[0]);
-  }
-}));
+$("#rv-keep").onclick = () => savePage({ kept: !currentReviewPage().kept });
 $("#rv-undo-edits").onclick = async () => {
   if (!confirm("Throw away your edits to this page?")) return;
   state.rvEditor.dirty = false;
@@ -820,8 +1471,10 @@ $("#rv-overall").onchange = () =>
 async function submitReview(action) {
   if (!(await savePage())) return;
   const r = state.review;
-  const counts = Object.values(r.pages).reduce((c, x) => ({ ...c, [x.verdict]: (c[x.verdict] || 0) + 1 }), {});
-  const summary = `🔥 ${counts.love || 0} · ✏️ ${counts.changes || 0} · 👎 ${counts.reroll || 0}`;
+  const all = Object.values(r.pages);
+  const kept = all.filter((x) => x.kept).length;
+  const said = all.filter((x) => !x.kept && (x.edited || x.comment)).length;
+  const summary = `${kept} kept · ${said} with your notes or edits`;
   if (!confirm(action === "finalize"
     ? `Finalize the book from ${r.round}? (${summary})`
     : `Send your review of ${r.round} to the room? (${summary}) The room starts revising right away.`)) return;
@@ -834,7 +1487,7 @@ async function submitReview(action) {
   $("#review").hidden = true;
   state.review = null;
   $("#feed").innerHTML = "";
-  log(`■ saved your review as ${esc(out.round)}`, "gate");
+  log(`saved your review as ${esc(out.round)}`, "gate");
   if (out.run_id) attach(out.run_id, 0);
   refreshArtifacts();
 }
@@ -932,6 +1585,15 @@ function openSettings(id, message) {
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
           ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
         </div>
+        <div class="sf-row">
+          <label class="sf sf-wide"><span>Library files for this writer</span>
+            <select name="reference_files" multiple size="6">${(state.library || []).map((f) =>
+              `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
+              `${esc(f.name)} · ${esc(f.kind)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
+            <small class="path">Select none to give this writer whatever the round picked. Selecting some
+              means it reads only those, however big the library gets — it can still open any other file
+              with read_artifact.</small></label>
+        </div>
         ${r.preview === "drawn" ? `<div class="sf-row">
           ${field("Min ink per panel", "min_density", s.min_density, "0.25", "number", 'step="0.05" min="0" max="0.9"')}
           ${field("Improve passes", "refine_passes", s.refine_passes, "1", "number", 'min="0" max="3"')}
@@ -981,6 +1643,9 @@ function openSettings(id, message) {
       if (String(v) !== String(s[k] ?? "")) out[k] = v;
     }
     put("references", f.references.value);
+    const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
+    const was = s.reference_files || [];
+    if (picked.join("|") !== was.join("|")) out.reference_files = picked;
     for (const k of ["send_images", "generate_images"]) {
       const v = f[k].value === "" ? null : f[k].value === "true";
       if (v !== (s[k] ?? null)) out[k] = v;
@@ -1012,8 +1677,8 @@ function openSettings(id, message) {
     if (!(await save())) return;
     status("Testing…");
     const t = await api(`/api/roles/${id}/test`, { method: "POST" });
-    openSettings(id, t.ok ? { text: `✔ ${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
-                          : { text: `✖ ${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
+    openSettings(id, t.ok ? { text: `${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
+                          : { text: `${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
   };
   form.querySelector('[data-act="models"]').onclick = async () => {
     if (!(await save())) return;
@@ -1049,6 +1714,7 @@ async function loadPrompts() {
   state.prompts = d;
   const pages = Object.keys(d.pages).sort((a, b) => a - b);
   $("#prompts").hidden = !pages.length;
+  $("#prompts-copy-all").disabled = !pages.length;
   $("#prompt-list").innerHTML = pages.map((n) => `
     <details class="prompt-card" data-page="${n}">
       <summary><b>Page ${n}</b> <span class="path">${d.pages[n].length.toLocaleString()} characters</span>
@@ -1056,6 +1722,8 @@ async function loadPrompts() {
       <pre class="prompt">${esc(d.pages[n])}</pre>
     </details>`).join("");
   if (state.review && !$("#review").hidden) renderReview();
+  openPagePrompt($("#preview-page").value || pages[0]);
+  await loadLettering(state.letterPage);   // needs state.prompts for the page list
 }
 
 async function copyText(text, button) {
@@ -1080,6 +1748,17 @@ $("#prompt-list").addEventListener("click", (e) => {
   e.preventDefault();
   copyText(state.prompts.pages[n], e.target);
 });
+$("#output-files").addEventListener("click", (e) => {
+  const name = e.target.dataset.name;
+  if (name) showArtifact(name);
+});
+$("#export").onclick = async (e) => {
+  try {
+    const { folder } = await api(`/api/projects/${state.project}/export`, { method: "POST" });
+    e.target.textContent = `Saved to ${folder}/`;
+    setTimeout(() => (e.target.textContent = "Save to output folder"), 2500);
+  } catch (err) { alert(err.message); }
+};
 $("#prompts-copy-all").onclick = (e) => copyText(state.prompts.book, e.target);
 $("#rv-prompt-copy").onclick = (e) => {
   e.preventDefault();

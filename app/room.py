@@ -5,13 +5,19 @@ Every run is an AI round (rounds/<slug>-rNN-ai).
 A *writing round* (start_round) goes further: the room writes the book, then checks
 the readiness gate (page count, layout issues, continuity blockers, how closely
 locked pages are matched) and reruns only the roles that can fix what's wrong, up
-to max_passes times, before handing the pages to the showrunner for review."""
+to max_passes times, before handing the pages to the showrunner for review.
+
+Two things can interrupt that: the showrunner can hold the round between two writers
+(hold(), pause/resume) and change settings or leave notes for whoever runs next, and
+auto mode (auto_step) can hand a finished round straight back to the room instead of
+waiting for a review."""
 import threading
 import time
 import uuid
 
 from . import agent as agent_mod
-from . import projects, review
+from . import notes as notes_mod
+from . import projects, review, usage
 from .roles import list_hats, load_roles
 
 FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
@@ -29,6 +35,9 @@ class Run:
         self.events = []
         self.done = False
         self.stop_requested = False
+        self.pause_requested = False
+        self.paused = False
+        self.last_done = None       # the writer who handed off last, for the pause banner
         self.cond = threading.Condition()
         self.version = projects.Version(
             slug, run_id=self.id, note=note, hat=hat, roles=[r.id for r in roles],
@@ -49,8 +58,41 @@ class Run:
             self.cond.wait_for(lambda: len(self.events) > after or self.done, timeout)
             return self.events[after:], self.done
 
+    def hold(self, note, next_role):
+        """Between two agents: if the showrunner asked to pause, wait here until they resume.
+
+        Nothing is torn down — the round keeps its version and its place in the order. Every
+        agent's settings are read from agent.json when it starts, so a model or temperature
+        changed while paused applies to whoever runs next; notes jotted while paused are
+        handed to them as well. Returns the note the rest of the round should carry."""
+        with self.cond:
+            if not self.pause_requested or self.stop_requested:
+                return note
+            self.paused = True
+            before = {r.id: r.config().public() for r in (self.plan["all"] if self.plan else self.roles)}
+            self.emit("paused", next=next_role.id, title=next_role.title,
+                      after=self.last_done and self.last_done.id, after_title=self.last_done and self.last_done.title)
+            self.cond.wait_for(lambda: not self.pause_requested or self.stop_requested)
+            self.paused = False
+        if self.stop_requested:
+            raise agent_mod.Stopped()
+        roles = self.plan["all"] if self.plan else self.roles
+        after = {r.id: r.config().public() for r in roles}
+        changed = {r: {k: v for k, v in after[r].items() if before.get(r, {}).get(k) != v}
+                   for r in after if after[r] != before.get(r)}
+        self.version.update(configs=after)
+        jotted = notes_mod.take(self.slug, self.version.id)
+        if jotted:                 # keep the notes taken at the start of the round as well
+            path = self.version.path("showrunner-notes.md")
+            had = path.read_text() if path.exists() else ""
+            self.version.write_file("showrunner-notes.md", "\n\n".join(filter(None, [had, jotted])))
+        self.emit("resumed", changed=changed, notes=bool(jotted))
+        return "\n\n".join(p for p in (note, jotted) if p)
+
     def run_roles(self, roles, note, pass_n=1):
         for role in roles:
+            note = self.hold(note, role)
+            role = self.reload(role)
             emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
             emit("role_start", title=role.title, pass_n=pass_n)
             a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
@@ -59,6 +101,11 @@ class Run:
             finally:
                 emit("role_cost", **a.log.totals)
             emit("role_done", note=done_note)
+            self.last_done = role
+
+    def reload(self, role):
+        """The role as it is on disk now — settings can have changed while the round was paused."""
+        return {r.id: r for r in load_roles()}.get(role.id, role)
 
     def fix_roles(self, g):
         wanted = set(g["fix"])
@@ -71,14 +118,16 @@ class Run:
         passes = 0
         while not g["ready"] and passes < self.plan["max_passes"]:
             passes += 1
-            self.emit("gate", ready=False, pass_n=passes, reasons=g["reasons"], fix=g["fix"])
+            fixers = self.fix_roles(g)
+            self.emit("gate", ready=False, pass_n=passes, reasons=g["reasons"], fix=g["fix"],
+                      roles=[r.id for r in fixers])
             note = "\n\n".join(filter(None, [
                 self.note,
                 f"# Revision pass {passes} of {self.plan['max_passes']} — the round isn't ready yet",
                 "Fix only these problems, and touch nothing else:\n- " + "\n- ".join(g["reasons"]),
                 "\n\n".join(g["notes"][:40]),
             ]))
-            self.run_roles(self.fix_roles(g), note, passes + 1)
+            self.run_roles(fixers, note, passes + 1)
             g = review.gate(self.slug, titles)
         summary = {k: g[k] for k in ("ready", "reasons", "blockers", "layout_issues", "pages", "dialed_in")}
         self.version.update(gate=summary, passes=passes)
@@ -88,7 +137,11 @@ class Run:
 
     def work(self):
         self.emit("run_start", roles=[r.id for r in self.roles], version=self.version.id, hat=self.hat,
-                  writing_round=self.plan and self.plan["kind"])
+                  writing_round=self.plan and self.plan["kind"],
+                  max_passes=self.plan["max_passes"] if self.plan else 0,
+                  estimates=estimates(self.plan["all"] if self.plan else self.roles),
+                  pass_seconds=sum(estimates([r for r in self.plan["all"] if r.id in REVISION_ROUND]).values())
+                  if self.plan else 0)
         status = "error"
         try:
             self.run_roles(self.roles, self.note)
@@ -111,9 +164,47 @@ class Run:
             with self.cond:
                 self.done = True
                 self.cond.notify_all()
+        if status == "done" and self.plan:
+            threading.Thread(target=auto_step, args=(self.slug, self), daemon=True).start()
 
 
 RUNS = {}
+DEFAULT_ROLE_SECONDS = 120
+
+
+def auto_step(slug, run):
+    """Auto mode: when a writing round ends, go again without waiting for a review.
+
+    The round that just finished is handed back with nothing said about any page — every page
+    open, no notes — which is what an empty review means, and the next round starts from it.
+    The loop stops when the gate comes back ready, when the round budget is spent, or when
+    the showrunner sets Auto rounds to 0; then the book is finalized. Nothing else changes:
+    each writer still runs on its own model and settings."""
+    left = int(review.settings(slug).get("auto_rounds") or 0)
+    if left <= 0:
+        return
+    ready = bool((run.version.meta.get("gate") or {}).get("ready"))
+    review.save_settings(slug, auto_rounds=max(0, left - 1))
+    try:
+        if ready or left <= 1:
+            review.submit(slug, "finalize")
+            review.save_settings(slug, auto_rounds=0)
+            return
+        review.submit(slug, "send")
+        start_round(slug, hat=run.hat)
+    except (ValueError, RuntimeError):
+        review.save_settings(slug, auto_rounds=0)     # something is wrong: stop rather than spin
+
+
+def estimates(roles):
+    """{role: seconds} — the median of the role's past runs, with its current model if it has any."""
+    past = usage.role_seconds()
+    out = {}
+    for r in roles:
+        model = r.config().model
+        runs = past.get((r.id, model)) or [s for (role, _), v in past.items() if role == r.id for s in v]
+        out[r.id] = round(sorted(runs)[len(runs) // 2]) if runs else DEFAULT_ROLE_SECONDS
+    return out
 
 
 def active_run(slug):
@@ -153,8 +244,14 @@ def start_round(slug, note=None, hat=None):
                   projects.read_artifact(slug, "review.md") or ""]
     if note:
         parts.append(f"Showrunner's note for this round: {note}")
+    jotted = notes_mod.take(slug, "pending")   # the round id isn't known until the Run is made
+    if jotted:
+        parts.append(jotted)
     plan = {"kind": kind, "max_passes": int(st["max_passes"]), "all": roles}
     run = Run(slug, roles, "\n\n".join(p for p in parts if p), hat, plan)
+    if jotted:
+        notes_mod.mark_used(slug, [n["id"] for n in notes_mod._all(slug) if n["used_in"] == "pending"], run.version.id)
+        run.version.write_file("showrunner-notes.md", jotted)
     RUNS[run.id] = run
     threading.Thread(target=run.work, daemon=True).start()
     return run

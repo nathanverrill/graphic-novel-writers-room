@@ -16,7 +16,7 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, llm, projects, review, thumbnails
+from . import artist, asciitext, config, llm, projects, review, rules, thumbnails
 from .roles import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
@@ -143,17 +143,32 @@ class Agent:
             )
         return "\n\n".join(parts)
 
+    def shortlist(self, refs):
+        """The library files this writer reads, if its settings name any. The project's own
+        references/ folder is always read: that material belongs to this book."""
+        if self.cfg.reference_files is None:
+            return refs
+        wanted = set(self.cfg.reference_files)
+        return {n: p for n, p in refs.items()
+                if n in wanted or p.parent != config.REFERENCES_DIR}
+
     def task_message(self, note, images, sparks=None):
         r = self.role
         pitch = projects.read_artifact(self.slug, "pitch.md") or "(no pitch yet)"
         text = [f"Project: {self.slug}", "# Pitch", pitch]
 
         refs = {} if r.minimal else projects.reference_files(self.slug)
+        refs = self.shortlist(refs)
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
         groups = [
             ("canon", "# Reference material from the showrunner — canon\n"
                       "Treat these as canon. Where they conflict with the room's files, "
                       "the references win unless the showrunner's note says otherwise."),
+            ("guide", "# Craft and worldbuilding guides from the showrunner — NOT canon\n"
+                      "How to do the work, and what is plausible in this world. They commit the book to "
+                      "nothing and describe no events: take what serves the page and ignore the rest. "
+                      "Where a guide labels material T, EG, S, L or Cut, keep those labels when you use it "
+                      "(SKILL_HARD_SF_RULES.md says what they mean)."),
             ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
                       "These were put together to get ideas on paper. Mine them for story beats, "
                       "intent, moments and lines worth keeping, but write the room's own, better "
@@ -246,10 +261,13 @@ class Agent:
 
     def save(self, name, content):
         content, restored = review.enforce_locks(self.slug, name, content)
+        content, kept_rules = rules.enforce_rules(self.slug, name, content)
         self.version.write(name, content)
         self.written.add(name)
         self.emit("artifact", name=name)
         result = f"Saved {name}."
+        if kept_rules:
+            result += " The showrunner's standing rules were put back at the end; they are theirs, not yours."
         if restored:
             pages = ", ".join(map(str, restored))
             result += f" Page(s) {pages} are locked by the showrunner; your changes to them were discarded."
@@ -265,8 +283,8 @@ class Agent:
         if not specs and not feedback:
             return " No ```layout blocks found, so no thumbnails were drawn."
         md, _ = review.enforce_locks(self.slug, "thumbnails.md", md)
-        loved = {n for n, l in review.locks(self.slug).items() if l["verdict"] == "love"}
-        feedback = [f for f in feedback if page_of(f) not in loved]   # nothing to fix on loved pages
+        kept = {n for n, l in review.locks(self.slug).items() if l.get("kind") == review.KEPT}
+        feedback = [f for f in feedback if page_of(f) not in kept]   # nothing to fix on a kept page
         self.version.write("thumbnails.md", md)
         self.emit("artifact", name="thumbnails.md")
         self.emit("thumbnails", pages=len(specs), issues=len(feedback))
@@ -297,7 +315,7 @@ class Agent:
         guides, figma_text, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
-        refs = {} if self.role.minimal else projects.reference_files(self.slug)
+        refs = self.shortlist({} if self.role.minimal else projects.reference_files(self.slug))
         sparks = random_entry(self.role, story_targets(self.slug))
         if sparks:
             self.emit("random_entry", **sparks)

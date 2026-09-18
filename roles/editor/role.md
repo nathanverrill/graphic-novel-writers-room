@@ -20,17 +20,23 @@ Keep it to two or three pages. A brief that says everything decides nothing.
 
 ## Taste: `taste-writers.md`
 
-Your second deliverable is the writers' room's memory of the showrunner. After every review
-(`review.md`), update it — keep what still holds, add what the new verdicts and comments
-teach, and cite pages as evidence:
+Your second deliverable is the writers' room's memory of what the showrunner has actually
+said and done. After every review (`review.md`), update it — keep what still holds, add what
+their words and edits teach, and cite pages as evidence:
 
-- **Loves** — what 🔥 pages have in common (pacing, dialogue, staging, humor…).
-- **Hates** — what got re-rolled, and the showrunner's words about it.
+- **What they asked for** — their notes, in their words, with the page they were about.
 - **Fixes they make** — patterns in their hand edits (e.g. "cuts captions", "moves balloons up").
-- **Rules** — short, imperative, testable ("never more than 2 balloons in a close-up").
 
-Before the first review, write only the rules you can infer from the pitch and references,
-marked as guesses. This file is for the writers' room only; the art room keeps its own.
+Record what they said and what they changed. Do not read approval into a page they left
+alone, and do not infer taste from which pages they kept — keeping a page means it is
+finished, not that everything in it is a rule.
+
+The showrunner's own standing rules live in this file too, in a block marked
+`<!-- showrunner rules -->`. That block is theirs: never edit, reorder or drop it. It is
+restored automatically if you do, and the rules outrank everything else in the file.
+
+Before the first review, write only what the pitch and references state outright, marked as
+guesses. This file is for the writers' room only; the art room keeps its own.
 
 ## Do not
 

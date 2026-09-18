@@ -20,6 +20,7 @@ roles/roles.json sets the order, titles, and what each role reads and writes, pl
                           (see Agent.run_preview) instead of the normal tool loop
 """
 import json
+import re
 import random
 from dataclasses import dataclass, field
 
@@ -111,7 +112,7 @@ class Role:
 EDITABLE = {
     "base_url": str, "api_key_env": str, "model": str,
     "temperature": float, "max_tokens": int, "thinking_budget": int, "max_steps": int, "timeout": int,
-    "send_images": bool, "extra": dict, "references": str,
+    "send_images": bool, "extra": dict, "references": str, "reference_files": list,
     "min_density": float, "refine_passes": int, "parallel": int,
     "generate_images": bool, "image_base_url": str, "image_api_key_env": str,
     "image_model": str, "image_size": str, "image_extra": dict,
@@ -130,6 +131,12 @@ def _coerce(key, value):
             if not isinstance(value, dict):
                 raise ValueError
             return value
+        if kind is list:
+            if isinstance(value, str):
+                value = [v.strip() for v in re.split(r"[,\n]", value) if v.strip()]
+            if not isinstance(value, list) or not all(isinstance(v, str) for v in value):
+                raise ValueError
+            return value or None
         if kind is str:
             return str(value).strip()
         return kind(value)

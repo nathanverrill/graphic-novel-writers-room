@@ -32,45 +32,140 @@
   <main>
     <div id="empty" class="empty">Pick a project or start a new one.</div>
     <div id="workspace" hidden>
-      <section>
-        <div class="section-head">
-          <h2 id="project-title"></h2>
-          <div class="actions">
-            <button id="select-defaults" class="ghost">Defaults</button>
-            <button id="select-all" class="ghost">Select all</button>
-            <button id="select-none" class="ghost">None</button>
-          </div>
-        </div>
-        <div id="roles" class="roles"></div>
-      </section>
-
-      <section class="controls">
-        <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
-        <div class="round-bar">
-          <label>Chapter <input id="set-chapter" type="number" min="1" max="99"></label>
-          <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
-          <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
-          <button id="pick-refs" class="ghost" type="button">References…</button>
-          <span class="path" id="refs-summary"></span>
-          <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
-        </div>
+      <div class="work-head">
+        <h2 id="project-title"></h2>
         <div class="actions">
-          <select id="hat" title="Optional thinking mode added to every selected role for this run">
-            <option value="">No hat</option>
-          </select>
-          <button id="run" class="ghost">Run selected roles only</button>
+          <span class="path" id="auto-state" hidden></span>
+          <button id="auto-stop" class="ghost" hidden title="Stop after this round and wait for your review">Stop auto</button>
+          <button id="go-review" class="ghost" hidden title="Your review is waiting below">Review ↓</button>
+          <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
+          <button id="pause" class="ghost" hidden title="Hold the round as soon as the writer at work finishes">Pause</button>
+          <button id="resume" hidden title="Carry on with the settings and notes you changed">Resume</button>
           <button id="stop" class="danger" hidden>Stop</button>
         </div>
-      </section>
+      </div>
+      <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
 
-      <section>
-        <h3>Live feed</h3>
-        <div id="feed" class="feed"></div>
-      </section>
+      <nav class="tabs" id="tabs">
+        <button type="button" data-tab="pages" class="on">Pages</button>
+        <button type="button" data-tab="lettering" hidden>Lettering</button>
+        <button type="button" data-tab="room">The room</button>
+      </nav>
 
-      <section>
+      <div class="tab-panel" data-panel="pages">
+        <section id="pageview">
+          <div class="section-head">
+            <h3>Page <span id="pv-page">1</span> <span class="path" id="pv-note"></span></h3>
+            <div class="actions">
+              <span class="path" id="pv-stage"></span>
+              <button id="pv-keep" class="ghost" hidden type="button"></button>
+            </div>
+          </div>
+          <p class="path" id="pv-beat" hidden></p>
+          <div class="pv-body">
+            <div class="pv-map-wrap">
+              <pre id="pv-map" class="pv-map" hidden></pre>
+              <div id="pv-frame" class="pv-frame"><span class="path">page <b id="pv-frame-n">1</b></span></div>
+            </div>
+            <div id="pv-panels" class="pv-panels"></div>
+          </div>
+        </section>
+
+        <section id="previews" class="previews" hidden>
+          <details id="sketch-box">
+            <summary><b>Layout sketch</b> <span class="path">— the page drawn out, lettering in place; edit it here</span></summary>
+            <div class="section-head">
+              <span class="path" id="preview-scale"></span>
+              <div class="actions">
+                <button id="preview-prev" class="ghost">‹</button>
+                <select id="preview-page"></select>
+                <button id="preview-next" class="ghost">›</button>
+                <label class="path">zoom <input id="preview-zoom" type="range" min="4" max="14" step="0.5" value="7"></label>
+              </div>
+            </div>
+            <div id="preview-grid" class="preview-grid"></div>
+          </details>
+        </section>
+
+        <section id="outputs" class="outputs">
+          <div class="section-head">
+            <h3>Page prompts <span class="path">— paste one page at a time into an image model</span></h3>
+            <div class="actions">
+              <button id="prompts-copy-all">Copy all pages</button>
+              <button id="export" class="ghost" title="Write the page prompts and story files to the output folder">Save to output folder</button>
+            </div>
+          </div>
+          <div id="output-files" class="chips"></div>
+          <p class="path" id="output-where"></p>
+          <div id="prompts" hidden><div id="prompt-list" class="prompt-list"></div></div>
+        </section>
+      </div>
+
+      <div class="tab-panel" data-panel="lettering" hidden>
+        <section id="lettering" hidden>
+          <div class="section-head">
+            <h3>Lettering <span class="path">— the text layer, over art drawn without any text</span></h3>
+            <div class="actions">
+              <button id="let-prev" class="ghost">‹</button>
+              <select id="let-page"></select>
+              <button id="let-next" class="ghost">›</button>
+              <label class="ghost file">Upload art<input id="let-art" type="file" accept="image/*" hidden></label>
+              <a id="let-svg" class="ghost button" download>Download text layer</a>
+            </div>
+          </div>
+          <div class="letter-body">
+            <div class="page-canvas" id="let-canvas">
+              <img id="let-art-img" alt="page art" hidden>
+              <img id="let-layer" alt="text layer">
+            </div>
+            <div class="letter-text" id="let-items"></div>
+          </div>
+          <p class="path" id="let-status"></p>
+        </section>
+      </div>
+
+      <div class="tab-panel" data-panel="room" hidden>
+        <section>
+          <div class="section-head">
+            <h3>Writers <span class="path">— who runs, and on which model</span></h3>
+            <div class="actions">
+              <button id="select-defaults" class="ghost">Defaults</button>
+              <button id="select-all" class="ghost">Select all</button>
+              <button id="select-none" class="ghost">None</button>
+            </div>
+          </div>
+          <div id="roles" class="roles"></div>
+        </section>
+
+        <section class="controls">
+          <h3>This round</h3>
+          <div class="round-bar">
+            <label>Lettering <select id="set-lettering">
+              <option value="art">in the art</option>
+              <option value="layer">separate layer</option>
+            </select></label>
+            <label>Chapter <input id="set-chapter" type="number" min="1" max="99"></label>
+            <label>Pages <input id="set-pages" type="number" min="1" max="200"></label>
+            <label>Fix passes <input id="set-passes" type="number" min="0" max="10"></label>
+            <label title="Keep going without a review for this many more rounds: each round hands itself
+back with nothing said about any page, and the book is finalized when the gate comes back ready or
+the count runs out. 0 stops after the next round.">Auto rounds
+              <input id="set-auto" type="number" min="0" max="20"></label>
+            <button id="pick-refs" class="ghost" type="button">References…</button>
+            <span class="path" id="refs-summary"></span>
+          </div>
+          <div class="actions">
+            <select id="hat" title="Optional thinking mode added to every selected role for this run">
+              <option value="">No hat</option>
+            </select>
+            <button id="run" class="ghost">Run selected roles only</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="stats">
         <div class="section-head">
-          <h3>Costs</h3>
+          <h3>Stats <span class="path">— what the room has spent</span></h3>
           <select id="cost-scope">
             <option value="project">This project</option>
             <option value="version">Selected version</option>
@@ -81,6 +176,63 @@
       </section>
     </div>
   </main>
+
+  <aside class="watch" id="watch-pane" hidden>
+    <h2>Watch pad</h2>
+    <div id="held" class="held" hidden>
+      <b>Held after <span id="held-after"></span></b>
+      <p class="path">Change any writer's model, temperature or anything else in <b>The room</b>, and jot
+        notes below. <b>Resume</b> gives both to <span id="held-next"></span> and the writers after it.
+        Like a page as it is? <b>Keep this page</b> above the panel map stops the room changing it.</p>
+      <div class="actions"><button id="held-resume">Resume</button></div>
+    </div>
+    <div id="progress" class="progress" hidden>
+      <div class="progress-line"><b id="pg-step"></b> <span class="path" id="pg-times"></span></div>
+      <div class="bar"><div id="pg-bar"></div></div>
+      <div class="path" id="pg-wait"></div>
+    </div>
+    <div class="jot">
+      <label class="path" for="jot-text">Your notes while you watch — half-thoughts welcome; the next
+        round and your review both pick them up</label>
+      <div class="jot-row">
+        <textarea id="jot-text" rows="2" placeholder="Oh yeah — Ada's mother should feel dangerous, not warm… (⌘⏎ to add)"></textarea>
+        <div class="actions">
+          <button id="jot-add" type="button">Add note</button>
+          <button id="jot-tidy" class="ghost" type="button" title="One model call: groups your notes into feedback you can edit">Tidy into feedback</button>
+        </div>
+      </div>
+      <ul id="jot-list" class="jot-list"></ul>
+    </div>
+
+    <div class="rules">
+      <label class="path" for="rule-text">Standing rules — what the room must always or never do.
+        They go into the Editor-in-Chief's taste file, which every writer reads, and stay there
+        round after round.</label>
+      <div class="rule-row">
+        <select id="rule-kind">
+          <option value="always">Always</option>
+          <option value="never">Never</option>
+          <option value="note">Remember</option>
+        </select>
+        <input id="rule-text" placeholder="open on a wide establishing shot">
+        <button id="rule-add" type="button">Add rule</button>
+      </div>
+      <ul id="rule-list" class="rule-list"></ul>
+    </div>
+
+    <div class="watch-head">
+      <h3>Agents</h3>
+      <span class="path" id="agents-note">idle</span>
+    </div>
+    <ul id="agents" class="agents"></ul>
+
+    <div class="watch-head">
+      <h3>Live feed</h3>
+      <button id="feed-expand" class="ghost" type="button" title="See the whole feed">Expand</button>
+    </div>
+    <div id="feed" class="feed"></div>
+    <button id="feed-close" type="button" hidden>Close the feed</button>
+  </aside>
 
   <aside class="artifacts" id="artifacts-pane" hidden>
     <div class="section-head">
@@ -127,16 +279,21 @@
       <div class="page-nav">
         <button class="ghost" id="rv-prev">‹</button><b id="rv-page"></b><button class="ghost" id="rv-next">›</button>
       </div>
+      <div class="pages-bar">
+        <span class="path">Pages</span>
+        <button class="ghost" id="rv-fewer" title="One page fewer in the next round">−</button>
+        <b id="rv-pages"></b>
+        <button class="ghost" id="rv-more" title="One page more in the next round">+</button>
+      </div>
+      <div id="rv-proposal" class="proposal" hidden></div>
       <div class="verdicts">
-        <button data-verdict="reroll">👎 Re-roll</button>
-        <button data-verdict="love">🔥 Love it</button>
-        <button data-verdict="changes">✏️ Approve with changes</button>
+        <button id="rv-keep"></button>
       </div>
       <p class="path" id="rv-hint"></p>
       <label class="path"><input type="checkbox" id="rv-invert"> invert brush — drag to show cells light on dark
         (⌘I inverts a selection)</label>
-      <label class="path">Comment on this page
-        <textarea id="rv-comment" rows="4" placeholder="What's wrong, what to keep, what to try…"></textarea></label>
+      <label class="path">Note on this page — what you want changed, in your words
+        <textarea id="rv-comment" rows="4" placeholder="Otto gets the last word here; lose the second caption…"></textarea></label>
       <div class="actions">
         <button class="ghost" id="rv-save">Save page</button>
         <button class="ghost" id="rv-undo-edits">Discard my edits</button>
@@ -155,29 +312,6 @@
       <p class="path" id="rv-status"></p>
     </aside>
   </div>
-</section>
-
-<section id="prompts" class="prompts" hidden>
-  <div class="section-head">
-    <h2>Page prompts <span class="path">— paste one page at a time into an image model</span></h2>
-    <div class="actions">
-      <button id="prompts-copy-all">Copy all pages</button>
-    </div>
-  </div>
-  <div id="prompt-list" class="prompt-list"></div>
-</section>
-
-<section id="previews" class="previews" hidden>
-  <div class="section-head">
-    <h2>Page previews <span class="path" id="preview-scale"></span></h2>
-    <div class="actions">
-      <button id="preview-prev" class="ghost">‹</button>
-      <select id="preview-page"></select>
-      <button id="preview-next" class="ghost">›</button>
-      <label class="path">zoom <input id="preview-zoom" type="range" min="4" max="14" step="0.5" value="7"></label>
-    </div>
-  </div>
-  <div id="preview-grid" class="preview-grid"></div>
 </section>
 
 <dialog id="role-dialog">

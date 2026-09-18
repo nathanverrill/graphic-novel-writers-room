@@ -3,30 +3,77 @@
 A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
 to draw the finished page. Give it a directional draft script and a page count; the room
-writes until the pages are ready, you review every page as a layout sketch (👎 re-roll ·
-🔥 love it · ✏️ approve with changes), and the room revises from your verdicts, edits and
-diffs — round after round, each saved in full. Every role is guided by its own markdown,
+writes until the pages are ready, you review every page as a layout sketch — keep the ones
+that are done, say what you want on the rest — and the room revises from your notes, edits
+and diffs — round after round, each saved in full. Every role is guided by its own markdown,
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
 The art room — which will draw pages itself, with its own taste — is a separate, later room.
 Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
 
-| Order | Role | Writes | Notes |
+A writing round runs six of them, in this order. The other three are there when you want them,
+and run only if you tick them and press **Run selected roles only**.
+
+| In a round | Role | Writes | Notes |
 |---|---|---|---|
 | 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
-| 3 | Wild Card | `provocations.md` | off by default; proposes, never decides |
-| 4 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
-| 5 | Scripter | `script.md` | |
-| 6 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
-| 7 | Letterer | `lettering.md` | optional |
-| 8 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
-| 9 | First Reader | `first-read.md` | off by default; cold read, reactions only |
+| 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
+| 4 | Scripter | `script.md` | |
+| 5 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
+| 6 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
+| — | Wild Card | `provocations.md` | proposes, never decides |
+| — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
+| — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
 
-The Editor-in-Chief also keeps `taste-writers.md`: what you love and hate, learned from your
-reviews, which every writer reads. Everything is labeled canon, observation, proposal, risk
+A revision round — the one that runs after your review — is Editor-in-Chief, Scripter,
+Penciller, Continuity Editor.
+
+The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
+reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `roles/_shared/house-style.md`).
+
+## The screen
+
+Projects on the left; the book in the middle; what the room is doing on the right.
+
+| Where | What |
+|---|---|
+| Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
+| Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
+| Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
+| Middle, under the tabs | **Stats** — what the room has spent, by project, round or role |
+| Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
+| Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
+
+**Write round** sits above the tabs with the showrunner note, so it's there whichever tab you're
+on; when a review is waiting, **Review ↓** appears next to it. Changing the previewed page opens
+that page's prompt below it.
+
+### Watching a page get made
+
+The **Pages** tab opens on one page and watches it being built. Before you press **Write round**
+it's an empty frame at trim proportions, with a card waiting for its **Description** and
+**Dialog**. Then the room writes, and the page takes a step each time a writer's file lands —
+not token by token; a file at a time, in step with the live feed:
+
+| When | What appears |
+|---|---|
+| `outline.md` — the Plotter | the page's beat, above the frame |
+| `script.md` — the Scripter | one card per panel, marked *from the script*, with its description and dialog |
+| `layouts.md` — the Penciller | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
+| `notes.md` — the Continuity Editor | that page's flags, under the cards |
+
+The boxes are the tier and panel fractions themselves, nothing else — so any layout the format
+can describe draws correctly: a nine-panel grid, one splash, a wide tier over two narrow ones
+(`3*` bleeds off the page edge). Click a number to jump to that panel; hovering a card lights up
+its box. The map stays put while you scroll the panels.
+
+The room always writes the whole book. This screen follows **page 1** — one page is enough to
+form a focused opinion before the rest arrives (`BUILD_PAGE` in `app/static/app.js`). The
+remaining pages are all there in **Layout sketch** below (the drawn page with lettering in
+place, which is what you edit and review) and in the page prompts, each with its own page picker.
 
 ## Page prompts — the deliverable
 
@@ -36,7 +83,8 @@ self-contained, so you can paste a single page into an image model:
 - **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
 - **Style** — the brief's visual direction, the same on every page.
 - **Characters** — the bible's visual lock for everyone on the page, word for word.
-- **Layout** — rows and panels with their share of the page, bleeds.
+- **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
+  and panels with their share of the page, bleeds.
 - **Panels** — shot and angle, the Penciller's scene description, light, who stands where
   and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
 - **Rules**, and the page's script for reference.
@@ -57,21 +105,22 @@ bible's visual locks and the Penciller's panel descriptions — that's where to 
    pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
    fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
    Readiness is measured, not the model's opinion. The page prompts are written at the end.
+   **Pause** holds the round between two writers; **Auto rounds** runs the next one without
+   waiting for you.
 3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
-   (editable in place) and its prompt. Each page needs one verdict:
+   (editable in place) and its prompt. A page is one of two things:
 
-   | | Verdict | What happens |
-   |---|---|---|
-   | 👎 | **Re-roll** | the next round rewrites the page, keeping what flows in and out of it |
-   | 🔥 | **Love it** | locked — script section, layout and sketch never change again |
-   | ✏️ | **Approve with changes** | only once you've **edited the sketch or commented**; your version is locked and the room brings script and layout into line with it |
+   | | What happens |
+   |---|---|
+   | **Kept** | done: script section, layout and sketch are locked and never change again |
+   | **Open** | the room can work on it. Edit the sketch or write a note and it works from that; an edited page is locked as your version and the room brings script and layout into line with it. Say nothing and the room carries on with the page as it sees fit |
 
-   Your verdicts, comments and edits are saved as you go.
-4. **Send to the room** (when anything isn't 🔥) or **Finalize** (when nothing is 👎) —
-   both need every page decided. Sending saves your review as a human round and starts a
+   Nothing has to be decided: keep what's finished, say what you want on the rest. Your
+   notes and edits are saved as you go.
+4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
    revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller fix the flagged pages, and the gate checks that ✏️ pages now
-   match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
+   the Scripter and Penciller work the open pages, and the gate checks that the pages you
+   redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
 
@@ -98,7 +147,7 @@ projects/<slug>/rounds/
     <slug>-r01-ai-p03-layout.json    the page's layout block
     <slug>-r01-ai-run.json, -events.jsonl, -calls.jsonl, calls/<slug>-r01-ai-call-0007-….json
   <slug>-r02-human/     your review
-    <slug>-r02-human-review.json / -review.md          verdicts, comments, instructions
+    <slug>-r02-human-review.json / -review.md          what you kept, notes, instructions
     <slug>-r02-human-p02-ascii.txt / -p02-ai-ascii.txt your sketch and the room's
     <slug>-r02-human-p02-diff.md                       text and art diff
   <slug>-r03-ai/        the revision
@@ -219,6 +268,106 @@ Past rounds are read-only.
 `morgue/` keeps reviewed documents we don't use but don't want to lose, with a README noting
 what was adopted from each and why the rest wasn't. Nothing in it reaches an agent.
 
+## Running the room
+
+What the screen gives you while the room works, and the controls that decide what it does.
+
+**Holding the room.** **Pause** stops the round at the next clean break: the writer at work
+finishes and hands off, and the round waits there — same version, same place in the order,
+nothing torn down. While it's held, change any writer's model, temperature or anything else in
+**The room**, and jot notes in the watch pad. **Resume** hands both to the writer about to
+start and everyone after it (every agent reads `agent.json` when it starts, so the change is
+real, and the feed says what changed: `carrying on — Scripter → temperature 0.15 · your notes
+go to the writers still to come`). The notes are marked used by that round and saved with it.
+**Stop** still ends the round outright, and works while it's held.
+
+**Auto rounds.** **Auto rounds** in **The room** tab runs the book without you. After each
+writing round the room hands the round back to itself — every page open, nothing said about any
+of them — and starts the next one, counting down as it goes. It stops and finalizes the book
+when the readiness gate comes back ready, or when the count runs out. The header shows how many
+rounds are left and **Stop auto** ends it after the current round; **Pause**, **Stop** and
+**Keep this page** all still work while it runs, and each writer still runs on its own model and
+settings.
+
+What the gate measures is structure — page count, layout issues, continuity blockers, locked
+pages matched — not whether the book is any good. A run that finishes clean is a draft nobody
+has read yet.
+
+**Page count.** You own it: set **Pages** in **The room** tab, or use − / + in the review. The room
+can propose a different count by writing one line in `notes.md` —
+`PAGE COUNT: 5 — the Leona reveal needs a page of its own` — which shows up in the review as a
+suggestion with a button to accept it. Nothing changes the count without you.
+
+**Keeping a page.** Above the panel map, **Keep this page** marks the page as it stands —
+the same lock the review writes when you keep a page, but you can set it while the room is working
+(pause first if you want to stop it mid-round). From then on the page's script section, layout
+block and sketch are put back into whatever an agent saves, the writer is told its changes to
+that page were discarded, and the readiness gate stops reporting layout issues for it. Click
+again to release it.
+
+**Your notes.** The watch pad on the right has a box to jot thoughts while you watch — half-formed
+ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
+until something takes them: the next **Write round** folds them into the room's brief, and
+submitting a review adds them to `review.md`; either way they're saved in that round's folder and
+marked used. **Tidy into feedback** is one model call (the Editor's model) that groups the pile
+by theme and drops the text into your note box to edit before sending — it doesn't spend the
+notes. **x** drops a note you've changed your mind about.
+
+**Standing rules.** A jotted note is for the next round only — the room reads it and it's
+spent. A rule holds for good. In the watch pad, say **Always**, **Never** or **Remember** and
+add it; the rule goes into the Editor-in-Chief's `taste-writers.md`, the file every writer
+reads before it starts, in a block the room doesn't own:
+
+```markdown
+<!-- showrunner rules -->
+## The showrunner's standing rules
+- **Always:** open every chapter on a wide establishing shot
+- **Never:** put narration captions on a character's face
+<!-- end showrunner rules -->
+```
+
+The Editor rewrites that file every round, so the block is put back on every save and the
+writer is told the rules are yours, not its. **Make a rule** on a jotted note moves its words
+into the rule box — pick always, never or remember, add it, and the note is spent. **x** drops
+a rule, which also takes it out of the taste file.
+
+**Who is working.** The watch pad lists every writer with a dot — idle, working, done, error —
+the step the working one is on, and what it spent last run, so you can see what the room is doing
+from any tab without opening **The room**. Under it, the live feed; **Expand** opens it across
+the window to read properly, **Close the feed** or Escape puts it back.
+
+**Progress.** Above the live feed in the watch pad, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
+step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
+real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
+has been waiting on the model, highlighted after 3 minutes.
+
+**Lettering as its own layer.** Set **Lettering** in **The room** tab to *separate layer* and the
+page prompts ask the image model for finished art with **no text at all**, keeping the balloon
+areas uncluttered. The room then draws the lettering itself, from the layout's items, as a
+transparent SVG over the art — so the words are exactly what you typed, and changing a line never
+touches the art. The **Lettering** tab is side by side: the page on the left (your uploaded art
+with the text layer over it), every balloon, caption and sound effect on the right. Edit the words
+or move a balloon to one of nine spots in its panel, and the layer redraws; **x** on a balloon,
+caption or sound effect deletes it (after a confirmation). Every change is written back to
+`layouts.md` and redraws the layout sketch, so the next round and the page prompts say the same
+thing. **Upload art**
+attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
+`pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
+
+**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
+`output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
+overwritten each time — every version stays in the project's rounds). **Save to output folder**
+does it on demand.
+
+**Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
+the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
+`CHAPTER 4 — PAGE 1`.
+
+How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
+
+- `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
+- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
+
 ## Reference material
 
 Put your source material — a script, lore, series bible, style notes — in `.md` files in:
@@ -229,34 +378,62 @@ references/sources/             originals that tools split up (agents never read
 projects/<slug>/references/     this project only (a file with the same name wins)
 ```
 
-**Each project picks which library files it uses** (**References…** next to **Write round**;
-default: all). Every agent gets the chosen files on every call, so pick only what the book
-needs — the bar shows how many KB that is per call. With references in place the pitch is
-optional. Each round keeps a copy of the references it used, and `run.json` records a hash of each.
+**A project picks which library files it uses** — **References…** in **The room** tab; default:
+all of them. A writer can narrow that further with its own shortlist (below), and the summary
+beside the picker shows how many KB the selection is. With references in place the pitch is
+optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
+each.
 
 Long documents can be split so a project takes only what it needs:
 
 - `python tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
   `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
   chapter's canon row, principle, character interaction map and script revision flags).
-- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_JUL_30.md` into
-  `SCRIPT_DRAFT_JUL_30_CHAPTER_<n>.md`, each marked as an idea draft.
+- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
+  `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
 
-**Canon or idea draft.** A reference is canon (the room must not contradict it) unless its
-first lines contain `<!-- reference: draft -->`. Idea drafts, such as a rough script written
-to get the ideas on paper, are shown to agents separately: mine them for beats and moments,
-but write the room's own script. The References… dialog labels them.
+**What a reference is.** Three kinds, and the room is told which it is reading:
 
-**Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
-the top-left corner (`PAGE 2`). Set **Chapter** in the round bar and page 1 reads
-`CHAPTER 4 — PAGE 1`.
+| Kind | How it is marked | What the room does with it |
+|---|---|---|
+| canon | the default, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
+| draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
+| guide | `<!-- reference: guide -->`, or a file named `SKILL_*.md` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
 
-How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
+A marker wins over the file name, so a skill that carries the book's own canon — a character, a
+place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
+`SKILL_ALPHA.md` is the case in point: it is who Alpha is, not a menu of options.
 
-- `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
-- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
+The guides in `references/` label their material with the vocabulary in
+`SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+**Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
+Writers keep those labels when they use guide material, and the Continuity Editor's
+**plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
+them, and a license used to skip work the characters should have done.
+
+**Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
+also carries its own shortlist: in its model settings, **Library files for this writer**.
+What each one reads now, with this library:
+
+| Writer | Reads in full |
+|---|---|
+| Editor-in-Chief | the bible, Alpha, the hard-SF rules |
+| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars, the Social Innovators' Framework |
+| Character Designer | the bible, Alpha, hard-SF rules |
+| Scripter | chapter canon, Alpha, hard-SF rules, the script-writing skill |
+| Penciller | Alpha, hard-SF rules, graphic novel layout, the layout picker, near-future set design, character emotion |
+| Continuity Editor | the bible, Alpha, hard-SF rules |
+| Wild Card, Letterer, First Reader | names only — they read what they want on demand |
+
+That puts every writer between 97 and 116 KB a call, out of a library that is now 31 files and
+622 KB — 16 guides, 9 canon files, 6 idea drafts. Anything left off a shortlist is still one
+`read_artifact` away: the chapter canon for the Editor, everyday life and money for the
+Scripter, the science guide for the Plotter.
+
+Selecting none in that list means the writer reads whatever the round picked. The project's own
+`references/` folder is always read, whatever the shortlist says.
 
 ## Guiding the agents
 
@@ -296,7 +473,7 @@ worth keeping.
 
 ## Per-agent settings
 
-Click **⚙ Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, Anthropic,
+Click **Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, Anthropic,
 Gemini, Groq, Together, Mistral, DeepSeek, Ollama, LM Studio, or a custom URL), **API key**
 and **model** — with **Load models** (the provider's own list), **Test connection**, and
 **Use this provider & model for all agents**. **Show advanced** reveals everything else.
@@ -335,7 +512,8 @@ UI changes a setting, the change shows up in `git diff`.
 | `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
-| `references` | `"full"` or `"list"` — see Reference material. |
+| `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
+| `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
 A bad `agent.json` is flagged on the card and blocks runs that include that role.

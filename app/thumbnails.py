@@ -647,7 +647,10 @@ def parse_layouts(markdown):
     specs, errors = [], []
     for i, block in enumerate(LAYOUT_RE.findall(markdown or "")):
         try:
-            spec = json.loads(block)
+            try:
+                spec = json.loads(block)
+            except ValueError:   # models often leave a trailing comma: [..., ]
+                spec = json.loads(re.sub(r",(\s*[\]}])", r"\1", block))
             if not isinstance(spec, dict):
                 raise ValueError("a layout block must be a JSON object")
             spec["page"] = int(spec.get("page", 0))
@@ -681,7 +684,7 @@ def page_markdown(page, art_text, notes=(), spec=None, invert=None):
              *_blocks(art_text, invert), ""]
     parts += [f"- {l}" for l in page.legend()]
     if issues:
-        parts += ["", "**Issues**", ""] + [f"- ⚠ {i}" for i in issues]
+        parts += ["", "**Issues**", ""] + [f"- {i}" for i in issues]
     return "\n".join(parts) + "\n"
 
 
@@ -690,7 +693,7 @@ def document(title, pages_md, errors=(), geo=None):
     head = [f"# {title}", "",
             f"<!-- generated; {geo.cols}x{geo.rows} cells, one cell = one letter at {geo.pt:g} pt lettering -->", ""]
     if errors:
-        head += ["**Layout errors**", ""] + [f"- ⚠ {e}" for e in errors] + [""]
+        head += ["**Layout errors**", ""] + [f"- {e}" for e in errors] + [""]
     return "\n".join(head) + "\n".join(pages_md)
 
 
@@ -724,7 +727,7 @@ def _section(number, p):
 def _with_note(notes, note, present):
     lines = [l for l in notes.split("\n") if note not in l]
     text = "\n".join(lines).strip()
-    return (text + ("\n\n" if text else "") + f"- ⚠ {note}") if present else text
+    return (text + ("\n\n" if text else "") + f"- {note}") if present else text
 
 
 def keep_edited(p, number, spec=None):

@@ -16,5 +16,10 @@
   "image_api_key_env": null,
   "image_model": null,
   "image_size": null,
-  "image_extra": {}
+  "image_extra": {},
+  "reference_files": [
+    "EVOKE_PROSPERITY_BIBLE.md",
+    "SKILL_ALPHA.md",
+    "SKILL_HARD_SF_RULES.md"
+  ]
 }

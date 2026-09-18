@@ -1,3 +1,4 @@
+import base64
 import dataclasses
 import json
 import mimetypes
@@ -11,7 +12,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, llm, objectstore, projects, prompts, review, room, thumbnails, usage
+from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
@@ -190,7 +191,15 @@ def get_project(slug: str):
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
-            "library": projects.library()}
+            "library": projects.library(),
+            "output": f"output/{slug}"}
+
+
+@app.post("/api/projects/{slug}/export")
+def export_project(slug: str):
+    pages, book = prompts.build(slug)
+    return {"folder": not_found(projects.export_output, slug, pages, book, "working-copy",
+                                review.text_layers(slug))}
 
 
 @app.get("/api/projects/{slug}/images/{name}")
@@ -389,12 +398,158 @@ def get_round_file(slug: str, version: str, name: str):
     return content
 
 
+@app.get("/api/projects/{slug}/pages/{page}")
+def get_page_view(slug: str, page: int, version: str | None = None):
+    """The page as the screen shows it: the panel map, and each panel's description and dialog."""
+    spec = lettering.page_spec(slug, page, version)
+    if not spec:
+        raise HTTPException(404, f"no layout for page {page}")
+    return {**prompts.page_view(spec), "kept": review.kept(slug).get(page)}
+
+
+@app.post("/api/projects/{slug}/pages/{page}/keep")
+def keep_page(slug: str, page: int):
+    """Keep the page as it stands — the room leaves it alone from here, mid-round included."""
+    try:
+        return {"kept": not_found(review.keep_page, slug, page, "kept by the showrunner")["round"]}
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/pages/{page}/keep")
+def release_page(slug: str, page: int):
+    not_found(review.release_page, slug, page)
+    return {"kept": None}
+
+
+# ---- lettering: the text layer over art drawn without text -----------------------
+
+class LetteringEdit(BaseModel):
+    changes: dict[str, dict]
+
+
+class PageArt(BaseModel):
+    data_url: str
+
+
+def _lettering(slug, page, version=None):
+    spec = lettering.page_spec(slug, page, version)
+    if not spec:
+        raise HTTPException(404, f"no layout for page {page}")
+    ctx = prompts.context(slug, version)
+    return {"page": page, "items": lettering.items(spec), "svg": lettering.svg(spec, ctx),
+            "spots": list(lettering.ANCHORS),
+            "art": projects.page_art(slug, page), "mode": ctx.get("lettering", "art"),
+            "size": lettering.page_size()}
+
+
+@app.get("/api/projects/{slug}/lettering/{page}")
+def get_lettering(slug: str, page: int, version: str | None = None):
+    return _lettering(slug, page, version)
+
+
+@app.put("/api/projects/{slug}/lettering/{page}")
+def put_lettering(slug: str, page: int, edit: LetteringEdit):
+    try:
+        lettering.set_items(slug, page, edit.changes)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return _lettering(slug, page)
+
+
+@app.delete("/api/projects/{slug}/lettering/{page}/items/{index}")
+def delete_lettering_item(slug: str, page: int, index: int):
+    """Drop one balloon, caption or sound effect from the page."""
+    try:
+        lettering.delete_item(slug, page, index)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return _lettering(slug, page)
+
+
+@app.post("/api/projects/{slug}/lettering/{page}/art")
+def put_page_art(slug: str, page: int, art: PageArt):
+    """The page's art with no lettering on it, as a data: URL from the file picker."""
+    head, _, b64 = art.data_url.partition(",")
+    if not b64 or "image/" not in head:
+        raise HTTPException(400, "expected an image data URL")
+    ext = head.split("image/")[1].split(";")[0].replace("jpeg", "jpg")
+    if ext not in ("png", "jpg", "webp", "gif"):
+        raise HTTPException(400, f"unsupported image type {ext!r}")
+    path = projects.save_page_art(slug, page, base64.b64decode(b64), ext)
+    return {"art": path}
+
+
+# ---- standing rules: what the room must always or never do ---------------------
+
+class NewRule(BaseModel):
+    text: str
+    kind: str = "always"
+
+
+@app.get("/api/projects/{slug}/rules")
+def get_rules(slug: str):
+    return {"rules": not_found(rules.all, slug)}
+
+
+@app.post("/api/projects/{slug}/rules")
+def add_rule(slug: str, body: NewRule):
+    try:
+        return {"rules": rules.add(slug, body.text, body.kind)}
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/rules/{rule_id}")
+def drop_rule(slug: str, rule_id: int):
+    return {"rules": not_found(rules.drop, slug, rule_id)}
+
+
+# ---- showrunner notes ----------------------------------------------------------
+
+class Note(BaseModel):
+    text: str
+    page: int | None = None
+
+
+@app.get("/api/projects/{slug}/notes")
+def get_notes(slug: str):
+    return {"pending": notes.pending(slug), "all": notes._all(slug)}
+
+
+@app.post("/api/projects/{slug}/notes")
+def add_note(slug: str, note: Note):
+    try:
+        return notes.add(slug, note.text, note.page)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/notes/{note_id}")
+def drop_note(slug: str, note_id: int):
+    notes.drop(slug, note_id)
+    return {"ok": True}
+
+
+@app.post("/api/projects/{slug}/notes/synthesize")
+def synthesize_notes(slug: str):
+    """One model call that turns the jotted notes into organized feedback."""
+    try:
+        return notes.synthesize(slug)
+    except (ValueError, llm.LLMError) as e:
+        raise HTTPException(400, str(e))
+
+
 # ---- writing rounds and review -------------------------------------------------
 
 class RoundSettings(BaseModel):
     pages: int | None = None
     chapter: int | None = None
+    lettering: str | None = None   # "art" (the model letters it) or "layer" (we do)
     max_passes: int | None = None
+    auto_rounds: int | None = None  # keep going without a review for this many more rounds
     references: list[str] | None = None   # library files to use; ["*"] = all
 
 
@@ -404,11 +559,10 @@ class RoundRequest(BaseModel):
 
 
 class PageReview(BaseModel):
-    verdict: str | None = None
+    kept: bool | None = None       # the page is done and locked; everything else is feedback
     comment: str | None = None
     art: str | None = None
     invert: str | None = None
-    clear: bool = False
 
 
 class Submit(BaseModel):
@@ -426,6 +580,8 @@ def update_settings(slug: str, body: RoundSettings):
     not_found(projects.project_dir, slug)
     if body.max_passes is not None and not 0 <= body.max_passes <= 10:
         raise HTTPException(400, "max_passes must be 0-10")
+    if body.auto_rounds is not None and not 0 <= body.auto_rounds <= 20:
+        raise HTTPException(400, "auto_rounds must be 0-20")
     if body.references not in (None, ["*"]):
         known = {f["name"] for f in projects.library()}
         unknown = [r for r in body.references if r not in known]
@@ -458,7 +614,7 @@ def review_state(slug: str):
 @app.put("/api/projects/{slug}/review/pages/{page}")
 def review_page(slug: str, page: int, body: PageReview):
     _idle(slug)
-    return not_found(review.save_page, slug, page, body.verdict, body.comment, body.art, body.clear, body.invert)
+    return not_found(review.save_page, slug, page, body.kept, body.comment, body.art, body.invert)
 
 
 @app.put("/api/projects/{slug}/review/comment")
@@ -512,7 +668,28 @@ def _get_run(run_id):
 
 @app.post("/api/runs/{run_id}/stop")
 def stop_run(run_id: str):
-    _get_run(run_id).stop_requested = True
+    run = _get_run(run_id)
+    run.stop_requested = True
+    with run.cond:                 # a paused run is waiting: wake it so it can stop
+        run.cond.notify_all()
+    return {"ok": True}
+
+
+@app.post("/api/runs/{run_id}/pause")
+def pause_run(run_id: str):
+    """Hold the round as soon as the agent at work finishes — not mid-task."""
+    run = _get_run(run_id)
+    run.pause_requested = True
+    return {"ok": True, "paused": run.paused}
+
+
+@app.post("/api/runs/{run_id}/resume")
+def resume_run(run_id: str):
+    """Carry on, with whatever settings and notes changed while it was held."""
+    run = _get_run(run_id)
+    run.pause_requested = False
+    with run.cond:
+        run.cond.notify_all()
     return {"ok": True}
 
 

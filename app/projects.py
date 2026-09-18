@@ -4,7 +4,8 @@
       *.md                 working copy — what the room reads, what you edit
       references/*.md      source material you provide (draft script, lore, bible…)
       images/              every image ever generated for the project
-      locks.json           pages the showrunner has locked (see review.py)
+      locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
+      rules.json           standing rules, written into taste-writers.md (rules.py)
       rounds/<slug>-r01-ai/          one folder per round, every file named for its round:
         <slug>-r01-ai-script.md        book-level files as the round left them
         <slug>-r01-ai-p03-ascii.txt    page files: ascii, render, script, layout, review, diff
@@ -12,7 +13,7 @@
         <slug>-r01-ai-events.jsonl     the live feed
         <slug>-r01-ai-calls.jsonl      one line per model call (full calls in calls/)
         references/<slug>-r01-ai-ref-<name>.md
-      rounds/<slug>-r02-human/       a review: your verdicts, edits, comments and diffs
+      rounds/<slug>-r02-human/       a review: what you kept, your edits, notes and diffs
       rounds/<slug>-r05-final/       the approved book
 
 Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
@@ -21,7 +22,9 @@ wherever it ends up.
 
 Reference files come from references/ at the repo root (a shared library) and
 projects/<slug>/references/ (a file with the same name wins). A project can pick
-which library files it uses ("references" in round-settings.json; default: all).
+which library files it uses ("references" in round-settings.json; default: all), and a
+writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
+file is canon, a draft or a guide — see reference_kind.
 """
 import hashlib
 import json
@@ -30,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import PROJECTS_DIR, REFERENCES_DIR
+from .config import OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -89,7 +92,7 @@ def check_image(name):
 
 
 ROUND_RE = re.compile(r"^r(\d{2,})-(ai|human|final)$")
-ROUND_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(md|txt|json|jsonl)$")
+ROUND_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(md|txt|json|jsonl|svg)$")
 PAGE_FILE_RE = re.compile(r"^p\d{2,}-")
 
 
@@ -177,12 +180,29 @@ def reference_files(slug, version=None):
 
 
 DRAFT_MARK = "reference: draft"
+GUIDE_MARK = "reference: guide"
+CANON_MARK = "reference: canon"
 
 
 def reference_kind(path):
-    """"draft" if the file says so near the top (<!-- reference: draft -->), else "canon"."""
+    """What a reference is, from a marker near its top, or from its name.
+
+    canon  the default, or <!-- reference: canon -->: the book must not contradict it
+    draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
+    guide  <!-- reference: guide -->, or a SKILL_*.md file: craft and worldbuilding guidance.
+           It commits the book to nothing; the room uses what serves the page.
+
+    A marker always wins over the file name, so a skill that carries the book's own canon —
+    a character, a place, the story's one license — says so and is read as canon."""
     with path.open(errors="replace") as f:
-        return "draft" if DRAFT_MARK in f.read(400) else "canon"
+        head = f.read(400)
+    if CANON_MARK in head:
+        return "canon"
+    if DRAFT_MARK in head:
+        return "draft"
+    if GUIDE_MARK in head or path.name.startswith("SKILL_"):
+        return "guide"
+    return "canon"
 
 
 def library():
@@ -221,6 +241,42 @@ def write_artifact(slug, name, content):
 
 
 # ---- rounds ----------------------------------------------------------------
+
+def save_page_art(slug, page, data, ext="png"):
+    """The page's finished art (no lettering), as uploaded by the showrunner."""
+    folder = project_dir(slug) / "images"
+    folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob(f"{slug}-p{page:02d}-art.*"):
+        old.unlink()
+    name = f"{slug}-p{page:02d}-art.{ext}"
+    (folder / name).write_bytes(data)
+    return f"images/{name}"
+
+
+def page_art(slug, page):
+    folder = project_dir(slug) / "images"
+    found = sorted(folder.glob(f"{slug}-p{page:02d}-art.*")) if folder.is_dir() else []
+    return f"images/{found[0].name}" if found else None
+
+
+def export_output(slug, page_prompts, book_prompts, round_id, letters=None):
+    """Copy the deliverables to output/<slug>/ (overwritten each time), where they're easy to find:
+    page-prompts.md, pages/pNN-prompt.md and the room's story files."""
+    out = OUTPUT_DIR / slug
+    for sub in ("pages", "story"):
+        shutil.rmtree(out / sub, ignore_errors=True)
+        (out / sub).mkdir(parents=True)
+    (out / "page-prompts.md").write_text(book_prompts)
+    for n, text in page_prompts.items():
+        (out / "pages" / f"p{n:02d}-prompt.md").write_text(text)
+    for n, svg in (letters or {}).items():
+        (out / "pages" / f"p{n:02d}-letters.svg").write_text(svg)
+    for a in list_artifacts(slug):
+        if a["name"].endswith(".md") and a["name"] != "page-prompts.md":
+            shutil.copyfile(project_dir(slug) / a["name"], out / "story" / a["name"])
+    (out / "ROUND.txt").write_text(f"{slug}-{round_id}, exported {now()}\n")
+    return f"output/{slug}"
+
 
 def list_versions(slug):
     """All rounds, newest first."""

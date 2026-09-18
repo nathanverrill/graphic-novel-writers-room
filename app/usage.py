@@ -249,3 +249,59 @@ def report(rows):
     runs = {(r["project"], r["version"]) for r in rows}
     groups["runs"] = len(runs)
     return groups
+
+
+def role_seconds():
+    """{(role, model): [seconds per run]} from the ledger: how long each role has taken, for estimates.
+    Only real calls count (mock runs would make every estimate look instant)."""
+    runs = {}
+    if not LEDGER.exists():
+        return {}
+    for line in LEDGER.read_text().splitlines():
+        try:
+            r = json.loads(line)
+        except ValueError:
+            continue
+        if r.get("status") != 200 or "mock" in str(r.get("response_model") or r.get("model")):
+            continue
+        key = (r.get("project"), r.get("version"), r.get("role"), r.get("model"))
+        runs[key] = runs.get(key, 0) + (r.get("duration_ms") or 0) / 1000
+    out = {}
+    for (_, _, role, model), secs in runs.items():
+        out.setdefault((role, model), []).append(secs)
+    return out
+
+
+class LedgerLogger:
+    """For the odd call that belongs to no round (e.g. tidying the showrunner's notes):
+    one line in logs/usage.jsonl, no per-call file."""
+
+    def __init__(self, project, role_id, version="none"):
+        self.project = project
+        self.role_id = role_id
+        self.version = version
+        self.totals = empty_totals()
+
+    def __call__(self, kind, url, request, response, status, duration, error=None):
+        resp = response if isinstance(response, dict) else {}
+        tokens = read_usage(resp.get("usage"))
+        price_key, price = find_price(request.get("model"), resp.get("model"))
+        cost, source = (compute_cost(kind, tokens, resp.get("usage"), price, request.get("n", 1))
+                        if status == 200 and not error else (None, "failed"))
+        summary = {
+            "time": time.strftime("%Y-%m-%dT%H:%M:%S"),
+            "project": self.project, "version": self.version, "run_id": None,
+            "call": 1, "role": self.role_id, "kind": kind,
+            "provider": urlparse(url).netloc, "url": url,
+            "model": request.get("model"), "response_model": resp.get("model"),
+            "price_key": price_key, **tokens,
+            "cost_usd": cost, "cost_source": source,
+            "duration_ms": round(duration * 1000), "status": status,
+            "error": str(error)[:300] if error else None, "log": None,
+        }
+        with _lock:
+            LOGS_DIR.mkdir(exist_ok=True)
+            with LEDGER.open("a") as f:
+                f.write(json.dumps(summary) + "\n")
+        add_to(self.totals, summary)
+        return summary

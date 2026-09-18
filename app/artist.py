@@ -21,7 +21,7 @@ import threading
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 
-from . import asciitext, llm, projects, review, thumbnails
+from . import asciitext, llm, projects, thumbnails
 
 ROW_RE = re.compile(r"^\s*(\d{1,3})\s*\|(.*)$")
 FILLS = set(thumbnails.FILLS)
@@ -125,24 +125,6 @@ def problems(rows, info, start, keep, width, height, min_density):
         out.append(f"too sparse: only {density:.1%} of the free cells are inked — add the setting, "
                    f"props, texture and shading (aim for at least {min_density:.0%})")
     return out
-
-
-def loved_examples(slug, limit=2, max_width=60):
-    """Crops of panels from pages the showrunner loved: the best style guide there is."""
-    found = []
-    for n, lock in sorted(review.locks(slug).items()):
-        if lock.get("verdict") != "love" or not lock.get("layout"):
-            continue
-        page = thumbnails.render_page(lock["layout"])
-        lines = lock["ascii"].split("\n")
-        for p in page.panels:
-            w, h = p.size
-            if w <= max_width and h >= 8:
-                found.append((f"page {n}, panel {p.n}", crop(lines, p)))
-                break
-        if len(found) >= limit:
-            break
-    return found
 
 
 class PanelArtist:
@@ -276,10 +258,6 @@ def draw_page(agent, page, script, bible, guides, figma_text, note, hat):
     """Draw every panel of a page. Returns (art grid, notes)."""
     taste = projects.read_artifact(agent.slug, "taste-writers.md") or ""
     system = agent.system_prompt(guides, figma_text, False, hat)
-    examples = loved_examples(agent.slug)
-    if examples:
-        system += "\n\n# Panels the showrunner loved — match this level of finish\n" + "\n\n".join(
-            f"{label}:\n```text\n" + "\n".join(rows) + "\n```" for label, rows in examples)
     if taste:
         system += f"\n\n# The showrunner's taste (taste-writers.md)\n{taste}"
     artist = PanelArtist(agent, page, script, bible, taste, system, note)

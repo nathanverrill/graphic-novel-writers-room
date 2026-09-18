@@ -8,7 +8,7 @@ word for word (a model would paraphrase them and the characters would drift):
     format        trim, orientation, left/right page
     style         the brief's visual direction (the same on every page)
     characters    the bible's description of everyone on the page, verbatim
-    layout        rows and panels with their share of the page
+    layout        a box map of the page drawn to scale, then rows and panels with their share
     panels        shot, angle, light, what happens, who is where, exact lettering
     script        the page's script, for reference
 """
@@ -103,6 +103,161 @@ def layout_lines(spec):
     return out
 
 
+MAP_COLS = 44          # the panel map's width in characters
+CELL = 2.18            # a character cell is this much taller than it is wide
+
+
+def draw_box(grid, x0, y0, x1, y1, label):
+    def edge(y, x, ch):     # where two panel borders meet, a corner
+        grid[y][x] = "+" if grid[y][x] in ("-", "|", "+") and grid[y][x] != ch else ch
+
+    for x in range(x0, x1 + 1):
+        edge(y0, x, "-")
+        edge(y1, x, "-")
+    for y in range(y0, y1 + 1):
+        edge(y, x0, "|")
+        edge(y, x1, "|")
+    for y, x in ((y0, x0), (y0, x1), (y1, x0), (y1, x1)):
+        grid[y][x] = "+"
+    cy, cx = (y0 + y1) // 2, (x0 + x1) // 2 - len(label) // 2
+    drawn = ""
+    for i, ch in enumerate(label):
+        if x0 < cx + i < x1:
+            grid[cy][cx + i] = ch
+            drawn += ch
+    return {"row": cy, "col": cx, "text": drawn}
+
+
+def panel_grid(spec, cols=MAP_COLS):
+    """(lines, labels, bleeds): the page drawn as boxes — panel borders and numbers, no contents.
+
+    Any layout the format can describe comes out right, because the boxes are the tier and
+    panel fractions themselves; `labels` says where each number landed, so a screen can make
+    it clickable."""
+    tiers = spec.get("tiers") or []
+    if not tiers:
+        return [], [], False
+    w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
+    heights = [float(t.get("h", t.get("height", 1))) or 1 for t in tiers]
+    total_h = sum(heights) or 1
+    rows = max(3 * len(tiers) + 1, round(cols * (h_in / w_in) / CELL))
+    grid = [[" "] * cols for _ in range(rows)]
+    labels = []
+    bleeds, n, y, down = False, 0, 0, 0.0
+    for ti, (tier, h) in enumerate(zip(tiers, heights)):
+        down += h
+        y1 = rows - 1 if ti == len(tiers) - 1 else min(rows - 1 - 2 * (len(tiers) - ti - 1),
+                                                       max(y + 2, round((rows - 1) * down / total_h)))
+        panels = tier.get("panels") or [{}]
+        widths = [float(p.get("w", 1)) or 1 for p in panels]
+        total_w = sum(widths) or 1
+        x, across = 0, 0.0
+        for pi, (panel, w) in enumerate(zip(panels, widths)):
+            n += 1
+            across += w
+            x1 = cols - 1 if pi == len(panels) - 1 else min(cols - 1 - 3 * (len(panels) - pi - 1),
+                                                            max(x + 3, round((cols - 1) * across / total_w)))
+            bleeds = bleeds or bool(panel.get("bleed"))
+            label = draw_box(grid, x, y, x1, y1, f"{n}*" if panel.get("bleed") else str(n))
+            labels.append({"n": n, **label})
+            x = x1
+        y = y1
+    return ["".join(row).rstrip() for row in grid], labels, bleeds
+
+
+def panel_map(spec, cols=MAP_COLS):
+    """The box diagram as markdown, for a page prompt."""
+    lines, _, bleeds = panel_grid(spec, cols)
+    if not lines:
+        return []
+    fence = "`" * 3
+    return [fence + "text", *lines, fence] + (["(* bleeds off the page edge)"] if bleeds else [])
+
+
+def panel_places(spec):
+    """{panel number: where it sits on the page, in words}."""
+    tiers = spec.get("tiers") or []
+    total_h = sum(float(t.get("h", t.get("height", 1))) for t in tiers) or 1
+    out, n = {}, 0
+    for ti, tier in enumerate(tiers):
+        h = float(tier.get("h", tier.get("height", 1)))
+        panels = tier.get("panels") or [{}]
+        total_w = sum(float(p.get("w", 1)) for p in panels) or 1
+        for pi, panel in enumerate(panels):
+            n += 1
+            side = ("full width" if len(panels) == 1 else
+                    ("left" if pi == 0 else "right" if pi == len(panels) - 1 else "center")
+                    + f", {share(float(panel.get('w', 1)), total_w)} width")
+            bleed = " · bleeds off the page edge" if panel.get("bleed") else ""
+            out[n] = f"row {ti + 1} of {len(tiers)}, {share(h, total_h)} page height · {side}{bleed}"
+    return out
+
+
+def panel_dialog(items):
+    """A panel's lettering, in reading order: who says it, where it sits, and the words."""
+    out = []
+    for item in items:
+        kind = item.get("type")
+        if kind not in KIND and kind != "sfx":
+            continue
+        text = " ".join(str(item.get("text", "")).split())
+        speaker = (item.get("speaker") or "").upper()
+        if kind in KIND and speaker and text.upper().startswith(speaker + ":"):
+            text = text[len(speaker) + 1:].strip()
+        if kind == "sfx":
+            label = f"Sound effect, {SFX_SIZE.get(item.get('size', 'medium'), 'medium')}"
+        else:
+            label = KIND[kind].split("(")[0].strip()
+            if speaker and kind != "caption":
+                label += f" — {speaker}" + (" (off-panel)" if item.get("tail") == "none" else "")
+        out.append({"kind": kind, "label": label, "where": where(item), "text": text.upper()})
+    return out
+
+
+def panel_figures(items):
+    out = []
+    for f in items:
+        if f.get("type") not in ("figure", "object"):
+            continue
+        label = f.get("label") or f.get("text") or "object"
+        if f.get("type") == "figure":
+            facing = f", facing {f['facing']}" if f.get("facing") else ""
+            pose = f", {f['pose']}" if f.get("pose") not in (None, "standing", "closeup") else ""
+            dark = ", silhouetted" if f.get("invert") else ""
+            out.append({"who": label.upper(), "what": f"{where(f)}; {size_phrase(f)}{facing}{pose}{dark}"})
+        else:
+            out.append({"who": label, "what": where(f)})
+    return out
+
+
+def page_view(spec):
+    """A page for the screen: the box map, then every panel's description and its dialog.
+
+    The map is the layout and nothing else — panel borders and a number per panel — so it
+    reads the same whatever the page does: a nine-panel grid, one splash, a wide tier over
+    two narrow ones."""
+    lines, labels, bleeds = panel_grid(spec)
+    places = panel_places(spec)
+    by_panel = {}
+    for item in spec.get("items") or []:
+        by_panel.setdefault(item.get("panel"), []).append(item)
+    panels = []
+    specs = [p for t in spec.get("tiers") or [] for p in (t.get("panels") or [{}])]
+    for n, panel in enumerate(specs, 1):
+        items = by_panel.get(n, [])
+        notes = []
+        if panel.get("invert"):
+            notes.append("Dark panel — night or darkness, lit by what little is in the scene.")
+        if panel.get("horizon") is not None and not 34 <= float(panel["horizon"]) <= 66:
+            notes.append(f"Horizon {'high' if float(panel['horizon']) < 34 else 'low'} in the frame.")
+        shot = [b for b in (panel.get("shot"), panel.get("angle") and f"{panel['angle']} angle") if b]
+        panels.append({"n": n, "shot": ", ".join(shot), "place": places.get(n, ""),
+                       "description": panel.get("description") or "", "notes": notes,
+                       "figures": panel_figures(items), "dialog": panel_dialog(items)})
+    return {"page": spec.get("page", 0), "map": lines, "labels": labels,
+            "bleeds": bleeds, "panels": panels}
+
+
 def size_phrase(item):
     if item.get("pose") == "closeup":
         return "close-up, head and shoulders filling the panel"
@@ -135,7 +290,15 @@ def panel_block(n, panel_spec, items, page_spec):
             else:
                 lines.append(f"- {label} — {where(f)}")
     lettering = [i for i in items if i.get("type") in KIND or i.get("type") == "sfx"]
-    if lettering:
+    if lettering and page_spec.get("text_layer"):
+        lines += ["", "**Keep these areas clear — the lettering is added afterwards as a separate layer, "
+                  "so draw no words here, just uncluttered art with room for a balloon:**", ""]
+        for i, item in enumerate(lettering, 1):
+            kind = item.get("type")
+            room = "a sound effect" if kind == "sfx" else f"a {KIND[kind].split('(')[0].strip().lower()}"
+            words = len(str(item.get("text", "")).split())
+            lines.append(f"{i}. {where(item)} — space for {room} of about {words} words")
+    elif lettering:
         lines += ["", "**Lettering, in reading order (letter exactly this, nothing else):**", ""]
         for i, item in enumerate(lettering, 1):
             kind = item.get("type")
@@ -161,7 +324,8 @@ def panel_block(n, panel_spec, items, page_spec):
 
 
 def page_prompt(spec, ctx):
-    """One page's prompt. ctx: title, pages, style, bible, script, trim."""
+    """One page's prompt. In "layer" mode the art is drawn with no text at all and the
+    lettering is rendered separately (see lettering.py)."""
     number = spec.get("page", 0)
     side = spec.get("side") or ("right" if number % 2 else "left")
     items = spec.get("items") or []
@@ -190,19 +354,31 @@ def page_prompt(spec, ctx):
         for name in names:
             look = clean_look(thumbnails.looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
-    out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
-    out += ["", "**Page layout, top to bottom:**", *layout_lines(spec), ""]
+    if ctx.get("lettering") != "layer":
+        out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
+    out += ["", "**Page layout, top to bottom** (the map is the page itself, panels to scale):", "",
+            *panel_map(spec), "", *layout_lines(spec), ""]
     by_panel = {}
     for item in items:
         by_panel.setdefault(item.get("panel"), []).append(item)
+    layer = ctx.get("lettering") == "layer"
     for n, p in enumerate(panel_specs, 1):
-        out += [panel_block(n, p, by_panel.get(n, []), spec), ""]
-    out += [
-        "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
-        "all-caps comic lettering, and add no other text apart from the light-blue page number "
-        "(no titles, signatures or watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
-        "characters' looks identical to their descriptions.",
-    ]
+        out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer)), ""]
+    if layer:
+        out += [
+            "**Rules:** draw NO text anywhere on this page — no balloons, no captions, no sound "
+            "effects, no page number, no titles, signatures or watermarks. The lettering is added "
+            "afterwards on a transparent layer, so leave the areas listed under each panel "
+            "uncluttered (sky, wall, shadow — nothing the reader needs to see). Keep the "
+            "characters' looks identical to their descriptions.",
+        ]
+    else:
+        out += [
+            "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
+            "all-caps comic lettering, and add no other text apart from the light-blue page number "
+            "(no titles, signatures or watermarks). Keep balloons clear of faces, with tails pointing at the speaker. Keep the "
+            "characters' looks identical to their descriptions.",
+        ]
     script = thumbnails.script_for_page(ctx["script"], number)
     if script:
         fence = "`" * 3
@@ -219,11 +395,13 @@ def context(slug, version=None):
         pages = int(m.group(1))
     w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
     settings_file = projects.project_dir(slug) / "round-settings.json"
-    chapter = json.loads(settings_file.read_text()).get("chapter") if settings_file.exists() else None
+    settings = json.loads(settings_file.read_text()) if settings_file.exists() else {}
+    chapter = settings.get("chapter")
     return {
         "title": book_title(read("pitch.md")),
         "pages": pages,
         "chapter": chapter,
+        "lettering": settings.get("lettering", "art"),
         "style": section(read("brief.md"), "visual", "style", "look"),
         "bible": read("bible.md"),
         "script": read("script.md"),
