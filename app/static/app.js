@@ -778,6 +778,20 @@ function handle(ev, replay = false) {
       if (live) loadCosts();
       break;
     case "role_done": live && setRoleStatus(ev.role, "done", "done"); log(`${who}handoff: ${esc(ev.note)}`); break;
+    case "paused":
+      log(`⏸ held${ev.after_title ? ` after ${esc(ev.after_title)}` : ""} — ${esc(ev.title)} hasn't started.` +
+          " Change settings or add notes, then resume.", "warn");
+      if (live) { setHeld(ev); $("#pause").disabled = false; }
+      break;
+    case "resumed": {
+      const settings = Object.entries(ev.changed || {}).map(([r, fields]) =>
+        `${title(r)} → ${Object.entries(fields).map(([k, v]) => `${esc(k)} ${esc(String(v))}`).join(", ")}`);
+      const what = [settings.join(" · "),
+                    ev.notes ? "your notes go to the writers still to come" : ""].filter(Boolean).join(" · ");
+      log(`▶ carrying on${what ? ` — ${what}` : ""}`, "gate");
+      if (live) { setHeld(null); loadRoles(); loadNotes(); }
+      break;
+    }
     case "run_done":
       log(`■ room adjourned — saved as ${ev.version || "a new version"}`, "dim");
       if (live) refreshPageBuild();
@@ -1040,7 +1054,36 @@ function closeStream() {
 function setRunning(on) {
   $("#run").disabled = on;
   $("#stop").hidden = !on;
+  $("#pause").hidden = !on;
+  if (!on) setHeld(null);
 }
+
+function setHeld(ev) {
+  /* ev: the "paused" event while the round waits between two writers; null when it runs on */
+  state.held = ev;
+  $("#held").hidden = !ev;
+  $("#resume").hidden = !ev;
+  $("#pause").hidden = !!ev || !state.runId;
+  if (!ev) return;
+  $("#held-after").textContent = ev.after_title || "the last writer";
+  $("#held-next").textContent = ev.title || "the next writer";
+}
+
+async function resumeRun() {
+  if (!state.runId) return;
+  log("…carrying on", "dim");
+  await api(`/api/runs/${state.runId}/resume`, { method: "POST" });
+  setHeld(null);
+}
+
+$("#pause").onclick = async () => {
+  if (!state.runId) return;
+  await api(`/api/runs/${state.runId}/pause`, { method: "POST" });
+  log("…holding as soon as this writer finishes", "warn");
+  $("#pause").disabled = true;
+};
+$("#resume").onclick = resumeRun;
+$("#held-resume").onclick = resumeRun;
 
 function attach(runId, after) {
   if (state.source) state.source.close();

@@ -304,6 +304,15 @@ thing. **Upload art**
 attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
+**Holding the room.** **Pause** stops the round at the next clean break: the writer at work
+finishes and hands off, and the round waits there — same version, same place in the order,
+nothing torn down. While it's held, change any writer's model, temperature or anything else in
+**The room**, and jot notes in the watch pad. **Resume** hands both to the writer about to
+start and everyone after it (every agent reads `agent.json` when it starts, so the change is
+real, and the feed says what changed: `▶ carrying on — Scripter → temperature 0.15 · your notes
+go to the writers still to come`). The notes are marked used by that round and saved with it.
+**Stop** still ends the round outright, and works while it's held.
+
 **Page count.** You own it: set **Pages** in **The room** tab, or use − / + in the review. The room
 can propose a different count by writing one line in `notes.md` —
 `PAGE COUNT: 5 — the Leona reveal needs a page of its own` — which shows up in the review as a

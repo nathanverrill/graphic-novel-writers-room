@@ -30,6 +30,9 @@ class Run:
         self.events = []
         self.done = False
         self.stop_requested = False
+        self.pause_requested = False
+        self.paused = False
+        self.last_done = None       # the writer who handed off last, for the pause banner
         self.cond = threading.Condition()
         self.version = projects.Version(
             slug, run_id=self.id, note=note, hat=hat, roles=[r.id for r in roles],
@@ -50,8 +53,41 @@ class Run:
             self.cond.wait_for(lambda: len(self.events) > after or self.done, timeout)
             return self.events[after:], self.done
 
+    def hold(self, note, next_role):
+        """Between two agents: if the showrunner asked to pause, wait here until they resume.
+
+        Nothing is torn down — the round keeps its version and its place in the order. Every
+        agent's settings are read from agent.json when it starts, so a model or temperature
+        changed while paused applies to whoever runs next; notes jotted while paused are
+        handed to them as well. Returns the note the rest of the round should carry."""
+        with self.cond:
+            if not self.pause_requested or self.stop_requested:
+                return note
+            self.paused = True
+            before = {r.id: r.config().public() for r in (self.plan["all"] if self.plan else self.roles)}
+            self.emit("paused", next=next_role.id, title=next_role.title,
+                      after=self.last_done and self.last_done.id, after_title=self.last_done and self.last_done.title)
+            self.cond.wait_for(lambda: not self.pause_requested or self.stop_requested)
+            self.paused = False
+        if self.stop_requested:
+            raise agent_mod.Stopped()
+        roles = self.plan["all"] if self.plan else self.roles
+        after = {r.id: r.config().public() for r in roles}
+        changed = {r: {k: v for k, v in after[r].items() if before.get(r, {}).get(k) != v}
+                   for r in after if after[r] != before.get(r)}
+        self.version.update(configs=after)
+        jotted = notes_mod.take(self.slug, self.version.id)
+        if jotted:                 # keep the notes taken at the start of the round as well
+            path = self.version.path("showrunner-notes.md")
+            had = path.read_text() if path.exists() else ""
+            self.version.write_file("showrunner-notes.md", "\n\n".join(filter(None, [had, jotted])))
+        self.emit("resumed", changed=changed, notes=bool(jotted))
+        return "\n\n".join(p for p in (note, jotted) if p)
+
     def run_roles(self, roles, note, pass_n=1):
         for role in roles:
+            note = self.hold(note, role)
+            role = self.reload(role)
             emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
             emit("role_start", title=role.title, pass_n=pass_n)
             a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
@@ -60,6 +96,11 @@ class Run:
             finally:
                 emit("role_cost", **a.log.totals)
             emit("role_done", note=done_note)
+            self.last_done = role
+
+    def reload(self, role):
+        """The role as it is on disk now — settings can have changed while the round was paused."""
+        return {r.id: r for r in load_roles()}.get(role.id, role)
 
     def fix_roles(self, g):
         wanted = set(g["fix"])

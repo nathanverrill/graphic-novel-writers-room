@@ -624,7 +624,28 @@ def _get_run(run_id):
 
 @app.post("/api/runs/{run_id}/stop")
 def stop_run(run_id: str):
-    _get_run(run_id).stop_requested = True
+    run = _get_run(run_id)
+    run.stop_requested = True
+    with run.cond:                 # a paused run is waiting: wake it so it can stop
+        run.cond.notify_all()
+    return {"ok": True}
+
+
+@app.post("/api/runs/{run_id}/pause")
+def pause_run(run_id: str):
+    """Hold the round as soon as the agent at work finishes — not mid-task."""
+    run = _get_run(run_id)
+    run.pause_requested = True
+    return {"ok": True, "paused": run.paused}
+
+
+@app.post("/api/runs/{run_id}/resume")
+def resume_run(run_id: str):
+    """Carry on, with whatever settings and notes changed while it was held."""
+    run = _get_run(run_id)
+    run.pause_requested = False
+    with run.cond:
+        run.cond.notify_all()
     return {"ok": True}
 
 

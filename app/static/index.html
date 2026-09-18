@@ -37,6 +37,8 @@
         <div class="actions">
           <button id="go-review" class="ghost" hidden title="Your review is waiting below">Review ↓</button>
           <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
+          <button id="pause" class="ghost" hidden title="Hold the round as soon as the writer at work finishes">Pause</button>
+          <button id="resume" hidden title="Carry on with the settings and notes you changed">Resume</button>
           <button id="stop" class="danger" hidden>Stop</button>
         </div>
       </div>
@@ -168,6 +170,12 @@
 
   <aside class="watch" id="watch-pane" hidden>
     <h2>Watch pad</h2>
+    <div id="held" class="held" hidden>
+      <b>Held after <span id="held-after"></span></b>
+      <p class="path">Change any writer's model, temperature or anything else in <b>The room</b>, and jot
+        notes below. <b>Resume</b> hands both to <span id="held-next"></span> and the writers after it.</p>
+      <div class="actions"><button id="held-resume">Resume</button></div>
+    </div>
     <div id="progress" class="progress" hidden>
       <div class="progress-line"><b id="pg-step"></b> <span class="path" id="pg-times"></span></div>
       <div class="bar"><div id="pg-bar"></div></div>

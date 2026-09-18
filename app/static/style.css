@@ -336,6 +336,8 @@ pre.prompt { white-space: pre-wrap; font-family: ui-monospace, monospace; font-s
 .watch .jot-row { display: grid; }                 /* a narrow column: the buttons go under the note */
 .watch .jot-row .actions { flex-direction: row; flex-wrap: wrap; }
 .watch .jot { margin-bottom: 1rem; }
+.held { border: 1px solid var(--work); background: #fffbeb; border-radius: 6px; padding: .6rem .7rem; margin-bottom: 1rem; }
+.held p { margin: .3rem 0 .5rem; }
 .jot-list { list-style: none; margin: .4rem 0 0; padding: 0; display: grid; gap: .2rem; font-size: .82rem; }
 .jot-list li { display: flex; gap: .4rem; align-items: baseline; }
 .jot-list .drop { margin-left: auto; padding: 0 .35rem; font-size: .7rem; }
