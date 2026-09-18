@@ -78,6 +78,7 @@ class AgentConfig:
     send_images: bool = None
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
     references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
+    reference_files: list = None   # library files this writer gets (None = whatever the round picked)
     # ASCII Artist
     min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)
     refine_passes: int = None     # "look at it and improve it" passes per panel (default 1)

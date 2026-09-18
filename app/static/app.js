@@ -1542,6 +1542,15 @@ function openSettings(id, message) {
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
           ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
         </div>
+        <div class="sf-row">
+          <label class="sf sf-wide"><span>Library files for this writer</span>
+            <select name="reference_files" multiple size="6">${(state.library || []).map((f) =>
+              `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
+              `${esc(f.name)} · ${esc(f.kind)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
+            <small class="path">Select none to give this writer whatever the round picked. Selecting some
+              means it reads only those, however big the library gets — it can still open any other file
+              with read_artifact.</small></label>
+        </div>
         ${r.preview === "drawn" ? `<div class="sf-row">
           ${field("Min ink per panel", "min_density", s.min_density, "0.25", "number", 'step="0.05" min="0" max="0.9"')}
           ${field("Improve passes", "refine_passes", s.refine_passes, "1", "number", 'min="0" max="3"')}
@@ -1591,6 +1600,9 @@ function openSettings(id, message) {
       if (String(v) !== String(s[k] ?? "")) out[k] = v;
     }
     put("references", f.references.value);
+    const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
+    const was = s.reference_files || [];
+    if (picked.join("|") !== was.join("|")) out.reference_files = picked;
     for (const k of ["send_images", "generate_images"]) {
       const v = f[k].value === "" ? null : f[k].value === "true";
       if (v !== (s[k] ?? null)) out[k] = v;

@@ -367,10 +367,28 @@ notes. **x** drops a note you've changed your mind about.
 overwritten each time — every version stays in the project's rounds). **Save to output folder**
 does it on demand.
 
-**Canon or idea draft.** A reference is canon (the room must not contradict it) unless its
-first lines contain `<!-- reference: draft -->`. Idea drafts, such as a rough script written
-to get the ideas on paper, are shown to agents separately: mine them for beats and moments,
-but write the room's own script. The References… dialog labels them.
+**What a reference is.** Three kinds, and the room is told which it is reading:
+
+| Kind | How it is marked | What the room does with it |
+|---|---|---|
+| canon | the default | must not contradict it; where it conflicts with the room's files, the reference wins |
+| draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
+| guide | `<!-- reference: guide -->`, or a file named `SKILL_*.md` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+
+The guides in `references/` label their material with the vocabulary in
+`SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+**Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
+Writers keep those labels when they use guide material, and the Continuity Editor's
+**plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
+them, and a license used to skip work the characters should have done.
+
+**Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
+can also carry its own shortlist: in its model settings, **Library files for this writer**.
+Selecting none means it reads whatever the round picked; selecting some means it reads only
+those, however big the library grows — and it can still open any other file with `read_artifact`.
+The project's own `references/` folder is always read. This is what keeps a 560 KB library from
+going into every call of every writer: give the Penciller the layout guides, the Scripter the
+money and everyday-life guides, and leave the rest on the list.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads

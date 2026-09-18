@@ -365,3 +365,7 @@ a.button { text-decoration: none; display: inline-block; }
 .pages-bar { display: flex; align-items: center; gap: .4rem; margin-bottom: .4rem; }
 .proposal { background: #fef9c3; border: 1px solid #fde68a; border-radius: 4px; padding: .35rem .5rem;
   font-size: .8rem; margin-bottom: .5rem; }
+
+.sf-wide { grid-column: 1 / -1; }
+.sf-wide select[multiple] { width: 100%; max-width: none; font-family: ui-monospace, monospace; font-size: .75rem; }
+.sf-wide small { display: block; margin-top: .25rem; }

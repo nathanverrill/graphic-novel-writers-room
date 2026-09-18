@@ -177,12 +177,23 @@ def reference_files(slug, version=None):
 
 
 DRAFT_MARK = "reference: draft"
+GUIDE_MARK = "reference: guide"
 
 
 def reference_kind(path):
-    """"draft" if the file says so near the top (<!-- reference: draft -->), else "canon"."""
+    """What a reference is, from a marker near its top, or from its name.
+
+    canon  the book must not contradict it
+    draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
+    guide  <!-- reference: guide -->, or a SKILL_*.md file: craft and worldbuilding guidance.
+           It commits the book to nothing; the room uses what serves the page."""
     with path.open(errors="replace") as f:
-        return "draft" if DRAFT_MARK in f.read(400) else "canon"
+        head = f.read(400)
+    if DRAFT_MARK in head:
+        return "draft"
+    if GUIDE_MARK in head or path.name.startswith("SKILL_"):
+        return "guide"
+    return "canon"
 
 
 def library():
