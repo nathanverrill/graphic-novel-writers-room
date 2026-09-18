@@ -206,6 +206,9 @@ table.data .bad { color: var(--bad); }
 .pv-flags p { margin: .2rem 0; }
 #pv-stage { align-self: center; }
 #pv-beat { margin: .1rem 0 .6rem; }
+#pv-keep.kept { background: #fee2e2; border-color: #fca5a5; }
+.pv-kept { border: 1px solid #fca5a5; background: #fee2e2; border-radius: 4px; padding: .3rem .5rem;
+  font-size: .8rem; margin: 0 0 .5rem; }
 .pv-num { cursor: pointer; padding: 0 .1em; border-radius: 2px; }
 .pv-num:hover { background: #fde68a; }
 .pv-num.on { background: var(--accent); color: #fff; }

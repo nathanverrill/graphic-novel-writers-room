@@ -199,6 +199,38 @@ def replace_layout(markdown, n, spec):
     return (markdown or "").rstrip() + "\n\n" + layout_block(spec) + "\n"
 
 
+def keep_page(slug, page, where="kept mid-round"):
+    """Keep a page as it stands: the same lock a 🔥 review verdict writes, set while the room works.
+
+    From here on enforce_locks puts this page's script section, layout block and sketch back
+    into whatever an agent saves, and the gate stops reporting layout issues for it."""
+    specs, _ = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))
+    spec = next((s for s in specs if s["page"] == page), None)
+    if spec is None:
+        raise ValueError(f"page {page} has no layout yet, so there is nothing to keep")
+    _, pages = canonical(slug)
+    drawn = pages.get(page, {})
+    section = _script_span(projects.read_artifact(slug, "script.md") or "", page)
+    lk = locks(slug)
+    lk[page] = {"verdict": "love", "round": where, "ascii": drawn.get("art", ""),
+                "invert": drawn.get("invert", ""), "script": section.group(0).strip() if section else None,
+                "layout": spec}
+    _save(slug, LOCKS, {str(k): v for k, v in lk.items()})
+    return lk[page]
+
+
+def release_page(slug, page):
+    """Let the room work on the page again."""
+    lk = locks(slug)
+    lk.pop(page, None)
+    _save(slug, LOCKS, {str(k): v for k, v in lk.items()})
+
+
+def kept(slug):
+    """{page: what keeps it} — pages the room must leave alone."""
+    return {n: l.get("round") for n, l in locks(slug).items() if l.get("verdict") == "love"}
+
+
 def enforce_locks(slug, name, content):
     """Put locked pages back into a file an agent is saving. Returns (content, pages restored)."""
     lk = locks(slug)

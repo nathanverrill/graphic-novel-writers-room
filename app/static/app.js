@@ -496,7 +496,15 @@ function renderPageBuild() {
     : b.panels?.length ? "written — waiting for the Penciller's layout"
     : b.beat ? "plotted — waiting for the Scripter"
     : state.runId ? "the room is at work…" : "nothing written for this page yet";
-  if (d) $("#pv-map").innerHTML = mapHtml(d);
+  $("#pv-keep").hidden = !d;
+  if (d) {
+    $("#pv-keep").textContent = d.kept ? "🔥 kept — let the room work on it again" : "🔥 Keep this page";
+    $("#pv-keep").title = d.kept
+      ? `Kept (${d.kept}). Click to release it.`
+      : "The room leaves this page alone from here — script, layout and sketch are put back if an agent changes them";
+    $("#pv-keep").classList.toggle("kept", !!d.kept);
+    $("#pv-map").innerHTML = mapHtml(d);
+  }
   const cards = d ? d.panels.map(panelCard)
     : (b.panels || []).map(scriptCard);
   $("#pv-panels").innerHTML = cards.join("") || `
@@ -567,6 +575,17 @@ function highlightPanel(n) {
   document.querySelectorAll(".pv-num").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
   document.querySelectorAll(".pv-panel").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
 }
+
+$("#pv-keep").onclick = async () => {
+  const kept = state.build?.layout?.kept;
+  const path = `/api/projects/${state.project}/pages/${BUILD_PAGE}/keep`;
+  try {
+    await api(path, { method: kept ? "DELETE" : "POST" });
+    log(kept ? `page ${BUILD_PAGE} released — the room can work on it again`
+             : `🔥 page ${BUILD_PAGE} kept as it is — the room leaves it alone`, "gate");
+    refreshPageBuild();
+  } catch (err) { alert(err.message); }
+};
 
 $("#pv-map").onclick = (e) => {
   const num = e.target.closest(".pv-num");

@@ -313,6 +313,13 @@ real, and the feed says what changed: `▶ carrying on — Scripter → temperat
 go to the writers still to come`). The notes are marked used by that round and saved with it.
 **Stop** still ends the round outright, and works while it's held.
 
+**Keeping a page.** Above the panel map, **🔥 Keep this page** marks the page as it stands —
+the same lock a 🔥 verdict writes in the review, but you can set it while the room is working
+(pause first if you want to stop it mid-round). From then on the page's script section, layout
+block and sketch are put back into whatever an agent saves, the writer is told its changes to
+that page were discarded, and the readiness gate stops reporting layout issues for it. Click
+again to release it.
+
 **Page count.** You own it: set **Pages** in **The room** tab, or use − / + in the review. The room
 can propose a different count by writing one line in `notes.md` —
 `PAGE COUNT: 5 — the Leona reveal needs a page of its own` — which shows up in the review as a

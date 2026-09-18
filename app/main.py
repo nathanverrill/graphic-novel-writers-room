@@ -404,7 +404,24 @@ def get_page_view(slug: str, page: int, version: str | None = None):
     spec = lettering.page_spec(slug, page, version)
     if not spec:
         raise HTTPException(404, f"no layout for page {page}")
-    return prompts.page_view(spec)
+    return {**prompts.page_view(spec), "kept": review.kept(slug).get(page)}
+
+
+@app.post("/api/projects/{slug}/pages/{page}/keep")
+def keep_page(slug: str, page: int):
+    """Keep the page as it stands — the room leaves it alone from here, mid-round included."""
+    try:
+        return {"kept": not_found(review.keep_page, slug, page, "kept by the showrunner")["round"]}
+    except HTTPException:
+        raise
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/pages/{page}/keep")
+def release_page(slug: str, page: int):
+    not_found(review.release_page, slug, page)
+    return {"kept": None}
 
 
 # ---- lettering: the text layer over art drawn without text -----------------------

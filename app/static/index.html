@@ -54,7 +54,10 @@
         <section id="pageview">
           <div class="section-head">
             <h3>Page <span id="pv-page">1</span> <span class="path" id="pv-note"></span></h3>
-            <span class="path" id="pv-stage"></span>
+            <div class="actions">
+              <span class="path" id="pv-stage"></span>
+              <button id="pv-keep" class="ghost" hidden type="button"></button>
+            </div>
           </div>
           <p class="path" id="pv-beat" hidden></p>
           <div class="pv-body">
@@ -173,7 +176,8 @@
     <div id="held" class="held" hidden>
       <b>Held after <span id="held-after"></span></b>
       <p class="path">Change any writer's model, temperature or anything else in <b>The room</b>, and jot
-        notes below. <b>Resume</b> hands both to <span id="held-next"></span> and the writers after it.</p>
+        notes below. <b>Resume</b> gives both to <span id="held-next"></span> and the writers after it.
+        Like a page as it is? <b>🔥 Keep this page</b> above the panel map stops the room changing it.</p>
       <div class="actions"><button id="held-resume">Resume</button></div>
     </div>
     <div id="progress" class="progress" hidden>
