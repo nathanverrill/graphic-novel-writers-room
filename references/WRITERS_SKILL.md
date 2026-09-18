@@ -1,3 +1,4 @@
+<!-- reference: guide -->
 name: actual-script-writing
 description: >
 A detailed screenwriting and dialogue-writing skill for LLMs. Use it to develop,

@@ -383,12 +383,24 @@ Writers keep those labels when they use guide material, and the Continuity Edito
 them, and a license used to skip work the characters should have done.
 
 **Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
-can also carry its own shortlist: in its model settings, **Library files for this writer**.
-Selecting none means it reads whatever the round picked; selecting some means it reads only
-those, however big the library grows — and it can still open any other file with `read_artifact`.
-The project's own `references/` folder is always read. This is what keeps a 560 KB library from
-going into every call of every writer: give the Penciller the layout guides, the Scripter the
-money and everyday-life guides, and leave the rest on the list.
+also carries its own shortlist: in its model settings, **Library files for this writer**.
+What each one reads now, with this library:
+
+| Writer | Reads in full |
+|---|---|
+| Editor-in-Chief | the bible, the six chapter canon files, the hard-SF rules |
+| Plotter | chapter canon, hard-SF rules, lithium triangle futures, science, water wars |
+| Character Designer | the bible, hard-SF rules, everyday life |
+| Scripter | chapter canon, hard-SF rules, the script-writing skill, money |
+| Penciller | hard-SF rules, graphic novel layout, the layout picker, near-future set design |
+| Continuity Editor | the bible, chapter canon, hard-SF rules |
+| Wild Card, Letterer, First Reader | names only — they read what they want on demand |
+
+That puts every writer between 56 and 112 KB a call, where before each one carried the whole
+561 KB library. Anything left off a shortlist is still one `read_artifact` away.
+
+Selecting none in that list means the writer reads whatever the round picked. The project's own
+`references/` folder is always read, whatever the shortlist says.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads

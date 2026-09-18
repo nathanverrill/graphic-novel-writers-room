@@ -16,5 +16,16 @@
   "image_api_key_env": null,
   "image_model": null,
   "image_size": null,
-  "image_extra": {}
+  "image_extra": {},
+  "reference_files": [
+    "EVOKE_PROSPERITY_CHAPTER_1.md",
+    "EVOKE_PROSPERITY_CHAPTER_2.md",
+    "EVOKE_PROSPERITY_CHAPTER_3.md",
+    "EVOKE_PROSPERITY_CHAPTER_4.md",
+    "EVOKE_PROSPERITY_CHAPTER_5.md",
+    "EVOKE_PROSPERITY_CHAPTER_6.md",
+    "SKILL_HARD_SF_RULES.md",
+    "WRITERS_SKILL.md",
+    "SKILL_TRIANGLE_MONEY.md"
+  ]
 }
