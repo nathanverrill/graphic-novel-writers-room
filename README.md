@@ -183,7 +183,7 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-**Configuration** — `agents/`, `hats/`, `references/`, `skills/` and `pricing.json` — is mounted
+**Configuration** — `agents/` (with its skills and tools), `hats/`, `references/` and `pricing.json` — is mounted
 from this folder, so you edit it in place.
 
 **Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
@@ -374,15 +374,15 @@ The room reads two shared folders. They differ in what the material *is*, and th
 told which they are reading:
 
 ```
+agents/skills/                  craft skills the agents load — always read as guides
+agents/skills/sources/          long skills split into per-agent guides (never read whole)
 references/                     the book's own material: canon, and idea drafts to mine
 references/sources/             originals that tools split up (agents never read these)
-skills/                         craft and worldbuilding skills — always read as guides
-skills/sources/                 long skills that tools split into role guides (never read whole)
 projects/<slug>/references/     this project only (a file with the same name wins)
 ```
 
 So `references/` answers *what is true in this book* — the bible, the chapter canon, Alpha, the
-draft script — and `skills/` answers *how to do the work and what is plausible* — layout, emotion,
+draft script — and `agents/skills/` answers *how to do the work and what is plausible* — layout, emotion,
 script writing, the hard-SF rules, the lithium triangle, the Social Innovators' Framework.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
@@ -393,10 +393,10 @@ each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
+- `python agents/tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
   `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
   chapter's canon row, principle, character interaction map and script revision flags).
-- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
+- `python agents/tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
   `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
@@ -407,7 +407,7 @@ Rerun them after updating a source.
 |---|---|---|
 | canon | `references/`, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
 | draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
-| guide | anything in `skills/`, or `<!-- reference: guide -->` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+| guide | anything in `agents/skills/`, or `<!-- reference: guide -->` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
@@ -415,7 +415,7 @@ place, the story's one license — says `<!-- reference: canon -->` and is read 
 menu of options, so it lives with the canon.
 
 The skills label their material with the vocabulary in
-`skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+`agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
@@ -460,7 +460,7 @@ agents/
 ```
 
 - **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `tools/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python tools/split_skill.py`.
+- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `agents/tools/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python agents/tools/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Add or change an agent:** edit `agents/agents.json` and create the matching folder.

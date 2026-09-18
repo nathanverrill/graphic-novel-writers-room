@@ -15,7 +15,7 @@ Baseline is September 2026. Written from general knowledge. Check any number tha
 
 ## Plausibility labels
 
-Everything here is labelled with the vocabulary defined in `skills/hard-sf-rules.md`: **T** truth,
+Everything here is labelled with the vocabulary defined in `agents/skills/hard-sf-rules.md`: **T** truth,
 **EG** educated guess, **S** speculation, **L** license, and **Cut** for what does not fit. The
 rules for a license, the license log and the Thorne and Tyson tests are in that file; read it
 before inventing anything the story then has to live with.
