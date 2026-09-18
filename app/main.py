@@ -34,6 +34,8 @@ def index_in_background(slug=None):
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
     index_in_background()
+    threading.Thread(target=search.watch, args=(2, lambda msg: print(f"search: {msg}")),
+                     daemon=True).start()   # a file changes, its passages are reindexed
     async with room_mcp.session_manager.run():
         yield
     objectstore.shutdown()

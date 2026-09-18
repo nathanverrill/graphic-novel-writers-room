@@ -28,6 +28,7 @@ from . import projects
 from .config import LIBRARY_DIRS, env
 
 INDEX = "writers-room"
+_CORPUS = {"df": Counter(), "docs": 0}   # word counts from the last full pass
 DIMS = 768                      # embeddinggemma
 PIPELINE = "writers-room-hybrid"
 STOP = set("""a an and are as at be but by for from had has have he her his i if in into is it its
@@ -237,10 +238,14 @@ def indexed_hashes():
         after = hits[-1]["sort"]
 
 
-def index(slug=None, on_progress=lambda msg: None):
-    """Index the library, and a project's own files when a slug is given. Returns what changed."""
+def index(slug=None, on_progress=lambda msg: None, files=None, prune=True):
+    """Index the library, and a project's own files when a slug is given.
+
+    `files` indexes just those (name, path, scope, kind) — one changed file is one file's work,
+    not the corpus's. `prune` removes chunks that are no longer there, which only makes sense
+    when the whole corpus was walked."""
     ensure_index()
-    files = library_files() + (project_files(slug) if slug else [])
+    files = files if files is not None else library_files() + (project_files(slug) if slug else [])
     corpus_df, docs = Counter(), 0
     parsed = []
     for name, path, scope, kind in files:
@@ -252,6 +257,11 @@ def index(slug=None, on_progress=lambda msg: None):
             corpus_df.update(set(w.lower() for w in WORD.findall(part["text"])))
             parsed.append({"name": name, "scope": scope, "kind": kind, "part": part,
                            "doc_terms": doc_terms, "title": meta.get("name") or name})
+
+    if prune:
+        _CORPUS["df"], _CORPUS["docs"] = corpus_df, docs      # for later single-file passes
+    elif _CORPUS["docs"]:
+        corpus_df, docs = _CORPUS["df"], _CORPUS["docs"]
 
     known = indexed_hashes()
     seen, lines, to_embed = set(), [], []
@@ -288,12 +298,98 @@ def index(slug=None, on_progress=lambda msg: None):
         with urllib.request.urlopen(req, timeout=300) as r:
             r.read()
 
-    gone = [doc_id for doc_id in known if doc_id not in seen]
+    gone = [doc_id for doc_id in known if doc_id not in seen] if prune else stale(files, seen)
     for doc_id in gone:
         urllib.request.urlopen(urllib.request.Request(
             f"{opensearch_url()}/{INDEX}/_doc/{doc_id}", method="DELETE"), timeout=30).read()
     _json(f"{opensearch_url()}/{INDEX}/_refresh", None, method="POST", timeout=30)
     return {"chunks": len(parsed), "written": len(to_embed), "removed": len(gone)}
+
+
+def stale(files, seen):
+    """Chunk ids in the index for these files that this pass did not write — the sections a
+    file lost when it was edited."""
+    out = []
+    for name, _path, scope, _kind in files:
+        body = {"size": 500, "_source": False,
+                "query": {"bool": {"filter": [{"term": {"file": name}}, {"term": {"scope": scope}}]}}}
+        try:
+            hits = _json(f"{opensearch_url()}/{INDEX}/_search", body, timeout=30)["hits"]["hits"]
+        except urllib.error.HTTPError:
+            continue
+        out += [h["_id"] for h in hits if h["_id"] not in seen]
+    return out
+
+
+def watched():
+    """{path: (mtime, size)} for every file the index covers."""
+    out = {}
+    for _name, path, _scope, _kind in library_files():
+        out[path] = (path.stat().st_mtime, path.stat().st_size)
+    for slug in projects.list_projects():
+        try:
+            for _name, path, _scope, _kind in project_files(slug):
+                out[path] = (path.stat().st_mtime, path.stat().st_size)
+        except FileNotFoundError:
+            continue
+    return out
+
+
+def describe(path):
+    """(name, path, scope, kind) for one watched file."""
+    for row in library_files():
+        if row[1] == path:
+            return row
+    for slug in projects.list_projects():
+        try:
+            for row in project_files(slug):
+                if row[1] == path:
+                    return row
+        except FileNotFoundError:
+            continue
+    return None
+
+
+def forget(path):
+    """Drop a deleted file's chunks."""
+    for scope in ("references", "skills", *[f"project:{s}" for s in projects.list_projects()]):
+        body = {"query": {"bool": {"filter": [{"term": {"file": path.name}}, {"term": {"scope": scope}}]}}}
+        try:
+            _json(f"{opensearch_url()}/{INDEX}/_delete_by_query", body, timeout=60)
+        except urllib.error.HTTPError:
+            pass
+
+
+def watch(interval=2, on_change=lambda msg: None):
+    """Poll the watched files and reindex the ones that changed. One file, one file's work.
+
+    Polling rather than an OS watcher: a few dozen stat calls every couple of seconds is
+    nothing, and it behaves the same on a laptop, in Docker and over a mounted volume."""
+    import time
+    seen = watched()
+    while True:
+        time.sleep(interval)
+        try:
+            now = watched()
+        except Exception:
+            continue
+        changed = [p for p, stamp in now.items() if seen.get(p) != stamp]
+        removed = [p for p in seen if p not in now]
+        if changed:
+            rows = [r for r in (describe(p) for p in changed) if r]
+            if rows:
+                try:
+                    result = index(files=rows, prune=False)
+                    on_change(f"reindexed {', '.join(r[0] for r in rows)}: {result['written']} passages")
+                except Exception as e:
+                    on_change(f"reindex failed: {type(e).__name__}: {str(e)[:120]}")
+        for path in removed:
+            try:
+                forget(path)
+                on_change(f"dropped {path.name} from the index")
+            except Exception:
+                pass
+        seen = now
 
 
 # ---- searching -------------------------------------------------------------------------

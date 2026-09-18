@@ -563,8 +563,13 @@ a scope, and click a hit to open the file. The agents have it as a tool (`agents
 so a writer can reach the whole library without carrying it. MCP clients get `search_room` and
 `reindex`.
 
-**Running it.** `docker compose up -d` starts OpenSearch beside the app, and the app indexes on
-start and after every round. Ollama runs on your machine with `ollama pull embeddinggemma`.
+**Staying current.** The app watches every file the index covers and reindexes the ones that
+change — a couple of seconds after you save a skill, a reference or a page, and the same for what
+an agent writes mid-round. One changed file costs one file's work: the passages it lost are
+dropped, the ones it gained are embedded, everything else is left alone.
+
+**Running it.** `docker compose up -d` starts OpenSearch beside the app, which indexes on start
+and watches from then on. Ollama runs on your machine with `ollama pull embeddinggemma`.
 Without either, the room works as before: the box says search is off, and the agents' tool tells
 them to fall back to `list_artifacts` and `read_artifact`.
 
