@@ -178,17 +178,23 @@ def reference_files(slug, version=None):
 
 DRAFT_MARK = "reference: draft"
 GUIDE_MARK = "reference: guide"
+CANON_MARK = "reference: canon"
 
 
 def reference_kind(path):
     """What a reference is, from a marker near its top, or from its name.
 
-    canon  the book must not contradict it
+    canon  the default, or <!-- reference: canon -->: the book must not contradict it
     draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
     guide  <!-- reference: guide -->, or a SKILL_*.md file: craft and worldbuilding guidance.
-           It commits the book to nothing; the room uses what serves the page."""
+           It commits the book to nothing; the room uses what serves the page.
+
+    A marker always wins over the file name, so a skill that carries the book's own canon —
+    a character, a place, the story's one license — says so and is read as canon."""
     with path.open(errors="replace") as f:
         head = f.read(400)
+    if CANON_MARK in head:
+        return "canon"
     if DRAFT_MARK in head:
         return "draft"
     if GUIDE_MARK in head or path.name.startswith("SKILL_"):

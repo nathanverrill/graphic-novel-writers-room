@@ -371,9 +371,13 @@ does it on demand.
 
 | Kind | How it is marked | What the room does with it |
 |---|---|---|
-| canon | the default | must not contradict it; where it conflicts with the room's files, the reference wins |
+| canon | the default, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
 | draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
 | guide | `<!-- reference: guide -->`, or a file named `SKILL_*.md` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+
+A marker wins over the file name, so a skill that carries the book's own canon — a character, a
+place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
+`SKILL_ALPHA.md` is the case in point: it is who Alpha is, not a menu of options.
 
 The guides in `references/` label their material with the vocabulary in
 `SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
@@ -388,16 +392,17 @@ What each one reads now, with this library:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, the six chapter canon files, the hard-SF rules |
-| Plotter | chapter canon, hard-SF rules, lithium triangle futures, science, water wars |
-| Character Designer | the bible, hard-SF rules, everyday life |
-| Scripter | chapter canon, hard-SF rules, the script-writing skill, money |
-| Penciller | hard-SF rules, graphic novel layout, the layout picker, near-future set design |
-| Continuity Editor | the bible, chapter canon, hard-SF rules |
+| Editor-in-Chief | the bible, Alpha, the hard-SF rules |
+| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars |
+| Character Designer | the bible, Alpha, hard-SF rules |
+| Scripter | chapter canon, Alpha, hard-SF rules, the script-writing skill |
+| Penciller | Alpha, hard-SF rules, graphic novel layout, the layout picker, near-future set design |
+| Continuity Editor | the bible, Alpha, hard-SF rules |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 56 and 112 KB a call, where before each one carried the whole
-561 KB library. Anything left off a shortlist is still one `read_artifact` away.
+That puts every writer between 78 and 112 KB a call, where before each one carried the whole
+library. Anything left off a shortlist is still one `read_artifact` away: the chapter canon for
+the Editor, everyday life and money for the Scripter, the science guide for the Plotter.
 
 Selecting none in that list means the writer reads whatever the round picked. The project's own
 `references/` folder is always read, whatever the shortlist says.

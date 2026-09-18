@@ -18,6 +18,7 @@
   "image_size": null,
   "image_extra": {},
   "reference_files": [
+    "SKILL_ALPHA.md",
     "SKILL_HARD_SF_RULES.md",
     "SKILL_GRAPHIC_NOVEL_LAYOUT.md",
     "SKILL_COMIC_LAYOUT_PICKER.md",
