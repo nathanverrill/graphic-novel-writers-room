@@ -3,7 +3,7 @@
 Like a newspaper morgue: the clippings archive. Documents we reviewed and don't want
 to lose, but that the room does **not** use. Nothing in here reaches an agent.
 
-When something from here is adopted, copy the useful part into `roles/`, `hats/`,
+When something from here is adopted, copy the useful part into `agents/`, `hats/`,
 `skills/` or a project's `references/`, and note it below.
 
 ## chatgpt_suggestions/ — reviewed 2026-09-16

@@ -13,8 +13,8 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
-from .config import ROLES_DIR, AgentConfig, settings
-from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
+from .config import AGENTS_DIR, AgentConfig, settings
+from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
 @asynccontextmanager
 async def lifespan(_app):
@@ -51,9 +51,9 @@ def config():
     return d
 
 
-# ---- roles -----------------------------------------------------------------
+# ---- agents -----------------------------------------------------------------
 
-@app.get("/api/roles")
+@app.get("/api/agents")
 def roles():
     return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED), "hats": list_hats()}
 
@@ -61,17 +61,17 @@ def roles():
 def _role_folder(role_id):
     if role_id != SHARED:
         not_found(get_role, role_id)
-    return ROLES_DIR / role_id
+    return AGENTS_DIR / role_id
 
 
-@app.get("/api/roles/{role_id}/guides/{name}", response_class=PlainTextResponse)
+@app.get("/api/agents/{role_id}/guides/{name}", response_class=PlainTextResponse)
 def role_guide(role_id: str, name: str):
     if name not in assets(role_id)["guides"]:
         raise HTTPException(404)
     return (_role_folder(role_id) / name).read_text()
 
 
-@app.get("/api/roles/{role_id}/images/{name}")
+@app.get("/api/agents/{role_id}/images/{name}")
 def role_image(role_id: str, name: str):
     if name not in assets(role_id)["images"]:
         raise HTTPException(404)
@@ -100,13 +100,13 @@ def saved_keys():
     return {"providers": [{"base_url": u, "used_by": used.get(u, [])} for u in keys.providers()]}
 
 
-@app.put("/api/roles/{role_id}/settings")
+@app.put("/api/agents/{role_id}/settings")
 def save_role_settings(role_id: str, body: SettingsChange):
     role = not_found(get_role, role_id)
     return not_found(role.save_settings, body.changes)
 
 
-@app.get("/api/roles/{role_id}/models")
+@app.get("/api/agents/{role_id}/models")
 def role_models(role_id: str, image: bool = False):
     role = not_found(get_role, role_id)
     cfg = not_found(role.config)
@@ -118,7 +118,7 @@ def role_models(role_id: str, image: bool = False):
         raise HTTPException(400, f"couldn't list models from {cfg.base_url}: {str(e)[:300]}")
 
 
-@app.post("/api/roles/{role_id}/test")
+@app.post("/api/agents/{role_id}/test")
 def test_role(role_id: str):
     """One tiny chat request with the role's settings (not logged to any project)."""
     role = not_found(get_role, role_id)
@@ -132,7 +132,7 @@ def test_role(role_id: str):
             "base_url": cfg.base_url, "model": cfg.model}
 
 
-@app.post("/api/roles/{role_id}/apply-provider")
+@app.post("/api/agents/{role_id}/apply-provider")
 def apply_provider(role_id: str, body: ApplyProvider):
     """Copy this role's provider, key and model to other roles."""
     source = not_found(get_role, role_id)

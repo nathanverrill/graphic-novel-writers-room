@@ -51,7 +51,7 @@ async function loadConfig() {
 }
 
 async function loadRoles() {
-  const data = await api("/api/roles");
+  const data = await api("/api/agents");
   state.roles = data.roles;
   state.shared = data.shared;
   renderAgents();
@@ -125,7 +125,7 @@ function assetBlock(folder, a) {
   const guides = a.guides.map((g) => `
     <details class="guide" data-guide="${folder}/${g}"><summary>${esc(g)}</summary><div class="md">loading…</div></details>`).join("");
   const imgs = a.images.map((i) =>
-    `<a href="/api/roles/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/roles/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
+    `<a href="/api/agents/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/agents/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
   const figma = a.figma.map((f) => `<li class="path">${esc(f)}</li>`).join("");
   return `
     <p class="path">roles/${folder}/</p>
@@ -152,7 +152,7 @@ $("#role-dialog").addEventListener("toggle", async (e) => {
   const d = e.target.closest?.("details[data-guide]");
   if (!d || !d.open || d.dataset.loaded) return;
   const [folder, name] = d.dataset.guide.split("/");
-  renderInto(d.querySelector("div"), await api(`/api/roles/${folder}/guides/${encodeURIComponent(name)}`), `/api/roles/${folder}/`);
+  renderInto(d.querySelector("div"), await api(`/api/agents/${folder}/guides/${encodeURIComponent(name)}`), `/api/agents/${folder}/`);
   d.dataset.loaded = 1;
 }, true);
 
@@ -1663,7 +1663,7 @@ function openSettings(id, message) {
     const c = changes();
     if (!Object.keys(c).length) return true;
     try {
-      await api(`/api/roles/${id}/settings`, { method: "PUT", body: { changes: c } });
+      await api(`/api/agents/${id}/settings`, { method: "PUT", body: { changes: c } });
     } catch (err) { status(err.message, true); return false; }
     await loadRoles();
     return true;
@@ -1676,7 +1676,7 @@ function openSettings(id, message) {
   form.querySelector('[data-act="test"]').onclick = async () => {
     if (!(await save())) return;
     status("Testing…");
-    const t = await api(`/api/roles/${id}/test`, { method: "POST" });
+    const t = await api(`/api/agents/${id}/test`, { method: "POST" });
     openSettings(id, t.ok ? { text: `${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
                           : { text: `${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
   };
@@ -1686,7 +1686,7 @@ function openSettings(id, message) {
     const msg = (m, bad) => { $("#settings-status").textContent = m; $("#settings-status").classList.toggle("cfg-error", !!bad); };
     msg("Loading models…");
     try {
-      const m = await api(`/api/roles/${id}/models`);
+      const m = await api(`/api/agents/${id}/models`);
       $("#model-list").innerHTML = m.models.map((x) => `<option value="${esc(x)}">`).join("");
       msg(`${m.models.length} models from ${m.base_url} — start typing in Model to pick one.`);
       $("#settings-form").elements.model.focus();
@@ -1697,7 +1697,7 @@ function openSettings(id, message) {
     const others = state.roles.filter((x) => x.id !== id && x.room !== "art").map((x) => x.id);
     if (!confirm(`Give all ${others.length} other writers' room agents this provider and model? (Their tuned advanced settings stay.)`)) return;
     try {
-      const out = await api(`/api/roles/${id}/apply-provider`, { method: "POST", body: { roles: others } });
+      const out = await api(`/api/agents/${id}/apply-provider`, { method: "POST", body: { roles: others } });
       await loadRoles();
       openSettings(id, { text: `Applied to ${out.updated.length} agents.` });
     } catch (err) { status(err.message, true); }

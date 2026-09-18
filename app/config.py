@@ -9,7 +9,7 @@ from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ROLES_DIR = ROOT / "roles"
+AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 PROJECTS_DIR = ROOT / "projects"
 REFERENCES_DIR = ROOT / "references"   # the book's own material: canon and idea drafts
 SKILLS_DIR = ROOT / "skills"           # craft and worldbuilding skills, always read as guides

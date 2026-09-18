@@ -32,7 +32,7 @@ Penciller, Continuity Editor.
 
 The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
 reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
-or decision needed (see `roles/_shared/house-style.md`).
+or decision needed (see `agents/_shared/house-style.md`).
 
 ## The screen
 
@@ -183,7 +183,7 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-**Configuration** — `roles/`, `hats/`, `references/`, `skills/` and `pricing.json` — is mounted
+**Configuration** — `agents/`, `hats/`, `references/`, `skills/` and `pricing.json` — is mounted
 from this folder, so you edit it in place.
 
 **Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
@@ -226,7 +226,7 @@ it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages s
 true proportions.
 
 The Penciller writes a ```` ```layout ```` JSON block per page (format:
-`roles/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
+`agents/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
 in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
 balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
 effects and figure placeholders, in code and for free. The renderer reports overlapping
@@ -448,10 +448,10 @@ Selecting none in that list means the writer reads whatever the round picked. Th
 Everything an agent knows comes from its folder:
 
 ```
-roles/
-  roles.json              order, title, mission, reads, outputs
-  _shared/                given to every role
-  <role>/
+agents/
+  agents.json             order, title, mission, reads, outputs
+  _shared/                given to every agent
+  <agent>/
     *.md                  guides — all are read, alphabetically
     images/               reference images (png, jpg, webp, gif)
     figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
@@ -459,15 +459,15 @@ roles/
     agent.json            provider, model and tuned defaults (committed; no keys)
 ```
 
-- **Add a guide:** drop a `.md` file in the role's folder.
-- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts of the storycraft skill it needs, as `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`). Edit the skill or the map in the script, then run `python tools/split_skill.py`. (The ASCII art skill and bible in `skills/` served the retired ASCII Artist. `references/` is for story material only: everything in it goes to every agent.)
+- **Add a guide:** drop a `.md` file in the agent's folder.
+- **Skills:** the craft skills in `skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `tools/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python tools/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
-- **Add or change a role:** edit `roles/roles.json` and create the matching folder.
-  `"selected": false` leaves a role unticked by default. `"context": "minimal"` gives a role
+- **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
+  `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
   only its own folder, the pitch and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
-- **Random entry:** a role with `deck.txt` (one prompt per line) gets 3 cards drawn by code
+- **Random entry:** an agent with `deck.txt` (one prompt per line) gets 3 cards drawn by code
   each run, plus a word from `words.txt` and a random heading from the outline or script
   as a target. The draw shows in the live feed.
 
@@ -494,7 +494,7 @@ written to `agent.json` / `run.json`. Only agents on the default provider fall b
 instead** in the advanced settings. The app listens on `127.0.0.1` only, because anyone who
 can reach it can use your keys.
 
-**Each agent's `roles/<id>/agent.json` is committed** and holds its provider, model and
+**Each agent's `agents/<id>/agent.json` is committed** and holds its provider, model and
 **tuned defaults for that kind of agent** — no keys. Its `_why` note (shown in the advanced
 view) explains them:
 

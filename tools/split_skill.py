@@ -77,7 +77,7 @@ def main():
                 chunks.append(lines[a:b])
         body = "\n".join("\n".join(c).strip() + "\n" for c in chunks)
         header = HEADER.format(source=SOURCE.name) + f"# Storycraft: {focus}\n\n"
-        out = ROOT / "roles" / role / OUT_NAME
+        out = ROOT / "agents" / role / OUT_NAME
         out.write_text(header + body)
         print(f"{out.relative_to(ROOT)}: {len(body) // 1000} KB")
 

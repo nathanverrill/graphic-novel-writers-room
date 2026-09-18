@@ -17,7 +17,7 @@ import json
 import re
 
 from . import artist, asciitext, config, llm, projects, review, rules, thumbnails
-from .roles import gather_context, random_entry, read_hat
+from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
 REF_PREFIX = "references/"

@@ -11,7 +11,7 @@
                         draws cards and a word from them (see random_entry)
 
 roles/_shared/ has the same layout and is given to every role.
-roles/roles.json sets the order, titles, and what each role reads and writes, plus:
+agents/agents.json sets the order, titles, and what each agent reads and writes, plus:
     "context": "minimal"  the role gets only its own folder, its `reads` and the pitch
                           (no shared guides, references, or tools to browse the room)
     "selected": false     unticked by default in the UI
@@ -25,7 +25,7 @@ import random
 from dataclasses import dataclass, field
 
 from . import figma, keys
-from .config import HATS_DIR, ROLES_DIR, AgentConfig
+from .config import AGENTS_DIR, HATS_DIR, AgentConfig
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                ".webp": "image/webp", ".gif": "image/gif"}
@@ -50,7 +50,7 @@ class Role:
 
     @property
     def dir(self):
-        return ROLES_DIR / self.id
+        return AGENTS_DIR / self.id
 
     @property
     def config_path(self):
@@ -145,7 +145,7 @@ def _coerce(key, value):
 
 
 def load_roles():
-    data = json.loads((ROLES_DIR / "roles.json").read_text())
+    data = json.loads((AGENTS_DIR / "agents.json").read_text())
     return [Role(**r) for r in data]
 
 
@@ -170,7 +170,7 @@ def _figma_refs(folder):
 
 
 def assets(folder_id):
-    folder = ROLES_DIR / folder_id
+    folder = AGENTS_DIR / folder_id
     if not folder.is_dir():
         return {"guides": [], "images": [], "figma": []}
     img_dir = folder / "images"
@@ -189,7 +189,7 @@ def gather_context(role, log=lambda msg: None):
     """
     guides, figma_text, images = [], [], []
     for folder_id in ((role.id,) if role.minimal else (SHARED, role.id)):
-        folder = ROLES_DIR / folder_id
+        folder = AGENTS_DIR / folder_id
         a = assets(folder_id)
         for name in a["guides"]:
             guides.append((f"{folder_id}/{name}", (folder / name).read_text()))
