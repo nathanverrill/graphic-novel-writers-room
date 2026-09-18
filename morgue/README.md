@@ -31,3 +31,7 @@ Not adopted:
   the Costs view shows which roles don't earn their cost.
 - `project/RUN_ASSEMBLY.md` — design notes; the app already assembles context this way.
 - The "Read:" sections of the role files — the app decides what each role receives.
+
+## ascii_artist/ — retired 2026-09-17
+
+The ASCII Artist drew whole pages panel by panel with a model. The room draws pages from the Penciller's layout blocks instead, in code and for free, so the role and its guides moved here — with `ascii_art_skill.md` and `ascii_art_bible.md`, the two sources that fed it (moved out of `skills/` on 2026-09-18).

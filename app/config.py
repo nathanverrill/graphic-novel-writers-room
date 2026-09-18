@@ -11,7 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 ROLES_DIR = ROOT / "roles"
 PROJECTS_DIR = ROOT / "projects"
-REFERENCES_DIR = ROOT / "references"   # shared by every project
+REFERENCES_DIR = ROOT / "references"   # the book's own material: canon and idea drafts
+SKILLS_DIR = ROOT / "skills"           # craft and worldbuilding skills, always read as guides
+LIBRARY_DIRS = (REFERENCES_DIR, SKILLS_DIR)
 HATS_DIR = ROOT / "hats"               # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
 OUTPUT_DIR = ROOT / "output"           # the latest deliverables, easy to find on your computer

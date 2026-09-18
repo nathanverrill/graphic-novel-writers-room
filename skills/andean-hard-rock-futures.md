@@ -13,7 +13,7 @@ The rock side of the triangle. Unlike lithium brine, this is ore you can blast, 
 
 ## Plausibility labels
 
-Everything here is labelled with the vocabulary defined in `SKILL_HARD_SF_RULES.md`: **T** truth,
+Everything here is labelled with the vocabulary defined in `skills/hard-sf-rules.md`: **T** truth,
 **EG** educated guess, **S** speculation, **L** license, and **Cut** for what does not fit. The
 rules for a license, the license log and the Thorne and Tyson tests are in that file; read it
 before inventing anything the story then has to live with.

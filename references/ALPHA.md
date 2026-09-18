@@ -854,7 +854,7 @@ He asks:
 
 # 21. HARD-SF RULES FOR ALPHA
 
-Alpha Dynamics stays grounded even when Alpha AI is the story's major speculative element. The labels below are the ones defined in `SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license — and the rules for a license, the license log and the two tests are in that file.
+Alpha Dynamics stays grounded even when Alpha AI is the story's major speculative element. The labels below are the ones defined in `skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license — and the rules for a license, the license log and the two tests are in that file.
 
 ### Truth / Near Truth (T)
 

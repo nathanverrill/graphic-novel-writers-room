@@ -1770,15 +1770,23 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const rows = state.library.map((f) => `
+  const KIND = { draft: "idea draft", guide: "skill" };
+  const row = (f) => `
     <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
-      <span>${esc(f.name)}${f.kind === "draft" ? ' <span class="badge">idea draft</span>' : ""}</span>
-      <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`).join("");
+      <span>${esc(f.name)}${KIND[f.kind] ? ` <span class="badge">${KIND[f.kind]}</span>` : ""}</span>
+      <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`;
+  const group = (folder, label, note) => {
+    const files = state.library.filter((f) => (f.folder || "references") === folder);
+    return files.length ? `<h3 class="ref-group">${label} <span class="path">${note}</span></h3>${files.map(row).join("")}` : "";
+  };
+  const rows = group("references", "references/", "what is true in this book")
+             + group("skills", "skills/", "how to do the work — read as guidance, never as canon");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">Files in the shared <code>references/</code> library this project uses. Every agent gets the
-      chosen files (in full, unless its advanced settings say "names only") on every call, so pick only what
-      this book needs. Files in the project's own references/ folder are always used.</p>
+    <p class="path">The shared library this project uses: the book's own material in <code>references/</code>
+      and the room's skills in <code>skills/</code>. An agent gets the chosen files (in full, unless its
+      settings say "names only" or name a shortlist of its own) on every call, so pick only what this book
+      needs. Files in the project's own references/ folder are always used.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>
     <div class="actions">

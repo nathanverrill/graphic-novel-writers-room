@@ -404,3 +404,7 @@ a.button { text-decoration: none; display: inline-block; }
 .sf-wide { grid-column: 1 / -1; }
 .sf-wide select[multiple] { width: 100%; max-width: none; font-family: ui-monospace, monospace; font-size: .75rem; }
 .sf-wide small { display: block; margin-top: .25rem; }
+
+.ref-group { margin: .9rem 0 .3rem; font-size: .7rem; }
+.ref-group:first-child { margin-top: .2rem; }
+.ref-group .path { text-transform: none; letter-spacing: 0; }

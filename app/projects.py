@@ -33,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR
+from .config import LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR, SKILLS_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -168,12 +168,12 @@ def reference_files(slug, version=None):
             found[p.name[len(pre):]] = p
         return found
     chosen = library_selection(slug)
-    for folder in (REFERENCES_DIR, project_dir(slug) / "references"):
+    for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
         if folder.is_dir():
             for p in sorted(folder.glob("*.md")):  # any file name; lookups go through this dict
                 if p.name.startswith("."):
                     continue
-                if folder == REFERENCES_DIR and chosen is not None and p.name not in chosen:
+                if folder in LIBRARY_DIRS and chosen is not None and p.name not in chosen:
                     continue
                 found[p.name] = p
     return found
@@ -189,10 +189,11 @@ def reference_kind(path):
 
     canon  the default, or <!-- reference: canon -->: the book must not contradict it
     draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
-    guide  <!-- reference: guide -->, or a SKILL_*.md file: craft and worldbuilding guidance.
-           It commits the book to nothing; the room uses what serves the page.
+    guide  anything in skills/, a file marked <!-- reference: guide -->, or a SKILL_*.md file:
+           craft and worldbuilding guidance. It commits the book to nothing; the room uses what
+           serves the page.
 
-    A marker always wins over the file name, so a skill that carries the book's own canon —
+    A marker always wins over where the file sits, so a skill that carries the book's own canon —
     a character, a place, the story's one license — says so and is read as canon."""
     with path.open(errors="replace") as f:
         head = f.read(400)
@@ -200,17 +201,21 @@ def reference_kind(path):
         return "canon"
     if DRAFT_MARK in head:
         return "draft"
-    if GUIDE_MARK in head or path.name.startswith("SKILL_"):
+    if GUIDE_MARK in head or path.parent == SKILLS_DIR or path.name.startswith("SKILL_"):
         return "guide"
     return "canon"
 
 
 def library():
-    """The shared reference files: [{name, size}]."""
-    if not REFERENCES_DIR.is_dir():
-        return []
-    return [{"name": p.name, "size": p.stat().st_size, "kind": reference_kind(p)}
-            for p in sorted(REFERENCES_DIR.glob("*.md")) if not p.name.startswith(".")]
+    """The shared library: the book's references and the room's skills, [{name, size, kind}]."""
+    out = []
+    for folder in LIBRARY_DIRS:
+        if not folder.is_dir():
+            continue
+        out += [{"name": p.name, "size": p.stat().st_size, "kind": reference_kind(p),
+                 "folder": folder.name}
+                for p in sorted(folder.glob("*.md")) if not p.name.startswith(".")]
+    return out
 
 
 def library_selection(slug):
@@ -226,7 +231,7 @@ def list_references(slug, version=None):
     root = project_dir(slug)
     return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime, "kind": reference_kind(p),
              "source": "project" if p.parent == root / "references" else
-                       "shared" if p.parent == REFERENCES_DIR else "version"}
+                       "shared" if p.parent in LIBRARY_DIRS else "version"}
             for n, p in reference_files(slug, version).items()]
 
 

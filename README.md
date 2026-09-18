@@ -183,8 +183,8 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-**Configuration** — `roles/`, `hats/`, `references/` and `pricing.json` — is mounted from this
-folder, so you edit it in place.
+**Configuration** — `roles/`, `hats/`, `references/`, `skills/` and `pricing.json` — is mounted
+from this folder, so you edit it in place.
 
 **Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
 **SeaweedFS**, an S3-compatible object store whose storage is the `seaweedfs-data` Docker
@@ -368,18 +368,25 @@ How references reach an agent is set by `references` in its `agent.json` (defaul
 - `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
 - `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
 
-## Reference material
+## Reference material and skills
 
-Put your source material — a script, lore, series bible, style notes — in `.md` files in:
+The room reads two shared folders. They differ in what the material *is*, and the agents are
+told which they are reading:
 
 ```
-references/                     the shared library
-references/sources/             originals that tools split up (agents never read this)
+references/                     the book's own material: canon, and idea drafts to mine
+references/sources/             originals that tools split up (agents never read these)
+skills/                         craft and worldbuilding skills — always read as guides
+skills/sources/                 long skills that tools split into role guides (never read whole)
 projects/<slug>/references/     this project only (a file with the same name wins)
 ```
 
-**A project picks which library files it uses** — **References…** in **The room** tab; default:
-all of them. A writer can narrow that further with its own shortlist (below), and the summary
+So `references/` answers *what is true in this book* — the bible, the chapter canon, Alpha, the
+draft script — and `skills/` answers *how to do the work and what is plausible* — layout, emotion,
+script writing, the hard-SF rules, the lithium triangle, the Social Innovators' Framework.
+
+**A project picks which library files it uses** — **References…** in **The room** tab lists both
+folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
 beside the picker shows how many KB the selection is. With references in place the pitch is
 optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
 each.
@@ -396,35 +403,36 @@ Rerun them after updating a source.
 
 **What a reference is.** Three kinds, and the room is told which it is reading:
 
-| Kind | How it is marked | What the room does with it |
+| Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | the default, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
+| canon | `references/`, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
 | draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
-| guide | `<!-- reference: guide -->`, or a file named `SKILL_*.md` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+| guide | anything in `skills/`, or `<!-- reference: guide -->` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
 
-A marker wins over the file name, so a skill that carries the book's own canon — a character, a
+A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`SKILL_ALPHA.md` is the case in point: it is who Alpha is, not a menu of options.
+`references/ALPHA.md` is the case in point: it arrived as a skill, but it is who Alpha is, not a
+menu of options, so it lives with the canon.
 
-The guides in `references/` label their material with the vocabulary in
-`SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+The skills label their material with the vocabulary in
+`skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
 them, and a license used to skip work the characters should have done.
 
 **Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
-also carries its own shortlist: in its model settings, **Library files for this writer**.
-What each one reads now, with this library:
+also carries its own shortlist: in its model settings, **Library files for this writer**, which
+lists the references and the skills together. What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, Alpha, the hard-SF rules |
-| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars, the Social Innovators' Framework |
-| Character Designer | the bible, Alpha, hard-SF rules |
-| Scripter | chapter canon, Alpha, hard-SF rules, the script-writing skill |
-| Penciller | Alpha, hard-SF rules, graphic novel layout, the layout picker, near-future set design, character emotion |
-| Continuity Editor | the bible, Alpha, hard-SF rules |
+| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
+| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Character Designer | the bible, Alpha, `hard-sf-rules` |
+| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
+| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
+| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
 That puts every writer between 97 and 116 KB a call, out of a library that is now 31 files and

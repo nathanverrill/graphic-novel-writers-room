@@ -21,6 +21,7 @@ services:
       - ./roles:/app/roles
       - ./hats:/app/hats
       - ./references:/app/references
+      - ./skills:/app/skills
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
       - ./output:/app/output         # the latest page prompts and story files, per project
