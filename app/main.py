@@ -12,20 +12,25 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
+from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig, settings
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
+
+room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
+
 
 @asynccontextmanager
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
-    yield
+    async with room_mcp.session_manager.run():
+        yield
     objectstore.shutdown()
 
 
 app = FastAPI(title="Graphic Novel Writers' Room", lifespan=lifespan)
 STATIC = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
+app.mount("/mcp", room_mcp.streamable_http_app(streamable_http_path="/"))   # POST http://host/mcp
 
 
 def not_found(fn, *args):

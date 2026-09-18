@@ -541,6 +541,30 @@ A bad `agent.json` is flagged on the card and blocks runs that include that role
 - Images (art-room roles, or chat replies that include images) are saved with round-prefixed names in `images/`, so nothing is overwritten.
 - Pick a round from the **Files** dropdown to browse its files, replay its feed, see its model calls, or **Restore** its book files into the working copy.
 
+## The room's tools, over MCP
+
+The five tools an agent calls are defined in `agents/tools/`. The room also serves them over
+MCP, so a chat client, an editor or another agent can work on a book without going through the
+screen:
+
+```sh
+claude mcp add --transport http writers-room http://localhost:8000/mcp/
+```
+
+| Tool | What it does |
+|---|---|
+| `list_projects` | the room's projects by name |
+| `list_artifacts` | a project's room files and its reference material |
+| `read_artifact` | one file, e.g. `script.md` or `references/ALPHA.md` |
+| `write_artifact` | overwrite one room file with complete markdown |
+| `page_prompts` | the deliverable: every page's prompt, or one page's |
+
+Outside a round there is no agent, so every tool takes the project it acts on and
+`write_artifact` is not restricted to one agent's outputs. The guards are the same either way,
+and in the same code: pages you have kept are put back, your standing rules are restored, and
+saving `layouts.md` redraws the sketch. `finish` is not served — it ends an agent's turn, which
+means nothing from outside.
+
 ## Call logs and costs
 
 Every model call — chat and image, successful or failed — is recorded three ways:
