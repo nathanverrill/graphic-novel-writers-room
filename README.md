@@ -28,6 +28,47 @@ The Editor-in-Chief also keeps `taste-writers.md`: what you love and hate, learn
 reviews, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `roles/_shared/house-style.md`).
 
+## The screen
+
+Projects on the left; the book in the middle; what the room is doing on the right.
+
+| Where | What |
+|---|---|
+| Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
+| Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
+| Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
+| Middle, under the tabs | **Stats** — what the room has spent, by project, round or role |
+| Right, watch pad | progress, your notes while you watch, and the live feed |
+| Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
+
+**Write round** sits above the tabs with the showrunner note, so it's there whichever tab you're
+on; when a review is waiting, **Review ↓** appears next to it. Changing the previewed page opens
+that page's prompt below it.
+
+### Watching a page get made
+
+The **Pages** tab opens on one page and watches it being built. Before you press **Write round**
+it's an empty frame at trim proportions, with a card waiting for its **Description** and
+**Dialog**. Then the room writes, and the page takes a step each time a writer's file lands —
+not token by token; a file at a time, in step with the live feed:
+
+| When | What appears |
+|---|---|
+| `outline.md` — the Plotter | the page's beat, above the frame |
+| `script.md` — the Scripter | one card per panel, marked *from the script*, with its description and dialog |
+| `layouts.md` — the Penciller | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
+| `notes.md` — the Continuity Editor | that page's flags, under the cards |
+
+The boxes are the tier and panel fractions themselves, nothing else — so any layout the format
+can describe draws correctly: a nine-panel grid, one splash, a wide tier over two narrow ones
+(`3*` bleeds off the page edge). Click a number to jump to that panel; hovering a card lights up
+its box. The map stays put while you scroll the panels.
+
+The room always writes the whole book. This screen follows **page 1** — one page is enough to
+form a focused opinion before the rest arrives (`BUILD_PAGE` in `app/static/app.js`). The
+remaining pages are all there in **Layout sketch** below (the drawn page with lettering in
+place, which is what you edit and review) and in the page prompts, each with its own page picker.
+
 ## Page prompts — the deliverable
 
 `page-prompts.md` (in the project, and in every round) has one section per page. Each is
@@ -36,7 +77,8 @@ self-contained, so you can paste a single page into an image model:
 - **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
 - **Style** — the brief's visual direction, the same on every page.
 - **Characters** — the bible's visual lock for everyone on the page, word for word.
-- **Layout** — rows and panels with their share of the page, bleeds.
+- **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
+  and panels with their share of the page, bleeds.
 - **Panels** — shot and angle, the Penciller's scene description, light, who stands where
   and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
 - **Rules**, and the page's script for reference.
@@ -244,28 +286,30 @@ Long documents can be split so a project takes only what it needs:
 
 Rerun them after updating a source.
 
-**Progress.** Above the live feed, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
+**Progress.** Above the live feed in the watch pad, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
 step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
 real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
 has been waiting on the model, highlighted after 3 minutes.
 
-**Lettering as its own layer.** Set **Lettering** in the round bar to *separate layer* and the
+**Lettering as its own layer.** Set **Lettering** in **The room** tab to *separate layer* and the
 page prompts ask the image model for finished art with **no text at all**, keeping the balloon
 areas uncluttered. The room then draws the lettering itself, from the layout's items, as a
 transparent SVG over the art — so the words are exactly what you typed, and changing a line never
-touches the art. The **Lettering** panel is side by side: the page on the left (your uploaded art
+touches the art. The **Lettering** tab is side by side: the page on the left (your uploaded art
 with the text layer over it), every balloon, caption and sound effect on the right. Edit the words
-or move a balloon to one of nine spots in its panel, and the layer redraws; the change is written
-back to `layouts.md`, so the next round and the page prompts say the same thing. **Upload art**
+or move a balloon to one of nine spots in its panel, and the layer redraws; **✕** on a balloon,
+caption or sound effect deletes it (after a confirmation). Every change is written back to
+`layouts.md` and redraws the layout sketch, so the next round and the page prompts say the same
+thing. **Upload art**
 attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
-**Page count.** You own it: set **Pages** in the round bar, or use − / + in the review. The room
+**Page count.** You own it: set **Pages** in **The room** tab, or use − / + in the review. The room
 can propose a different count by writing one line in `notes.md` —
 `PAGE COUNT: 5 — the Leona reveal needs a page of its own` — which shows up in the review as a
 suggestion with a button to accept it. Nothing changes the count without you.
 
-**Your notes.** Under the round bar there's a box to jot thoughts while you watch — half-formed
+**Your notes.** The watch pad on the right has a box to jot thoughts while you watch — half-formed
 ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
 until something takes them: the next **Write round** folds them into the room's brief, and
 submitting a review adds them to `review.md`; either way they're saved in that round's folder and
@@ -273,8 +317,7 @@ marked used. **Tidy into feedback** is one model call (the Editor's model) that 
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
 notes. ✕ drops a note you've changed your mind about.
 
-**Outputs.** The Outputs panel under the round bar has the page prompts (Copy / Copy all) and
-the main story files. Every finished round, review and finalize also writes them to
+**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
 `output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
 overwritten each time — every version stays in the project's rounds). **Save to output folder**
 does it on demand.
@@ -285,7 +328,7 @@ to get the ideas on paper, are shown to agents separately: mine them for beats a
 but write the room's own script. The References… dialog labels them.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
-the top-left corner (`PAGE 2`). Set **Chapter** in the round bar and page 1 reads
+the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
 `CHAPTER 4 — PAGE 1`.
 
 How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):

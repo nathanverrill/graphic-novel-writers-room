@@ -167,6 +167,7 @@ async function openProject(slug) {
   $("#empty").hidden = true;
   $("#workspace").hidden = false;
   $("#artifacts-pane").hidden = false;
+  $("#watch-pane").hidden = false;
   $("#viewer").hidden = true;
   $("#project-title").textContent = slug;
   $("#feed").innerHTML = "";
@@ -176,13 +177,18 @@ async function openProject(slug) {
   state.roles.forEach((r) => setRoleStatus(r.id, null, "idle"));
   state.previews = null;
   $("#previews").hidden = true;
+  state.build = null;
+  renderPageBuild();
   state.prompts = null;
   $("#prompts").hidden = true;
+  $('#tabs button[data-tab="lettering"]').hidden = true;
+  showTab("pages");
   destroyReviewEditor();
   state.review = null;
   $("#review").hidden = true;
   await loadProjects();
   const p = await refreshArtifacts();
+  refreshPageBuild();
   if (p.active_run) attach(p.active_run, 0);
   else showArtifact("pitch.md");
   loadReview(false);
@@ -402,6 +408,178 @@ async function loadPreviews() {
   renderPreviews();
 }
 
+// ---- page layout: the page builds itself as each writer's file lands -------------------
+//
+// The room writes the whole book; this screen watches one page of it (the usability
+// experiment: page 1). Nothing here is streamed token by token — each writer's file
+// lands whole, and the page takes another step:
+//
+//   outline.md   the Plotter's beat for the page
+//   script.md    panels with their description and dialog, in script form — the cards fill
+//   layouts.md   the Penciller's boxes appear, and the cards become the real panels
+//   notes.md     the Continuity Editor's flags for the page
+
+const BUILD_PAGE = 1;
+const PAGE_ASPECT = 6.625 / 10.25;      // trim, for the empty frame before there is a layout
+
+async function refreshPageBuild() {
+  if (!state.project) return;
+  const text = async (name) => {
+    try { return await api(`/api/projects/${state.project}/artifacts/${name}`); } catch { return ""; }
+  };
+  const [layout, outline, script, notes] = await Promise.all([
+    api(`/api/projects/${state.project}/pages/${BUILD_PAGE}`).catch(() => null),
+    text("outline.md"), text("script.md"), text("notes.md"),
+  ]);
+  state.build = {
+    layout,
+    beat: pageLine(outline, BUILD_PAGE),
+    panels: scriptPanels(pageSection(script, BUILD_PAGE)),
+    flags: (notes || "").split("\n").filter((l) => pageRe(BUILD_PAGE).test(l) && l.trim()).slice(0, 4),
+  };
+  renderPageBuild();
+}
+
+const pageRe = (n) => new RegExp(`\\bpage\\s*${n}\\b`, "i");
+
+function pageLine(md, page) {
+  const line = (md || "").split("\n").find((l) => pageRe(page).test(l) && l.trim().length > 8) || "";
+  return line.replace(/^[-*#\s|]+/, "").replace(/\*\*|\$\\rightarrow\$/g, "")
+             .replace(/\s*\|\s*/g, " · ").replace(/\s+/g, " ").trim();
+}
+
+function pageSection(md, page) {
+  /* the body under the "## Page N" heading, up to the next heading of the same level */
+  const lines = (md || "").split("\n");
+  const i = lines.findIndex((l) => /^#{1,6}\s/.test(l) && pageRe(page).test(l));
+  if (i < 0) return "";
+  const level = lines[i].match(/^#+/)[0].length;
+  const out = [];
+  for (const line of lines.slice(i + 1)) {
+    const h = line.match(/^(#+)\s/);
+    if (h && h[1].length <= level) break;
+    out.push(line);
+  }
+  return out.join("\n");
+}
+
+function scriptPanels(body) {
+  /* a script page as panels: "**Panel 1.** …" then "ELARA (whisper): …" / "CAPTION: …" lines */
+  const panels = [];
+  let cur = null;
+  for (const raw of (body || "").split("\n")) {
+    const line = raw.replace(/\*\*/g, "").replace(/^[*_#\s]+|[*_\s]+$/g, "");
+    if (!line) continue;
+    const p = line.match(/^panel\s*(\d+)\s*[.:)—-]*\s*(.*)$/i);
+    if (p) { cur = { n: Number(p[1]), description: p[2] || "", dialog: [] }; panels.push(cur); continue; }
+    if (!cur) continue;
+    const d = line.match(/^([A-Za-z][A-Za-z0-9 .'’()-]{0,28})\s*:\s*(.+)$/);
+    if (d && !/^page\b/i.test(d[1])) cur.dialog.push({ label: d[1].toUpperCase(), text: d[2] });
+    else if (!d) cur.description += (cur.description ? " " : "") + line;
+  }
+  return panels;
+}
+
+function renderPageBuild() {
+  const b = state.build || {};
+  const d = b.layout;
+  $("#pv-page").textContent = BUILD_PAGE;
+  $("#pv-frame-n").textContent = BUILD_PAGE;
+  $("#pv-beat").hidden = !b.beat;
+  $("#pv-beat").textContent = b.beat;
+  $("#pv-map").hidden = !d;
+  $("#pv-frame").hidden = !!d;
+  $("#pv-note").textContent = d
+    ? `${d.panels.length} panel${d.panels.length === 1 ? "" : "s"}${d.bleeds ? " · * bleeds off the page edge" : ""}`
+    : b.panels?.length ? `${b.panels.length} panels in the script` : "";
+  $("#pv-stage").textContent = d ? "laid out by the Penciller"
+    : b.panels?.length ? "written — waiting for the Penciller's layout"
+    : b.beat ? "plotted — waiting for the Scripter"
+    : state.runId ? "the room is at work…" : "nothing written for this page yet";
+  if (d) $("#pv-map").innerHTML = mapHtml(d);
+  const cards = d ? d.panels.map(panelCard)
+    : (b.panels || []).map(scriptCard);
+  $("#pv-panels").innerHTML = cards.join("") || `
+    <article class="pv-panel waiting">
+      <h4>Panel 1</h4>
+      <div class="pv-sec"><h5>Description</h5><p class="path">waiting for the room</p></div>
+      <div class="pv-sec"><h5>Dialog</h5><p class="path">waiting for the room</p></div>
+    </article>`;
+  if (b.flags?.length) {
+    $("#pv-panels").insertAdjacentHTML("beforeend",
+      `<div class="pv-flags"><b class="path">Continuity</b>${b.flags.map((f) => `<p>${esc(f)}</p>`).join("")}</div>`);
+  }
+}
+
+function mapHtml(d) {
+  return d.map.map((line, row) => {
+    const here = d.labels.filter((l) => l.row === row).sort((a, b) => a.col - b.col);
+    let out = "", at = 0;
+    for (const l of here) {
+      out += esc(line.slice(at, l.col)) + `<b class="pv-num" data-panel="${l.n}" title="Panel ${l.n}">${esc(l.text)}</b>`;
+      at = l.col + l.text.length;
+    }
+    return out + esc(line.slice(at));
+  }).join("\n");
+}
+
+function scriptCard(p) {
+  const dialog = p.dialog.map((d) => `
+    <li class="pv-line"><span class="path">${esc(d.label)}</span><q>${esc(d.text)}</q></li>`).join("");
+  return `
+    <article class="pv-panel draft" data-panel="${p.n}">
+      <h4>Panel ${p.n} <span class="badge">from the script</span></h4>
+      <div class="pv-sec">
+        <h5>Description</h5>
+        <p>${esc(p.description) || "<i class='path'>nothing written yet</i>"}</p>
+      </div>
+      <div class="pv-sec">
+        <h5>Dialog</h5>
+        ${dialog ? `<ol class="pv-dialog">${dialog}</ol>` : "<p class='path'>no lettering in this panel</p>"}
+      </div>
+    </article>`;
+}
+
+function panelCard(p) {
+  const figures = p.figures.map((f) => `<li><b>${esc(f.who)}</b> — ${esc(f.what)}</li>`).join("");
+  const dialog = p.dialog.map((d) => `
+    <li class="pv-line ${esc(d.kind)}">
+      <span class="path">${esc(d.label)} · ${esc(d.where)}</span>
+      <q>${esc(d.text)}</q></li>`).join("");
+  return `
+    <article class="pv-panel" data-panel="${p.n}">
+      <h4>Panel ${p.n}${p.shot ? ` <span class="path">${esc(p.shot)}</span>` : ""}</h4>
+      <p class="path pv-place">${esc(p.place)}</p>
+      <div class="pv-sec">
+        <h5>Description</h5>
+        <p>${esc(p.description) || "<i class='path'>nothing written for this panel yet</i>"}</p>
+        ${p.notes.map((n) => `<p class="path">${esc(n)}</p>`).join("")}
+        ${figures ? `<ul class="pv-figures">${figures}</ul>` : ""}
+      </div>
+      <div class="pv-sec">
+        <h5>Dialog</h5>
+        ${dialog ? `<ol class="pv-dialog">${dialog}</ol>` : "<p class='path'>no lettering in this panel</p>"}
+      </div>
+    </article>`;
+}
+
+function highlightPanel(n) {
+  document.querySelectorAll(".pv-num").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
+  document.querySelectorAll(".pv-panel").forEach((e) => e.classList.toggle("on", e.dataset.panel === String(n)));
+}
+
+$("#pv-map").onclick = (e) => {
+  const num = e.target.closest(".pv-num");
+  if (!num) return;
+  highlightPanel(num.dataset.panel);
+  $(`.pv-panel[data-panel="${num.dataset.panel}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+};
+$("#pv-panels").onmouseover = (e) => {
+  const card = e.target.closest(".pv-panel");
+  if (card) highlightPanel(card.dataset.panel);
+};
+$("#pv-panels").onmouseleave = () => highlightPanel(null);
+
 function renderPreviews() {
   const d = state.previews;
   if (!d || !d.pages.length) return;
@@ -421,6 +599,11 @@ function renderPreviews() {
       : `<div class="page empty" style="width:${d.cols}ch;height:${(d.rows * 1.31).toFixed(1)}em">not drawn yet</div>`;
     return `<figure class="preview" data-method="${m}"><figcaption>${label}${tools}</figcaption>${body}</figure>`;
   }).join("");
+  openPagePrompt(page);
+}
+
+function openPagePrompt(page) {
+  document.querySelectorAll("#prompt-list details").forEach((d) => (d.open = d.dataset.page === String(page)));
 }
 
 function startEdit(method) {
@@ -571,6 +754,7 @@ function handle(ev, replay = false) {
       log(`${who}<span class="art">✎ wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
       if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
+      if (live && ["outline.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
     case "warn": log(`${who}<span class="warn">⚠ ${esc(ev.text)}</span>`); break;
@@ -594,7 +778,10 @@ function handle(ev, replay = false) {
       if (live) loadCosts();
       break;
     case "role_done": live && setRoleStatus(ev.role, "done", "done"); log(`${who}handoff: ${esc(ev.note)}`); break;
-    case "run_done": log(`■ room adjourned — saved as ${ev.version || "a new version"}`, "dim"); break;
+    case "run_done":
+      log(`■ room adjourned — saved as ${ev.version || "a new version"}`, "dim");
+      if (live) refreshPageBuild();
+      break;
     case "run_stopped": log("■ stopped by showrunner", "warn"); break;
     case "error":
       if (live) document.querySelectorAll(".role.working").forEach((el) => setRoleStatus(el.id.slice(5), "error", "error"));
@@ -603,13 +790,34 @@ function handle(ev, replay = false) {
   }
 }
 
+// ---- tabs: the pages are the room's front page; the room's own settings are a tab ------
+
+function showTab(name) {
+  const tab = $(`#tabs button[data-tab="${name}"]`);
+  if (!tab || tab.hidden) name = "pages";
+  state.tab = name;
+  document.querySelectorAll("#tabs button").forEach((b) => b.classList.toggle("on", b.dataset.tab === name));
+  document.querySelectorAll(".tab-panel").forEach((p) => (p.hidden = p.dataset.panel !== name));
+}
+
+$("#go-review").onclick = () => $("#review").scrollIntoView({ behavior: "smooth" });
+
+$("#tabs").onclick = (e) => {
+  const b = e.target.closest("button[data-tab]");
+  if (b) showTab(b.dataset.tab);
+};
+
 // ---- lettering: edit the words, re-render the text layer ------------------------------
 
 async function loadLettering(page) {
   if (!state.project) return;
   const pages = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
   $("#lettering").hidden = !pages.length;
-  if (!pages.length) return;
+  $('#tabs button[data-tab="lettering"]').hidden = !pages.length;
+  if (!pages.length) {
+    if (state.tab === "lettering") showTab("pages");
+    return;
+  }
   state.letterPage = pages.includes(page) ? page : (pages.includes(state.letterPage) ? state.letterPage : pages[0]);
   $("#let-page").innerHTML = pages.map((n) => `<option value="${n}">Page ${n}</option>`).join("");
   $("#let-page").value = state.letterPage;
@@ -625,15 +833,26 @@ async function loadLettering(page) {
   const art = $("#let-art-img");
   art.hidden = !d.art;
   if (d.art) art.src = `${base()}${d.art}?t=${Date.now()}`;
-  $("#let-items").innerHTML = d.items.map((it) => `
-    <label class="letter-item">
-      <span class="path">panel ${it.panel ?? "?"} · ${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}
-        <select data-spot="${it.i}">${d.spots.map((s) =>
-          `<option ${s === (it.at || "middle") ? "selected" : ""}>${s}</option>`).join("")}</select></span>
-      <textarea data-i="${it.i}" rows="2">${esc(it.text || "")}</textarea>
-    </label>`).join("") || "<p class='path'>no balloons or captions on this page yet</p>";
+  renderLetterItems(d);
   $("#let-status").textContent = d.mode === "layer" ? "" :
     "Lettering is set to \"in the art\", so the page prompts still ask the image model to letter the page.";
+}
+
+function renderLetterItems(d) {
+  $("#let-items").innerHTML = d.items.map((it) => `
+    <div class="letter-item">
+      <span class="path">panel ${it.panel ?? "?"} · ${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}
+        <select data-spot="${it.i}">${d.spots.map((s) =>
+          `<option ${s === (it.at || "middle") ? "selected" : ""}>${s}</option>`).join("")}</select>
+        <button class="ghost drop" data-del="${it.i}" title="Delete this ${esc(it.type)}" type="button">✕</button></span>
+      <textarea data-i="${it.i}" rows="2">${esc(it.text || "")}</textarea>
+    </div>`).join("") || "<p class='path'>no balloons or captions on this page yet</p>";
+}
+
+function showLettering(d) {
+  state.lettering = d;
+  $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
+  $("#let-svg").href = $("#let-layer").src;
 }
 
 async function saveLettering() {
@@ -651,15 +870,34 @@ async function saveLettering() {
   try {
     const d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}`,
       { method: "PUT", body: { changes } });
-    state.lettering = d;
-    $("#let-layer").src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(d.svg);
-    $("#let-svg").href = $("#let-layer").src;
-    $("#let-status").textContent = `saved — layouts.md and the page prompts now say this`;
+    showLettering(d);
+    $("#let-status").textContent = `saved — layouts.md, the sketch and the page prompts now say this`;
     loadPrompts();
+    loadPreviews();
+  } catch (err) { $("#let-status").textContent = err.message; }
+}
+
+async function deleteLetterItem(index) {
+  const it = state.lettering.items.find((i) => String(i.i) === String(index));
+  const what = it ? `this ${it.type}${it.text ? ` — “${it.text}”` : ""}` : "this item";
+  if (!confirm(`Delete ${what}? It leaves the layout, the sketch and the page prompt.`)) return;
+  $("#let-status").textContent = "deleting…";
+  try {
+    const d = await api(`/api/projects/${state.project}/lettering/${state.letterPage}/items/${index}`,
+      { method: "DELETE" });
+    showLettering(d);
+    renderLetterItems(d);
+    await loadPrompts();       // reloads this page's items, with their indexes closed up
+    loadPreviews();
+    $("#let-status").textContent = "deleted — layouts.md, the sketch and the page prompts now agree";
   } catch (err) { $("#let-status").textContent = err.message; }
 }
 
 $("#let-items").addEventListener("change", saveLettering);
+$("#let-items").addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-del]");
+  if (btn) deleteLetterItem(btn.dataset.del);
+});
 $("#let-page").onchange = () => loadLettering(Number($("#let-page").value));
 $("#let-prev").onclick = () => stepLettering(-1);
 $("#let-next").onclick = () => stepLettering(1);
@@ -903,6 +1141,7 @@ async function loadReview(keepPage = true) {
   state.review = r;
   const show = r.open && !state.version && !state.runId;
   $("#review").hidden = !show;
+  $("#go-review").hidden = !show;
   if (!show) { destroyReviewEditor(); return; }
   const pages = Object.keys(r.pages);
   if (!keepPage || !pages.includes(String(state.rvPage))) {
@@ -1280,7 +1519,8 @@ async function loadPrompts() {
       <pre class="prompt">${esc(d.pages[n])}</pre>
     </details>`).join("");
   if (state.review && !$("#review").hidden) renderReview();
-  loadLettering(state.letterPage);   // needs state.prompts for the page list
+  openPagePrompt($("#preview-page").value || pages[0]);
+  await loadLettering(state.letterPage);   // needs state.prompts for the page list
 }
 
 async function copyText(text, button) {
