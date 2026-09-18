@@ -393,10 +393,10 @@ each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python agents/tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
+- `python scripts/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
   `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
   chapter's canon row, principle, character interaction map and script revision flags).
-- `python agents/tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
+- `python scripts/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
   `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
@@ -450,6 +450,8 @@ Everything an agent knows comes from its folder:
 ```
 agents/
   agents.json             order, title, mission, reads, outputs
+  skills/                 craft skills, loaded by name in an agent's shortlist
+  tools/                  what an agent can call: one json schema per tool
   _shared/                given to every agent
   <agent>/
     *.md                  guides — all are read, alphabetically
@@ -460,9 +462,15 @@ agents/
 ```
 
 - **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `agents/tools/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python agents/tools/split_skill.py`.
+- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
+- **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
+  `parameters` are what the model sees, so the wording steers behaviour; `_why` lines are
+  comments for the next person. An agent gets every implemented tool unless its `agent.json`
+  names a `tools` list, `write_artifact` refuses any file that is not its own output, and
+  `generate_image` needs `generate_images: true`. A cold reader (`"context": "minimal"`) gets
+  `write_artifact` and `finish` only.
 - **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
   `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
   only its own folder, the pitch and its `reads` — no shared guides, references or tools to
@@ -520,6 +528,7 @@ UI changes a setting, the change shows up in `git diff`.
 | `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
+| `tools` | Which tools from `agents/tools/` this agent may call. Empty means all it can use. |
 | `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |

@@ -54,6 +54,7 @@ async function loadRoles() {
   const data = await api("/api/agents");
   state.roles = data.roles;
   state.shared = data.shared;
+  state.tools = data.tools || [];
   renderAgents();
   $("#hat").innerHTML = `<option value="">No hat</option>` +
     data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
@@ -62,6 +63,7 @@ async function loadRoles() {
       <label><input type="checkbox" value="${r.id}" ${r.selected ? "checked" : ""}> ${esc(r.title)}</label>
       <div class="meta">→ ${r.outputs.map(esc).join(", ")}</div>
       <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
+      <div class="meta">${r.tools.length} tools: ${r.tools.map(esc).join(", ") || "none"}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
       ${r.config.generate_images ? `<div class="model">images: ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
@@ -128,7 +130,7 @@ function assetBlock(folder, a) {
     `<a href="/api/agents/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/agents/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
   const figma = a.figma.map((f) => `<li class="path">${esc(f)}</li>`).join("");
   return `
-    <p class="path">roles/${folder}/</p>
+    <p class="path">agents/${folder}/</p>
     <h3>Guides</h3>${guides || "<p class='path'>none</p>"}
     <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>
     <h3>Figma</h3><ul>${figma || "<li class='path'>none — add links to figma.txt</li>"}</ul>`;
@@ -1570,7 +1572,7 @@ function openSettings(id, message) {
 
       <div class="advanced" ${state.showAdvanced ? "" : "hidden"}>
         <p class="why">${esc(s.notes?.why || "")}</p>
-        <p class="path">These are this agent's defaults, saved in roles/${r.id}/agent.json (committed). Blank = the .env default.</p>
+        <p class="path">These are this agent's defaults, saved in agents/${r.id}/agent.json (committed). Blank = the .env default.</p>
         <div class="sf-row">
           ${field("Temperature", "temperature", s.temperature, d.temperature ?? "provider default", "number", 'step="0.05" min="0" max="2"')}
           ${field("Max tokens", "max_tokens", s.max_tokens, d.max_tokens ?? "provider default", "number", 'min="1"')}
@@ -1584,6 +1586,14 @@ function openSettings(id, message) {
             <option value="full" ${s.references === "full" ? "selected" : ""}>Full text in the prompt</option>
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
           ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
+        </div>
+        <div class="sf-row">
+          <label class="sf sf-wide"><span>Tools this agent may call</span>
+            <select name="tools" multiple size="5">${(state.tools || []).map((t) =>
+              `<option value="${esc(t)}" ${s.tools?.includes(t) ? "selected" : ""}>${esc(t)}</option>`).join("")}</select>
+            <small class="path">Select none for everything it can use. Defined in
+              <code>agents/tools/</code>; write_artifact still refuses any file that is not this
+              agent's own output.</small></label>
         </div>
         <div class="sf-row">
           <label class="sf sf-wide"><span>Library files for this writer</span>
@@ -1643,6 +1653,8 @@ function openSettings(id, message) {
       if (String(v) !== String(s[k] ?? "")) out[k] = v;
     }
     put("references", f.references.value);
+    const tools = [...f.tools.selectedOptions].map((o) => o.value);
+    if (tools.join("|") !== (s.tools || []).join("|")) out.tools = tools;
     const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
     const was = s.reference_files || [];
     if (picked.join("|") !== was.join("|")) out.reference_files = picked;

@@ -25,7 +25,7 @@ import random
 from dataclasses import dataclass, field
 
 from . import figma, keys
-from .config import AGENTS_DIR, HATS_DIR, AgentConfig
+from .config import AGENTS_DIR, HATS_DIR, TOOLS_DIR, AgentConfig
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                ".webp": "image/webp", ".gif": "image/gif"}
@@ -101,18 +101,24 @@ class Role:
 
     def to_dict(self):
         d = {**self.__dict__, "assets": assets(self.id), "config": None, "config_error": None,
-             "config_file": self.config_path.name, "settings": self.settings()}
+             "config_file": self.config_path.name, "settings": self.settings(), "tools": []}
         try:
             d["config"] = self.config().public()
+            d["tools"] = self.tool_names()
         except (ValueError, TypeError) as e:
             d["config_error"] = str(e)
         return d
+
+    def tool_names(self):
+        """What this agent may call — the same list the model is offered."""
+        from .agent import tools_for
+        return [t["function"]["name"] for t in tools_for(self, self.config())]
 
 
 EDITABLE = {
     "base_url": str, "api_key_env": str, "model": str,
     "temperature": float, "max_tokens": int, "thinking_budget": int, "max_steps": int, "timeout": int,
-    "send_images": bool, "extra": dict, "references": str, "reference_files": list,
+    "send_images": bool, "extra": dict, "references": str, "reference_files": list, "tools": list,
     "min_density": float, "refine_passes": int, "parallel": int,
     "generate_images": bool, "image_base_url": str, "image_api_key_env": str,
     "image_model": str, "image_size": str, "image_extra": dict,
@@ -238,3 +244,21 @@ def read_hat(name):
     if name not in list_hats():
         raise KeyError(f"no hat named {name!r}")
     return (HATS_DIR / f"{name}.md").read_text()
+
+
+# ---- tools: one json schema per file, in agents/tools/ ---------------------
+
+def load_tools():
+    """{name: schema} from agents/tools/*.json. The filename is the tool's name, and keys
+    starting with "_" are comments for whoever edits the file, not sent to the model."""
+    out = {}
+    if not TOOLS_DIR.is_dir():
+        return out
+    for path in sorted(TOOLS_DIR.glob("*.json")):
+        try:
+            body = json.loads(path.read_text())
+        except ValueError as e:
+            raise ValueError(f"agents/tools/{path.name}: {e}") from None
+        body = {k: v for k, v in body.items() if not k.startswith("_")}
+        out[path.stem] = {"type": "function", "function": {"name": path.stem, **body}}
+    return out

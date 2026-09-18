@@ -1,0 +1,15 @@
+{
+  "description": "Read one project file, e.g. 'outline.md' or 'references/lore.md'.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "name"
+    ]
+  },
+  "_why": "The way an agent reaches anything not already in its prompt, including library files left off its shortlist."
+}

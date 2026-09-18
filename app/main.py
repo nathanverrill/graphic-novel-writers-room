@@ -14,7 +14,7 @@ from pydantic import BaseModel
 
 from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig, settings
-from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
+from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
 
 @asynccontextmanager
 async def lifespan(_app):
@@ -55,7 +55,8 @@ def config():
 
 @app.get("/api/agents")
 def roles():
-    return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED), "hats": list_hats()}
+    return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED),
+            "hats": list_hats(), "tools": sorted(load_tools())}
 
 
 def _role_folder(role_id):

@@ -1,0 +1,25 @@
+{
+  "description": "Generate an image (character sheet, thumbnail, color key...). Returns its path, which you can embed in your markdown as ![caption](path).",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "short label, e.g. 'mara-turnaround'"
+      },
+      "prompt": {
+        "type": "string",
+        "description": "complete, self-contained image prompt"
+      },
+      "size": {
+        "type": "string",
+        "description": "optional, e.g. 1024x1536"
+      }
+    },
+    "required": [
+      "name",
+      "prompt"
+    ]
+  },
+  "_why": "Only for an agent with generate_images in its agent.json; it needs an image model and costs money per call."
+}

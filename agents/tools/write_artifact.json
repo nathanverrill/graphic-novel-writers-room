@@ -1,0 +1,19 @@
+{
+  "description": "Write (overwrite) one of your deliverables with its complete markdown content.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "content": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "name",
+      "content"
+    ]
+  },
+  "_why": "An agent may only write the files listed as its outputs in agents.json; anything else is refused in code."
+}

@@ -1,0 +1,8 @@
+{
+  "description": "List the room's markdown files and the reference material (names starting with references/).",
+  "parameters": {
+    "type": "object",
+    "properties": {}
+  },
+  "_why": "So an agent can see what the room has written before it decides what to read."
+}

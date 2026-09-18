@@ -13,6 +13,7 @@ AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 PROJECTS_DIR = ROOT / "projects"
 REFERENCES_DIR = ROOT / "references"   # the book's own material: canon and idea drafts
 SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
+TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
 LIBRARY_DIRS = (REFERENCES_DIR, SKILLS_DIR)
 HATS_DIR = ROOT / "hats"               # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
@@ -81,6 +82,7 @@ class AgentConfig:
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
     references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
     reference_files: list = None   # library files this writer gets (None = whatever the round picked)
+    tools: list = None       # tools from agents/tools/ this agent may call (None = all it can use)
     # ASCII Artist
     min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)
     refine_passes: int = None     # "look at it and improve it" passes per panel (default 1)

@@ -17,6 +17,7 @@ import json
 import re
 
 from . import artist, asciitext, config, llm, projects, review, rules, thumbnails
+from . import agents as agents_mod
 from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
@@ -24,46 +25,27 @@ REF_PREFIX = "references/"
 
 PREVIEW_HOW = artist.PANEL_HOW
 
-TOOLS = [
-    {"type": "function", "function": {
-        "name": "list_artifacts",
-        "description": "List the room's markdown files and the reference material (names starting with references/).",
-        "parameters": {"type": "object", "properties": {}},
-    }},
-    {"type": "function", "function": {
-        "name": "read_artifact",
-        "description": "Read one project file, e.g. 'outline.md' or 'references/lore.md'.",
-        "parameters": {"type": "object", "properties": {"name": {"type": "string"}},
-                       "required": ["name"]},
-    }},
-    {"type": "function", "function": {
-        "name": "write_artifact",
-        "description": "Write (overwrite) one of your deliverables with its complete markdown content.",
-        "parameters": {"type": "object", "properties": {
-            "name": {"type": "string"}, "content": {"type": "string"}},
-            "required": ["name", "content"]},
-    }},
-    {"type": "function", "function": {
-        "name": "finish",
-        "description": "Call when your deliverables are written. The note is handed to the rest of the room.",
-        "parameters": {"type": "object", "properties": {"note": {"type": "string"}},
-                       "required": ["note"]},
-    }},
-]
-
-IMAGE_TOOL = {"type": "function", "function": {
-    "name": "generate_image",
-    "description": "Generate an image (character sheet, thumbnail, color key...). Returns its path, "
-                   "which you can embed in your markdown as ![caption](path).",
-    "parameters": {"type": "object", "properties": {
-        "name": {"type": "string", "description": "short label, e.g. 'mara-turnaround'"},
-        "prompt": {"type": "string", "description": "complete, self-contained image prompt"},
-        "size": {"type": "string", "description": "optional, e.g. 1024x1536"},
-    }, "required": ["name", "prompt"]},
-}}
+IMPLEMENTED = ("list_artifacts", "read_artifact", "write_artifact", "generate_image", "finish")
+MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
 
 
-MINIMAL_TOOLS = [t for t in TOOLS if t["function"]["name"] in ("write_artifact", "finish")]
+def tools_for(role, cfg, emit=None):
+    """The tools this agent may call, from agents/tools/*.json.
+
+    Its agent.json can name a `tools` list; otherwise it gets everything implemented here,
+    minus generate_image unless it is set up for images. A schema with no implementation is
+    skipped with a warning rather than offered to the model."""
+    available = agents_mod.load_tools()
+    for name in sorted(set(available) - set(IMPLEMENTED)):
+        available.pop(name)
+        if emit:
+            emit("warn", text=f"agents/tools/{name}.json has no implementation; skipped")
+    order = [n for n in IMPLEMENTED if n in available]      # a sensible order, not the file order
+    wanted = MINIMAL if role.minimal else (cfg.tools or order)
+    if not cfg.can_generate_images:
+        wanted = [n for n in wanted if n != "generate_image"]
+    return [available[n] for n in wanted if n in available]
+
 
 
 def story_targets(slug):
@@ -93,10 +75,7 @@ class Agent:
         self.emit = emit  # emit(type, **data) -> shows up in the UI
         self.should_stop = should_stop
         self.written = set()
-        if role.minimal:  # a cold reader can't browse the room
-            self.tools = MINIMAL_TOOLS
-        else:
-            self.tools = TOOLS + ([IMAGE_TOOL] if self.cfg.can_generate_images else [])
+        self.tools = tools_for(role, self.cfg, emit)
         self.log = CallLogger(version, role.id, emit)
 
     # ---- prompt building -------------------------------------------------

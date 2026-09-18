@@ -1,0 +1,15 @@
+{
+  "description": "Call when your deliverables are written. The note is handed to the rest of the room.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "note": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "note"
+    ]
+  },
+  "_why": "Ends the agent's turn. Every agent has it, and a turn that never calls it stops at max_steps."
+}
