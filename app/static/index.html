@@ -239,6 +239,28 @@ the count runs out. 0 stops after the next round.">Auto rounds
       <h2>Files</h2>
       <select id="version-select" title="Working copy or a saved run"></select>
     </div>
+    <div class="search">
+      <div class="search-row">
+        <input id="search-q" type="search" placeholder="Search everything the room can read…"
+               autocomplete="off">
+        <select id="search-mode" title="How to match">
+          <option value="hybrid">hybrid</option>
+          <option value="keywords">keywords</option>
+          <option value="vectors">meaning</option>
+        </select>
+      </div>
+      <div class="search-row">
+        <select id="search-scope" title="Where to look">
+          <option value="">everywhere</option>
+          <option value="references">references</option>
+          <option value="skills">skills</option>
+          <option value="project">this project</option>
+        </select>
+        <button id="search-reindex" class="ghost" type="button" title="Rebuild the index from the files on disk">Reindex</button>
+        <span class="path" id="search-note"></span>
+      </div>
+      <div id="search-hits" class="search-hits"></div>
+    </div>
     <div id="version-info" class="version-info" hidden>
       <div id="version-meta"></div>
       <div class="actions">

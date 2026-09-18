@@ -17,7 +17,7 @@ import uuid
 
 from . import agent as agent_mod
 from . import notes as notes_mod
-from . import projects, review, usage
+from . import projects, review, search, usage
 from .agents import list_hats, load_roles
 
 FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
@@ -164,12 +164,22 @@ class Run:
             with self.cond:
                 self.done = True
                 self.cond.notify_all()
+        threading.Thread(target=reindex, args=(self.slug,), daemon=True).start()
         if status == "done" and self.plan:
             threading.Thread(target=auto_step, args=(self.slug, self), daemon=True).start()
 
 
 RUNS = {}
 DEFAULT_ROLE_SECONDS = 120
+
+
+def reindex(slug):
+    """The round rewrote the room's files; make them searchable. Optional: a missing index
+    or a stopped OpenSearch must not fail a round."""
+    try:
+        search.index(slug)
+    except Exception:
+        pass
 
 
 def auto_step(slug, run):

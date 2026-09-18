@@ -1019,6 +1019,51 @@ async function loadNotes() {
   $("#jot-tidy").disabled = !pending.length;
 }
 
+// ---- search: hybrid over the library, the skills and this project ---------------------
+
+let searchTimer;
+
+async function runSearch() {
+  const q = $("#search-q").value.trim();
+  const hits = $("#search-hits");
+  if (q.length < 2) { hits.innerHTML = ""; $("#search-note").textContent = ""; return; }
+  let scope = $("#search-scope").value;
+  if (scope === "project") scope = `project:${state.project}`;
+  $("#search-note").textContent = "searching…";
+  try {
+    const d = await api(`/api/search?q=${encodeURIComponent(q)}&mode=${$("#search-mode").value}`
+      + (scope ? `&scope=${encodeURIComponent(scope)}` : "") + "&limit=12");
+    state.hits = d.hits;
+    hits.innerHTML = d.hits.map((h, i) => `
+      <div class="hit ${esc(h.kind)}" data-hit="${i}" title="${esc(h.file)}">
+        <div class="where">${esc(h.where)}</div>
+        <div class="snippet">${esc(h.text.slice(0, 220))}</div>
+      </div>`).join("") || "<p class='path'>nothing found</p>";
+    $("#search-note").textContent = `${d.hits.length} passages`;
+  } catch (err) {
+    hits.innerHTML = "";
+    $("#search-note").textContent = err.message.includes("unavailable")
+      ? "search is off — is OpenSearch up?" : err.message;
+  }
+}
+
+$("#search-q").oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 250); };
+$("#search-mode").onchange = runSearch;
+$("#search-scope").onchange = runSearch;
+$("#search-hits").onclick = (e) => {
+  const card = e.target.closest("[data-hit]");
+  if (!card) return;
+  const hit = state.hits[Number(card.dataset.hit)];
+  showArtifact(hit.scope.startsWith("project:") ? hit.file : `references/${hit.file}`);
+};
+$("#search-reindex").onclick = async () => {
+  $("#search-note").textContent = "reindexing…";
+  try {
+    const d = await api(`/api/search/index?project=${state.project || ""}`, { method: "POST" });
+    $("#search-note").textContent = `${d.chunks} passages · ${d.written} rewritten`;
+  } catch (err) { $("#search-note").textContent = err.message; }
+};
+
 // ---- standing rules: what the room must always or never do ----------------------------
 
 async function loadRules() {

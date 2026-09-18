@@ -541,6 +541,33 @@ A bad `agent.json` is flagged on the card and blocks runs that include that role
 - Images (art-room roles, or chat replies that include images) are saved with round-prefixed names in `images/`, so nothing is overwritten.
 - Pick a round from the **Files** dropdown to browse its files, replay its feed, see its model calls, or **Restore** its book files into the working copy.
 
+## Search
+
+Everything the room can read is indexed for hybrid search: the campaign's canon and drafts, the
+craft and worldbuilding skills, and each project's own files.
+
+- **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn
+  from it. A term that is common in one passage and rare everywhere else is a keyword, so a
+  record carries *brine*, *cooperative*, *Evokation* rather than *page* and *the room*.
+- **Meaning** — `embeddinggemma`, served by Ollama on your machine. Local, free to re-run.
+- **Hybrid** — both at once, normalised and combined by OpenSearch's own pipeline, so
+  `balloon tails` and `how does a family here talk about money` both work.
+
+A passage is a markdown section carrying its heading path, so a hit reads
+`triangle-money.md › The big truths › Three countries, three money cultures` instead of naming a
+22 KB file. Indexing is by content hash: an unchanged passage is not re-embedded, which makes a
+re-index after a round take under a second.
+
+**Who searches.** The **Files** pane has the search box — pick hybrid, keywords or meaning, and
+a scope, and click a hit to open the file. The agents have it as a tool (`agents/tools/search.json`),
+so a writer can reach the whole library without carrying it. MCP clients get `search_room` and
+`reindex`.
+
+**Running it.** `docker compose up -d` starts OpenSearch beside the app, and the app indexes on
+start and after every round. Ollama runs on your machine with `ollama pull embeddinggemma`.
+Without either, the room works as before: the box says search is off, and the agents' tool tells
+them to fall back to `list_artifacts` and `read_artifact`.
+
 ## The room's tools, over MCP
 
 The five tools an agent calls are defined in `agents/tools/`. The room also serves them over

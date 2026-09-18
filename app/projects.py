@@ -236,8 +236,20 @@ def list_references(slug, version=None):
 
 
 def read_reference(slug, name, version=None):
-    p = reference_files(slug, version).get(name)
-    return p.read_text() if p else None
+    """One reference by name.
+
+    The round's picker and a writer's shortlist decide what is *carried* into a prompt; they do
+    not hide a file from someone asking for it by name. So a name the project did not select is
+    still read from the library — which is what makes "anything left off a shortlist is one
+    read_artifact away" true, for an agent and for the screen."""
+    found = reference_files(slug, version).get(name)
+    if found is None and version is None:
+        for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
+            candidate = folder / name
+            if candidate.is_file() and candidate.name == name:
+                found = candidate
+                break
+    return found.read_text() if found else None
 
 
 def write_artifact(slug, name, content):

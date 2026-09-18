@@ -408,3 +408,17 @@ a.button { text-decoration: none; display: inline-block; }
 .ref-group { margin: .9rem 0 .3rem; font-size: .7rem; }
 .ref-group:first-child { margin-top: .2rem; }
 .ref-group .path { text-transform: none; letter-spacing: 0; }
+
+.search { border-bottom: 1px solid var(--line); padding-bottom: .7rem; margin-bottom: .7rem; }
+.search-row { display: flex; gap: .35rem; align-items: center; margin-bottom: .35rem; }
+.search-row input[type=search] { flex: 1; min-width: 6rem; }
+.search-row select { max-width: none; }
+.search-hits { display: grid; gap: .45rem; max-height: 40vh; overflow-y: auto; }
+.hit { border-left: 3px solid var(--line); padding: .2rem .5rem; cursor: pointer; }
+.hit:hover { background: var(--bg); }
+.hit.canon { border-left-color: var(--accent); }
+.hit.guide { border-left-color: #2563eb; }
+.hit.draft { border-left-color: var(--work); }
+.hit .where { font-family: ui-monospace, monospace; font-size: .74rem; color: var(--ink); }
+.hit .snippet { font-size: .78rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical; overflow: hidden; }

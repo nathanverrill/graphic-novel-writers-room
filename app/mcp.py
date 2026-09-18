@@ -17,7 +17,7 @@ import json
 
 from mcp.server.mcpserver import MCPServer
 
-from . import projects, prompts, review, rules, thumbnails
+from . import projects, prompts, review, rules, search, thumbnails
 from .agents import load_tools
 
 PROJECT_ARG = "The project to act on, e.g. 'prosperity'. Call list_projects to see them."
@@ -32,6 +32,9 @@ OWN = {     # tools with no agent equivalent, or whose meaning changes outside a
         "brief.md, outline.md, bible.md, script.md, layouts.md, notes.md. Pages the showrunner "
         "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
         "the sketch, exactly as when an agent saves.",
+    "search": ("Search everything the room can read — a campaign's canon and drafts, the craft "
+               "and worldbuilding skills, and a project's own files. Hybrid: words and meaning "
+               "at once. Returns each passage with the file and heading it came from."),
     "page_prompts":
         "The page prompts for a project: one complete markdown brief per page, ready to paste "
         "into an image model. Omit the page for all of them.",
@@ -98,6 +101,18 @@ def build():
     @room.tool(description=described("write_artifact"))
     def write_artifact(project: str, name: str, content: str) -> str:
         return save(project, name, content)
+
+    @room.tool(description=described("search"))
+    def search_room(query: str, scope: str | None = None, kind: str | None = None,
+                    limit: int = 6, mode: str = "hybrid") -> str:
+        """scope: references · skills · project:<slug>. mode: hybrid · keywords · vectors."""
+        hits = search.search(query, limit=limit, scope=scope, kind=kind, mode=mode)
+        return search.as_text(hits)
+
+    @room.tool(description="Rebuild the search index from the files on disk. Give a project to "
+                           "include its own files as well. Unchanged passages are not re-embedded.")
+    def reindex(project: str | None = None) -> str:
+        return json.dumps(search.index(project))
 
     @room.tool(description=described("page_prompts"))
     def page_prompts(project: str, page: int | None = None) -> str:

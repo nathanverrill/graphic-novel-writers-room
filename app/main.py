@@ -3,6 +3,7 @@ import dataclasses
 import json
 import mimetypes
 import re
+import threading
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -12,16 +13,27 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
+from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, search, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig, settings
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
 
 room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
 
 
+def index_in_background(slug=None):
+    """Keep the search index current without making anyone wait for it."""
+    def work():
+        try:
+            search.index(slug)
+        except Exception as e:      # search is optional; the room works without it
+            print(f"search index skipped: {type(e).__name__}: {str(e)[:200]}")
+    threading.Thread(target=work, daemon=True).start()
+
+
 @asynccontextmanager
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
+    index_in_background()
     async with room_mcp.session_manager.run():
         yield
     objectstore.shutdown()
@@ -638,6 +650,30 @@ def review_submit(slug: str, body: Submit):
         run = room.start_round(slug)
         out.update(run_id=run.id, version=run.version.id)
     return out
+
+
+# ---- search: hybrid over everything the room can read -----------------------
+
+@app.get("/api/search")
+def search_room(q: str, scope: str | None = None, kind: str | None = None,
+                mode: str = "hybrid", limit: int = 10):
+    try:
+        return {"hits": search.search(q, limit=min(limit, 50), scope=scope, kind=kind, mode=mode)}
+    except Exception as e:
+        raise HTTPException(503, f"search unavailable: {type(e).__name__}: {str(e)[:200]}")
+
+
+@app.get("/api/search/health")
+def search_health():
+    return search.health()
+
+
+@app.post("/api/search/index")
+def search_index(project: str | None = None):
+    try:
+        return search.index(project)
+    except Exception as e:
+        raise HTTPException(503, f"indexing failed: {type(e).__name__}: {str(e)[:200]}")
 
 
 # ---- costs -----------------------------------------------------------------

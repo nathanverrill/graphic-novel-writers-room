@@ -16,7 +16,7 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, config, llm, projects, review, rules, thumbnails
+from . import artist, asciitext, config, llm, projects, review, rules, search, thumbnails
 from . import agents as agents_mod
 from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
@@ -25,7 +25,7 @@ REF_PREFIX = "references/"
 
 PREVIEW_HOW = artist.PANEL_HOW
 
-IMPLEMENTED = ("list_artifacts", "read_artifact", "write_artifact", "generate_image", "finish")
+IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
 
 
@@ -219,6 +219,17 @@ class Agent:
             except ValueError as e:
                 return str(e)
             return content if content is not None else f"No file named {args.get('name')!r}."
+        if name == "search":
+            scope = args.get("scope")
+            if scope == "project":
+                scope = f"project:{self.slug}"
+            try:
+                hits = search.search(args.get("query", ""), limit=int(args.get("limit") or 6),
+                                     scope=scope or None, kind=args.get("kind") or None)
+            except Exception as e:      # the index is optional: say so, do not fail the turn
+                return f"Search is unavailable ({type(e).__name__}). Use list_artifacts and read_artifact."
+            self.emit("tool", name="search", args={"query": args.get("query", "")[:80], "hits": len(hits)})
+            return search.as_text(hits)
         if name == "write_artifact":
             target = args.get("name", "")
             if target not in self.role.outputs:
