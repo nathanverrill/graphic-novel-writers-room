@@ -20,7 +20,7 @@ DRAFT = "review-draft.json"
 LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 VERDICTS = ("reroll", "love", "changes")
-LABEL = {"reroll": "👎 Re-roll", "love": "🔥 Love it", "changes": "✏️ Approved with changes"}
+LABEL = {"reroll": "Re-roll", "love": "Love it", "changes": "Approved with changes"}
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8}
 
@@ -200,7 +200,7 @@ def replace_layout(markdown, n, spec):
 
 
 def keep_page(slug, page, where="kept mid-round"):
-    """Keep a page as it stands: the same lock a 🔥 review verdict writes, set while the room works.
+    """Keep a page as it stands: the same lock a "love it" review verdict writes, set while the room works.
 
     From here on enforce_locks puts this page's script section, layout block and sketch back
     into whatever an agent saves, and the gate stops reporting layout issues for it."""

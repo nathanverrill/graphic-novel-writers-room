@@ -16,7 +16,7 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, llm, projects, review, thumbnails
+from . import artist, asciitext, llm, projects, review, rules, thumbnails
 from .roles import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
@@ -246,10 +246,13 @@ class Agent:
 
     def save(self, name, content):
         content, restored = review.enforce_locks(self.slug, name, content)
+        content, kept_rules = rules.enforce_rules(self.slug, name, content)
         self.version.write(name, content)
         self.written.add(name)
         self.emit("artifact", name=name)
         result = f"Saved {name}."
+        if kept_rules:
+            result += " The showrunner's standing rules were put back at the end; they are theirs, not yours."
         if restored:
             pages = ", ".join(map(str, restored))
             result += f" Page(s) {pages} are locked by the showrunner; your changes to them were discarded."

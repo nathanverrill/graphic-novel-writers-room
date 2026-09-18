@@ -12,7 +12,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, thumbnails, usage
+from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
 from .config import ROLES_DIR, AgentConfig, settings
 from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
 
@@ -480,6 +480,31 @@ def put_page_art(slug: str, page: int, art: PageArt):
         raise HTTPException(400, f"unsupported image type {ext!r}")
     path = projects.save_page_art(slug, page, base64.b64decode(b64), ext)
     return {"art": path}
+
+
+# ---- standing rules: what the room must always or never do ---------------------
+
+class NewRule(BaseModel):
+    text: str
+    kind: str = "always"
+
+
+@app.get("/api/projects/{slug}/rules")
+def get_rules(slug: str):
+    return {"rules": not_found(rules.all, slug)}
+
+
+@app.post("/api/projects/{slug}/rules")
+def add_rule(slug: str, body: NewRule):
+    try:
+        return {"rules": rules.add(slug, body.text, body.kind)}
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.delete("/api/projects/{slug}/rules/{rule_id}")
+def drop_rule(slug: str, rule_id: int):
+    return {"rules": not_found(rules.drop, slug, rule_id)}
 
 
 # ---- showrunner notes ----------------------------------------------------------

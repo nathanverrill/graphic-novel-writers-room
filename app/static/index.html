@@ -177,7 +177,7 @@
       <b>Held after <span id="held-after"></span></b>
       <p class="path">Change any writer's model, temperature or anything else in <b>The room</b>, and jot
         notes below. <b>Resume</b> gives both to <span id="held-next"></span> and the writers after it.
-        Like a page as it is? <b>🔥 Keep this page</b> above the panel map stops the room changing it.</p>
+        Like a page as it is? <b>Keep this page</b> above the panel map stops the room changing it.</p>
       <div class="actions"><button id="held-resume">Resume</button></div>
     </div>
     <div id="progress" class="progress" hidden>
@@ -196,6 +196,22 @@
         </div>
       </div>
       <ul id="jot-list" class="jot-list"></ul>
+    </div>
+
+    <div class="rules">
+      <label class="path" for="rule-text">Standing rules — what the room must always or never do.
+        They go into the Editor-in-Chief's taste file, which every writer reads, and stay there
+        round after round.</label>
+      <div class="rule-row">
+        <select id="rule-kind">
+          <option value="always">Always</option>
+          <option value="never">Never</option>
+          <option value="note">Remember</option>
+        </select>
+        <input id="rule-text" placeholder="open on a wide establishing shot">
+        <button id="rule-add" type="button">Add rule</button>
+      </div>
+      <ul id="rule-list" class="rule-list"></ul>
     </div>
 
     <h3>Live feed</h3>
@@ -255,9 +271,9 @@
       </div>
       <div id="rv-proposal" class="proposal" hidden></div>
       <div class="verdicts">
-        <button data-verdict="reroll">👎 Re-roll</button>
-        <button data-verdict="love">🔥 Love it</button>
-        <button data-verdict="changes">✏️ Approve with changes</button>
+        <button data-verdict="reroll">Re-roll</button>
+        <button data-verdict="love">Love it</button>
+        <button data-verdict="changes">Approve with changes</button>
       </div>
       <p class="path" id="rv-hint"></p>
       <label class="path"><input type="checkbox" id="rv-invert"> invert brush — drag to show cells light on dark

@@ -3,8 +3,8 @@
 A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
 to draw the finished page. Give it a directional draft script and a page count; the room
-writes until the pages are ready, you review every page as a layout sketch (👎 re-roll ·
-🔥 love it · ✏️ approve with changes), and the room revises from your verdicts, edits and
+writes until the pages are ready, you review every page as a layout sketch (re-roll ·
+love it · approve with changes), and the room revises from your verdicts, edits and
 diffs — round after round, each saved in full. Every role is guided by its own markdown,
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
@@ -102,17 +102,17 @@ bible's visual locks and the Penciller's panel descriptions — that's where to 
 3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
    (editable in place) and its prompt. Each page needs one verdict:
 
-   | | Verdict | What happens |
-   |---|---|---|
-   | 👎 | **Re-roll** | the next round rewrites the page, keeping what flows in and out of it |
-   | 🔥 | **Love it** | locked — script section, layout and sketch never change again |
-   | ✏️ | **Approve with changes** | only once you've **edited the sketch or commented**; your version is locked and the room brings script and layout into line with it |
+   | Verdict | What happens |
+   |---|---|
+   | **Re-roll** | the next round rewrites the page, keeping what flows in and out of it |
+   | **Love it** | locked — script section, layout and sketch never change again |
+   | **Approve with changes** | only once you've **edited the sketch or commented**; your version is locked and the room brings script and layout into line with it |
 
    Your verdicts, comments and edits are saved as you go.
-4. **Send to the room** (when anything isn't 🔥) or **Finalize** (when nothing is 👎) —
+4. **Send to the room** (when a page is anything but loved) or **Finalize** (when none is a re-roll) —
    both need every page decided. Sending saves your review as a human round and starts a
    revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller fix the flagged pages, and the gate checks that ✏️ pages now
+   the Scripter and Penciller fix the flagged pages, and the gate checks that approved-with-changes pages now
    match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
@@ -297,7 +297,7 @@ areas uncluttered. The room then draws the lettering itself, from the layout's i
 transparent SVG over the art — so the words are exactly what you typed, and changing a line never
 touches the art. The **Lettering** tab is side by side: the page on the left (your uploaded art
 with the text layer over it), every balloon, caption and sound effect on the right. Edit the words
-or move a balloon to one of nine spots in its panel, and the layer redraws; **✕** on a balloon,
+or move a balloon to one of nine spots in its panel, and the layer redraws; **x** on a balloon,
 caption or sound effect deletes it (after a confirmation). Every change is written back to
 `layouts.md` and redraws the layout sketch, so the next round and the page prompts say the same
 thing. **Upload art**
@@ -309,16 +309,34 @@ finishes and hands off, and the round waits there — same version, same place i
 nothing torn down. While it's held, change any writer's model, temperature or anything else in
 **The room**, and jot notes in the watch pad. **Resume** hands both to the writer about to
 start and everyone after it (every agent reads `agent.json` when it starts, so the change is
-real, and the feed says what changed: `▶ carrying on — Scripter → temperature 0.15 · your notes
+real, and the feed says what changed: `carrying on — Scripter → temperature 0.15 · your notes
 go to the writers still to come`). The notes are marked used by that round and saved with it.
 **Stop** still ends the round outright, and works while it's held.
 
-**Keeping a page.** Above the panel map, **🔥 Keep this page** marks the page as it stands —
-the same lock a 🔥 verdict writes in the review, but you can set it while the room is working
+**Keeping a page.** Above the panel map, **Keep this page** marks the page as it stands —
+the same lock a *love it* verdict writes in the review, but you can set it while the room is working
 (pause first if you want to stop it mid-round). From then on the page's script section, layout
 block and sketch are put back into whatever an agent saves, the writer is told its changes to
 that page were discarded, and the readiness gate stops reporting layout issues for it. Click
 again to release it.
+
+**Standing rules.** A jotted note is for the next round only — the room reads it and it's
+spent. A rule holds for good. In the watch pad, say **Always**, **Never** or **Remember** and
+add it; the rule goes into the Editor-in-Chief's `taste-writers.md`, the file every writer
+reads before it starts, in a block the room doesn't own:
+
+```markdown
+<!-- showrunner rules -->
+## The showrunner's standing rules
+- **Always:** open every chapter on a wide establishing shot
+- **Never:** put narration captions on a character's face
+<!-- end showrunner rules -->
+```
+
+The Editor rewrites that file every round, so the block is put back on every save and the
+writer is told the rules are yours, not its. **Make a rule** on a jotted note moves its words
+into the rule box — pick always, never or remember, add it, and the note is spent. **x** drops
+a rule, which also takes it out of the taste file.
 
 **Page count.** You own it: set **Pages** in **The room** tab, or use − / + in the review. The room
 can propose a different count by writing one line in `notes.md` —
@@ -331,7 +349,7 @@ until something takes them: the next **Write round** folds them into the room's 
 submitting a review adds them to `review.md`; either way they're saved in that round's folder and
 marked used. **Tidy into feedback** is one model call (the Editor's model) that groups the pile
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
-notes. ✕ drops a note you've changed your mind about.
+notes. **x** drops a note you've changed your mind about.
 
 **Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
 `output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
@@ -390,7 +408,7 @@ worth keeping.
 
 ## Per-agent settings
 
-Click **⚙ Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, Anthropic,
+Click **Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, Anthropic,
 Gemini, Groq, Together, Mistral, DeepSeek, Ollama, LM Studio, or a custom URL), **API key**
 and **model** — with **Load models** (the provider's own list), **Test connection**, and
 **Use this provider & model for all agents**. **Show advanced** reveals everything else.

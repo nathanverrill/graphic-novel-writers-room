@@ -63,11 +63,11 @@ async function loadRoles() {
       <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
-      ${r.config.generate_images ? `<div class="model">🖼 ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
+      ${r.config.generate_images ? `<div class="model">images: ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
       <div class="status">idle</div>
       <div class="spend"></div>
       <span class="card-buttons">
-        <button class="ghost" data-settings="${r.id}">⚙ Model</button>
+        <button class="ghost" data-settings="${r.id}">Model</button>
         <button class="ghost" data-inspect="${r.id}">Inspect</button>
       </span>
     </div>`).join("");
@@ -100,7 +100,7 @@ function inspectRole(id) {
     <h2>${esc(r.title)}</h2>
     <p>${esc(r.mission)}</p>
     <p class="path">reads: ${r.reads.join(", ") || "—"}<br>writes: ${r.outputs.join(", ")}</p>
-    <p><button class="ghost" data-settings="${r.id}">⚙ Model settings</button>
+    <p><button class="ghost" data-settings="${r.id}">Model settings</button>
       <span class="path">${r.config_error ? esc(r.config_error) : `${esc(r.config.model)} @ ${esc(r.config.base_url)}`}</span></p>
     ${assetBlock(r.id, r.assets)}
     <h2 style="margin-top:1.5rem">Shared with every role</h2>
@@ -213,7 +213,7 @@ async function refreshArtifacts(fresh) {
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
       `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}${v.hat ? `, ${esc(v.hat)} hat` : ""}` +
-      (v.verdicts ? `<br>🔥 ${v.verdicts.love} · ✏️ ${v.verdicts.changes} · 👎 ${v.verdicts.reroll}` : "") +
+      (v.verdicts ? `<br>${v.verdicts.love} loved · ${v.verdicts.changes} with changes · ${v.verdicts.reroll} to re-roll` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
       (v.note ? `<br>Note: ${esc(v.note)}` : "") +
@@ -241,6 +241,7 @@ async function refreshArtifacts(fresh) {
   loadPreviews();
   loadPrompts();
   loadNotes();
+  loadRules();
   const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
   $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
     `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
@@ -498,7 +499,7 @@ function renderPageBuild() {
     : state.runId ? "the room is at work…" : "nothing written for this page yet";
   $("#pv-keep").hidden = !d;
   if (d) {
-    $("#pv-keep").textContent = d.kept ? "🔥 kept — let the room work on it again" : "🔥 Keep this page";
+    $("#pv-keep").textContent = d.kept ? "Kept — let the room work on it again" : "Keep this page";
     $("#pv-keep").title = d.kept
       ? `Kept (${d.kept}). Click to release it.`
       : "The room leaves this page alone from here — script, layout and sketch are put back if an agent changes them";
@@ -582,7 +583,7 @@ $("#pv-keep").onclick = async () => {
   try {
     await api(path, { method: kept ? "DELETE" : "POST" });
     log(kept ? `page ${BUILD_PAGE} released — the room can work on it again`
-             : `🔥 page ${BUILD_PAGE} kept as it is — the room leaves it alone`, "gate");
+             : `page ${BUILD_PAGE} kept as it is — the room leaves it alone`, "gate");
     refreshPageBuild();
   } catch (err) { alert(err.message); }
 };
@@ -736,20 +737,20 @@ function handle(ev, replay = false) {
   const live = !replay;
   switch (ev.type) {
     case "run_start":
-      log(`▶ room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
+      log(`room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
       break;
     case "gate":
       log(v_gate(ev), "gate");
       break;
     case "round_ready":
-      log(`✔ pages ${ev.pages.join(", ")} are ready for your review (${esc(ev.version)})`, "gate");
+      log(`pages ${ev.pages.join(", ")} are ready for your review (${esc(ev.version)})`, "gate");
       break;
     case "thumbnails":
-      log(`${who}<span class="img">▦ drew ${ev.pages} page previews` +
+      log(`${who}<span class="img">drew ${ev.pages} page previews` +
         `${ev.issues ? ` · ${ev.issues} layout issues sent back` : " · no layout issues"}</span>`);
       break;
     case "random_entry":
-      log(`${who}<span class="img">🎲 cards: ${ev.cards.map(esc).join(" · ")}` +
+      log(`${who}<span class="img">cards: ${ev.cards.map(esc).join(" · ")}` +
         `${ev.word ? ` · word: ${esc(ev.word)}` : ""}${ev.target ? ` · target: ${esc(ev.target)}` : ""}</span>`);
       break;
     case "role_start": live && setRoleStatus(ev.role, "working", "working…"); log(`${who}takes the floor`); break;
@@ -760,23 +761,23 @@ function handle(ev, replay = false) {
         (ev.references?.length ? `, ${ev.references.length} references (${ev.references_mode}, ${num(ev.reference_chars)} chars)` : ""), "dim");
       break;
     case "thinking": live && setRoleStatus(ev.role, "working", `working… step ${ev.step}`); break;
-    case "image_start": log(`${who}<span class="img">🖼 drawing ${esc(ev.name || "")} with ${esc(ev.model)}…</span>`); break;
+    case "image_start": log(`${who}<span class="img">drawing ${esc(ev.name || "")} with ${esc(ev.model)}…</span>`); break;
     case "image": {
       const src = `/api/projects/${state.project}/${ev.path}`;
-      log(`${who}<span class="img">🖼 saved ${esc(ev.path)}</span><a href="${src}" target="_blank"><img src="${src}"></a>`);
+      log(`${who}<span class="img">saved ${esc(ev.path)}</span><a href="${src}" target="_blank"><img src="${src}"></a>`);
       if (live) refreshArtifacts();
       break;
     }
     case "message": log(`${who}<div class="msg">${esc(ev.text)}</div>`); break;
     case "tool": log(`${who}<span class="tool">${esc(ev.name)}</span> ${esc(JSON.stringify(ev.args))}`); break;
     case "artifact":
-      log(`${who}<span class="art">✎ wrote ${esc(ev.name)}</span>`);
+      log(`${who}<span class="art">wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
       if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
       if (live && ["outline.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
-    case "warn": log(`${who}<span class="warn">⚠ ${esc(ev.text)}</span>`); break;
+    case "warn": log(`${who}<span class="warn">${esc(ev.text)}</span>`); break;
     case "usage":
       log(`${who}<span class="cost">$ ${esc(ev.kind)} ${esc(ev.provider)} ${esc(ev.model)} · ` +
         `${num(ev.input_tokens)} in / ${num(ev.output_tokens)} out · ` +
@@ -798,7 +799,7 @@ function handle(ev, replay = false) {
       break;
     case "role_done": live && setRoleStatus(ev.role, "done", "done"); log(`${who}handoff: ${esc(ev.note)}`); break;
     case "paused":
-      log(`⏸ held${ev.after_title ? ` after ${esc(ev.after_title)}` : ""} — ${esc(ev.title)} hasn't started.` +
+      log(`held${ev.after_title ? ` after ${esc(ev.after_title)}` : ""} — ${esc(ev.title)} hasn't started.` +
           " Change settings or add notes, then resume.", "warn");
       if (live) { setHeld(ev); $("#pause").disabled = false; }
       break;
@@ -807,18 +808,18 @@ function handle(ev, replay = false) {
         `${title(r)} → ${Object.entries(fields).map(([k, v]) => `${esc(k)} ${esc(String(v))}`).join(", ")}`);
       const what = [settings.join(" · "),
                     ev.notes ? "your notes go to the writers still to come" : ""].filter(Boolean).join(" · ");
-      log(`▶ carrying on${what ? ` — ${what}` : ""}`, "gate");
+      log(`carrying on${what ? ` — ${what}` : ""}`, "gate");
       if (live) { setHeld(null); loadRoles(); loadNotes(); }
       break;
     }
     case "run_done":
-      log(`■ room adjourned — saved as ${ev.version || "a new version"}`, "dim");
+      log(`room adjourned — saved as ${ev.version || "a new version"}`, "dim");
       if (live) refreshPageBuild();
       break;
-    case "run_stopped": log("■ stopped by showrunner", "warn"); break;
+    case "run_stopped": log("stopped by the showrunner", "warn"); break;
     case "error":
       if (live) document.querySelectorAll(".role.working").forEach((el) => setRoleStatus(el.id.slice(5), "error", "error"));
-      log(`✖ ${esc(ev.text)}`, "err");
+      log(`${esc(ev.text)}`, "err");
       break;
   }
 }
@@ -877,7 +878,7 @@ function renderLetterItems(d) {
       <span class="path">panel ${it.panel ?? "?"} · ${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}
         <select data-spot="${it.i}">${d.spots.map((s) =>
           `<option ${s === (it.at || "middle") ? "selected" : ""}>${s}</option>`).join("")}</select>
-        <button class="ghost drop" data-del="${it.i}" title="Delete this ${esc(it.type)}" type="button">✕</button></span>
+        <button class="ghost drop" data-del="${it.i}" title="Delete this ${esc(it.type)}" type="button">x</button></span>
       <textarea data-i="${it.i}" rows="2">${esc(it.text || "")}</textarea>
     </div>`).join("") || "<p class='path'>no balloons or captions on this page yet</p>";
 }
@@ -965,10 +966,51 @@ async function loadNotes() {
   $("#jot-list").innerHTML = pending.map((n) => `
     <li data-id="${n.id}"><span class="path">${new Date(n.t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}${
       n.page ? ` · page ${n.page}` : ""}</span> ${esc(n.text)}
-      <button class="ghost drop" data-id="${n.id}" title="Drop this note" type="button">✕</button></li>`).join("")
+      <button class="ghost promote" data-id="${n.id}" title="Make this a standing rule instead" type="button">Make a rule</button>
+      <button class="ghost drop" data-id="${n.id}" title="Drop this note" type="button">x</button></li>`).join("")
     || "<li class='path'>no notes yet — they're spent when a round or a review takes them</li>";
   $("#jot-tidy").disabled = !pending.length;
 }
+
+// ---- standing rules: what the room must always or never do ----------------------------
+
+async function loadRules() {
+  if (!state.project) return;
+  const { rules } = await api(`/api/projects/${state.project}/rules`);
+  state.rules = rules;
+  $("#rule-list").innerHTML = rules.map((r) => `
+    <li data-id="${r.id}"><span class="kind">${esc(r.kind)}</span> ${esc(r.text)}
+      <button class="ghost drop" data-id="${r.id}" title="Drop this rule" type="button">x</button></li>`).join("")
+    || "<li class='path'>no rules yet — a rule holds for every round, a note only for the next one</li>";
+}
+
+async function addRule(text, kind) {
+  try {
+    await api(`/api/projects/${state.project}/rules`, { method: "POST", body: { text, kind } });
+  } catch (err) { return alert(err.message); }
+  loadRules();
+  refreshArtifacts();          // taste-writers.md now carries it
+}
+
+$("#rule-add").onclick = async () => {
+  const text = $("#rule-text").value.trim();
+  if (!text) return;
+  $("#rule-text").value = "";
+  await addRule(text, $("#rule-kind").value);
+  if (state.promoting) {          // it came from a note: the note's work is done
+    await api(`/api/projects/${state.project}/notes/${state.promoting}`, { method: "DELETE" });
+    state.promoting = null;
+    loadNotes();
+  }
+};
+$("#rule-text").addEventListener("keydown", (e) => { if (e.key === "Enter") $("#rule-add").click(); });
+$("#rule-list").addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id || !e.target.classList.contains("drop")) return;
+  await api(`/api/projects/${state.project}/rules/${id}`, { method: "DELETE" });
+  loadRules();
+  refreshArtifacts();
+});
 
 async function addNote() {
   const text = $("#jot-text").value.trim();
@@ -985,7 +1027,16 @@ $("#jot-text").addEventListener("keydown", (e) => {
 });
 $("#jot-list").addEventListener("click", async (e) => {
   const id = e.target.dataset.id;
-  if (!id || !e.target.classList.contains("drop")) return;
+  if (!id) return;
+  if (e.target.classList.contains("promote")) {       // a note for one round becomes a rule for all of them
+    const note = state.notes.find((n) => String(n.id) === String(id));
+    if (!note) return;
+    state.promoting = id;                             // say always / never / remember, then Add rule
+    $("#rule-text").value = note.text;
+    $("#rule-kind").focus();
+    return;
+  }
+  if (!e.target.classList.contains("drop")) return;
   await api(`/api/projects/${state.project}/notes/${id}`, { method: "DELETE" });
   loadNotes();
 });
@@ -999,7 +1050,7 @@ $("#jot-tidy").onclick = async (e) => {
     box.value = [box.value.trim(), r.text].filter(Boolean).join("\n\n");
     box.focus();
     box.dispatchEvent(new Event("change"));
-    log(`<span class="cost">✎ tidied ${r.notes} notes into feedback with ${esc(r.model)}` +
+    log(`<span class="cost">tidied ${r.notes} notes into feedback with ${esc(r.model)}` +
       `${r.cost_usd != null ? ` · ${usd(r.cost_usd)}` : ""} — edit it before sending</span>`);
   } catch (err) { alert(err.message); }
   e.target.textContent = label;
@@ -1155,9 +1206,9 @@ $("#stop").onclick = () => {
 
 function v_gate(ev) {
   if (ev.final) {
-    return ev.ready ? "✔ gate passed" : `⚠ gate still failing: ${ev.reasons.map(esc).join("; ")}`;
+    return ev.ready ? "gate passed" : `gate still failing: ${ev.reasons.map(esc).join("; ")}`;
   }
-  return `↻ fix pass ${ev.pass_n}: ${ev.reasons.map(esc).join("; ")} → ${ev.fix.map(title).join(", ")}`;
+  return `fix pass ${ev.pass_n}: ${ev.reasons.map(esc).join("; ")} → ${ev.fix.map(title).join(", ")}`;
 }
 
 async function saveSettings() {
@@ -1178,7 +1229,7 @@ $("#write-round").onclick = async () => {
       method: "POST", body: { note: $("#note").value, hat: $("#hat").value } });
     $("#note").value = "";
     $("#feed").innerHTML = "";
-    log(kind === "revision" ? "▶ revision round — working from your review" : "▶ writing round", "dim");
+    log(kind === "revision" ? "revision round — working from your review" : "writing round", "dim");
     state.version = null;
     destroyReviewEditor();
     $("#review").hidden = true;
@@ -1190,7 +1241,7 @@ $("#write-round").onclick = async () => {
 
 // ---- review -------------------------------------------------------------------
 
-const VERDICT_ICON = { love: "🔥", changes: "✏️", reroll: "👎" };
+const VERDICT_MARK = { love: "keep", changes: "changes", reroll: "re-roll" };
 
 function destroyReviewEditor() {
   state.rvEditor?.destroy();
@@ -1224,7 +1275,7 @@ function renderReview() {
   $("#review-progress").textContent = `${entries.filter(([, x]) => x.verdict).length} of ${entries.length} pages decided`;
   $("#review-chips").innerHTML = entries.map(([k, x]) =>
     `<button class="chip ${k === n ? "active" : ""} ${x.verdict || ""}" data-page="${k}" title="${x.locked ? `locked (${x.locked})` : ""}">` +
-    `p${k.padStart(2, "0")} ${VERDICT_ICON[x.verdict] || "·"}${x.edited ? " ✎" : ""}</button>`).join("");
+    `p${k.padStart(2, "0")} ${VERDICT_MARK[x.verdict] || "·"}${x.edited ? " (edited)" : ""}</button>`).join("");
   $("#rv-page").textContent = `Page ${n} of ${entries.length}` + (p.locked ? ` · locked (${p.locked})` : "");
   destroyReviewEditor();
   $("#review-canvas").innerHTML = `<pre class="page"></pre>`;
@@ -1345,7 +1396,7 @@ async function submitReview(action) {
   if (!(await savePage())) return;
   const r = state.review;
   const counts = Object.values(r.pages).reduce((c, x) => ({ ...c, [x.verdict]: (c[x.verdict] || 0) + 1 }), {});
-  const summary = `🔥 ${counts.love || 0} · ✏️ ${counts.changes || 0} · 👎 ${counts.reroll || 0}`;
+  const summary = `${counts.love || 0} kept · ${counts.changes || 0} with changes · ${counts.reroll || 0} to re-roll`;
   if (!confirm(action === "finalize"
     ? `Finalize the book from ${r.round}? (${summary})`
     : `Send your review of ${r.round} to the room? (${summary}) The room starts revising right away.`)) return;
@@ -1358,7 +1409,7 @@ async function submitReview(action) {
   $("#review").hidden = true;
   state.review = null;
   $("#feed").innerHTML = "";
-  log(`■ saved your review as ${esc(out.round)}`, "gate");
+  log(`saved your review as ${esc(out.round)}`, "gate");
   if (out.run_id) attach(out.run_id, 0);
   refreshArtifacts();
 }
@@ -1536,8 +1587,8 @@ function openSettings(id, message) {
     if (!(await save())) return;
     status("Testing…");
     const t = await api(`/api/roles/${id}/test`, { method: "POST" });
-    openSettings(id, t.ok ? { text: `✔ ${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
-                          : { text: `✖ ${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
+    openSettings(id, t.ok ? { text: `${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
+                          : { text: `${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
   };
   form.querySelector('[data-act="models"]').onclick = async () => {
     if (!(await save())) return;
