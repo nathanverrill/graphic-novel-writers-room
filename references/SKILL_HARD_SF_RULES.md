@@ -1,6 +1,6 @@
 ---
 name: hard-sf-rules
-description: The plausibility rules for grounded near-future storytelling, in one place: the 80/15/5 mix, the labels every invented element carries (T truth, EG educated guess, S speculation, L license, Cut), the rules and log for a license, and the Thorne and Tyson tests. Use whenever a story, comic, game or scenario invents anything about how the world works — technology, money, law, weather, bodies, institutions — or asks "would this be plausible", "can we do this anyway", or "how far is this from real". Every worldbuilding skill in this library labels its material with this vocabulary; this is where the vocabulary is defined.
+description: The plausibility rules for grounded near-future storytelling, in one place. the 80/15/5 mix, the labels every invented element carries (T truth, EG educated guess, S speculation, L license, Cut), the rules and log for a license, and the Thorne and Tyson tests. Use whenever a story, comic, game or scenario invents anything about how the world works — technology, money, law, weather, bodies, institutions — or asks "would this be plausible", "can we do this anyway", or "how far is this from real". Every worldbuilding skill in this library labels its material with this vocabulary; this is where the vocabulary is defined.
 ---
 
 # Hard SF Rules
@@ -23,7 +23,7 @@ build.
 
 ## Labels (Thorne's vocabulary)
 
-Borrowed from Kip Thorne's *The Science of Interstellar*, which marks every claim as truth,
+Borrowed from Kip Thorne's _The Science of Interstellar_, which marks every claim as truth,
 educated guess, or speculation. Label every invented element:
 
 - **T, Truth.** Documented. Happening now or already happened.
@@ -33,7 +33,7 @@ educated guess, or speculation. Label every invented element:
   somewhere comparable. Thorne's rule applies: speculation springs from the real record, not
   from the writer's wish.
 - **L, License.** A knowing departure made for the story. Not one of Thorne's labels. **The
-  reference case is Astrophage in Andy Weir's *Project Hail Mary*:** an invented microbe that
+  reference case is Astrophage in Andy Weir's _Project Hail Mary_:** an invented microbe that
   feeds on stars and stores enormous energy. No scientist proposes it, so it is not Speculation.
   Weir declares it, gives it fixed rules, and works out every consequence honestly. The one
   invention is the threat, the fuel and the puzzle; nothing else in the book cheats to make room

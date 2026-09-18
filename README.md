@@ -393,14 +393,14 @@ What each one reads now, with this library:
 | Writer | Reads in full |
 |---|---|
 | Editor-in-Chief | the bible, Alpha, the hard-SF rules |
-| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars |
+| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars, the Social Innovators' Framework |
 | Character Designer | the bible, Alpha, hard-SF rules |
 | Scripter | chapter canon, Alpha, hard-SF rules, the script-writing skill |
 | Penciller | Alpha, hard-SF rules, graphic novel layout, the layout picker, near-future set design |
 | Continuity Editor | the bible, Alpha, hard-SF rules |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 78 and 112 KB a call, where before each one carried the whole
+That puts every writer between 78 and 116 KB a call, where before each one carried the whole
 library. Anything left off a shortlist is still one `read_artifact` away: the chapter canon for
 the Editor, everyday life and money for the Scripter, the science guide for the Plotter.
 
