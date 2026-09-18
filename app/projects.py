@@ -4,7 +4,8 @@
       *.md                 working copy — what the room reads, what you edit
       references/*.md      source material you provide (draft script, lore, bible…)
       images/              every image ever generated for the project
-      locks.json           pages the showrunner has locked (see review.py)
+      locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
+      rules.json           standing rules, written into taste-writers.md (rules.py)
       rounds/<slug>-r01-ai/          one folder per round, every file named for its round:
         <slug>-r01-ai-script.md        book-level files as the round left them
         <slug>-r01-ai-p03-ascii.txt    page files: ascii, render, script, layout, review, diff
@@ -12,7 +13,7 @@
         <slug>-r01-ai-events.jsonl     the live feed
         <slug>-r01-ai-calls.jsonl      one line per model call (full calls in calls/)
         references/<slug>-r01-ai-ref-<name>.md
-      rounds/<slug>-r02-human/       a review: your verdicts, edits, comments and diffs
+      rounds/<slug>-r02-human/       a review: what you kept, your edits, notes and diffs
       rounds/<slug>-r05-final/       the approved book
 
 Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
@@ -21,7 +22,9 @@ wherever it ends up.
 
 Reference files come from references/ at the repo root (a shared library) and
 projects/<slug>/references/ (a file with the same name wins). A project can pick
-which library files it uses ("references" in round-settings.json; default: all).
+which library files it uses ("references" in round-settings.json; default: all), and a
+writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
+file is canon, a draft or a guide — see reference_kind.
 """
 import hashlib
 import json

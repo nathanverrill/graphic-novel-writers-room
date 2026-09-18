@@ -5,7 +5,12 @@ Every run is an AI round (rounds/<slug>-rNN-ai).
 A *writing round* (start_round) goes further: the room writes the book, then checks
 the readiness gate (page count, layout issues, continuity blockers, how closely
 locked pages are matched) and reruns only the roles that can fix what's wrong, up
-to max_passes times, before handing the pages to the showrunner for review."""
+to max_passes times, before handing the pages to the showrunner for review.
+
+Two things can interrupt that: the showrunner can hold the round between two writers
+(hold(), pause/resume) and change settings or leave notes for whoever runs next, and
+auto mode (auto_step) can hand a finished round straight back to the room instead of
+waiting for a review."""
 import threading
 import time
 import uuid

@@ -8,7 +8,7 @@ word for word (a model would paraphrase them and the characters would drift):
     format        trim, orientation, left/right page
     style         the brief's visual direction (the same on every page)
     characters    the bible's description of everyone on the page, verbatim
-    layout        rows and panels with their share of the page
+    layout        a box map of the page drawn to scale, then rows and panels with their share
     panels        shot, angle, light, what happens, who is where, exact lettering
     script        the page's script, for reference
 """
