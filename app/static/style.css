@@ -67,6 +67,41 @@ main { padding: 1rem 1.25rem; min-width: 0; }
 .tab-panel > section:last-child { margin-bottom: 0; }
 .stats { border-top: 1px solid var(--line); padding-top: 1rem; }
 .watch .feed { height: 300px; }
+.watch-head { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem; }
+.watch-head h3 { margin: 0 0 .4rem; }
+.watch-head button { padding: .1rem .5rem; font-size: .7rem; }
+
+.agents { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: .15rem; }
+.agent {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: .45rem; align-items: baseline;
+  font-size: .8rem; padding: .12rem .25rem; border-radius: 3px;
+}
+.agent .dot {
+  width: .5rem; height: .5rem; border-radius: 50%; background: var(--line);
+  border: 1px solid var(--muted); align-self: center;
+}
+.agent .who { color: var(--muted); }
+.agent .state { grid-column: 3; text-align: right; white-space: nowrap; }
+.agent .spend { grid-column: 2 / -1; text-align: right; font-size: .68rem; }
+.agent.working { background: #fffbeb; }
+.agent.working .dot { background: var(--work); border-color: var(--work); animation: pulse 1.4s ease-in-out infinite; }
+.agent.working .who { color: var(--ink); font-weight: 600; }
+.agent.done .dot { background: var(--ok); border-color: var(--ok); }
+.agent.done .who { color: var(--ink); }
+.agent.error .dot { background: var(--bad); border-color: var(--bad); }
+.agent.error .who, .agent.error .state { color: var(--bad); }
+@keyframes pulse { 50% { opacity: .35; } }
+@media (prefers-reduced-motion: reduce) { .agent.working .dot { animation: none; } }
+
+/* the whole feed, when you want to read it */
+body.feed-open #feed {
+  position: fixed; inset: auto 1.5rem 1.5rem 1.5rem; height: min(70vh, 640px); z-index: 30;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, .35); font-size: .82rem;
+}
+#feed-close {
+  position: fixed; right: 1.5rem; bottom: calc(1.5rem + min(70vh, 640px) + .4rem); z-index: 31;
+  font-size: .72rem; padding: .2rem .6rem;
+}
 .watch h2 { margin-bottom: .75rem; }
 section { margin-bottom: 1.25rem; }
 .empty { color: var(--muted); padding: 3rem 0; text-align: center; }

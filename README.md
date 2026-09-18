@@ -38,7 +38,7 @@ Projects on the left; the book in the middle; what the room is doing on the righ
 | Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
 | Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
 | Middle, under the tabs | **Stats** — what the room has spent, by project, round or role |
-| Right, watch pad | progress, your notes while you watch, and the live feed |
+| Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
 **Write round** sits above the tabs with the showrunner note, so it's there whichever tab you're
@@ -284,6 +284,11 @@ Long documents can be split so a project takes only what it needs:
   `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
+
+**Who is working.** The watch pad lists every writer with a dot — idle, working, done, error —
+the step the working one is on, and what it spent last run, so you can see what the room is doing
+from any tab without opening **The room**. Under it, the live feed; **Expand** opens it across
+the window to read properly, **Close the feed** or Escape puts it back.
 
 **Progress.** Above the live feed in the watch pad, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
 step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past

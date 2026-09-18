@@ -220,8 +220,18 @@ the count runs out. 0 stops after the next round.">Auto rounds
       <ul id="rule-list" class="rule-list"></ul>
     </div>
 
-    <h3>Live feed</h3>
+    <div class="watch-head">
+      <h3>Agents</h3>
+      <span class="path" id="agents-note">idle</span>
+    </div>
+    <ul id="agents" class="agents"></ul>
+
+    <div class="watch-head">
+      <h3>Live feed</h3>
+      <button id="feed-expand" class="ghost" type="button" title="See the whole feed">Expand</button>
+    </div>
     <div id="feed" class="feed"></div>
+    <button id="feed-close" type="button" hidden>Close the feed</button>
   </aside>
 
   <aside class="artifacts" id="artifacts-pane" hidden>

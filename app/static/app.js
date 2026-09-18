@@ -54,6 +54,7 @@ async function loadRoles() {
   const data = await api("/api/roles");
   state.roles = data.roles;
   state.shared = data.shared;
+  renderAgents();
   $("#hat").innerHTML = `<option value="">No hat</option>` +
     data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
   $("#roles").innerHTML = data.roles.filter((r) => r.room !== "art").map((r) => `
@@ -74,12 +75,51 @@ async function loadRoles() {
 }
 
 function setRoleStatus(id, cls, text) {
+  state.status = { ...(state.status || {}), [id]: { cls, text } };
+  renderAgents();
   const el = $(`#role-${id}`);
   if (!el) return;
   el.classList.remove("working", "done", "error");
   if (cls) el.classList.add(cls);
   el.querySelector(".status").textContent = text;
 }
+
+// ---- the roster: who is working, from any tab ----------------------------------------
+
+function renderAgents() {
+  const roles = (state.roles || []).filter((r) => r.room !== "art");
+  if (!roles.length) return;
+  const st = state.status || {};
+  $("#agents").innerHTML = roles.map((r) => {
+    const s = st[r.id] || {};
+    const spend = state.spend?.[r.id];
+    return `
+      <li class="agent ${s.cls || ""}" title="${esc(r.config?.model || "")}">
+        <span class="dot"></span>
+        <span class="who">${esc(r.title)}</span>
+        <span class="state path">${esc(s.text || "idle")}</span>
+        ${spend ? `<span class="spend path">${spend}</span>` : ""}
+      </li>`;
+  }).join("");
+  const working = roles.filter((r) => st[r.id]?.cls === "working").map((r) => r.title);
+  const done = roles.filter((r) => st[r.id]?.cls === "done").length;
+  $("#agents-note").textContent = working.length ? `${working.join(", ")} at work`
+    : done ? `${done} of ${roles.length} have run` : "idle";
+}
+
+function showFeed(open) {
+  document.body.classList.toggle("feed-open", open);
+  $("#feed-expand").textContent = open ? "Collapse" : "Expand";
+  $("#feed-close").hidden = !open;
+  const feed = $("#feed");
+  feed.scrollTop = feed.scrollHeight;
+}
+
+$("#feed-expand").onclick = () => showFeed(!document.body.classList.contains("feed-open"));
+$("#feed-close").onclick = () => showFeed(false);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && document.body.classList.contains("feed-open")) showFeed(false);
+});
 
 function assetBlock(folder, a) {
   const guides = a.guides.map((g) => `
@@ -174,6 +214,7 @@ async function openProject(slug) {
   state.progress = null;
   clearInterval(state.progressTimer);
   renderProgress();
+  state.spend = {};
   state.roles.forEach((r) => setRoleStatus(r.id, null, "idle"));
   state.previews = null;
   $("#previews").hidden = true;
@@ -790,6 +831,8 @@ function handle(ev, replay = false) {
       if (live) {
         const el = $(`#role-${ev.role} .spend`);
         if (el) el.textContent = `last run ${usd(ev.cost_usd)} · ${num(ev.input_tokens + ev.output_tokens)} tok`;
+        state.spend = { ...(state.spend || {}), [ev.role]: usd(ev.cost_usd) };
+        renderAgents();
       }
       log(`${who}<span class="cost">spent ${usd(ev.cost_usd)} over ${ev.calls} calls` +
         `${ev.unpriced_calls ? ` (${ev.unpriced_calls} unpriced)` : ""}</span>`);
