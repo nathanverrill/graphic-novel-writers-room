@@ -808,17 +808,17 @@ This is participation, not absolution.
 Deduplicated across every draft and round; the source is the file it was written in.
 
 
-- “The birthday special? Not sure I can afford it.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “Everything has a price, Ada.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “Not today, Grandma. It's Alex.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “Not yet.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “He had opinions about everything.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
+- “The birthday special? Not sure I can afford it.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
 
 - “Everything has a price.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
+
+- “Not today, Grandma. It's Alex.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
+
+- “Not yet.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
+
+- “He had opinions about everything.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
+
+- “Everything has a price, Ada.” — *chapter-01.md*
 
 - “It's not quiet, Ada. It's silent. There's a difference.” — *script.md*
 
@@ -848,31 +848,31 @@ Deduplicated across every draft and round; the source is the file it was written
 57 files mention Alex. The ones that say most about them:
 
 
-- `/Users/nathanverrill/writers-room/references/EVOKE_PROSPERITY_BIBLE.md` — 80 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/canon/bible.md` — 80 passages
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 58 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_6.md` — 30 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-06.md` — 30 passages
 
-- `/Users/nathanverrill/writers-room/references/sources/SCRIPT_DRAFT_AUG_23.md` — 30 passages
-
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_5.md` — 15 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 30 passages
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 15 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_2.md` — 14 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-05.md` — 15 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 13 passages
+- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 14 passages
 
-- `/Users/nathanverrill/writers-room/references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` — 13 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-02.md` — 13 passages
+
+- `/Users/nathanverrill/writers-room/library/prosperity/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` — 13 passages
 
 - `projects/evoke-chapter-4/room-log.md` — 13 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_4.md` — 12 passages
-
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_1.md` — 10 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-04.md` — 11 passages
+
+- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 10 passages
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 10 passages
 

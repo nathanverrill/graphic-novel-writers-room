@@ -26,7 +26,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from app.search import chunks                                       # noqa: E402
 
-BIBLE = ROOT / "references" / "EVOKE_PROSPERITY_BIBLE.md"
+BIBLE = ROOT / "library" / "prosperity" / "canon" / "bible.md"
 GLANCE = ROOT / "scripts" / "character_glance.json"
 NAMES = {"ALEX PHANTUM": "ALEX", "ADA VEYRA": "ADA", "BI11BOT": "BI11BOT", "MERA VALE": "MERA",
          "ADRIAN PHANTUM": "ADRIAN", "LEONA VEYRA": "LEONA"}
@@ -187,7 +187,7 @@ def main(only=None):
         if only and key != only.upper():
             continue
         rows = passages(g["aliases"], sources)
-        (ROOT / "references" / g["file"]).write_text(render(key, g, sheets.get(key, ""), pairs,
+        (ROOT / "library" / "prosperity" / "characters" / g["file"]).write_text(render(key, g, sheets.get(key, ""), pairs,
                                                             rows, pdir))
         print(f"{g['file']:22} {len(rows):4} passages · {len({r['file'] for r in rows})} files")
 

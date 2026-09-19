@@ -453,13 +453,13 @@ Deduplicated across every draft and round; the source is the file it was written
 51 files mention Leona. The ones that say most about them:
 
 
-- `/Users/nathanverrill/writers-room/references/EVOKE_PROSPERITY_BIBLE.md` — 31 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/canon/bible.md` — 31 passages
 
 - `projects/evoke-chapter-4/room-log.md` — 26 passages
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 19 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_4.md` — 11 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-04.md` — 11 passages
 
 - `projects/evoke-chapter-4/page-prompts.md` — 10 passages
 
@@ -471,9 +471,9 @@ Deduplicated across every draft and round; the source is the file it was written
 
 - `projects/evoke-chapter-4/layouts.md` — 5 passages
 
-- `/Users/nathanverrill/writers-room/references/EVOKE_PROSPERITY_CHAPTER_4.md` — 4 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/canon/chapter-04.md` — 4 passages
 
-- `/Users/nathanverrill/writers-room/references/sources/SCRIPT_DRAFT_AUG_23.md` — 4 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 4 passages
 
 - `projects/evoke-chapter-4/outline.md` — 4 passages
 

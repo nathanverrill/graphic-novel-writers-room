@@ -160,13 +160,20 @@ def keywords(chunk_text, headings, doc_terms, corpus_df, docs_total, limit=12):
 
 
 def library_files():
-    """Everything the room can read, with where it came from: (name, path, scope, kind)."""
+    """Everything the room can read: (name, path, scope, kind).
+
+    The scope is where it sits — prosperity/characters, evoke/canon, skills — so a search can
+    ask one campaign, or one kind of material, without knowing the file names."""
     out = []
-    for folder in LIBRARY_DIRS:
-        if folder.is_dir():
-            for path in sorted(folder.glob("*.md")):
-                if not path.name.startswith("."):
-                    out.append((path.name, path, folder.name, projects.reference_kind(path)))
+    for f in projects.library():
+        path = None
+        for folder in LIBRARY_DIRS:
+            candidate = folder / f["name"].removeprefix("skills/")
+            if candidate.is_file():
+                path = candidate
+                break
+        if path:
+            out.append((f["name"], path, f["group"], f["kind"]))
     return out
 
 
@@ -299,9 +306,13 @@ def index(slug=None, on_progress=lambda msg: None, files=None, prune=True):
             r.read()
 
     gone = [doc_id for doc_id in known if doc_id not in seen] if prune else stale(files, seen)
-    for doc_id in gone:
-        urllib.request.urlopen(urllib.request.Request(
-            f"{opensearch_url()}/{INDEX}/_doc/{doc_id}", method="DELETE"), timeout=30).read()
+    if gone:            # one bulk call, and a passage another pass already dropped is not an error
+        lines = [json.dumps({"delete": {"_index": INDEX, "_id": doc_id}}) for doc_id in gone]
+        req = urllib.request.Request(f"{opensearch_url()}/_bulk",
+                                     data=("\n".join(lines) + "\n").encode(),
+                                     headers={"Content-Type": "application/x-ndjson"}, method="POST")
+        with urllib.request.urlopen(req, timeout=300) as r:
+            r.read()
     _json(f"{opensearch_url()}/{INDEX}/_refresh", None, method="POST", timeout=30)
     return {"chunks": len(parsed), "written": len(to_embed), "removed": len(gone)}
 

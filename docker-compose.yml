@@ -23,7 +23,7 @@ services:
     volumes:              # configuration stays in this folder
       - ./agents:/app/agents
       - ./hats:/app/hats
-      - ./references:/app/references
+      - ./library:/app/library
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
       - ./output:/app/output         # the latest page prompts and story files, per project

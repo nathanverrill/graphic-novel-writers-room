@@ -33,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR, SKILLS_DIR
+from .config import LIBRARY_DIR, LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, SKILLS_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -165,18 +165,27 @@ def reference_files(slug, version=None):
         pre = prefix(slug, version) + "ref-"
         folder = _folder(slug, version) / "references"
         for p in sorted(folder.glob(pre + "*.md")) if folder.is_dir() else []:
-            found[p.name[len(pre):]] = p
+            found[p.name[len(pre):].replace("--", "/")] = p
         return found
     chosen = library_selection(slug)
     for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
-        if folder.is_dir():
-            for p in sorted(folder.glob("*.md")):  # any file name; lookups go through this dict
-                if p.name.startswith("."):
-                    continue
-                if folder in LIBRARY_DIRS and chosen is not None and p.name not in chosen:
-                    continue
-                found[p.name] = p
+        if not folder.is_dir():
+            continue
+        for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then kind
+            if p.name.startswith(".") or "sources" in p.relative_to(folder).parts:
+                continue                            # sources/ holds originals nobody reads whole
+            name = library_name(p, folder)
+            if folder in LIBRARY_DIRS and chosen is not None and name not in chosen:
+                continue
+            found[name] = p
     return found
+
+
+def library_name(path, folder):
+    """What a library file is called: its path inside the library, so prosperity/canon/chapter-04
+    and prosperity/drafts/chapter-04 are two different files and read as what they are."""
+    rel = path.relative_to(folder)
+    return f"skills/{rel}" if folder == SKILLS_DIR else str(rel)
 
 
 DRAFT_MARK = "reference: draft"
@@ -184,37 +193,49 @@ GUIDE_MARK = "reference: guide"
 CANON_MARK = "reference: canon"
 
 
+FOLDER_KIND = {"canon": "canon", "characters": "canon", "drafts": "draft",
+               "worldbuilding": "worldbuilding", "references": "reference"}
+
+
 def reference_kind(path):
-    """What a reference is, from a marker near its top, or from its name.
+    """What a file is, from the folder it sits in — or a marker near its top, which wins.
 
-    canon  the default, or <!-- reference: canon -->: the book must not contradict it
-    draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
-    guide  anything in skills/, a file marked <!-- reference: guide -->, or a SKILL_*.md file:
-           craft and worldbuilding guidance. It commits the book to nothing; the room uses what
-           serves the page.
+    canon          library/<campaign>/canon and characters: the book must not contradict it
+    worldbuilding  invented material to draw on; it commits the book to nothing
+    reference      real material — articles, reports, data — true of the world, not the story
+    draft          ideas on paper: mine them, write the room's own version
+    guide          agents/skills: how to do the work, never canon
 
-    A marker always wins over where the file sits, so a skill that carries the book's own canon —
-    a character, a place, the story's one license — says so and is read as canon."""
+    The markers <!-- reference: canon | draft | guide --> override the folder, for the file that
+    sits somewhere its kind does not match."""
     with path.open(errors="replace") as f:
         head = f.read(400)
     if CANON_MARK in head:
         return "canon"
     if DRAFT_MARK in head:
         return "draft"
-    if GUIDE_MARK in head or path.parent == SKILLS_DIR or path.name.startswith("SKILL_"):
+    if GUIDE_MARK in head or SKILLS_DIR in path.parents:
         return "guide"
+    parts = path.parts
+    for folder, kind in FOLDER_KIND.items():
+        if folder in parts:
+            return kind
     return "canon"
 
 
 def library():
-    """The shared library: the book's references and the room's skills, [{name, size, kind}]."""
+    """The shared library: every campaign's material and the room's skills."""
     out = []
     for folder in LIBRARY_DIRS:
         if not folder.is_dir():
             continue
-        out += [{"name": p.name, "size": p.stat().st_size, "kind": reference_kind(p),
-                 "folder": folder.name}
-                for p in sorted(folder.glob("*.md")) if not p.name.startswith(".")]
+        for p in sorted(folder.rglob("*.md")):
+            if p.name.startswith(".") or "sources" in p.relative_to(folder).parts:
+                continue
+            rel = p.relative_to(folder)
+            out.append({"name": library_name(p, folder), "size": p.stat().st_size,
+                        "kind": reference_kind(p), "folder": folder.name,
+                        "group": str(rel.parent) if folder != SKILLS_DIR else "skills"})
     return out
 
 
@@ -245,8 +266,9 @@ def read_reference(slug, name, version=None):
     found = reference_files(slug, version).get(name)
     if found is None and version is None:
         for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
-            candidate = folder / name
-            if candidate.is_file() and candidate.name == name:
+            root = folder.resolve()
+            candidate = (folder / name.removeprefix("skills/")).resolve()
+            if candidate.is_file() and root in candidate.parents:   # inside the folder, no escaping
                 found = candidate
                 break
     return found.read_text() if found else None
@@ -362,7 +384,8 @@ class Round:
         if refs:
             (self.dir / "references").mkdir()
         for name, p in refs.items():  # freeze the source material this round used
-            shutil.copyfile(p, self.dir / "references" / f"{self.prefix}ref-{name}")
+            flat = name.replace("/", "--")     # library/<campaign>/<kind>/x.md -> one flat file
+            shutil.copyfile(p, self.dir / "references" / f"{self.prefix}ref-{flat}")
         self._lock = threading.Lock()
         self._calls = 0
         self.meta = {"id": self.id, "kind": kind, "started": now(), "finished": None,

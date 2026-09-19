@@ -196,7 +196,7 @@ docker compose up -d --build      # http://localhost:8000
 and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
 `host.docker.internal:11434`.
 
-**Configuration** — `agents/` (with its skills and tools), `hats/`, `references/` and
+**Configuration** — `agents/` (with its skills and tools), `library/`, `hats/` and
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
@@ -381,13 +381,13 @@ the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 r
 How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 
 - `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
-- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
+- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("library/<path>")`. Cheaper, but the agent has to choose to read them.
 
 ## Character references
 
-Each character has a standalone file in `references/` — `ALEX_PHANTUM.md`, `ADA_VEYRA.md`,
-`BI11BOT.md`, `MERA_VALE.md`, `ADRIAN_PHANTUM.md`, `LEONA_VEYRA.md`, `BOB_HAWKINS.md` — so a
-writer or an artist can read one person without carrying an 83 KB bible.
+Each character has a standalone file in `library/<campaign>/characters/` — `alex-phantum.md`,
+`ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
+`bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
 
 Each gathers, in this order: an at-a-glance table (want, need, wound, tell, voice, palette), the
 visual lock from the newest project bible exactly as the page prompts paste it, the campaign
@@ -400,22 +400,34 @@ across twenty round snapshots is written once. The at-a-glance wording lives in
 `scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
 belongs in the bible.
 
-## Reference material and skills
+## The library
 
-The room reads two shared folders. They differ in what the material *is*, and the agents are
-told which they are reading:
+One folder per campaign, and the same words inside each, so a person opening any folder knows
+what they are looking at:
 
 ```
-agents/skills/                  craft skills the agents load — always read as guides
+library/
+  evoke/                        true of EVOKE anywhere, whatever the campaign
+    canon/       alpha.md
+    references/  social-innovators-framework.md
+  prosperity/
+    canon/       bible.md · chapter-01.md … chapter-06.md
+    characters/  alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
+    worldbuilding/  lithium-triangle-futures.md · triangle-money.md · triangle-water-wars.md …
+    references/  real material found along the way: articles, reports, photographs
+    drafts/      chapter-01.md … chapter-06.md — ideas to mine, never to copy
+    sources/     originals the split scripts work from (never read whole)
+  ice/                          the next campaign: the same folders, empty
+agents/skills/                  craft, any campaign: layout, emotion, script writing, hard-SF rules
 agents/skills/sources/          long skills split into per-agent guides (never read whole)
-references/                     the book's own material: canon, and idea drafts to mine
-references/sources/             originals that tools split up (agents never read these)
 projects/<slug>/references/     this project only (a file with the same name wins)
 ```
 
-So `references/` answers *what is true in this book* — the bible, the chapter canon, Alpha, the
-draft script — and `agents/skills/` answers *how to do the work and what is plausible* — layout, emotion,
-script writing, the hard-SF rules, the lithium triangle, the Social Innovators' Framework.
+Two rules, and that is the model: **`library/evoke/` applies to every campaign,
+`library/<campaign>/` to that one**, and **the folder says what the material is**. A file is
+named by its path, so `prosperity/canon/chapter-04.md` and `prosperity/drafts/chapter-04.md` are
+two different things and are read as what they are. A new campaign is
+`mkdir -p library/ice/{canon,characters,worldbuilding,references,drafts}`.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
 folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
@@ -425,11 +437,11 @@ each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python scripts/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
-  `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
-  chapter's canon row, principle, character interaction map and script revision flags).
-- `python scripts/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
-  `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
+- `python scripts/split_bible.py` — `library/prosperity/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
+  into `canon/bible.md` and `canon/chapter-<nn>.md` (each chapter's canon row, principle,
+  character interaction map and script revision flags).
+- `python scripts/split_script.py` — `library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` into
+  `drafts/chapter-<nn>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
 
@@ -437,9 +449,11 @@ Rerun them after updating a source.
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | `references/`, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
-| draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
-| guide | anything in `agents/skills/`, or `<!-- reference: guide -->` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+| canon | `canon/` and `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
+| worldbuilding | `worldbuilding/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
+| reference | `references/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
+| draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
+| guide | `agents/skills/` | how to do the work; never canon |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.

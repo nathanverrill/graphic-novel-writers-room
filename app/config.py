@@ -11,10 +11,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 PROJECTS_DIR = ROOT / "projects"
-REFERENCES_DIR = ROOT / "references"   # the book's own material: canon and idea drafts
+LIBRARY_DIR = ROOT / "library"         # the books' own material: library/<campaign>/<kind>/
 SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
-LIBRARY_DIRS = (REFERENCES_DIR, SKILLS_DIR)
+LIBRARY_DIRS = (LIBRARY_DIR, SKILLS_DIR)
+REFERENCES_DIR = LIBRARY_DIR           # the old name, while anything still says references
 HATS_DIR = ROOT / "hats"               # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
 OUTPUT_DIR = ROOT / "output"           # the latest deliverables, easy to find on your computer

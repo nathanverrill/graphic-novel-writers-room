@@ -1,7 +1,7 @@
 {
   "ALEX": {
     "title": "Alex Phantum",
-    "file": "ALEX_PHANTUM.md",
+    "file": "alex-phantum.md",
     "aliases": [
       "Alex"
     ],
@@ -17,7 +17,7 @@
   },
   "ADA": {
     "title": "Ada Veyra",
-    "file": "ADA_VEYRA.md",
+    "file": "ada-veyra.md",
     "aliases": [
       "Ada"
     ],
@@ -33,7 +33,7 @@
   },
   "BI11BOT": {
     "title": "Bi11bot",
-    "file": "BI11BOT.md",
+    "file": "bi11bot.md",
     "aliases": [
       "Bi11bot",
       "Bi11Bot",
@@ -51,7 +51,7 @@
   },
   "MERA": {
     "title": "Mera Vale",
-    "file": "MERA_VALE.md",
+    "file": "mera-vale.md",
     "aliases": [
       "Mera"
     ],
@@ -67,7 +67,7 @@
   },
   "ADRIAN": {
     "title": "Adrian Phantum",
-    "file": "ADRIAN_PHANTUM.md",
+    "file": "adrian-phantum.md",
     "aliases": [
       "Adrian"
     ],
@@ -83,7 +83,7 @@
   },
   "LEONA": {
     "title": "Leona Veyra",
-    "file": "LEONA_VEYRA.md",
+    "file": "leona-veyra.md",
     "aliases": [
       "Leona"
     ],
@@ -99,7 +99,7 @@
   },
   "BOB_HAWKINS": {
     "title": "Bob Hawkins",
-    "file": "BOB_HAWKINS.md",
+    "file": "bob-hawkins.md",
     "aliases": [
       "Bob Hawkins",
       "Hawkins"
@@ -113,6 +113,6 @@
     "voice": "Polite, clinical, devoid of warmth.",
     "palette": "Stark pressed white with a silver Oasis Optimization Bureau insignia.",
     "description": "Bob Hawkins: the Oasis administrator who processes people without looking at them — everything the room has written about him, and what canon does not yet say.",
-    "no_canon": "**None.** This character has no entry in the campaign bible — the room invented him while\nwriting chapter 4. Everything here is the room's own work, not settled canon: no wound, no arc,\nno age beyond what a page needed.\n\n**Name collision, deliberate or not:** *Robert (Bob) Hawkins* is a real person — co-author,\nwith Barbara Freeman, of the World Bank's Social Innovators' Framework, which sits in this\nlibrary as `agents/skills/social-innovators-framework.md` and is the framework the Evoke\nprogramme is built on. The room has given that name to a bureaucrat who processes refugees\nwithout looking at them. If that is a joke, it is one a reader could take badly; if it is an\naccident, rename him."
+    "no_canon": "**None.** This character has no entry in the campaign bible — the room invented him while\nwriting chapter 4. Everything here is the room's own work, not settled canon: no wound, no arc,\nno age beyond what a page needed.\n\n**Name collision, deliberate or not:** *Robert (Bob) Hawkins* is a real person — co-author,\nwith Barbara Freeman, of the World Bank's Social Innovators' Framework, which sits in this\nlibrary as `library/evoke/references/social-innovators-framework.md` and is the framework the Evoke\nprogramme is built on. The room has given that name to a bureaucrat who processes refugees\nwithout looking at them. If that is a joke, it is one a reader could take badly; if it is an\naccident, rename him."
   }
 }

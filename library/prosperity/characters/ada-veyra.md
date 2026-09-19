@@ -496,15 +496,15 @@ No dialogue.
 Deduplicated across every draft and round; the source is the file it was written in.
 
 
-- “Thought you might need this.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “It’s on me. You don’t owe anybody anything today.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
-
-- “Not Everything.” — *SCRIPT_DRAFT_AUG_23_CHAPTER_1.md*
+- “Thought you might need this.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
 
 - “It’s on me. You don’t owe anybody anything.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
 
 - “Not Everything. Almost. Didn't poison it today.” — *SCRIPT_DRAFT_JUL_30_CHAPTER_1.md*
+
+- “It’s on me. You don’t owe anybody anything today.” — *chapter-01.md*
+
+- “Not Everything.” — *chapter-01.md*
 
 - “It's too quiet.” — *script.md*
 
@@ -552,31 +552,31 @@ Deduplicated across every draft and round; the source is the file it was written
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 56 passages
 
-- `/Users/nathanverrill/writers-room/references/EVOKE_PROSPERITY_BIBLE.md` — 41 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/canon/bible.md` — 41 passages
 
-- `/Users/nathanverrill/writers-room/references/sources/SCRIPT_DRAFT_AUG_23.md` — 28 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 28 passages
 
 - `projects/evoke-chapter-4/room-log.md` — 19 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_4.md` — 13 passages
-
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 13 passages
-
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_2.md` — 12 passages
+- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 14 passages
 
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
 
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-04.md` — 12 passages
+
 - `projects/evoke-chapter-4/page-prompts.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_3.md` — 9 passages
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-02.md` — 11 passages
+
+- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 9 passages
+
+- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-03.md` — 9 passages
 
 - `projects/evoke-chapter-4/rounds/evoke-chapter-4-r02-ai/evoke-chapter-4-r02-ai-layouts.md` — 9 passages
 
-- `/Users/nathanverrill/writers-room/references/SCRIPT_DRAFT_AUG_23_CHAPTER_6.md` — 8 passages
-
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 8 passages
-
 - `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 8 passages
+
+- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 8 passages
 
 
 *Gathered by `scripts/gather_character.py`; rerun it after a round. New canon belongs in the bible, not here — a rerun overwrites this file.*

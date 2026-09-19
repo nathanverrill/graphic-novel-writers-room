@@ -21,7 +21,7 @@ from . import agents as agents_mod
 from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
-REF_PREFIX = "references/"
+REF_PREFIX = "library/"    # how a library file is named to an agent: library/<its path>
 
 PREVIEW_HOW = artist.PANEL_HOW
 
@@ -163,7 +163,7 @@ class Agent:
             return refs
         wanted = set(self.cfg.reference_files)
         return {n: p for n, p in refs.items()
-                if n in wanted or p.parent not in config.LIBRARY_DIRS}
+                if n in wanted or not any(d in p.parents for d in config.LIBRARY_DIRS)}
 
     def task_message(self, note, images, sparks=None):
         r = self.role
@@ -174,19 +174,25 @@ class Agent:
         refs = self.shortlist(refs)
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
         groups = [
-            ("canon", "# Reference material from the showrunner — canon\n"
-                      "Treat these as canon. Where they conflict with the room's files, "
-                      "the references win unless the showrunner's note says otherwise."),
-            ("guide", "# Craft and worldbuilding guides from the showrunner — NOT canon\n"
-                      "How to do the work, and what is plausible in this world. They commit the book to "
-                      "nothing and describe no events: take what serves the page and ignore the rest. "
-                      "Where a guide labels material T, EG, S, L or Cut, keep those labels when you use it "
+            ("canon", "# Canon from the showrunner\n"
+                      "This is true in the book. Where it conflicts with the room's files, the "
+                      "canon wins unless the showrunner's note says otherwise."),
+            ("worldbuilding", "# Worldbuilding — invented material to draw on, NOT canon\n"
+                      "A menu of what could plausibly be there. Take what serves the page; it "
+                      "commits the book to nothing and none of it has happened yet."),
+            ("reference", "# Real-world material the showrunner collected — NOT story\n"
+                      "Articles, reports, data: true of the actual world, not of the book. Ground "
+                      "details in it and do not contradict it, but nothing here is a story event."),
+            ("guide", "# Craft guides from the showrunner — NOT canon\n"
+                      "How to do the work. They commit the book to nothing and describe no events: "
+                      "take what serves the page and ignore the rest. Where a guide labels material "
+                      "T, EG, S, L or Cut, keep those labels when you use it "
                       "(agents/skills/hard-sf-rules.md says what they mean)."),
             ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
                       "These were put together to get ideas on paper. Mine them for story beats, "
                       "intent, moments and lines worth keeping, but write the room's own, better "
                       "version: don't copy their structure, pacing, dialogue or page breakdown. "
-                      "Where a draft conflicts with the canon references, the canon wins."),
+                      "Where a draft conflicts with the canon, the canon wins."),
         ]
         for kind, heading in groups:
             chosen = {n: p for n, p in refs.items() if kinds[n] == kind}

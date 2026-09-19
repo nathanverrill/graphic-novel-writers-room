@@ -317,7 +317,7 @@ def revert_preview(slug: str, method: str, page: int):
     return {"ok": True}
 
 
-@app.get("/api/projects/{slug}/references/{name}", response_class=PlainTextResponse)
+@app.get("/api/projects/{slug}/library/{name:path}", response_class=PlainTextResponse)
 def get_reference(slug: str, name: str):
     content = not_found(projects.read_reference, slug, name)
     if content is None:
@@ -335,7 +335,7 @@ def get_version(slug: str, version: str):
             "reference_files": projects.list_references(slug, version)}
 
 
-@app.get("/api/projects/{slug}/versions/{version}/references/{name}", response_class=PlainTextResponse)
+@app.get("/api/projects/{slug}/versions/{version}/library/{name:path}", response_class=PlainTextResponse)
 def get_version_reference(slug: str, version: str, name: str):
     content = not_found(projects.read_reference, slug, name, version)
     if content is None:
@@ -606,7 +606,7 @@ def update_settings(slug: str, body: RoundSettings):
         known = {f["name"] for f in projects.library()}
         unknown = [r for r in body.references if r not in known]
         if unknown:
-            raise HTTPException(400, f"not in references/: {', '.join(unknown)}")
+            raise HTTPException(400, f"not in the library: {', '.join(unknown)}")
     return review.save_settings(slug, **body.model_dump())
 
 

@@ -275,13 +275,14 @@ async function refreshArtifacts(fresh) {
   if (document.activeElement !== $("#set-auto")) $("#set-auto").value = s.auto_rounds ?? 0;
   showAuto(s.auto_rounds || 0);
   state.library = p.library || [];
+  fillSearchScopes();
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
   const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
   $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB per agent call`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
-  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("references/");
+  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
   loadCosts();
   loadPreviews();
   loadPrompts();
@@ -298,9 +299,9 @@ async function refreshArtifacts(fresh) {
       <span>${esc(a.name)}</span><small>${ago(a.modified)}</small></li>`).join("");
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
-    <li data-name="references/${esc(r.name)}" class="${"references/" + r.name === state.artifact ? "active" : ""}">
+    <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
       <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
-    || `<li class="path">none — add .md files to references/ or projects/${esc(state.project)}/references/</li>`;
+    || `<li class="path">none — add .md files to library/&lt;campaign&gt;/ or projects/${esc(state.project)}/references/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
     `<a href="${base()}images/${n}" target="_blank" title="${esc(n)}"><img src="${base()}images/${n}" alt="${esc(n)}" loading="lazy"></a>`).join("")
@@ -330,7 +331,7 @@ async function showArtifact(name) {
   if (!$("#editor").hidden && !confirm("Discard unsaved edits?")) return;
   state.artifact = name;
   let text;
-  const path = name.startsWith("references/") ? `references/${encodeURIComponent(name.slice(11))}` : `artifacts/${name}`;
+  const path = name.startsWith("library/") ? `library/${encodeURI(name.slice(8))}` : `artifacts/${name}`;
   try { text = await api(`${base()}${path}`); }
   catch { $("#viewer").hidden = true; return; }
   $("#viewer").hidden = false;
@@ -1054,7 +1055,7 @@ $("#search-hits").onclick = (e) => {
   const card = e.target.closest("[data-hit]");
   if (!card) return;
   const hit = state.hits[Number(card.dataset.hit)];
-  showArtifact(hit.scope.startsWith("project:") ? hit.file : `references/${hit.file}`);
+  showArtifact(hit.scope.startsWith("project:") ? hit.file : `library/${hit.name || hit.file}`);
 };
 $("#search-reindex").onclick = async () => {
   $("#search-note").textContent = "reindexing…";
@@ -1065,6 +1066,14 @@ $("#search-reindex").onclick = async () => {
 };
 
 // ---- standing rules: what the room must always or never do ----------------------------
+
+function fillSearchScopes() {
+  /* the scopes are the library's own folders, so a new campaign appears without a code change */
+  const groups = [...new Set((state.library || []).map((f) => f.group))].sort();
+  $("#search-scope").innerHTML = `<option value="">everywhere</option>`
+    + groups.map((g) => `<option value="${esc(g)}">${esc(g)}</option>`).join("")
+    + `<option value="project">this project</option>`;
+}
 
 async function loadRules() {
   if (!state.project) return;
@@ -1642,9 +1651,9 @@ function openSettings(id, message) {
         </div>
         <div class="sf-row">
           <label class="sf sf-wide"><span>Library files for this writer</span>
-            <select name="reference_files" multiple size="6">${(state.library || []).map((f) =>
+            <select name="reference_files" multiple size="8">${(state.library || []).map((f) =>
               `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
-              `${esc(f.name)} · ${esc(f.kind)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
+              `${esc(f.name)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
             <small class="path">Select none to give this writer whatever the round picked. Selecting some
               means it reads only those, however big the library gets — it can still open any other file
               with read_artifact.</small></label>
@@ -1827,23 +1836,31 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const KIND = { draft: "idea draft", guide: "skill" };
+  const KIND = { draft: "idea draft", guide: "skill", worldbuilding: "invented", reference: "real" };
+  const NOTE = {
+    canon: "the book must not contradict it",
+    worldbuilding: "invented material to draw on — commits the book to nothing",
+    reference: "real material: true of the world, not the story",
+    draft: "ideas to mine, never to copy",
+    guide: "how to do the work, never canon",
+  };
   const row = (f) => `
     <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
-      <span>${esc(f.name)}${KIND[f.kind] ? ` <span class="badge">${KIND[f.kind]}</span>` : ""}</span>
+      <span>${esc(f.name.split("/").pop())}${KIND[f.kind] ? ` <span class="badge">${KIND[f.kind]}</span>` : ""}</span>
       <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`;
-  const group = (folder, label, note) => {
-    const files = state.library.filter((f) => (f.folder || "references") === folder);
-    return files.length ? `<h3 class="ref-group">${label} <span class="path">${note}</span></h3>${files.map(row).join("")}` : "";
-  };
-  const rows = group("references", "references/", "what is true in this book")
-             + group("skills", "skills/", "how to do the work — read as guidance, never as canon");
+  const groups = [...new Set(state.library.map((f) => f.group))].sort();
+  const rows = groups.map((g) => {
+    const files = state.library.filter((f) => f.group === g);
+    const note = NOTE[files[0]?.kind] || "";
+    return `<h3 class="ref-group">${esc(g)}/ <span class="path">${note}</span></h3>${files.map(row).join("")}`;
+  }).join("");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">The shared library this project uses: the book's own material in <code>references/</code>
-      and the room's skills in <code>skills/</code>. An agent gets the chosen files (in full, unless its
-      settings say "names only" or name a shortlist of its own) on every call, so pick only what this book
-      needs. Files in the project's own references/ folder are always used.</p>
+    <p class="path">The shared library this project uses: each campaign's canon, characters,
+      worldbuilding, real-world references and drafts under <code>library/</code>, plus the room's craft
+      skills in <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
+      say "names only" or name a shortlist of its own) on every call, so pick only what this book needs.
+      Files in the project's own references/ folder are always used.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>
     <div class="actions">

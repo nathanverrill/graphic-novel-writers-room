@@ -1,4 +1,3 @@
-<!-- reference: guide -->
 ---
 name: social-innovators-framework
 description: The Social Innovators' Framework (SIF) from the World Bank's Evoke programme — Freeman & Hawkins, 2016 — in full: the four qualities of a social innovator (Creative Visionary, Deep Collaborator, Systems Thinker, Empathetic Activist), the 16 powers under them, all 48 skills with their numbering and definitions, the cross-cutting power of persistence, the eight-mission social innovation cycle that teaches them, and how evidence is judged. Use whenever a character is learning to change something, a scene turns on how a group works, a mission or task structure is being designed, or the story needs a true account of what social innovation actually asks of a person. This is the source the Evoke world is built on.

@@ -87,13 +87,13 @@ def build():
     @room.tool(description=described("list_artifacts"))
     def list_artifacts(project: str) -> str:
         names = [a["name"] for a in projects.list_artifacts(project)]
-        names += [f"references/{n}" for n in projects.reference_files(project)]
+        names += [f"library/{n}" for n in projects.reference_files(project)]
         return json.dumps(names)
 
     @room.tool(description=described("read_artifact"))
     def read_artifact(project: str, name: str) -> str:
-        if name.startswith("references/"):
-            content = projects.read_reference(project, name[len("references/"):])
+        if name.startswith("library/"):
+            content = projects.read_reference(project, name[len("library/"):])
         else:
             content = projects.read_artifact(project, name)
         return content if content is not None else f"No file named {name!r} in {project}."
