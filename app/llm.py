@@ -3,10 +3,14 @@ Every call takes the calling agent's AgentConfig, so each role can use its own
 provider, model and settings, and an optional `log` callable (usage.CallLogger)
 that receives the full request and response of every call, failed ones included."""
 import base64
+import http.client
 import json
 import time
 import urllib.error
 import urllib.request
+
+DROPPED_TRIES = 3       # a provider that cuts the body mid-response gets this many attempts
+DROPPED_WAIT = 2        # seconds between them
 
 
 class LLMError(Exception):
@@ -24,9 +28,22 @@ def _post(url, api_key, body, timeout, log=None, kind="chat"):
     start = time.time()
     status, response, error = 0, None, None
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            status = resp.status
-            raw = resp.read().decode(errors="replace")
+        # A provider can answer 200 and then cut the connection part-way through the body
+        # (http.client raises IncompleteRead, which is not an OSError and would otherwise
+        # escape this function and kill the whole round). Nothing was returned, so asking
+        # again is safe.
+        for attempt in range(DROPPED_TRIES):
+            try:
+                with urllib.request.urlopen(req, timeout=timeout) as resp:
+                    status = resp.status
+                    raw = resp.read().decode(errors="replace")
+                break
+            except (http.client.IncompleteRead, ConnectionResetError) as e:
+                if attempt == DROPPED_TRIES - 1:
+                    error = LLMError(status or 0, f"the provider cut the response short "
+                                                  f"({type(e).__name__}) {DROPPED_TRIES} times")
+                    raise error from None
+                time.sleep(DROPPED_WAIT)
         try:
             response = json.loads(raw)
         except json.JSONDecodeError:
@@ -43,8 +60,10 @@ def _post(url, api_key, body, timeout, log=None, kind="chat"):
             response = text
         error = LLMError(e.code, text)
         raise error from None
-    except (urllib.error.URLError, TimeoutError, OSError) as e:
-        error = LLMError(0, str(getattr(e, "reason", e)))
+    except LLMError:
+        raise
+    except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException) as e:
+        error = LLMError(0, str(getattr(e, "reason", e)) or type(e).__name__)
         raise error from None
     finally:
         if log:

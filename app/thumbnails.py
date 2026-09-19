@@ -642,6 +642,43 @@ def image_to_ascii(data, cols, rows, geo):
 LAYOUT_RE = re.compile(r"```layout[^\n]*\n(.*?)```", re.S)
 
 
+def _stack_at(text, pos):
+    """The open brackets at `pos`, ignoring anything inside a string."""
+    stack, in_string, escaped = [], False, False
+    for ch in text[:pos]:
+        if in_string:
+            in_string = not (ch == '"' and not escaped)
+            escaped = ch == "\\" and not escaped
+            continue
+        if ch == '"':
+            in_string, escaped = True, False
+        elif ch in "[{":
+            stack.append(ch)
+        elif ch in "]}" and stack:
+            stack.pop()
+    return stack
+
+
+def mend(block, tries=4):
+    """Close a container a model forgot to close, and drop trailing commas.
+
+    Models write the panels of a tier correctly and then start the next key while the
+    enclosing array is still open — `...}]},` where `...}]}],` was meant. The closer
+    goes in front of the comma that precedes the token the decoder choked on."""
+    text = re.sub(r",(\s*[\]}])", r"\1", block)          # a trailing comma: [..., ]
+    for _ in range(tries):
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as e:
+            stack = _stack_at(text, e.pos)
+            comma = text.rfind(",", 0, e.pos)
+            if not stack or comma < 0:
+                raise
+            closer = "]" if stack[-1] == "[" else "}"
+            text = text[:comma] + closer + text[comma:]
+    return json.loads(text)
+
+
 def parse_layouts(markdown):
     """Returns ([spec, ...], [error, ...]) from the ```layout blocks, sorted by page."""
     specs, errors = [], []
@@ -649,8 +686,8 @@ def parse_layouts(markdown):
         try:
             try:
                 spec = json.loads(block)
-            except ValueError:   # models often leave a trailing comma: [..., ]
-                spec = json.loads(re.sub(r",(\s*[\]}])", r"\1", block))
+            except ValueError:   # a trailing comma, or a container left open
+                spec = mend(block)
             if not isinstance(spec, dict):
                 raise ValueError("a layout block must be a JSON object")
             spec["page"] = int(spec.get("page", 0))
@@ -802,6 +839,35 @@ def labels_by_panel(page):
     for label, pn, _ in page.faces:
         out.setdefault(pn, []).append(label)
     return out
+
+
+def character_entries(bible):
+    """The bible's character headings: "### ALEX PHANTUM" under a PRINCIPAL CHARACTERS section.
+
+    Used to find who is on a page when nobody names them — a panel description says Alex is
+    waist-deep in a maintenance pit, and the artist still needs his visual lock."""
+    names, in_people = [], False
+    for line in (bible or "").split("\n"):
+        m = re.match(r"^(#{1,6})\s+(.*)", line)
+        if not m:
+            continue
+        depth, head = len(m.group(1)), m.group(2).strip().rstrip("*").strip()
+        if depth <= 2:
+            in_people = bool(re.search(r"\bcharacters?\b|\bcast\b|\bensemble\b", head, re.I)) \
+                and not re.search(r"\btest\b", head, re.I)
+        elif in_people and 1 <= len(head.split()) <= 4 and not head.endswith(":"):
+            names.append(head)
+    return names
+
+
+def named_in(bible, text):
+    """Bible characters a passage mentions, by full name or by the name they go by."""
+    found = []
+    for name in character_entries(bible):
+        first = name.split()[0]
+        if re.search(rf"\b{re.escape(first)}\b", text or "", re.I):
+            found.append(first.title() if not first.isupper() or len(first) > 6 else first)
+    return found
 
 
 def looks_for(bible, labels):

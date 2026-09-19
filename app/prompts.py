@@ -335,6 +335,12 @@ def page_prompt(spec, ctx):
         for name in (i.get("label") if i.get("type") == "figure" else None, i.get("speaker")):
             if name and name.upper() not in [n.upper() for n in names]:
                 names.append(name)
+    # Whoever the panels describe but nobody names: a page where Alex works in silence still
+    # has to carry his visual lock, or the artist draws a different boy every page.
+    described = " ".join(str(p.get("description") or "") for p in panel_specs)
+    for name in thumbnails.named_in(ctx["bible"], described):
+        if name.upper() not in [n.upper() for n in names]:
+            names.append(name)
     chapter = ctx.get("chapter")
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     out = [
