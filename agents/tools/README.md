@@ -18,6 +18,7 @@ What an agent gets:
 The implementations live in `app/agent.py` (`run_tool`), keyed by these names. A file with no
 implementation is ignored, with a warning in the run's feed.
 
-The same tools are served over MCP at `/mcp` (see `app/mcp.py`), minus `finish`, so a client
-outside the room can read and write a project. The descriptions here are what those clients
-see too, so a change to the wording reaches both.
+The same tools are served over MCP at `/mcp` (see `app/mcp.py`), minus `finish` — which ends an
+agent's turn and means nothing outside one — plus `list_projects`, `reindex` and `page_prompts`,
+so a client outside the room can read and write a project. The descriptions here are what those
+clients see too, so a change to the wording reaches both.

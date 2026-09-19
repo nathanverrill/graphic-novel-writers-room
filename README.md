@@ -9,9 +9,9 @@ and diffs — round after round, each saved in full. Every agent is guided by it
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
-Everything the room can read — the canon, the idea drafts, the craft and worldbuilding skills,
+Everything the room can read — the canon, the worldbuilding, the idea drafts, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
-about a second after you save a file. The same tools the agents call are served over MCP, so a
+a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
 
 The art room — which will draw pages itself, with its own taste — is a separate, later room.
@@ -394,8 +394,8 @@ visual lock from the newest project bible exactly as the page prompts paste it, 
 bible's canon sheet verbatim, the bible's relationship sections, every distinct line the scripts
 have given them with the file it was written in, and where all of it came from.
 
-`python scripts/gather_character.py` rebuilds them from every document in the room — references,
-skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
+`python scripts/gather_character.py` rebuilds them from every document in the room — the
+library, the skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
 across twenty round snapshots is written once. The at-a-glance wording lives in
 `scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
 belongs in the bible.
@@ -450,7 +450,8 @@ Long documents can be split so a project takes only what it needs:
 
 Rerun them after updating a source.
 
-**What a reference is.** Three kinds, and the room is told which it is reading:
+**What a reference is.** Five kinds, each arriving under its own heading so the room is told
+which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
@@ -462,8 +463,8 @@ Rerun them after updating a source.
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`references/ALPHA.md` is the case in point: it arrived as a skill, but it is who Alpha is, not a
-menu of options, so it lives with the canon.
+`library/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
+is rather than a menu of options — and it sits in `evoke/` because ICE inherits him.
 
 The skills label their material with the vocabulary in
 `agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
@@ -486,10 +487,10 @@ lists the references and the skills together. What each one reads now:
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 97 and 116 KB a call, out of a library that is now 31 files and
-622 KB — 16 guides, 9 canon files, 6 idea drafts. Anything left off a shortlist is still one
-`read_artifact` away: the chapter canon for the Editor, everyday life and money for the
-Scripter, the science guide for the Plotter.
+That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and
+701 KB — 16 canon files, 9 worldbuilding files, 6 idea drafts, 6 craft skills. Anything left off
+a shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
+life and money for the Penciller, the science guide for the Editor.
 
 Selecting none in that list means the writer reads whatever the round picked. The project's own
 `references/` folder is always read, whatever the shortlist says.
@@ -513,7 +514,7 @@ agents/
 ```
 
 - **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
+- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/originals/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
@@ -594,8 +595,8 @@ A bad `agent.json` is flagged on the card and blocks runs that include that agen
 
 ## Search
 
-Everything the room can read is indexed for hybrid search: the campaign's canon and drafts, the
-craft and worldbuilding skills, and each project's own files.
+Everything the room can read is indexed for hybrid search: the campaign's canon, worldbuilding,
+research and drafts, the craft skills, and each project's own files.
 
 - **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn
   from it. A term that is common in one passage and rare everywhere else is a keyword, so a
@@ -607,8 +608,8 @@ craft and worldbuilding skills, and each project's own files.
 A passage is a markdown section carrying its heading path, so a hit reads
 `triangle-money.md › The big truths › Three countries, three money cultures` instead of naming a
 22 KB file. Indexing is keyed by content hash — an unchanged passage is never re-embedded — so
-the first pass over this library is 642 passages in about four minutes, and a pass with nothing
-changed is 0.3 s.
+the first pass over this library is 763 passages and a few minutes of embedding, while a full
+pass with nothing changed walks the same 763 and re-embeds none of them in about half a second.
 
 The index lives in the `opensearch-data` Docker volume and is published on
 `127.0.0.1:9200`, so you can query it yourself:
@@ -625,14 +626,14 @@ so a writer can reach the whole library without carrying it. MCP clients get `se
 `reindex`.
 
 **Staying current.** The app watches every file the index covers and reindexes the ones that
-change: **an edit is searchable in about a second** — 0.16 s for a host save to reach the
-container, up to 0.5 s of poll, 0.3 s to embed the changed passage and refresh. The same applies
-to what an agent writes mid-round, so a page the Penciller has just written is searchable while
-the round is still going.
+change: **an edit is searchable a second or two after you save it** — 0.16 s for a host save to
+reach the container, up to 0.5 s of poll, then chunking the one file, embedding what changed
+(0.15 s a passage) and a refresh. The same applies to what an agent writes mid-round, so a page
+the Penciller has just written is searchable while the round is still going.
 
 One changed file costs one file's work: the passages it lost are dropped, the ones it gained are
-embedded, everything else is left alone. Re-chunking a 37 KB file with nothing changed takes
-0.32 s and re-embeds nothing.
+embedded, everything else is left alone. Rewriting one passage of a 22 KB file re-embeds that
+passage and leaves the other twenty alone.
 
 It polls (twice a second, a few dozen `stat` calls) rather than using an OS file watcher,
 because the app runs in the container while you edit on the host: macOS bind mounts do not
@@ -659,7 +660,7 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 |---|---|
 | `list_projects` | the room's projects by name |
 | `list_artifacts` | a project's room files and its reference material |
-| `read_artifact` | one file, e.g. `script.md` or `references/ALPHA.md` |
+| `read_artifact` | one file, e.g. `script.md` or `library/evoke/canon/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
 | `search_room` | hybrid search over the library, the skills and a project's files |
 | `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
