@@ -383,6 +383,23 @@ How references reach an agent is set by `references` in its `agent.json` (defaul
 - `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
 - `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
 
+## Character references
+
+Each character has a standalone file in `references/` — `ALEX_PHANTUM.md`, `ADA_VEYRA.md`,
+`BI11BOT.md`, `MERA_VALE.md`, `ADRIAN_PHANTUM.md`, `LEONA_VEYRA.md`, `BOB_HAWKINS.md` — so a
+writer or an artist can read one person without carrying an 83 KB bible.
+
+Each gathers, in this order: an at-a-glance table (want, need, wound, tell, voice, palette), the
+visual lock from the newest project bible exactly as the page prompts paste it, the campaign
+bible's canon sheet verbatim, the bible's relationship sections, every distinct line the scripts
+have given them with the file it was written in, and where all of it came from.
+
+`python scripts/gather_character.py` rebuilds them from every document in the room — references,
+skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
+across twenty round snapshots is written once. The at-a-glance wording lives in
+`scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
+belongs in the bible.
+
 ## Reference material and skills
 
 The room reads two shared folders. They differ in what the material *is*, and the agents are

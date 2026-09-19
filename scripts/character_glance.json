@@ -1,0 +1,118 @@
+{
+  "ALEX": {
+    "title": "Alex Phantum",
+    "file": "ALEX_PHANTUM.md",
+    "aliases": [
+      "Alex"
+    ],
+    "age": "17",
+    "line": "The reluctant heir who wants freedom for himself and learns to defend it for everyone.",
+    "want": "Get out of Keel — and by the end, the right to choose what happens next.",
+    "need": "Freedom *to* — understand, create, own, cooperate, choose — not only freedom *from*.",
+    "wound": "Someone who wasn't there still gets to decide my life.",
+    "tell": "Tests things physically: touches the pipe the display says is flowing. Turns his father's chip over in his hand when uncertain — angrily early, thoughtfully late.",
+    "voice": "Short, concrete, skeptical. Sarcasm as armour through chapters 1–3; its absence in chapter 5 is the growth.",
+    "palette": "Rust, charcoal, oxidised red-orange. The palette expands rather than changes — he must not visually escape Keel.",
+    "description": "Alex Phantum: who he is, what he wants, how he sounds and how he is drawn — the canon sheet, the visual lock, his relationships, and every line the scripts have given him."
+  },
+  "ADA": {
+    "title": "Ada Veyra",
+    "file": "ADA_VEYRA.md",
+    "aliases": [
+      "Ada"
+    ],
+    "age": "20",
+    "line": "The relationship-builder who believes communities matter, and must learn that belonging cannot become another prison.",
+    "want": "Make Keel better rather than abandon it; later, understand why her mother never came back.",
+    "need": "Commitment does not always mean staying. Sometimes leaving is how you bring something back.",
+    "wound": "Separated from Leona at five. Was I abandoned, or protected?",
+    "tell": "Watches the person while everyone else watches the screen. Lets a silence sit and makes the other person fill it.",
+    "voice": "Emotionally precise, measured, people-centred. Asks what each person is afraid of losing.",
+    "palette": "Muted teal, moss green, warm earth — stronger as she acts. By chapter 4 she carries Keel earth, Halyard metal and Oasis green at once.",
+    "description": "Ada Veyra: who she is, what she wants, how she sounds and how she is drawn — the canon sheet, the visual lock, her relationships, and every line the scripts have given her."
+  },
+  "BI11BOT": {
+    "title": "Bi11bot",
+    "file": "BI11BOT.md",
+    "aliases": [
+      "Bi11bot",
+      "Bi11Bot",
+      "BI11BOT"
+    ],
+    "age": "—",
+    "line": "The mentor who creates opportunities for judgment rather than supplying answers.",
+    "want": "Complete the pathway Adrian preserved — without making Alex reach Adrian's answer.",
+    "need": "Honouring Adrian means allowing Alex to exceed him.",
+    "wound": "Adrian; the older mentor whose personality shaped him; years of dormancy.",
+    "tell": "A mechanical click and a slight head tilt before a cryptic answer. Withholds what a question would teach better.",
+    "voice": "Economical, dry, folksy, slightly old-fashioned. Never a generic robot, never Adrian's recorded consciousness.",
+    "palette": "Aged brass, warm amber, ceramic ivory, soft blue. Visible rivets and repairs; the glow warms in emotional scenes rather than the palette changing.",
+    "description": "Bi11bot: the mentor droid — canon sheet, visual lock, mentoring principles, relationships, and the lines the scripts have given him."
+  },
+  "MERA": {
+    "title": "Mera Vale",
+    "file": "MERA_VALE.md",
+    "aliases": [
+      "Mera"
+    ],
+    "age": "late 50s",
+    "line": "The builder of order who gradually becomes isolated inside the order she built.",
+    "want": "Prevent civilisation from returning to the chaos of the Water Wars.",
+    "need": "To tell stability apart from legitimacy.",
+    "wound": "She watched agreements fail and people die, and concluded human judgment was the unreliable part.",
+    "tell": "Aligns things — a glass, a tablet, a document — when a conversation destabilises her. The more distressed, the shorter her sentences.",
+    "voice": "Controlled, declarative, outcome-oriented, rarely metaphorical. Almost no humour.",
+    "palette": "Pearl white, silver, cool blue, graphite; archival amber begins reflecting onto her in chapter 5.",
+    "description": "Mera Vale: architect of Alpha's authority — canon sheet, visual lock, relationships, and the lines the scripts have given her."
+  },
+  "ADRIAN": {
+    "title": "Adrian Phantum",
+    "file": "ADRIAN_PHANTUM.md",
+    "aliases": [
+      "Adrian"
+    ],
+    "age": "—",
+    "line": "The mathematician who spent his life calculating uncertainty and staked everything on a wager about people.",
+    "want": "Preserve the possibility that people can reclaim authority from Alpha.",
+    "need": "To accept that a pathway he designs is still someone else's choice to make.",
+    "wound": "The Water Wars taught him systems matter; he concluded that removing human judgment is the greater danger.",
+    "tell": "Calculates. Cards, chips, probability trees, margins full of odds. Speaks in questions and probabilities.",
+    "voice": "Curious, warm, restless, invites contradiction. Never a prophet, never an omniscient planner.",
+    "palette": "Indigo, burgundy, worn gold, ink-black. Alex knows him only through records, so he is usually seen in other people's memory.",
+    "description": "Adrian Phantum: Alex's father, known only through records and other people — canon sheet, visual lock, relationships, and what he left behind."
+  },
+  "LEONA": {
+    "title": "Leona Veyra",
+    "file": "LEONA_VEYRA.md",
+    "aliases": [
+      "Leona"
+    ],
+    "age": "late 50s",
+    "line": "The covenant-builder who makes one defensible decision in fear and spends fifteen years letting it excuse her from choosing again.",
+    "want": "Keep Ada safe — first from the Water Wars, then from the risk of agency.",
+    "need": "Choosing not to act is still a choice; protection without agency is another abandonment.",
+    "wound": "Her deciding vote, and the daughter she never went back for.",
+    "tell": "Preserves things. An immaculate apartment, objects stored carefully, nothing thrown away — she is good at keeping objects because she has not known how to repair a relationship.",
+    "voice": "Quiet, personal, restrained. Qualifies everything until Ada forces specificity.",
+    "palette": "Pale sage, stone, muted lavender-grey.",
+    "description": "Leona Veyra: Ada's mother and the deciding vote — canon sheet, visual lock, relationships, and the lines the scripts have given her."
+  },
+  "BOB_HAWKINS": {
+    "title": "Bob Hawkins",
+    "file": "BOB_HAWKINS.md",
+    "aliases": [
+      "Bob Hawkins",
+      "Hawkins"
+    ],
+    "age": "mid-40s",
+    "line": "The Oasis administrator who processes people without looking at them — the human face of optimisation.",
+    "want": "Keep the queue moving and the sector allocations correct.",
+    "need": "— (not established; he is a foil, not an arc)",
+    "wound": "— (not established)",
+    "tell": "Never looks at the person, only at the tablet. Speaks the separation and the courtesy in the same breath.",
+    "voice": "Polite, clinical, devoid of warmth.",
+    "palette": "Stark pressed white with a silver Oasis Optimization Bureau insignia.",
+    "description": "Bob Hawkins: the Oasis administrator who processes people without looking at them — everything the room has written about him, and what canon does not yet say.",
+    "no_canon": "**None.** This character has no entry in the campaign bible — the room invented him while\nwriting chapter 4. Everything here is the room's own work, not settled canon: no wound, no arc,\nno age beyond what a page needed.\n\n**Name collision, deliberate or not:** *Robert (Bob) Hawkins* is a real person — co-author,\nwith Barbara Freeman, of the World Bank's Social Innovators' Framework, which sits in this\nlibrary as `agents/skills/social-innovators-framework.md` and is the framework the Evoke\nprogramme is built on. The room has given that name to a bureaucrat who processes refugees\nwithout looking at them. If that is a joke, it is one a reader could take badly; if it is an\naccident, rename him."
+  }
+}

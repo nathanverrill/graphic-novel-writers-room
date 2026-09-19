@@ -805,12 +805,32 @@ def labels_by_panel(page):
 
 
 def looks_for(bible, labels):
-    """The bible paragraph describing each label, verbatim, so image prompts stay on model."""
-    paras = [p.strip() for p in re.split(r"\n\s*\n", bible or "") if p.strip()]
+    """The bible's description of each label, verbatim, so image prompts stay on model.
+
+    A character's own entry wins over any other entry that merely mentions them: the bible says
+    "Ada, who challenges his lone-wolf independence" inside Alex's entry, and matching on the
+    name alone handed Ada his description — and every page prompt drew two of him."""
+    entries = []            # (heading, body) for each "### Name" block, in order
+    heading, buf = "", []
+    for line in (bible or "").split("\n"):
+        if re.match(r"^#{1,6}\s", line):
+            if buf:
+                entries.append((heading, "\n".join(buf).strip()))
+            heading, buf = re.sub(r"^#+\s*", "", line).strip(), []
+        else:
+            buf.append(line)
+    if buf:
+        entries.append((heading, "\n".join(buf).strip()))
+
     found = []
     for label in dict.fromkeys(labels):
-        hits = [p for p in paras if label.lower() in p.lower()]
-        best = next((p for p in hits if "visual" in p.lower()), hits[0] if hits else None)
-        if best:
+        word = re.compile(rf"\b{re.escape(label)}\b", re.I)
+        own = [body for head, body in entries if word.search(head) and body]
+        if not own:         # no entry of their own: fall back to whoever describes them
+            paras = [p.strip() for p in re.split(r"\n\s*\n", bible or "") if p.strip()]
+            hits = [p for p in paras if word.search(p)]
+            own = [next((p for p in hits if "visual" in p.lower()), hits[0])] if hits else []
+        if own:
+            best = next((b for b in own if "visual" in b.lower()), own[0])
             found.append(best[:500])
     return " ".join(found)
