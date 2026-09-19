@@ -29,6 +29,40 @@ IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "write_artifact", "g
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
 
 
+def repair_calls(calls, warn=lambda msg: None):
+    """Make a model's tool calls valid before they are run or sent back.
+
+    Some models emit two calls glued into one `arguments` string —
+    `{"name": "script.md"}{"name": "layouts.md"}` — which is what the model meant to be two
+    reads. A provider that validates the transcript rejects the whole next request over it, so
+    the malformed call must not be kept in the history: each object becomes its own call, with
+    its own id, and anything that still will not parse becomes an empty argument object for the
+    tool itself to complain about."""
+    out = []
+    for call in calls:
+        raw = (call.get("function") or {}).get("arguments") or "{}"
+        objects, rest, decoder = [], raw.strip(), json.JSONDecoder()
+        while rest:
+            try:
+                obj, end = decoder.raw_decode(rest)
+            except json.JSONDecodeError:
+                break
+            objects.append(obj)
+            rest = rest[end:].strip()
+        if not objects or rest:
+            warn(f"{call['function']['name']}: arguments were not valid JSON; "
+                 f"sent back as an empty call")
+            objects = objects or [{}]
+        if len(objects) > 1:
+            warn(f"{call['function']['name']}: {len(objects)} calls arrived glued together; "
+                 "split into separate calls")
+        for i, obj in enumerate(objects):
+            out.append({**call,
+                        "id": call["id"] if i == 0 else f"{call['id']}-{i + 1}",
+                        "function": {**call["function"], "arguments": json.dumps(obj)}})
+    return out
+
+
 def tools_for(role, cfg, emit=None):
     """The tools this agent may call, from agents/tools/*.json.
 
@@ -337,7 +371,8 @@ class Agent:
 
             self.keep_reply_images(reply)
             text = llm.text_of(reply)
-            calls = reply.get("tool_calls") or []
+            calls = repair_calls(reply.get("tool_calls") or [],
+                                 lambda msg: self.emit("warn", text=msg))
             # send back only what every server accepts
             kept = {"role": "assistant", "content": text or None}
             if calls:

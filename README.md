@@ -678,6 +678,12 @@ HTTP status, error, and the path to the full log.
 
 If the endpoint rejects tool calling, the agent retries as a plain chat and saves the reply as its deliverable.
 
+Tool calls are repaired before they run. Some models glue two calls into one `arguments`
+string — `{"name": "script.md"}{"name": "layouts.md"}` — and a provider that validates the
+transcript then rejects every later request in that turn, which used to kill the round. Each
+object becomes its own call, anything that still will not parse becomes an empty call for the
+tool to complain about, and the feed says which happened.
+
 ## Limits
 
 - One run per project at a time.
