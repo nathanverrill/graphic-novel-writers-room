@@ -407,27 +407,32 @@ what they are looking at:
 
 ```
 library/
-  evoke/                        true of EVOKE anywhere, whatever the campaign
-    canon/       alpha.md
-    references/  social-innovators-framework.md
+  evoke/
+    canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    canon/       bible.md · chapter-01.md … chapter-06.md
-    characters/  alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
-    worldbuilding/  lithium-triangle-futures.md · triangle-money.md · triangle-water-wars.md …
-    references/  real material found along the way: articles, reports, photographs
-    drafts/      chapter-01.md … chapter-06.md — ideas to mine, never to copy
-    sources/     originals the split scripts work from (never read whole)
-  ice/                          the next campaign: the same folders, empty
-agents/skills/                  craft, any campaign: layout, emotion, script writing, hard-SF rules
-agents/skills/sources/          long skills split into per-agent guides (never read whole)
-projects/<slug>/references/     this project only (a file with the same name wins)
+    bible.md        the campaign's own truth, where you land
+    chapters/       chapter-01.md … chapter-06.md
+    characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
+    worldbuilding/  invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
+    research/       real: articles, reports, data, photographs
+    drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
+    originals/      the long documents the split scripts work from (never read whole)
+  ice/              the next campaign: the same folders, empty
+agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
+agents/skills/originals/  long skills split into per-agent guides (never read whole)
+projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
 Two rules, and that is the model: **`library/evoke/` applies to every campaign,
-`library/<campaign>/` to that one**, and **the folder says what the material is**. A file is
-named by its path, so `prosperity/canon/chapter-04.md` and `prosperity/drafts/chapter-04.md` are
-two different things and are read as what they are. A new campaign is
-`mkdir -p library/ice/{canon,characters,worldbuilding,references,drafts}`.
+`library/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
+named only at the evoke level — everything under a campaign is that campaign's truth by sitting
+there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
+`prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
+campaign is `mkdir -p library/ice/{chapters,characters,worldbuilding,research,drafts,originals}`.
+
+**`research/` and `originals/` are not the same thing.** Research is material someone went and
+found about the real world — a piece on water permits, a production table. Originals are the
+unsplit documents the split scripts chew into the folders above; nothing reads them whole.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
 folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
@@ -437,10 +442,10 @@ each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python scripts/split_bible.py` — `library/prosperity/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
-  into `canon/bible.md` and `canon/chapter-<nn>.md` (each chapter's canon row, principle,
+- `python scripts/split_bible.py` — `library/prosperity/originals/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
+  into `bible.md` and `chapters/chapter-<nn>.md` (each chapter's canon row, principle,
   character interaction map and script revision flags).
-- `python scripts/split_script.py` — `library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` into
+- `python scripts/split_script.py` — `library/prosperity/originals/SCRIPT_DRAFT_AUG_23.md` into
   `drafts/chapter-<nn>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
@@ -449,9 +454,9 @@ Rerun them after updating a source.
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | `canon/` and `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
+| canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
 | worldbuilding | `worldbuilding/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
-| reference | `references/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
+| research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
 | draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
 | guide | `agents/skills/` | how to do the work; never canon |
 

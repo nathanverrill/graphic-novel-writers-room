@@ -172,8 +172,8 @@ def reference_files(slug, version=None):
         if not folder.is_dir():
             continue
         for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then kind
-            if p.name.startswith(".") or "sources" in p.relative_to(folder).parts:
-                continue                            # sources/ holds originals nobody reads whole
+            if p.name.startswith(".") or NEVER_READ in p.relative_to(folder).parts:
+                continue                       # originals/ is what the split scripts chew, not reading
             name = library_name(p, folder)
             if folder in LIBRARY_DIRS and chosen is not None and name not in chosen:
                 continue
@@ -193,16 +193,18 @@ GUIDE_MARK = "reference: guide"
 CANON_MARK = "reference: canon"
 
 
-FOLDER_KIND = {"canon": "canon", "characters": "canon", "drafts": "draft",
-               "worldbuilding": "worldbuilding", "references": "reference"}
+FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
+               "worldbuilding": "worldbuilding", "research": "research", "drafts": "draft"}
+NEVER_READ = "originals"        # the long documents the split scripts work from
 
 
 def reference_kind(path):
     """What a file is, from the folder it sits in — or a marker near its top, which wins.
 
-    canon          library/<campaign>/canon and characters: the book must not contradict it
+    canon          library/evoke/canon, and a campaign's bible, chapters and characters:
+                   the book must not contradict it
     worldbuilding  invented material to draw on; it commits the book to nothing
-    reference      real material — articles, reports, data — true of the world, not the story
+    research       real material — articles, reports, data — true of the world, not the story
     draft          ideas on paper: mine them, write the room's own version
     guide          agents/skills: how to do the work, never canon
 
@@ -220,7 +222,7 @@ def reference_kind(path):
     for folder, kind in FOLDER_KIND.items():
         if folder in parts:
             return kind
-    return "canon"
+    return "canon"          # a campaign's own root: bible.md and anything beside it
 
 
 def library():
@@ -230,7 +232,7 @@ def library():
         if not folder.is_dir():
             continue
         for p in sorted(folder.rglob("*.md")):
-            if p.name.startswith(".") or "sources" in p.relative_to(folder).parts:
+            if p.name.startswith(".") or NEVER_READ in p.relative_to(folder).parts:
                 continue
             rel = p.relative_to(folder)
             out.append({"name": library_name(p, folder), "size": p.stat().st_size,

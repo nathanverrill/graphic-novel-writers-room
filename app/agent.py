@@ -180,7 +180,7 @@ class Agent:
             ("worldbuilding", "# Worldbuilding — invented material to draw on, NOT canon\n"
                       "A menu of what could plausibly be there. Take what serves the page; it "
                       "commits the book to nothing and none of it has happened yet."),
-            ("reference", "# Real-world material the showrunner collected — NOT story\n"
+            ("research", "# Real-world material the showrunner collected — NOT story\n"
                       "Articles, reports, data: true of the actual world, not of the book. Ground "
                       "details in it and do not contradict it, but nothing here is a story event."),
             ("guide", "# Craft guides from the showrunner — NOT canon\n"

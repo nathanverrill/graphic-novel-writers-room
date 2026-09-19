@@ -26,7 +26,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from app.search import chunks                                       # noqa: E402
 
-BIBLE = ROOT / "library" / "prosperity" / "canon" / "bible.md"
+BIBLE = ROOT / "library" / "prosperity" / "bible.md"
 GLANCE = ROOT / "scripts" / "character_glance.json"
 NAMES = {"ALEX PHANTUM": "ALEX", "ADA VEYRA": "ADA", "BI11BOT": "BI11BOT", "MERA VALE": "MERA",
          "ADRIAN PHANTUM": "ADRIAN", "LEONA VEYRA": "LEONA"}
