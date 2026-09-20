@@ -175,18 +175,19 @@ class Agent:
         refs = self.shortlist(refs)
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
         groups = [
-            ("canon", "# Canon from the showrunner\n"
-                      "This is true in the book. Where it conflicts with the room's files, the "
-                      "canon wins unless the showrunner's note says otherwise."),
-            ("input", "# Material the showrunner put in — NOT canon, NOT the script to write\n"
+            ("rules", "# The showrunner's rules for this book\n"
+                      "This is true in the book and the book must not contradict it. Where it "
+                      "conflicts with the room's own files, it wins unless the showrunner's note "
+                      "says otherwise."),
+            ("input", "# Material the showrunner put in — it does NOT bind the book\n"
                       "Anything they wanted you to read: invented background, real-world "
                       "reporting, an earlier draft, notes, a document about how to work. Each one "
                       "says what it is — read it and treat it accordingly. None of it binds the "
                       "book and none of it has happened: mine it for what serves the page, write "
-                      "the room's own version, and where it conflicts with the canon the canon "
-                      "wins. Where a document labels material T, EG, S, L or Cut, keep those "
+                      "the room's own version, and where it conflicts with the rules, the rules "
+                      "win. Where a document labels material T, EG, S, L or Cut, keep those "
                       "labels when you use it."),
-            ("guide", "# Craft guides from the room — NOT canon\n"
+            ("guide", "# Craft guides from the room — they do NOT bind the book\n"
                       "How to do the work. They commit the book to nothing and describe no "
                       "events: take what serves the page and ignore the rest."),
         ]

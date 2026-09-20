@@ -18,8 +18,8 @@
   "image_size": null,
   "image_extra": {},
   "reference_files": [
-    "prosperity/canon/bible.md",
-    "evoke/canon/alpha.md",
+    "prosperity/rules/bible.md",
+    "evoke/rules/alpha.md",
     "prosperity/input/hard-sf-rules.md"
   ]
 }

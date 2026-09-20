@@ -9,7 +9,7 @@ and diffs — round after round, each saved in full. Every agent is guided by it
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
-Everything the room can read — a campaign's canon, everything in its input, the craft skills,
+Everything the room can read — a campaign's rules, everything in its input, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
@@ -22,7 +22,7 @@ and run only if you tick them and press **Run selected roles only**.
 
 | In a round | Agent | Writes | Notes |
 |---|---|---|---|
-| 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
+| 1 | Editor-in-Chief | `brief.md` | owns the rules, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
 | 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
 | 4 | Scripter | `script.md` | |
@@ -213,7 +213,7 @@ and **OpenSearch** for the search index. Ollama stays on your machine — the ap
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
-**The work is `campaigns/`, bind-mounted from this folder** — the room reads `canon/` and
+**The work is `campaigns/`, bind-mounted from this folder** — the room reads `rules/` and
 `input/` and writes `output/`, all as plain files on your disk, so you can open them in an
 editor and git keeps their history. Rebuilding or recreating the container loses nothing,
 because nothing the room made lives inside it.
@@ -340,10 +340,12 @@ marked used. **Tidy into feedback** is one model call (the Editor's model) that 
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
 notes. **x** drops a note you've changed your mind about.
 
-**Standing rules.** A jotted note is for the next round only — the room reads it and it's
-spent. A rule holds for good. In the watch pad, say **Always**, **Never** or **Remember** and
-add it; the rule goes into the Editor-in-Chief's `taste-writers.md`, the file every writer
-reads before it starts, in a block the room doesn't own:
+**Standing rules.** These are a different thing from the campaign's `rules/` folder: that holds
+what is true in the book, while these are how you want the room to work. A jotted note is for
+the next round only — the room reads it and it's spent. A rule holds for good. In the watch pad,
+say **Always**, **Never** or **Remember** and add it; the rule goes into the Editor-in-Chief's
+`taste-writers.md`, the file every writer reads before it starts, in a block the room doesn't
+own:
 
 ```markdown
 <!-- showrunner rules -->
@@ -399,7 +401,7 @@ How references reach an agent is set by `references` in its `agent.json` (defaul
 
 ## Character references
 
-Each character has a standalone file in the campaign's `canon/` — `alex-phantum.md`,
+Each character has a standalone file in the campaign's `rules/` — `alex-phantum.md`,
 `ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
 `bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
 
@@ -418,7 +420,7 @@ belongs in the bible.
 
 **A campaign is the project.** There is no separate `projects/` folder and no separate
 `output/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
-opening the work. The room reads `canon/` and `input/`, and writes `output/`, which is the desk
+opening the work. The room reads `rules/` and `input/`, and writes `output/`, which is the desk
 the agents share — the script, the layouts, the page prompts, the settings, and every finished
 round under `output/previous/`.
 
@@ -438,9 +440,9 @@ what they are looking at:
 ```
 campaigns/
   evoke/
-    canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
+    rules/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    canon/          flat: bible.md · chapter-01.md … · alex-phantum.md …
+    rules/          flat: bible.md · chapter-01.md … · alex-phantum.md …
     input/          flat: anything you want the room to read, any quality
     output/         the room's desk: script, layouts, page prompts, previous/
   avalanche/        the next campaign: the same three folders, empty
@@ -449,7 +451,10 @@ agents/skills/            craft, any campaign: layout, emotion, script writing, 
 agents/skills/_sources/   the long skill the per-agent guides are generated from
 ```
 
-**Three folders, and that is the model.** `canon/` is what the book must not contradict.
+**Three folders, and that is the model.** `rules/` is what the book must not contradict — the
+bible, each chapter's own truth, who each character is. (Not to be confused with **the
+showrunner's standing rules**, which are how you want the room to work and live in
+`taste-writers.md`.)
 `input/` is everything else you want read — a reference document, a prompt you liked, a rough
 draft, notes — at any quality, and none of it binds the book. `output/` is what the room wrote.
 So opening a campaign, you know which of the three you are in, and you can throw anything into
@@ -458,7 +463,7 @@ So opening a campaign, you know which of the three you are in, and you can throw
 **Neither folder has any structure inside it, and nothing in `input/` binds the book** — the
 room reads it, mines it, and is never bound by it. That is what makes `input/` safe to use as a
 heap: a reference document, a prompt that worked, rough notes, all in one flat folder. Only
-`canon/` binds.
+`rules/` binds.
 
 **Nothing in the code decides whether a document is worldbuilding, research or a draft.** A
 document says what it is in its own words — its title, its frontmatter, its first line — and the
@@ -469,9 +474,9 @@ no folder to pick: if you want the hard SF rules followed, the document saying s
 `input/`.
 
 `campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
-named by its path, so `prosperity/canon/chapter-04.md` and
+named by its path, so `prosperity/rules/chapter-04.md` and
 `prosperity/input/draft-chapter-04.md` are two different things and are read as what they are.
-A new campaign is `mkdir -p campaigns/avalanche/{canon,input,output}`.
+A new campaign is `mkdir -p campaigns/avalanche/{rules,input,output}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -482,7 +487,7 @@ either, so the underscore says nothing there: `agents/_shared/` is given to ever
 
 **`input/_rough/` is the one exception, and it is a leftover.** It holds two long documents an
 earlier import was made from — a 129 KB script draft and a 93 KB campaign bible — whose content
-is already in `canon/` and `input/` in the pieces the room reads. The underscore keeps them out
+is already in `rules/` and `input/` in the pieces the room reads. The underscore keeps them out
 of prompts so nothing is sent twice. You can delete the folder and lose nothing the room uses.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
@@ -500,13 +505,13 @@ which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | `evoke/canon/`, a campaign's `canon/` | must not contradict it; where it conflicts with the room's files, the canon wins |
+| rules | `evoke/rules/`, a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
 | input | a campaign's `input/` | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
-| guide | `agents/skills/` | how to do the work; never canon |
+| guide | `agents/skills/` | how to do the work; binds nothing |
 
-`campaigns/evoke/canon/alpha.md` is the case in point for the one question a folder answers: it
+`campaigns/evoke/rules/alpha.md` is the case in point for the one question a folder answers: it
 arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in
-`canon/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
+`rules/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
 the campaign's `input/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
@@ -522,15 +527,15 @@ lists the references and the skills together. What each one reads now:
 | Writer | Reads in full |
 |---|---|
 | Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
-| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
 | Character Designer | the bible, Alpha, `hard-sf-rules` |
-| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
+| Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
 | Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
 That puts every writer between 98 and 118 KB a call, out of a library that is 38 files and
-705 KB — 16 in the campaign's `canon/`, 17 in its `input/`, 5 craft skills. Anything left off a
+705 KB — 16 in the campaign's `rules/`, 17 in its `input/`, 5 craft skills. Anything left off a
 shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
 life and money for the Penciller, the science guide for the Editor.
 
@@ -636,9 +641,9 @@ A bad `agent.json` is flagged on the card and blocks runs that include that agen
 
 ## Search
 
-Everything the room can read is indexed for hybrid search: each campaign's `canon/` and
+Everything the room can read is indexed for hybrid search: each campaign's `rules/` and
 `input/`, the craft skills, and each campaign's own desk. A scope is the folder a file sits in
-(`prosperity/canon`, `prosperity/input`, `skills`) or `project:<slug>` for the desk, so a search
+(`prosperity/rules`, `prosperity/input`, `skills`) or `project:<slug>` for the desk, so a search
 can ask one campaign or one part of it without knowing file names. Deleting a file drops its
 passages: `indexed_as` in `app/search.py` rebuilds the key the file was indexed under, because
 by then the file is gone and cannot be looked up.
@@ -705,7 +710,7 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 |---|---|
 | `list_projects` | the campaigns you can run, by name |
 | `list_artifacts` | a project's room files and its reference material |
-| `read_artifact` | one file, e.g. `script.md` or `library/evoke/canon/alpha.md` |
+| `read_artifact` | one file, e.g. `script.md` or `library/evoke/rules/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
 | `search_room` | hybrid search over the library, the skills and a project's files |
 | `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |

@@ -19,9 +19,9 @@ rules outrank everything else in that file, and are not yours to edit.
 
 Label what you write so nothing becomes canon by accident:
 
-- **Canon** — already approved project truth (the canon references, and the Canon section of
-  `brief.md`). A reference that arrives as a *guide* is not canon: it is craft help,
-  and commits the book to nothing.
+- **Canon** — already approved project truth (whatever arrived under the showrunner's rules,
+  and the Canon section of `brief.md`). A reference that arrives as *material the showrunner
+  put in*, or as a *craft guide*, is not canon: it commits the book to nothing.
 - **Observation** — what is actually present in an artifact.
 - **Proposal** — a new idea that could become canon. If you must decide something unknown to keep working, write it as a proposal.
 - **Risk** — a plausible failure or ambiguity.

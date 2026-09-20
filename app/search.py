@@ -162,7 +162,7 @@ def keywords(chunk_text, headings, doc_terms, corpus_df, docs_total, limit=12):
 def library_files():
     """Everything the room can read: (name, path, scope, kind).
 
-    The scope is where it sits — prosperity/characters, evoke/canon, skills — so a search can
+    The scope is where it sits — prosperity/rules, prosperity/input, skills — so a search can
     ask one campaign, or one kind of material, without knowing the file names."""
     out = []
     for f in projects.library():
@@ -190,7 +190,7 @@ MAPPING = {
     "mappings": {"properties": {
         "file": {"type": "keyword"},
         "scope": {"type": "keyword"},      # references · skills · project:<slug>
-        "kind": {"type": "keyword"},       # canon · guide · draft · room
+        "kind": {"type": "keyword"},       # rules · input · guide · room
         "title": {"type": "text"},
         "headings": {"type": "text"},
         "heading_path": {"type": "keyword"},

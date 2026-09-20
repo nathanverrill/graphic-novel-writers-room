@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
-CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: canon/ · input/ · output/
+CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · output/
 OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and never read back
 SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool

@@ -21,7 +21,7 @@ import time
 
 from .config import LOGS_DIR, env
 
-# Only the usage ledger. A campaign — canon/, input/ and the room's output/ — is plain
+# Only the usage ledger. A campaign — rules/, input/ and the room's output/ — is plain
 # files in campaigns/, bind-mounted into the container and kept by git, so there is one copy
 # of the work and its history is the repository's.
 ROOTS = {"logs/": LOGS_DIR}

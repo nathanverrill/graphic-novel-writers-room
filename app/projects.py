@@ -1,7 +1,7 @@
 """A project is a campaign, and a campaign is a folder:
 
     campaigns/<slug>/
-      canon/*.md           what the book must not contradict — you write this
+      rules/*.md           what the book must not contradict — you write this
       input/*.md           anything you want read, at any quality — you write this too
       output/              the room's desk, and the only place it writes
         *.md                 working copy — what the room reads back, what you edit
@@ -81,13 +81,13 @@ def list_projects():
 
 
 def create_project(title, pitch, pages=None, draft=None):
-    """A new campaign: canon/ binds the book, input/ is anything to read, output/ is the desk."""
+    """A new campaign: rules/ binds the book, input/ is anything to read, output/ is the desk."""
     slug = slugify(title)
     path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    for sub in ("canon", "input", OUTPUT_NAME):
+    for sub in (RULES, "input", OUTPUT_NAME):
         (path / sub).mkdir()
-    body = pitch.strip() or "(No pitch — work from the material in canon/ and input/.)"
+    body = pitch.strip() or "(No pitch — work from the material in rules/ and input/.)"
     length = f"\n\nTarget length: {pages} pages.\n" if pages else "\n"
     (path / OUTPUT_NAME / "pitch.md").write_text(f"# {title}\n\n{body}{length}")
     if draft and draft.strip():
@@ -203,13 +203,13 @@ def reference_files(slug, version=None):
 
 
 def library_name(path, folder):
-    """What a library file is called: its path inside the library, so prosperity/canon/chapter-04
+    """What a library file is called: its path inside the library, so prosperity/rules/chapter-04
     and prosperity/drafts/chapter-04 are two different files and read as what they are."""
     rel = path.relative_to(folder)
     return f"skills/{rel}" if folder == SKILLS_DIR else str(rel)
 
 
-CANON = "canon"       # the book must not contradict it
+RULES = "rules"       # the book must not contradict it
 INPUT = "input"       # read it; it binds nothing
 GUIDE = "guide"       # the room's own craft, in agents/skills/
 
@@ -224,7 +224,7 @@ def never_read(rel):
     announces itself.
 
     And output/ — the room's own desk. A round that read back its own last script would be
-    working from its own echo instead of from the canon and your input, and the drift compounds
+    working from its own echo instead of from the rules and your input, and the drift compounds
     every round. The desk reaches an agent as the project's own files, under their own names,
     which is a different thing from reference material.
 
@@ -236,7 +236,7 @@ def never_read(rel):
 def reference_kind(path):
     """Whether a file binds the book, which is the only thing a folder decides.
 
-    canon   campaigns/evoke/canon and a campaign's canon/: the book must not contradict it
+    rules   campaigns/evoke/rules and a campaign's rules/: the book must not contradict it
     input   a campaign's input/: read it, take what serves the page, it binds nothing
     guide   agents/skills/: the room's craft, the same for every campaign
 
@@ -246,7 +246,7 @@ def reference_kind(path):
     Where you put a file answers one question: does it bind the book?"""
     if SKILLS_DIR in path.parents:
         return GUIDE
-    return CANON if CANON in path.parts else INPUT
+    return RULES if RULES in path.parts else INPUT
 
 
 def library():

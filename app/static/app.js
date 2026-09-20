@@ -301,7 +301,7 @@ async function refreshArtifacts(fresh) {
   $("#references").innerHTML = refs.map((r) => `
     <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
       <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
-    || `<li class="path">none — add .md files to campaigns/${esc(state.project)}/canon/ or /input/</li>`;
+    || `<li class="path">none — add .md files to campaigns/${esc(state.project)}/rules/ or /input/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
     `<a href="${base()}images/${n}" target="_blank" title="${esc(n)}"><img src="${base()}images/${n}" alt="${esc(n)}" loading="lazy"></a>`).join("")
@@ -1838,9 +1838,9 @@ $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
   const KIND = { input: "input", guide: "skill" };
   const NOTE = {
-    canon: "the book must not contradict it",
+    rules: "the book must not contradict it",
     input: "read it, mine it — it binds the book to nothing",
-    guide: "how to do the work, never canon",
+    guide: "how to do the work — it binds the book to nothing",
   };
   const row = (f) => `
     <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
@@ -1855,7 +1855,7 @@ $("#pick-refs").onclick = () => {
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
     <p class="path">The shared library this campaign reads: everything in each campaign's
-      <code>canon/</code> and <code>input/</code>, plus the room's craft skills in
+      <code>rules/</code> and <code>input/</code>, plus the room's craft skills in
       <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
       say "names only" or name a shortlist of its own) on every call, so pick only what this book
       needs. A campaign's own <code>output/</code> is never in here: the room does not read its
