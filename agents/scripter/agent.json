@@ -18,14 +18,14 @@
   "image_size": null,
   "image_extra": {},
   "reference_files": [
-    "prosperity/chapters/chapter-01.md",
-    "prosperity/chapters/chapter-02.md",
-    "prosperity/chapters/chapter-03.md",
-    "prosperity/chapters/chapter-04.md",
-    "prosperity/chapters/chapter-05.md",
-    "prosperity/chapters/chapter-06.md",
+    "prosperity/canon/chapters/chapter-01.md",
+    "prosperity/canon/chapters/chapter-02.md",
+    "prosperity/canon/chapters/chapter-03.md",
+    "prosperity/canon/chapters/chapter-04.md",
+    "prosperity/canon/chapters/chapter-05.md",
+    "prosperity/canon/chapters/chapter-06.md",
     "evoke/canon/alpha.md",
-    "prosperity/rules/hard-sf-rules.md",
+    "prosperity/input/rules/hard-sf-rules.md",
     "skills/actual-script-writing.md"
   ],
   "tools": null

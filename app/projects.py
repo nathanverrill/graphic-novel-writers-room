@@ -193,9 +193,13 @@ GUIDE_MARK = "reference: guide"
 CANON_MARK = "reference: canon"
 
 
+# Checked in order, so the specific folders win over the two top-level ones. A file loose in
+# input/ is a draft: the room mines it and is never bound by it, which is what makes input/ a
+# place you can throw anything. Only canon/ binds the book.
 FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
                "world": "world", "research": "research", "drafts": "draft",
-               "rules": "guide"}     # how this campaign invents, not what is true in it
+               "rules": "guide",     # how this campaign invents, not what is true in it
+               "input": "draft"}
 
 
 def never_read(rel):
@@ -235,7 +239,7 @@ def reference_kind(path):
     for folder, kind in FOLDER_KIND.items():
         if folder in parts:
             return kind
-    return "canon"          # a campaign's own root: bible.md and anything beside it
+    return "canon"          # a campaign's own root, and canon/ itself
 
 
 def library():

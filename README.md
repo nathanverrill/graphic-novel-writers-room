@@ -429,35 +429,40 @@ campaigns/
   evoke/
     canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    bible.md        the campaign's own truth, where you land
-    chapters/       chapter-01.md … chapter-06.md
-    characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
-    world/          invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
-    research/       real: articles, reports, data, photographs
-    rules/          how this campaign invents: hard-sf-rules.md
-    novel/          the book itself
-      drafts/v00/   what existed before the room: script/ and its _rough/ sources
-      final/        the approved book
-  avalanche/        the next campaign: the same folders, empty
+    canon/          what the book must not contradict
+      bible.md · chapters/ · characters/
+    input/          anything you want the room to read, any quality
+      world/ · research/ · rules/ · drafts-v00/ · _rough/
+    output/         what the room wrote
+  avalanche/        the next campaign: the same three folders, empty
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
 agents/skills/_sources/   the long skill the per-agent guides are generated from
 projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
-Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign,
-`campaigns/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
-named only at the evoke level — everything under a campaign is that campaign's truth by sitting
-there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
-`prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,rules,novel/drafts,novel/final}`.
+**Three folders, and that is the model.** `canon/` is what the book must not contradict.
+`input/` is everything else you want read — a reference document, a prompt you liked, a rough
+draft, notes — at any quality, and none of it binds the book. `output/` is what the room wrote.
+So opening a campaign, you know which of the three you are in, and you can throw anything into
+`input/` without thinking about where it goes.
+
+**A file loose in `input/` is read as a draft, never as canon** — the room mines it and is never
+bound by it. That is what makes `input/` safe to use as a heap. Only `canon/` binds. Inside
+either, a folder name the room recognises still refines the reading — `input/world/` is invented
+material, `input/research/` is real-world material, `input/rules/` is craft — so structure is
+optional, not required.
+
+`campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
+named by its path, so `prosperity/canon/chapters/chapter-04.md` and
+`prosperity/input/drafts-v00/chapter-04.md` are two different things and are read as what they
+are. A new campaign is `mkdir -p campaigns/avalanche/{canon,input,output}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
 The room skips it when it lists the library, when a round carries references into a prompt, and
 when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
-there is no list of special folder names anywhere. Those folders are for people, and for the
-split scripts, which read their source by path. (An agent's own folder is not library material
+there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
 either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
 
 **`drafts/_rough/` is not a separate kind of thing.** It holds the rough whole documents the
@@ -486,11 +491,11 @@ which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
-| world | `world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
-| research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
-| draft | `novel/drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
-| guide | `agents/skills/`, a campaign's `rules/` | how to do the work; never canon |
+| canon | `evoke/canon/`, a campaign's `canon/` | must not contradict it; where it conflicts with the room's files, the canon wins |
+| world | `input/world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
+| research | `input/research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
+| draft | anything else in `input/` | ideas on paper: mine them for beats and intent, write the room's own version |
+| guide | `agents/skills/`, `input/rules/` | how to do the work; never canon |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
