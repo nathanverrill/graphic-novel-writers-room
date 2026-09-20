@@ -21,7 +21,8 @@ from . import agents as agents_mod
 from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
-REF_PREFIX = "library/"    # how a library file is named to an agent: library/<its path>
+REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
+                           # agents/skills/ under one prefix, library/<its path>
 
 PREVIEW_HOW = artist.PANEL_HOW
 

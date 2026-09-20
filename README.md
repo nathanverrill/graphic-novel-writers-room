@@ -192,17 +192,17 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-`docker compose up -d` brings up three services: the **app**, **SeaweedFS** for project data,
+`docker compose up -d` brings up three services: the **app**, **SeaweedFS** for the room's data,
 and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
 `host.docker.internal:11434`.
 
-**Configuration** — `agents/` (with its skills and tools), `library/`, `hats/` and
+**Configuration** — `agents/` (with its skills, tools and hats), `campaigns/` and
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
-**Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
-**SeaweedFS**, an S3-compatible object store whose storage is the `seaweedfs-data` Docker
-volume. The app works on a copy inside its container: on start it pulls everything from the
+**The room's data** — `projects/` (every round, page, review and call log), `output/` (the
+latest deliverables) and `logs/` — lives in **SeaweedFS**, an S3-compatible object store whose
+storage is the `seaweedfs-data` Docker volume. None of it is a folder in this one. The app works on a copy inside its container: on start it pulls everything from the
 bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
 on shutdown. Recreating or rebuilding the app container loses nothing; so does
 `docker compose down`. **`docker compose down -v` deletes the volumes, and all project data
@@ -255,7 +255,7 @@ it per panel or item (`"invert": true` — which also tells the image model the 
 and you can paint it in the editor with the **invert brush** or **⌘I**. Review diffs report
 inversion changes, and locks keep them.
 
-(The ASCII Artist, which drew full pages in ASCII, is retired to `morgue/ascii_artist/`.)
+(The ASCII Artist, which drew full pages in ASCII, is retired to `campaigns/_morgue/ascii_artist/`.)
 
 ### Editing the sketch in place
 
@@ -280,8 +280,11 @@ Past rounds are read-only.
 
 ## Morgue
 
-`morgue/` keeps reviewed documents we don't use but don't want to lose, with a README noting
-what was adopted from each and why the rest wasn't. Nothing in it reaches an agent.
+`campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
+noting what was adopted from each and why the rest wasn't. It is there so a person can find an
+old document again, and nothing in it reaches an agent — the leading underscore is the rule,
+the same one that keeps `drafts/_rough/` and `agents/skills/_sources/` out of the room (see
+**The library**).
 
 ## Running the room
 
@@ -370,9 +373,10 @@ attaches the page's art, **Download text layer** saves the SVG, and each round a
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
 **Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
-`output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
-overwritten each time — every version stays in the project's rounds). **Save to output folder**
-does it on demand.
+`output/<project>/` (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`; overwritten each
+time — every version stays in the project's rounds). **Save to output folder** does it on
+demand. Under Docker that folder lives in the object store with the rest of the room's data,
+not in this one: `python -m app.objectstore pull` brings it onto your machine.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
@@ -385,7 +389,7 @@ How references reach an agent is set by `references` in its `agent.json` (defaul
 
 ## Character references
 
-Each character has a standalone file in `library/<campaign>/characters/` — `alex-phantum.md`,
+Each character has a standalone file in `campaigns/<campaign>/characters/` — `alex-phantum.md`,
 `ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
 `bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
 
@@ -402,11 +406,26 @@ belongs in the bible.
 
 ## The library
 
+**`campaigns/` is the material; `projects/` is the work.** Everything true of Prosperity — its
+bible, chapters, characters, worldbuilding, research and drafts — lives in
+`campaigns/prosperity/`, and it is in git. A project is one production drawing on that
+material — the pitch, the files the agents write, the round history — and it is **not a folder
+you browse**: `projects/` and `output/` are the room's data, git-ignored and kept in the object
+store (see **Docker**), so all you would find by opening them is whatever the last run left on
+disk. A project is also not tied to one campaign: by default it can read every campaign's
+material, narrowed by the shortlist in its `round-settings.json`. The projects are chapter-sized
+(`evoke-chapter-1`, `evoke-chapter-4`), so several of them draw on one campaign, and a name that
+appears in both trees is a coincidence, not a parent and a child.
+
+The two together are what the agents call the **library**, and that is the one place the word
+still means a folder that is not there: a file reaches an agent as `library/<its path>`, whether
+it comes from `campaigns/` or from `agents/skills/`.
+
 One folder per campaign, and the same words inside each, so a person opening any folder knows
 what they are looking at:
 
 ```
-library/
+campaigns/
   evoke/
     canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
@@ -416,23 +435,39 @@ library/
     worldbuilding/  invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
     research/       real: articles, reports, data, photographs
     drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
-    originals/      the long documents the split scripts work from (never read whole)
+      _rough/       the rough whole drafts those chapters were split out of
   avalanche/        the next campaign: the same folders, empty
+  _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
-agents/skills/originals/  long skills split into per-agent guides (never read whole)
+agents/skills/_sources/   the long skill the per-agent guides are generated from
 projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
-Two rules, and that is the model: **`library/evoke/` applies to every campaign,
-`library/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
+Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign,
+`campaigns/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
 named only at the evoke level — everything under a campaign is that campaign's truth by sitting
 there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p library/avalanche/{chapters,characters,worldbuilding,research,drafts,originals}`.
+campaign is `mkdir -p campaigns/avalanche/{chapters,characters,worldbuilding,research,drafts}`.
 
-**`research/` and `originals/` are not the same thing.** Research is material someone went and
-found about the real world — a piece on water permits, a production table. Originals are the
-unsplit documents the split scripts chew into the folders above; nothing reads them whole.
+And a third rule that is only a naming convention: **inside the library — `campaigns/` and
+`agents/skills/` — a folder whose name starts with an underscore is not library material.**
+The room skips it when it lists the library, when a round carries references into a prompt, and
+when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
+there is no list of special folder names anywhere. Those folders are for people, and for the
+split scripts, which read their source by path. (An agent's own folder is not library material
+either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
+
+**`drafts/_rough/` is not a separate kind of thing.** It holds the rough whole documents the
+chapters were split out of — a 129 KB script draft, a 93 KB campaign bible — and they are
+drafts like any other, just rougher and superseded. They stay out of prompts because their
+content already reaches an agent as the split (`bible.md` and `chapters/` from one,
+`drafts/chapter-<nn>.md` from the other), not because they are authoritative. Nothing is lost
+by the room not reading them.
+
+**`research/` and `drafts/` are not the same thing.** Research is material someone went and
+found about the real world — a piece on water permits, a production table. A draft is someone's
+own rough go at the story: mine it for beats and intent, write the room's own version.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
 folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
@@ -442,10 +477,10 @@ each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python scripts/split_bible.py` — `library/prosperity/originals/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
+- `python scripts/split_bible.py` — `campaigns/prosperity/drafts/_rough/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
   into `bible.md` and `chapters/chapter-<nn>.md` (each chapter's canon row, principle,
   character interaction map and script revision flags).
-- `python scripts/split_script.py` — `library/prosperity/originals/SCRIPT_DRAFT_AUG_23.md` into
+- `python scripts/split_script.py` — `campaigns/prosperity/drafts/_rough/SCRIPT_DRAFT_AUG_23.md` into
   `drafts/chapter-<nn>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
@@ -463,7 +498,7 @@ which it is reading:
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`library/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
+`campaigns/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
 is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
@@ -514,7 +549,7 @@ agents/
 ```
 
 - **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/originals/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
+- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/_sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
@@ -533,7 +568,7 @@ agents/
 
 ## Hats
 
-`hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
+`agents/hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
 yellow value, red reaction, green possibility). Pick one in the hat menu next to **Run**
 and it's added to every selected agent for that run; the round records which hat was used.
 Hats are modes, not jobs: e.g. run the Continuity Editor in the yellow hat to find what's

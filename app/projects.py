@@ -20,10 +20,10 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the project and round, so a file means the same thing
 wherever it ends up.
 
-Reference files come from references/ at the repo root (a shared library) and
-projects/<slug>/references/ (a file with the same name wins). A project can pick
-which library files it uses ("references" in round-settings.json; default: all), and a
-writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
+Reference files come from campaigns/ and agents/skills/ at the repo root — together the
+room's library — and from projects/<slug>/references/ (a file with the same name wins).
+A project can pick which library files it uses ("references" in round-settings.json;
+default: all), and a writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
 file is canon, a draft or a guide — see reference_kind.
 """
 import hashlib
@@ -33,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import LIBRARY_DIR, LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, SKILLS_DIR
+from .config import LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, SKILLS_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -172,8 +172,8 @@ def reference_files(slug, version=None):
         if not folder.is_dir():
             continue
         for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then kind
-            if p.name.startswith(".") or NEVER_READ in p.relative_to(folder).parts:
-                continue                       # originals/ is what the split scripts chew, not reading
+            if p.name.startswith(".") or never_read(p.relative_to(folder)):
+                continue
             name = library_name(p, folder)
             if folder in LIBRARY_DIRS and chosen is not None and name not in chosen:
                 continue
@@ -195,13 +195,25 @@ CANON_MARK = "reference: canon"
 
 FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
                "worldbuilding": "worldbuilding", "research": "research", "drafts": "draft"}
-NEVER_READ = "originals"        # the long documents the split scripts work from
+
+
+def never_read(rel):
+    """True for a path the agents must not see, whatever asks for it.
+
+    One rule, and the folder name carries it: inside the library, a folder whose name starts
+    with an underscore is not library material. drafts/_rough/ holds the rough whole documents
+    the split scripts chew, whose content already reaches an agent as the split;
+    agents/skills/_sources/ holds the long skill the per-agent guides are generated from;
+    campaigns/_morgue/ holds clippings kept so a person can find them again. Nothing needs a
+    list in the code, and a new one announces itself. (Only paths under LIBRARY_DIRS come
+    through here — an agent's own agents/_shared/ is loaded by name in agents.py.)"""
+    return any(part.startswith("_") for part in rel.parts)
 
 
 def reference_kind(path):
     """What a file is, from the folder it sits in — or a marker near its top, which wins.
 
-    canon          library/evoke/canon, and a campaign's bible, chapters and characters:
+    canon          campaigns/evoke/canon, and a campaign's bible, chapters and characters:
                    the book must not contradict it
     worldbuilding  invented material to draw on; it commits the book to nothing
     research       real material — articles, reports, data — true of the world, not the story
@@ -232,7 +244,7 @@ def library():
         if not folder.is_dir():
             continue
         for p in sorted(folder.rglob("*.md")):
-            if p.name.startswith(".") or NEVER_READ in p.relative_to(folder).parts:
+            if p.name.startswith(".") or never_read(p.relative_to(folder)):
                 continue
             rel = p.relative_to(folder)
             out.append({"name": library_name(p, folder), "size": p.stat().st_size,
@@ -270,7 +282,8 @@ def read_reference(slug, name, version=None):
         for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
             root = folder.resolve()
             candidate = (folder / name.removeprefix("skills/")).resolve()
-            if candidate.is_file() and root in candidate.parents:   # inside the folder, no escaping
+            if candidate.is_file() and root in candidate.parents \
+                    and not never_read(candidate.relative_to(root)):   # inside, and not an _ folder
                 found = candidate
                 break
     return found.read_text() if found else None
@@ -386,7 +399,7 @@ class Round:
         if refs:
             (self.dir / "references").mkdir()
         for name, p in refs.items():  # freeze the source material this round used
-            flat = name.replace("/", "--")     # library/<campaign>/<kind>/x.md -> one flat file
+            flat = name.replace("/", "--")     # campaigns/<campaign>/<kind>/x.md -> one flat file
             shutil.copyfile(p, self.dir / "references" / f"{self.prefix}ref-{flat}")
         self._lock = threading.Lock()
         self._calls = 0

@@ -1,4 +1,4 @@
-"""Keeps the app's data — projects/ and logs/ — in an S3-compatible object store
+"""Keeps the app's data — projects/, output/ and logs/ — in an S3-compatible object store
 (SeaweedFS in docker-compose). Off unless S3_ENDPOINT is set.
 
 The app keeps working on plain files; this module makes the bucket the source of
@@ -9,7 +9,7 @@ truth around them:
     sync      upload files whose size or mtime changed, delete objects whose file is gone
     shutdown  one last sync
 
-Object keys mirror the paths: projects/<slug>/..., logs/usage.jsonl.
+Object keys mirror the paths: projects/<slug>/..., output/<slug>/..., logs/usage.jsonl.
 
     python -m app.objectstore status|push|pull     # by hand
 """
@@ -19,9 +19,9 @@ import sys
 import threading
 import time
 
-from .config import LOGS_DIR, PROJECTS_DIR, env
+from .config import LOGS_DIR, OUTPUT_DIR, PROJECTS_DIR, env
 
-ROOTS = {"projects/": PROJECTS_DIR, "logs/": LOGS_DIR}
+ROOTS = {"projects/": PROJECTS_DIR, "output/": OUTPUT_DIR, "logs/": LOGS_DIR}
 log = logging.getLogger("uvicorn.error")
 
 

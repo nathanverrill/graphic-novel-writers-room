@@ -542,33 +542,33 @@ Deduplicated across every draft and round; the source is the file it was written
 44 files mention Bi11bot. The ones that say most about them:
 
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 51 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 51 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/canon/bible.md` — 38 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/canon/bible.md` — 38 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 29 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 29 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-06.md` — 13 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-06.md` — 13 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 12 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-02.md` — 12 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-02.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 9 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 9 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 9 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 9 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-03.md` — 9 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-03.md` — 9 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-04.md` — 8 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-04.md` — 8 passages
 
 - `projects/evoke-chapter-4/rounds/evoke-chapter-4-r03-ai/evoke-chapter-4-r03-ai-page-prompts.md` — 8 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 7 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 7 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-05.md` — 6 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-05.md` — 6 passages
 
 
 *Gathered by `scripts/gather_character.py`; rerun it after a round. New canon belongs in the bible, not here — a rerun overwrites this file.*

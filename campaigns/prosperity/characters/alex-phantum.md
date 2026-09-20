@@ -848,33 +848,33 @@ Deduplicated across every draft and round; the source is the file it was written
 57 files mention Alex. The ones that say most about them:
 
 
-- `/Users/nathanverrill/writers-room/library/prosperity/canon/bible.md` — 80 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/canon/bible.md` — 80 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 58 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30.md` — 58 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-06.md` — 30 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-06.md` — 30 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 30 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/sources/SCRIPT_DRAFT_AUG_23.md` — 30 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 15 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_1.md` — 15 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-05.md` — 15 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-05.md` — 15 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 14 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_2.md` — 14 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-02.md` — 13 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-02.md` — 13 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` — 13 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` — 13 passages
 
 - `projects/evoke-chapter-4/room-log.md` — 13 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_5.md` — 12 passages
 
-- `/Users/nathanverrill/writers-room/library/prosperity/drafts/chapter-04.md` — 11 passages
+- `/Users/nathanverrill/writers-room/campaigns/prosperity/drafts/chapter-04.md` — 11 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 10 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_4.md` — 10 passages
 
-- `/Users/nathanverrill/writers-room/morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 10 passages
+- `/Users/nathanverrill/writers-room/campaigns/_morgue/script-draft-jul-30/SCRIPT_DRAFT_JUL_30_CHAPTER_3.md` — 10 passages
 
 
 *Gathered by `scripts/gather_character.py`; rerun it after a round. New canon belongs in the bible, not here — a rerun overwrites this file.*

@@ -1,23 +1,26 @@
 # Morgue
 
 Like a newspaper morgue: the clippings archive. Documents we reviewed and don't want
-to lose, but that the room does **not** use. Nothing in here reaches an agent.
+to lose, but that the room does **not** use. It is here for people, so an old draft can be
+found again — and nothing in here reaches an agent, because the leading underscore on
+`_morgue/` is what the room skips: in the library listing, in what a round carries into a
+prompt, and in what an agent can ask for by name.
 
 When something from here is adopted, copy the useful part into `agents/`, `agents/skills/`,
-`hats/`, `library/` or a project's `references/`, and note it below.
+`agents/hats/`, `campaigns/` or a project's `references/`, and note it below.
 
 ## chatgpt_suggestions/ — reviewed 2026-09-16
 
 A lean 7-agent redesign with hats, a Wild Card and a First Reader.
 
 Adopted:
-- `hats/*.md` → `hats/` (hat picker on runs)
+- `hats/*.md` → `agents/hats/` (hat picker on runs)
 - `roles/wild-card.md`, `skills/ideation-and-provocation.md`, `project/PROVOCATION_DECK.md` → `agents/wild_card/` (deck drawn in code)
 - `roles/first-reader.md` → `agents/first_reader/` (minimal context)
 - `skills/storycraft-core.md` → `agents/_shared/storycraft-principles.md`
 - `skills/methods-from-masters.md` → `agents/_shared/methods-from-masters.md`
 - README "Output discipline" and "Decision rights" → `agents/_shared/house-style.md`
-- `project/EVOKE_PROSPERITY.md` → `library/prosperity/` (the campaign's own material)
+- `project/EVOKE_PROSPERITY.md` → `campaigns/prosperity/` (the campaign's own material)
 - Merged into existing agents: continuity (severity, ledger, critique order),
   editor (canon section, decision log), plotter + character designer
   (story map table, causality, ensemble test), scripter (page job, PAGE CHECK),

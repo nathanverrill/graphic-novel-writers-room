@@ -1,4 +1,5 @@
-"""Rebuild the standalone character references in references/ from every document in the room.
+"""Rebuild the standalone character references in campaigns/<campaign>/characters/ from every
+document in the room.
 
     python scripts/gather_character.py            # all of them
     python scripts/gather_character.py ADA        # one
@@ -9,9 +10,9 @@ visual lock from the newest project bible, their canon sheet from the campaign b
 the bible's relationship sections, every distinct line the scripts have given them, and a list
 of where it all came from.
 
-Sources walked: references/, agents/, morgue/, and every project's files and rounds — the
-container's copy when the app is running, otherwise projects/ on disk. A passage repeated across
-twenty round snapshots is written once.
+Sources walked: campaigns/ (the morgue included), agents/, and every project's files and
+rounds — the container's copy when the app is running, otherwise projects/ on disk. A passage
+repeated across twenty round snapshots is written once.
 
 These files are gathered, not authored: new canon belongs in the bible, and a rerun overwrites.
 """
@@ -26,7 +27,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from app.search import chunks                                       # noqa: E402
 
-BIBLE = ROOT / "library" / "prosperity" / "bible.md"
+BIBLE = ROOT / "campaigns" / "prosperity" / "bible.md"
 GLANCE = ROOT / "scripts" / "character_glance.json"
 NAMES = {"ALEX PHANTUM": "ALEX", "ADA VEYRA": "ADA", "BI11BOT": "BI11BOT", "MERA VALE": "MERA",
          "ADRIAN PHANTUM": "ADRIAN", "LEONA VEYRA": "LEONA"}
@@ -187,7 +188,7 @@ def main(only=None):
         if only and key != only.upper():
             continue
         rows = passages(g["aliases"], sources)
-        (ROOT / "library" / "prosperity" / "characters" / g["file"]).write_text(render(key, g, sheets.get(key, ""), pairs,
+        (ROOT / "campaigns" / "prosperity" / "characters" / g["file"]).write_text(render(key, g, sheets.get(key, ""), pairs,
                                                             rows, pdir))
         print(f"{g['file']:22} {len(rows):4} passages · {len({r['file'] for r in rows})} files")
 

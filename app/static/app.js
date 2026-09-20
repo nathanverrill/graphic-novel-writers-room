@@ -301,7 +301,7 @@ async function refreshArtifacts(fresh) {
   $("#references").innerHTML = refs.map((r) => `
     <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
       <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
-    || `<li class="path">none — add .md files to library/&lt;campaign&gt;/ or projects/${esc(state.project)}/references/</li>`;
+    || `<li class="path">none — add .md files to campaigns/&lt;campaign&gt;/ or projects/${esc(state.project)}/references/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
     `<a href="${base()}images/${n}" target="_blank" title="${esc(n)}"><img src="${base()}images/${n}" alt="${esc(n)}" loading="lazy"></a>`).join("")
@@ -1068,7 +1068,7 @@ $("#search-reindex").onclick = async () => {
 // ---- standing rules: what the room must always or never do ----------------------------
 
 function fillSearchScopes() {
-  /* the scopes are the library's own folders, so a new campaign appears without a code change */
+  /* the scopes are the campaign folders themselves, so a new campaign appears without a code change */
   const groups = [...new Set((state.library || []).map((f) => f.group))].sort();
   $("#search-scope").innerHTML = `<option value="">everywhere</option>`
     + groups.map((g) => `<option value="${esc(g)}">${esc(g)}</option>`).join("")
@@ -1857,7 +1857,7 @@ $("#pick-refs").onclick = () => {
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
     <p class="path">The shared library this project uses: each campaign's canon, characters,
-      worldbuilding, real-world references and drafts under <code>library/</code>, plus the room's craft
+      worldbuilding, real-world references and drafts under <code>campaigns/</code>, plus the room's craft
       skills in <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
       say "names only" or name a shortlist of its own) on every call, so pick only what this book needs.
       Files in the project's own references/ folder are always used.</p>

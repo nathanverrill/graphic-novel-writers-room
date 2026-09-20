@@ -2,9 +2,10 @@
 # docker compose --profile mock up -d    -> also starts the fake provider;
 #                                           set OPENAI_BASE_URL=http://mock:8765/v1 in .env
 #
-# Project data (projects/, logs/) lives in SeaweedFS, whose storage is the
-# seaweedfs-data volume. The app keeps a working copy inside its container and
-# syncs it to the bucket every few seconds (see app/objectstore.py).
+# The room's data (projects/, output/, logs/) lives in SeaweedFS, whose storage is
+# the seaweedfs-data volume — not in this folder. The app keeps a working copy inside
+# its container and syncs it to the bucket every few seconds (see app/objectstore.py).
+# To get the deliverables onto this machine: python -m app.objectstore pull.
 services:
   app:
     build: .
@@ -21,12 +22,10 @@ services:
       OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
       EMBED_MODEL: ${EMBED_MODEL:-embeddinggemma}
     volumes:              # configuration stays in this folder
-      - ./agents:/app/agents
-      - ./hats:/app/hats
-      - ./library:/app/library
+      - ./agents:/app/agents          # roles, skills, tools and hats
+      - ./campaigns:/app/campaigns
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
-      - ./output:/app/output         # the latest page prompts and story files, per project
     depends_on:
       seaweedfs:
         condition: service_healthy

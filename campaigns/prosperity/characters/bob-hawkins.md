@@ -56,7 +56,7 @@ no age beyond what a page needed.
 
 **Name collision, deliberate or not:** *Robert (Bob) Hawkins* is a real person — co-author,
 with Barbara Freeman, of the World Bank's Social Innovators' Framework, which sits in this
-library as `library/evoke/references/social-innovators-framework.md` and is the framework the Evoke
+library as `campaigns/evoke/canon/social-innovators-framework.md` and is the framework the Evoke
 programme is built on. The room has given that name to a bureaucrat who processes refugees
 without looking at them. If that is a joke, it is one a reader could take badly; if it is an
 accident, rename him.
@@ -88,7 +88,7 @@ Deduplicated across every draft and round; the source is the file it was written
 
 - `projects/evoke-chapter-4/rounds/evoke-chapter-4-r03-ai/evoke-chapter-4-r03-ai-outline.md` — 3 passages
 
-- `/Users/nathanverrill/writers-room/library/evoke/references/social-innovators-framework.md` — 2 passages
+- `/Users/nathanverrill/writers-room/campaigns/evoke/references/social-innovators-framework.md` — 2 passages
 
 - `projects/evoke-chapter-4/brief.md` — 2 passages
 
