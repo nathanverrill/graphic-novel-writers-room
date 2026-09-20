@@ -18,7 +18,7 @@ import uuid
 from . import agent as agent_mod
 from . import notes as notes_mod
 from . import projects, review, usage
-from .roles import list_hats, load_roles
+from .agents import list_hats, load_roles
 
 FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
 REVISION_ROUND = ["editor", "scripter", "penciller", "continuity"]

@@ -16,54 +16,71 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, config, llm, projects, review, rules, thumbnails
-from .roles import gather_context, random_entry, read_hat
+from . import artist, asciitext, config, llm, projects, review, rules, search, thumbnails
+from . import agents as agents_mod
+from .agents import gather_context, random_entry, read_hat
 from .usage import CallLogger
 
-REF_PREFIX = "references/"
+REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
+                           # agents/skills/ under one prefix, library/<its path>
 
 PREVIEW_HOW = artist.PANEL_HOW
 
-TOOLS = [
-    {"type": "function", "function": {
-        "name": "list_artifacts",
-        "description": "List the room's markdown files and the reference material (names starting with references/).",
-        "parameters": {"type": "object", "properties": {}},
-    }},
-    {"type": "function", "function": {
-        "name": "read_artifact",
-        "description": "Read one project file, e.g. 'outline.md' or 'references/lore.md'.",
-        "parameters": {"type": "object", "properties": {"name": {"type": "string"}},
-                       "required": ["name"]},
-    }},
-    {"type": "function", "function": {
-        "name": "write_artifact",
-        "description": "Write (overwrite) one of your deliverables with its complete markdown content.",
-        "parameters": {"type": "object", "properties": {
-            "name": {"type": "string"}, "content": {"type": "string"}},
-            "required": ["name", "content"]},
-    }},
-    {"type": "function", "function": {
-        "name": "finish",
-        "description": "Call when your deliverables are written. The note is handed to the rest of the room.",
-        "parameters": {"type": "object", "properties": {"note": {"type": "string"}},
-                       "required": ["note"]},
-    }},
-]
-
-IMAGE_TOOL = {"type": "function", "function": {
-    "name": "generate_image",
-    "description": "Generate an image (character sheet, thumbnail, color key...). Returns its path, "
-                   "which you can embed in your markdown as ![caption](path).",
-    "parameters": {"type": "object", "properties": {
-        "name": {"type": "string", "description": "short label, e.g. 'mara-turnaround'"},
-        "prompt": {"type": "string", "description": "complete, self-contained image prompt"},
-        "size": {"type": "string", "description": "optional, e.g. 1024x1536"},
-    }, "required": ["name", "prompt"]},
-}}
+IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "write_artifact", "generate_image", "finish")
+MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
 
 
-MINIMAL_TOOLS = [t for t in TOOLS if t["function"]["name"] in ("write_artifact", "finish")]
+def repair_calls(calls, warn=lambda msg: None):
+    """Make a model's tool calls valid before they are run or sent back.
+
+    Some models emit two calls glued into one `arguments` string —
+    `{"name": "script.md"}{"name": "layouts.md"}` — which is what the model meant to be two
+    reads. A provider that validates the transcript rejects the whole next request over it, so
+    the malformed call must not be kept in the history: each object becomes its own call, with
+    its own id, and anything that still will not parse becomes an empty argument object for the
+    tool itself to complain about."""
+    out = []
+    for call in calls:
+        raw = (call.get("function") or {}).get("arguments") or "{}"
+        objects, rest, decoder = [], raw.strip(), json.JSONDecoder()
+        while rest:
+            try:
+                obj, end = decoder.raw_decode(rest)
+            except json.JSONDecodeError:
+                break
+            objects.append(obj)
+            rest = rest[end:].strip()
+        if not objects or rest:
+            warn(f"{call['function']['name']}: arguments were not valid JSON; "
+                 f"sent back as an empty call")
+            objects = objects or [{}]
+        if len(objects) > 1:
+            warn(f"{call['function']['name']}: {len(objects)} calls arrived glued together; "
+                 "split into separate calls")
+        for i, obj in enumerate(objects):
+            out.append({**call,
+                        "id": call["id"] if i == 0 else f"{call['id']}-{i + 1}",
+                        "function": {**call["function"], "arguments": json.dumps(obj)}})
+    return out
+
+
+def tools_for(role, cfg, emit=None):
+    """The tools this agent may call, from agents/tools/*.json.
+
+    Its agent.json can name a `tools` list; otherwise it gets everything implemented here,
+    minus generate_image unless it is set up for images. A schema with no implementation is
+    skipped with a warning rather than offered to the model."""
+    available = agents_mod.load_tools()
+    for name in sorted(set(available) - set(IMPLEMENTED)):
+        available.pop(name)
+        if emit:
+            emit("warn", text=f"agents/tools/{name}.json has no implementation; skipped")
+    order = [n for n in IMPLEMENTED if n in available]      # a sensible order, not the file order
+    wanted = MINIMAL if role.minimal else (cfg.tools or order)
+    if not cfg.can_generate_images:
+        wanted = [n for n in wanted if n != "generate_image"]
+    return [available[n] for n in wanted if n in available]
+
 
 
 def story_targets(slug):
@@ -93,10 +110,7 @@ class Agent:
         self.emit = emit  # emit(type, **data) -> shows up in the UI
         self.should_stop = should_stop
         self.written = set()
-        if role.minimal:  # a cold reader can't browse the room
-            self.tools = MINIMAL_TOOLS
-        else:
-            self.tools = TOOLS + ([IMAGE_TOOL] if self.cfg.can_generate_images else [])
+        self.tools = tools_for(role, self.cfg, emit)
         self.log = CallLogger(version, role.id, emit)
 
     # ---- prompt building -------------------------------------------------
@@ -150,7 +164,7 @@ class Agent:
             return refs
         wanted = set(self.cfg.reference_files)
         return {n: p for n, p in refs.items()
-                if n in wanted or p.parent != config.REFERENCES_DIR}
+                if n in wanted or not any(d in p.parents for d in config.LIBRARY_DIRS)}
 
     def task_message(self, note, images, sparks=None):
         r = self.role
@@ -161,19 +175,25 @@ class Agent:
         refs = self.shortlist(refs)
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
         groups = [
-            ("canon", "# Reference material from the showrunner — canon\n"
-                      "Treat these as canon. Where they conflict with the room's files, "
-                      "the references win unless the showrunner's note says otherwise."),
-            ("guide", "# Craft and worldbuilding guides from the showrunner — NOT canon\n"
-                      "How to do the work, and what is plausible in this world. They commit the book to "
-                      "nothing and describe no events: take what serves the page and ignore the rest. "
-                      "Where a guide labels material T, EG, S, L or Cut, keep those labels when you use it "
-                      "(SKILL_HARD_SF_RULES.md says what they mean)."),
+            ("canon", "# Canon from the showrunner\n"
+                      "This is true in the book. Where it conflicts with the room's files, the "
+                      "canon wins unless the showrunner's note says otherwise."),
+            ("worldbuilding", "# Worldbuilding — invented material to draw on, NOT canon\n"
+                      "A menu of what could plausibly be there. Take what serves the page; it "
+                      "commits the book to nothing and none of it has happened yet."),
+            ("research", "# Real-world material the showrunner collected — NOT story\n"
+                      "Articles, reports, data: true of the actual world, not of the book. Ground "
+                      "details in it and do not contradict it, but nothing here is a story event."),
+            ("guide", "# Craft guides from the showrunner — NOT canon\n"
+                      "How to do the work. They commit the book to nothing and describe no events: "
+                      "take what serves the page and ignore the rest. Where a guide labels material "
+                      "T, EG, S, L or Cut, keep those labels when you use it "
+                      "(agents/skills/hard-sf-rules.md says what they mean)."),
             ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
                       "These were put together to get ideas on paper. Mine them for story beats, "
                       "intent, moments and lines worth keeping, but write the room's own, better "
                       "version: don't copy their structure, pacing, dialogue or page breakdown. "
-                      "Where a draft conflicts with the canon references, the canon wins."),
+                      "Where a draft conflicts with the canon, the canon wins."),
         ]
         for kind, heading in groups:
             chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
@@ -240,6 +260,17 @@ class Agent:
             except ValueError as e:
                 return str(e)
             return content if content is not None else f"No file named {args.get('name')!r}."
+        if name == "search":
+            scope = args.get("scope")
+            if scope == "project":
+                scope = f"project:{self.slug}"
+            try:
+                hits = search.search(args.get("query", ""), limit=int(args.get("limit") or 6),
+                                     scope=scope or None, kind=args.get("kind") or None)
+            except Exception as e:      # the index is optional: say so, do not fail the turn
+                return f"Search is unavailable ({type(e).__name__}). Use list_artifacts and read_artifact."
+            self.emit("tool", name="search", args={"query": args.get("query", "")[:80], "hits": len(hits)})
+            return search.as_text(hits)
         if name == "write_artifact":
             target = args.get("name", "")
             if target not in self.role.outputs:
@@ -347,7 +378,8 @@ class Agent:
 
             self.keep_reply_images(reply)
             text = llm.text_of(reply)
-            calls = reply.get("tool_calls") or []
+            calls = repair_calls(reply.get("tool_calls") or [],
+                                 lambda msg: self.emit("warn", text=msg))
             # send back only what every server accepts
             kept = {"role": "assistant", "content": text or None}
             if calls:

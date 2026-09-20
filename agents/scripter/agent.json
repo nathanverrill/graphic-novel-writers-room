@@ -1,0 +1,32 @@
+{
+  "_why": "Voice and dialogue: warm. The longest output in the room (every page), so a big token budget and a long timeout.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "google/gemma-4-31b-it",
+  "api_key_env": null,
+  "temperature": 0.85,
+  "max_tokens": 16000,
+  "max_steps": 16,
+  "timeout": 600,
+  "references": "full",
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "reference_files": [
+    "prosperity/chapters/chapter-01.md",
+    "prosperity/chapters/chapter-02.md",
+    "prosperity/chapters/chapter-03.md",
+    "prosperity/chapters/chapter-04.md",
+    "prosperity/chapters/chapter-05.md",
+    "prosperity/chapters/chapter-06.md",
+    "evoke/canon/alpha.md",
+    "skills/hard-sf-rules.md",
+    "skills/actual-script-writing.md"
+  ],
+  "tools": null
+}

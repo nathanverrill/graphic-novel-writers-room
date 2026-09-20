@@ -51,9 +51,10 @@ async function loadConfig() {
 }
 
 async function loadRoles() {
-  const data = await api("/api/roles");
+  const data = await api("/api/agents");
   state.roles = data.roles;
   state.shared = data.shared;
+  state.tools = data.tools || [];
   renderAgents();
   $("#hat").innerHTML = `<option value="">No hat</option>` +
     data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
@@ -62,6 +63,7 @@ async function loadRoles() {
       <label><input type="checkbox" value="${r.id}" ${r.selected ? "checked" : ""}> ${esc(r.title)}</label>
       <div class="meta">→ ${r.outputs.map(esc).join(", ")}</div>
       <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
+      <div class="meta">${r.tools.length} tools: ${r.tools.map(esc).join(", ") || "none"}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
       ${r.config.generate_images ? `<div class="model">images: ${r.config.image_model ? esc(r.config.image_model) : "<span class='cfg-error'>no image_model</span>"}</div>` : ""}`}
@@ -125,10 +127,10 @@ function assetBlock(folder, a) {
   const guides = a.guides.map((g) => `
     <details class="guide" data-guide="${folder}/${g}"><summary>${esc(g)}</summary><div class="md">loading…</div></details>`).join("");
   const imgs = a.images.map((i) =>
-    `<a href="/api/roles/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/roles/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
+    `<a href="/api/agents/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/agents/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
   const figma = a.figma.map((f) => `<li class="path">${esc(f)}</li>`).join("");
   return `
-    <p class="path">roles/${folder}/</p>
+    <p class="path">agents/${folder}/</p>
     <h3>Guides</h3>${guides || "<p class='path'>none</p>"}
     <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>
     <h3>Figma</h3><ul>${figma || "<li class='path'>none — add links to figma.txt</li>"}</ul>`;
@@ -152,7 +154,7 @@ $("#role-dialog").addEventListener("toggle", async (e) => {
   const d = e.target.closest?.("details[data-guide]");
   if (!d || !d.open || d.dataset.loaded) return;
   const [folder, name] = d.dataset.guide.split("/");
-  renderInto(d.querySelector("div"), await api(`/api/roles/${folder}/guides/${encodeURIComponent(name)}`), `/api/roles/${folder}/`);
+  renderInto(d.querySelector("div"), await api(`/api/agents/${folder}/guides/${encodeURIComponent(name)}`), `/api/agents/${folder}/`);
   d.dataset.loaded = 1;
 }, true);
 
@@ -273,13 +275,14 @@ async function refreshArtifacts(fresh) {
   if (document.activeElement !== $("#set-auto")) $("#set-auto").value = s.auto_rounds ?? 0;
   showAuto(s.auto_rounds || 0);
   state.library = p.library || [];
+  fillSearchScopes();
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
   const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
   $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB per agent call`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
-  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("references/");
+  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
   loadCosts();
   loadPreviews();
   loadPrompts();
@@ -296,9 +299,9 @@ async function refreshArtifacts(fresh) {
       <span>${esc(a.name)}</span><small>${ago(a.modified)}</small></li>`).join("");
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
-    <li data-name="references/${esc(r.name)}" class="${"references/" + r.name === state.artifact ? "active" : ""}">
+    <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
       <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
-    || `<li class="path">none — add .md files to references/ or projects/${esc(state.project)}/references/</li>`;
+    || `<li class="path">none — add .md files to campaigns/&lt;campaign&gt;/ or projects/${esc(state.project)}/references/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
     `<a href="${base()}images/${n}" target="_blank" title="${esc(n)}"><img src="${base()}images/${n}" alt="${esc(n)}" loading="lazy"></a>`).join("")
@@ -328,7 +331,7 @@ async function showArtifact(name) {
   if (!$("#editor").hidden && !confirm("Discard unsaved edits?")) return;
   state.artifact = name;
   let text;
-  const path = name.startsWith("references/") ? `references/${encodeURIComponent(name.slice(11))}` : `artifacts/${name}`;
+  const path = name.startsWith("library/") ? `library/${encodeURI(name.slice(8))}` : `artifacts/${name}`;
   try { text = await api(`${base()}${path}`); }
   catch { $("#viewer").hidden = true; return; }
   $("#viewer").hidden = false;
@@ -1017,7 +1020,60 @@ async function loadNotes() {
   $("#jot-tidy").disabled = !pending.length;
 }
 
+// ---- search: hybrid over the library, the skills and this project ---------------------
+
+let searchTimer;
+
+async function runSearch() {
+  const q = $("#search-q").value.trim();
+  const hits = $("#search-hits");
+  if (q.length < 2) { hits.innerHTML = ""; $("#search-note").textContent = ""; return; }
+  let scope = $("#search-scope").value;
+  if (scope === "project") scope = `project:${state.project}`;
+  $("#search-note").textContent = "searching…";
+  try {
+    const d = await api(`/api/search?q=${encodeURIComponent(q)}&mode=${$("#search-mode").value}`
+      + (scope ? `&scope=${encodeURIComponent(scope)}` : "") + "&limit=12");
+    state.hits = d.hits;
+    hits.innerHTML = d.hits.map((h, i) => `
+      <div class="hit ${esc(h.kind)}" data-hit="${i}" title="${esc(h.file)}">
+        <div class="where">${esc(h.where)}</div>
+        <div class="snippet">${esc(h.text.slice(0, 220))}</div>
+      </div>`).join("") || "<p class='path'>nothing found</p>";
+    $("#search-note").textContent = `${d.hits.length} passages`;
+  } catch (err) {
+    hits.innerHTML = "";
+    $("#search-note").textContent = err.message.includes("unavailable")
+      ? "search is off — is OpenSearch up?" : err.message;
+  }
+}
+
+$("#search-q").oninput = () => { clearTimeout(searchTimer); searchTimer = setTimeout(runSearch, 250); };
+$("#search-mode").onchange = runSearch;
+$("#search-scope").onchange = runSearch;
+$("#search-hits").onclick = (e) => {
+  const card = e.target.closest("[data-hit]");
+  if (!card) return;
+  const hit = state.hits[Number(card.dataset.hit)];
+  showArtifact(hit.scope.startsWith("project:") ? hit.file : `library/${hit.name || hit.file}`);
+};
+$("#search-reindex").onclick = async () => {
+  $("#search-note").textContent = "reindexing…";
+  try {
+    const d = await api(`/api/search/index?project=${state.project || ""}`, { method: "POST" });
+    $("#search-note").textContent = `${d.chunks} passages · ${d.written} rewritten`;
+  } catch (err) { $("#search-note").textContent = err.message; }
+};
+
 // ---- standing rules: what the room must always or never do ----------------------------
+
+function fillSearchScopes() {
+  /* the scopes are the campaign folders themselves, so a new campaign appears without a code change */
+  const groups = [...new Set((state.library || []).map((f) => f.group))].sort();
+  $("#search-scope").innerHTML = `<option value="">everywhere</option>`
+    + groups.map((g) => `<option value="${esc(g)}">${esc(g)}</option>`).join("")
+    + `<option value="project">this project</option>`;
+}
 
 async function loadRules() {
   if (!state.project) return;
@@ -1570,7 +1626,7 @@ function openSettings(id, message) {
 
       <div class="advanced" ${state.showAdvanced ? "" : "hidden"}>
         <p class="why">${esc(s.notes?.why || "")}</p>
-        <p class="path">These are this agent's defaults, saved in roles/${r.id}/agent.json (committed). Blank = the .env default.</p>
+        <p class="path">These are this agent's defaults, saved in agents/${r.id}/agent.json (committed). Blank = the .env default.</p>
         <div class="sf-row">
           ${field("Temperature", "temperature", s.temperature, d.temperature ?? "provider default", "number", 'step="0.05" min="0" max="2"')}
           ${field("Max tokens", "max_tokens", s.max_tokens, d.max_tokens ?? "provider default", "number", 'min="1"')}
@@ -1586,10 +1642,18 @@ function openSettings(id, message) {
           ${triState("Send reference images", "send_images", s.send_images, d.send_images)}
         </div>
         <div class="sf-row">
+          <label class="sf sf-wide"><span>Tools this agent may call</span>
+            <select name="tools" multiple size="5">${(state.tools || []).map((t) =>
+              `<option value="${esc(t)}" ${s.tools?.includes(t) ? "selected" : ""}>${esc(t)}</option>`).join("")}</select>
+            <small class="path">Select none for everything it can use. Defined in
+              <code>agents/tools/</code>; write_artifact still refuses any file that is not this
+              agent's own output.</small></label>
+        </div>
+        <div class="sf-row">
           <label class="sf sf-wide"><span>Library files for this writer</span>
-            <select name="reference_files" multiple size="6">${(state.library || []).map((f) =>
+            <select name="reference_files" multiple size="8">${(state.library || []).map((f) =>
               `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
-              `${esc(f.name)} · ${esc(f.kind)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
+              `${esc(f.name)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
             <small class="path">Select none to give this writer whatever the round picked. Selecting some
               means it reads only those, however big the library gets — it can still open any other file
               with read_artifact.</small></label>
@@ -1643,6 +1707,8 @@ function openSettings(id, message) {
       if (String(v) !== String(s[k] ?? "")) out[k] = v;
     }
     put("references", f.references.value);
+    const tools = [...f.tools.selectedOptions].map((o) => o.value);
+    if (tools.join("|") !== (s.tools || []).join("|")) out.tools = tools;
     const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
     const was = s.reference_files || [];
     if (picked.join("|") !== was.join("|")) out.reference_files = picked;
@@ -1663,7 +1729,7 @@ function openSettings(id, message) {
     const c = changes();
     if (!Object.keys(c).length) return true;
     try {
-      await api(`/api/roles/${id}/settings`, { method: "PUT", body: { changes: c } });
+      await api(`/api/agents/${id}/settings`, { method: "PUT", body: { changes: c } });
     } catch (err) { status(err.message, true); return false; }
     await loadRoles();
     return true;
@@ -1676,7 +1742,7 @@ function openSettings(id, message) {
   form.querySelector('[data-act="test"]').onclick = async () => {
     if (!(await save())) return;
     status("Testing…");
-    const t = await api(`/api/roles/${id}/test`, { method: "POST" });
+    const t = await api(`/api/agents/${id}/test`, { method: "POST" });
     openSettings(id, t.ok ? { text: `${t.model} @ ${host(t.base_url)} replied "${t.reply}" in ${t.ms} ms` }
                           : { text: `${t.model} @ ${host(t.base_url)}: ${t.error}`, bad: true });
   };
@@ -1686,7 +1752,7 @@ function openSettings(id, message) {
     const msg = (m, bad) => { $("#settings-status").textContent = m; $("#settings-status").classList.toggle("cfg-error", !!bad); };
     msg("Loading models…");
     try {
-      const m = await api(`/api/roles/${id}/models`);
+      const m = await api(`/api/agents/${id}/models`);
       $("#model-list").innerHTML = m.models.map((x) => `<option value="${esc(x)}">`).join("");
       msg(`${m.models.length} models from ${m.base_url} — start typing in Model to pick one.`);
       $("#settings-form").elements.model.focus();
@@ -1697,7 +1763,7 @@ function openSettings(id, message) {
     const others = state.roles.filter((x) => x.id !== id && x.room !== "art").map((x) => x.id);
     if (!confirm(`Give all ${others.length} other writers' room agents this provider and model? (Their tuned advanced settings stay.)`)) return;
     try {
-      const out = await api(`/api/roles/${id}/apply-provider`, { method: "POST", body: { roles: others } });
+      const out = await api(`/api/agents/${id}/apply-provider`, { method: "POST", body: { roles: others } });
       await loadRoles();
       openSettings(id, { text: `Applied to ${out.updated.length} agents.` });
     } catch (err) { status(err.message, true); }
@@ -1770,15 +1836,31 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const rows = state.library.map((f) => `
+  const KIND = { draft: "idea draft", guide: "skill", worldbuilding: "invented", research: "real" };
+  const NOTE = {
+    canon: "the book must not contradict it",
+    worldbuilding: "invented material to draw on — commits the book to nothing",
+    research: "real material: true of the world, not the story",
+    draft: "ideas to mine, never to copy",
+    guide: "how to do the work, never canon",
+  };
+  const row = (f) => `
     <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
-      <span>${esc(f.name)}${f.kind === "draft" ? ' <span class="badge">idea draft</span>' : ""}</span>
-      <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`).join("");
+      <span>${esc(f.name.split("/").pop())}${KIND[f.kind] ? ` <span class="badge">${KIND[f.kind]}</span>` : ""}</span>
+      <span class="path">${Math.max(1, Math.round(f.size / 1000))} KB</span></label>`;
+  const groups = [...new Set(state.library.map((f) => f.group))].sort();
+  const rows = groups.map((g) => {
+    const files = state.library.filter((f) => f.group === g);
+    const note = NOTE[files[0]?.kind] || "";
+    return `<h3 class="ref-group">${esc(g)}/ <span class="path">${note}</span></h3>${files.map(row).join("")}`;
+  }).join("");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">Files in the shared <code>references/</code> library this project uses. Every agent gets the
-      chosen files (in full, unless its advanced settings say "names only") on every call, so pick only what
-      this book needs. Files in the project's own references/ folder are always used.</p>
+    <p class="path">The shared library this project uses: each campaign's canon, characters,
+      worldbuilding, real-world references and drafts under <code>campaigns/</code>, plus the room's craft
+      skills in <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
+      say "names only" or name a shortlist of its own) on every call, so pick only what this book needs.
+      Files in the project's own references/ folder are always used.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>
     <div class="actions">

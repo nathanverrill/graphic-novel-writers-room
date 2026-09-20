@@ -3,6 +3,7 @@ import dataclasses
 import json
 import mimetypes
 import re
+import threading
 import time
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -12,20 +13,38 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, notes, objectstore, projects, prompts, review, room, rules, thumbnails, usage
-from .config import ROLES_DIR, AgentConfig, settings
-from .roles import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles
+from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, search, thumbnails, usage
+from .config import AGENTS_DIR, AgentConfig, settings
+from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
+
+room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
+
+
+def index_in_background(slug=None):
+    """Keep the search index current without making anyone wait for it."""
+    def work():
+        try:
+            search.index(slug)
+        except Exception as e:      # search is optional; the room works without it
+            print(f"search index skipped: {type(e).__name__}: {str(e)[:200]}")
+    threading.Thread(target=work, daemon=True).start()
+
 
 @asynccontextmanager
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
-    yield
+    index_in_background()
+    threading.Thread(target=search.watch, args=(0.5, lambda msg: print(f"search: {msg}")),
+                     daemon=True).start()   # a file changes, its passages are reindexed
+    async with room_mcp.session_manager.run():
+        yield
     objectstore.shutdown()
 
 
 app = FastAPI(title="Graphic Novel Writers' Room", lifespan=lifespan)
 STATIC = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
+app.mount("/mcp", room_mcp.streamable_http_app(streamable_http_path="/"))   # POST http://host/mcp
 
 
 def not_found(fn, *args):
@@ -38,7 +57,14 @@ def not_found(fn, *args):
 
 
 @app.get("/")
+def home():
+    """One button, on a phone: start the book, watch it, see the lettered pages."""
+    return FileResponse(STATIC / "home.html")
+
+
+@app.get("/room")
 def index():
+    """The whole room: every writer, every file, every round."""
     return FileResponse(STATIC / "index.html")
 
 
@@ -51,27 +77,28 @@ def config():
     return d
 
 
-# ---- roles -----------------------------------------------------------------
+# ---- agents -----------------------------------------------------------------
 
-@app.get("/api/roles")
+@app.get("/api/agents")
 def roles():
-    return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED), "hats": list_hats()}
+    return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED),
+            "hats": list_hats(), "tools": sorted(load_tools())}
 
 
 def _role_folder(role_id):
     if role_id != SHARED:
         not_found(get_role, role_id)
-    return ROLES_DIR / role_id
+    return AGENTS_DIR / role_id
 
 
-@app.get("/api/roles/{role_id}/guides/{name}", response_class=PlainTextResponse)
+@app.get("/api/agents/{role_id}/guides/{name}", response_class=PlainTextResponse)
 def role_guide(role_id: str, name: str):
     if name not in assets(role_id)["guides"]:
         raise HTTPException(404)
     return (_role_folder(role_id) / name).read_text()
 
 
-@app.get("/api/roles/{role_id}/images/{name}")
+@app.get("/api/agents/{role_id}/images/{name}")
 def role_image(role_id: str, name: str):
     if name not in assets(role_id)["images"]:
         raise HTTPException(404)
@@ -100,13 +127,13 @@ def saved_keys():
     return {"providers": [{"base_url": u, "used_by": used.get(u, [])} for u in keys.providers()]}
 
 
-@app.put("/api/roles/{role_id}/settings")
+@app.put("/api/agents/{role_id}/settings")
 def save_role_settings(role_id: str, body: SettingsChange):
     role = not_found(get_role, role_id)
     return not_found(role.save_settings, body.changes)
 
 
-@app.get("/api/roles/{role_id}/models")
+@app.get("/api/agents/{role_id}/models")
 def role_models(role_id: str, image: bool = False):
     role = not_found(get_role, role_id)
     cfg = not_found(role.config)
@@ -118,7 +145,7 @@ def role_models(role_id: str, image: bool = False):
         raise HTTPException(400, f"couldn't list models from {cfg.base_url}: {str(e)[:300]}")
 
 
-@app.post("/api/roles/{role_id}/test")
+@app.post("/api/agents/{role_id}/test")
 def test_role(role_id: str):
     """One tiny chat request with the role's settings (not logged to any project)."""
     role = not_found(get_role, role_id)
@@ -132,7 +159,7 @@ def test_role(role_id: str):
             "base_url": cfg.base_url, "model": cfg.model}
 
 
-@app.post("/api/roles/{role_id}/apply-provider")
+@app.post("/api/agents/{role_id}/apply-provider")
 def apply_provider(role_id: str, body: ApplyProvider):
     """Copy this role's provider, key and model to other roles."""
     source = not_found(get_role, role_id)
@@ -297,7 +324,7 @@ def revert_preview(slug: str, method: str, page: int):
     return {"ok": True}
 
 
-@app.get("/api/projects/{slug}/references/{name}", response_class=PlainTextResponse)
+@app.get("/api/projects/{slug}/library/{name:path}", response_class=PlainTextResponse)
 def get_reference(slug: str, name: str):
     content = not_found(projects.read_reference, slug, name)
     if content is None:
@@ -315,7 +342,7 @@ def get_version(slug: str, version: str):
             "reference_files": projects.list_references(slug, version)}
 
 
-@app.get("/api/projects/{slug}/versions/{version}/references/{name}", response_class=PlainTextResponse)
+@app.get("/api/projects/{slug}/versions/{version}/library/{name:path}", response_class=PlainTextResponse)
 def get_version_reference(slug: str, version: str, name: str):
     content = not_found(projects.read_reference, slug, name, version)
     if content is None:
@@ -586,7 +613,7 @@ def update_settings(slug: str, body: RoundSettings):
         known = {f["name"] for f in projects.library()}
         unknown = [r for r in body.references if r not in known]
         if unknown:
-            raise HTTPException(400, f"not in references/: {', '.join(unknown)}")
+            raise HTTPException(400, f"not in the library: {', '.join(unknown)}")
     return review.save_settings(slug, **body.model_dump())
 
 
@@ -632,6 +659,30 @@ def review_submit(slug: str, body: Submit):
         run = room.start_round(slug)
         out.update(run_id=run.id, version=run.version.id)
     return out
+
+
+# ---- search: hybrid over everything the room can read -----------------------
+
+@app.get("/api/search")
+def search_room(q: str, scope: str | None = None, kind: str | None = None,
+                mode: str = "hybrid", limit: int = 10):
+    try:
+        return {"hits": search.search(q, limit=min(limit, 50), scope=scope, kind=kind, mode=mode)}
+    except Exception as e:
+        raise HTTPException(503, f"search unavailable: {type(e).__name__}: {str(e)[:200]}")
+
+
+@app.get("/api/search/health")
+def search_health():
+    return search.health()
+
+
+@app.post("/api/search/index")
+def search_index(project: str | None = None):
+    try:
+        return search.index(project)
+    except Exception as e:
+        raise HTTPException(503, f"indexing failed: {type(e).__name__}: {str(e)[:200]}")
 
 
 # ---- costs -----------------------------------------------------------------

@@ -2,9 +2,10 @@
 # docker compose --profile mock up -d    -> also starts the fake provider;
 #                                           set OPENAI_BASE_URL=http://mock:8765/v1 in .env
 #
-# Project data (projects/, logs/) lives in SeaweedFS, whose storage is the
-# seaweedfs-data volume. The app keeps a working copy inside its container and
-# syncs it to the bucket every few seconds (see app/objectstore.py).
+# The room's data (projects/, output/, logs/) lives in SeaweedFS, whose storage is
+# the seaweedfs-data volume — not in this folder. The app keeps a working copy inside
+# its container and syncs it to the bucket every few seconds (see app/objectstore.py).
+# To get the deliverables onto this machine: python -m app.objectstore pull.
 services:
   app:
     build: .
@@ -17,15 +18,18 @@ services:
       S3_BUCKET: ${S3_BUCKET:-writers-room}
       S3_ACCESS_KEY: ${S3_ACCESS_KEY:-writers-room}
       S3_SECRET_KEY: ${S3_SECRET_KEY:-writers-room-dev-secret}
+      OPENSEARCH_URL: ${OPENSEARCH_URL:-http://opensearch:9200}
+      OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
+      EMBED_MODEL: ${EMBED_MODEL:-embeddinggemma}
     volumes:              # configuration stays in this folder
-      - ./roles:/app/roles
-      - ./hats:/app/hats
-      - ./references:/app/references
+      - ./agents:/app/agents          # roles, skills, tools and hats
+      - ./campaigns:/app/campaigns
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
-      - ./output:/app/output         # the latest page prompts and story files, per project
     depends_on:
       seaweedfs:
+        condition: service_healthy
+      opensearch:
         condition: service_healthy
     stop_grace_period: 30s   # time for the final sync
     extra_hosts:
@@ -56,6 +60,27 @@ services:
       timeout: 3s
       retries: 40
 
+  opensearch:                  # the search index: keywords and vectors in one place
+    image: opensearchproject/opensearch:2.19.1
+    environment:
+      discovery.type: single-node
+      bootstrap.memory_lock: "true"
+      OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
+      DISABLE_SECURITY_PLUGIN: "true"        # local only, bound to this machine
+      DISABLE_INSTALL_DEMO_CONFIG: "true"
+    ulimits:
+      memlock: { soft: -1, hard: -1 }
+      nofile: { soft: 65536, hard: 65536 }
+    volumes:
+      - opensearch-data:/usr/share/opensearch/data
+    ports:
+      - "127.0.0.1:9200:9200"   # for your own queries and dashboards
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:9200/_cluster/health || exit 1"]
+      interval: 5s
+      timeout: 3s
+      retries: 40
+
   mock:
     profiles: [mock]
     build: .
@@ -65,3 +90,4 @@ services:
 
 volumes:
   seaweedfs-data:
+  opensearch-data:

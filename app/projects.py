@@ -20,10 +20,10 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the project and round, so a file means the same thing
 wherever it ends up.
 
-Reference files come from references/ at the repo root (a shared library) and
-projects/<slug>/references/ (a file with the same name wins). A project can pick
-which library files it uses ("references" in round-settings.json; default: all), and a
-writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
+Reference files come from campaigns/ and agents/skills/ at the repo root — together the
+room's library — and from projects/<slug>/references/ (a file with the same name wins).
+A project can pick which library files it uses ("references" in round-settings.json;
+default: all), and a writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
 file is canon, a draft or a guide — see reference_kind.
 """
 import hashlib
@@ -33,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import OUTPUT_DIR, PROJECTS_DIR, REFERENCES_DIR
+from .config import LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, SKILLS_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -165,18 +165,27 @@ def reference_files(slug, version=None):
         pre = prefix(slug, version) + "ref-"
         folder = _folder(slug, version) / "references"
         for p in sorted(folder.glob(pre + "*.md")) if folder.is_dir() else []:
-            found[p.name[len(pre):]] = p
+            found[p.name[len(pre):].replace("--", "/")] = p
         return found
     chosen = library_selection(slug)
-    for folder in (REFERENCES_DIR, project_dir(slug) / "references"):
-        if folder.is_dir():
-            for p in sorted(folder.glob("*.md")):  # any file name; lookups go through this dict
-                if p.name.startswith("."):
-                    continue
-                if folder == REFERENCES_DIR and chosen is not None and p.name not in chosen:
-                    continue
-                found[p.name] = p
+    for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
+        if not folder.is_dir():
+            continue
+        for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then kind
+            if p.name.startswith(".") or never_read(p.relative_to(folder)):
+                continue
+            name = library_name(p, folder)
+            if folder in LIBRARY_DIRS and chosen is not None and name not in chosen:
+                continue
+            found[name] = p
     return found
+
+
+def library_name(path, folder):
+    """What a library file is called: its path inside the library, so prosperity/canon/chapter-04
+    and prosperity/drafts/chapter-04 are two different files and read as what they are."""
+    rel = path.relative_to(folder)
+    return f"skills/{rel}" if folder == SKILLS_DIR else str(rel)
 
 
 DRAFT_MARK = "reference: draft"
@@ -184,33 +193,64 @@ GUIDE_MARK = "reference: guide"
 CANON_MARK = "reference: canon"
 
 
+FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
+               "worldbuilding": "worldbuilding", "research": "research", "drafts": "draft"}
+
+
+def never_read(rel):
+    """True for a path the agents must not see, whatever asks for it.
+
+    One rule, and the folder name carries it: inside the library, a folder whose name starts
+    with an underscore is not library material. drafts/_rough/ holds the rough whole documents
+    the split scripts chew, whose content already reaches an agent as the split;
+    agents/skills/_sources/ holds the long skill the per-agent guides are generated from;
+    campaigns/_morgue/ holds clippings kept so a person can find them again. Nothing needs a
+    list in the code, and a new one announces itself. (Only paths under LIBRARY_DIRS come
+    through here — an agent's own agents/_shared/ is loaded by name in agents.py.)"""
+    return any(part.startswith("_") for part in rel.parts)
+
+
 def reference_kind(path):
-    """What a reference is, from a marker near its top, or from its name.
+    """What a file is, from the folder it sits in — or a marker near its top, which wins.
 
-    canon  the default, or <!-- reference: canon -->: the book must not contradict it
-    draft  <!-- reference: draft -->  ideas on paper, mine it but write the room's own version
-    guide  <!-- reference: guide -->, or a SKILL_*.md file: craft and worldbuilding guidance.
-           It commits the book to nothing; the room uses what serves the page.
+    canon          campaigns/evoke/canon, and a campaign's bible, chapters and characters:
+                   the book must not contradict it
+    worldbuilding  invented material to draw on; it commits the book to nothing
+    research       real material — articles, reports, data — true of the world, not the story
+    draft          ideas on paper: mine them, write the room's own version
+    guide          agents/skills: how to do the work, never canon
 
-    A marker always wins over the file name, so a skill that carries the book's own canon —
-    a character, a place, the story's one license — says so and is read as canon."""
+    The markers <!-- reference: canon | draft | guide --> override the folder, for the file that
+    sits somewhere its kind does not match."""
     with path.open(errors="replace") as f:
         head = f.read(400)
     if CANON_MARK in head:
         return "canon"
     if DRAFT_MARK in head:
         return "draft"
-    if GUIDE_MARK in head or path.name.startswith("SKILL_"):
+    if GUIDE_MARK in head or SKILLS_DIR in path.parents:
         return "guide"
-    return "canon"
+    parts = path.parts
+    for folder, kind in FOLDER_KIND.items():
+        if folder in parts:
+            return kind
+    return "canon"          # a campaign's own root: bible.md and anything beside it
 
 
 def library():
-    """The shared reference files: [{name, size}]."""
-    if not REFERENCES_DIR.is_dir():
-        return []
-    return [{"name": p.name, "size": p.stat().st_size, "kind": reference_kind(p)}
-            for p in sorted(REFERENCES_DIR.glob("*.md")) if not p.name.startswith(".")]
+    """The shared library: every campaign's material and the room's skills."""
+    out = []
+    for folder in LIBRARY_DIRS:
+        if not folder.is_dir():
+            continue
+        for p in sorted(folder.rglob("*.md")):
+            if p.name.startswith(".") or never_read(p.relative_to(folder)):
+                continue
+            rel = p.relative_to(folder)
+            out.append({"name": library_name(p, folder), "size": p.stat().st_size,
+                        "kind": reference_kind(p), "folder": folder.name,
+                        "group": str(rel.parent) if folder != SKILLS_DIR else "skills"})
+    return out
 
 
 def library_selection(slug):
@@ -226,13 +266,27 @@ def list_references(slug, version=None):
     root = project_dir(slug)
     return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime, "kind": reference_kind(p),
              "source": "project" if p.parent == root / "references" else
-                       "shared" if p.parent == REFERENCES_DIR else "version"}
+                       "shared" if p.parent in LIBRARY_DIRS else "version"}
             for n, p in reference_files(slug, version).items()]
 
 
 def read_reference(slug, name, version=None):
-    p = reference_files(slug, version).get(name)
-    return p.read_text() if p else None
+    """One reference by name.
+
+    The round's picker and a writer's shortlist decide what is *carried* into a prompt; they do
+    not hide a file from someone asking for it by name. So a name the project did not select is
+    still read from the library — which is what makes "anything left off a shortlist is one
+    read_artifact away" true, for an agent and for the screen."""
+    found = reference_files(slug, version).get(name)
+    if found is None and version is None:
+        for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
+            root = folder.resolve()
+            candidate = (folder / name.removeprefix("skills/")).resolve()
+            if candidate.is_file() and root in candidate.parents \
+                    and not never_read(candidate.relative_to(root)):   # inside, and not an _ folder
+                found = candidate
+                break
+    return found.read_text() if found else None
 
 
 def write_artifact(slug, name, content):
@@ -345,7 +399,8 @@ class Round:
         if refs:
             (self.dir / "references").mkdir()
         for name, p in refs.items():  # freeze the source material this round used
-            shutil.copyfile(p, self.dir / "references" / f"{self.prefix}ref-{name}")
+            flat = name.replace("/", "--")     # campaigns/<campaign>/<kind>/x.md -> one flat file
+            shutil.copyfile(p, self.dir / "references" / f"{self.prefix}ref-{flat}")
         self._lock = threading.Lock()
         self._calls = 0
         self.meta = {"id": self.id, "kind": kind, "started": now(), "finished": None,

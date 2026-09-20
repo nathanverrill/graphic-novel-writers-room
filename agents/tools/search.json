@@ -1,0 +1,28 @@
+{
+  "description": "Search everything the room can read \u2014 the campaign's canon and drafts, the craft and worldbuilding skills, and this project's own files. Hybrid: it matches on words and on meaning at once, so both 'brine permit' and 'how does a family here talk about money' work. Returns the passage, the file it came from and its heading, so you can read_artifact the file for more.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "query": {
+        "type": "string",
+        "description": "what you want to know, in your own words"
+      },
+      "scope": {
+        "type": "string",
+        "description": "optional: 'references', 'skills', or 'project' for this project's files"
+      },
+      "kind": {
+        "type": "string",
+        "description": "optional: canon, guide, draft or room"
+      },
+      "limit": {
+        "type": "integer",
+        "description": "how many passages, default 6"
+      }
+    },
+    "required": [
+      "query"
+    ]
+  },
+  "_why": "The library is larger than any prompt. This is how an agent reaches the rest of it without carrying it, and how it finds a fact it was never given."
+}

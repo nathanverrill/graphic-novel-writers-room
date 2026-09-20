@@ -9,12 +9,16 @@ from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-ROLES_DIR = ROOT / "roles"
+AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 PROJECTS_DIR = ROOT / "projects"
-REFERENCES_DIR = ROOT / "references"   # shared by every project
-HATS_DIR = ROOT / "hats"               # optional thinking mode per run
+CAMPAIGNS_DIR = ROOT / "campaigns"     # the books' own material: campaigns/<campaign>/<kind>/
+SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
+TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
+LIBRARY_DIRS = (CAMPAIGNS_DIR, SKILLS_DIR)   # everything the agents can read, campaigns and craft
+REFERENCES_DIR = CAMPAIGNS_DIR         # the old name, while anything still says references
+HATS_DIR = AGENTS_DIR / "hats"         # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
-OUTPUT_DIR = ROOT / "output"           # the latest deliverables, easy to find on your computer
+OUTPUT_DIR = ROOT / "output"           # the latest deliverables; kept in the object store
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
 
@@ -79,6 +83,7 @@ class AgentConfig:
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
     references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
     reference_files: list = None   # library files this writer gets (None = whatever the round picked)
+    tools: list = None       # tools from agents/tools/ this agent may call (None = all it can use)
     # ASCII Artist
     min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)
     refine_passes: int = None     # "look at it and improve it" passes per panel (default 1)

@@ -15,7 +15,7 @@ import json
 import time
 
 from . import llm, projects, usage
-from .roles import load_roles
+from .agents import load_roles
 
 FILE = "showrunner-notes.json"
 SYNTHESIS_ROLE = "editor"

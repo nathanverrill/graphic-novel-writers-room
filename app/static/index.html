@@ -9,7 +9,7 @@
 </head>
 <body>
 <header>
-  <h1>Writers' Room <span>graphic novel</span></h1>
+  <h1><a href="/" title="the one-button start">Writers' Room</a> <span>graphic novel</span></h1>
   <div id="config" class="config"></div>
 </header>
 
@@ -238,6 +238,23 @@ the count runs out. 0 stops after the next round.">Auto rounds
     <div class="section-head">
       <h2>Files</h2>
       <select id="version-select" title="Working copy or a saved run"></select>
+    </div>
+    <div class="search">
+      <div class="search-row">
+        <input id="search-q" type="search" placeholder="Search everything the room can read…"
+               autocomplete="off">
+        <select id="search-mode" title="How to match">
+          <option value="hybrid">hybrid</option>
+          <option value="keywords">keywords</option>
+          <option value="vectors">meaning</option>
+        </select>
+      </div>
+      <div class="search-row">
+        <select id="search-scope" title="Where to look"><option value="">everywhere</option></select>
+        <button id="search-reindex" class="ghost" type="button" title="Rebuild the index from the files on disk">Reindex</button>
+        <span class="path" id="search-note"></span>
+      </div>
+      <div id="search-hits" class="search-hits"></div>
     </div>
     <div id="version-info" class="version-info" hidden>
       <div id="version-meta"></div>

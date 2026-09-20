@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ee">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Writers' Room</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --panel: #fffdf9; --ink: #1d1b18; --muted: #7a7266;
+    --line: #e2dcd2; --accent: #c2410c; --ok: #3f7d3a; --bad: #b42318;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; background: var(--bg); min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center;
+    padding: max(1.25rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom));
+  }
+  [hidden] { display: none !important; }
+  main { width: 100%; max-width: 34rem; flex: 1; display: flex; flex-direction: column; }
+
+  h1 { font-size: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+       color: var(--muted); margin: 0 0 auto; text-align: center; }
+
+  /* ---- the button ---- */
+  #start {
+    display: block; width: 100%; margin: 2rem 0;
+    padding: 1.6rem 1.25rem; font: inherit; font-size: 1.35rem; font-weight: 600;
+    color: var(--panel); background: var(--ink); border: none; border-radius: 1rem;
+    cursor: pointer; transition: transform .1s ease, background .15s ease;
+  }
+  #start:active { transform: scale(.985); background: #000; }
+  #start:disabled { background: var(--muted); cursor: default; }
+
+  /* ---- progress: one line per step ---- */
+  #progress { margin: 1rem 0 auto; }
+  ol { list-style: none; margin: 0; padding: 0; }
+  li {
+    display: flex; align-items: center; gap: .75rem;
+    padding: .7rem .25rem; border-bottom: 1px solid var(--line);
+    font-size: 1.05rem; color: var(--muted);
+  }
+  li:last-child { border-bottom: none; }
+  li .dot {
+    flex: none; width: 1.1rem; height: 1.1rem; border-radius: 50%;
+    border: 2px solid var(--line);
+  }
+  li.now { color: var(--ink); font-weight: 600; }
+  li.now .dot { border-color: var(--accent); border-right-color: transparent;
+                animation: spin 1s linear infinite; }
+  li.done { color: var(--ink); }
+  li.done .dot { border-color: var(--ok); background: var(--ok); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { li.now .dot { animation: none; } }
+
+  .note { text-align: center; color: var(--muted); font-size: .95rem; margin: 1.25rem 0 0; }
+  .note.bad { color: var(--bad); }
+
+  /* ---- the sketches ---- */
+  #sheets { margin: 1.5rem 0 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  figure { margin: 0; }
+  figcaption { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase;
+               color: var(--muted); margin: 0 0 .4rem; }
+  .sheet {
+    background: #fff; border: 1px solid var(--line); border-radius: .5rem; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  }
+  .sheet svg { display: block; width: 100%; height: auto; }
+
+  footer { width: 100%; max-width: 34rem; text-align: center; padding-top: 2rem; }
+  footer a { color: var(--muted); font-size: .85rem; text-decoration: none;
+             border-bottom: 1px solid var(--line); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Writers' Room</h1>
+
+  <button id="start">Start Prosperity</button>
+
+  <div id="progress" hidden><ol id="steps"></ol></div>
+  <p id="note" class="note" hidden></p>
+
+  <div id="sheets"></div>
+</main>
+
+<footer><a href="/room">the whole room</a></footer>
+
+<script>
+const SLUG = "prosperity";
+
+const $ = (id) => document.getElementById(id);
+const startBtn = $("start"), steps = $("steps"), note = $("note"), sheets = $("sheets");
+
+/** The room's own default line-up, in the order it works — so this page stays right
+    when the defaults change in agents.json, instead of keeping its own copy. */
+async function lineUp() {
+  const { roles } = await (await fetch("/api/agents")).json();
+  const picked = roles.filter((r) => r.selected !== false);
+  if (!picked.length) throw new Error("no writers are selected in agents.json");
+  return picked;
+}
+
+/** One <li> per writer, so the whole shape of the work is visible before it starts. */
+function drawSteps(roles) {
+  steps.innerHTML = "";
+  for (const r of roles) {
+    const li = document.createElement("li");
+    li.dataset.role = r.id;
+    li.innerHTML = `<span class="dot"></span><span></span>`;
+    li.lastElementChild.textContent = r.title || r.id;
+    steps.append(li);
+  }
+  $("progress").hidden = false;
+}
+
+function mark(role, state) {
+  const li = steps.querySelector(`[data-role="${role}"]`);
+  if (!li) return;
+  li.classList.remove("now", "done");
+  li.classList.add(state);
+}
+
+function say(text, bad = false) {
+  note.textContent = text;
+  note.classList.toggle("bad", bad);
+  note.hidden = !text;
+}
+
+/** Which pages the round actually made. Asked of the room rather than taken from the
+    run's events: round_ready carries a count only for a writing round (room.py). */
+async function pageNumbers() {
+  const r = await fetch(`/api/projects/${SLUG}/prompts`);
+  if (!r.ok) return [];
+  const { pages } = await r.json();
+  return Object.keys(pages || {}).map(Number).sort((a, b) => a - b);
+}
+
+/** The deliverable: each page's text layer, black on white, nothing else. */
+async function showSketches() {
+  $("progress").hidden = true;
+  say("Fetching the pages…");
+  for (const page of await pageNumbers()) {
+    const r = await fetch(`/api/projects/${SLUG}/lettering/${page}`);
+    if (!r.ok) continue;                       // a page with no layout: skip it
+    const { svg } = await r.json();
+    const fig = document.createElement("figure");
+    fig.innerHTML = `<figcaption></figcaption><div class="sheet"></div>`;
+    fig.firstElementChild.textContent = `Page ${page}`;
+    fig.lastElementChild.innerHTML = svg;      // the app's own SVG, from this origin
+    sheets.append(fig);
+  }
+  say(sheets.children.length ? "" : "The round finished without any lettered pages.",
+      !sheets.children.length);
+}
+
+function run(runId) {
+  let failed = null, finished = false;
+  const events = new EventSource(`/api/runs/${runId}/events`);
+
+  events.addEventListener("message", (e) => {
+    const ev = JSON.parse(e.data);
+    if (ev.type === "role_start") { mark(ev.role, "now"); say(""); }
+    else if (ev.type === "role_done") mark(ev.role, "done");
+    else if (ev.type === "error") say((failed = ev.text), true);
+    else if (ev.type === "warn") say(ev.text);
+    else if (ev.type === "run_stopped") say((failed = "Stopped."), true);
+  });
+
+  const finish = async () => {
+    if (finished) return;                        // "end" then "error" both arrive: once only
+    finished = true;
+    events.close();
+    steps.querySelectorAll(".now").forEach((li) => li.classList.remove("now"));
+    startBtn.hidden = false;
+    startBtn.disabled = false;
+    startBtn.textContent = "Start again";
+    if (!failed) await showSketches();
+  };
+  events.addEventListener("end", finish);
+  events.addEventListener("error", () => {       // the stream dropped: stop, don't spin
+    if (events.readyState === EventSource.CLOSED) finish();
+  });
+}
+
+startBtn.addEventListener("click", async () => {
+  startBtn.disabled = true;
+  startBtn.textContent = "Starting…";
+  sheets.innerHTML = "";
+  say("");
+  try {
+    const roles = await lineUp();
+    drawSteps(roles);
+    const r = await fetch(`/api/projects/${SLUG}/runs`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roles: roles.map((x) => x.id) }),
+    });
+    if (!r.ok) throw new Error((await r.json()).detail || `the room said no (${r.status})`);
+    startBtn.hidden = true;
+    run((await r.json()).run_id);
+  } catch (e) {
+    startBtn.disabled = false;
+    startBtn.textContent = "Start Prosperity";
+    $("progress").hidden = true;
+    say(e.message, true);
+  }
+});
+</script>
+</body>
+</html>

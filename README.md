@@ -5,17 +5,22 @@ for every page, a complete markdown brief you paste into an image model (outside
 to draw the finished page. Give it a directional draft script and a page count; the room
 writes until the pages are ready, you review every page as a layout sketch — keep the ones
 that are done, say what you want on the rest — and the room revises from your notes, edits
-and diffs — round after round, each saved in full. Every role is guided by its own markdown,
+and diffs — round after round, each saved in full. Every agent is guided by its own markdown,
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
+Everything the room can read — the canon, the worldbuilding, the idea drafts, the craft skills,
+each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
+a second or two after you save a file. The same tools the agents call are served over MCP, so a
+chat client or an editor can work on a book without the screen.
+
 The art room — which will draw pages itself, with its own taste — is a separate, later room.
-Its roles (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
+Its agents (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
 
 A writing round runs six of them, in this order. The other three are there when you want them,
 and run only if you tick them and press **Run selected roles only**.
 
-| In a round | Role | Writes | Notes |
+| In a round | Agent | Writes | Notes |
 |---|---|---|---|
 | 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
@@ -32,7 +37,7 @@ Penciller, Continuity Editor.
 
 The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
 reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
-or decision needed (see `roles/_shared/house-style.md`).
+or decision needed (see `agents/_shared/house-style.md`).
 
 ## The screen
 
@@ -43,7 +48,7 @@ Projects on the left; the book in the middle; what the room is doing on the righ
 | Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
 | Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
 | Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
-| Middle, under the tabs | **Stats** — what the room has spent, by project, round or role |
+| Middle, under the tabs | **Stats** — what the room has spent, by project, round or agent |
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
@@ -168,6 +173,10 @@ cp .env.example .env        # set OPENAI_BASE_URL, OPENAI_API_KEY, OPENAI_MODEL
 
 Open http://localhost:8000.
 
+Search is optional and needs two more things: OpenSearch (`docker compose up -d opensearch`, or
+the whole stack) and Ollama on your machine with `ollama pull embeddinggemma`. Without them the
+room runs exactly as before.
+
 To try it with no key and no bill, use the mock endpoint (it fakes chat, images and token usage;
 `MOCK_REPORT_COST=1` imitates a provider that reports its own cost):
 
@@ -183,16 +192,22 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-**Configuration** — `roles/`, `hats/`, `references/` and `pricing.json` — is mounted from this
-folder, so you edit it in place.
+`docker compose up -d` brings up three services: the **app**, **SeaweedFS** for the room's data,
+and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
+`host.docker.internal:11434`.
 
-**Project data** — `projects/` (every round, page, review and call log) and `logs/` — lives in
-**SeaweedFS**, an S3-compatible object store whose storage is the `seaweedfs-data` Docker
-volume. The app works on a copy inside its container: on start it pulls everything from the
+**Configuration** — `agents/` (with its skills, tools and hats), `campaigns/` and
+`pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
+reindexed about a second later.
+
+**The room's data** — `projects/` (every round, page, review and call log), `output/` (the
+latest deliverables) and `logs/` — lives in **SeaweedFS**, an S3-compatible object store whose
+storage is the `seaweedfs-data` Docker volume. None of it is a folder in this one. The app works on a copy inside its container: on start it pulls everything from the
 bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
 on shutdown. Recreating or rebuilding the app container loses nothing; so does
-`docker compose down`. **`docker compose down -v` deletes the volume, and all project data
-with it.**
+`docker compose down`. **`docker compose down -v` deletes the volumes, and all project data
+with them** — the search index in `opensearch-data` is rebuilt from the files, so losing that
+one costs only the time to re-embed.
 
 ```sh
 # bring an existing project folder in (it syncs up within seconds)
@@ -226,7 +241,7 @@ it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages s
 true proportions.
 
 The Penciller writes a ```` ```layout ```` JSON block per page (format:
-`roles/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
+`agents/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
 in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
 balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
 effects and figure placeholders, in code and for free. The renderer reports overlapping
@@ -240,7 +255,7 @@ it per panel or item (`"invert": true` — which also tells the image model the 
 and you can paint it in the editor with the **invert brush** or **⌘I**. Review diffs report
 inversion changes, and locks keep them.
 
-(The ASCII Artist, which drew full pages in ASCII, is retired to `morgue/ascii_artist/`.)
+(The ASCII Artist, which drew full pages in ASCII, is retired to `campaigns/_morgue/ascii_artist/`.)
 
 ### Editing the sketch in place
 
@@ -265,8 +280,11 @@ Past rounds are read-only.
 
 ## Morgue
 
-`morgue/` keeps reviewed documents we don't use but don't want to lose, with a README noting
-what was adopted from each and why the rest wasn't. Nothing in it reaches an agent.
+`campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
+noting what was adopted from each and why the rest wasn't. It is there so a person can find an
+old document again, and nothing in it reaches an agent — the leading underscore is the rule,
+the same one that keeps `drafts/_rough/` and `agents/skills/_sources/` out of the room (see
+**The library**).
 
 ## Running the room
 
@@ -337,8 +355,8 @@ from any tab without opening **The room**. Under it, the live feed; **Expand** o
 the window to read properly, **Close the feed** or Escape puts it back.
 
 **Progress.** Above the live feed in the watch pad, a bar shows the pass and step (e.g. "Pass 1 of up to 3 ·
-step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each role's past
-real runs from `logs/usage.jsonl`, 2 minutes for a role with no history), and how long the room
+step 2 of 6: Plotter"), time elapsed, roughly how long is left (the median of each agent's past
+real runs from `logs/usage.jsonl`, 2 minutes for an agent with no history), and how long the room
 has been waiting on the model, highlighted after 3 minutes.
 
 **Lettering as its own layer.** Set **Lettering** in **The room** tab to *separate layer* and the
@@ -355,9 +373,10 @@ attaches the page's art, **Download text layer** saves the SVG, and each round a
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
 **Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
-`output/<project>/` in this folder (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`;
-overwritten each time — every version stays in the project's rounds). **Save to output folder**
-does it on demand.
+`output/<project>/` (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`; overwritten each
+time — every version stays in the project's rounds). **Save to output folder** does it on
+demand. Under Docker that folder lives in the object store with the rest of the room's data,
+not in this one: `python -m app.objectstore pull` brings it onto your machine.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
@@ -366,71 +385,147 @@ the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 r
 How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 
 - `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
-- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("references/<name>")`. Cheaper, but the agent has to choose to read them.
+- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("library/<path>")`. Cheaper, but the agent has to choose to read them.
 
-## Reference material
+## Character references
 
-Put your source material — a script, lore, series bible, style notes — in `.md` files in:
+Each character has a standalone file in `campaigns/<campaign>/characters/` — `alex-phantum.md`,
+`ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
+`bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
+
+Each gathers, in this order: an at-a-glance table (want, need, wound, tell, voice, palette), the
+visual lock from the newest project bible exactly as the page prompts paste it, the campaign
+bible's canon sheet verbatim, the bible's relationship sections, every distinct line the scripts
+have given them with the file it was written in, and where all of it came from.
+
+`python scripts/gather_character.py` rebuilds them from every document in the room — the
+library, the skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
+across twenty round snapshots is written once. The at-a-glance wording lives in
+`scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
+belongs in the bible.
+
+## The library
+
+**`campaigns/` is the material; `projects/` is the work.** Everything true of Prosperity — its
+bible, chapters, characters, worldbuilding, research and drafts — lives in
+`campaigns/prosperity/`, and it is in git. A project is one production drawing on that
+material — the pitch, the files the agents write, the round history — and it is **not a folder
+you browse**: `projects/` and `output/` are the room's data, git-ignored and kept in the object
+store (see **Docker**), so all you would find by opening them is whatever the last run left on
+disk. A project is also not tied to one campaign: by default it can read every campaign's
+material, narrowed by the shortlist in its `round-settings.json`. The projects are chapter-sized
+(`evoke-chapter-1`, `evoke-chapter-4`), so several of them draw on one campaign, and a name that
+appears in both trees is a coincidence, not a parent and a child.
+
+The two together are what the agents call the **library**, and that is the one place the word
+still means a folder that is not there: a file reaches an agent as `library/<its path>`, whether
+it comes from `campaigns/` or from `agents/skills/`.
+
+One folder per campaign, and the same words inside each, so a person opening any folder knows
+what they are looking at:
 
 ```
-references/                     the shared library
-references/sources/             originals that tools split up (agents never read this)
-projects/<slug>/references/     this project only (a file with the same name wins)
+campaigns/
+  evoke/
+    canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
+  prosperity/
+    bible.md        the campaign's own truth, where you land
+    chapters/       chapter-01.md … chapter-06.md
+    characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
+    worldbuilding/  invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
+    research/       real: articles, reports, data, photographs
+    drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
+      _rough/       the rough whole drafts those chapters were split out of
+  avalanche/        the next campaign: the same folders, empty
+  _morgue/          clippings kept for people, so an old document is never lost
+agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
+agents/skills/_sources/   the long skill the per-agent guides are generated from
+projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
-**A project picks which library files it uses** — **References…** in **The room** tab; default:
-all of them. A writer can narrow that further with its own shortlist (below), and the summary
+Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign,
+`campaigns/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
+named only at the evoke level — everything under a campaign is that campaign's truth by sitting
+there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
+`prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
+campaign is `mkdir -p campaigns/avalanche/{chapters,characters,worldbuilding,research,drafts}`.
+
+And a third rule that is only a naming convention: **inside the library — `campaigns/` and
+`agents/skills/` — a folder whose name starts with an underscore is not library material.**
+The room skips it when it lists the library, when a round carries references into a prompt, and
+when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
+there is no list of special folder names anywhere. Those folders are for people, and for the
+split scripts, which read their source by path. (An agent's own folder is not library material
+either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
+
+**`drafts/_rough/` is not a separate kind of thing.** It holds the rough whole documents the
+chapters were split out of — a 129 KB script draft, a 93 KB campaign bible — and they are
+drafts like any other, just rougher and superseded. They stay out of prompts because their
+content already reaches an agent as the split (`bible.md` and `chapters/` from one,
+`drafts/chapter-<nn>.md` from the other), not because they are authoritative. Nothing is lost
+by the room not reading them.
+
+**`research/` and `drafts/` are not the same thing.** Research is material someone went and
+found about the real world — a piece on water permits, a production table. A draft is someone's
+own rough go at the story: mine it for beats and intent, write the room's own version.
+
+**A project picks which library files it uses** — **References…** in **The room** tab lists both
+folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
 beside the picker shows how many KB the selection is. With references in place the pitch is
 optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
 each.
 
 Long documents can be split so a project takes only what it needs:
 
-- `python tools/split_bible.py` — `references/sources/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md` into
-  `EVOKE_PROSPERITY_BIBLE.md` (general canon) and `EVOKE_PROSPERITY_CHAPTER_<n>.md` (each
-  chapter's canon row, principle, character interaction map and script revision flags).
-- `python tools/split_script.py` — `references/sources/SCRIPT_DRAFT_AUG_23.md` into
-  `SCRIPT_DRAFT_AUG_23_CHAPTER_<n>.md`, each marked as an idea draft.
+- `python scripts/split_bible.py` — `campaigns/prosperity/drafts/_rough/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
+  into `bible.md` and `chapters/chapter-<nn>.md` (each chapter's canon row, principle,
+  character interaction map and script revision flags).
+- `python scripts/split_script.py` — `campaigns/prosperity/drafts/_rough/SCRIPT_DRAFT_AUG_23.md` into
+  `drafts/chapter-<nn>.md`, each marked as an idea draft.
 
 Rerun them after updating a source.
 
-**What a reference is.** Three kinds, and the room is told which it is reading:
+**What a reference is.** Five kinds, each arriving under its own heading so the room is told
+which it is reading:
 
-| Kind | How it is marked | What the room does with it |
+| Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | the default, or `<!-- reference: canon -->` | must not contradict it; where it conflicts with the room's files, the reference wins |
-| draft | `<!-- reference: draft -->` near the top | ideas on paper: mine it for beats and intent, write the room's own version |
-| guide | `<!-- reference: guide -->`, or a file named `SKILL_*.md` | craft and worldbuilding guidance: commits the book to nothing, describes no events, take what serves the page |
+| canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
+| worldbuilding | `worldbuilding/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
+| research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
+| draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
+| guide | `agents/skills/` | how to do the work; never canon |
 
-A marker wins over the file name, so a skill that carries the book's own canon — a character, a
+A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`SKILL_ALPHA.md` is the case in point: it is who Alpha is, not a menu of options.
+`campaigns/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
+is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
 
-The guides in `references/` label their material with the vocabulary in
-`SKILL_HARD_SF_RULES.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+The skills label their material with the vocabulary in
+`agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
 them, and a license used to skip work the characters should have done.
 
 **Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
-also carries its own shortlist: in its model settings, **Library files for this writer**.
-What each one reads now, with this library:
+also carries its own shortlist: in its model settings, **Library files for this writer**, which
+lists the references and the skills together. What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, Alpha, the hard-SF rules |
-| Plotter | chapter canon, Alpha, hard-SF rules, lithium triangle futures, water wars, the Social Innovators' Framework |
-| Character Designer | the bible, Alpha, hard-SF rules |
-| Scripter | chapter canon, Alpha, hard-SF rules, the script-writing skill |
-| Penciller | Alpha, hard-SF rules, graphic novel layout, the layout picker, near-future set design, character emotion |
-| Continuity Editor | the bible, Alpha, hard-SF rules |
+| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
+| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Character Designer | the bible, Alpha, `hard-sf-rules` |
+| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
+| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
+| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 97 and 116 KB a call, out of a library that is now 31 files and
-622 KB — 16 guides, 9 canon files, 6 idea drafts. Anything left off a shortlist is still one
-`read_artifact` away: the chapter canon for the Editor, everyday life and money for the
-Scripter, the science guide for the Plotter.
+That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and
+701 KB — 16 canon files, 9 worldbuilding files, 6 idea drafts, 6 craft skills. Anything left off
+a shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
+life and money for the Penciller, the science guide for the Editor.
 
 Selecting none in that list means the writer reads whatever the round picked. The project's own
 `references/` folder is always read, whatever the shortlist says.
@@ -440,10 +535,12 @@ Selecting none in that list means the writer reads whatever the round picked. Th
 Everything an agent knows comes from its folder:
 
 ```
-roles/
-  roles.json              order, title, mission, reads, outputs
-  _shared/                given to every role
-  <role>/
+agents/
+  agents.json             order, title, mission, reads, outputs
+  skills/                 craft skills, loaded by name in an agent's shortlist
+  tools/                  what an agent can call: one json schema per tool
+  _shared/                given to every agent
+  <agent>/
     *.md                  guides — all are read, alphabetically
     images/               reference images (png, jpg, webp, gif)
     figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
@@ -451,23 +548,29 @@ roles/
     agent.json            provider, model and tuned defaults (committed; no keys)
 ```
 
-- **Add a guide:** drop a `.md` file in the role's folder.
-- **Skills:** long craft skills live in `skills/`, which agents never read directly. `tools/split_skill.py` copies each role only the parts of the storycraft skill it needs, as `roles/<role>/storycraft.md` (the shared core goes to `roles/_shared/`). Edit the skill or the map in the script, then run `python tools/split_skill.py`. (The ASCII art skill and bible in `skills/` served the retired ASCII Artist. `references/` is for story material only: everything in it goes to every agent.)
+- **Add a guide:** drop a `.md` file in the agent's folder.
+- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/_sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
-- **Add or change a role:** edit `roles/roles.json` and create the matching folder.
-  `"selected": false` leaves a role unticked by default. `"context": "minimal"` gives a role
+- **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
+  `parameters` are what the model sees, so the wording steers behaviour; `_why` lines are
+  comments for the next person. An agent gets every implemented tool unless its `agent.json`
+  names a `tools` list, `write_artifact` refuses any file that is not its own output, and
+  `generate_image` needs `generate_images: true`. A cold reader (`"context": "minimal"`) gets
+  `write_artifact` and `finish` only.
+- **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
+  `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
   only its own folder, the pitch and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
-- **Random entry:** a role with `deck.txt` (one prompt per line) gets 3 cards drawn by code
+- **Random entry:** an agent with `deck.txt` (one prompt per line) gets 3 cards drawn by code
   each run, plus a word from `words.txt` and a random heading from the outline or script
   as a target. The draw shows in the live feed.
 
 ## Hats
 
-`hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
+`agents/hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
 yellow value, red reaction, green possibility). Pick one in the hat menu next to **Run**
-and it's added to every selected role for that run; the round records which hat was used.
+and it's added to every selected agent for that run; the round records which hat was used.
 Hats are modes, not jobs: e.g. run the Continuity Editor in the yellow hat to find what's
 worth keeping.
 
@@ -486,7 +589,7 @@ written to `agent.json` / `run.json`. Only agents on the default provider fall b
 instead** in the advanced settings. The app listens on `127.0.0.1` only, because anyone who
 can reach it can use your keys.
 
-**Each agent's `roles/<id>/agent.json` is committed** and holds its provider, model and
+**Each agent's `agents/<id>/agent.json` is committed** and holds its provider, model and
 **tuned defaults for that kind of agent** — no keys. Its `_why` note (shown in the advanced
 view) explains them:
 
@@ -512,17 +615,109 @@ UI changes a setting, the change shows up in `git diff`.
 | `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
+| `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
 | `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
-A bad `agent.json` is flagged on the card and blocks runs that include that role.
+A bad `agent.json` is flagged on the card and blocks runs that include that agent.
 
 ## Rounds, runs and images
 
 - Every run is a round — **Run selected roles only** too — starting from the current working copy (including your manual edits) and recording every write. A stopped or failed run still leaves a complete round.
 - Images (art-room roles, or chat replies that include images) are saved with round-prefixed names in `images/`, so nothing is overwritten.
 - Pick a round from the **Files** dropdown to browse its files, replay its feed, see its model calls, or **Restore** its book files into the working copy.
+
+## Search
+
+Everything the room can read is indexed for hybrid search: the campaign's canon, worldbuilding,
+research and drafts, the craft skills, and each project's own files.
+
+- **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn
+  from it. A term that is common in one passage and rare everywhere else is a keyword, so a
+  record carries *brine*, *cooperative*, *Evokation* rather than *page* and *the room*.
+- **Meaning** — `embeddinggemma`, served by Ollama on your machine. Local, free to re-run.
+- **Hybrid** — both at once, normalised and combined by OpenSearch's own pipeline, so
+  `balloon tails` and `how does a family here talk about money` both work.
+
+A passage is a markdown section carrying its heading path, so a hit reads
+`triangle-money.md › The big truths › Three countries, three money cultures` instead of naming a
+22 KB file. Indexing is keyed by content hash — an unchanged passage is never re-embedded — so
+the first pass over this library is 763 passages and a few minutes of embedding, while a full
+pass with nothing changed walks the same 763 and re-embeds none of them in about half a second.
+
+The index lives in the `opensearch-data` Docker volume and is published on
+`127.0.0.1:9200`, so you can query it yourself:
+
+```sh
+curl -s 'localhost:9200/writers-room/_count'
+curl -s localhost:8000/api/search/health          # what is up, and how much is indexed
+curl -s 'localhost:8000/api/search?q=water+permits&scope=skills&mode=keywords'
+```
+
+**Who searches.** The **Files** pane has the search box — pick hybrid, keywords or meaning, and
+a scope, and click a hit to open that file, whether or not this round carries it. The agents have it as a tool (`agents/tools/search.json`),
+so a writer can reach the whole library without carrying it. MCP clients get `search_room` and
+`reindex`.
+
+**Staying current.** The app watches every file the index covers and reindexes the ones that
+change: **an edit is searchable a second or two after you save it** — 0.16 s for a host save to
+reach the container, up to 0.5 s of poll, then chunking the one file, embedding what changed
+(0.15 s a passage) and a refresh. The same applies to what an agent writes mid-round, so a page
+the Penciller has just written is searchable while the round is still going.
+
+One changed file costs one file's work: the passages it lost are dropped, the ones it gained are
+embedded, everything else is left alone. Rewriting one passage of a 22 KB file re-embeds that
+passage and leaves the other twenty alone.
+
+It polls (twice a second, a few dozen `stat` calls) rather than using an OS file watcher,
+because the app runs in the container while you edit on the host: macOS bind mounts do not
+forward inotify events, so a watcher would see what the agents write and stay silent for
+everything you save. Running the app natively instead makes an OS watcher the better choice —
+only the trigger would change.
+
+**Running it.** `docker compose up -d` starts OpenSearch beside the app, which indexes on start
+and watches from then on. Ollama runs on your machine with `ollama pull embeddinggemma`.
+Without either, the room works as before: the box says search is off, and the agents' tool tells
+them to fall back to `list_artifacts` and `read_artifact`.
+
+## The room's tools, over MCP
+
+The six tools an agent calls are defined in `agents/tools/`. The room also serves them over
+MCP, so a chat client, an editor or another agent can work on a book without going through the
+screen:
+
+```sh
+claude mcp add --transport http writers-room http://localhost:8000/mcp/
+```
+
+| Tool | What it does |
+|---|---|
+| `list_projects` | the room's projects by name |
+| `list_artifacts` | a project's room files and its reference material |
+| `read_artifact` | one file, e.g. `script.md` or `library/evoke/canon/alpha.md` |
+| `write_artifact` | overwrite one room file with complete markdown |
+| `search_room` | hybrid search over the library, the skills and a project's files |
+| `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
+| `page_prompts` | the deliverable: every page's prompt, or one page's |
+
+Outside a round there is no agent, so every tool takes the project it acts on and
+`write_artifact` is not restricted to one agent's outputs. The guards are the same either way,
+and in the same code: pages you have kept are put back, your standing rules are restored, and
+saving `layouts.md` redraws the sketch. `finish` is not served — it ends an agent's turn, which
+means nothing from outside.
+
+## Always the file on disk
+
+Nothing about an agent is cached between turns. Every time an agent takes the floor it reads
+its guides, its `agent.json`, the tool files in `agents/tools/`, and whichever library files it
+carries, straight from disk — so editing a `.md` while a round is running changes what the next
+writer sees, and pausing the round to edit one is a real way to work. The same goes for the
+tools served over MCP: their descriptions are re-read before a client is shown them.
+
+The exceptions are not markdown: code under `app/` is baked into the Docker image and needs
+`docker compose up -d --build app`, Figma pulls are cached per process, and the browser caches
+the app's own JS and CSS (a hard reload picks up a new build).
 
 ## Call logs and costs
 
@@ -534,29 +729,39 @@ rounds/<slug>-r03-ai/<slug>-r03-ai-calls.jsonl                           one sum
 logs/usage.jsonl                                               the same lines, across all projects
 ```
 
-A summary line has: project, round (`version`), role, kind (`chat`/`image`), provider host, model,
+A summary line has: project, round (`version`), agent, kind (`chat`/`image`), provider host, model,
 input / cached / image / output / reasoning tokens, `cost_usd`, `cost_source`, duration,
 HTTP status, error, and the path to the full log.
 
 - **Cost** comes from the provider when it reports one (`usage.cost`, which OpenRouter returns). Otherwise it's worked out from `pricing.json` (USD per 1M tokens, or `per_image`). A model found in neither is logged as `unpriced` and flagged in the UI. **Check `pricing.json` against your providers' current prices**; the file reloads automatically when you change it.
 - **Images** inside requests and responses (base64) are saved once to `calls/blobs/` and replaced by `<blob:calls/blobs/…>`, so logs stay readable. API keys are never logged.
-- **In the UI:** each call shows its tokens and cost in the live feed, and role cards show what their last run cost. The **Costs** section breaks spending down by role, by provider/model, by role × provider/model, and by chat vs image, for this project, a selected round, or all projects. A round's **Model calls** button lists its calls, with links to the full JSON.
+- **In the UI:** each call shows its tokens and cost in the live feed, and agent cards show what their last run cost. The **Costs** section breaks spending down by role, by provider/model, by role × provider/model, and by chat vs image, for this project, a selected round, or all projects. A round's **Model calls** button lists its calls, with links to the full JSON.
 - **Your own analysis:** `logs/usage.jsonl` loads straight into pandas: `pd.read_json("logs/usage.jsonl", lines=True)`.
-- **Totals:** each round's `run.json` has a `usage` block with totals per role.
+- **Totals:** each round's `run.json` has a `usage` block with totals per agent.
 
 ## How an agent works
 
 `app/agent.py` is a plain loop:
 
-1. The system prompt is the role's mission plus its guides and Figma summaries.
+1. The system prompt is the agent's mission plus its guides and Figma summaries.
 2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, your note, and the images.
-3. The model calls tools — `list_artifacts`, `read_artifact`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
+3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 
 If the endpoint rejects tool calling, the agent retries as a plain chat and saves the reply as its deliverable.
 
+Tool calls are repaired before they run. Some models glue two calls into one `arguments`
+string — `{"name": "script.md"}{"name": "layouts.md"}` — and a provider that validates the
+transcript then rejects every later request in that turn, which used to kill the round. Each
+object becomes its own call, anything that still will not parse becomes an empty call for the
+tool to complain about, and the feed says which happened.
+
 ## Limits
 
 - One run per project at a time.
+- Search is optional: without OpenSearch or Ollama the room works, and the agents' `search` tool
+  tells them to fall back to `list_artifacts` and `read_artifact`.
+- The MCP endpoint and the API have no authentication. Both are bound to `127.0.0.1`; anything
+  that can reach them can read and write your books.
 - With the object store, up to `S3_SYNC_SECONDS` of writes can be lost if the app container is killed without a clean stop.
 - Live runs are tracked in memory: restarting the server during a run ends it. The run's round keeps everything written up to that point, but its status stays `running`.
