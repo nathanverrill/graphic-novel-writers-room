@@ -57,7 +57,14 @@ def not_found(fn, *args):
 
 
 @app.get("/")
+def home():
+    """One button, on a phone: start the book, watch it, see the lettered pages."""
+    return FileResponse(STATIC / "home.html")
+
+
+@app.get("/room")
 def index():
+    """The whole room: every writer, every file, every round."""
     return FileResponse(STATIC / "index.html")
 
 

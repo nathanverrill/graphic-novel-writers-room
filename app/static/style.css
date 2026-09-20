@@ -21,6 +21,8 @@ header {
   padding: .75rem 1.25rem; border-bottom: 2px solid var(--ink); background: var(--panel);
 }
 h1 { margin: 0; font-size: 1.3rem; letter-spacing: -.01em; }
+h1 a { color: inherit; text-decoration: none; }
+h1 a:hover { text-decoration: underline; }
 h1 span { font-weight: 400; color: var(--muted); font-size: .9rem; margin-left: .35rem; }
 h2 { font-size: 1rem; margin: 0 0 .6rem; }
 h3 { font-size: .85rem; margin: 0 0 .5rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
