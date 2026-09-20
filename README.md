@@ -477,15 +477,9 @@ beside the picker shows how many KB the selection is. With references in place t
 optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
 each.
 
-Long documents can be split so a project takes only what it needs:
-
-- `python scripts/split_bible.py` — `campaigns/prosperity/drafts/_rough/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
-  into `bible.md` and `chapters/chapter-<nn>.md` (each chapter's canon row, principle,
-  character interaction map and script revision flags).
-- `python scripts/split_script.py` — `campaigns/prosperity/drafts/_rough/SCRIPT_DRAFT_AUG_23.md` into
-  `drafts/chapter-<nn>.md`, each marked as an idea draft.
-
-Rerun them after updating a source.
+The campaign's files are the campaign's files: edit them in place. The scripts that once
+split a long source document into them were one-off utilities for importing older material,
+and they are retired to `campaigns/_morgue/utilities/`.
 
 **What a reference is.** Five kinds, each arriving under its own heading so the room is told
 which it is reading:
