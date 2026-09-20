@@ -434,6 +434,7 @@ campaigns/
     characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
     world/          invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
     research/       real: articles, reports, data, photographs
+    rules/          how this campaign invents: hard-sf-rules.md
     novel/          the book itself
       drafts/v00/   what existed before the room: script/ and its _rough/ sources
       final/        the approved book
@@ -449,7 +450,7 @@ Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign
 named only at the evoke level — everything under a campaign is that campaign's truth by sitting
 there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,novel/drafts,novel/final}`.
+campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,rules,novel/drafts,novel/final}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -495,7 +496,7 @@ which it is reading:
 | world | `world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
 | research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
 | draft | `novel/drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
-| guide | `agents/skills/` | how to do the work; never canon |
+| guide | `agents/skills/`, a campaign's `rules/` | how to do the work; never canon |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
@@ -503,7 +504,7 @@ place, the story's one license — says `<!-- reference: canon -->` and is read 
 is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
-`agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+`campaigns/<campaign>/rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
@@ -515,12 +516,12 @@ lists the references and the skills together. What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
-| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
-| Character Designer | the bible, Alpha, `hard-sf-rules` |
-| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
-| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
-| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
+| Editor-in-Chief | the bible, Alpha, `rules/hard-sf-rules` |
+| Plotter | chapter canon, Alpha, `rules/hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Character Designer | the bible, Alpha, `rules/hard-sf-rules` |
+| Scripter | chapter canon, Alpha, `rules/hard-sf-rules`, `actual-script-writing` |
+| Penciller | Alpha, `rules/hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
+| Continuity Editor | the bible, Alpha, `rules/hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
 That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and

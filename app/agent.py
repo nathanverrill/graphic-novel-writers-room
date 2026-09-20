@@ -188,7 +188,7 @@ class Agent:
                       "How to do the work. They commit the book to nothing and describe no events: "
                       "take what serves the page and ignore the rest. Where a guide labels material "
                       "T, EG, S, L or Cut, keep those labels when you use it "
-                      "(agents/skills/hard-sf-rules.md says what they mean)."),
+                      "(the campaign's rules/ says what they mean)."),
             ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
                       "These were put together to get ideas on paper. Mine them for story beats, "
                       "intent, moments and lines worth keeping, but write the room's own, better "

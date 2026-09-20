@@ -194,7 +194,8 @@ CANON_MARK = "reference: canon"
 
 
 FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
-               "world": "world", "research": "research", "drafts": "draft"}
+               "world": "world", "research": "research", "drafts": "draft",
+               "rules": "guide"}     # how this campaign invents, not what is true in it
 
 
 def never_read(rel):
@@ -218,7 +219,7 @@ def reference_kind(path):
     world          invented material to draw on; it commits the book to nothing
     research       real material — articles, reports, data — true of the world, not the story
     draft          ideas on paper: mine them, write the room's own version
-    guide          agents/skills: how to do the work, never canon
+    guide          agents/skills and a campaign's rules/: how to do the work, never canon
 
     The markers <!-- reference: canon | draft | guide --> override the folder, for the file that
     sits somewhere its kind does not match."""
