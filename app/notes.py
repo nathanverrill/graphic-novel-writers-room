@@ -1,7 +1,7 @@
 """Showrunner notes — the running commentary you jot while the room works.
 
 Notes are yours, not the room's: half-thoughts, tangents, "oh yeah, and…". They pile up in
-projects/<slug>/showrunner-notes.json until something uses them, and then they're marked used
+the campaign's output/showrunner-notes.json until something uses them, then they're marked used
 (nothing is ever deleted unless you drop it):
 
     the next round      start_round folds pending notes into the room's brief

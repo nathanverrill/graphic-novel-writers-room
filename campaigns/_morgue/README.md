@@ -7,7 +7,7 @@ found again — and nothing in here reaches an agent, because the leading unders
 prompt, and in what an agent can ask for by name.
 
 When something from here is adopted, copy the useful part into `agents/`, `agents/skills/`,
-`agents/hats/`, `campaigns/` or a project's `references/`, and note it below.
+`agents/hats/`, or a campaign's `canon/` or `input/`, and note it below.
 
 ## chatgpt_suggestions/ — reviewed 2026-09-16
 
@@ -20,7 +20,8 @@ Adopted:
 - `skills/storycraft-core.md` → `agents/_shared/storycraft-principles.md`
 - `skills/methods-from-masters.md` → `agents/_shared/methods-from-masters.md`
 - README "Output discipline" and "Decision rights" → `agents/_shared/house-style.md`
-- `project/EVOKE_PROSPERITY.md` → `campaigns/prosperity/` (the campaign's own material)
+- `project/EVOKE_PROSPERITY.md` → `campaigns/prosperity/` (the campaign's own material,
+  now `canon/` and `input/`)
 - Merged into existing agents: continuity (severity, ledger, critique order),
   editor (canon section, decision log), plotter + character designer
   (story map table, causality, ensemble test), scripter (page job, PAGE CHECK),

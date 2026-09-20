@@ -1,30 +1,33 @@
-"""A project is a folder:
+"""A project is a campaign, and a campaign is a folder:
 
-    projects/<slug>/
-      *.md                 working copy — what the room reads, what you edit
-      references/*.md      source material you provide (draft script, lore, bible…)
-      images/              every image ever generated for the project
-      locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
-      rules.json           standing rules, written into taste-writers.md (rules.py)
-      rounds/<slug>-r01-ai/          one folder per round, every file named for its round:
-        <slug>-r01-ai-script.md        book-level files as the round left them
-        <slug>-r01-ai-p03-ascii.txt    page files: ascii, render, script, layout, review, diff
-        <slug>-r01-ai-run.json         who ran, with which settings, cost, status
-        <slug>-r01-ai-events.jsonl     the live feed
-        <slug>-r01-ai-calls.jsonl      one line per model call (full calls in calls/)
-        references/<slug>-r01-ai-ref-<name>.md
-      rounds/<slug>-r02-human/       a review: what you kept, your edits, notes and diffs
-      rounds/<slug>-r05-final/       the approved book
+    campaigns/<slug>/
+      canon/*.md           what the book must not contradict — you write this
+      input/*.md           anything you want read, at any quality — you write this too
+      output/              the room's desk, and the only place it writes
+        *.md                 working copy — what the room reads back, what you edit
+        pages/               page-prompts and the lettering layer, per page
+        images/              every image ever generated for the campaign
+        locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
+        rules.json           standing rules, written into taste-writers.md (rules.py)
+        previous/<slug>-r01-ai/          one folder per round, every file named for its round:
+          <slug>-r01-ai-script.md          book-level files as the round left them
+          <slug>-r01-ai-p03-ascii.txt      page files: ascii, render, script, layout, review, diff
+          <slug>-r01-ai-run.json           who ran, with which settings, cost, status
+          <slug>-r01-ai-events.jsonl       the live feed
+          <slug>-r01-ai-calls.jsonl        one line per model call (full calls in calls/)
+          references/<slug>-r01-ai-ref-<name>.md
+        previous/<slug>-r02-human/       a review: what you kept, your edits, notes and diffs
+        previous/<slug>-r05-final/       the approved book
 
 Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
-Every file name carries the project and round, so a file means the same thing
+Every file name carries the campaign and round, so a file means the same thing
 wherever it ends up.
 
-Reference files come from campaigns/ and agents/skills/ at the repo root — together the
-room's library — and from projects/<slug>/references/ (a file with the same name wins).
-A project can pick which library files it uses ("references" in round-settings.json;
-default: all), and a writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
-file either binds the book or does not — see reference_kind.
+Reference files come from campaigns/ and agents/skills/ — together the room's library. A
+campaign can pick which of them it uses ("references" in round-settings.json; default: all),
+and a writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
+file either binds the book or does not — see reference_kind. output/ is never among them: the
+room does not read its own work back as material (see never_read).
 """
 import hashlib
 import json

@@ -9,7 +9,7 @@ and diffs — round after round, each saved in full. Every agent is guided by it
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
-Everything the room can read — the canon, the world, the idea drafts, the craft skills,
+Everything the room can read — a campaign's canon, everything in its input, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
@@ -39,9 +39,22 @@ The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and ch
 reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `agents/_shared/house-style.md`).
 
-## The screen
+## Two screens
 
-Projects on the left; the book in the middle; what the room is doing on the right.
+**`/` is one button.** It says **Start Prosperity**, and that is the whole page: a line for each
+writer with the one at work spinning, and when the round ends, the lettered pages it made —
+the text layer, black balloons on white, nothing else. Built for a phone, no settings, nothing
+to choose. The line-up comes from `agents/agents.json`, so whichever writers are selected there
+are the ones it runs; the page list comes from the room rather than from the round's events,
+because a plain role run makes pages without announcing a count.
+
+**`/room` is everything else** — every writer, every file, every round — and the rest of this
+document is about that screen. The two link to each other: the footer on `/`, the title on
+`/room`.
+
+## The room's screen
+
+Campaigns on the left; the book in the middle; what the room is doing on the right.
 
 | Where | What |
 |---|---|
@@ -279,7 +292,7 @@ Past rounds are read-only.
 `campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
 noting what was adopted from each and why the rest wasn't. It is there so a person can find an
 old document again, and nothing in it reaches an agent — the leading underscore is the rule,
-the same one that keeps `drafts/_rough/` and `agents/skills/_sources/` out of the room (see
+the same one that keeps `input/_rough/` and `agents/skills/_sources/` out of the room (see
 **The library**).
 
 ## Running the room
@@ -386,7 +399,7 @@ How references reach an agent is set by `references` in its `agent.json` (defaul
 
 ## Character references
 
-Each character has a standalone file in `campaigns/<campaign>/characters/` — `alex-phantum.md`,
+Each character has a standalone file in the campaign's `canon/` — `alex-phantum.md`,
 `ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
 `bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
 
@@ -429,7 +442,7 @@ campaigns/
   prosperity/
     canon/          flat: bible.md · chapter-01.md … · alex-phantum.md …
     input/          flat: anything you want the room to read, any quality
-    output/         what the room wrote
+    output/         the room's desk: script, layouts, page prompts, previous/
   avalanche/        the next campaign: the same three folders, empty
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
@@ -467,16 +480,10 @@ when an agent asks for a file by name; `never_read` in `app/projects.py` is the 
 there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
 either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
 
-**`drafts/_rough/` is not a separate kind of thing.** It holds the rough whole documents the
-chapters were split out of — a 129 KB script draft, a 93 KB campaign bible — and they are
-drafts like any other, just rougher and superseded. They stay out of prompts because their
-content already reaches an agent as the split (`bible.md` and `chapters/` from one,
-`drafts/chapter-<nn>.md` from the other), not because they are authoritative. Nothing is lost
-by the room not reading them.
-
-**`research/` and `drafts/` are not the same thing.** Research is material someone went and
-found about the real world — a piece on water permits, a production table. A draft is someone's
-own rough go at the story: mine it for beats and intent, write the room's own version.
+**`input/_rough/` is the one exception, and it is a leftover.** It holds two long documents an
+earlier import was made from — a 129 KB script draft and a 93 KB campaign bible — whose content
+is already in `canon/` and `input/` in the pieces the room reads. The underscore keeps them out
+of prompts so nothing is sent twice. You can delete the folder and lose nothing the room uses.
 
 **A project picks which library files it uses** — **References…** in **The room** tab lists both
 folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
@@ -488,7 +495,7 @@ The campaign's files are the campaign's files: edit them in place. The scripts t
 split a long source document into them were one-off utilities for importing older material,
 and they are retired to `campaigns/_morgue/utilities/`.
 
-**What a reference is.** Five kinds, each arriving under its own heading so the room is told
+**What a reference is.** Three kinds, each arriving under its own heading so the room is told
 which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
@@ -502,7 +509,7 @@ arrived as a craft skill, but it is who Alpha is rather than a menu of options, 
 `canon/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
-`campaigns/<campaign>/rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+the campaign's `input/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
@@ -514,21 +521,20 @@ lists the references and the skills together. What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, Alpha, `rules/hard-sf-rules` |
-| Plotter | chapter canon, Alpha, `rules/hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
-| Character Designer | the bible, Alpha, `rules/hard-sf-rules` |
-| Scripter | chapter canon, Alpha, `rules/hard-sf-rules`, `actual-script-writing` |
-| Penciller | Alpha, `rules/hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
-| Continuity Editor | the bible, Alpha, `rules/hard-sf-rules` |
+| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
+| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Character Designer | the bible, Alpha, `hard-sf-rules` |
+| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
+| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
+| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and
-701 KB — 16 canon files, 9 world files, 6 idea drafts, 6 craft skills. Anything left off
-a shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
+That puts every writer between 98 and 118 KB a call, out of a library that is 38 files and
+705 KB — 16 in the campaign's `canon/`, 17 in its `input/`, 5 craft skills. Anything left off a
+shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
 life and money for the Penciller, the science guide for the Editor.
 
-Selecting none in that list means the writer reads whatever the round picked. The project's own
-`references/` folder is always read, whatever the shortlist says.
+Selecting none in that list means the writer reads whatever the round picked.
 
 ## Guiding the agents
 
@@ -693,7 +699,7 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 
 | Tool | What it does |
 |---|---|
-| `list_projects` | the room's projects by name |
+| `list_projects` | the campaigns you can run, by name |
 | `list_artifacts` | a project's room files and its reference material |
 | `read_artifact` | one file, e.g. `script.md` or `library/evoke/canon/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
@@ -726,7 +732,7 @@ Every model call — chat and image, successful or failed — is recorded three 
 ```
 rounds/<slug>-r03-ai/calls/<slug>-r03-ai-call-0007-scripter-chat.json   full request + response
 rounds/<slug>-r03-ai/<slug>-r03-ai-calls.jsonl                           one summary line per call
-logs/usage.jsonl                                               the same lines, across all projects
+logs/usage.jsonl                                               the same lines, across all campaigns
 ```
 
 A summary line has: project, round (`version`), agent, kind (`chat`/`image`), provider host, model,

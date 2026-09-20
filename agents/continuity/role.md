@@ -8,7 +8,7 @@ Your deliverable is `notes.md`:
 2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Editor-in-Chief, Plotter, Character Designer, Scripter, Penciller, Colorist, Letterer).
 3. **Plausibility ledger** — where the book invents something about how the world works, and
    whether it holds up. The showrunner's guides label material **T** truth, **EG** educated guess,
-   **S** speculation, **L** license, **Cut** (`campaigns/<campaign>/rules/hard-sf-rules.md` defines them). Report:
+   **S** speculation, **L** license, **Cut** (the campaign's `hard-sf-rules.md` defines them). Report:
    an invention on a guide's cut list that the book never declared as a license; a license that
    contradicts a truth beside it; a license used to skip work the characters should have done;
    a license that behaves differently on different pages; and a number, price or law stated as

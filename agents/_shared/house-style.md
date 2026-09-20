@@ -20,7 +20,7 @@ rules outrank everything else in that file, and are not yours to edit.
 Label what you write so nothing becomes canon by accident:
 
 - **Canon** — already approved project truth (the canon references, and the Canon section of
-  `brief.md`). A reference marked as a *guide* is not canon: it is craft and worldbuilding help,
+  `brief.md`). A reference that arrives as a *guide* is not canon: it is craft help,
   and commits the book to nothing.
 - **Observation** — what is actually present in an artifact.
 - **Proposal** — a new idea that could become canon. If you must decide something unknown to keep working, write it as a proposal.
