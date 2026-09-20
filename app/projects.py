@@ -191,15 +191,18 @@ def library_name(path, folder):
 DRAFT_MARK = "reference: draft"
 GUIDE_MARK = "reference: guide"
 CANON_MARK = "reference: canon"
+WORLD_MARK = "reference: world"
+RESEARCH_MARK = "reference: research"
 
+# Every kind a marker can name, so the ingest agent can label a file whatever it turns out
+# to be rather than being limited to what a folder happens to be called.
+MARKS = ((CANON_MARK, "canon"), (WORLD_MARK, "world"), (RESEARCH_MARK, "research"),
+         (DRAFT_MARK, "draft"), (GUIDE_MARK, "guide"))
 
-# Checked in order, so the specific folders win over the two top-level ones. A file loose in
-# input/ is a draft: the room mines it and is never bound by it, which is what makes input/ a
-# place you can throw anything. Only canon/ binds the book.
-FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
-               "world": "world", "research": "research", "drafts": "draft",
-               "rules": "guide",     # how this campaign invents, not what is true in it
-               "input": "draft"}
+# A campaign has two folders the room reads and they answer one question: does this bind the
+# book? canon/ binds, input/ does not. Nothing inside either needs a recognised name — a file
+# with no marker in input/ is a draft, which is what makes input/ safe to throw anything into.
+FOLDER_KIND = {"canon": "canon", "input": "draft"}
 
 
 def never_read(rel):
@@ -218,28 +221,28 @@ def never_read(rel):
 def reference_kind(path):
     """What a file is, from the folder it sits in — or a marker near its top, which wins.
 
-    canon          campaigns/evoke/canon, and a campaign's bible, chapters and characters:
-                   the book must not contradict it
+    canon          campaigns/evoke/canon and a campaign's canon/: the book must not
+                   contradict it
     world          invented material to draw on; it commits the book to nothing
     research       real material — articles, reports, data — true of the world, not the story
     draft          ideas on paper: mine them, write the room's own version
-    guide          agents/skills and a campaign's rules/: how to do the work, never canon
+    guide          agents/skills, and anything marked as craft: how to do the work, never canon
 
-    The markers <!-- reference: canon | draft | guide --> override the folder, for the file that
-    sits somewhere its kind does not match."""
+    A marker <!-- reference: canon | world | research | draft | guide --> wins over the folder.
+    The folders say only whether a file binds the book; a marker says what it actually is, and
+    writing one is the ingest agent's job."""
     with path.open(errors="replace") as f:
         head = f.read(400)
-    if CANON_MARK in head:
-        return "canon"
-    if DRAFT_MARK in head:
-        return "draft"
-    if GUIDE_MARK in head or SKILLS_DIR in path.parents:
+    for mark, kind in MARKS:
+        if mark in head:
+            return kind
+    if SKILLS_DIR in path.parents:
         return "guide"
     parts = path.parts
     for folder, kind in FOLDER_KIND.items():
         if folder in parts:
             return kind
-    return "canon"          # a campaign's own root, and canon/ itself
+    return "canon"          # a campaign's own root, beside canon/ and input/
 
 
 def library():

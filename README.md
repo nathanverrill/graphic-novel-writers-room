@@ -429,10 +429,8 @@ campaigns/
   evoke/
     canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    canon/          what the book must not contradict
-      bible.md · chapters/ · characters/
-    input/          anything you want the room to read, any quality
-      world/ · research/ · rules/ · drafts-v00/ · _rough/
+    canon/          flat: bible.md · chapter-01.md … · alex-phantum.md …
+    input/          flat: anything you want the room to read, any quality
     output/         what the room wrote
   avalanche/        the next campaign: the same three folders, empty
   _morgue/          clippings kept for people, so an old document is never lost
@@ -447,16 +445,20 @@ draft, notes — at any quality, and none of it binds the book. `output/` is wha
 So opening a campaign, you know which of the three you are in, and you can throw anything into
 `input/` without thinking about where it goes.
 
-**A file loose in `input/` is read as a draft, never as canon** — the room mines it and is never
-bound by it. That is what makes `input/` safe to use as a heap. Only `canon/` binds. Inside
-either, a folder name the room recognises still refines the reading — `input/world/` is invented
-material, `input/research/` is real-world material, `input/rules/` is craft — so structure is
-optional, not required.
+**Neither folder has any structure inside it, and a file with no marker in `input/` is read as
+a draft** — the room mines it and is never bound by it. That is what makes `input/` safe to use
+as a heap: a reference document, a prompt that worked, rough notes, all in one flat folder.
+Only `canon/` binds.
+
+What a file actually is comes from a marker at its top, not from where it sits:
+`<!-- reference: canon | world | research | draft | guide -->`. Writing those is the ingest
+agent's job — it reads everything in `canon/` and `input/`, works out what each document is, and
+labels it. Until then a file is a draft, which is the safe reading.
 
 `campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
-named by its path, so `prosperity/canon/chapters/chapter-04.md` and
-`prosperity/input/drafts-v00/chapter-04.md` are two different things and are read as what they
-are. A new campaign is `mkdir -p campaigns/avalanche/{canon,input,output}`.
+named by its path, so `prosperity/canon/chapter-04.md` and
+`prosperity/input/draft-chapter-04.md` are two different things and are read as what they are.
+A new campaign is `mkdir -p campaigns/avalanche/{canon,input,output}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -492,10 +494,10 @@ which it is reading:
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | canon | `evoke/canon/`, a campaign's `canon/` | must not contradict it; where it conflicts with the room's files, the canon wins |
-| world | `input/world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
-| research | `input/research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
-| draft | anything else in `input/` | ideas on paper: mine them for beats and intent, write the room's own version |
-| guide | `agents/skills/`, `input/rules/` | how to do the work; never canon |
+| world | marker | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
+| research | marker | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
+| draft | `input/`, unmarked | ideas on paper: mine them for beats and intent, write the room's own version |
+| guide | `agents/skills/`, or marker | how to do the work; never canon |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.

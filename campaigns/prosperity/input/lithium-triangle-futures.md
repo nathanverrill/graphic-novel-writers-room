@@ -1,3 +1,4 @@
+<!-- reference: world -->
 ---
 name: lithium-triangle-futures
 description: Grounded near future worldbuilding for the South American lithium triangle (Chile, Argentina, Bolivia), roughly 2030 to 2060. Covers brine mining, water, mining towns, water conflict, water/land/mineral rights, technology and automation, foreign conglomerates, boom and bust, abandonment, and who fills the vacuum. Plausible only, with a cut list of what would not happen here. Use this whenever the user is writing, designing, or fact checking a story, comic, game, scenario, or foresight piece set in or about the Atacama, the Puna, Uyuni, Andean salt flats, lithium or battery mineral extraction in South America, or asks "would this be plausible" about mining, water, or resource conflict in the Andes, even if they do not say "lithium triangle."
