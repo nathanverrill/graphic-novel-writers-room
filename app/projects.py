@@ -189,10 +189,10 @@ def reference_files(slug, version=None):
             found[p.name[len(pre):].replace("--", "/")] = p
         return found
     chosen = library_selection(slug)
-    for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
+    for folder in LIBRARY_DIRS:
         if not folder.is_dir():
             continue
-        for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then kind
+        for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then folder
             if p.name.startswith(".") or never_read(p.relative_to(folder)):
                 continue
             name = library_name(p, folder)
@@ -275,10 +275,8 @@ def library_selection(slug):
 
 
 def list_references(slug, version=None):
-    root = project_dir(slug)
     return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime, "kind": reference_kind(p),
-             "source": "project" if p.parent == root / "references" else
-                       "shared" if p.parent in LIBRARY_DIRS else "version"}
+             "source": "version" if version is not None else "shared"}
             for n, p in reference_files(slug, version).items()]
 
 
@@ -291,7 +289,7 @@ def read_reference(slug, name, version=None):
     read_artifact away" true, for an agent and for the screen."""
     found = reference_files(slug, version).get(name)
     if found is None and version is None:
-        for folder in (*LIBRARY_DIRS, project_dir(slug) / "references"):
+        for folder in LIBRARY_DIRS:
             root = folder.resolve()
             candidate = (folder / name.removeprefix("skills/")).resolve()
             if candidate.is_file() and root in candidate.parents \

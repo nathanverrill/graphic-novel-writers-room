@@ -636,8 +636,12 @@ A bad `agent.json` is flagged on the card and blocks runs that include that agen
 
 ## Search
 
-Everything the room can read is indexed for hybrid search: the campaign's canon, world,
-research and drafts, the craft skills, and each project's own files.
+Everything the room can read is indexed for hybrid search: each campaign's `canon/` and
+`input/`, the craft skills, and each campaign's own desk. A scope is the folder a file sits in
+(`prosperity/canon`, `prosperity/input`, `skills`) or `project:<slug>` for the desk, so a search
+can ask one campaign or one part of it without knowing file names. Deleting a file drops its
+passages: `indexed_as` in `app/search.py` rebuilds the key the file was indexed under, because
+by then the file is gone and cannot be looked up.
 
 - **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn
   from it. A term that is common in one passage and rare everywhere else is a keyword, so a

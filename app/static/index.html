@@ -15,10 +15,10 @@
 
 <div class="layout">
   <aside class="sidebar">
-    <h2>Projects</h2>
+    <h2>Campaigns</h2>
     <ul id="projects"></ul>
     <details id="new-project">
-      <summary>+ New project</summary>
+      <summary>+ New campaign</summary>
       <form id="new-project-form">
         <input name="title" placeholder="Title" required>
         <label class="path">Pages <input name="pages" type="number" min="1" max="200" value="7"></label>
@@ -30,7 +30,7 @@
   </aside>
 
   <main>
-    <div id="empty" class="empty">Pick a project or start a new one.</div>
+    <div id="empty" class="empty">Pick a campaign or start a new one.</div>
     <div id="workspace" hidden>
       <div class="work-head">
         <h2 id="project-title"></h2>
@@ -167,9 +167,9 @@ the count runs out. 0 stops after the next round.">Auto rounds
         <div class="section-head">
           <h3>Stats <span class="path">— what the room has spent</span></h3>
           <select id="cost-scope">
-            <option value="project">This project</option>
+            <option value="project">This campaign</option>
             <option value="version">Selected version</option>
-            <option value="all">All projects</option>
+            <option value="all">All campaigns</option>
           </select>
         </div>
         <div id="costs"></div>
