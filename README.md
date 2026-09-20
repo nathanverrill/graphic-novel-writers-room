@@ -9,7 +9,7 @@ and diffs — round after round, each saved in full. Every agent is guided by it
 images and Figma files and runs on its own provider, model and settings; every model call is
 logged with its tokens and dollar cost.
 
-Everything the room can read — the canon, the worldbuilding, the idea drafts, the craft skills,
+Everything the room can read — the canon, the world, the idea drafts, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
@@ -407,7 +407,7 @@ belongs in the bible.
 ## The library
 
 **`campaigns/` is the material; `projects/` is the work.** Everything true of Prosperity — its
-bible, chapters, characters, worldbuilding, research and drafts — lives in
+bible, chapters, characters, world, research and drafts — lives in
 `campaigns/prosperity/`, and it is in git. A project is one production drawing on that
 material — the pitch, the files the agents write, the round history — and it is **not a folder
 you browse**: `projects/` and `output/` are the room's data, git-ignored and kept in the object
@@ -432,7 +432,7 @@ campaigns/
     bible.md        the campaign's own truth, where you land
     chapters/       chapter-01.md … chapter-06.md
     characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
-    worldbuilding/  invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
+    world/          invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
     research/       real: articles, reports, data, photographs
     drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
       _rough/       the rough whole drafts those chapters were split out of
@@ -448,7 +448,7 @@ Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign
 named only at the evoke level — everything under a campaign is that campaign's truth by sitting
 there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p campaigns/avalanche/{chapters,characters,worldbuilding,research,drafts}`.
+campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,drafts}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -491,7 +491,7 @@ which it is reading:
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
-| worldbuilding | `worldbuilding/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
+| world | `world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
 | research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
 | draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
 | guide | `agents/skills/` | how to do the work; never canon |
@@ -523,7 +523,7 @@ lists the references and the skills together. What each one reads now:
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
 That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and
-701 KB — 16 canon files, 9 worldbuilding files, 6 idea drafts, 6 craft skills. Anything left off
+701 KB — 16 canon files, 9 world files, 6 idea drafts, 6 craft skills. Anything left off
 a shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
 life and money for the Penciller, the science guide for the Editor.
 
@@ -630,7 +630,7 @@ A bad `agent.json` is flagged on the card and blocks runs that include that agen
 
 ## Search
 
-Everything the room can read is indexed for hybrid search: the campaign's canon, worldbuilding,
+Everything the room can read is indexed for hybrid search: the campaign's canon, world,
 research and drafts, the craft skills, and each project's own files.
 
 - **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn

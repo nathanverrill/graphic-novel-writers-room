@@ -33,7 +33,7 @@ OWN = {     # tools with no agent equivalent, or whose meaning changes outside a
         "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
         "the sketch, exactly as when an agent saves.",
     "search": ("Search everything the room can read — a campaign's canon and drafts, the craft "
-               "and worldbuilding skills, and a project's own files. Hybrid: words and meaning "
+               "and world skills, and a project's own files. Hybrid: words and meaning "
                "at once. Returns each passage with the file and heading it came from."),
     "page_prompts":
         "The page prompts for a project: one complete markdown brief per page, ready to paste "

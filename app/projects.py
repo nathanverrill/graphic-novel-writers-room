@@ -194,7 +194,7 @@ CANON_MARK = "reference: canon"
 
 
 FOLDER_KIND = {"canon": "canon", "chapters": "canon", "characters": "canon",
-               "worldbuilding": "worldbuilding", "research": "research", "drafts": "draft"}
+               "world": "world", "research": "research", "drafts": "draft"}
 
 
 def never_read(rel):
@@ -215,7 +215,7 @@ def reference_kind(path):
 
     canon          campaigns/evoke/canon, and a campaign's bible, chapters and characters:
                    the book must not contradict it
-    worldbuilding  invented material to draw on; it commits the book to nothing
+    world          invented material to draw on; it commits the book to nothing
     research       real material — articles, reports, data — true of the world, not the story
     draft          ideas on paper: mine them, write the room's own version
     guide          agents/skills: how to do the work, never canon

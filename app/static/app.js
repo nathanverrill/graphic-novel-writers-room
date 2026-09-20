@@ -1836,10 +1836,10 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const KIND = { draft: "idea draft", guide: "skill", worldbuilding: "invented", research: "real" };
+  const KIND = { draft: "idea draft", guide: "skill", world: "invented", research: "real" };
   const NOTE = {
     canon: "the book must not contradict it",
-    worldbuilding: "invented material to draw on — commits the book to nothing",
+    world: "invented material to draw on — commits the book to nothing",
     research: "real material: true of the world, not the story",
     draft: "ideas to mine, never to copy",
     guide: "how to do the work, never canon",
@@ -1857,7 +1857,7 @@ $("#pick-refs").onclick = () => {
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
     <p class="path">The shared library this project uses: each campaign's canon, characters,
-      worldbuilding, real-world references and drafts under <code>campaigns/</code>, plus the room's craft
+      the world, real-world references and drafts under <code>campaigns/</code>, plus the room's craft
       skills in <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
       say "names only" or name a shortlist of its own) on every call, so pick only what this book needs.
       Files in the project's own references/ folder are always used.</p>

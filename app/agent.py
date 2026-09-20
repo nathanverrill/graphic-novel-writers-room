@@ -178,7 +178,7 @@ class Agent:
             ("canon", "# Canon from the showrunner\n"
                       "This is true in the book. Where it conflicts with the room's files, the "
                       "canon wins unless the showrunner's note says otherwise."),
-            ("worldbuilding", "# Worldbuilding — invented material to draw on, NOT canon\n"
+            ("world", "# The world — invented material to draw on, NOT canon\n"
                       "A menu of what could plausibly be there. Take what serves the page; it "
                       "commits the book to nothing and none of it has happened yet."),
             ("research", "# Real-world material the showrunner collected — NOT story\n"
