@@ -434,8 +434,9 @@ campaigns/
     characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
     world/          invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
     research/       real: articles, reports, data, photographs
-    drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
-      _rough/       the rough whole drafts those chapters were split out of
+    novel/          the book itself
+      drafts/v00/   what existed before the room: script/ and its _rough/ sources
+      final/        the approved book
   avalanche/        the next campaign: the same folders, empty
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
@@ -448,7 +449,7 @@ Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign
 named only at the evoke level — everything under a campaign is that campaign's truth by sitting
 there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,drafts}`.
+campaign is `mkdir -p campaigns/avalanche/{chapters,characters,world,research,novel/drafts,novel/final}`.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -493,7 +494,7 @@ which it is reading:
 | canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
 | world | `world/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
 | research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
-| draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
+| draft | `novel/drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
 | guide | `agents/skills/` | how to do the work; never canon |
 
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a

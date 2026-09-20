@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SOURCE = ROOT / "campaigns" / "prosperity" / "drafts" / "_rough" / "EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md"
+SOURCE = ROOT / "campaigns" / "prosperity" / "novel" / "drafts" / "v00" / "_rough" / "EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md"
 OUT = ROOT / "campaigns" / "prosperity" / "chapters"
 BIBLE = "EVOKE_PROSPERITY_BIBLE.md"
 CHAPTER = "EVOKE_PROSPERITY_CHAPTER_{n}.md"
