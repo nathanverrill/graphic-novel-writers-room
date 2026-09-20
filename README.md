@@ -417,7 +417,7 @@ library/
     research/       real: articles, reports, data, photographs
     drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
     originals/      the long documents the split scripts work from (never read whole)
-  ice/              the next campaign: the same folders, empty
+  avalanche/        the next campaign: the same folders, empty
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
 agents/skills/originals/  long skills split into per-agent guides (never read whole)
 projects/<slug>/references/   this project only (a file with the same name wins)
@@ -428,7 +428,7 @@ Two rules, and that is the model: **`library/evoke/` applies to every campaign,
 named only at the evoke level — everything under a campaign is that campaign's truth by sitting
 there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p library/ice/{chapters,characters,worldbuilding,research,drafts,originals}`.
+campaign is `mkdir -p library/avalanche/{chapters,characters,worldbuilding,research,drafts,originals}`.
 
 **`research/` and `originals/` are not the same thing.** Research is material someone went and
 found about the real world — a piece on water permits, a production table. Originals are the
@@ -464,7 +464,7 @@ which it is reading:
 A marker wins over the folder, so a skill that carries the book's own canon — a character, a
 place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
 `library/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
-is rather than a menu of options — and it sits in `evoke/` because ICE inherits him.
+is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
 `agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
