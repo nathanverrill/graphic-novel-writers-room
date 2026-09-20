@@ -33,7 +33,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import LIBRARY_DIRS, OUTPUT_DIR, PROJECTS_DIR, SKILLS_DIR
+from .config import CAMPAIGNS_DIR, LIBRARY_DIRS, OUTPUT_NAME, SKILLS_DIR
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -49,33 +49,51 @@ def now():
     return datetime.now().isoformat(timespec="seconds")
 
 
-def project_dir(slug):
-    path = PROJECTS_DIR / slug
-    if slug != slugify(slug) or not path.is_dir():
+SHARED = "evoke"        # true of every campaign, so not a campaign you can run
+
+
+def campaign_dir(slug):
+    path = CAMPAIGNS_DIR / slug
+    if slug != slugify(slug) or slug == SHARED or slug.startswith("_") or not path.is_dir():
         raise FileNotFoundError(slug)
     return path
 
 
+def project_dir(slug):
+    """The room's desk: campaigns/<slug>/output/.
+
+    A campaign is a project, so there is no projects/ any more. The room writes here and
+    nothing here is ever read back as reference material — see library(), which skips it —
+    because a round that read its own last script would drift into its own echo."""
+    desk = campaign_dir(slug) / OUTPUT_NAME
+    desk.mkdir(exist_ok=True)
+    return desk
+
+
 def list_projects():
-    PROJECTS_DIR.mkdir(exist_ok=True)
-    return sorted(p.name for p in PROJECTS_DIR.iterdir() if p.is_dir())
+    """Every campaign you can run: evoke is shared material, not a book."""
+    CAMPAIGNS_DIR.mkdir(exist_ok=True)
+    return sorted(p.name for p in CAMPAIGNS_DIR.iterdir()
+                  if p.is_dir() and p.name != SHARED and not p.name.startswith("_"))
 
 
 def create_project(title, pitch, pages=None, draft=None):
+    """A new campaign: canon/ binds the book, input/ is anything to read, output/ is the desk."""
     slug = slugify(title)
-    path = PROJECTS_DIR / slug
+    path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    body = pitch.strip() or "(No pitch — work from the reference material.)"
+    for sub in ("canon", "input", OUTPUT_NAME):
+        (path / sub).mkdir()
+    body = pitch.strip() or "(No pitch — work from the material in canon/ and input/.)"
     length = f"\n\nTarget length: {pages} pages.\n" if pages else "\n"
-    (path / "pitch.md").write_text(f"# {title}\n\n{body}{length}")
-    (path / "references").mkdir()
+    (path / OUTPUT_NAME / "pitch.md").write_text(f"# {title}\n\n{body}{length}")
     if draft and draft.strip():
-        (path / "references" / "draft-script.md").write_text(
+        (path / "input" / "draft-script.md").write_text(
             "# Draft script (high level, directional only)\n\n"
             "Treat this as the showrunner's direction, not as finished pages: keep its intent, "
             f"improve everything else.\n\n{draft.strip()}\n")
     if pages:
-        (path / "round-settings.json").write_text(json.dumps({"pages": int(pages)}, indent=2))
+        (path / OUTPUT_NAME / "round-settings.json").write_text(json.dumps({"pages": int(pages)}, indent=2))
     return slug
 
 
@@ -100,7 +118,7 @@ def _folder(slug, version=None):
     d = project_dir(slug)
     if version is None:
         return d
-    f = d / "rounds" / f"{slug}-{version}"
+    f = d / "previous" / f"{slug}-{version}"
     if not ROUND_RE.match(version) or not f.is_dir():
         raise FileNotFoundError(version)
     return f
@@ -194,16 +212,22 @@ GUIDE = "guide"       # the room's own craft, in agents/skills/
 
 
 def never_read(rel):
-    """True for a path the agents must not see, whatever asks for it.
+    """True for a path the agents must not see as reference material, whatever asks for it.
 
-    One rule, and the folder name carries it: inside the library, a folder whose name starts
-    with an underscore is not library material. drafts/_rough/ holds the rough whole documents
-    the split scripts chew, whose content already reaches an agent as the split;
-    agents/skills/_sources/ holds the long skill the per-agent guides are generated from;
-    campaigns/_morgue/ holds clippings kept so a person can find them again. Nothing needs a
-    list in the code, and a new one announces itself. (Only paths under LIBRARY_DIRS come
-    through here — an agent's own agents/_shared/ is loaded by name in agents.py.)"""
-    return any(part.startswith("_") for part in rel.parts)
+    Two things are skipped. A folder whose name starts with an underscore is for people:
+    input/_rough/ holds the long documents an import was made from, agents/skills/_sources/
+    holds the long skill the per-agent guides come from, campaigns/_morgue/ holds clippings
+    kept so a person can find them again. Nothing needs a list in the code, and a new one
+    announces itself.
+
+    And output/ — the room's own desk. A round that read back its own last script would be
+    working from its own echo instead of from the canon and your input, and the drift compounds
+    every round. The desk reaches an agent as the project's own files, under their own names,
+    which is a different thing from reference material.
+
+    (Only paths under LIBRARY_DIRS come through here — an agent's own agents/_shared/ is
+    loaded by name in agents.py.)"""
+    return any(part.startswith("_") or part == OUTPUT_NAME for part in rel.parts)
 
 
 def reference_kind(path):
@@ -299,27 +323,27 @@ def page_art(slug, page):
 
 
 def export_output(slug, page_prompts, book_prompts, round_id, letters=None):
-    """Copy the deliverables to output/<slug>/ (overwritten each time), where they're easy to find:
-    page-prompts.md, pages/pNN-prompt.md and the room's story files."""
-    out = OUTPUT_DIR / slug
-    for sub in ("pages", "story"):
-        shutil.rmtree(out / sub, ignore_errors=True)
-        (out / sub).mkdir(parents=True)
+    """The deliverables, written to the desk beside the rest of the round's work.
+
+    There is nothing to copy anywhere: the desk *is* the output folder, so the script, the
+    layouts and the brief are already where you would look for them. Only the page prompts and
+    the lettering layers are made here, and pages/ is rebuilt each time so a page dropped from
+    the book does not leave its prompt behind."""
+    out = project_dir(slug)
+    pages = out / "pages"
+    shutil.rmtree(pages, ignore_errors=True)
+    pages.mkdir(parents=True)
     (out / "page-prompts.md").write_text(book_prompts)
     for n, text in page_prompts.items():
-        (out / "pages" / f"p{n:02d}-prompt.md").write_text(text)
+        (pages / f"p{n:02d}-prompt.md").write_text(text)
     for n, svg in (letters or {}).items():
-        (out / "pages" / f"p{n:02d}-letters.svg").write_text(svg)
-    for a in list_artifacts(slug):
-        if a["name"].endswith(".md") and a["name"] != "page-prompts.md":
-            shutil.copyfile(project_dir(slug) / a["name"], out / "story" / a["name"])
-    (out / "ROUND.txt").write_text(f"{slug}-{round_id}, exported {now()}\n")
-    return f"output/{slug}"
+        (pages / f"p{n:02d}-letters.svg").write_text(svg)
+    return f"campaigns/{slug}/{OUTPUT_NAME}"
 
 
 def list_versions(slug):
     """All rounds, newest first."""
-    d = project_dir(slug) / "rounds"
+    d = project_dir(slug) / "previous"
     out = []
     for f in d.iterdir() if d.is_dir() else []:
         rid = f.name[len(slug) + 1:]
@@ -330,7 +354,7 @@ def list_versions(slug):
 
 
 def next_round_number(slug):
-    d = project_dir(slug) / "rounds"
+    d = project_dir(slug) / "previous"
     nums = [int(m.group(1)) for f in (d.iterdir() if d.is_dir() else [])
             if (m := ROUND_RE.match(f.name[len(slug) + 1:]))]
     return max(nums, default=0) + 1
@@ -371,10 +395,10 @@ class Round:
         self.slug = slug
         self.kind = kind
         self.root = project_dir(slug)
-        (self.root / "rounds").mkdir(exist_ok=True)
+        (self.root / "previous").mkdir(exist_ok=True)
         self.id = f"r{next_round_number(slug):02d}-{kind}"
         self.prefix = prefix(slug, self.id)
-        self.dir = self.root / "rounds" / f"{slug}-{self.id}"
+        self.dir = self.root / "previous" / f"{slug}-{self.id}"
         self.dir.mkdir()
         (self.dir / "images").mkdir()
         (self.root / "images").mkdir(exist_ok=True)

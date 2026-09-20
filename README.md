@@ -143,7 +143,7 @@ Every round is a complete folder, and every file name carries the project and ro
 file means the same thing wherever it ends up:
 
 ```
-projects/<slug>/rounds/
+campaigns/<slug>/output/previous/
   <slug>-r01-ai/        the room's work
     <slug>-r01-ai-page-prompts.md, -script.md, -layouts.md, -brief.md, -taste-writers.md …
     <slug>-r01-ai-p03-prompt.md      the page's prompt for the image model
@@ -159,9 +159,9 @@ projects/<slug>/rounds/
   <slug>-r04-final/     the approved book: <slug>-r04-final-book-prompts.md, per-page prompts
 ```
 
-Rounds are numbered in one sequence. The working copy (`projects/<slug>/*.md`) is the live
-desk the agents read; `locks.json`, `review-draft.json` and `round-settings.json` sit beside it.
-Projects from before rounds keep their old `versions/` folder, which the app no longer shows.
+Rounds are numbered in one sequence. The desk (`campaigns/<slug>/output/*.md`) is the live copy
+the agents read and write; `locks.json`, `review-draft.json` and `round-settings.json` sit beside
+it, and every finished round is kept under `output/previous/`.
 
 ## Run it
 
@@ -200,29 +200,25 @@ and **OpenSearch** for the search index. Ollama stays on your machine — the ap
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
-**The room's data** — `projects/` (every round, page, review and call log), `output/` (the
-latest deliverables) and `logs/` — lives in **SeaweedFS**, an S3-compatible object store whose
-storage is the `seaweedfs-data` Docker volume. None of it is a folder in this one. The app works on a copy inside its container: on start it pulls everything from the
-bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
-on shutdown. Recreating or rebuilding the app container loses nothing; so does
-`docker compose down`. **`docker compose down -v` deletes the volumes, and all project data
-with them** — the search index in `opensearch-data` is rebuilt from the files, so losing that
-one costs only the time to re-embed.
+**The work is `campaigns/`, bind-mounted from this folder** — the room reads `canon/` and
+`input/` and writes `output/`, all as plain files on your disk, so you can open them in an
+editor and git keeps their history. Rebuilding or recreating the container loses nothing,
+because nothing the room made lives inside it.
+
+Only the usage ledger (`logs/usage.jsonl`) goes to **SeaweedFS**, the S3-compatible store whose
+storage is the `seaweedfs-data` volume. `docker compose down -v` deletes that volume and the
+cost history with it; the search index in `opensearch-data` is rebuilt from the files, so losing
+that one costs only the time to re-embed.
 
 ```sh
-# bring an existing project folder in (it syncs up within seconds)
-docker compose cp projects/my-book app:/app/projects/my-book
-# take a copy out
-docker compose cp app:/app/projects ./backup-projects
 # bucket status, from inside the app
 docker compose exec app python -m app.objectstore status
 ```
 
 The S3 API is published on `127.0.0.1:8333` for backup tools (bucket `writers-room`). Change
-the credentials with `S3_ACCESS_KEY` / `S3_SECRET_KEY` in `.env` before the first start —
-both containers read them. Any S3-compatible store works the same way: point `S3_ENDPOINT`
-at it. Without Docker, leave `S3_ENDPOINT` unset and data stays as plain files in `projects/`
-and `logs/`.
+the credentials with `S3_ACCESS_KEY` / `S3_SECRET_KEY` in `.env` before the first start — both
+containers read them. Without Docker, leave `S3_ENDPOINT` unset and the ledger stays a plain
+file in `logs/`.
 
 To use a model server running on your machine (Ollama, LM Studio), use
 `http://host.docker.internal:11434/v1` as the base URL, not `localhost`.
@@ -372,11 +368,12 @@ thing. **Upload art**
 attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
-**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
-`output/<project>/` (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`; overwritten each
-time — every version stays in the project's rounds). **Save to output folder** does it on
-demand. Under Docker that folder lives in the object store with the rest of the room's data,
-not in this one: `python -m app.objectstore pull` brings it onto your machine.
+**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files.
+Every finished round, review and finalize also writes `page-prompts.md` and
+`pages/pNN-prompt.md` to the campaign's `output/`, beside the script and the layouts that
+produced them — overwritten each time, with every earlier round kept under `output/previous/`.
+**Save to output folder** does it on demand. There is nothing to fetch: the files are in
+`campaigns/<slug>/output/` on your disk.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
@@ -406,16 +403,17 @@ belongs in the bible.
 
 ## The library
 
-**`campaigns/` is the material; `projects/` is the work.** Everything true of Prosperity — its
-bible, chapters, characters, world, research and drafts — lives in
-`campaigns/prosperity/`, and it is in git. A project is one production drawing on that
-material — the pitch, the files the agents write, the round history — and it is **not a folder
-you browse**: `projects/` and `output/` are the room's data, git-ignored and kept in the object
-store (see **Docker**), so all you would find by opening them is whatever the last run left on
-disk. A project is also not tied to one campaign: by default it can read every campaign's
-material, narrowed by the shortlist in its `round-settings.json`. The projects are chapter-sized
-(`evoke-chapter-1`, `evoke-chapter-4`), so several of them draw on one campaign, and a name that
-appears in both trees is a coincidence, not a parent and a child.
+**A campaign is the project.** There is no separate `projects/` folder and no separate
+`output/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
+opening the work. The room reads `canon/` and `input/`, and writes `output/`, which is the desk
+the agents share — the script, the layouts, the page prompts, the settings, and every finished
+round under `output/previous/`.
+
+**The room never reads its own `output/` back as material.** A round that took its own last
+script as input would be working from its own echo, and the drift compounds every round, so
+`never_read` in `app/projects.py` skips `output/` the way it skips an underscore folder. The
+desk still reaches an agent — under its own file names, as the project's own work — which is a
+different thing from reference material.
 
 The two together are what the agents call the **library**, and that is the one place the word
 still means a folder that is not there: a file reaches an agent as `library/<its path>`, whether
@@ -436,7 +434,6 @@ campaigns/
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
 agents/skills/_sources/   the long skill the per-agent guides are generated from
-projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
 **Three folders, and that is the model.** `canon/` is what the book must not contradict.

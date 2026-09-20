@@ -1,4 +1,4 @@
-"""Keeps the app's data — projects/, output/ and logs/ — in an S3-compatible object store
+"""Keeps the usage log in an S3-compatible object store
 (SeaweedFS in docker-compose). Off unless S3_ENDPOINT is set.
 
 The app keeps working on plain files; this module makes the bucket the source of
@@ -9,7 +9,7 @@ truth around them:
     sync      upload files whose size or mtime changed, delete objects whose file is gone
     shutdown  one last sync
 
-Object keys mirror the paths: projects/<slug>/..., output/<slug>/..., logs/usage.jsonl.
+Object keys mirror the paths: logs/usage.jsonl.
 
     python -m app.objectstore status|push|pull     # by hand
 """
@@ -19,9 +19,12 @@ import sys
 import threading
 import time
 
-from .config import LOGS_DIR, OUTPUT_DIR, PROJECTS_DIR, env
+from .config import LOGS_DIR, env
 
-ROOTS = {"projects/": PROJECTS_DIR, "output/": OUTPUT_DIR, "logs/": LOGS_DIR}
+# Only the usage ledger. A campaign — canon/, input/ and the room's output/ — is plain
+# files in campaigns/, bind-mounted into the container and kept by git, so there is one copy
+# of the work and its history is the repository's.
+ROOTS = {"logs/": LOGS_DIR}
 log = logging.getLogger("uvicorn.error")
 
 
