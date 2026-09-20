@@ -218,7 +218,7 @@ def get_project(slug: str):
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
-            "library": projects.library(),
+            "library": projects.library(slug),
             "output": f"output/{slug}"}
 
 

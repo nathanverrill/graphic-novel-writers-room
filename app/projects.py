@@ -196,7 +196,9 @@ def reference_files(slug, version=None):
             if p.name.startswith(".") or never_read(p.relative_to(folder)):
                 continue
             name = library_name(p, folder)
-            if folder in LIBRARY_DIRS and chosen is not None and name not in chosen:
+            if not in_scope(name, slug):
+                continue
+            if chosen is not None and name not in chosen:
                 continue
             found[name] = p
     return found
@@ -233,6 +235,19 @@ def never_read(rel):
     return any(part.startswith("_") or part == OUTPUT_NAME for part in rel.parts)
 
 
+def in_scope(name, slug):
+    """Whether a library file is this campaign's to read.
+
+    A campaign reads its own material and the shared evoke/ material, and nothing from another
+    campaign. Prosperity must not be told about emperor penguins because Avalanche exists, and
+    Avalanche must not inherit the lithium triangle. The craft skills are common to all.
+
+    Scoping by the folder rather than by a shortlist means adding a file to a campaign works
+    the moment you save it, and adding a whole new campaign cannot reach into the others."""
+    campaign = name.split("/", 1)[0]
+    return campaign in ("skills", SHARED, slug)
+
+
 def reference_kind(path):
     """Whether a file binds the book, which is the only thing a folder decides.
 
@@ -249,8 +264,8 @@ def reference_kind(path):
     return RULES if RULES in path.parts else INPUT
 
 
-def library():
-    """The shared library: every campaign's material and the room's skills."""
+def library(slug=None):
+    """The library, or the part of it one campaign can read (see in_scope)."""
     out = []
     for folder in LIBRARY_DIRS:
         if not folder.is_dir():
@@ -259,7 +274,10 @@ def library():
             if p.name.startswith(".") or never_read(p.relative_to(folder)):
                 continue
             rel = p.relative_to(folder)
-            out.append({"name": library_name(p, folder), "size": p.stat().st_size,
+            name = library_name(p, folder)
+            if slug is not None and not in_scope(name, slug):
+                continue
+            out.append({"name": name, "size": p.stat().st_size,
                         "kind": reference_kind(p), "folder": folder.name,
                         "group": str(rel.parent) if folder != SKILLS_DIR else "skills"})
     return out
@@ -286,9 +304,12 @@ def read_reference(slug, name, version=None):
     The round's picker and a writer's shortlist decide what is *carried* into a prompt; they do
     not hide a file from someone asking for it by name. So a name the project did not select is
     still read from the library — which is what makes "anything left off a shortlist is one
-    read_artifact away" true, for an agent and for the screen."""
+    read_artifact away" true, for an agent and for the screen.
+
+    Another campaign's material is a different matter: it is not this book's to read, shortlist
+    or no shortlist, so in_scope applies here too."""
     found = reference_files(slug, version).get(name)
-    if found is None and version is None:
+    if found is None and version is None and in_scope(name, slug):
         for folder in LIBRARY_DIRS:
             root = folder.resolve()
             candidate = (folder / name.removeprefix("skills/")).resolve()

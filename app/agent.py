@@ -158,13 +158,23 @@ class Agent:
         return "\n\n".join(parts)
 
     def shortlist(self, refs):
-        """The library files this writer reads, if its settings name any. The project's own
-        references/ folder is always read: that material belongs to this book."""
+        """The library files this writer reads, if its settings name any.
+
+        A shortlist entry is campaign-relative — "rules/bible.md" means this campaign's bible,
+        whichever campaign is running — so one line-up of agents works for every book. Entries
+        that name a campaign outright ("evoke/rules/alpha.md") are taken as written, which is
+        how the shared material is picked.
+
+        If a shortlist names nothing this campaign has, the writer gets everything in scope
+        rather than nothing. A stale shortlist should cost a writer its focus, never its
+        material."""
         if self.cfg.reference_files is None:
             return refs
-        wanted = set(self.cfg.reference_files)
-        return {n: p for n, p in refs.items()
-                if n in wanted or not any(d in p.parents for d in config.LIBRARY_DIRS)}
+        wanted = {n if "/" in n and n.split("/", 1)[0] in (self.slug, projects.SHARED, "skills")
+                  else f"{self.slug}/{n}"
+                  for n in self.cfg.reference_files}
+        kept = {n: p for n, p in refs.items() if n in wanted}
+        return kept or refs
 
     def task_message(self, note, images, sparks=None):
         r = self.role

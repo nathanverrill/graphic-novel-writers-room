@@ -490,11 +490,19 @@ earlier import was made from — a 129 KB script draft and a 93 KB campaign bibl
 is already in `rules/` and `input/` in the pieces the room reads. The underscore keeps them out
 of prompts so nothing is sent twice. You can delete the folder and lose nothing the room uses.
 
-**A project picks which library files it uses** — **References…** in **The room** tab lists both
-folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
-beside the picker shows how many KB the selection is. With references in place the pitch is
-optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
-each.
+**A campaign reads its own material, the shared `evoke/` material, and the craft skills —
+never another campaign's.** That is a folder rule, not a setting: `in_scope` in
+`app/projects.py` compares the first segment of a file's name against the campaign that is
+running. So Prosperity is not told about emperor penguins because Avalanche exists, a new
+campaign cannot reach into the others, and a file you drop into a campaign's `input/` is read
+the moment you save it, with nothing to add to a list. It holds for a file asked for by name
+too, so an agent cannot read across the boundary either.
+
+**Within that, a campaign picks what it uses** — **References…** in **The room** tab lists both
+folders; default: all of them. A writer can narrow that further with its own shortlist (below),
+and the summary beside the picker shows how many KB the selection is. With references in place
+the pitch is optional. Each round keeps a copy of the references it used, and `run.json` records
+a hash of each.
 
 The campaign's files are the campaign's files: edit them in place. The scripts that once
 split a long source document into them were one-off utilities for importing older material,
@@ -522,7 +530,15 @@ them, and a license used to skip work the characters should have done.
 
 **Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
 also carries its own shortlist: in its model settings, **Library files for this writer**, which
-lists the references and the skills together. What each one reads now:
+lists the references and the skills together.
+
+**A shortlist entry is campaign-relative.** `rules/bible.md` means whichever campaign is
+running, so one line-up of writers works for every book; an entry that names a campaign outright
+(`evoke/rules/alpha.md`) is taken as written, which is how the shared material is picked. If a
+shortlist names nothing the running campaign has, that writer gets everything in scope rather
+than nothing — a stale shortlist should cost a writer its focus, never its material.
+
+What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
@@ -534,10 +550,10 @@ lists the references and the skills together. What each one reads now:
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
-That puts every writer between 98 and 118 KB a call, out of a library that is 38 files and
-705 KB — 16 in the campaign's `rules/`, 17 in its `input/`, 5 craft skills. Anything left off a
-shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
-life and money for the Penciller, the science guide for the Editor.
+That puts every Prosperity writer between 94 and 113 KB a call, out of the 38 files that
+campaign can see — 16 in its `rules/`, 17 in its `input/`, 5 craft skills. The same writers
+running Avalanche read 37 to 94 KB out of its 16. Anything left off a shortlist is still one
+`read_artifact` away, as long as it belongs to the campaign that is running.
 
 Selecting none in that list means the writer reads whatever the round picked.
 

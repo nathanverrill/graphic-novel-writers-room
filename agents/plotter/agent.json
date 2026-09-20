@@ -18,16 +18,16 @@
   "image_size": null,
   "image_extra": {},
   "reference_files": [
-    "prosperity/rules/chapter-01.md",
-    "prosperity/rules/chapter-02.md",
-    "prosperity/rules/chapter-03.md",
-    "prosperity/rules/chapter-04.md",
-    "prosperity/rules/chapter-05.md",
-    "prosperity/rules/chapter-06.md",
+    "rules/chapter-01.md",
+    "rules/chapter-02.md",
+    "rules/chapter-03.md",
+    "rules/chapter-04.md",
+    "rules/chapter-05.md",
+    "rules/chapter-06.md",
     "evoke/rules/alpha.md",
-    "prosperity/input/hard-sf-rules.md",
-    "prosperity/input/lithium-triangle-futures.md",
-    "prosperity/input/triangle-water-wars.md",
+    "input/hard-sf-rules.md",
+    "input/lithium-triangle-futures.md",
+    "input/triangle-water-wars.md",
     "evoke/rules/social-innovators-framework.md"
   ]
 }
