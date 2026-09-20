@@ -1,4 +1,3 @@
-<!-- reference: canon -->
 ---
 name: alpha
 description: Who Alpha is — the person, Alpha Dynamics the conglomerate, and Alpha AI — and how to write him: his psychology, his feedback loop, dependency as his real power, his utopia, his fundamental error, his voice, where he is right, and what to avoid. Canon for this book, not a menu of options. Use whenever Alpha, Alpha Dynamics, Alpha AI, a community dependent on them, or their relationship to Alchemy, EVOKE or the Covenant appears in a scene, a page or a note.

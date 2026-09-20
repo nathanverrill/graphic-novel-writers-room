@@ -24,7 +24,7 @@ Reference files come from campaigns/ and agents/skills/ at the repo root — tog
 room's library — and from projects/<slug>/references/ (a file with the same name wins).
 A project can pick which library files it uses ("references" in round-settings.json;
 default: all), and a writer can narrow that to its own shortlist ("reference_files" in its agent.json). Each
-file is canon, a draft or a guide — see reference_kind.
+file either binds the book or does not — see reference_kind.
 """
 import hashlib
 import json
@@ -71,7 +71,7 @@ def create_project(title, pitch, pages=None, draft=None):
     (path / "references").mkdir()
     if draft and draft.strip():
         (path / "references" / "draft-script.md").write_text(
-            f"<!-- {DRAFT_MARK} -->\n# Draft script (high level, directional only)\n\n"
+            "# Draft script (high level, directional only)\n\n"
             "Treat this as the showrunner's direction, not as finished pages: keep its intent, "
             f"improve everything else.\n\n{draft.strip()}\n")
     if pages:
@@ -188,21 +188,9 @@ def library_name(path, folder):
     return f"skills/{rel}" if folder == SKILLS_DIR else str(rel)
 
 
-DRAFT_MARK = "reference: draft"
-GUIDE_MARK = "reference: guide"
-CANON_MARK = "reference: canon"
-WORLD_MARK = "reference: world"
-RESEARCH_MARK = "reference: research"
-
-# Every kind a marker can name, so the ingest agent can label a file whatever it turns out
-# to be rather than being limited to what a folder happens to be called.
-MARKS = ((CANON_MARK, "canon"), (WORLD_MARK, "world"), (RESEARCH_MARK, "research"),
-         (DRAFT_MARK, "draft"), (GUIDE_MARK, "guide"))
-
-# A campaign has two folders the room reads and they answer one question: does this bind the
-# book? canon/ binds, input/ does not. Nothing inside either needs a recognised name — a file
-# with no marker in input/ is a draft, which is what makes input/ safe to throw anything into.
-FOLDER_KIND = {"canon": "canon", "input": "draft"}
+CANON = "canon"       # the book must not contradict it
+INPUT = "input"       # read it; it binds nothing
+GUIDE = "guide"       # the room's own craft, in agents/skills/
 
 
 def never_read(rel):
@@ -219,30 +207,19 @@ def never_read(rel):
 
 
 def reference_kind(path):
-    """What a file is, from the folder it sits in — or a marker near its top, which wins.
+    """Whether a file binds the book, which is the only thing a folder decides.
 
-    canon          campaigns/evoke/canon and a campaign's canon/: the book must not
-                   contradict it
-    world          invented material to draw on; it commits the book to nothing
-    research       real material — articles, reports, data — true of the world, not the story
-    draft          ideas on paper: mine them, write the room's own version
-    guide          agents/skills, and anything marked as craft: how to do the work, never canon
+    canon   campaigns/evoke/canon and a campaign's canon/: the book must not contradict it
+    input   a campaign's input/: read it, take what serves the page, it binds nothing
+    guide   agents/skills/: the room's craft, the same for every campaign
 
-    A marker <!-- reference: canon | world | research | draft | guide --> wins over the folder.
-    The folders say only whether a file binds the book; a marker says what it actually is, and
-    writing one is the ingest agent's job."""
-    with path.open(errors="replace") as f:
-        head = f.read(400)
-    for mark, kind in MARKS:
-        if mark in head:
-            return kind
+    Nothing here says a document is worldbuilding, research or a draft. A document says what
+    it is in its own words — its title, its frontmatter, its first paragraph — and the agent
+    reading it works that out, which is what the folders used to guess at and get wrong.
+    Where you put a file answers one question: does it bind the book?"""
     if SKILLS_DIR in path.parents:
-        return "guide"
-    parts = path.parts
-    for folder, kind in FOLDER_KIND.items():
-        if folder in parts:
-            return kind
-    return "canon"          # a campaign's own root, beside canon/ and input/
+        return GUIDE
+    return CANON if CANON in path.parts else INPUT
 
 
 def library():

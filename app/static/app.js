@@ -1836,12 +1836,10 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const KIND = { draft: "idea draft", guide: "skill", world: "invented", research: "real" };
+  const KIND = { input: "input", guide: "skill" };
   const NOTE = {
     canon: "the book must not contradict it",
-    world: "invented material to draw on — commits the book to nothing",
-    research: "real material: true of the world, not the story",
-    draft: "ideas to mine, never to copy",
+    input: "read it, mine it — it binds the book to nothing",
     guide: "how to do the work, never canon",
   };
   const row = (f) => `

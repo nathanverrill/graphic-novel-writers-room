@@ -1,4 +1,3 @@
-<!-- reference: guide -->
 ---
 name: hard-sf-rules
 description: The plausibility rules for grounded near-future storytelling, in one place. the 80/15/5 mix, the labels every invented element carries (T truth, EG educated guess, S speculation, L license, Cut), the rules and log for a license, and the Thorne and Tyson tests. Use whenever a story, comic, game or scenario invents anything about how the world works — technology, money, law, weather, bodies, institutions — or asks "would this be plausible", "can we do this anyway", or "how far is this from real". Every worldbuilding skill in this library labels its material with this vocabulary; this is where the vocabulary is defined.

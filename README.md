@@ -445,15 +445,18 @@ draft, notes — at any quality, and none of it binds the book. `output/` is wha
 So opening a campaign, you know which of the three you are in, and you can throw anything into
 `input/` without thinking about where it goes.
 
-**Neither folder has any structure inside it, and a file with no marker in `input/` is read as
-a draft** — the room mines it and is never bound by it. That is what makes `input/` safe to use
-as a heap: a reference document, a prompt that worked, rough notes, all in one flat folder.
-Only `canon/` binds.
+**Neither folder has any structure inside it, and nothing in `input/` binds the book** — the
+room reads it, mines it, and is never bound by it. That is what makes `input/` safe to use as a
+heap: a reference document, a prompt that worked, rough notes, all in one flat folder. Only
+`canon/` binds.
 
-What a file actually is comes from a marker at its top, not from where it sits:
-`<!-- reference: canon | world | research | draft | guide -->`. Writing those is the ingest
-agent's job — it reads everything in `canon/` and `input/`, works out what each document is, and
-labels it. Until then a file is a draft, which is the safe reading.
+**Nothing in the code decides whether a document is worldbuilding, research or a draft.** A
+document says what it is in its own words — its title, its frontmatter, its first line — and the
+agent reading it works that out. `triangle-money.md` opens with "Grounded worldbuilding for what
+money is like…"; `draft-chapter-01.md` opens with "Idea draft, not the script." Those sentences
+are the classification, and they are also what a person reads. There is no marker to write and
+no folder to pick: if you want the hard SF rules followed, the document saying so goes in
+`input/`.
 
 `campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
 named by its path, so `prosperity/canon/chapter-04.md` and
@@ -494,15 +497,12 @@ which it is reading:
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | canon | `evoke/canon/`, a campaign's `canon/` | must not contradict it; where it conflicts with the room's files, the canon wins |
-| world | marker | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
-| research | marker | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
-| draft | `input/`, unmarked | ideas on paper: mine them for beats and intent, write the room's own version |
-| guide | `agents/skills/`, or marker | how to do the work; never canon |
+| input | a campaign's `input/` | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
+| guide | `agents/skills/` | how to do the work; never canon |
 
-A marker wins over the folder, so a skill that carries the book's own canon — a character, a
-place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`campaigns/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
-is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
+`campaigns/evoke/canon/alpha.md` is the case in point for the one question a folder answers: it
+arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in
+`canon/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
 `campaigns/<campaign>/rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,

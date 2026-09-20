@@ -1,4 +1,3 @@
-<!-- reference: world -->
 ---
 name: triangle-water-wars
 description: Generates and checks plausible near future (roughly 2030 to 2060) conflict events over water in and around the South American lithium triangle (northern Chile, northwest Argentina, southwest Bolivia), the kind local people would name and remember as a "water war" (guerra del agua). Covers real precedents, triggers, actors, tactics on all sides, the anatomy of an uprising from first assembly to settlement, scale and casualties that fit the region, how events get named and remembered, and a seed bank of event types with plausibility tiers. Plausible only, with a cut list. Use whenever the user wants a water conflict, blockade, uprising, sabotage, crackdown, drought crisis, or remembered historical event for an Andean mining story, a timeline of unrest, oral history or news coverage of such an event, or asks "would this be plausible." Companion to the other triangle skills.

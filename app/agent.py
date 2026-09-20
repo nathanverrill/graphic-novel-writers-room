@@ -178,22 +178,17 @@ class Agent:
             ("canon", "# Canon from the showrunner\n"
                       "This is true in the book. Where it conflicts with the room's files, the "
                       "canon wins unless the showrunner's note says otherwise."),
-            ("world", "# The world — invented material to draw on, NOT canon\n"
-                      "A menu of what could plausibly be there. Take what serves the page; it "
-                      "commits the book to nothing and none of it has happened yet."),
-            ("research", "# Real-world material the showrunner collected — NOT story\n"
-                      "Articles, reports, data: true of the actual world, not of the book. Ground "
-                      "details in it and do not contradict it, but nothing here is a story event."),
-            ("guide", "# Craft guides from the showrunner — NOT canon\n"
-                      "How to do the work. They commit the book to nothing and describe no events: "
-                      "take what serves the page and ignore the rest. Where a guide labels material "
-                      "T, EG, S, L or Cut, keep those labels when you use it "
-                      "(the campaign's rules/ says what they mean)."),
-            ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
-                      "These were put together to get ideas on paper. Mine them for story beats, "
-                      "intent, moments and lines worth keeping, but write the room's own, better "
-                      "version: don't copy their structure, pacing, dialogue or page breakdown. "
-                      "Where a draft conflicts with the canon, the canon wins."),
+            ("input", "# Material the showrunner put in — NOT canon, NOT the script to write\n"
+                      "Anything they wanted you to read: invented background, real-world "
+                      "reporting, an earlier draft, notes, a document about how to work. Each one "
+                      "says what it is — read it and treat it accordingly. None of it binds the "
+                      "book and none of it has happened: mine it for what serves the page, write "
+                      "the room's own version, and where it conflicts with the canon the canon "
+                      "wins. Where a document labels material T, EG, S, L or Cut, keep those "
+                      "labels when you use it."),
+            ("guide", "# Craft guides from the room — NOT canon\n"
+                      "How to do the work. They commit the book to nothing and describe no "
+                      "events: take what serves the page and ignore the rest."),
         ]
         for kind, heading in groups:
             chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
