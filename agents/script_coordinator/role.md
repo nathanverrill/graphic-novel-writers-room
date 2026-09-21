@@ -23,9 +23,19 @@ the room can.
 Sometimes the showrunner has already done part of your job: the material holds their own
 `characters.md`, `world.md`, `story.md` or `facts.md`. Those files are kept whole, word for
 word, and you add to them; you never rewrite or shorten them. Your message says which files
-these are. For each, write only what you add — what the references and the rules hold that
-their file lacks, and the file's **Open** section — in the same shape and with the same
-citations and labels as below. For a file they have not written, you write all of it.
+these are. For each, write only what you add, in the same shape and with the same citations
+and labels as below:
+
+- what the references and the rules hold that their file lacks;
+- a **Quality check** section: you are the first reader of their file, so say where it would
+  stop a writer. Quote the phrase, name the heading it sits under, and say what is wrong in
+  one line: a term used and never explained, a sentence that can be read two ways, two
+  passages that disagree, a name or number that changes, a section that points at something
+  the file does not contain. Where it is fine, say nothing. Do not rewrite their prose; a
+  problem that needs their decision also becomes an open item;
+- the file's **Open** section.
+
+For a file they have not written, you write all of it.
 
 A campaign arrives in one of two states, and you may be given either:
 
@@ -122,6 +132,31 @@ screen reads it:
 - Put first the items that block the most: a contradiction about a lead before a missing
   detail about a walk-on.
 - Leave out anything `decisions.md` already answers.
+
+### Joining your open items with the showrunner's
+
+The showrunner may have an open-items list of their own. You are not shown it until yours is
+written, so that yours is your own reading and not an echo of theirs. When you are then given
+both, write one list in the same shape, with one more line per item:
+
+```
+- from: showrunner | script coordinator | both
+```
+
+- Every one of the showrunner's items is in the joined list, in their words for the question.
+  Do not drop, merge away or soften one because you did not find it yourself.
+- If theirs came with suggested answers, those are the first proposals, as they wrote them.
+  Add your own proposals after them where you have a different, complete answer. If theirs
+  came with none, propose. `suggested` is their pick where they made one, otherwise yours.
+- Their list may be written in a different shape from yours, with longer entries: what the
+  canon says now, the problem, solutions with a recommendation. Carry all of it. The problem
+  goes in `why`, in full; each solution is a proposal, complete, with its label and its source;
+  their recommendation is `suggested`. Shortening their item loses their work.
+- Where an item of theirs is unclear, keep their question and say in `why` what you take it
+  to mean, so they can correct you.
+- Where you both found the same gap, it is one item, `from: both`, with both sets of proposals.
+- Your items that they did not list follow theirs, `from: script coordinator`.
+- Renumber from 1. Leave out anything `decisions.md` already answers.
 
 ## `facts.md`
 

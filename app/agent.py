@@ -16,7 +16,7 @@ import base64
 import json
 import re
 
-from . import llm, projects, review, rules, search, thumbnails
+from . import llm, openitems, projects, review, rules, search, thumbnails
 from . import agents as agents_mod
 from .agents import gather_context, random_entry
 from .usage import CallLogger
@@ -114,7 +114,7 @@ class Agent:
 
     # ---- prompt building -------------------------------------------------
 
-    def system_prompt(self, guides, use_tools):
+    def system_prompt(self, guides, use_tools, only=None):
         r = self.role
         parts = [
             f"You are the {r.title} in a graphic novel writers' room.",
@@ -147,7 +147,7 @@ class Agent:
         else:
             parts.append(
                 "# How to work\n"
-                f"Reply with the complete markdown content of {r.outputs[0]} and nothing else."
+                f"Reply with the complete markdown content of {only or r.outputs[0]} and nothing else."
             )
         return "\n\n".join(parts)
 
@@ -158,7 +158,15 @@ class Agent:
         world.md, story.md, the brief — and its craft. That is deliberate: a writer handed forty
         source documents writes from the documents, and the Script Coordinator, the Director's
         assistant, sorts them once for the whole room."""
-        return projects.reference_files(self.slug) if self.role.library else {}
+        if not self.role.library:
+            return {}
+        return {n: p for n, p in projects.reference_files(self.slug).items() if n != self.held_back()}
+
+    def held_back(self):
+        """The showrunner's own open items, input/open-items.md: kept from the Script Coordinator
+        until it has written its list, so that list is its own reading and not an echo of theirs.
+        fuse_open_items then joins the two."""
+        return f"{self.slug}/{projects.INPUT}/{openitems.ITEMS}"
 
     def task_message(self, note, images):
         r = self.role
@@ -252,6 +260,9 @@ class Agent:
             if target in PRIVATE and not self.may_read(target):
                 return (f"{target} is not yours to read. What the room knows about the material "
                         "is in characters.md, world.md and story.md.")
+            if target == REF_PREFIX + self.held_back():
+                return ("The showrunner's own open items are held back until yours are written, so that "
+                        "your list is your own reading. They are joined with yours afterwards.")
             if target.startswith(REF_PREFIX) and not self.role.library:
                 return ("The showrunner's material is the Script Coordinator's to read. What it says "
                         "is sorted into characters.md, world.md and story.md.")
@@ -315,7 +326,8 @@ class Agent:
         projects.showrunner_file): only the agent that reads their material adds to them."""
         if not self.role.library:
             return {}
-        found = {n: projects.showrunner_file(self.slug, n) for n in self.role.outputs}
+        found = {n: projects.showrunner_file(self.slug, n) for n in self.role.outputs
+                 if n != openitems.ITEMS}      # theirs is held back, then joined: see held_back
         return {n: text for n, text in found.items() if text}
 
     def save(self, name, content):
@@ -376,6 +388,7 @@ class Agent:
         for name, text in self.kept().items():      # on the desk whole, whatever the agent then adds
             self.version.write(name, projects.with_additions(text, ""))
         guides, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
+        self.guides = guides
         if not self.cfg.send_images:
             images = []
         refs = self.library()
@@ -392,7 +405,7 @@ class Agent:
             return self.run_without_tools(guides, task)
         messages = [{"role": "system", "content": self.system_prompt(guides, True)}, task]
 
-        nudged = False
+        nudged = asked_for_rest = False
         for step in range(1, self.cfg.max_steps + 1):
             if self.should_stop():
                 raise Stopped()
@@ -444,6 +457,14 @@ class Agent:
                     result = self.run_tool(fn, args)
                 messages.append({"role": "tool", "tool_call_id": call["id"], "content": result})
 
+            missing = [n for n in self.role.outputs if n not in self.written]
+            if finished is not None and missing and not asked_for_rest and len(self.role.outputs) > 1:
+                asked_for_rest = True       # it finished with files unwritten: ask once for the rest
+                self.emit("warn", text=f"Finished without writing {', '.join(missing)} — asking once for them.")
+                messages.append({"role": "user", "content":
+                                 f"You called finish, but you have not written {', '.join(missing)}. Write each "
+                                 "of them now with write_artifact, then call finish again."})
+                continue
             if finished is not None:
                 return self.wrap_up(finished)
 
@@ -456,11 +477,39 @@ class Agent:
         self.keep_reply_images(reply)
         return self.wrap_up(llm.text_of(reply))
 
+    def fuse_open_items(self, guides):
+        """Join the Script Coordinator's open items with the showrunner's own, which it has not seen.
+
+        Two readers who cannot see each other's list find different gaps; one who is handed a
+        list finds the same ones again. So the agent writes its list blind, and only then is
+        given input/open-items.md to fold in: one plain call, the two lists in, one list out."""
+        theirs = projects.read_reference(self.slug, self.held_back())
+        if not theirs or openitems.ITEMS not in self.role.outputs:
+            return
+        mine = projects.read_artifact(self.slug, openitems.ITEMS) or "(you wrote none)"
+        self.emit("message", text="Joining its open items with the showrunner's own.")
+        reply = llm.chat(self.cfg, [
+            {"role": "system", "content": self.system_prompt(guides, False, only=openitems.ITEMS)},
+            {"role": "user", "content":
+                f"Project: {self.slug}\n\nYou have written your own open items without seeing the "
+                "showrunner's. Now join the two lists, as your role guide says under "
+                "\"Joining your open items with the showrunner's\".\n\n"
+                f"# The showrunner's open items ({projects.INPUT}/{openitems.ITEMS})\n\n{theirs}\n\n"
+                f"# Your open items\n\n{mine}"}], log=self.log)
+        joined = llm.text_of(reply).strip()
+        joined = re.sub(r"\A```(?:markdown|md)?\n(.*)\n```\Z", r"\1", joined, flags=re.S)
+        if openitems.parse(joined):
+            self.save(openitems.ITEMS, joined + "\n")
+        else:
+            self.emit("warn", text="The joined open items could not be read; keeping the Script Coordinator's own list.")
+
     def wrap_up(self, text):
         """If the model answered in prose without saving, keep the prose as the deliverable."""
         primary = self.role.outputs[0]
         if not self.written and text.strip():
             self.save(primary, text)
             text = f"Delivered {primary}."
+        if self.role.library:
+            self.fuse_open_items(self.guides)
         self.version.append_log(self.role.title, text or "(no note)")
         return text

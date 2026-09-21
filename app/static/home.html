@@ -181,7 +181,7 @@ async function showOpenItems() {
     q.textContent = `${it.n}. ${it.question}`;
     const why = document.createElement("p");
     why.className = "note";
-    why.textContent = [it.file, it.why].filter(Boolean).join(" — ");
+    why.textContent = [it.from && `from ${it.from}`, it.file, it.why].filter(Boolean).join(" — ");
     const box = document.createElement("textarea");
     box.rows = 3;
     box.value = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;

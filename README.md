@@ -468,6 +468,14 @@ like any rule and survive every rerun. **Run intake again** and the Script Coord
 each answer as FIXED in the file it belongs to and drops the item from the list. You can edit
 `rules/decisions.md` by hand too; it is plain markdown, one `## question` per answer.
 
+**Your own open items are joined with the room's, not shown to it.** If `input/` holds an
+`open-items.md`, the Script Coordinator does not see it while it works: it writes its own list
+blind, so its list is a second reading and not an echo of yours. Then one more call gives it
+both and it writes the joined list — every item of yours, in your words, with your suggested
+answers first; its own proposals added; its extra items after yours; each marked `from:`
+showrunner, script coordinator or both. For the files you wrote, its additions also carry a
+**Quality check**: where a writer would stumble on your text, quoted, without rewriting it.
+
 **Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
 `input/` holds raw notes: the three files come out thin with long Open lists, and development
 does most of the building. With chapters already written (Prosperity), they go in `drafts/`:

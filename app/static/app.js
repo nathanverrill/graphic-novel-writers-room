@@ -1402,7 +1402,7 @@ async function loadOpenItems(phase) {
       const start = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;
       return `<form class="open-item ${it.answer ? "answered" : ""}" data-n="${it.n}">
         <b>${it.n}. ${esc(it.question)}</b>
-        <div class="path">${esc(it.file)}${it.why ? ` — ${esc(it.why)}` : ""}</div>
+        <div class="path">${it.from ? `<span class="badge">from ${esc(it.from)}</span> ` : ""}${esc(it.file)}${it.why ? ` — ${esc(it.why)}` : ""}</div>
         ${it.options.map((o) => `<label><input type="radio" name="pick" value="${esc(o.text)}"> <b>${esc(o.id)}</b>` +
           `${o.id === it.suggested ? " <span class='badge'>suggested</span>" : ""} ${esc(o.text)}</label>`).join("")}
         <textarea name="answer" rows="2" placeholder="Your answer">${esc(start)}</textarea>

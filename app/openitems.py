@@ -10,6 +10,9 @@ each with the answers it can propose and the one it would pick:
     - B: One person, who left Keel for Halyard.
     - suggested: A
 
+(and `- from:` — the showrunner, the Script Coordinator, or both — when your own open items,
+input/open-items.md, were joined with its list; see Agent.fuse_open_items.)
+
 You approve a proposal, edit it, or leave the item open for the room to decide in development.
 An answer is yours, so it does not go on the room's desk: it is written to the campaign's
 `rules/decisions.md`, where it binds the book like any other rule and survives every rerun.
@@ -43,13 +46,13 @@ def parse(text):
         m = re.match(r"(\d+)[.)]\s*(.*)", lines[0].strip())
         item = {"n": int(m.group(1)) if m else len(items) + 1,
                 "question": (m.group(2) if m else lines[0]).strip(),
-                "file": "", "why": "", "options": [], "suggested": ""}
+                "file": "", "why": "", "from": "", "options": [], "suggested": ""}
         for line in lines[1:]:
             f = re.match(r"^\s*[-*]\s*\**([A-Za-z]+)\**\s*:\s*(.*)", line)
             if not f:
                 continue
             label, value = f.group(1), f.group(2).strip()
-            if label.lower() in ("file", "why", "suggested"):
+            if label.lower() in ("file", "why", "from", "suggested"):
                 item[label.lower()] = value
             elif len(label) == 1:
                 item["options"].append({"id": label.upper(), "text": value})
