@@ -10,7 +10,8 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const kb = (n) => (n >= 1000 ? `${Math.round(n / 1000)} KB` : `${n} B`);
 
-const state = { slug: null, items: [], filter: "all", run: null, seen: 0, busy: false };
+const state = { slug: null, items: [], filter: "all", run: null, seen: 0, busy: false,
+                current: null, skipped: new Set() };
 
 async function api(path, opts = {}) {
   const res = await fetch(path, {
@@ -242,13 +243,52 @@ function option(o) {
     (src ? ` <span class="src">${esc(src[1])}</span>` : "") + `</span></label>`;
 }
 
-function renderItems() {
+/* One item at a time. state.current is the item's number, so the place is kept when the
+ * list reloads or a filter takes the answered item out from under it. */
+
+const COMMENT = "\n\nShowrunner's comment: ";
+
+function shownItems() {
   const f = state.filter;
-  const shown = state.items.filter((i) =>
+  return state.items.filter((i) =>
     f === "all" ? true
       : f === "research-check" || f === "showrunner" ? (i.from || "").includes(f === "showrunner" ? "showrunner" : "research")
         : i.status === f);
-  $("#items").innerHTML = shown.length ? shown.map((i) => `
+}
+
+function currentItem(shown) {
+  return shown.find((i) => i.n === state.current)
+    || shown.find((i) => i.status === "unresolved" && !state.skipped.has(i.n))
+    || shown.find((i) => i.status === "unresolved")
+    || shown[0];
+}
+
+/* Where to go after this one: the next item still open, wrapping round to the ones skipped. */
+function nextAfter(n) {
+  const shown = shownItems(), at = shown.findIndex((i) => i.n === n);
+  const rest = shown.slice(at + 1).concat(shown.slice(0, Math.max(at, 0)));
+  return (rest.find((i) => i.status === "unresolved") || shown[at + 1] || shown[at] || {}).n ?? null;
+}
+
+function renderItems() {
+  const f = state.filter, shown = shownItems(), i = currentItem(shown);
+  if (!i) {
+    $("#items").innerHTML = `<p class="hint">Nothing here. ${f === "all" ? "Run intake to raise the questions." : "Try another filter."}</p>`;
+    return;
+  }
+  state.current = i.n;
+  const at = shown.indexOf(i);
+  const [answered, commented = ""] = (i.answer || "").split(COMMENT);
+  const open = shown.filter((x) => x.status === "unresolved").length;
+  $("#items").innerHTML = `
+    <div class="walk">
+      <button data-go="${shown[at - 1]?.n ?? ""}" ${at ? "" : "disabled"}>← Back</button>
+      <span><b>${at + 1}</b> of ${shown.length}${open ? ` · ${open} still open` : " · none left open"}</span>
+      <button data-go="${shown[at + 1]?.n ?? ""}" ${at < shown.length - 1 ? "" : "disabled"}>Next →</button>
+    </div>
+    <div class="dots">${shown.map((x) =>
+      `<button data-go="${x.n}" class="${esc(x.status)}${state.skipped.has(x.n) && x.status === "unresolved" ? " skipped" : ""}"` +
+      `${x === i ? ' aria-current="true"' : ""} title="${esc(x.question)}">${x.n}</button>`).join("")}</div>
     <div class="item ${esc(i.status)}" data-n="${i.n}">
       <h4><em>${i.n}.</em> ${esc(i.question)}</h4>
       <div class="meta">
@@ -256,29 +296,34 @@ function renderItems() {
         ${i.evidence ? `<div><b>evidence</b> ${esc(i.evidence)}</div>` : ""}
         ${i.why ? `<div><b>why</b> ${esc(i.why)}</div>` : ""}
       </div>
-      ${i.options.length ? `<div class="opts">${i.options.map(option).join("")}
-        ${i.suggested ? `<div class="hint">the room suggests ${esc(i.suggested)}</div>` : ""}</div>` : ""}
-      <div class="acts">
-        <textarea rows="1" placeholder="your answer, or edit an option above…">${esc(i.answer || "")}</textarea>
-        <button class="primary" data-do="answer">Answer</button>
-        <button data-do="defer">Defer</button>
-        <button data-do="note">Note</button>
-        ${i.answer || i.defer ? `<button data-do="clear">Reopen</button>` : ""}
-      </div>
       ${i.answer ? `<div class="said answer"><b>answered</b> ${esc(i.answer)}</div>` : ""}
       ${i.defer ? `<div class="said defer"><b>deferred</b> ${esc(i.defer)}</div>` : ""}
       ${i.feedback ? `<div class="said note"><b>note</b> ${esc(i.feedback)}</div>` : ""}
-    </div>`).join("") : `<p class="hint">Nothing here. ${f === "all" ? "Run intake to raise the questions." : "Try another filter."}</p>`;
+      ${i.options.length ? `<div class="opts">${i.options.map(option).join("")}
+        ${i.suggested ? `<div class="hint">the room suggests ${esc(i.suggested)}</div>` : ""}</div>` : ""}
+      <label class="field"><b>Your answer</b>
+        <span>Pick an option above and it lands here. Edit it, or write your own.</span>
+        <textarea rows="2" data-is="answer">${esc(answered)}</textarea></label>
+      <label class="field"><b>Anything to add? <i>optional</i></b>
+        <span>A comment goes with your selection: a condition, a reason, a detail the room should
+          keep. The room reads it together with the answer.</span>
+        <textarea rows="2" data-is="comment" placeholder="e.g. Yes to B, but she keeps the scar.">${esc(commented)}</textarea></label>
+      <div class="acts">
+        <button class="primary" data-do="answer">Answer &amp; next</button>
+        <button data-do="skip" title="Decide nothing now. It stays open and you can come back to it.">Skip for now</button>
+        <button data-do="defer" title="Leave it open on purpose. The room keeps it on the list and does not answer it.">Defer</button>
+        <button data-do="note" title="Save the comment as a note to the room, without answering.">Save comment only</button>
+        ${i.answer || i.defer ? `<button data-do="clear">Reopen</button>` : ""}
+      </div>
+      <div class="hint" id="item-said"></div>
+    </div>`;
 
-  for (const item of $("#items").querySelectorAll(".item")) {
-    const src = state.items.find((i) => i.n === +item.dataset.n);
-    item.querySelectorAll('input[name="opt"]').forEach((r) => {
-      r.name = `opt-${src.n}`;
-      r.addEventListener("change", () => {
-        item.querySelector("textarea").value = r.value.replace(/\[(established|research|inferred|invented)\]/gi, "").trim();
-      });
+  const item = $("#items .item");
+  item.querySelectorAll('input[name="opt"]').forEach((r) => {
+    r.addEventListener("change", () => {
+      item.querySelector('[data-is="answer"]').value = r.value.replace(/\[(established|research|inferred|invented)\]/gi, "").trim();
     });
-  }
+  });
 }
 
 function renderTally() {
@@ -292,10 +337,15 @@ function renderTally() {
   $("#meter .def").style.width = n ? `${(def / n) * 100}%` : "0";
 }
 
-async function act(n, what, text) {
-  const body = { answer: what === "answer" ? text : what === "clear" ? "" : undefined,
-                 defer: what === "defer" ? (text || "left open on purpose") : what === "clear" ? "" : undefined,
-                 feedback: what === "note" ? text : undefined };
+/* The comment travels with whatever was decided: joined to an answer, the reason for a
+ * deferral, or a note on its own. Defer and note are one line in open-items.md. */
+async function act(n, what, text, comment) {
+  const line = (t) => t.replace(/\s+/g, " ").trim();
+  const body = {};
+  if (what === "answer") body.answer = comment ? text + COMMENT + comment : text;
+  if (what === "defer") body.defer = line(comment) || "left open on purpose";
+  if (what === "note") body.feedback = line(comment);
+  if (what === "clear") { body.answer = ""; body.defer = ""; }
   await api(`/api/projects/${state.slug}/open-items/${n}`, { method: "POST", body });
   await load();
 }
@@ -330,6 +380,7 @@ $("#run").addEventListener("click", startRound);
 
 $("#camp").addEventListener("change", async () => {
   state.slug = $("#camp").value; state.run = null; state.seen = 0;
+  state.current = null; state.skipped.clear();
   $("#feed-card").hidden = true;
   history.replaceState(null, "", `?p=${encodeURIComponent(state.slug)}`);
   await load();
@@ -337,17 +388,29 @@ $("#camp").addEventListener("change", async () => {
 
 $("#filters").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-f]"); if (!b) return;
-  state.filter = b.dataset.f;
+  state.filter = b.dataset.f; state.current = null;
   $("#filters").querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b));
   renderItems();
 });
 
 $("#items").addEventListener("click", async (e) => {
+  const go = e.target.closest("button[data-go]");
+  if (go) { state.current = +go.dataset.go; renderItems(); return; }
   const b = e.target.closest("button[data-do]"); if (!b) return;
-  const item = b.closest(".item");
+  const item = b.closest(".item"), n = +item.dataset.n, what = b.dataset.do;
+  const text = item.querySelector('[data-is="answer"]').value.trim();
+  const comment = item.querySelector('[data-is="comment"]').value.trim();
+  const say = (t) => { $("#item-said").innerHTML = `<span style="color:var(--bad)">${esc(t)}</span>`; };
+  if (what === "skip") { state.skipped.add(n); state.current = nextAfter(n); renderItems(); return; }
+  if (what === "answer" && !text) return say("Pick an option or write an answer first — or skip it.");
+  if (what === "note" && !comment) return say("Write the comment first.");
   b.disabled = true;
-  try { await act(+item.dataset.n, b.dataset.do, item.querySelector("textarea").value.trim()); }
-  catch (err) { alert(err.message); b.disabled = false; }
+  try {
+    const next = what === "answer" || what === "defer" ? nextAfter(n) : n;
+    await act(n, what, text, comment);
+    state.skipped.delete(n);
+    state.current = next; renderItems();
+  } catch (err) { say(err.message); b.disabled = false; }
 });
 
 $(".weights").addEventListener("click", (e) => {

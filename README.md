@@ -452,10 +452,13 @@ nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<
 
 **The pre-production desk is at `/preproduction`.** Intake stops for you between pass 3 and
 pass 4, and that screen is where the waiting happens: the material going in, the documents the
-room has written, the preservation numbers, and the open items — each with its evidence, why it
-matters, where it came from, and its options with their provenance labels. Answer one, defer
-it, leave a note on it, or write notes to the room as a whole; the button then changes from
-"Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
+room has written, the preservation numbers, and the open items — one at a time, each with its
+evidence, why it matters, where it came from, and its options with their provenance labels.
+Answer it, skip it for now, defer it, or write notes to the room as a whole. Under the answer is
+a second box for anything you want to add to your selection: it is saved with the answer in
+`rules/decisions.md` as "Showrunner's comment", becomes the reason if you defer, or can be saved
+on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
+The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
 
 **Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
 The room builds every prompt, parses the file envelope that comes back, checks it and writes
