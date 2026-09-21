@@ -1,7 +1,10 @@
 # Pass 3: options
 
 You have the open items you just wrote, the three working documents, the binding rules and —
-for the first time — the research shelf. Give every item useful possible answers.
+for the first time — the research shelf. You have two jobs:
+
+1. **give every existing item useful possible answers**;
+2. **challenge the project against the research**, and raise what that turns up.
 
 This is the one pass whose job is proposing. It is still not the pass that decides: the
 showrunner reads what you write and, for each item, approves an option, writes their own
@@ -14,7 +17,8 @@ answer, defers it, or leaves it open. You do not modify `characters.md`, `world.
   weak option and an honest label is more use than a missing item.
 - Keep each question in the words it already has, and keep its number, `file`, `evidence`,
   `why` and `from` lines.
-- Do not add new items. Something you notice while reading the shelf waits for the next run.
+- You may **add** items — see the research challenge below — but only ones the research
+  exposes. Never quietly drop or rewrite one you were given.
 
 ## The shape
 
@@ -159,11 +163,91 @@ else. Invented is not a criticism — it tells the showrunner the room made this
 person's name, a new institution, a cryptographic mechanism, a historical event, a legal
 structure, a relationship, a technical implementation.
 
-## Two separate claims
+### An established framework does not establish your application of it
 
-The existence of a thing and its classification are different claims. If `world.md` says the
-individual **T / EG / S / L** hard-SF labels have not been assigned yet, you may not mark one
-`[established]` merely because the technology itself is established.
+This is the subtlest way `[established]` goes wrong, and the most common.
+
+**`[established]` requires the specific answer being proposed to be directly established. An
+established framework, rule or premise does not make your application of that framework
+established.**
+
+The hard-SF rules establish the categories **T / EG / S / L**. That is a framework. Mapping a
+particular story technology into one of those categories is *your proposal about that
+technology*, and it is `[inferred]` — unless a source actually assigns that label to that
+thing. The existence of a thing and its classification are two different claims, and if
+`world.md` says the individual labels have not been assigned yet, you certainly may not mark
+one `[established]`.
+
+The same trap, one level up: if the material says Alpha's breadth of authority is the
+project's primary speculative leap, that is an established premise. A complete licence-log
+treatment of it — specific boundaries, specific consequences, a worked list of what the leap
+does and does not buy — is your work on top of that premise. `[inferred]` at best.
+
+Ask it this way: *is the thing I am proposing established, or is the thing it rests on
+established?* Only the first earns the label.
+
+---
+
+# The research challenge
+
+You are the first pass that sees the reference shelf. The pass before you found everything it
+could from the project's own documents; what it could not find is anything that only shows up
+when the project is held against the real world. That is yours.
+
+Read `characters.md`, `world.md`, `story.md` and the rules against the research, and look for
+**consequential problems that could not have been discovered without outside knowledge**:
+
+- fictional geology that conflicts with real geology;
+- travel times that conflict with the geography;
+- a legal mechanism that is implausible in the jurisdiction the story intends;
+- a technology that breaks the hard-SF constraints;
+- an economic mechanism that does not work the way the project says;
+- infrastructure behaving in a way real operating constraints would not allow;
+- biological, environmental, physical or institutional assumptions that fail against the
+  evidence.
+
+Note what the pass before you could not: the project's own files may agree with each other
+perfectly and still be wrong about the world. Internal consistency is not plausibility, and
+agreement between three documents that inherited the same assumption is not evidence.
+
+## The test before you add one
+
+> Would ignoring this create a meaningful plausibility, continuity, causality, production or
+> credibility problem?
+
+If no, do not add it. **Do not raise a question merely because the research contains more
+detail than the project does.** The shelf knows a great deal that the book does not need. A
+research-found item is warranted only when the outside evidence *materially challenges or
+constrains* something the project currently proposes.
+
+## How a research-found item looks
+
+Append it to the list in the ordinary shape, mark where it came from, and — because you are
+already here with the shelf open — give it its options straight away:
+
+```
+## 12. What kind of mine is Keel actually built in and around?
+- file: world.md
+- evidence: The project consistently depicts an open pit, underground workings, miners, pumps,
+  galleries and legacy hard-rock infrastructure (world.md, story.md). Research on the intended
+  region indicates conventional Lithium Triangle production is primarily salar/brine based
+  rather than this kind of hard-rock mine (references/lithium-triangle-futures.md).
+- why: The geology decides Keel's physical geography, its labour, its machinery, its water
+  systems, its contamination history and how the whole place looks on the page.
+- from: research-check
+- A: Make Keel an exhausted copper/polymetallic mine and keep lithium in the regional economy
+  through nearby salar/DLE operations. [research] (references/andean-hard-rock-futures.md)
+- B: Keep the lithium identity and move the workings to a brine/salar operation, losing the
+  tunnels. [research] (references/lithium-triangle-futures.md)
+- C: Keep it as written and treat the geology as a licensed departure, logged as such. [invented]
+- suggested: A
+```
+
+Use `- from: research-check` for one the research exposed. Use `- from: both` where research
+converges with a concern the showrunner or the previous pass already raised — then it is not a
+new item at all, and the research goes into its `evidence`.
+
+Number new items after the ones you were given, and do not renumber the existing list.
 
 ---
 
@@ -201,6 +285,17 @@ When you are unsure between two labels, take the weaker one. A showrunner scanni
 must see at a glance what is already theirs and what the room made up. An invented claim that
 goes unlabelled becomes canon by accident three phases later, and nobody will remember it was
 yours.
+
+## What the finished list is
+
+```
+every unresolved item from the pass before you
++ the items the research exposed
++ options for all of them
+```
+
+Every prior item preserved, nothing silently resolved, every option labelled by its
+least-supported consequential claim, and every decision left to the showrunner.
 
 ## What to return
 

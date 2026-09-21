@@ -635,33 +635,48 @@ class Intake:
                 "to continuity: do not raise a question just because more detail could exist."]
         text.append("# The files this run just produced - the current state of the project")
         text += [f"## {name}\n\n{body}" for name, body in written.items()]
-        # The list to reconcile against. It lives in two possible places: the showrunner may
-        # keep one in input/, and the desk carries the one the last round produced, with
-        # whatever they have since edited into it. Both are prior items and both must survive
-        # this pass unless something authoritative has actually settled them.
-        prior = []
+        # Two different things, kept apart on purpose.
+        #
+        # The showrunner's own open-items document is a SOURCE, like rules/ or input/: their
+        # questions, in their words, about the project. It is not a synthesis artifact and it
+        # is not the room's own work. It gets its own top-level section, named by its real
+        # path, and pass 2 reconciles the three new files against that exact list.
+        #
+        # The desk's open-items.md is the room's previous list, plus whatever the showrunner
+        # has since edited into it. Also prior items, also must survive - but a different kind
+        # of document, so it is delimited separately and labelled as what it is.
         theirs = projects.read_reference(self.slug, self.reserved())
         if theirs:
-            prior.append((f"input/{ITEMS} - the showrunner's own list", theirs))
+            text.append(f"# Existing showrunner open items\n\n"
+                        f"Source: {projects.INPUT}/{ITEMS}\n\n"
+                        f"This is the showrunner's own list, in their words. Reconcile the three "
+                        f"files above against **this exact list**, item by item. Every one of "
+                        f"these questions is either in your output or removed because an explicit "
+                        f"decision, a binding rule or the material now directly settles it.\n\n"
+                        f"{theirs}")
         ours = projects.read_artifact(self.slug, ITEMS)
         if ours and ours.strip():
-            prior.append((f"{ITEMS} - the current list on the desk, as the last round left it "
-                          f"and the showrunner may since have edited it", ours))
-        if prior:
-            text.append("# The existing open items - reconcile these, do not start over\n"
-                        "These are prior questions. For each one decide: still unresolved (keep "
-                        "it, in their words, with their proposed solution); resolved by an "
-                        "explicit decision, a binding rule or material that now directly "
-                        "settles it (remove it); partly resolved (rewrite it around what is "
-                        "still uncertain); a duplicate of something you found (merge, keeping "
-                        "their concern and their wording); or contradicted by the new synthesis "
-                        "(keep it - the disagreement is evidence).\n\n"
-                        "**A prior item does not disappear because the new synthesis forgot "
-                        "it, and a synthesis file stating one version confidently does not "
-                        "resolve anything** - very often it has simply carried the problematic "
-                        "version forward, which is why the item exists. Account for every one "
-                        "of them.")
-            text += [f"## {label}\n\n{body}" for label, body in prior]
+            text.append(f"# The room's current open-items list\n\n"
+                        f"Source: {ITEMS}, as the last round left it and the showrunner may "
+                        f"since have edited it.\n\n"
+                        f"Prior items too: same rules, same obligation to account for each one.\n\n"
+                        f"{ours}")
+        if theirs or ours:
+            text.append("# How to reconcile a prior item\n"
+                        "For each one decide: **still unresolved** (keep it, in their words, with "
+                        "their proposed solution); **resolved** by an explicit decision, a binding "
+                        "rule or material that now directly settles it (remove it); **partly "
+                        "resolved** (rewrite it around what is still uncertain); a **duplicate** of "
+                        "something you found (merge, keeping their concern and their wording); or "
+                        "**contradicted** by the new synthesis (keep it - the disagreement is "
+                        "evidence).\n\n"
+                        "**A prior item does not disappear because the new synthesis forgot it, "
+                        "and a synthesis file stating one version confidently does not resolve "
+                        "anything** - very often it has simply carried the problematic version "
+                        "forward, which is exactly why the item exists. A broader question is not "
+                        "the same item as a specific one: replacing a concern about a particular "
+                        "thing with a general question about its category drops the original. "
+                        "Account for every one of them.")
         settled = self.material([projects.RULES])
         if settled:
             text.append("# The showrunner's rules - settled, so nothing here is an open item")
@@ -673,10 +688,20 @@ class Intake:
     def options_message(self, items, note):
         text = [f"Project: {self.slug}",
                 "# Your job in this pass\n"
-                "Here are the open items you just wrote, and the research shelf. Give every item "
-                "its answers: one to three complete options each, and the one you would pick. "
-                "Keep every item, its question in the words it already has, its evidence and its "
-                "numbering. You are answering the list, not reopening it.\n\n"
+                "Here are the open items you just wrote, and the research shelf. Two jobs.\n\n"
+                "**Answer the list.** Give every item one to three complete options and the one "
+                "you would pick. Keep every item, its question in the words it already has, its "
+                "evidence and its numbering. Nothing gets silently resolved or dropped.\n\n"
+                "**Challenge the project against the research.** You are the first pass to see "
+                "the shelf. The pass before you found everything the project's own documents "
+                "could show; what it could not find is anything that only appears when the "
+                "project is held against the real world - geology, geography, law, economics, "
+                "infrastructure, physics, how an institution really behaves. Where the research "
+                "materially challenges or constrains something the project proposes, append a "
+                "new item with `- from: research-check` and give it options too. Three documents "
+                "agreeing with each other is not evidence that they are right about the world. "
+                "Do not raise a question merely because the shelf holds more detail than the "
+                "book needs.\n\n"
                 "Every option carries a label saying where it comes from - [established], "
                 "[research], [inferred] or [invented] - and its source. Use the weakest label "
                 "that is accurate."]

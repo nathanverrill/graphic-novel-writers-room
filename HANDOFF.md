@@ -98,6 +98,19 @@ below. What changed from the state described further down:
 7. **Guides split per pass**: `role.md` + `craft.md` go to all four; `synthesis.md`,
    `open-items.md`, `options.md` and `integration.md` each go to their own pass only
    (`intake.GUIDES`). Each pass is told one job.
+15. **Pass 3 research challenge** (the eighth spec, 2026-09-21): pass 3 may now ADD items, not
+    just answer them. It is the first pass with the shelf, so it is the only one that can catch
+    a problem needing outside knowledge — the Keel open-pit-lithium-vs-salar-brine case is the
+    worked example in `options.md`. New items are marked `- from: research-check` (or `both`
+    where it converges with an existing concern), numbered after the existing list, and given
+    options immediately. Gated by a materiality test, not by detail. The old "do not add new
+    items" restriction is removed from the guide and from `options_message`.
+    Pass 2's guide now says explicitly that real-world plausibility is not its job.
+    **Note on the pass 2 payload**: `input/open-items.md` no longer exists and should not be
+    restored — the old 23 items were asked against material that has since been replaced. The
+    showrunner-authored path is still supported (own section, `Source: input/open-items.md`)
+    but the normal lifecycle is that pass 2 writes the list, the showrunner edits it in place,
+    and the next run reconciles against the desk copy.
 14. **Pass 2 reconciliation + strict provenance** (the seventh spec, 2026-09-21, after r15):
     `open-items.md` rewritten: prior items are first-class input with five named dispositions,
     "a prior item must not disappear because the new synthesis forgot it" with the Keel worked

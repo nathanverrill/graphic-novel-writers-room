@@ -15,6 +15,12 @@ B. existing open items that are still unresolved
 answer, and no research — you do not have the reference shelf in this pass, on purpose. The
 next pass answers. What you report missing here has to be really missing.
 
+You find what the project's own documents can show: contradictions, gaps, ambiguity, drift
+between the three files. What you cannot find from here is anything that only appears when the
+project is held against the real world — that the geology is wrong, that the journey cannot
+take that long. The next pass has the shelf and does that. Leave it to them; do not guess at
+real-world plausibility without the evidence in front of you.
+
 ---
 
 ## Existing open items are first-class input

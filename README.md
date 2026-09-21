@@ -458,7 +458,7 @@ the files itself.
 |---|---|---|---|
 | 1 | **synthesis** | everything in `input/`, `rules/`, `references/` | `characters.md`, `world.md`, `story.md` — **three calls at once** |
 | 2 | **open items** | those three, your own open-items list — **no references** | `open-items.md`, questions only |
-| 3 | **options** | those items, the three files, `references/` | `open-items.md`, every item answered |
+| 3 | **options** | those items, the three files, `references/` | `open-items.md`, every item answered, plus what the research exposes |
 | | *the run stops and waits for you* | | |
 | 4 | **revision** | your decisions and notes, the three files | the three files **in parallel**, then what is still open |
 | 5 | **facts** | the settled three files | `facts.md` |
@@ -515,6 +515,16 @@ Pass 1 organizes and enriches; it does not resolve. Pass 2 finds the gaps and is
 the one pass with no research in reach — a reader holding a shelf will use it to make a thin
 file look finished, and then what it reports missing is not really missing. Pass 3 is the only
 pass that proposes answers.
+
+**Pass 3 also challenges the book against the research.** It is the first pass to see the
+shelf, so it is the only one that can catch what the project's own documents never could:
+fictional geology that conflicts with real geology, a journey that cannot take that long, a
+legal mechanism implausible in the jurisdiction intended, a technology that breaks the hard-SF
+rules, an economy that does not work the way the book says. Three documents agreeing with each
+other is not evidence they are right about the world. Where research materially challenges
+something the project proposes, Pass 3 raises a new item marked `from: research-check` and
+gives it options on the spot — not because the shelf holds more detail than the book needs,
+but only where ignoring it would cost you plausibility, continuity or credibility.
 
 **The room checks each call:** all the files present, none empty, none truncated, each reading
 like the document its name promises, every option in pass 3 carrying a source label. A call
