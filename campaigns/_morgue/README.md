@@ -39,3 +39,10 @@ Not adopted:
 ## ascii_artist/ — retired 2026-09-17
 
 The ASCII Artist drew whole pages panel by panel with a model. The room draws pages from the Penciller's layout blocks instead, in code and for free, so the agent and its guides moved here — with `ascii_art_skill.md` and `ascii_art_bible.md`, the two sources that fed it (moved out of the skills folder on 2026-09-18).
+
+## colorist/, image_thumbnailer/ — retired 2026-09-20
+
+The art room's only two agents, retired together; the room is now a plan with nothing in it.
+The Colorist wrote a color script no one downstream used, because the page prompt hands color
+to the outside image model. The Image Thumbnailer paid an image call per panel for a sketch
+the room draws from the layout blocks in code. Each folder's README says how to bring it back.

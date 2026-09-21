@@ -85,37 +85,6 @@
     ]
   },
   {
-    "id": "image_thumbnailer",
-    "title": "Image Thumbnailer",
-    "mission": "You sketch every panel with an image model and convert the sketches to ASCII inside the Layout Agent's layout skeletons.",
-    "reads": [
-      "layouts.md",
-      "bible.md"
-    ],
-    "outputs": [
-      "thumbnails-image.md"
-    ],
-    "selected": false,
-    "preview": "image",
-    "context": "minimal",
-    "room": "art"
-  },
-  {
-    "id": "colorist",
-    "title": "Colorist",
-    "mission": "You design the color script: the palette for the book, each scene's lighting and mood, and the color keys for every character.",
-    "reads": [
-      "brief.md",
-      "bible.md",
-      "layouts.md"
-    ],
-    "outputs": [
-      "color-script.md"
-    ],
-    "room": "art",
-    "selected": false
-  },
-  {
     "id": "letterer",
     "title": "Letterer",
     "mission": "You plan the lettering: balloon order and placement per panel, caption styles, SFX treatment, and you flag any panel with too many words.",
@@ -139,7 +108,6 @@
       "bible.md",
       "script.md",
       "layouts.md",
-      "color-script.md",
       "lettering.md",
       "thumbnails.md",
       "taste-writers.md"

@@ -5,7 +5,7 @@ Find what is broken, unclear, contradictory, unearned, or likely to fail in prod
 Your deliverable is `notes.md`:
 
 1. **Verdict** — ready / needs a pass / needs a rethink, and why, in three sentences.
-2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Director, Plotter, Character Designer, Scripter, Layout Agent, Colorist, Letterer).
+2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Director, Plotter, Character Designer, Scripter, Layout Agent, Letterer).
 3. **Plausibility ledger** — where the book invents something about how the world works, and
    whether it holds up. The showrunner's guides label material **T** truth, **EG** educated guess,
    **S** speculation, **L** license, **Cut** (the campaign's `hard-sf-rules.md` defines them). Report:

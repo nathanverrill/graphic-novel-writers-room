@@ -35,7 +35,6 @@ MAP = {
                   ["X", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI",
                    "XXII", "XXIII", "XXVI", "XXVIII"],
                   [93, 98, 99, 100, 101, 103, 104, 105, 107, 109, 113, 115, 117]),
-    "colorist": ("color, tone and atmosphere", ["XXIV"], [70, 71]),
     "letterer": ("balloons, reading order, word density and sound effects",
                  ["XII", "XVI", "XVII", "XXV"], [33, 34, 106]),
     "continuity": ("critique, failure modes and preflight checks",

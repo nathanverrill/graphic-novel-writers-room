@@ -14,8 +14,10 @@ each project's own files — is searchable, hybrid, keywords and meaning at once
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
 
-The art room — which will draw pages itself, with its own taste — is a separate, later room.
-Its agents (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
+The art room — which will draw pages itself, with its own taste — is a separate, later room,
+and it has no agents yet: its first two, the Image Thumbnailer and the Colorist, are retired to
+`campaigns/_morgue/`. The `"room": "art"` field is still read, so an agent kept out of the
+writers' room is hidden here and never runs in a writing round.
 
 A writing round runs six of them, in this order. The other three are there when you want them,
 and run only if you tick them and press **Run selected roles only**.
