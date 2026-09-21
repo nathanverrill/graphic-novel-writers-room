@@ -40,7 +40,22 @@ Five phases, a gate after each: **Intake → Development → Audition → Writin
    `characters.md`, `world.md`, `story.md` or `facts.md`, it goes onto the desk word for word
    and the agent's output is appended under `<!-- added at intake -->` / "Added at intake".
    Code drops any added line already in the showrunner's file, because the agent hands the
-   whole file back whatever it is told.
+   whole file back whatever it is told. The user confirmed this is right: those files are
+   improved outside the room, so intake's additions should be minimal.
+6. **Blind open items, then a join** (`Agent.held_back`, `Agent.fuse_open_items`): if `input/`
+   holds the showrunner's own `open-items.md`, the Script Coordinator cannot see it during its
+   pass (left out of the prompt, refused by name), so its list is its own reading. One more
+   plain call then gets both lists and writes the joined `open-items.md`: every item of
+   theirs in their words and in full, their solutions first, its proposals added, its extra
+   items after, each with a `- from:` line (showrunner / script coordinator / both) that both
+   screens show. A joined list that does not parse is discarded and its own list stands.
+7. **Quality check**: for files the showrunner wrote, the additions carry a "Quality check"
+   section — where a writer would stumble, quoted, never rewritten.
+8. **Missing files**: an agent that calls finish, or just stops, with outputs unwritten is
+   asked once for the rest.
+9. **Provider errors inside a 200** (`llm._error_inside`): OpenRouter delivers upstream
+   timeouts and rate limits as an empty message with `finish_reason: "error"`. `llm.chat` now
+   waits and retries twice, then raises. Before this they read as an agent that said nothing.
 
 ## Prosperity right now
 
@@ -48,21 +63,35 @@ Five phases, a gate after each: **Intake → Development → Audition → Writin
   making them richer), ten files in `references/`, `rules/alpha.md`, `rules/hard-sf-rules.md`.
   All draft scripts are in `drafts/_previous/` on purpose — out of reach. Older extraction
   files are in `input/_previous/`.
-- Phase: **intake**, not yet approved. Last round `r02-ai` (gemini-2.5-pro via OpenRouter,
-  about $0.28, 3 minutes). Result: all four files kept whole; `characters.md` gained about
-  2 KB (Alpha the person, FIXED from `rules/alpha.md`); `world.md` gained about 5 KB of
-  labelled, cited detail from the references; **`story.md` and `facts.md` got nothing added —
-  the agent did not write them at all**; five open items, none answered yet.
-- `campaigns/prosperity/output/` is not committed (round output). Two `.docx` drafts in
-  `drafts/_previous/` are untracked on purpose (binary; the `.md` of the fourth draft is in git).
+- Also in `input/`: the showrunner's own `open-items.md` (31 KB, 23 numbered items, each with
+  current canon, the problem, solutions and a LOCK / REFINE / CHOOSE / SCRIPT DECISION
+  recommendation). The older `facts.md` versions are in `input/_previous/`.
+- Phase: **intake**, not yet approved. Rounds so far (gemini-2.5-pro via OpenRouter, about
+  $0.25 each):
+  - `r01` rewrote the showrunner's files as summaries less than half their size — the reason
+    for item 5 above.
+  - `r02` kept all four files whole; added about 2 KB to `characters.md` (Alpha the person,
+    FIXED from `rules/alpha.md`) and about 5 KB of labelled, cited reference detail to
+    `world.md`; wrote nothing for `story.md` or `facts.md`; five open items of its own.
+  - `r03` failed on provider errors (two upstream timeouts, one rate limit): one file of
+    five, no join. Fixed by item 9, **not yet re-run**.
+- So the desk's `open-items.md` is still the Script Coordinator's own five from `r02`. **The
+  join has never run against the model**, and the showrunner's 23 items have never reached the
+  screen. Nothing is answered; there is no `rules/decisions.md` yet.
+- Everything is in git now, by the user's decision: `output/` with every round (files,
+  reference copies, model calls, event logs — checked for credentials, none), the two `.docx`
+  drafts in `drafts/_previous/`, and `campaigns/_morgue/pratul/`. Only `.env`, `secrets/`,
+  `logs/`, `__pycache__` and `.DS_Store` are ignored. Commit round output along with code.
 
 Avalanche is the from-scratch test case: two rules files, nothing else. Never run.
 
 ## Known problems / next steps
 
-1. **The Script Coordinator skips files.** In `r02` it wrote two of five-plus files. Likely
-   fix: check `self.written` against `role.outputs` at `finish` in `app/agent.py` and nudge
-   once for the missing ones (there is already a nudge for "nothing written").
+1. **Run intake again** — the first real test of the blind list, the join, the quality check
+   and the missing-files nudge. Watch the join above all: the showrunner's entries are long,
+   and a model reshaping a long document is what lost content in `r01`. If it shortens their
+   items, do what item 5 did: keep their items word for word in code and let the model only
+   add proposals and its own extra items.
 2. **Reference use is still thin**, and `facts.md` gets no tagged facts from the references.
    Prompt-only fixes for length failed twice; prefer structure (one call per file, or per
    reference topic) over more adjectives.
@@ -77,7 +106,11 @@ Avalanche is the from-scratch test case: two rules files, nothing else. Never ru
 5. The open-items panel on both screens has been exercised through the API only; nobody has
    looked at it in a browser yet.
 6. Development and later phases have not been run since the three-file redesign.
-7. The word "library" survives as a concept in the README, the UI and code names
+7. **Name of the role.** The user twice wrote "script supervisor" for the Script Coordinator
+   while describing its quality-control job. Asked whether they want the rename; no answer
+   yet. It would be a folder rename (`agents/script_coordinator/`) plus role, roster, phase
+   and README text.
+8. The word "library" survives as a concept in the README, the UI and code names
    (`projects.library`, `"library": true`, the `/library/` URL). The user pointed out there is
    no library folder; agent-facing text no longer uses it. A rename to "material" was offered,
    not requested.
