@@ -62,6 +62,16 @@ def home():
     return FileResponse(STATIC / "home.html")
 
 
+@app.get("/preproduction")
+def preproduction():
+    """The pre-production desk: the material, the three working documents, and the gate.
+
+    Intake stops for the showrunner between pass 3 and pass 4, and this is where that waiting
+    happens - the open items, their options and where each one came from, what you answer,
+    defer or say about the book. The one-button screen and the full room are untouched."""
+    return FileResponse(STATIC / "preproduction.html")
+
+
 @app.get("/room")
 def index():
     """The whole room: every writer, every file, every round."""

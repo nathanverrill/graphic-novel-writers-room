@@ -450,6 +450,13 @@ missing, in the same files — there is no second copy — and the Director's `b
 the book is and wins wherever it differs. The Script Coordinator organizes; it decides
 nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
 
+**The pre-production desk is at `/preproduction`.** Intake stops for you between pass 3 and
+pass 4, and that screen is where the waiting happens: the material going in, the documents the
+room has written, the preservation numbers, and the open items — each with its evidence, why it
+matters, where it came from, and its options with their provenance labels. Answer one, defer
+it, leave a note on it, or write notes to the room as a whole; the button then changes from
+"Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
+
 **Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
 The room builds every prompt, parses the file envelope that comes back, checks it and writes
 the files itself.

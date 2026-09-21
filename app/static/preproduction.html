@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-production</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  /* The pre-production desk: material on the left, the decisions on the right. */
+  .pp { display: grid; grid-template-columns: 19rem minmax(0, 1fr); gap: 1.25rem;
+        padding: 1.25rem; align-items: start; }
+  .pp main { min-width: 0; }
+  .item, .card { overflow-wrap: anywhere; }
+  @media (max-width: 62rem) { .pp { grid-template-columns: 1fr; } }
+  .pp aside { position: sticky; top: 1.25rem; display: grid; gap: 1rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .85rem 1rem; }
+  .card h3 { margin-bottom: .55rem; }
+  .rows { display: grid; gap: .3rem; font-size: .8rem; }
+  .row { display: flex; justify-content: space-between; gap: .75rem; }
+  .row span:last-child { color: var(--muted); font-family: ui-monospace, monospace; font-size: .75rem; white-space: nowrap; }
+  .row a { color: inherit; text-decoration: none; border-bottom: 1px dotted var(--line); }
+  .row a:hover { border-bottom-color: var(--ink); }
+
+  .state { font-size: .8rem; }
+  .state b { display: block; font-size: .95rem; margin-bottom: .15rem; }
+  .pill { display: inline-block; padding: .08rem .45rem; border-radius: 999px; font-size: .68rem;
+          text-transform: uppercase; letter-spacing: .05em; border: 1px solid currentColor; }
+  .pill.wait { color: var(--work); } .pill.ready { color: var(--ok); }
+  .pill.run { color: var(--accent); } .pill.fail { color: var(--bad); }
+
+  .tally { display: flex; gap: .9rem; font-size: .8rem; margin: .1rem 0 .6rem; }
+  .tally b { font-size: 1.1rem; display: block; line-height: 1.1; }
+  .tally .n-res b { color: var(--ok); } .tally .n-def b { color: var(--work); }
+
+  .meter { height: .3rem; background: var(--line); border-radius: 999px; overflow: hidden; display: flex; }
+  .meter i { display: block; height: 100%; }
+  .meter .res { background: var(--ok); } .meter .def { background: var(--work); }
+
+  button.go { font: inherit; padding: .5rem .9rem; border-radius: 5px; border: 1px solid var(--ink);
+              background: var(--ink); color: var(--panel); cursor: pointer; width: 100%; }
+  button.go:disabled { opacity: .45; cursor: default; }
+  button.go.alt { background: var(--panel); color: var(--ink); }
+  .acts button.primary, .filters button[aria-pressed="true"] { color: var(--panel); }
+  .hint { font-size: .72rem; color: var(--muted); margin-top: .4rem; line-height: 1.45; }
+
+  .feed { font-family: ui-monospace, monospace; font-size: .72rem; max-height: 14rem; overflow: auto;
+          display: grid; gap: .2rem; }
+  .feed div.warn { color: var(--bad); } .feed div.dim { color: var(--muted); }
+
+  /* items */
+  .items { display: grid; gap: .75rem; }
+  .item { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--line);
+          border-radius: 6px; padding: .85rem 1rem; }
+  .item.resolved { border-left-color: var(--ok); }
+  .item.deferred { border-left-color: var(--work); }
+  .item > h4 { margin: 0 0 .4rem; font-size: .95rem; font-weight: 600; display: flex; gap: .5rem; align-items: baseline; }
+  .item > h4 em { font-style: normal; color: var(--muted); font-family: ui-monospace, monospace; font-size: .8rem; }
+  .meta { font-size: .76rem; color: var(--muted); display: grid; gap: .25rem; margin-bottom: .6rem; }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .opts { display: grid; gap: .3rem; margin: .5rem 0; }
+  .opts label { display: grid; grid-template-columns: auto 1fr; gap: .45rem; align-items: start;
+                font-size: .82rem; padding: .3rem .4rem; border-radius: 4px; cursor: pointer; line-height: 1.45; }
+  .opts label:hover { background: var(--bg); }
+  .tag { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; padding: .05rem .35rem;
+         border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; margin-right: .3rem; }
+  .tag.established { color: var(--ok); } .tag.research { color: #1d4ed8; }
+  .tag.inferred { color: var(--work); }  .tag.invented { color: var(--accent); }
+  .tag.unlabelled { color: var(--bad); }
+  .src { color: var(--muted); font-family: ui-monospace, monospace; font-size: .7rem; }
+  .acts { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; margin-top: .5rem; }
+  .acts textarea { flex: 1 1 18rem; font: inherit; font-size: .82rem; padding: .35rem .5rem;
+                   border: 1px solid var(--line); border-radius: 4px; resize: vertical; min-height: 2.1rem; }
+  .acts button { font: inherit; font-weight: 500; font-size: .78rem; padding: .3rem .6rem;
+                 border-radius: 4px; border: 1px solid var(--line);
+                 background: var(--panel); color: var(--ink); cursor: pointer; }
+  .acts button:hover { border-color: var(--ink); }
+  .acts button.primary { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+  .said { font-size: .78rem; margin-top: .45rem; padding: .4rem .55rem; border-radius: 4px; background: var(--bg); }
+  .said.answer { border-left: 2px solid var(--ok); } .said.defer { border-left: 2px solid var(--work); }
+  .said.note { border-left: 2px solid var(--line); }
+  .filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
+  .filters button { font: inherit; font-weight: 500; font-size: .76rem; padding: .25rem .6rem;
+                    border-radius: 999px; border: 1px solid var(--line);
+                    background: var(--panel); color: var(--ink); cursor: pointer; }
+  .filters button[aria-pressed="true"] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+  .notes-box textarea { width: 100%; font: inherit; font-size: .82rem; padding: .45rem .6rem;
+                        border: 1px solid var(--line); border-radius: 4px; min-height: 4.5rem; resize: vertical; }
+  .weights { display: flex; gap: .35rem; margin: .4rem 0; }
+  .weights button { font: inherit; font-weight: 500; font-size: .7rem; padding: .18rem .5rem;
+                    border-radius: 3px; border: 1px solid var(--line);
+                    background: var(--panel); color: var(--ink); cursor: pointer; }
+  #camp { font: inherit; font-family: ui-monospace, monospace; font-size: .75rem; font-weight: 700;
+          border: 1px solid var(--line); border-radius: 4px; background: var(--panel);
+          color: var(--ink); padding: .1rem .25rem; }
+  dialog { border: 1px solid var(--ink); border-radius: 6px; padding: 0; max-width: 60rem; width: 92vw; }
+  dialog header { position: sticky; top: 0; }
+  dialog pre { margin: 0; padding: 1rem 1.25rem; white-space: pre-wrap; font-size: .8rem;
+               line-height: 1.55; max-height: 75vh; overflow: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>pre-production</span></h1>
+  <div class="config">
+    <select id="camp" title="campaign"></select> · <span id="phase">—</span> · <span id="round">—</span>
+    · <span id="model">—</span> · <a href="/room">full room →</a>
+  </div>
+</header>
+
+<div class="pp">
+  <aside>
+    <div class="card">
+      <h3>Where it stands</h3>
+      <div class="state" id="state">Loading…</div>
+      <div style="margin-top:.7rem"><button class="go" id="run">Run intake</button></div>
+      <div id="hint" class="hint"></div>
+    </div>
+
+    <div class="card">
+      <h3>The material going in</h3>
+      <div class="rows" id="material"></div>
+    </div>
+
+    <div class="card">
+      <h3>What the room has written</h3>
+      <div class="rows" id="docs"></div>
+    </div>
+
+    <div class="card" id="telemetry-card" hidden>
+      <h3>Preservation</h3>
+      <div class="rows" id="telemetry"></div>
+      <div class="hint">Diagnostics, never a gate. The output is kept either way.</div>
+    </div>
+
+    <div class="card" id="feed-card" hidden>
+      <h3>This run</h3>
+      <div class="feed" id="feed"></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="card">
+      <h3>Open items</h3>
+      <div class="tally" id="tally"></div>
+      <div class="meter" id="meter"><i class="res"></i><i class="def"></i></div>
+      <div class="filters" id="filters" style="margin-top:.75rem">
+        <button data-f="all" aria-pressed="true">All</button>
+        <button data-f="unresolved">Still open</button>
+        <button data-f="resolved">Answered</button>
+        <button data-f="deferred">Deferred</button>
+        <button data-f="research-check">From research</button>
+        <button data-f="showrunner">Yours</button>
+      </div>
+      <div class="items" id="items"></div>
+    </div>
+
+    <div class="card notes-box" style="margin-top:1.25rem">
+      <h3>Notes to the room</h3>
+      <p class="hint" style="margin:0 0 .5rem">
+        Not answers to any one question — how the book should read. Carried into the revision
+        with the authority of a rule for that run, never written into <code>rules/</code>.
+      </p>
+      <div class="weights">
+        <button data-w="HIGH">+ [HIGH]</button>
+        <button data-w="MEDIUM">+ [MEDIUM]</button>
+        <button data-w="LOW">+ [LOW]</button>
+      </div>
+      <textarea id="notes" placeholder="[HIGH] Adrian stays morally ambiguous.&#10;&#10;[LOW] Give Bi11bot slightly more humour."></textarea>
+      <div class="acts"><button class="primary" id="save-notes">Save notes</button>
+        <span class="hint" id="notes-said"></span></div>
+    </div>
+  </main>
+</div>
+
+<dialog id="viewer"><header><b id="viewer-name"></b>
+  <button class="go alt" style="width:auto;padding:.2rem .6rem" onclick="viewer.close()">close</button>
+</header><pre id="viewer-body"></pre></dialog>
+
+<script src="/static/preproduction.js"></script>
+</body>
+</html>
