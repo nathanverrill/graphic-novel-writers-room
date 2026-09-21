@@ -442,28 +442,30 @@ campaigns/
   evoke/
     rules/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    rules/          flat: bible.md · chapter-01.md … · alex-phantum.md …
-    input/          flat: anything you want the room to read, any quality
+    rules/          bible.md · chapter-01.md … · alex-phantum.md … — binds the book
+    input/          anything you want the room to read, any quality
+    references/     material to draw on, grouped for your own sake
     output/         the room's desk: script, layouts, page prompts, previous/
-  avalanche/        the next campaign: the same three folders, empty
+  avalanche/        the second campaign: the same folders
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
 agents/skills/_sources/   the long skill the per-agent guides are generated from
 ```
 
-**Three folders, and that is the model.** `rules/` is what the book must not contradict — the
-bible, each chapter's own truth, who each character is. (Not to be confused with **the
-showrunner's standing rules**, which are how you want the room to work and live in
-`taste-writers.md`.)
-`input/` is everything else you want read — a reference document, a prompt you liked, a rough
-draft, notes — at any quality, and none of it binds the book. `output/` is what the room wrote.
-So opening a campaign, you know which of the three you are in, and you can throw anything into
-`input/` without thinking about where it goes.
+**One question decides where a file goes: does it bind the book?** `rules/` binds — the bible,
+each chapter's own truth, who each character is. (Not to be confused with **the showrunner's
+standing rules**, which are how you want the room to work and live in `taste-writers.md`.)
+Nothing else in a campaign binds: `input/` for anything you want read at any quality,
+`references/` for material to draw on, `output/` for what the room wrote.
 
-**Neither folder has any structure inside it, and nothing in `input/` binds the book** — the
-room reads it, mines it, and is never bound by it. That is what makes `input/` safe to use as a
-heap: a reference document, a prompt that worked, rough notes, all in one flat folder. Only
-`rules/` binds.
+**Only `rules/` binds**, so a folder you invent inside a campaign is non-binding by default —
+group your material however suits you, and you cannot turn a rough note into canon by filing it
+somewhere. `references/` is exactly that: a folder for your own sake, read the same way `input/`
+is read.
+
+`input/` is the heap, and it is meant to be one: a reference document, a prompt that worked,
+rough notes, dropped in without deciding anything first. The room reads it, mines it, and is
+never bound by it.
 
 **Nothing in the code decides whether a document is worldbuilding, research or a draft.** A
 document says what it is in its own words — its title, its frontmatter, its first line — and the
@@ -476,7 +478,7 @@ no folder to pick: if you want the hard SF rules followed, the document saying s
 `campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
 named by its path, so `prosperity/rules/chapter-04.md` and
 `prosperity/input/draft-chapter-04.md` are two different things and are read as what they are.
-A new campaign is `mkdir -p campaigns/avalanche/{rules,input,output}`.
+A new campaign is `mkdir -p campaigns/<name>/{rules,input,references,output}`, which is what **+ New campaign** does.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` and
 `agents/skills/` — a folder whose name starts with an underscore is not library material.**
@@ -514,7 +516,7 @@ which it is reading:
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | rules | `evoke/rules/`, a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
-| input | a campaign's `input/` | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
+| input | a campaign's `input/`, `references/`, or anywhere else in it | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
 | guide | `agents/skills/` | how to do the work; binds nothing |
 
 `campaigns/evoke/rules/alpha.md` is the case in point for the one question a folder answers: it

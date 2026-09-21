@@ -3,6 +3,7 @@
     campaigns/<slug>/
       rules/*.md           what the book must not contradict — you write this
       input/*.md           anything you want read, at any quality — you write this too
+      references/*.md      material to draw on, grouped for your own sake; binds nothing
       output/              the room's desk, and the only place it writes
         *.md                 working copy — what the room reads back, what you edit
         pages/               page-prompts and the lettering layer, per page
@@ -85,9 +86,9 @@ def create_project(title, pitch, pages=None, draft=None):
     slug = slugify(title)
     path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    for sub in (RULES, "input", OUTPUT_NAME):
+    for sub in (RULES, "input", "references", OUTPUT_NAME):
         (path / sub).mkdir()
-    body = pitch.strip() or "(No pitch — work from the material in rules/ and input/.)"
+    body = pitch.strip() or "(No pitch — work from the material in rules/, input/ and references/.)"
     length = f"\n\nTarget length: {pages} pages.\n" if pages else "\n"
     (path / OUTPUT_NAME / "pitch.md").write_text(f"# {title}\n\n{body}{length}")
     if draft and draft.strip():
@@ -252,8 +253,12 @@ def reference_kind(path):
     """Whether a file binds the book, which is the only thing a folder decides.
 
     rules   campaigns/evoke/rules and a campaign's rules/: the book must not contradict it
-    input   a campaign's input/: read it, take what serves the page, it binds nothing
+    input   anywhere else in a campaign — input/, references/, a file at its root: read it,
+            take what serves the page, it binds nothing
     guide   agents/skills/: the room's craft, the same for every campaign
+
+    Only rules/ binds, so a folder you invent inside a campaign is non-binding by default and
+    you can group your material however you like without risking turning it into canon.
 
     Nothing here says a document is worldbuilding, research or a draft. A document says what
     it is in its own words — its title, its frontmatter, its first paragraph — and the agent
