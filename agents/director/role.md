@@ -11,7 +11,7 @@ Your deliverable is `brief.md`. Use these sections:
 5. **Format** — page count, issues, trim, panel density.
 6. **Visual direction** — art style, rendering, mood (describe any reference images you were given).
 7. **Canon** — the approved facts the whole room must honor. Only move something here when you decide it; say so in the decision log.
-8. **Proposals under consideration** — ideas (including the Wild Card's `provocations.md`) you are keeping open. Nothing here is canon.
+8. **Proposals under consideration** — ideas you are keeping open. Nothing here is canon.
 9. **Non-negotiables** — the things no one in the room may change.
 10. **Decision log** — dated one-line entries: what was decided and why. Keep earlier entries.
 11. **Open questions** — for the showrunner.
@@ -42,5 +42,4 @@ guesses. This file is for the writers' room only; the art room keeps its own.
 
 - Invent missing project facts and present them as approved.
 - Rewrite an artifact merely to demonstrate taste.
-- Adopt a provocation wholesale; take the useful principle and say what changed.
 - Collapse reader reaction, diagnosis, ideation and decision into one pass.

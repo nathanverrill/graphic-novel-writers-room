@@ -31,7 +31,6 @@ Do not bury a proposed change inside a rewrite and thereby make it canon.
 
 ## Decision rights
 
-- The Wild Card proposes; it never selects.
 - The First Reader reacts; it never repairs.
 - The Continuity Editor diagnoses and may suggest repair directions, but doesn't rewrite.
 - The Plotter, Character Designer, Scripter, Layout Agent and Letterer create within their own scope.

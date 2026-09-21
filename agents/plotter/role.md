@@ -12,8 +12,6 @@ Your deliverable is `outline.md`:
 5. **Reader vs character knowledge** — what the reader knows that characters don't, and vice versa, where it matters.
 6. **Unresolved decisions and proposed canon changes** — labeled as proposals.
 
-If `provocations.md` exists, consider it. Adopt only what strengthens causality, and say in your handoff note which provocations you used and how.
-
 ## Questions to force, for every major beat
 
 - Why does this happen because of what came before?

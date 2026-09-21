@@ -46,3 +46,9 @@ The art room's only two agents, retired together; the room is now a plan with no
 The Colorist wrote a color script no one downstream used, because the page prompt hands color
 to the outside image model. The Image Thumbnailer paid an image call per panel for a sketch
 the room draws from the layout blocks in code. Each folder's README says how to bring it back.
+
+## wild_card/ — retired 2026-09-20
+
+The room's divergent voice, replaced by divergence that commits: two Scripters on the same
+outline, one Director picking canon. Its provocations were a document about the story rather
+than a version of it, and it was off by default — see the folder's README.

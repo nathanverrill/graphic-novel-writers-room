@@ -19,7 +19,7 @@ and it has no agents yet: its first two, the Image Thumbnailer and the Colorist,
 `campaigns/_morgue/`. The `"room": "art"` field is still read, so an agent kept out of the
 writers' room is hidden here and never runs in a writing round.
 
-A writing round runs six of them, in this order. The other three are there when you want them,
+A writing round runs six of them, in this order. The other two are there when you want them,
 and run only if you tick them and press **Run selected roles only**.
 
 | In a round | Agent | Writes | Notes |
@@ -30,7 +30,6 @@ and run only if you tick them and press **Run selected roles only**.
 | 4 | Scripter | `script.md` | |
 | 5 | Layout Agent | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
 | 6 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
-| — | Wild Card | `provocations.md` | proposes, never decides |
 | — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
 | — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
 
@@ -552,7 +551,7 @@ What each one reads now:
 | Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
 | Layout Agent | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
-| Wild Card, Letterer, First Reader | names only — they read what they want on demand |
+| Letterer, First Reader | names only — they read what they want on demand |
 
 That puts every Prosperity writer between 94 and 113 KB a call, out of the 38 files that
 campaign can see — 16 in its `rules/`, 17 in its `input/`, 5 craft skills. The same writers
@@ -628,7 +627,6 @@ view) explains them:
 |---|---|---|---|
 | Director | 0.6 | 6,000 | judgment and consistency; sees reference images |
 | Plotter | 0.9 | 8,000 | structure with surprises |
-| Wild Card | 1.1 | 4,000 | divergent leaps; references on demand; few steps |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
 | Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
 | Layout Agent | 0.5 | 16,000 | valid layout JSON for every page |

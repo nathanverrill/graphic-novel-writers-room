@@ -20,13 +20,13 @@ When story meaning depends on a precise visual fact, state it clearly in the scr
 Mirrors, reversals, repeated layouts, and transformed callbacks can create meaning when tied to story change. Use sparingly and intentionally.
 
 ### Image-first prompts
-Begin from concrete images, remembered objects, places, gestures, or sensory fragments, then discover story associations. Useful for Wild Card.
+Begin from concrete images, remembered objects, places, gestures, or sensory fragments, then discover story associations.
 
 ### Cut-up / recombination
 Reorder fragments from existing beats or lines to discover unexpected adjacency. The result is raw material, not automatically good story.
 
 ### Random-entry constraints
-Use externally selected words, images, objects, or cards to break habitual associations. Useful for Wild Card.
+Use externally selected words, images, objects, or cards to break habitual associations.
 
 ## Guardrail
 

@@ -5,7 +5,6 @@
     "mission": "You run the room and own the vision. Turn the pitch and references into a creative brief the whole room can build on, and decide what becomes canon.",
     "reads": [
       "review.md",
-      "provocations.md",
       "first-read.md",
       "notes.md",
       "taste-writers.md"
@@ -21,27 +20,11 @@
     "mission": "You build the story's skeleton: structure, turns, and a page-by-page plot that fits the page count in the brief.",
     "reads": [
       "brief.md",
-      "provocations.md",
       "taste-writers.md"
     ],
     "outputs": [
       "outline.md"
     ]
-  },
-  {
-    "id": "wild_card",
-    "title": "Wild Card",
-    "mission": "You make the story less inevitable: deliberate provocations and non-obvious leaps, tied to specific beats. You propose; you never decide.",
-    "reads": [
-      "brief.md",
-      "outline.md",
-      "script.md",
-      "taste-writers.md"
-    ],
-    "outputs": [
-      "provocations.md"
-    ],
-    "selected": false
   },
   {
     "id": "character_designer",
