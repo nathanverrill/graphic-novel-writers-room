@@ -1403,16 +1403,28 @@ async function loadOpenItems(phase) {
   box.hidden = !data.items.length;
   if (box.hidden) return;
   const left = data.items.length - data.answered;
-  box.innerHTML = `<h3>Open items <span class="path">${data.answered} answered · ${left} open — your answers are saved to ` +
-    `${esc(data.decisions_file)}; run intake again to fold them in, or leave the rest for the room</span></h3>` +
+  box.innerHTML = `<h3><a class="to-desk" href="/preproduction?p=${encodeURIComponent(state.project)}">` +
+    `open the pre-production desk →</a>Open items <span class="path">${data.answered} answered · ${left} open — ` +
+    `your answers are saved to ${esc(data.decisions_file)}; run intake again to fold them in, ` +
+    `or leave the rest for the room</span></h3>` +
     data.items.map((it) => {
       const start = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;
       return `<form class="open-item ${it.answer ? "answered" : ""}" data-n="${it.n}">
         <b>${it.n}. ${esc(it.question)}</b>
         <div class="path">${it.from ? `<span class="badge">from ${esc(it.from)}</span> ` : ""}${esc(it.file)}${it.why ? ` — ${esc(it.why)}` : ""}</div>
-        ${it.options.map((o) => `<label><input type="radio" name="pick" value="${esc(o.text)}"> <b>${esc(o.id)}</b>` +
-          `${o.id === it.suggested ? " <span class='badge'>suggested</span>" : ""} ${esc(o.text)}</label>`).join("")}
-        <textarea name="answer" rows="2" placeholder="Your answer">${esc(start)}</textarea>
+        ${it.options.map((o) => {
+          // where the proposal came from, so [invented] does not read like [established]
+          const kind = ["established", "research", "inferred", "invented"]
+            .find((l) => o.text.toLowerCase().includes(`[${l}]`));
+          const body = o.text.replace(/\[(established|research|inferred|invented)\]/gi, "").trim();
+          const cite = body.match(/\(([^)]*\.md[^)]*)\)\s*$/);
+          return `<label><input type="radio" name="pick" value="${esc(o.text)}">` +
+            `<span><span class="tag ${kind || "unlabelled"}">${kind || "no label"}</span>` +
+            `<b>${esc(o.id)}.</b>${o.id === it.suggested ? " <span class='badge'>suggested</span>" : ""} ` +
+            `${esc(cite ? body.slice(0, cite.index) : body)}` +
+            `${cite ? ` <span class="src">${esc(cite[1])}</span>` : ""}</span></label>`;
+        }).join("")}
+        <textarea name="answer" rows="4" placeholder="Your answer — pick an option above to start from it">${esc(start)}</textarea>
         <div class="actions"><button>${it.answer ? "Update answer" : "Approve this answer"}</button>
           ${it.answer ? `<button type="button" class="ghost" data-reopen>Leave open</button>` : ""}</div>
       </form>`;
