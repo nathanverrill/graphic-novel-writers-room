@@ -1,0 +1,32 @@
+{
+  "_why": "Writer B, the voiced one: a warmer temperature for dialogue with some swing in it. Give the two writers different models as well if you can: that is the cheapest real divergence there is. The longest output in the room, so a big token budget and a long timeout.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "google/gemma-4-31b-it",
+  "api_key_env": null,
+  "temperature": 1.0,
+  "max_tokens": 16000,
+  "max_steps": 16,
+  "timeout": 600,
+  "references": "full",
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "reference_files": [
+    "rules/chapter-01.md",
+    "rules/chapter-02.md",
+    "rules/chapter-03.md",
+    "rules/chapter-04.md",
+    "rules/chapter-05.md",
+    "rules/chapter-06.md",
+    "evoke/rules/alpha.md",
+    "input/hard-sf-rules.md",
+    "skills/actual-script-writing.md"
+  ],
+  "tools": null
+}

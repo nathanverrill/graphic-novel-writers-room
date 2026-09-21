@@ -1,10 +1,10 @@
 {
-  "_why": "Voice and dialogue: warm. The longest output in the room (every page), so a big token budget and a long timeout.",
+  "_why": "Writer A, the spare one: a cooler temperature for controlled, image-led pages. Give the two writers different models as well if you can: that is the cheapest real divergence there is. The longest output in the room, so a big token budget and a long timeout.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
   "model": "google/gemma-4-31b-it",
   "api_key_env": null,
-  "temperature": 0.85,
+  "temperature": 0.7,
   "max_tokens": 16000,
   "max_steps": 16,
   "timeout": 600,

@@ -15,7 +15,6 @@ OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and 
 SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
 LIBRARY_DIRS = (CAMPAIGNS_DIR, SKILLS_DIR)   # everything the agents can read, campaigns and craft
-HATS_DIR = AGENTS_DIR / "hats"         # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")

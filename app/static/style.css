@@ -424,3 +424,10 @@ a.button { text-decoration: none; display: inline-block; }
 .hit .where { font-family: ui-monospace, monospace; font-size: .74rem; color: var(--ink); }
 .hit .snippet { font-size: .78rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; overflow: hidden; }
+
+/* the four phases, and the gate out of the one the book is in */
+.phases { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .5rem 0 .25rem; }
+.phases span { color: var(--muted, #888); }
+.phase { background: none; border: 1px solid currentColor; opacity: .55; }
+.phase.on { opacity: 1; font-weight: 600; }
+.gate { border-left: 3px solid currentColor; padding: .4rem .7rem; margin: .25rem 0 .6rem; line-height: 1.7; }

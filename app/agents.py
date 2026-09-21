@@ -1,22 +1,25 @@
-"""Roles live in roles/<id>/:
+"""An agent is a folder, agents/<id>/:
 
-    *.md          guides the agent reads (all of them, alphabetical)
+    role.md       the job: what the agent delivers, and in what format
+    craft.md      the craft: how to do that job well
+    agent.json    its provider, model and tuned defaults (committed; API keys live in
+                  secrets/keys.json, per provider)
     images/       reference images sent to the model
     figma.txt     Figma URLs, one per line (# comments allowed)
     figma/*.json  Figma REST API exports, for offline use
-    agent.json          this role's provider, model and tuned defaults (committed;
-                        API keys live in secrets/keys.json, per provider)
 
-roles/_shared/ has the same layout and is given to every role.
-agents/_shared/deck.txt and words.txt are the provocation deck, drawn from by the
-`provoke` tool rather than dealt to anyone (see random_entry).
-agents/agents.json sets the order, titles, and what each agent reads and writes, plus:
-    "context": "minimal"  the role gets only its own folder, its `reads` and the pitch
+Every *.md in the folder is sent to the model, role.md first.
+
+agents/_shared/ has the same layout and is given to every agent. Its deck.txt and words.txt
+are the provocation deck, drawn from by the `provoke` tool (see random_entry).
+
+agents/agents.json sets the titles and what each agent reads and writes, plus:
+    "shares": "_writers"  another folder this agent is given as well: the two writers share
+                          one job and one craft, and differ only in voice.md and agent.json
+    "context": "minimal"  the agent gets only its own folder, its `reads` and the pitch
                           (no shared guides, references, or tools to browse the room)
-    "selected": false     unticked by default in the UI
-    "room": "art"         not part of the writers' room (hidden; not used by writing rounds)
-    "preview": "drawn"|"image"  the role renders ASCII page previews page by page
-                          (see Agent.run_preview) instead of the normal tool loop
+
+agents/phases.json says which agents run in which phase, in which order (see phases.py).
 """
 import json
 import re
@@ -24,7 +27,7 @@ import random
 from dataclasses import dataclass, field
 
 from . import figma, keys
-from .config import AGENTS_DIR, HATS_DIR, TOOLS_DIR, AgentConfig
+from .config import AGENTS_DIR, TOOLS_DIR, AgentConfig
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                ".webp": "image/webp", ".gif": "image/gif"}
@@ -39,9 +42,7 @@ class Role:
     reads: list = field(default_factory=list)
     outputs: list = field(default_factory=list)
     context: str = "full"
-    selected: bool = True
-    preview: str = None      # "drawn" or "image": renders ASCII page previews from layouts.md
-    room: str = "writers"    # "art" roles belong to the (separate, later) art room
+    shares: str = None       # a second folder of guides, e.g. "_writers"
 
     @property
     def minimal(self):
@@ -99,7 +100,8 @@ class Role:
         return self.settings()
 
     def to_dict(self):
-        d = {**self.__dict__, "assets": assets(self.id), "config": None, "config_error": None,
+        d = {**self.__dict__, "assets": assets(self.id), "shared_assets": assets(self.shares) if self.shares else None,
+             "config": None, "config_error": None,
              "config_file": self.config_path.name, "settings": self.settings(), "tools": []}
         try:
             d["config"] = self.config().public()
@@ -180,7 +182,7 @@ def assets(folder_id):
         return {"guides": [], "images": [], "figma": []}
     img_dir = folder / "images"
     return {
-        "guides": [p.name for p in sorted(folder.glob("*.md"))],
+        "guides": [p.name for p in sorted(folder.glob("*.md"), key=lambda p: (p.name != "role.md", p.name))],
         "images": [p.name for p in sorted(img_dir.iterdir())
                    if p.suffix.lower() in IMAGE_TYPES] if img_dir.is_dir() else [],
         "figma": _figma_refs(folder),
@@ -193,7 +195,8 @@ def gather_context(role, log=lambda msg: None):
     Returns (guides: [(label, text)], figma_text: [str], images: [(label, mime, bytes)]).
     """
     guides, figma_text, images = [], [], []
-    for folder_id in ((role.id,) if role.minimal else (SHARED, role.id)):
+    folders = [SHARED] * (not role.minimal) + [role.shares] * bool(role.shares) + [role.id]
+    for folder_id in folders:
         folder = AGENTS_DIR / folder_id
         a = assets(folder_id)
         for name in a["guides"]:
@@ -233,16 +236,6 @@ def random_entry(targets, cards=3):
         "word": random.choice(words) if words else None,
         "target": random.choice(targets) if targets else None,
     }
-
-
-def list_hats():
-    return sorted(p.stem for p in HATS_DIR.glob("*.md")) if HATS_DIR.is_dir() else []
-
-
-def read_hat(name):
-    if name not in list_hats():
-        raise KeyError(f"no hat named {name!r}")
-    return (HATS_DIR / f"{name}.md").read_text()
 
 
 # ---- tools: one json schema per file, in agents/tools/ ---------------------

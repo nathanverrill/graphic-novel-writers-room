@@ -7,7 +7,7 @@ For every named character:
 - **Visual lock** — a single paragraph, starting with the character's name, that an image model
   gets word for word on every page the character appears in: age, build, height, face, hair, skin, eyes, costume, silhouette, one signature detail. Design for repeated drawing and varied emotion.
 - **Voice** — how they talk, with two example lines.
-- **Causality** — the checklist in your causality guide: want, contradiction, leverage, vulnerability, mistaken belief, boundary, the decision only they would make, the relationship that pressures change.
+- **Causality** — the checklist in your craft guide: want, contradiction, leverage, vulnerability, mistaken belief, boundary, the decision only they would make, the relationship that pressures change.
 - **Arc in this book** — and the proof of change (or refusal to change).
 
 Then the **ensemble test** (how the principals differ), **Locations** (a visual lock for each) and **World rules** (tech, society, systems — whatever constrains the story).

@@ -5,7 +5,6 @@
     "mission": "You run the room and own the vision. Turn the pitch and references into a creative brief the whole room can build on, and decide what becomes canon.",
     "reads": [
       "review.md",
-      "first-read.md",
       "notes.md",
       "taste-writers.md"
     ],
@@ -20,6 +19,7 @@
     "mission": "You build the story's skeleton: structure, turns, and a page-by-page plot that fits the page count in the brief.",
     "reads": [
       "brief.md",
+      "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
@@ -33,6 +33,7 @@
     "reads": [
       "brief.md",
       "outline.md",
+      "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
@@ -40,17 +41,48 @@
     ]
   },
   {
-    "id": "scripter",
-    "title": "Scripter",
-    "mission": "You write the full script: every page, every panel, with panel descriptions, captions, dialogue and sound effects.",
+    "id": "writer_a",
+    "title": "Writer A",
+    "shares": "_writers",
+    "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the picture to carry the story.",
     "reads": [
       "brief.md",
       "outline.md",
       "bible.md",
-      "taste-writers.md"
+      "taste-writers.md",
+      "notes.md"
     ],
     "outputs": [
       "script.md"
+    ]
+  },
+  {
+    "id": "writer_b",
+    "title": "Writer B",
+    "shares": "_writers",
+    "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the characters' voices to carry the story.",
+    "reads": [
+      "brief.md",
+      "outline.md",
+      "bible.md",
+      "taste-writers.md",
+      "notes.md"
+    ],
+    "outputs": [
+      "script.md"
+    ]
+  },
+  {
+    "id": "first_reader",
+    "title": "First Reader",
+    "context": "minimal",
+    "mission": "You read the two auditions cold, like a real reader, and report only your reactions. You never fix anything and you never pick.",
+    "reads": [
+      "audition-a.md",
+      "audition-b.md"
+    ],
+    "outputs": [
+      "first-read.md"
     ]
   },
   {
@@ -61,6 +93,8 @@
       "brief.md",
       "bible.md",
       "script.md",
+      "lettering.md",
+      "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
@@ -70,7 +104,7 @@
   {
     "id": "letterer",
     "title": "Letterer",
-    "mission": "You plan the lettering: balloon order and placement per panel, caption styles, SFX treatment, and you flag any panel with too many words.",
+    "mission": "You check the lettering the layouts carry: balloon order and placement per panel, caption styles, SFX treatment, and you flag any panel with too many words.",
     "reads": [
       "script.md",
       "layouts.md",
@@ -84,7 +118,7 @@
   {
     "id": "continuity",
     "title": "Continuity Editor",
-    "mission": "You read everything the room made and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
+    "mission": "You read everything the room has made so far and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
     "reads": [
       "brief.md",
       "outline.md",
@@ -98,19 +132,5 @@
     "outputs": [
       "notes.md"
     ]
-  },
-  {
-    "id": "first_reader",
-    "title": "First Reader",
-    "mission": "You read the pages cold, like a real reader, and report only your reactions. You never fix anything.",
-    "reads": [
-      "script.md",
-      "thumbnails.md"
-    ],
-    "outputs": [
-      "first-read.md"
-    ],
-    "context": "minimal",
-    "selected": false
   }
 ]

@@ -1,7 +1,1095 @@
-# Layout craft
+# Layout Agent's craft
+
+How to turn a script into pages that read: composition, camera, staging, the reader's eye.
+
+# Rules of thumb
 
 - Western comics read left-to-right, top-to-bottom (Z path). Balloons need room: leave the top third of a panel open for dialogue.
 - Vary shot size: establish (wide), engage (medium), emphasize (close). Three same-size shots in a row go flat.
 - Respect the 180° rule within a scene.
 - Panel width is time: wider panels read slower.
 - Reserve splash pages and full-bleed panels for the book's biggest moments.
+
+# Visual storytelling
+
+## Page as composition
+
+Design the page as a sequence of attention, not a container of panels. The reader should know where to begin, where to go next, and what deserves emphasis.
+
+Use:
+- panel size,
+- shape,
+- negative space,
+- contrast,
+- character gaze,
+- motion,
+- repeated forms,
+- balloon placement,
+to guide reading order.
+
+## Storyboard before polish
+
+Solve storytelling with crude boxes and silhouettes first. If the page does not read as a rough, rendering will not save it.
+
+## Transitions
+
+Vary transitions intentionally:
+- moment-to-moment,
+- action-to-action,
+- subject-to-subject,
+- scene-to-scene,
+- aspect-to-aspect,
+- deliberate non-sequitur.
+
+A confusing transition can be useful; an accidental one is a defect.
+
+## Camera and staging
+
+Choose framing for information and emotion, not cinematic decoration. Establish geography before exploiting close-ups, unusual angles, or fragmented action.
+
+## Action
+
+Make cause and effect legible. Favor the decisive moment and readable silhouettes. During complex action, periodically re-establish location, goal, and threat.
+
+## Backgrounds
+
+Backgrounds are story information: geography, culture, class, history, systems, resources, climate, technology, and mood. They should not be generic wallpaper.
+
+## Character readability
+
+A reader should distinguish important characters from:
+- silhouette,
+- proportion,
+- posture,
+- motion,
+- recurring shape language,
+- clothing/function,
+- behavior.
+
+Design for repeated drawing and varied emotion, not just a single attractive concept image.
+
+## Color and value
+
+Use color/value to:
+- establish hierarchy,
+- separate planes,
+- identify place/time/state,
+- reinforce emotional or thematic contrast,
+- guide the eye,
+- signal change.
+
+Do not rely on hue alone for critical distinctions.
+
+## Lettering feasibility
+
+Before approving layouts, reserve credible space for:
+- dialogue balloons,
+- captions,
+- sound effects,
+- translated text expansion if relevant.
+
+Reading order of balloons and panels must agree.
+
+## Print and screen
+
+Keep critical information away from trim/gutter danger. Test pages at expected reading size. A beautiful spread that becomes unreadable on a phone or in print is not finished.
+
+# PART X — THINK IN SPREADS AND PAGE TURNS
+
+## 24. A spread is a storytelling unit
+
+For a printed comic, two facing pages are experienced together.
+
+Therefore, track:
+
+```text
+LEFT PAGE
+RIGHT PAGE
+CENTER GUTTER
+PAGE-TURN AFTER RIGHT PAGE
+```
+
+Do not plan only one isolated page at a time.
+
+A page can read well alone but fail when paired with its facing page.
+
+---
+
+## 25. Build tension toward the page turn
+
+One source recommends structuring a left-to-right spread so tension can develop across the left and right page, then release or transform after the turn.
+
+Example technique from the source:
+
+```text
+panels progressively become smaller / denser
+→ tension increases
+→ reader turns page
+→ large reveal panel appears
+```
+
+This is not a formula to repeat constantly.
+
+Use it when justified.
+
+---
+
+## 26. Right-page cliffhangers
+
+For left-to-right print reading, the source recommends placing important end-of-spread hooks on the right-hand page so the physical act of turning reveals the answer.
+
+Possible hook types:
+
+- someone starts running,
+- a character sees something off-panel,
+- a hand reaches toward something,
+- a threat appears,
+- dialogue raises a question,
+- a character is about to enter,
+- an action begins but the result is withheld.
+
+Next page:
+
+- answer,
+- escalate,
+- reverse,
+- or complicate.
+
+---
+
+## 27. Page-turn example: “Where are they?” → running
+
+A source page analysis provides a useful micro-model.
+
+Previous page ends with the question: where did the main characters go?
+
+The next page answers by showing them running far away.
+
+That page then has additional jobs:
+
+1. confirm they escaped,
+2. establish where they now are,
+3. show speed and distance,
+4. allow the characters to begin interacting after the chase,
+5. move them toward a descent into another part of the station,
+6. hand the story into the next page, where pursuit continues.
+
+The point is that the page is not “a page with people running.”
+
+It is a **bridge with multiple narrative responsibilities**.
+
+### LLM page-intent template
+
+```text
+QUESTION / ACTION ENTERING PAGE:
+
+PRIMARY ANSWER:
+
+SECONDARY STORY JOB:
+
+CHARACTER / RELATIONSHIP JOB:
+
+SPATIAL JOB:
+
+HOOK / TRANSITION OUT:
+```
+
+---
+
+# PART XIII — STORYBOARDING: THE BLUEPRINT
+
+## 38. Storyboard before expensive art
+
+The storyboard can be ugly.
+
+That is a feature.
+
+It exists to test:
+
+- panel sizes,
+- reading order,
+- staging,
+- camera choices,
+- balloon placement,
+- emphasis,
+- page turns,
+- spreads,
+- rhythm,
+- reveal logic.
+
+If an angle fails, redraw a scribble—not six hours of finished anatomy and rendering.
+
+---
+
+## 39. Storyboards are page architecture
+
+One source defines comic storyboards as blueprints for:
+
+- how panels stack on a page,
+- how pages sit beside each other,
+- what is left vs right,
+- where the page turn happens.
+
+Therefore, a storyboard is more than a set of miniature illustrations.
+
+It is a **map of reader movement**.
+
+---
+
+## 40. Storyboard fidelity should stay low until decisions stabilize
+
+Use:
+
+- stick figures,
+- boxes,
+- arrows,
+- silhouettes,
+- simple perspective,
+- balloon placeholders,
+- short notes.
+
+Do not reward the model for producing pretty thumbnails that hide unresolved storytelling.
+
+---
+
+## 41. Storyboard ↔ script feedback loop
+
+One source describes changing entire dialogue passages or fight scenes because the storyboard revealed a better way to stage the sequence.
+
+Treat that as normal.
+
+### Review loop
+
+```text
+1. Script scene.
+2. Thumbnail it.
+3. Notice dead space, excess dialogue, confusing action, bad page turn, or better visual idea.
+4. Revise the script.
+5. Thumbnail again.
+6. Repeat until the story and page architecture support each other.
+```
+
+Do not protect the script from improvement merely because it was written first.
+
+---
+
+# PART XIV — PRINT-AWARE PAGE PLANNING
+
+## 42. Know left/right placement before final art
+
+For print work, establish whether the chapter begins on:
+
+- left page,
+- right page,
+- or after an intentionally blank page.
+
+This affects every later spread and reveal.
+
+---
+
+## 43. Live area, trim, bleed, and gutter
+
+One source explicitly plans pages around printer boundaries.
+
+### Live area
+Keep essential text and must-see visual information safely inside.
+
+### Trim
+The physical cut may vary slightly. Do not place essential information on the trim line.
+
+### Bleed
+Art can extend beyond the trim so no accidental white edge appears after cutting.
+
+### Gutter
+The inner meeting area of facing pages can swallow information, especially in bound books.
+
+### LLM rule
+
+If generating print-layout guidance, never position essential words or critical facial details near trim or gutter without a deliberate reason.
+
+Printer specifications vary; use the actual printer/publisher template when available.
+
+---
+
+## 44. Sound effects may tolerate risk differently from dialogue
+
+A source notes that decorative sound-effect lettering may sometimes extend closer to bleed/trim than essential dialogue, depending on the design and production rules.
+
+This is not permission to ignore print safety.
+
+It is a hierarchy:
+
+```text
+critical dialogue / essential information → safest
+important art → safe
+decorative / sacrificial edges → may bleed
+```
+
+---
+
+# PART XV — PANEL DESIGN AND PACING
+
+## 45. Panels are units of perceived time
+
+A source calls panels the comic’s unit of time measurement.
+
+Use panel structure to alter pace.
+
+### Many small panels can:
+
+- break one action into micro-beats,
+- create hesitation,
+- slow a tiny moment,
+- produce rapid rhythm,
+- create comedy through timing,
+- increase tension through incremental revelation.
+
+### Few large panels can:
+
+- create spectacle,
+- create stillness,
+- emphasize a moment,
+- give environment room,
+- make the reader linger.
+
+There is no universal “large = slow” formula independent of content, but physical size and count strongly influence reading experience.
+
+---
+
+## 46. One artist’s panel-count heuristic
+
+One source says they become cautious around six panels on a page and strongly question the page if it approaches ten.
+
+Preserve this correctly as a **personal production heuristic**, not a law.
+
+The valuable reasoning is:
+
+```text
+If panel count is very high, ask whether:
+- two panels can combine,
+- the comic is accidentally becoming an animation storyboard,
+- each panel captures a meaningful beat,
+- the page has enough room for readable text and art.
+```
+
+Exceptions are valid, including comedy, stylistic repetition, or deliberate keyframe-like sequences.
+
+---
+
+## 47. Do not storyboard every footstep
+
+Comics usually need the important action beats, not every intermediate pose.
+
+Weak sequence:
+
+```text
+hand reaches
+hand moves closer
+hand touches handle
+hand grips handle
+hand turns handle
+hand pulls
+```
+
+unless the story needs extreme suspense or timing.
+
+Stronger default:
+
+```text
+character reaches
+→ next panel: door opens / consequence appears
+```
+
+The reader performs closure.
+
+---
+
+## 48. Add panels when the sequence is moving too fast
+
+The source also gives the reverse lesson: sometimes an event needs **more** panels to breathe.
+
+Examples:
+
+- show the alarm affecting the whole dorm rather than only one room,
+- add an exterior / wider context image,
+- return to the character after establishing larger consequence.
+
+The rule is not “fewer panels.”
+
+The rule is “the right number of meaningful beats.”
+
+---
+
+## 49. Panel shape can reflect emotional order
+
+Source-derived options:
+
+### Calm / orderly scene
+Use:
+
+- regular grid,
+- stable borders,
+- predictable spacing,
+- restrained composition.
+
+### Chaotic / intense scene
+Possible tools:
+
+- diagonal cuts,
+- uneven panels,
+- border breaks,
+- bleed,
+- overlapping elements,
+- compressed rhythm.
+
+Do not distort the page merely to demonstrate design skill.
+
+Formal chaos should express narrative chaos.
+
+---
+
+# PART XVI — READING ORDER
+
+## 50. Respect the reading convention
+
+For a conventional Western left-to-right comic, the source describes a horizontal-first, then vertical reading flow—often summarized as a Z-like movement.
+
+For manga / right-to-left reading, reverse accordingly.
+
+Never make the reader decode the basic order for novelty.
+
+### Diagnostic
+
+Show a thumbnail to an imagined first-time reader and ask:
+
+```text
+Where does the eye go first?
+What does it read second?
+Could two panels plausibly compete for “next”?
+Could a balloon pull the eye into the wrong panel?
+```
+
+If yes, fix hierarchy.
+
+---
+
+# PART XVII — BALLOONS ARE COMPOSITIONAL OBJECTS
+
+## 51. Word balloons are high-contrast anchors
+
+One source ranks balloons as a major tactical priority because they strongly attract the eye.
+
+Use that attraction deliberately.
+
+Plan:
+
+- balloon position,
+- tail direction,
+- sequence,
+- empty space,
+- interaction with faces,
+- interaction with panel borders,
+- relation to reading flow.
+
+A reader should not have to reread a panel because the dialogue order is unclear.
+
+---
+
+## 52. Text-first thumbnailing as one workflow option
+
+One creator’s workflow:
+
+1. place final or near-final text,
+2. position balloons,
+3. build panels and action around that text,
+4. draw expressions while seeing the actual lines being spoken.
+
+This can work especially well for writer-artists.
+
+Do not force it when:
+
+- an artist receives a locked script from someone else,
+- the sequence is primarily silent,
+- exploratory visuals need to precede dialogue.
+
+---
+
+# PART XVIII — CAMERA AND SHOT CHOICE
+
+## 53. Every angle needs a reason
+
+Do not fill a conversation with repeated headshots.
+
+Ask for every panel:
+
+```text
+Why this distance?
+Why this angle?
+Why this body part?
+Why this background?
+Why this moment?
+```
+
+Possible functions:
+
+### Wide / establishing
+- locate characters,
+- show relation to environment,
+- show scale,
+- reset geography.
+
+### Medium
+- show body language,
+- show interaction,
+- balance acting and context.
+
+### Close-up
+- emphasize expression,
+- emotional detail,
+- important object,
+- information restriction.
+
+### Extreme close-up
+- isolate a clue,
+- intensify sensation,
+- control attention.
+
+### High angle
+- vulnerability,
+- geography,
+- surveillance,
+- pattern.
+
+### Low angle
+- dominance,
+- threat,
+- monumentality.
+
+### Distorted / wide-angle perspective
+- speed,
+- exaggeration,
+- energetic depth.
+
+Do not assign emotional meaning mechanically. Context determines interpretation.
+
+---
+
+## 54. Talking scene visual variety
+
+A source gives a useful coffee-shop example.
+
+Two characters can continue the same dialogue while the images move through:
+
+- establishing view of the coffee shop,
+- headshot,
+- reaction,
+- eye close-up,
+- mouth close-up,
+- coffee cup with steam,
+- background patron,
+- relevant destination / object being discussed.
+
+The visual does not need to show the speaker’s face every time.
+
+But it should remain connected to:
+
+- dialogue,
+- atmosphere,
+- character psychology,
+- or story information.
+
+Avoid random B-roll.
+
+---
+
+# PART XIX — ESTABLISHING SHOTS AND ORIENTATION
+
+## 55. Establish where the scene occurs
+
+One source makes this a strong rule: a scene needs spatial context unless the lack of context is itself an intentional reveal.
+
+Reader confusion about geography is usually not productive mystery.
+
+Ask:
+
+```text
+Where are they?
+How are they arranged?
+Where can they move?
+What is the environment doing to the scene?
+```
+
+Establish early enough that later close shots make sense.
+
+---
+
+## 56. Connector panels
+
+A page may contain several tight shots that individually lack context.
+
+Insert one panel that reconnects:
+
+- a character,
+- an action,
+- and a recognizable environmental element.
+
+This “connector panel” can carry spatial continuity for surrounding close-ups.
+
+---
+
+# PART XX — BACKGROUNDS: COMMUNICATE, DON’T COMPETE
+
+## 57. Think theater stage, not endlessly rendered movie set
+
+A source recommends adding enough detail to sell the setting, then allowing the reader to remember it.
+
+Once the environment is established, every panel does not require maximal rendering.
+
+Prioritize:
+
+- location clarity,
+- action clarity,
+- depth,
+- recognizable motifs,
+- interaction with environment.
+
+Do not let a background steal attention from the actual narrative focal point unless the environment is the subject.
+
+---
+
+## 58. Visual shorthand for location
+
+A professional page example repeats a small set of iconic environment cues—specific shapes, greenery / planter-like elements, canopy, space view—to tell the reader “we are still on this station.”
+
+The lesson:
+
+Create a **visual vocabulary** for each location.
+
+Possible shorthand:
+
+```text
+architecture silhouette
+window geometry
+signage
+vegetation type
+floor pattern
+lighting
+machines
+color family
+sky / exterior condition
+```
+
+Reuse enough of that vocabulary to preserve continuity without redrawing the entire environment.
+
+---
+
+## 59. Foreground, middleground, background
+
+Even simple drawings can feel spatially rich when they include layered depth.
+
+Use layers to create:
+
+- overlap,
+- scale change,
+- separation,
+- environmental immersion.
+
+Do not interpret this as “every panel needs three literal layers.”
+
+Use it as a depth-building tool when scenes feel flat.
+
+---
+
+# PART XXI — ACTION AND DYNAMISM
+
+## 60. Sell an idea with several reinforcing signals
+
+A professional example tries to sell “these characters are running fast.”
+
+Instead of depending on perfect anatomy, it combines:
+
+- front character much larger than rear character,
+- strong depth,
+- exaggerated perspective,
+- wide-angle feeling,
+- dynamic poses,
+- capes / tentacles / loose elements flying backward,
+- speed lines,
+- environmental movement,
+- diagonals.
+
+The important meta-lesson:
+
+If a panel must communicate a concept strongly, do not rely on one fragile cue.
+
+Use multiple compatible signals.
+
+---
+
+## 61. Character design can support motion readability
+
+Movable costume or body elements—cape, coat, hair, ribbons, tentacles—can visibly react to motion.
+
+They can:
+
+- clarify direction,
+- amplify speed,
+- show wind,
+- dramatize gesture,
+- make silhouettes more expressive.
+
+This does not mean every character needs a cape.
+
+It means design can anticipate sequential storytelling needs.
+
+---
+
+# PART XXII — CONSTRUCTION DRAWING: WHERE THE HEAVY LIFTING HAPPENS
+
+## 62. The construction stage converts intent into solvable drawing problems
+
+Use the rough/pencil phase to solve:
+
+- anatomy,
+- pose,
+- facial expression,
+- foreground / background relationships,
+- perspective,
+- ellipses,
+- props,
+- balloon space,
+- staging,
+- environment interaction,
+- continuity.
+
+The source emphasizes that much of the real work happens here, not in polishing the line.
+
+---
+
+## 63. Construction detail depends on confidence and difficulty
+
+The amount of underdrawing can vary panel by panel.
+
+Use more construction when:
+
+- unfamiliar anatomy,
+- difficult hand,
+- complex foreshortening,
+- new costume,
+- difficult perspective,
+- important expression,
+- important mechanical object.
+
+Use less when:
+
+- the pose is familiar,
+- the object is simple,
+- the creator can reliably finish from a loose indication.
+
+Do not impose one construction density on the whole book.
+
+---
+
+## 64. Accuracy has a hierarchy
+
+A professional page may tolerate a slightly imperfect leg but fail if a major ellipse or perspective structure is visibly wrong.
+
+Ask:
+
+```text
+What will the reader actually notice?
+What has to be structurally convincing?
+What can stay loose without harming the story?
+```
+
+Examples of high-value accuracy:
+
+- major ellipses,
+- strong perspective lines,
+- eye direction,
+- silhouette,
+- face readability,
+- object interaction,
+- location continuity.
+
+If a ruler / ellipse tool solves an obvious geometric problem, use it.
+
+Do not waste hand-drawing purity on an error the tool can remove quickly.
+
+---
+
+## 65. Interaction with the environment sells the scene
+
+A small detail—such as a cape catching or resting on the edge while a character climbs down—can make a figure feel physically connected to the environment.
+
+Look for contact:
+
+- feet on surfaces,
+- hands gripping objects,
+- clothing reacting to edges,
+- shadows connecting figure and ground,
+- debris reacting to movement.
+
+These cues can be more convincing than polishing isolated anatomy.
+
+---
+
+# PART XXIII — PRODUCTION EFFICIENCY
+
+## 66. Be brutally selective under schedule
+
+Professional comics often operate under deadlines.
+
+The source repeatedly asks:
+
+> What does this panel need to communicate, and what is the fastest reliable way to communicate it?
+
+This is not permission for carelessness.
+
+It is hierarchy.
+
+Spend time where the reader receives value.
+
+Possible hierarchy:
+
+```text
+story clarity
+character acting
+readability
+important geometry
+focal object
+continuity
+supporting background
+micro-detail
+```
+
+---
+
+## 67. “Clarity over cool”
+
+A complex composition that confuses the sequence is worse than a simple composition that tells the story.
+
+Before approving an experimental page, verify:
+
+- panel order is obvious,
+- focal point is obvious,
+- speakers are obvious,
+- geography is understandable,
+- action is understandable,
+- page turn still works.
+
+If the experiment passes, keep it.
+
+If it fails, simplify.
+
+---
+
+# PART XXVI — WORKED PAGE-TURN / STORYBOARD EXAMPLE
+
+## 74. Hidden listener reveal
+
+One storyboard source describes a sequence in which two less-important characters talk while a known character is secretly listening.
+
+The storyboard decisions include:
+
+- keep the conversation visually varied,
+- show environment and destination imagery related to what is being discussed,
+- place the hidden listener small in the background before full reveal,
+- use the page turn to reveal that the listener is a known character,
+- then use a clearer larger image to identify them,
+- continue the panels so the reveal generates the next action.
+
+The lesson:
+
+A reveal can be prepared at several scales:
+
+```text
+background clue
+→ page turn
+→ identification shot
+→ consequence
+```
+
+This is stronger than introducing the reveal with no visual setup.
+
+---
+
+# PART XXVIII — STUDY OTHER MEDIA BY DECONSTRUCTING DECISIONS
+
+## 76. Do not consume references passively
+
+A source recommends comparing scripts with finished media and asking why the creator made specific decisions.
+
+When studying another work, ask:
+
+```text
+Why this page break?
+Why this shot?
+Why hide the background here?
+Why reveal the character now?
+Why use one large panel instead of three?
+Why does the dialogue continue over an object shot?
+Why is this sequence silent?
+```
+
+The goal is not imitation. It is learning decision logic.
+
+---
+
+## 93. When asked to storyboard
+
+For each spread, reason about:
+
+```text
+READING DIRECTION
+LEFT PAGE / RIGHT PAGE
+DOMINANT PANEL
+BALLOON PATH
+PANEL RHYTHM
+ESTABLISHING INFORMATION
+WHERE BACKGROUND IS REQUIRED
+WHERE BACKGROUND CAN DROP OUT
+PAGE-TURN REVEAL
+```
+
+Do not spend tokens describing surface rendering before the layout works.
+
+---
+
+## 98. Talking-head grid
+
+Symptom: six nearly identical faces during a conversation.
+
+Fix: vary scale and subject; show relevant environment, gestures, objects, reactions, or destination information while keeping dialogue connected.
+
+---
+
+## 99. Unmotivated camera variation
+
+Symptom: random angles added only for “cinematic” look.
+
+Fix: assign each shot a storytelling function.
+
+---
+
+## 100. No establishing context
+
+Symptom: characters appear in disconnected close-ups.
+
+Fix: establish or deliberately delay establishment as a reveal.
+
+---
+
+## 101. Animation-board syndrome
+
+Symptom: a panel for every physical micro-step.
+
+Fix: choose meaningful action beats and trust closure.
+
+---
+
+## 103. Empty spectacle
+
+Symptom: splash page is large but narratively minor.
+
+Fix: reserve scale for importance, emotion, place, or deliberate aesthetic experience.
+
+---
+
+## 104. Pretty but unreadable
+
+Symptom: experimental composition makes sequence unclear.
+
+Fix: clarity over cool.
+
+---
+
+## 105. Background vanity
+
+Symptom: environment is rendered beyond what the story needs while characters remain weak.
+
+Fix: establish, use shorthand, prioritize focal information.
+
+---
+
+## 107. Wrong page for reveal
+
+Symptom: twist is visible before reader reaches the intended setup.
+
+Fix: move the reveal across the page turn when format supports it.
+
+---
+
+## 109. Overpolished storyboard
+
+Symptom: time wasted rendering an idea that has not been structurally approved.
+
+Fix: return to rough thumbnails.
+
+---
+
+## 113. Spread breakdown
+
+```text
+SPREAD: Pages 8–9
+READING DIRECTION: Left → right
+
+LEFT PAGE JOB:
+
+RIGHT PAGE JOB:
+
+TENSION CURVE:
+
+BALLOON / EYE FLOW:
+
+ESTABLISHING INFORMATION:
+
+DOMINANT IMAGE:
+
+WHAT THE READER KNOWS BEFORE TURN:
+
+PAGE-TURN QUESTION:
+
+WHAT IS REVEALED AFTER TURN:
+```
+
+---
+
+## 115. Storyboard output
+
+```text
+THUMBNAIL A
+Panel geometry:
+Balloon path:
+Camera:
+Background requirement:
+Pacing purpose:
+
+THUMBNAIL B
+Alternative geometry:
+What improves:
+What gets worse:
+
+RECOMMENDATION:
+```
+
+When possible, provide alternatives for major reveal pages rather than pretending the first layout is inevitable.
+
+---
+
+## 117. Page preflight
+
+```text
+[ ] What is this page's specific job?
+[ ] What does it answer from the previous page?
+[ ] What does it set up next?
+[ ] Is reading order immediate?
+[ ] Are balloons helping the eye path?
+[ ] Is the scene geographically understandable?
+[ ] Are camera choices purposeful?
+[ ] Is panel count appropriate for the pace?
+[ ] Is the most important thing visually dominant?
+[ ] Is the page turn being used intentionally?
+```
+
+---

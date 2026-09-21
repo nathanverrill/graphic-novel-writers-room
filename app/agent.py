@@ -16,15 +16,14 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, config, llm, projects, review, rules, search, thumbnails
+from . import llm, projects, review, rules, search, thumbnails
 from . import agents as agents_mod
-from .agents import gather_context, random_entry, read_hat
+from .agents import gather_context, random_entry
 from .usage import CallLogger
 
 REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
                            # agents/skills/ under one prefix, library/<its path>
 
-PREVIEW_HOW = artist.PANEL_HOW
 
 IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
@@ -115,7 +114,7 @@ class Agent:
 
     # ---- prompt building -------------------------------------------------
 
-    def system_prompt(self, guides, figma_text, use_tools, hat=None):
+    def system_prompt(self, guides, figma_text, use_tools):
         r = self.role
         parts = [
             f"You are the {r.title} in a graphic novel writers' room.",
@@ -125,11 +124,7 @@ class Agent:
         ]
         if figma_text:
             parts += ["# Figma references", *figma_text]
-        if hat:
-            parts += ["# Thinking mode for this run — wear this hat", read_hat(hat)]
-        if r.preview:
-            parts.append(PREVIEW_HOW)
-        elif use_tools and self.role.minimal:
+        if use_tools and self.role.minimal:
             parts.append(
                 "# How to work\n"
                 f"Everything you may read is in the message. Write {r.outputs[0]} in full with "
@@ -249,6 +244,8 @@ class Agent:
             return json.dumps(names)
         if name == "read_artifact":
             target = args.get("name", "")
+            if target.startswith("audition-") and target not in self.role.outputs + self.role.reads:
+                return "That is the other writer's audition. It is blind: write your own pages."
             try:
                 if target.startswith(REF_PREFIX):
                     content = projects.read_reference(self.slug, target[len(REF_PREFIX):])
@@ -331,7 +328,7 @@ class Agent:
         if not feedback:
             return f" Drew {len(specs)} pages into thumbnails.md with no layout issues."
         return (f" Drew {len(specs)} pages into thumbnails.md. Fix what you can and save again; "
-                "flag copy-length problems for the Scripter/Letterer in your handoff note:\n- "
+                "flag copy-length problems for the Letterer in your handoff note:\n- "
                 + "\n- ".join(feedback))
 
     def save_image(self, label, data):
@@ -351,12 +348,12 @@ class Agent:
 
     # ---- the loop --------------------------------------------------------
 
-    def run(self, note=None, hat=None):
+    def run(self, note=None):
         guides, figma_text, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
         refs = self.shortlist({} if self.role.minimal else projects.reference_files(self.slug))
-        self.emit("context", hat=hat, minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
+        self.emit("context", minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
                   references=list(refs), references_mode=self.cfg.references,
                   reference_chars=sum(p.stat().st_size for p in refs.values()),
                   figma=len(figma_text), model=self.cfg.model, temperature=self.cfg.temperature,
@@ -364,11 +361,8 @@ class Agent:
         if self.cfg.generate_images and not self.cfg.image_model:
             self.emit("warn", text="generate_images is on but no image_model is set (agent.json or IMAGE_MODEL).")
 
-        if self.role.preview:
-            return self.run_preview(note, hat, guides, figma_text, images)
-
         task = self.task_message(note, images)
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True, hat)}, task]
+        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True)}, task]
 
         for step in range(1, self.cfg.max_steps + 1):
             if self.should_stop():
@@ -379,7 +373,7 @@ class Agent:
             except llm.LLMError as e:
                 if e.status == 400 and step == 1:
                     self.emit("warn", text=f"Endpoint rejected tool calling; retrying as plain chat. ({e})")
-                    return self.run_without_tools(guides, figma_text, task, hat)
+                    return self.run_without_tools(guides, figma_text, task)
                 raise
 
             self.keep_reply_images(reply)
@@ -419,8 +413,8 @@ class Agent:
         self.emit("warn", text=f"Stopped after {self.cfg.max_steps} steps.")
         return self.wrap_up("(ran out of steps)")
 
-    def run_without_tools(self, guides, figma_text, task, hat=None):
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, False, hat)}, task]
+    def run_without_tools(self, guides, figma_text, task):
+        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, False)}, task]
         reply = llm.chat(self.cfg, messages, log=self.log)
         self.keep_reply_images(reply)
         return self.wrap_up(llm.text_of(reply))
@@ -433,84 +427,3 @@ class Agent:
             text = f"Delivered {primary}."
         self.version.append_log(self.role.title, text or "(no note)")
         return text
-
-    # ---- ASCII page previews ------------------------------------------------
-
-    def run_preview(self, note, hat, guides, figma_text, images):
-        """One page at a time, fresh context per page, written out as each page lands.
-        Hand-edited pages are kept and not redrawn."""
-        target = self.role.outputs[0]
-        specs, errors = thumbnails.parse_layouts(projects.read_artifact(self.slug, "layouts.md"))
-        if not specs:
-            self.emit("warn", text="layouts.md has no ```layout blocks yet — run the Layout Agent first.")
-            self.version.append_log(self.role.title, "No layouts to preview.")
-            return "No layouts to preview."
-        geo = thumbnails.geometry()
-        script = projects.read_artifact(self.slug, "script.md") or ""
-        bible = projects.read_artifact(self.slug, "bible.md") or ""
-        before = thumbnails.parse_thumbnails(projects.read_artifact(self.slug, target))
-        pages = []
-        for i, spec in enumerate(specs):
-            if self.should_stop():
-                raise Stopped()
-            page = thumbnails.render_page(spec, geo)
-            current = (thumbnails.parse_thumbnails(projects.read_artifact(self.slug, target)).get(page.number)
-                       or before.get(page.number))
-            if current and current["edited"]:
-                self.emit("warn", text=f"page {page.number} is hand-edited or locked — kept, not redrawn")
-                pages.append(thumbnails.keep_edited(current, page.number, spec))
-                continue
-            if current and current["layout"] == thumbnails.layout_hash(spec):
-                pages.append(thumbnails.keep_edited(current, page.number, spec))   # layout unchanged: no redraw
-                continue
-            self.emit("thinking", step=f"page {page.number}")
-            try:
-                mask = None
-                if self.role.preview == "drawn":
-                    art, notes = artist.draw_page(self, page, script, bible, guides, figma_text, note, hat)
-                else:
-                    art, notes = self.image_page(page, bible, note)
-            except llm.LLMError as e:
-                art, notes, mask = None, [f"model call failed, showing the layout render: {e}"], None
-                self.emit("warn", text=f"page {page.number}: {e}")
-            invert = thumbnails.mask_text(thumbnails.compose_invert(page, mask))
-            pages.append(thumbnails.page_markdown(page, thumbnails.compose(page, art), notes, spec, invert))
-            # keep the pages not reached yet, and any the showrunner hand-edited meanwhile
-            later = [thumbnails.keep_edited(before[s["page"]], s["page"]) for s in specs[i + 1:] if s["page"] in before]
-            doc = thumbnails.document(self.role.title, pages + later, errors, geo)
-            self.save(target, thumbnails.merge_edited(doc, projects.read_artifact(self.slug, target)))
-        return self.wrap_up(f"Drew {len(pages)} pages into {target}.")
-
-    def image_page(self, page, bible, note):
-        if not self.cfg.image_model:
-            return None, ["no image model configured (image_model / IMAGE_MODEL) — showing the layout render"]
-        art = [row[:] for row in page.art]
-        notes = []
-        items = thumbnails.labels_by_panel(page)
-        for p in page.panels:
-            desc = (p.spec.get("description") or "").strip()
-            if not desc:
-                notes.append(f"P{p.n}: no description — kept the layout silhouettes")
-                continue
-            if self.should_stop():
-                raise Stopped()
-            shot = " ".join(b for b in (p.spec.get("shot"), p.spec.get("angle") and f"{p.spec['angle']} angle") if b)
-            prompt = ("Rough black-and-white comic thumbnail sketch, bold simple shapes, strong contrast, "
-                      "plain white background, no text, no lettering, no panel border. "
-                      + (f"{shot} shot. " if shot else "") + desc + " "
-                      + thumbnails.looks_for(bible, items.get(p.n, []))
-                      + (f" Note: {note}" if note else ""))
-            size = thumbnails.image_size_for(p, page.geo)
-            self.emit("image_start", name=f"page {page.number} panel {p.n}", prompt=prompt,
-                      model=self.cfg.image_model)
-            try:
-                data = llm.generate_image(self.cfg, prompt, size, log=self.log)
-                self.save_image(f"p{page.number}-panel{p.n}", data)
-                w, h = p.size
-                x0, y0, _, _ = p.inner
-                for j, row in enumerate(thumbnails.image_to_ascii(data, w, h, page.geo)):
-                    art[y0 + j][x0:x0 + w] = row
-            except Exception as e:  # one bad panel shouldn't lose the page
-                notes.append(f"P{p.n}: image failed — {e}")
-                self.emit("warn", text=f"page {page.number} panel {p.n}: {e}")
-        return art, notes

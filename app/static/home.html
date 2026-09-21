@@ -59,6 +59,13 @@
   .note { text-align: center; color: var(--muted); font-size: .95rem; margin: 1.25rem 0 0; }
   .note.bad { color: var(--bad); }
 
+  /* ---- the gate: the question, and the buttons that answer it ---- */
+  .gate { text-align: center; margin: 1rem 0; }
+  .gate p { color: var(--ink); margin: 0 0 .75rem; }
+  .gate button { font: inherit; font-weight: 600; padding: .7rem 1.1rem; margin: .25rem;
+                 color: var(--ink); background: var(--panel); border: 2px solid var(--ink);
+                 border-radius: .75rem; cursor: pointer; }
+
   /* ---- the sketches ---- */
   #sheets { margin: 1.5rem 0 0; display: flex; flex-direction: column; gap: 1.5rem; }
   figure { margin: 0; }
@@ -79,10 +86,12 @@
 <main>
   <h1>Writers' Room</h1>
 
-  <button id="start">Start Prosperity</button>
+  <p id="where" class="note"></p>
+  <button id="start" hidden>Start</button>
 
   <div id="progress" hidden><ol id="steps"></ol></div>
   <p id="note" class="note" hidden></p>
+  <div id="gate" class="gate"></div>
 
   <div id="sheets"></div>
 </main>
@@ -93,28 +102,58 @@
 const SLUG = "prosperity";
 
 const $ = (id) => document.getElementById(id);
-const startBtn = $("start"), steps = $("steps"), note = $("note"), sheets = $("sheets");
+const startBtn = $("start"), steps = $("steps"), note = $("note"), sheets = $("sheets"), gate = $("gate");
 
-/** The room's own default line-up, in the order it works — so this page stays right
-    when the defaults change in agents.json, instead of keeping its own copy. */
-async function lineUp() {
-  const { roles } = await (await fetch("/api/agents")).json();
-  const picked = roles.filter((r) => r.selected !== false);
-  if (!picked.length) throw new Error("no writers are selected in agents.json");
-  return picked;
+const api = async (path, body) => {
+  const r = await fetch(path, body === undefined ? {} :
+    { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  if (!r.ok) throw new Error((await r.json()).detail || `the room said no (${r.status})`);
+  return r.json();
+};
+
+function say(text, bad = false) {
+  note.textContent = text;
+  note.classList.toggle("bad", bad);
+  note.hidden = !text;
 }
 
-/** One <li> per writer, so the whole shape of the work is visible before it starts. */
-function drawSteps(roles) {
+/** Where the book is: the button runs that phase, and the gate under it moves the book on. */
+async function show() {
+  const [p, { roles }] = await Promise.all([api(`/api/projects/${SLUG}`), api("/api/agents")]);
+  const title = (id) => roles.find((r) => r.id === id)?.title || id;
+  const now = p.phases.find((x) => x.id === p.phase);
+  const have = new Set(p.artifacts.map((a) => a.name));
+  const ran = now.read.some((n) => have.has(n));
+  startBtn.hidden = startBtn.disabled = false;
+  startBtn.textContent = `${ran ? "Run" : "Start"} ${now.title.toLowerCase()}${ran ? " again" : ""}`;
+  $("where").textContent = p.phases.map((x) => x.id === p.phase ? `[ ${x.title} ]` : x.title).join("  →  ");
+
+  const agents = now.agents.map((id) => id === "writer" ? p.writer : id);
   steps.innerHTML = "";
-  for (const r of roles) {
+  for (const id of agents) {
     const li = document.createElement("li");
-    li.dataset.role = r.id;
+    li.dataset.role = id;
     li.innerHTML = `<span class="dot"></span><span></span>`;
-    li.lastElementChild.textContent = r.title || r.id;
+    li.lastElementChild.textContent = title(id);
     steps.append(li);
   }
   $("progress").hidden = false;
+
+  gate.innerHTML = "";
+  if (!ran) return;
+  const ask = document.createElement("p");
+  ask.textContent = `${now.asks} Read ${now.read.filter((n) => have.has(n)).join(", ")} in the whole room.`;
+  gate.append(ask);
+  const button = (label, body) => {
+    const b = document.createElement("button");
+    b.textContent = label;
+    b.onclick = async () => { try { await api(`/api/projects/${SLUG}/phase`, body); sheets.innerHTML = ""; show(); } catch (e) { say(e.message, true); } };
+    gate.append(b);
+  };
+  if (now.gate === "approve") button("Approve", { action: "approve" });
+  if (now.gate === "pick")
+    for (const [id, file] of Object.entries(now.writes)) if (have.has(file)) button(`Pick ${title(id)}`, { action: "pick", writer: id });
+  if (now.gate === "review") showSketches();
 }
 
 function mark(role, state) {
@@ -124,26 +163,11 @@ function mark(role, state) {
   li.classList.add(state);
 }
 
-function say(text, bad = false) {
-  note.textContent = text;
-  note.classList.toggle("bad", bad);
-  note.hidden = !text;
-}
-
-/** Which pages the round actually made. Asked of the room rather than taken from the
-    run's events: round_ready carries a count only for a writing round (room.py). */
-async function pageNumbers() {
-  const r = await fetch(`/api/projects/${SLUG}/prompts`);
-  if (!r.ok) return [];
-  const { pages } = await r.json();
-  return Object.keys(pages || {}).map(Number).sort((a, b) => a - b);
-}
-
-/** The deliverable: each page's text layer, black on white, nothing else. */
+/** The deliverable, once execution has run: each page's text layer, black on white. */
 async function showSketches() {
-  $("progress").hidden = true;
-  say("Fetching the pages…");
-  for (const page of await pageNumbers()) {
+  sheets.innerHTML = "";
+  const { pages } = await api(`/api/projects/${SLUG}/prompts`);
+  for (const page of Object.keys(pages || {}).map(Number).sort((a, b) => a - b)) {
     const r = await fetch(`/api/projects/${SLUG}/lettering/${page}`);
     if (!r.ok) continue;                       // a page with no layout: skip it
     const { svg } = await r.json();
@@ -153,32 +177,24 @@ async function showSketches() {
     fig.lastElementChild.innerHTML = svg;      // the app's own SVG, from this origin
     sheets.append(fig);
   }
-  say(sheets.children.length ? "" : "The round finished without any lettered pages.",
-      !sheets.children.length);
 }
 
 function run(runId) {
-  let failed = null, finished = false;
+  let finished = false;
   const events = new EventSource(`/api/runs/${runId}/events`);
-
   events.addEventListener("message", (e) => {
     const ev = JSON.parse(e.data);
     if (ev.type === "role_start") { mark(ev.role, "now"); say(""); }
     else if (ev.type === "role_done") mark(ev.role, "done");
-    else if (ev.type === "error") say((failed = ev.text), true);
+    else if (ev.type === "error") say(ev.text, true);
     else if (ev.type === "warn") say(ev.text);
-    else if (ev.type === "run_stopped") say((failed = "Stopped."), true);
+    else if (ev.type === "run_stopped") say("Stopped.", true);
   });
-
-  const finish = async () => {
+  const finish = () => {
     if (finished) return;                        // "end" then "error" both arrive: once only
     finished = true;
     events.close();
-    steps.querySelectorAll(".now").forEach((li) => li.classList.remove("now"));
-    startBtn.hidden = false;
-    startBtn.disabled = false;
-    startBtn.textContent = "Start again";
-    if (!failed) await showSketches();
+    show();
   };
   events.addEventListener("end", finish);
   events.addEventListener("error", () => {       // the stream dropped: stop, don't spin
@@ -188,26 +204,18 @@ function run(runId) {
 
 startBtn.addEventListener("click", async () => {
   startBtn.disabled = true;
-  startBtn.textContent = "Starting…";
-  sheets.innerHTML = "";
+  gate.innerHTML = "";
   say("");
   try {
-    const roles = await lineUp();
-    drawSteps(roles);
-    const r = await fetch(`/api/projects/${SLUG}/runs`, {
-      method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ roles: roles.map((x) => x.id) }),
-    });
-    if (!r.ok) throw new Error((await r.json()).detail || `the room said no (${r.status})`);
+    run((await api(`/api/projects/${SLUG}/rounds`, {})).run_id);
     startBtn.hidden = true;
-    run((await r.json()).run_id);
   } catch (e) {
     startBtn.disabled = false;
-    startBtn.textContent = "Start Prosperity";
-    $("progress").hidden = true;
     say(e.message, true);
   }
 });
+
+show().catch((e) => say(e.message, true));
 </script>
 </body>
 </html>

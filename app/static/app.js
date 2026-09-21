@@ -56,11 +56,9 @@ async function loadRoles() {
   state.shared = data.shared;
   state.tools = data.tools || [];
   renderAgents();
-  $("#hat").innerHTML = `<option value="">No hat</option>` +
-    data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
-  $("#roles").innerHTML = data.roles.filter((r) => r.room !== "art").map((r) => `
+  $("#roles").innerHTML = data.roles.map((r) => `
     <div class="role" id="role-${r.id}">
-      <label><input type="checkbox" value="${r.id}" ${r.selected ? "checked" : ""}> ${esc(r.title)}</label>
+      <label><input type="checkbox" value="${r.id}"> ${esc(r.title)}</label>
       <div class="meta">→ ${r.outputs.map(esc).join(", ")}</div>
       <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
       <div class="meta">${r.tools.length} tools: ${r.tools.map(esc).join(", ") || "none"}</div>
@@ -89,7 +87,7 @@ function setRoleStatus(id, cls, text) {
 // ---- the roster: who is working, from any tab ----------------------------------------
 
 function renderAgents() {
-  const roles = (state.roles || []).filter((r) => r.room !== "art");
+  const roles = state.roles || [];
   if (!roles.length) return;
   const st = state.status || {};
   $("#agents").innerHTML = roles.map((r) => {
@@ -145,7 +143,8 @@ function inspectRole(id) {
     <p><button class="ghost" data-settings="${r.id}">Model settings</button>
       <span class="path">${r.config_error ? esc(r.config_error) : `${esc(r.config.model)} @ ${esc(r.config.base_url)}`}</span></p>
     ${assetBlock(r.id, r.assets)}
-    <h2 style="margin-top:1.5rem">Shared with every role</h2>
+    ${r.shares ? `<h2 style="margin-top:1.5rem">Shared with the other writer</h2>${assetBlock(r.shares, r.shared_assets)}` : ""}
+    <h2 style="margin-top:1.5rem">Shared with every agent</h2>
     ${assetBlock("_shared", state.shared)}`;
   $("#role-dialog").showModal();
 }
@@ -165,8 +164,6 @@ $("#roles").addEventListener("click", (e) => {
 $("#role-detail").addEventListener("click", (e) => {
   if (e.target.dataset.settings) openSettings(e.target.dataset.settings);
 });
-$("#select-defaults") && ($("#select-defaults").onclick = () =>
-  document.querySelectorAll("#roles input").forEach((i) => (i.checked = state.roles.find((r) => r.id === i.value)?.selected)));
 $("#select-all").onclick = () => document.querySelectorAll("#roles input").forEach((i) => (i.checked = true));
 $("#select-none").onclick = () => document.querySelectorAll("#roles input").forEach((i) => (i.checked = false));
 
@@ -255,7 +252,7 @@ async function refreshArtifacts(fresh) {
     state.versionMeta = v;
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
-      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}${v.hat ? `, ${esc(v.hat)} hat` : ""}` +
+      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}` +
       (v.counts ? `<br>${v.counts.kept} kept · ${v.counts.edited} redrawn by you · ${v.counts.noted} with a note` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
@@ -267,6 +264,7 @@ async function refreshArtifacts(fresh) {
         (v.usage.total.unpriced_calls ? ` · <span class="cfg-error">${v.usage.total.unpriced_calls} unpriced</span>` : "") : "");
   }
   $("#version-info").hidden = !state.version;
+  renderPhases(p);
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
   if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
@@ -541,7 +539,7 @@ function renderPageBuild() {
     : b.panels?.length ? `${b.panels.length} panels in the script` : "";
   $("#pv-stage").textContent = d ? "laid out by the Layout Agent"
     : b.panels?.length ? "written — waiting for the Layout Agent's layout"
-    : b.beat ? "plotted — waiting for the Scripter"
+    : b.beat ? "plotted — waiting for the writer"
     : state.runId ? "the room is at work…" : "nothing written for this page yet";
   $("#pv-keep").hidden = !d;
   if (d) {
@@ -783,7 +781,7 @@ function handle(ev, replay = false) {
   const live = !replay;
   switch (ev.type) {
     case "run_start":
-      log(`room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
+      log(`room convenes (${ev.version || ""}${ev.writing_round ? `, ${esc(ev.writing_round)}` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
       break;
     case "gate":
       log(v_gate(ev), "gate");
@@ -1303,7 +1301,7 @@ $("#run").onclick = async () => {
   if (!roles.length) return alert("Select at least one role.");
   try {
     const { run_id, version } = await api(`/api/projects/${state.project}/runs`, {
-      method: "POST", body: { roles, note: $("#note").value, hat: $("#hat").value },
+      method: "POST", body: { roles, note: $("#note").value },
     });
     $("#note").value = "";
     $("#feed").innerHTML = "";
@@ -1362,13 +1360,55 @@ $("#auto-stop").onclick = async () => {
   log("auto off — the room stops after this round and waits for your review", "gate");
 };
 
+// ---- phases: where the book is, and the gate out of each one -----------------------------
+
+/** The four phases as a strip — click one to take the book there — and, under it, the gate:
+    what to read, the question you are answering, and the button that answers it. */
+function renderPhases(p) {
+  const now = p.phases.find((x) => x.id === p.phase);
+  const writer = (id) => state.roles?.find((r) => r.id === id)?.title || id;
+  $("#write-round").textContent = `Run ${now.title.toLowerCase()}`;
+  $("#write-round").title = now.does;
+  $("#phases").innerHTML = p.phases.map((x, i) =>
+    `<button type="button" class="phase ${x.id === p.phase ? "on" : ""}" data-phase="${x.id}" title="${esc(x.does)}">` +
+    `${i + 1}. ${esc(x.title)}</button>`).join("<span>→</span>") +
+    (p.writer ? `<span class="path">writer: ${esc(writer(p.writer))}</span>` : "");
+  const have = new Set(p.artifacts.map((a) => a.name));
+  const read = now.read.filter((n) => have.has(n));
+  const buttons = now.gate === "approve" ? `<button data-gate="approve">Approve — on to ${esc(p.phases[p.phases.indexOf(now) + 1].title.toLowerCase())}</button>`
+    : now.gate === "pick" ? Object.keys(now.writes).map((id) =>
+        `<button data-gate="pick" data-writer="${id}" ${have.has(now.writes[id]) ? "" : "disabled"}>Pick ${esc(writer(id))}</button>`).join(" ")
+    : "";
+  $("#gate").innerHTML = `<b>${esc(now.title)}</b> — ${esc(now.does)}<br>` +
+    (read.length ? `Read ${read.map((n) => `<a href="#" data-read="${esc(n)}">${esc(n)}</a>`).join(" · ")}, then: ` : "Run it, then: ") +
+    `<i>${esc(now.asks)}</i> ${buttons}` +
+    (now.gate === "review" ? "" : `<br><span class="path">Not there yet? Add a note above and run the phase again.</span>`);
+}
+
+async function movePhase(body) {
+  try {
+    await api(`/api/projects/${state.project}/phase`, { method: "POST", body });
+    await refreshArtifacts();
+    loadReview(false);
+  } catch (err) { alert(err.message); }
+}
+
+$("#phases").addEventListener("click", (e) => {
+  const phase = e.target.dataset.phase;
+  if (phase && confirm(`Take the book to ${phase}? Nothing is deleted; the next run is that phase.`)) movePhase({ action: "go", phase });
+});
+$("#gate").addEventListener("click", (e) => {
+  if (e.target.dataset.read) { e.preventDefault(); showArtifact(e.target.dataset.read); }
+  if (e.target.dataset.gate) movePhase({ action: e.target.dataset.gate, writer: e.target.dataset.writer });
+});
+
 $("#write-round").onclick = async () => {
   try {
     const { run_id, kind } = await api(`/api/projects/${state.project}/rounds`, {
-      method: "POST", body: { note: $("#note").value, hat: $("#hat").value } });
+      method: "POST", body: { note: $("#note").value } });
     $("#note").value = "";
     $("#feed").innerHTML = "";
-    log(kind === "revision" ? "revision round — working from your review" : "writing round", "dim");
+    log(`${kind} round`, "dim");
     state.version = null;
     destroyReviewEditor();
     $("#review").hidden = true;
@@ -1658,11 +1698,6 @@ function openSettings(id, message) {
               means it reads only those, however big the library gets — it can still open any other file
               with read_artifact.</small></label>
         </div>
-        ${r.preview === "drawn" ? `<div class="sf-row">
-          ${field("Min ink per panel", "min_density", s.min_density, "0.25", "number", 'step="0.05" min="0" max="0.9"')}
-          ${field("Improve passes", "refine_passes", s.refine_passes, "1", "number", 'min="0" max="3"')}
-          ${field("Panels at once", "parallel", s.parallel, "3", "number", 'min="1" max="8"')}
-        </div>` : ""}
         ${field("Key from env var instead", "api_key_env", s.api_key_env, "e.g. OPENROUTER_API_KEY")}
         <label class="sf"><span>Extra request fields (JSON)</span>
           <input name="extra" value="${json(s.extra)}" placeholder='e.g. {"top_p": 0.9, "reasoning_effort": "low"}'></label>
@@ -1760,7 +1795,7 @@ function openSettings(id, message) {
   };
   form.querySelector('[data-act="apply"]').onclick = async () => {
     if (!(await save())) return;
-    const others = state.roles.filter((x) => x.id !== id && x.room !== "art").map((x) => x.id);
+    const others = state.roles.filter((x) => x.id !== id).map((x) => x.id);
     if (!confirm(`Give all ${others.length} other writers' room agents this provider and model? (Their tuned advanced settings stay.)`)) return;
     try {
       const out = await api(`/api/agents/${id}/apply-provider`, { method: "POST", body: { roles: others } });

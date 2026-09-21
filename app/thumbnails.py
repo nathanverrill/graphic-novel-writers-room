@@ -828,7 +828,7 @@ def render_layouts(markdown, previous=None):
 
 
 def script_for_page(script, number):
-    """The '## Page N' section of the script, if the Scripter used that heading."""
+    """The '## Page N' section of the script, if the writer used that heading."""
     m = re.search(rf"^#+ *Page {number}\b.*?(?=^#+ *Page \d+\b|\Z)", script or "", re.S | re.M | re.I)
     return m.group(0).strip() if m else ""
 

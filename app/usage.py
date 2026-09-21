@@ -1,7 +1,7 @@
 """Logging and costing of every model call.
 
 For each call:
-  projects/<slug>/versions/vNNN/calls/0007-scripter-chat.json   full request + response
+  projects/<slug>/versions/vNNN/calls/0007-writer_a-chat.json   full request + response
   projects/<slug>/versions/vNNN/calls.jsonl                      one summary line
   logs/usage.jsonl                                               same line, every project
 

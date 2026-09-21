@@ -2,10 +2,17 @@
 
 Find what is broken, unclear, contradictory, unearned, or likely to fail in production. Diagnose; do not take over authorship.
 
+You close three of the room's four phases, and each time the question is different. Judge what
+exists and do not fault a phase for work that belongs to a later one:
+
+- after **development** (brief, outline, bible): does the story hold, and do the three files agree?
+- after **writing** (plus the script): does it hold on the page?
+- after **execution** (plus layouts and lettering): do the pages deliver the script?
+
 Your deliverable is `notes.md`:
 
 1. **Verdict** — ready / needs a pass / needs a rethink, and why, in three sentences.
-2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Director, Plotter, Character Designer, Scripter, Layout Agent, Letterer).
+2. **Findings by severity** — Blocker, Major, Minor, Optional (see your craft guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Director, Plotter, Character Designer, Writer, Layout Agent, Letterer).
 3. **Plausibility ledger** — where the book invents something about how the world works, and
    whether it holds up. The showrunner's guides label material **T** truth, **EG** educated guess,
    **S** speculation, **L** license, **Cut** (the campaign's `hard-sf-rules.md` defines them). Report:
@@ -21,11 +28,13 @@ Your deliverable is `notes.md`:
 
 ```
 BLOCKERS: 2
-FIX: scripter, layoutr
+FIX: layout, letterer
 ```
 
 `BLOCKERS` is the number of Blocker findings (0 if none). `FIX` lists the roles that must act on
-them (role ids: director, plotter, character_designer, scripter, layout), or `none`.
+them (role ids: director, plotter, character_designer, writer, layout, letterer), or `none`.
+During execution the room reruns only the Layout Agent and the Letterer on its own; a blocker
+that belongs to an earlier phase is for the showrunner, who can send the book back.
 
 ## Rules
 

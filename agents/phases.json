@@ -1,0 +1,75 @@
+[
+  {
+    "id": "development",
+    "title": "Development",
+    "does": "Decide what the book is: the brief, the plot, the people.",
+    "agents": [
+      "director",
+      "plotter",
+      "character_designer",
+      "continuity"
+    ],
+    "gate": "approve",
+    "asks": "Is this the right story, told by these people?",
+    "read": [
+      "brief.md",
+      "outline.md",
+      "bible.md",
+      "notes.md"
+    ]
+  },
+  {
+    "id": "audition",
+    "title": "Audition",
+    "does": "Two writers write the same opening pages. You pick the voice.",
+    "agents": [
+      "writer_a",
+      "writer_b",
+      "first_reader"
+    ],
+    "writes": {
+      "writer_a": "audition-a.md",
+      "writer_b": "audition-b.md"
+    },
+    "pages": 3,
+    "gate": "pick",
+    "asks": "Whose book do you want to read?",
+    "read": [
+      "audition-a.md",
+      "audition-b.md",
+      "first-read.md"
+    ]
+  },
+  {
+    "id": "writing",
+    "title": "Writing",
+    "does": "The writer you picked writes the whole script.",
+    "agents": [
+      "writer",
+      "continuity"
+    ],
+    "gate": "approve",
+    "asks": "Are these the words?",
+    "read": [
+      "script.md",
+      "notes.md"
+    ]
+  },
+  {
+    "id": "execution",
+    "title": "Execution",
+    "does": "Lay out and letter every page until the pages pass the readiness check. Then the page prompts are written.",
+    "agents": [
+      "layout",
+      "letterer",
+      "continuity"
+    ],
+    "gate": "review",
+    "asks": "Review the pages: keep them, note them, send them back, or finalize.",
+    "read": [
+      "layouts.md",
+      "lettering.md",
+      "notes.md"
+    ]
+  }
+]

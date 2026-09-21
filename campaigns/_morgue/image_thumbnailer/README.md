@@ -10,5 +10,6 @@ to produce a sketch the room already draws from the layout blocks in code and fo
 To bring it back: move this folder to `agents/image_thumbnailer`, add it to
 `agents/agents.json` (`"preview": "image"`, `"context": "minimal"`, `"room": "art"`,
 `"selected": false`, reads `layouts.md`, `bible.md`, output `thumbnails-image.md`). The
-machinery it needs is still in place: `Agent.run_preview` in `app/agent.py` and the `image`
-entry in `PREVIEW_FILES` in `app/main.py`.
+machinery it needs was removed on 2026-09-20 when the room moved to four phases — restore
+`Agent.run_preview` and `image_page` in `app/agent.py`, `Role.preview` in `app/agents.py` and the
+`image` entry in `PREVIEW_FILES` in `app/main.py` from git history.

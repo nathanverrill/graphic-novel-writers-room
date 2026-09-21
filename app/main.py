@@ -13,9 +13,9 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import keys, lettering, llm, mcp, notes, objectstore, phases, projects, prompts, review, room, rules, search, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig, settings
-from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
+from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
 room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
 
@@ -82,11 +82,11 @@ def config():
 @app.get("/api/agents")
 def roles():
     return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED),
-            "hats": list_hats(), "tools": sorted(load_tools())}
+            "phases": phases.load(), "tools": sorted(load_tools())}
 
 
 def _role_folder(role_id):
-    if role_id != SHARED:
+    if role_id != SHARED and role_id not in {r.shares for r in load_roles()}:
         not_found(get_role, role_id)
     return AGENTS_DIR / role_id
 
@@ -190,7 +190,6 @@ class ArtifactBody(BaseModel):
 class RunRequest(BaseModel):
     roles: list[str]
     note: str | None = None
-    hat: str | None = None
 
 
 @app.get("/api/projects")
@@ -218,6 +217,7 @@ def get_project(slug: str):
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
+            **phases.state(slug),
             "library": projects.library(slug),
             "output": f"output/{slug}"}
 
@@ -252,7 +252,7 @@ def put_artifact(slug: str, name: str, body: ArtifactBody):
     return {"ok": True}
 
 
-PREVIEW_FILES = {"layout": "thumbnails.md", "drawn": "thumbnails-drawn.md", "image": "thumbnails-image.md"}
+PREVIEW_FILES = {"layout": "thumbnails.md"}     # the page sketch, drawn in code from layouts.md
 
 
 @app.get("/api/projects/{slug}/prompts")
@@ -582,7 +582,6 @@ class RoundSettings(BaseModel):
 
 class RoundRequest(BaseModel):
     note: str | None = None
-    hat: str | None = None
 
 
 class PageReview(BaseModel):
@@ -621,12 +620,36 @@ def update_settings(slug: str, body: RoundSettings):
 def start_round(slug: str, body: RoundRequest):
     not_found(projects.project_dir, slug)
     try:
-        run = room.start_round(slug, (body.note or "").strip() or None, body.hat or None)
+        run = room.start_round(slug, (body.note or "").strip() or None)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except ValueError as e:
         raise HTTPException(400, str(e))
     return {"run_id": run.id, "version": run.version.id, "kind": run.plan["kind"]}
+
+
+# ---- phases: where the book is, and the gate out of each one ----------------
+
+class PhaseMove(BaseModel):
+    action: str                    # "approve", "pick" (with writer) or "go" (with phase)
+    writer: str | None = None
+    phase: str | None = None
+
+
+@app.post("/api/projects/{slug}/phase")
+def move_phase(slug: str, body: PhaseMove):
+    not_found(projects.project_dir, slug)
+    _idle(slug)
+    try:
+        if body.action == "approve":
+            return phases.approve(slug)
+        if body.action == "pick":
+            return phases.pick(slug, body.writer)
+        if body.action == "go":
+            return phases.go_to(slug, body.phase)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    raise HTTPException(400, "action must be approve, pick or go")
 
 
 @app.get("/api/projects/{slug}/review")
@@ -700,7 +723,7 @@ def usage_report(project: str | None = None, version: str | None = None):
 def start_run(slug: str, body: RunRequest):
     not_found(projects.project_dir, slug)
     try:
-        run = room.start(slug, body.roles, (body.note or "").strip() or None, body.hat or None)
+        run = room.start(slug, body.roles, (body.note or "").strip() or None)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except KeyError as e:

@@ -21,7 +21,7 @@ services:
       OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
       EMBED_MODEL: ${EMBED_MODEL:-embeddinggemma}
     volumes:              # configuration stays in this folder
-      - ./agents:/app/agents          # roles, skills, tools and hats
+      - ./agents:/app/agents          # agents, phases, skills and tools
       - ./campaigns:/app/campaigns    # the work: the room reads and writes here
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)

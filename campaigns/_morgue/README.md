@@ -52,3 +52,15 @@ the room draws from the layout blocks in code. Each folder's README says how to 
 The room's divergent voice, replaced by divergence that commits: two Scripters on the same
 outline, one Director picking canon. Its provocations were a document about the story rather
 than a version of it, and it was off by default — see the folder's README.
+
+## hats/, split_skill/, design-exploration.md, ascii_artist/artist.py — retired 2026-09-20
+
+Cleared out when the room moved to four phases (development, audition, writing, execution).
+Hats were an optional thinking mode per run; the phases now say what kind of thinking each
+step is for. `split_skill.py` generated a `storycraft.md` per agent from one long source; each
+agent now owns a single `craft.md` those slices were merged into. `design-exploration.md` was a
+UI/UX brainstorming guide that had been sitting in the Layout Agent's folder, where it had
+nothing to do with laying out a comics page. `artist.py` was the ASCII Artist's panel-drawing
+code, and with it went the `"preview"` and `"room": "art"` machinery in `app/agent.py` and
+`app/agents.py`: no agent used it, and it is in git history (before this date) for anyone who
+brings the ASCII Artist or the Image Thumbnailer back.

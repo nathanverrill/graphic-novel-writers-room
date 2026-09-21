@@ -2,52 +2,68 @@
 
 A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
-to draw the finished page. Give it a directional draft script and a page count; the room
-writes until the pages are ready, you review every page as a layout sketch — keep the ones
-that are done, say what you want on the rest — and the room revises from your notes, edits
-and diffs — round after round, each saved in full. Every agent is guided by its own markdown,
-images and Figma files and runs on its own provider, model and settings; every model call is
-logged with its tokens and dollar cost.
+to draw the finished page. Drawing the pages is not this application's job.
+
+The room works in **four phases**, and you stand at the gate between each. Nothing moves on
+by itself:
+
+| | Phase | Who runs, in order | What you get | Your gate |
+|---|---|---|---|---|
+| 1 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
+| 2 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
+| 3 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
+| 4 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
+
+Three rules make this work, and they are the whole design:
+
+- **A phase never reruns the ones before it.** A lettering problem reruns the Letterer, not the
+  writer. Not happy with a phase? Add a note and run it again; each agent revises its own last draft.
+- **The first three gates are your judgment; the last one is measured.** Execution checks itself
+  — right page count, no layout issues, no continuity blockers — and reruns its own agents until
+  it passes (up to **Fix passes**), before it asks you anything.
+- **You can always go back.** Click any phase to take the book there. Nothing is deleted.
+
+The definition is one small file, `agents/phases.json`: who runs in each phase, in what order,
+and what to read before you decide. The code that runs it is `app/phases.py` and `app/room.py`.
+
+## The agents
+
+Nine agents. Each is a folder with a `role.md` (the job and its deliverable), a `craft.md` (how
+to do that job well) and an `agent.json` (its model and settings).
+
+| Agent | Phase | Writes | What it is for |
+|---|---|---|---|
+| Director | development | `brief.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction |
+| Plotter | development | `outline.md` | what happens, in what order, on which page — never the dialogue |
+| Character Designer | development | `bible.md` | a visual lock per character, pasted word for word into every page prompt |
+| Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
+| Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
+| First Reader | audition | `first-read.md` | reads both auditions cold — pitch and pages, nothing else — and reports reactions. Never picks |
+| Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page prompts and the sketch |
+| Letterer | execution | `lettering.md` | checks balloon order, placement and word count; the Layout Agent reads it on a fix pass |
+| Continuity Editor | closes 1, 3 and 4 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
+
+**The two writers** are the room's one deliberate act of divergence. They share a job and a
+craft (`agents/_writers/role.md` and `craft.md`) and differ in voice (`agents/writer_a/voice.md`,
+`agents/writer_b/voice.md`) and settings — give them different models if you can. The audition
+is blind: neither can read the other's pages. When you pick, the winner's audition pages become
+the start of `script.md` and that writer writes the rest.
+
+The Director also keeps `taste-writers.md`: what you actually said and changed in your
+reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
+or decision needed (see `agents/_shared/house-style.md`).
 
 Everything the room can read — a campaign's rules, everything in its input, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
 
-The art room — which will draw pages itself, with its own taste — is a separate, later room,
-and it has no agents yet: its first two, the Image Thumbnailer and the Colorist, are retired to
-`campaigns/_morgue/`. The `"room": "art"` field is still read, so an agent kept out of the
-writers' room is hidden here and never runs in a writing round.
-
-A writing round runs six of them, in this order. The other two are there when you want them,
-and run only if you tick them and press **Run selected roles only**.
-
-| In a round | Agent | Writes | Notes |
-|---|---|---|---|
-| 1 | Director | `brief.md` | owns the rules, the decision log and the visual direction |
-| 2 | Plotter | `outline.md` | |
-| 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
-| 4 | Scripter | `script.md` | |
-| 5 | Layout Agent | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
-| 6 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
-| — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
-| — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
-
-A revision round — the one that runs after your review — is Director, Scripter,
-Layout Agent, Continuity Editor.
-
-The Director also keeps `taste-writers.md`: what you actually said and changed in your
-reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
-or decision needed (see `agents/_shared/house-style.md`).
-
 ## Two screens
 
-**`/` is one button.** It says **Start Prosperity**, and that is the whole page: a line for each
-writer with the one at work spinning, and when the round ends, the lettered pages it made —
-the text layer, black balloons on white, nothing else. Built for a phone, no settings, nothing
-to choose. The line-up comes from `agents/agents.json`, so whichever writers are selected there
-are the ones it runs; the page list comes from the room rather than from the round's events,
-because a plain role run makes pages without announcing a count.
+**`/` is one button.** It runs the phase the Prosperity book is in — **Start development**,
+then **Run audition**, and so on: a line for each agent in that phase with the one at work
+spinning, and under it the gate — the question, and **Approve** or **Pick Writer A / Pick
+Writer B**. After execution it shows the lettered pages. Built for a phone, nothing to set.
 
 **`/room` is everything else** — every writer, every file, every round — and the rest of this
 document is about that screen. The two link to each other: the footer on `/`, the title on
@@ -61,18 +77,19 @@ Campaigns on the left; the book in the middle; what the room is doing on the rig
 |---|---|
 | Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
 | Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
-| Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
+| Middle, **The room** tab | the agents, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
 | Middle, under the tabs | **Stats** — what the room has spent, by project, round or agent |
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
-**Write round** sits above the tabs with the showrunner note, so it's there whichever tab you're
-on; when a review is waiting, **Review ↓** appears next to it. Changing the previewed page opens
+**Run *phase*** sits above the tabs with the four phases, the gate and the showrunner note, so
+it's there whichever tab you're on; in execution, when a review is waiting, **Review ↓** appears
+next to it. Changing the previewed page opens
 that page's prompt below it.
 
 ### Watching a page get made
 
-The **Pages** tab opens on one page and watches it being built. Before you press **Write round**
+The **Pages** tab opens on one page and watches it being built. Before you run a phase
 it's an empty frame at trim proportions, with a card waiting for its **Description** and
 **Dialog**. Then the room writes, and the page takes a step each time a writer's file lands —
 not token by token; a file at a time, in step with the live feed:
@@ -80,7 +97,7 @@ not token by token; a file at a time, in step with the live feed:
 | When | What appears |
 |---|---|
 | `outline.md` — the Plotter | the page's beat, above the frame |
-| `script.md` — the Scripter | one card per panel, marked *from the script*, with its description and dialog |
+| `script.md` — the writer | one card per panel, marked *from the script*, with its description and dialog |
 | `layouts.md` — the Layout Agent | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
 | `notes.md` — the Continuity Editor | that page's flags, under the cards |
 
@@ -115,17 +132,18 @@ page you're reviewing. Each round also saves `-pNN-prompt.md` per page, and the 
 saves `book-prompts.md`. So the prompts are only as good as the brief's visual direction, the
 bible's visual locks and the Layout Agent's panel descriptions — that's where to push the room.
 
-## Writing rounds and review
+## Rounds and review
 
 1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
-   script (high level, directional; saved as `references/draft-script.md`).
-2. **Write round** — the room runs Director → Plotter → Character Designer → Scripter →
-   Layout Agent → Continuity Editor, then checks the **readiness gate**: exactly the right
-   pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
-   fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
-   Readiness is measured, not the model's opinion. The page prompts are written at the end.
-   **Pause** holds the round between two writers; **Auto rounds** runs the next one without
-   waiting for you.
+   script (high level, directional; saved as `input/draft-script.md`). It starts in development.
+2. **Run *phase*** — runs the phase the book is in, then stops for you. Read what the gate lists,
+   and approve, pick, or add a note and run it again. **Pause** holds a round between two agents.
+   In execution the room also checks the **readiness gate**: exactly the right pages, zero
+   layout issues, zero continuity blockers, and locked pages matched. If it fails, only the
+   execution agents that can fix it run again (up to **Fix passes**, default 2). Readiness is
+   measured, not the model's opinion. A blocker that belongs to an earlier phase stops the
+   passes: sending the book back is your call. The page prompts are written at the end.
+   **Auto rounds** reruns execution without waiting for your review.
 3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
    (editable in place) and its prompt. A page is one of two things:
 
@@ -136,10 +154,9 @@ bible's visual locks and the Layout Agent's panel descriptions — that's where 
 
    Nothing has to be decided: keep what's finished, say what you want on the rest. Your
    notes and edits are saved as you go.
-4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
-   revision round that works only from it: the Director updates the brief and the taste file,
-   the Scripter and Layout Agent work the open pages, and the gate checks that the pages you
-   redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
+4. **Send to the room** or **Finalize**. Sending saves your review as a human round and runs
+   execution again, working only from it: the Layout Agent and Letterer work the open pages, and
+   the gate checks that the pages you redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
 
@@ -210,7 +227,7 @@ docker compose up -d --build      # http://localhost:8000
 and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
 `host.docker.internal:11434`.
 
-**Configuration** — `agents/` (with its skills, tools and hats), `campaigns/` and
+**Configuration** — `agents/` (with its skills and tools), `campaigns/` and
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
@@ -251,7 +268,7 @@ it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages s
 true proportions.
 
 The Layout Agent writes a ```` ```layout ```` JSON block per page (format:
-`agents/layout/layout-format.md`). Every save of `layouts.md` — by the Layout Agent or by you
+`agents/layout/role.md`). Every save of `layouts.md` — by the Layout Agent or by you
 in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
 balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
 effects and figure placeholders, in code and for free. The renderer reports overlapping
@@ -293,7 +310,7 @@ Past rounds are read-only.
 `campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
 noting what was adopted from each and why the rest wasn't. It is there so a person can find an
 old document again, and nothing in it reaches an agent — the leading underscore is the rule,
-the same one that keeps `input/_rough/` and `agents/skills/_sources/` out of the room (see
+the same one that keeps `input/_rough/` out of the room (see
 **The library**).
 
 ## Running the room
@@ -305,12 +322,12 @@ finishes and hands off, and the round waits there — same version, same place i
 nothing torn down. While it's held, change any writer's model, temperature or anything else in
 **The room**, and jot notes in the watch pad. **Resume** hands both to the writer about to
 start and everyone after it (every agent reads `agent.json` when it starts, so the change is
-real, and the feed says what changed: `carrying on — Scripter → temperature 0.15 · your notes
+real, and the feed says what changed: `carrying on — Writer B → temperature 0.15 · your notes
 go to the writers still to come`). The notes are marked used by that round and saved with it.
 **Stop** still ends the round outright, and works while it's held.
 
-**Auto rounds.** **Auto rounds** in **The room** tab runs the book without you. After each
-writing round the room hands the round back to itself — every page open, nothing said about any
+**Auto rounds.** **Auto rounds** in **The room** tab runs execution without you. After each
+execution round the room hands the round back to itself — every page open, nothing said about any
 of them — and starts the next one, counting down as it goes. It stops and finalizes the book
 when the readiness gate comes back ready, or when the count runs out. The header shows how many
 rounds are left and **Stop auto** ends it after the current round; **Pause**, **Stop** and
@@ -335,7 +352,7 @@ again to release it.
 
 **Your notes.** The watch pad on the right has a box to jot thoughts while you watch — half-formed
 ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
-until something takes them: the next **Write round** folds them into the room's brief, and
+until something takes them: the next round folds them into the room's brief, and
 submitting a review adds them to `review.md`; either way they're saved in that round's folder and
 marked used. **Tidy into feedback** is one model call (the Director's model) that groups the pile
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
@@ -450,7 +467,6 @@ campaigns/
   avalanche/        the second campaign: the same folders
   _morgue/          clippings kept for people, so an old document is never lost
 agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
-agents/skills/_sources/   the long skill the per-agent guides are generated from
 ```
 
 **One question decides where a file goes: does it bind the book?** `rules/` binds — the bible,
@@ -548,7 +564,7 @@ What each one reads now:
 | Director | the bible, Alpha, `hard-sf-rules` |
 | Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `references/triangle-water-wars`, `social-innovators-framework` |
 | Character Designer | the bible, Alpha, `hard-sf-rules` |
-| Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
+| Writer A, Writer B | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
 | Layout Agent | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Letterer, First Reader | names only — they read what they want on demand |
@@ -566,20 +582,25 @@ Everything an agent knows comes from its folder:
 
 ```
 agents/
-  agents.json             order, title, mission, reads, outputs
-  skills/                 craft skills, loaded by name in an agent's shortlist
+  agents.json             title, mission, reads, outputs
+  phases.json             the four phases: who runs in each, in order, and each gate
+  skills/                 long craft references, loaded by name in an agent's shortlist
   tools/                  what an agent can call: one json schema per tool
-  _shared/                given to every agent
+  _shared/                given to every agent: house-style.md, craft.md, the provocation deck
+  _writers/               given to both writers: role.md, craft.md
   <agent>/
-    *.md                  guides — all are read, alphabetically
+    role.md               the job: what it delivers, in what format
+    craft.md              the craft: how to do that job well
+    agent.json            provider, model and tuned defaults (committed; no keys)
     images/               reference images (png, jpg, webp, gif)
     figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
     figma/*.json          Figma REST API exports, for offline use
-    agent.json            provider, model and tuned defaults (committed; no keys)
 ```
 
-- **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/_sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
+- **Change how an agent works:** edit its `role.md` or `craft.md`. Every `.md` in the folder is
+  sent to the model, `role.md` first, so a new guide is a new file.
+- **Skills:** the long references in `agents/skills/` reach an agent as library files, chosen by
+  its shortlist (`reference_files` in its `agent.json`). An agent's own `craft.md` is always sent.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
@@ -588,8 +609,8 @@ agents/
   names a `tools` list, `write_artifact` refuses any file that is not its own output, and
   `generate_image` needs `generate_images: true`. A cold reader (`"context": "minimal"`) gets
   `write_artifact` and `finish` only, so it can neither browse the room nor be provoked.
-- **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
-  `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
+- **Add or change an agent:** edit `agents/agents.json`, create the matching folder, and name
+  it in a phase in `agents/phases.json`. `"context": "minimal"` gives it
   only its own folder, the pitch and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
 - **Random entry:** the `provoke` tool deals 3 cards from `agents/_shared/deck.txt` (one move
@@ -597,14 +618,6 @@ agents/
   target. Drawn by code, so it is not an idea the model talked itself into, and pulled rather
   than dealt: a writer asks when the obvious version of a beat is the one it keeps writing, and
   a writer who isn't stuck pays nothing. The draw shows in the live feed.
-
-## Hats
-
-`agents/hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
-yellow value, red reaction, green possibility). Pick one in the hat menu next to **Run**
-and it's added to every selected agent for that run; the round records which hat was used.
-Hats are modes, not jobs: e.g. run the Continuity Editor in the yellow hat to find what's
-worth keeping.
 
 ## Per-agent settings
 
@@ -630,7 +643,8 @@ view) explains them:
 | Director | 0.6 | 6,000 | judgment and consistency; sees reference images |
 | Plotter | 0.9 | 8,000 | structure with surprises |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
-| Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
+| Writer A | 0.7 | 16,000 | the spare, image-led voice; the longest output, 600 s timeout |
+| Writer B | 1.0 | 16,000 | the dialogue-led voice; same budget. Give the two different models if you can |
 | Layout Agent | 0.5 | 16,000 | valid layout JSON for every page |
 | Letterer | 0.2 | 8,000 | literal and careful |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
@@ -759,7 +773,7 @@ the app's own JS and CSS (a hard reload picks up a new build).
 Every model call — chat and image, successful or failed — is recorded three ways:
 
 ```
-rounds/<slug>-r03-ai/calls/<slug>-r03-ai-call-0007-scripter-chat.json   full request + response
+rounds/<slug>-r03-ai/calls/<slug>-r03-ai-call-0007-writer-a-chat.json   full request + response
 rounds/<slug>-r03-ai/<slug>-r03-ai-calls.jsonl                           one summary line per call
 logs/usage.jsonl                                               the same lines, across all campaigns
 ```
@@ -778,8 +792,8 @@ HTTP status, error, and the path to the full log.
 
 `app/agent.py` is a plain loop:
 
-1. The system prompt is the agent's mission plus its guides and Figma summaries.
-2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, your note, and the images.
+1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones) and Figma summaries.
+2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
 3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 

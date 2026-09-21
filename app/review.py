@@ -24,7 +24,8 @@ SETTINGS = "round-settings.json"
 KEPT, EDITED = "keep", "edited"        # the two kinds of lock a page can carry
 OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdicts went away
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
-                    "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0}
+                    "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
+                    "phase": "development", "writer": None}      # where the book is: see phases.py
 
 
 # ---- small json state files in the working copy ----------------------------------
@@ -124,7 +125,8 @@ def state(slug):
                   "notes": p["notes"], "kept": bool(entry.get("kept")), "comment": entry.get("comment", ""),
                   "edited": art != p["art"] or _mask(invert) != _mask(p["invert"]),
                   "locked": lk.get(n, {}).get("kind")}
-    open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages)
+    open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages
+                           and settings(slug)["phase"] == "execution")     # pages are reviewed in execution only
     g = thumbnails.geometry()
     return {"method": method, "pages": out, "round": last and last["id"],
             "open": open_for_review, "comment": d.get("comment", ""), "settings": settings(slug),
@@ -449,7 +451,7 @@ def gate(slug, role_titles):
         d = dial_in(slug, n, spec, l["ascii"])
         dialed[n] = {"text": d["text"], "layout": d["layout"]}
         if d["text"] < st["min_text_match"]:
-            fix.update({"scripter", "layout"})
+            fix.add("layout")            # the script is locked by now: the layout carries the lettering
             reasons.append(f"page {n} dialogue matches the showrunner's page {d['text']:.0%}")
             notes.append(f"Page {n}: make the layout's lettering match the showrunner's page exactly.\n{d['diff']}")
         elif d["layout"] < st["min_layout_match"]:
@@ -471,8 +473,11 @@ def text_layers(slug, version=None):
 
 def export_pages(slug, rnd):
     """Write <round>-pNN-{prompt,ascii,script,layout}.* into the round folder, and the
-    page prompts (the room's deliverable) into the working copy and the round."""
+    page prompts (the room's deliverable) into the working copy and the round. Before
+    execution there are no layouts, so there are no pages and nothing is written."""
     page_prompts, book_prompts = prompts.build(slug)
+    if not page_prompts:
+        return []
     rnd.write("page-prompts.md", book_prompts)
     for n, text in page_prompts.items():
         rnd.write_file(f"p{n:02d}-prompt.md", text)
