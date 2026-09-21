@@ -747,7 +747,11 @@ class Intake:
     def research_needed(self, work):
         text = " ".join([a["answer"] for a in work["decisions"]]
                         + [n["text"] for n in work["notes"]["general"] + work["notes"]["items"]]).lower()
-        return "[research]" in text or f"{projects.REFERENCES}/" in text
+        # the screen strips the [research] label from an accepted option, and an option cites
+        # its source by bare filename, so the shelf's own filenames count too
+        shelf = [name.rpartition("/")[2].lower() for name in self.sources([projects.REFERENCES])]
+        return ("[research]" in text or f"{projects.REFERENCES}/" in text
+                or any(name in text for name in shelf))
 
     def decisions_block(self, work):
         answers, said, held = work["decisions"], work["notes"], work["deferred"]
