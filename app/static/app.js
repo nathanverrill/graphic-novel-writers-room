@@ -1380,7 +1380,55 @@ function renderPhases(p) {
     (read.length ? `Read ${read.map((n) => `<a href="#" data-read="${esc(n)}">${esc(n)}</a>`).join(" · ")}, then: ` : "Run it, then: ") +
     `<i>${esc(now.asks)}</i> ${buttons}` +
     (now.gate === "review" ? "" : `<br><span class="path">Not there yet? Add a note above and run the phase again.</span>`);
+  loadOpenItems(p.phase);
 }
+
+// ---- open items: what intake could not settle, with proposed answers to approve or edit ----
+
+/** Under the intake gate: each open item, the Script Coordinator's proposals, and your answer.
+    Saving writes rules/decisions.md; the next intake run folds the answers into the files. */
+async function loadOpenItems(phase) {
+  const box = $("#open-items");
+  let data = { items: [] };
+  if (phase === "intake" && !state.version) {
+    try { data = await api(`/api/projects/${state.project}/open-items`); } catch {}
+  }
+  box.hidden = !data.items.length;
+  if (box.hidden) return;
+  const left = data.items.length - data.answered;
+  box.innerHTML = `<h3>Open items <span class="path">${data.answered} answered · ${left} open — your answers are saved to ` +
+    `${esc(data.decisions_file)}; run intake again to fold them in, or leave the rest for the room</span></h3>` +
+    data.items.map((it) => {
+      const start = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;
+      return `<form class="open-item ${it.answer ? "answered" : ""}" data-n="${it.n}">
+        <b>${it.n}. ${esc(it.question)}</b>
+        <div class="path">${esc(it.file)}${it.why ? ` — ${esc(it.why)}` : ""}</div>
+        ${it.options.map((o) => `<label><input type="radio" name="pick" value="${esc(o.text)}"> <b>${esc(o.id)}</b>` +
+          `${o.id === it.suggested ? " <span class='badge'>suggested</span>" : ""} ${esc(o.text)}</label>`).join("")}
+        <textarea name="answer" rows="2" placeholder="Your answer">${esc(start)}</textarea>
+        <div class="actions"><button>${it.answer ? "Update answer" : "Approve this answer"}</button>
+          ${it.answer ? `<button type="button" class="ghost" data-reopen>Leave open</button>` : ""}</div>
+      </form>`;
+    }).join("");
+}
+
+async function saveOpenItem(form, answer) {
+  try {
+    await api(`/api/projects/${state.project}/open-items/${form.dataset.n}`, { method: "POST", body: { answer } });
+    loadOpenItems("intake");
+  } catch (err) { alert(err.message); }
+}
+
+$("#open-items").addEventListener("change", (e) => {
+  if (e.target.name === "pick") e.target.form.answer.value = e.target.value;
+});
+$("#open-items").addEventListener("submit", (e) => {
+  e.preventDefault();
+  saveOpenItem(e.target, e.target.answer.value);
+});
+$("#open-items").addEventListener("click", (e) => {
+  if (e.target.dataset.reopen !== undefined) saveOpenItem(e.target.form, "");
+});
 
 async function movePhase(body) {
   try {

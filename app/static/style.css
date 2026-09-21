@@ -431,3 +431,12 @@ a.button { text-decoration: none; display: inline-block; }
 .phase { background: none; border: 1px solid currentColor; opacity: .55; }
 .phase.on { opacity: 1; font-weight: 600; }
 .gate { border-left: 3px solid currentColor; padding: .4rem .7rem; margin: .25rem 0 .6rem; line-height: 1.7; }
+
+/* ---- open items under the intake gate ---- */
+.open-items { border: 1px solid var(--line); border-radius: 6px; padding: .6rem .8rem; margin: 0 0 .8rem; }
+.open-items h3 { margin: 0 0 .5rem; }
+.open-items h3 .path { font-weight: normal; }
+.open-item { border-top: 1px solid var(--line); padding: .6rem 0; display: grid; gap: .3rem; }
+.open-item.answered { border-left: 3px solid var(--accent); padding-left: .6rem; }
+.open-item label { display: block; line-height: 1.4; cursor: pointer; }
+.open-item textarea { width: 100%; font: inherit; }

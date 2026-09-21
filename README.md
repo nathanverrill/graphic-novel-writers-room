@@ -9,7 +9,7 @@ by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `facts.md` | **Approve**: is this what your material says? Anything misread, missing, or contradictory that you can settle? |
+| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `facts.md`, `open-items.md` | **Answer the open items** — approve a proposed answer, edit it, or leave it — run intake again to fold them in, then **Approve** |
 | 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
 | 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
@@ -449,6 +449,16 @@ files at the first gate. In development their owners decide what is open and bui
 missing, in the same files — there is no second copy — and the Director's `brief.md` says what
 the book is and wins wherever it differs. The Script Coordinator organizes; it decides
 nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
+
+**Open items: the room proposes, you decide.** Last of all the Script Coordinator writes
+`open-items.md`: every gap and contradiction from the three Open lists, numbered, each with
+one to three proposed answers and the one it would pick. Both screens show them under the
+intake gate. For each item you approve a proposal, edit it into your own answer, or leave it
+open for the room to settle in development. Your answers are yours, so they do not go on the
+room's desk: they are written to the campaign's `rules/decisions.md`, where they bind the book
+like any rule and survive every rerun. **Run intake again** and the Script Coordinator states
+each answer as FIXED in the file it belongs to and drops the item from the list. You can edit
+`rules/decisions.md` by hand too; it is plain markdown, one `## question` per answer.
 
 **Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
 `input/` holds raw notes: the three files come out thin with long Open lists, and development

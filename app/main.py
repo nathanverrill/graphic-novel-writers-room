@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, mcp, notes, objectstore, phases, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -649,6 +649,27 @@ def move_phase(slug: str, body: PhaseMove):
     except ValueError as e:
         raise HTTPException(400, str(e))
     raise HTTPException(400, "action must be approve, pick or go")
+
+
+# ---- open items: what intake could not settle, and your answers ---------------
+
+class OpenItemAnswer(BaseModel):
+    answer: str | None = None      # your answer; empty takes it back and leaves the item open
+
+
+@app.get("/api/projects/{slug}/open-items")
+def open_items(slug: str):
+    not_found(projects.project_dir, slug)
+    return openitems.state(slug)
+
+
+@app.post("/api/projects/{slug}/open-items/{n}")
+def answer_open_item(slug: str, n: int, body: OpenItemAnswer):
+    not_found(projects.project_dir, slug)
+    try:
+        return openitems.answer(slug, n, body.answer)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
 
 
 @app.get("/api/projects/{slug}/review")

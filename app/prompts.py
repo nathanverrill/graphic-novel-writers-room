@@ -338,7 +338,7 @@ def page_prompt(spec, ctx):
     # Whoever the panels describe but nobody names: a page where Alex works in silence still
     # has to carry his visual lock, or the artist draws a different boy every page.
     described = " ".join(str(p.get("description") or "") for p in panel_specs)
-    for name in thumbnails.named_in(ctx["bible"], described):
+    for name in named_in(ctx["bible"], described):
         if name.upper() not in [n.upper() for n in names]:
             names.append(name)
     chapter = ctx.get("chapter")
@@ -358,7 +358,7 @@ def page_prompt(spec, ctx):
     if names:
         out += ["", "**Characters — draw them exactly as described:**", ""]
         for name in names:
-            look = clean_look(thumbnails.looks_for(ctx["bible"], [name]))
+            look = clean_look(looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
     if ctx.get("lettering") != "layer":
         out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
@@ -391,6 +391,74 @@ def page_prompt(spec, ctx):
         out += ["", "**The page's script, for reference:**", "", fence + "text",
                 script.replace(fence, "'" * 3), fence]
     return "\n".join(out).strip() + "\n"
+
+
+# ---- who is on the page: characters.md -----------------------------------
+
+def character_entries(bible):
+    """The character headings in characters.md: "### ALEX PHANTUM" under a "## Characters" section,
+    or "## Alex Phantum" straight under a "# Characters" title — agents write both.
+
+    Used to find who is on a page when nobody names them — a panel description says Alex is
+    waist-deep in a maintenance pit, and the artist still needs his visual lock."""
+    people = re.compile(r"\bcharacters?\b|\bcast\b|\bensemble\b", re.I)
+    not_a_name = re.compile(r"\btest\b|^open\b|\bwants?\b|\bnotes?\b", re.I)
+    names, in_people, file_is_people = [], False, False
+    for line in (bible or "").split("\n"):
+        m = re.match(r"^(#{1,6})\s+(.*)", line)
+        if not m:
+            continue
+        depth, head = len(m.group(1)), m.group(2).strip().rstrip("*").strip()
+        is_name = 1 <= len(head.split()) <= 4 and not head.endswith(":") and not not_a_name.search(head)
+        if depth == 1:
+            file_is_people = in_people = bool(people.search(head)) and not not_a_name.search(head)
+        elif depth == 2 and (people.search(head) or not file_is_people or not is_name):
+            in_people = bool(people.search(head)) and not not_a_name.search(head)
+        elif in_people and is_name:
+            names.append(head)
+    return names
+
+
+def named_in(bible, text):
+    """Bible characters a passage mentions, by full name or by the name they go by."""
+    found = []
+    for name in character_entries(bible):
+        first = name.split()[0]
+        if re.search(rf"\b{re.escape(first)}\b", text or "", re.I):
+            found.append(first.title() if not first.isupper() or len(first) > 6 else first)
+    return found
+
+
+def looks_for(bible, labels):
+    """The bible's description of each label, verbatim, so image prompts stay on model.
+
+    A character's own entry wins over any other entry that merely mentions them: the bible says
+    "Ada, who challenges his lone-wolf independence" inside Alex's entry, and matching on the
+    name alone handed Ada his description — and every page prompt drew two of him."""
+    entries = []            # (heading, body) for each "### Name" block, in order
+    heading, buf = "", []
+    for line in (bible or "").split("\n"):
+        if re.match(r"^#{1,6}\s", line):
+            if buf:
+                entries.append((heading, "\n".join(buf).strip()))
+            heading, buf = re.sub(r"^#+\s*", "", line).strip(), []
+        else:
+            buf.append(line)
+    if buf:
+        entries.append((heading, "\n".join(buf).strip()))
+
+    found = []
+    for label in dict.fromkeys(labels):
+        word = re.compile(rf"\b{re.escape(label)}\b", re.I)
+        own = [body for head, body in entries if word.search(head) and body]
+        if not own:         # no entry of their own: fall back to whoever describes them
+            paras = [p.strip() for p in re.split(r"\n\s*\n", bible or "") if p.strip()]
+            hits = [p for p in paras if word.search(p)]
+            own = [next((p for p in hits if "visual" in p.lower()), hits[0])] if hits else []
+        if own:
+            best = next((b for b in own if "visual" in b.lower()), own[0])
+            found.append(best[:500])
+    return " ".join(found)
 
 
 def context(slug, version=None):

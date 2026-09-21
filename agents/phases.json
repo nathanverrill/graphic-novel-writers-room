@@ -7,12 +7,13 @@
       "script_coordinator"
     ],
     "gate": "approve",
-    "asks": "Is this what your material says? Check each file's Open list: anything misread, missing, or contradictory that you can settle now?",
+    "asks": "Is this what your material says? Then answer the open items: approve a proposed answer, edit it, or leave it for the room. Run intake again to fold your answers in.",
     "read": [
       "characters.md",
       "world.md",
       "story.md",
-      "facts.md"
+      "facts.md",
+      "open-items.md"
     ]
   },
   {

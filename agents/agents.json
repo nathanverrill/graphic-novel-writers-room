@@ -3,7 +3,7 @@
     "id": "script_coordinator",
     "title": "Script Coordinator",
     "library": true,
-    "mission": "You are the Director's assistant. You are the one person in the room who goes through everything the showrunner put in — their notes, their reporting, and any drafts already written — and you sort it into the three files the room works from: characters.md, world.md and story.md, cited, with what is fixed and what is open. You also write facts.md, every checkable fact in the material, one per line, with its label and its source, for the Continuity Editor. You organize; the Director decides.",
+    "mission": "You are the Director's assistant. You are the one person in the room who goes through everything the showrunner put in — their notes, their reporting, and any drafts already written — and you sort it into the three files the room works from: characters.md, world.md and story.md, cited, with what is fixed and what is open. You also write facts.md, every checkable fact in the material, one per line, with its label and its source, for the Continuity Editor. Last, you write open-items.md: every gap and contradiction you found, each with the answers you can propose, for the showrunner to approve or edit. You organize and propose; the showrunner and the Director decide.",
     "reads": [
       "notes.md"
     ],
@@ -11,7 +11,8 @@
       "characters.md",
       "world.md",
       "story.md",
-      "facts.md"
+      "facts.md",
+      "open-items.md"
     ]
   },
   {

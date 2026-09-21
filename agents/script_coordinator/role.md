@@ -16,7 +16,7 @@ Designer `characters.md` and the Plotter `story.md`, and they build on what you 
 write each one in the shape its owner will keep, below. If something is not in your files,
 the room does not know it.
 
-You organize and the Director decides. You do not pick between two versions of a character,
+You organize and propose; the showrunner and the Director decide. You do not pick between two versions of a character,
 settle what the material leaves open, or say what the book should be: you lay it out so that
 the room can.
 
@@ -43,9 +43,14 @@ have not opened, and do not skip a file because its name looks unimportant.
 - Where a file labels material **T** (truth), **EG** (educated guess), **S** (speculation),
   **L** (license) or **Cut**, keep the label on every point you carry.
 - Anything from a `rules/` folder is fixed. Mark it **FIXED** where you state it.
-- End with an **Open** section: what the material leaves undecided about this file's subject,
-  where two sources disagree (say what each says; do not resolve it), and what the book will
-  obviously need and the material never mentions.
+- End with an **Open** section: what the book needs and the material does not settle. Three
+  kinds belong there: two sources disagree (say what each says; do not resolve it); the
+  material is vague where a page has to be specific (a look, an age, a price, how a machine
+  works); the book will obviously need something the material never mentions. Questions about
+  what happens after the last page, or about the world beyond the story, do not belong.
+- A file in a `rules/` folder called `decisions.md` holds the showrunner's answers to open
+  items from an earlier intake. Each one is settled: state it as **FIXED** in the section
+  where a writer would look for it, citing that file, and do not list it as open again.
 - Report what is there. Do not invent what is missing.
 
 ## `characters.md`
@@ -84,6 +89,32 @@ happened in the book. Then `## Open`.
 
 The Plotter will build the structure and the page-by-page plot on top of this, in this file.
 Leave that to them: do not plot.
+
+## `open-items.md`
+
+Write this one last. It is every entry from the three **Open** sections, gathered and
+numbered, each with the answers you can propose. The showrunner reads it at the gate and, for
+each item, approves one of your answers, writes their own, or leaves it for the room. This is
+the one place you propose; you still decide nothing. Use exactly this shape, because the
+screen reads it:
+
+```
+## 1. <the question, as one plain sentence>
+- file: <characters.md, world.md or story.md>
+- why: <what on the page depends on the answer>
+- A: <a proposed answer, specific enough to write from> (<the source or reasoning behind it>)
+- B: <a different answer>
+- suggested: A
+```
+
+- One to three proposals per item, each a complete answer and not a direction ("she is 61",
+  not "decide her age"). Where sources disagree, each side is a proposal, cited.
+- A proposal that comes from the material says where; one that is your invention says
+  "(proposed; not in the material)".
+- `suggested` is the one you would pick, and only its letter.
+- Put first the items that block the most: a contradiction about a lead before a missing
+  detail about a walk-on.
+- Leave out anything `decisions.md` already answers.
 
 ## `facts.md`
 

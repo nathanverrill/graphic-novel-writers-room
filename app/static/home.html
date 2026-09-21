@@ -59,6 +59,13 @@
   .note { text-align: center; color: var(--muted); font-size: .95rem; margin: 1.25rem 0 0; }
   .note.bad { color: var(--bad); }
 
+  /* ---- intake's open items ---- */
+  .open-item { border: 1px solid var(--line, #ddd); border-radius: 8px; padding: .8rem; margin: .8rem 0; text-align: left; }
+  .open-item.answered { border-left: 4px solid currentColor; }
+  .open-item textarea { width: 100%; font: inherit; margin: .4rem 0; box-sizing: border-box; }
+  .open-item button { font: inherit; padding: .45rem .8rem; margin: .15rem .3rem .15rem 0; }
+  .open-item button.pick { font-weight: normal; opacity: .8; }
+
   /* ---- the gate: the question, and the buttons that answer it ---- */
   .gate { text-align: center; margin: 1rem 0; }
   .gate p { color: var(--ink); margin: 0 0 .75rem; }
@@ -151,9 +158,59 @@ async function show() {
     gate.append(b);
   };
   if (now.gate === "approve") button("Approve", { action: "approve" });
+  if (now.id === "intake") showOpenItems();
   if (now.gate === "pick")
     for (const [id, file] of Object.entries(now.writes)) if (have.has(file)) button(`Pick ${title(id)}`, { action: "pick", writer: id });
   if (now.gate === "review") showSketches();
+}
+
+/** Intake's open items: the Script Coordinator's proposed answer to each, to approve, edit or leave.
+    An answer is saved to the campaign's rules/decisions.md; running intake again folds it in. */
+async function showOpenItems() {
+  const { items, answered } = await api(`/api/projects/${SLUG}/open-items`);
+  sheets.innerHTML = "";
+  if (!items.length) return;
+  const head = document.createElement("p");
+  head.className = "note";
+  head.textContent = `${items.length - answered} open items, ${answered} answered. Approve a proposed answer, edit it, or leave it for the room — then run intake again.`;
+  sheets.append(head);
+  for (const it of items) {
+    const card = document.createElement("div");
+    card.className = "open-item" + (it.answer ? " answered" : "");
+    const q = document.createElement("b");
+    q.textContent = `${it.n}. ${it.question}`;
+    const why = document.createElement("p");
+    why.className = "note";
+    why.textContent = [it.file, it.why].filter(Boolean).join(" — ");
+    const box = document.createElement("textarea");
+    box.rows = 3;
+    box.value = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;
+    const picks = document.createElement("div");
+    for (const o of it.options) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "pick";
+      b.textContent = o.id + (o.id === it.suggested ? " (suggested)" : "");
+      b.title = o.text;
+      b.onclick = () => { box.value = o.text; };
+      picks.append(b);
+    }
+    const save = async (answer) => {
+      try { await api(`/api/projects/${SLUG}/open-items/${it.n}`, { answer }); showOpenItems(); } catch (e) { say(e.message, true); }
+    };
+    const ok = document.createElement("button");
+    ok.textContent = it.answer ? "Update" : "Approve";
+    ok.onclick = () => save(box.value);
+    card.append(q, why, picks, box, ok);
+    if (it.answer) {
+      const open = document.createElement("button");
+      open.className = "pick";
+      open.textContent = "Leave open";
+      open.onclick = () => save("");
+      card.append(open);
+    }
+    sheets.append(card);
+  }
 }
 
 function mark(role, state) {
