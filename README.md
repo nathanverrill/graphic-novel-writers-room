@@ -543,7 +543,7 @@ What each one reads now:
 | Writer | Reads in full |
 |---|---|
 | Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
-| Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
+| Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `references/triangle-water-wars`, `social-innovators-framework` |
 | Character Designer | the bible, Alpha, `hard-sf-rules` |
 | Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
 | Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
