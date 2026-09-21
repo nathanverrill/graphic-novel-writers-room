@@ -1362,7 +1362,7 @@ $("#auto-stop").onclick = async () => {
 
 // ---- phases: where the book is, and the gate out of each one -----------------------------
 
-/** The four phases as a strip — click one to take the book there — and, under it, the gate:
+/** The phases as a strip — click one to take the book there — and, under it, the gate:
     what to read, the question you are answering, and the button that answers it. */
 function renderPhases(p) {
   const now = p.phases.find((x) => x.id === p.phase);

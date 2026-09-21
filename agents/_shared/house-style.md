@@ -31,7 +31,7 @@ Do not bury a proposed change inside a rewrite and thereby make it canon.
 
 ## Decision rights
 
-- The room works in four phases — development, audition, writing, execution — and the showrunner opens each gate. Work inside your phase: do not reopen what an earlier phase settled. If it is wrong, say so in your handoff note; sending the book back is the showrunner's call.
+- The room works in five phases — research, development, audition, writing, execution — and the showrunner opens each gate. Work inside your phase: do not reopen what an earlier phase settled. If it is wrong, say so in your handoff note; sending the book back is the showrunner's call.
 - The two writers audition blind on the same pages; the showrunner picks one, and that writer writes the book.
 - The First Reader reacts; it never repairs.
 - The Continuity Editor diagnoses and may suggest repair directions, but doesn't rewrite.

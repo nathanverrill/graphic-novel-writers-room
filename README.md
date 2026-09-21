@@ -4,21 +4,22 @@ A web-based, agentic writers' room for graphic novels. Its product is **page pro
 for every page, a complete markdown brief you paste into an image model (outside the room)
 to draw the finished page. Drawing the pages is not this application's job.
 
-The room works in **four phases**, and you stand at the gate between each. Nothing moves on
+The room works in **five phases**, and you stand at the gate between each. Nothing moves on
 by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Development** | Researcher → Director → Plotter → Character Designer → Continuity Editor | `research.md`, `facts.md`, `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
-| 2 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
-| 3 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
-| 4 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
+| 1 | **Research** | Researcher | `research.md`, `facts.md` | **Approve**: is this what the material says? Anything misread, missing, or contradictory that you can settle? |
+| 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
+| 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
+| 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
+| 5 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
 
 Three rules make this work, and they are the whole design:
 
 - **A phase never reruns the ones before it.** A lettering problem reruns the Letterer, not the
   writer. Not happy with a phase? Add a note and run it again; each agent revises its own last draft.
-- **The first three gates are your judgment; the last one is measured.** Execution checks itself
+- **The first four gates are your judgment; the last one is measured.** Execution checks itself
   — right page count, no layout issues, no continuity blockers — and reruns its own agents until
   it passes (up to **Fix passes**), before it asks you anything.
 - **You can always go back.** Click any phase to take the book there. Nothing is deleted.
@@ -28,11 +29,12 @@ and what to read before you decide. The code that runs it is `app/phases.py` and
 
 ## The agents
 
-Nine agents. Each is a folder with a `role.md` (the job and its deliverable), a `craft.md` (how
+Ten agents. Each is a folder with a `role.md` (the job and its deliverable), a `craft.md` (how
 to do that job well) and an `agent.json` (its model and settings).
 
 | Agent | Phase | Writes | What it is for |
 |---|---|---|---|
+| Researcher | research | `research.md`, `facts.md` | the only reader of what you put in: a cited synthesis for the Director, a fact list for the Continuity Editor |
 | Director | development | `brief.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction |
 | Plotter | development | `outline.md` | what happens, in what order, on which page — never the dialogue |
 | Character Designer | development | `bible.md` | a visual lock per character, pasted word for word into every page prompt |
@@ -60,7 +62,7 @@ chat client or an editor can work on a book without the screen.
 
 ## Two screens
 
-**`/` is one button.** It runs the phase the Prosperity book is in — **Start development**,
+**`/` is one button.** It runs the phase the Prosperity book is in — **Start research**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
 spinning, and under it the gate — the question, and **Approve** or **Pick Writer A / Pick
 Writer B**. After execution it shows the lettered pages. Built for a phone, nothing to set.
@@ -82,7 +84,7 @@ Campaigns on the left; the book in the middle; what the room is doing on the rig
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
-**Run *phase*** sits above the tabs with the four phases, the gate and the showrunner note, so
+**Run *phase*** sits above the tabs with the five phases, the gate and the showrunner note, so
 it's there whichever tab you're on; in execution, when a review is waiting, **Review ↓** appears
 next to it. Changing the previewed page opens
 that page's prompt below it.
@@ -135,7 +137,7 @@ bible's visual locks and the Layout Agent's panel descriptions — that's where 
 ## Rounds and review
 
 1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
-   script (high level, directional; saved as `input/draft-script.md`). It starts in development.
+   script (high level, directional; saved as `input/draft-script.md`). It starts in research.
 2. **Run *phase*** — runs the phase the book is in, then stops for you. Read what the gate lists,
    and approve, pick, or add a note and run it again. **Pause** holds a round between two agents.
    In execution the room also checks the **readiness gate**: exactly the right pages, zero
@@ -449,7 +451,7 @@ desk still reaches an agent — under its own file names, as the project's own w
 different thing from reference material.
 
 The campaign folders are what the room calls the **library**, and one agent reads it: the
-**Researcher**, first in development, who reads every file the round picked — `rules/`,
+**Researcher**, the whole of the research phase, who reads every file the round picked — `rules/`,
 `input/`, `references/` and the shared `evoke/` — and writes `research.md` for the Director
 and `facts.md` for the Continuity Editor. Every other agent knows the material through the
 brief the Director makes from it, and its own craft. A file reaches the Researcher as `library/<its path>`.
@@ -562,7 +564,7 @@ Everything an agent knows comes from its folder:
 ```
 agents/
   agents.json             title, mission, reads, outputs
-  phases.json             the four phases: who runs in each, in order, and each gate
+  phases.json             the five phases: who runs in each, in order, and each gate
   tools/                  what an agent can call: one json schema per tool
   _shared/                given to every agent: house-style.md, craft.md, the provocation deck
   _writers/               given to both writers: role.md, craft.md, actual-script-writing.md

@@ -25,7 +25,7 @@ KEPT, EDITED = "keep", "edited"        # the two kinds of lock a page can carry
 OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdicts went away
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
-                    "phase": "development", "writer": None}      # where the book is: see phases.py
+                    "phase": "research", "writer": None}      # where the book is: see phases.py
 
 
 # ---- small json state files in the working copy ----------------------------------
