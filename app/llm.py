@@ -94,7 +94,12 @@ def chat(cfg, messages, tools=None, log=None):
     for attempt in range(3):
         try:
             data = _post(cfg.base_url + "/chat/completions", cfg.api_key, body, cfg.timeout, log, "chat")
-            break
+            failed = _error_inside(data)
+            if not failed:
+                break
+            if attempt == 2:
+                raise LLMError(failed.get("code") or 502, json.dumps(failed))
+            time.sleep(20 if failed.get("code") == 429 else 5)      # rate limit, upstream timeout: wait and retry
         except LLMError as e:
             fix = _relax(body, e.body) if e.status == 400 and attempt < 2 else None
             if not fix:
@@ -106,6 +111,19 @@ def chat(cfg, messages, tools=None, log=None):
         raise LLMError(200, json.dumps(data)) from None
     message["finish_reason"] = data["choices"][0].get("finish_reason")   # e.g. "length": cut off
     return message
+
+
+def _error_inside(data):
+    """A provider's failure delivered as a 200: OpenRouter answers an upstream timeout or rate
+    limit with an empty message, finish_reason "error" and the error beside it. Read as a reply,
+    that is an agent that said nothing and wrote nothing, and the round carries on without it."""
+    try:
+        choice = data["choices"][0]
+    except (KeyError, IndexError, TypeError):
+        return data.get("error") if isinstance(data, dict) else None
+    if choice.get("error") or choice.get("finish_reason") == "error":
+        return choice.get("error") or {"message": "the provider reported an error with no detail"}
+    return None
 
 
 _LEARNED = {}   # (base_url, model) -> fixes that model needed, so later calls skip the retry

@@ -439,6 +439,14 @@ class Agent:
                                      "and do not write a tool call as text: call write_artifact now, with the complete "
                                      "file as its content, then call finish."})
                     continue
+                missing = [n for n in self.role.outputs if n not in self.written]
+                if missing and not asked_for_rest and len(self.role.outputs) > 1:
+                    asked_for_rest = True       # it stopped with files unwritten: ask once for the rest
+                    self.emit("warn", text=f"Stopped without writing {', '.join(missing)} — asking once for them.")
+                    messages.append({"role": "user", "content":
+                                     f"You have not written {', '.join(missing)}. Write each of them now with "
+                                     "write_artifact, then call finish."})
+                    continue
                 return self.wrap_up(text)
 
             finished = None
