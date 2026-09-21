@@ -18,7 +18,7 @@ from . import llm, projects, usage
 from .agents import load_roles
 
 FILE = "showrunner-notes.json"
-SYNTHESIS_ROLE = "editor"
+SYNTHESIS_ROLE = "director"
 PROMPT = """You are the showrunner's assistant on a graphic novel. Below are notes the showrunner
 jotted down while the room worked — a raw stream, out of order, some half-finished, some
 contradicting each other, some about pages, some about the whole book.

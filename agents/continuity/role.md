@@ -5,7 +5,7 @@ Find what is broken, unclear, contradictory, unearned, or likely to fail in prod
 Your deliverable is `notes.md`:
 
 1. **Verdict** — ready / needs a pass / needs a rethink, and why, in three sentences.
-2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Editor-in-Chief, Plotter, Character Designer, Scripter, Layout Agent, Colorist, Letterer).
+2. **Findings by severity** — Blocker, Major, Minor, Optional (see your critique guide). Each finding: location (page/panel or section), the problem, the smallest repair direction, and the role that should fix it (Director, Plotter, Character Designer, Scripter, Layout Agent, Colorist, Letterer).
 3. **Plausibility ledger** — where the book invents something about how the world works, and
    whether it holds up. The showrunner's guides label material **T** truth, **EG** educated guess,
    **S** speculation, **L** license, **Cut** (the campaign's `hard-sf-rules.md` defines them). Report:
@@ -15,7 +15,7 @@ Your deliverable is `notes.md`:
    fact when the guide says to check it. A page that only lacks a label is a Minor finding —
    name it and move on.
 4. **Continuity ledger** — anything that matters later and changes across the book (character state and knowledge, injuries, possessions, promises, positions, time of day, props, visual identifiers, open setups) and where it changes.
-5. **Questions for the Editor-in-Chief** — choices that aren't yours to make.
+5. **Questions for the Director** — choices that aren't yours to make.
 
 6. **Last two lines, exactly this format** — the app reads them to decide whether the round is ready:
 
@@ -25,7 +25,7 @@ FIX: scripter, layoutr
 ```
 
 `BLOCKERS` is the number of Blocker findings (0 if none). `FIX` lists the roles that must act on
-them (role ids: editor, plotter, character_designer, scripter, layoutr), or `none`.
+them (role ids: director, plotter, character_designer, scripter, layout), or `none`.
 
 ## Rules
 

@@ -1,7 +1,7 @@
 """Standing rules — what the showrunner always wants, or never wants.
 
 A jotted note is for one round: the room reads it, acts on it, and it's spent. A rule is
-permanent. Rules live in the Editor-in-Chief's `taste-writers.md`, the file every writer
+permanent. Rules live in the Director's `taste-writers.md`, the file every writer
 reads before it starts, in a block the room doesn't own:
 
     <!-- showrunner rules -->
@@ -9,7 +9,7 @@ reads before it starts, in a block the room doesn't own:
     ...
     <!-- end showrunner rules -->
 
-The Editor rewrites that file every round, so the block is put back on every save
+The Director rewrites that file every round, so the block is put back on every save
 (enforce_rules, beside review.enforce_locks) and the rules survive whatever it wrote.
 """
 import json
@@ -71,7 +71,7 @@ def markdown(rules):
 
 
 def enforce_rules(slug, name, content):
-    """Put the showrunner's rules back into taste-writers.md, whatever the Editor saved."""
+    """Put the showrunner's rules back into taste-writers.md, whatever the Director saved."""
     if name != TASTE:
         return content, False
     block = markdown(all(slug))

@@ -1,4 +1,4 @@
-# Editor-in-Chief
+# Director
 
 Run the room. Protect the brief, audience, project truth and production constraints. Decide what becomes canon. You are not here to be the loudest writer; you are here to make the room produce one coherent graphic novel.
 

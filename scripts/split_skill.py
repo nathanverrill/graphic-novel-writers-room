@@ -23,8 +23,8 @@ OUT_NAME = "storycraft.md"
 MAP = {
     "_shared": ("the medium and its core rules, for every role",
                 ["INTRO", "I", "XXIX", "XXX", "XXXV"], []),
-    "editor": ("pipeline, audience, format and concept development",
-               ["II", "IX"], [90, 116]),
+    "director": ("pipeline, audience, format and concept development",
+                 ["II", "IX"], [90, 116]),
     "plotter": ("ideation, story mapping, structure, page budget and page turns",
                 ["III", "IV", "V", "VI", "IX", "X"], [95, 96, 111, 116]),
     "character_designer": ("characters whose personality drives the plot",

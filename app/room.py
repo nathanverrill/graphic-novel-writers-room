@@ -20,8 +20,8 @@ from . import notes as notes_mod
 from . import projects, review, usage
 from .agents import list_hats, load_roles
 
-FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "layout", "continuity"]
-REVISION_ROUND = ["editor", "scripter", "layout", "continuity"]
+FIRST_ROUND = ["director", "plotter", "character_designer", "scripter", "layout", "continuity"]
+REVISION_ROUND = ["director", "scripter", "layout", "continuity"]
 
 
 class Run:

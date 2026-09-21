@@ -22,7 +22,7 @@ and run only if you tick them and press **Run selected roles only**.
 
 | In a round | Agent | Writes | Notes |
 |---|---|---|---|
-| 1 | Editor-in-Chief | `brief.md` | owns the rules, the decision log and the visual direction |
+| 1 | Director | `brief.md` | owns the rules, the decision log and the visual direction |
 | 2 | Plotter | `outline.md` | |
 | 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
 | 4 | Scripter | `script.md` | |
@@ -32,10 +32,10 @@ and run only if you tick them and press **Run selected roles only**.
 | — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
 | — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
 
-A revision round — the one that runs after your review — is Editor-in-Chief, Scripter,
+A revision round — the one that runs after your review — is Director, Scripter,
 Layout Agent, Continuity Editor.
 
-The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
+The Director also keeps `taste-writers.md`: what you actually said and changed in your
 reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
 or decision needed (see `agents/_shared/house-style.md`).
 
@@ -118,7 +118,7 @@ bible's visual locks and the Layout Agent's panel descriptions — that's where 
 
 1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
    script (high level, directional; saved as `references/draft-script.md`).
-2. **Write round** — the room runs Editor → Plotter → Character Designer → Scripter →
+2. **Write round** — the room runs Director → Plotter → Character Designer → Scripter →
    Layout Agent → Continuity Editor, then checks the **readiness gate**: exactly the right
    pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
    fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
@@ -136,7 +136,7 @@ bible's visual locks and the Layout Agent's panel descriptions — that's where 
    Nothing has to be decided: keep what's finished, say what you want on the rest. Your
    notes and edits are saved as you go.
 4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
-   revision round that works only from it: the Editor updates the brief and the taste file,
+   revision round that works only from it: the Director updates the brief and the taste file,
    the Scripter and Layout Agent work the open pages, and the gate checks that the pages you
    redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
@@ -336,14 +336,14 @@ again to release it.
 ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
 until something takes them: the next **Write round** folds them into the room's brief, and
 submitting a review adds them to `review.md`; either way they're saved in that round's folder and
-marked used. **Tidy into feedback** is one model call (the Editor's model) that groups the pile
+marked used. **Tidy into feedback** is one model call (the Director's model) that groups the pile
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
 notes. **x** drops a note you've changed your mind about.
 
 **Standing rules.** These are a different thing from the campaign's `rules/` folder: that holds
 what is true in the book, while these are how you want the room to work. A jotted note is for
 the next round only — the room reads it and it's spent. A rule holds for good. In the watch pad,
-say **Always**, **Never** or **Remember** and add it; the rule goes into the Editor-in-Chief's
+say **Always**, **Never** or **Remember** and add it; the rule goes into the Director's
 `taste-writers.md`, the file every writer reads before it starts, in a block the room doesn't
 own:
 
@@ -355,7 +355,7 @@ own:
 <!-- end showrunner rules -->
 ```
 
-The Editor rewrites that file every round, so the block is put back on every save and the
+The Director rewrites that file every round, so the block is put back on every save and the
 writer is told the rules are yours, not its. **Make a rule** on a jotted note moves its words
 into the rule box — pick always, never or remember, add it, and the note is spent. **x** drops
 a rule, which also takes it out of the taste file.
@@ -544,7 +544,7 @@ What each one reads now:
 
 | Writer | Reads in full |
 |---|---|
-| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
+| Director | the bible, Alpha, `hard-sf-rules` |
 | Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `references/triangle-water-wars`, `social-innovators-framework` |
 | Character Designer | the bible, Alpha, `hard-sf-rules` |
 | Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
@@ -624,7 +624,7 @@ view) explains them:
 
 | Agent | Temp | Max tokens | Why |
 |---|---|---|---|
-| Editor-in-Chief | 0.6 | 6,000 | judgment and consistency; sees reference images |
+| Director | 0.6 | 6,000 | judgment and consistency; sees reference images |
 | Plotter | 0.9 | 8,000 | structure with surprises |
 | Wild Card | 1.1 | 4,000 | divergent leaps; references on demand; few steps |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |

@@ -1,7 +1,7 @@
 [
   {
-    "id": "editor",
-    "title": "Editor-in-Chief",
+    "id": "director",
+    "title": "Director",
     "mission": "You run the room and own the vision. Turn the pitch and references into a creative brief the whole room can build on, and decide what becomes canon.",
     "reads": [
       "review.md",
