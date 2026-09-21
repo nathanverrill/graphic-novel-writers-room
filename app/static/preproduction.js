@@ -22,6 +22,84 @@ async function api(path, opts = {}) {
   return res.headers.get("content-type")?.includes("json") ? res.json() : res.text();
 }
 
+/* ---- markdown, rendered ------------------------------------------------
+ *
+ * Small on purpose. These files are headings, lists, emphasis, code spans,
+ * blockquotes and tables - what the room writes and nothing else. Everything is
+ * escaped before any of it runs, because the text comes from a model.  */
+
+function inline(t) {
+  return esc(t)
+    .replace(/`([^`]+)`/g, (_, c) => `<code>${c}</code>`)
+    .replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>")
+    .replace(/(^|\W)\*([^*\n]+)\*/g, "$1<em>$2</em>")
+    .replace(/(^|\W)_([^_\n]+)_/g, "$1<em>$2</em>")
+    .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" rel="noreferrer">$1</a>');
+}
+
+function markdown(src) {
+  const out = [];
+  const lines = String(src || "").split("\n");
+  let list = null, fence = null, para = [], quote = [], table = null;
+
+  const endPara = () => { if (para.length) { out.push(`<p>${inline(para.join(" "))}</p>`); para = []; } };
+  const endList = () => { if (list) { out.push(`</${list}>`); list = null; } };
+  const endQuote = () => {
+    if (quote.length) { out.push(`<blockquote>${markdown(quote.join("\n"))}</blockquote>`); quote = []; }
+  };
+  const endTable = () => {
+    if (!table) return;
+    const cells = (r, tag) => r.split("|").slice(1, -1)
+      .map((c) => `<${tag}>${inline(c.trim())}</${tag}>`).join("");
+    out.push(`<table><thead><tr>${cells(table[0], "th")}</tr></thead><tbody>` +
+      table.slice(2).map((r) => `<tr>${cells(r, "td")}</tr>`).join("") + `</tbody></table>`);
+    table = null;
+  };
+  const endAll = () => { endPara(); endList(); endQuote(); endTable(); };
+
+  for (const raw of lines) {
+    const line = raw.replace(/\s+$/, "");
+
+    if (/^```/.test(line)) {
+      if (fence === null) { endAll(); fence = []; }
+      else { out.push(`<pre><code>${esc(fence.join("\n"))}</code></pre>`); fence = null; }
+      continue;
+    }
+    if (fence !== null) { fence.push(raw); continue; }
+
+    if (/^>\s?/.test(line)) { endPara(); endList(); endTable(); quote.push(line.replace(/^>\s?/, "")); continue; }
+    endQuote();
+
+    if (/^\|.*\|$/.test(line)) {
+      endPara(); endList();
+      (table ||= []).push(line);
+      continue;
+    }
+    endTable();
+
+    if (!line.trim()) { endPara(); endList(); continue; }
+
+    const h = line.match(/^(#{1,6})\s+(.*)$/);
+    if (h) { endAll(); out.push(`<h${h[1].length}>${inline(h[2])}</h${h[1].length}>`); continue; }
+
+    if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)) { endAll(); out.push("<hr>"); continue; }
+
+    const li = line.match(/^(\s*)([-*+]|\d+[.)])\s+(.*)$/);
+    if (li) {
+      endPara();
+      const want = /^\d/.test(li[2]) ? "ol" : "ul";
+      if (list !== want) { endList(); out.push(`<${want}>`); list = want; }
+      out.push(`<li>${inline(li[3])}</li>`);
+      continue;
+    }
+    endList();
+    para.push(line.trim());
+  }
+  if (fence !== null) out.push(`<pre><code>${esc(fence.join("\n"))}</code></pre>`);
+  endAll();
+  return out.join("\n");
+}
+
 /* ---- which campaign ---------------------------------------------------- */
 
 async function pickCampaign() {
@@ -288,9 +366,23 @@ $("#docs").addEventListener("click", async (e) => {
   const a = e.target.closest("a[data-doc]"); if (!a) return;
   e.preventDefault();
   $("#viewer-name").textContent = a.dataset.doc;
-  $("#viewer-body").textContent = "loading…";
+  $("#viewer-body").innerHTML = "<p>loading…</p>";
   viewer.showModal();
-  $("#viewer-body").textContent = await api(`/api/projects/${state.slug}/artifacts/${a.dataset.doc}`);
+  const text = await api(`/api/projects/${state.slug}/artifacts/${a.dataset.doc}`);
+  viewer.dataset.raw = text;
+  $("#viewer-body").innerHTML = markdown(text);
+  $("#viewer-raw").setAttribute("aria-pressed", "false");
+});
+
+$("#viewer-raw").addEventListener("click", (e) => {
+  const on = e.target.getAttribute("aria-pressed") !== "true";
+  e.target.setAttribute("aria-pressed", on);
+  const body = $("#viewer-body"), text = viewer.dataset.raw || "";
+  if (on) {
+    body.innerHTML = "";
+    body.append(Object.assign(document.createElement("pre"), { className: "raw", textContent: text }));
+  }
+  else body.innerHTML = markdown(text);
 });
 
 (async () => {
