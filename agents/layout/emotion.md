@@ -1107,7 +1107,7 @@ For emotionally important comic panels:
 
 Example:
 
-> Medium close-up. Mera has just realized the system ignored her command. She remains outwardly composed, but her jaw tightens and she compulsively straightens the tablet on the table. Her eyes stay fixed on Alpha's display. No dialogue.
+> Medium close-up. Jo has just realized the system ignored her command. She remains outwardly composed, but her jaw tightens and she compulsively straightens the tablet on the table. Her eyes stay fixed on the display. No dialogue.
 
 ---
 

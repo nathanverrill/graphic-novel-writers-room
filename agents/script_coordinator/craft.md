@@ -23,8 +23,8 @@ across files so that neither has all of it.
 
 ## Specific beats general
 
-A writer can use "the plant runs on brine pumped from 400 m under the salar, and the pumps are
-Chinese" and cannot use "the region has a lithium industry". Carry the concrete detail: names,
+A writer can use "the pumps draw from 400 m down, and every one of them is imported" and
+cannot use "the region has an industry". Carry the concrete detail: names,
 numbers, objects, procedures, sensory particulars, the exact phrase a document uses. Where a
 source gives a character's look or a line of dialogue worth keeping, quote it.
 
@@ -37,8 +37,8 @@ Continuity Editor's plausibility ledger depends on these labels surviving you.
 
 ## Cite
 
-Every point names its file, in a short form the room can read back: `(input/bible.md)`,
-`(references/triangle-water-wars.md)`. A citation is what lets the Director check you, and
+Every point names its file, in a short form the room can read back: the folder and the file
+name, in parentheses. A citation is what lets the Director check you, and
 what lets a person find the passage again.
 
 ## Do not decide

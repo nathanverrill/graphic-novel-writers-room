@@ -19,10 +19,10 @@ The future arrives as a layer on top of the past, never as a replacement. Retrof
 
 ## Plausibility labels
 
-Everything here is labelled with the vocabulary defined in `campaigns/<campaign>/rules/hard-sf-rules.md`: **T** truth,
-**EG** educated guess, **S** speculation, **L** license, and **Cut** for what does not fit. The
-rules for a license, the license log and the Thorne and Tyson tests are in that file; read it
-before inventing anything the story then has to live with.
+Everything here is labelled with the room's plausibility vocabulary: **T** truth,
+**EG** educated guess, **S** speculation, **L** license, and **Cut** for what does not fit. Where
+the showrunner has set rules for a license, `world.md` carries them: check it before inventing
+anything the story then has to live with.
 
 Here the "science" is physics, engineering, economics, and how built things actually age.
 

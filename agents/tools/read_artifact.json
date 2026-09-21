@@ -1,5 +1,5 @@
 {
-  "description": "Read one project file, e.g. 'story.md', or (the Script Coordinator only) a library file such as 'library/prosperity/input/bible.md'.",
+  "description": "Read one project file, e.g. 'story.md', or (the Script Coordinator only) one of the showrunner's files, by the name list_artifacts gives it (it starts with 'campaigns/').",
   "parameters": {
     "type": "object",
     "properties": {
@@ -11,5 +11,5 @@
       "name"
     ]
   },
-  "_why": "The way an agent reaches anything not already in its prompt. Only the Script Coordinator may open library/ files; everyone else is pointed at characters.md, world.md and story.md, which it made from them."
+  "_why": "The way an agent reaches anything not already in its prompt. Only the Script Coordinator may open the showrunner's files under campaigns/; everyone else is pointed at characters.md, world.md and story.md, which it made from them."
 }

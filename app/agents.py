@@ -5,8 +5,6 @@
     agent.json    its provider, model and tuned defaults (committed; API keys live in
                   secrets/keys.json, per provider)
     images/       reference images sent to the model
-    figma.txt     Figma URLs, one per line (# comments allowed)
-    figma/*.json  Figma REST API exports, for offline use
 
 Every *.md in the folder is sent to the model, role.md first.
 
@@ -29,7 +27,7 @@ import re
 import random
 from dataclasses import dataclass, field
 
-from . import figma, keys
+from . import keys
 from .config import AGENTS_DIR, TOOLS_DIR, AgentConfig
 
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
@@ -167,39 +165,25 @@ def get_role(role_id):
     raise KeyError(role_id)
 
 
-def _figma_refs(folder):
-    refs = []
-    txt = folder / "figma.txt"
-    if txt.exists():
-        for line in txt.read_text().splitlines():
-            line = line.strip()
-            if line and not line.startswith("#"):
-                refs.append(line)
-    if (folder / "figma").is_dir():
-        refs += [f"figma/{p.name}" for p in sorted((folder / "figma").glob("*.json"))]
-    return refs
-
-
 def assets(folder_id):
     folder = AGENTS_DIR / folder_id
     if not folder.is_dir():
-        return {"guides": [], "images": [], "figma": []}
+        return {"guides": [], "images": []}
     img_dir = folder / "images"
     return {
         "guides": [p.name for p in sorted(folder.glob("*.md"),
                                           key=lambda p: (p.name != "role.md", p.name != "craft.md", p.name))],
         "images": [p.name for p in sorted(img_dir.iterdir())
                    if p.suffix.lower() in IMAGE_TYPES] if img_dir.is_dir() else [],
-        "figma": _figma_refs(folder),
     }
 
 
 def gather_context(role, log=lambda msg: None):
-    """Collect guide text, figma summaries and images for a role (plus _shared).
+    """Collect guide text and images for a role (plus _shared).
 
-    Returns (guides: [(label, text)], figma_text: [str], images: [(label, mime, bytes)]).
+    Returns (guides: [(label, text)], images: [(label, mime, bytes)]).
     """
-    guides, figma_text, images = [], [], []
+    guides, images = [], []
     folders = [SHARED] * (not role.minimal) + [role.shares] * bool(role.shares) + [role.id]
     for folder_id in folders:
         folder = AGENTS_DIR / folder_id
@@ -209,18 +193,7 @@ def gather_context(role, log=lambda msg: None):
         for name in a["images"]:
             p = folder / "images" / name
             images.append((f"{folder_id}/images/{name}", IMAGE_TYPES[p.suffix.lower()], p.read_bytes()))
-        for ref in a["figma"]:
-            try:
-                if ref.startswith("figma/"):
-                    text, pngs = figma.load_file(folder / ref)
-                else:
-                    text, pngs = figma.load_url(ref)
-            except Exception as e:  # a broken reference shouldn't stop the room
-                log(f"Figma reference {ref} failed: {e}")
-                continue
-            figma_text.append(text)
-            images += [(f"{ref} frame {i + 1}", "image/png", png) for i, png in enumerate(pngs)]
-    return guides, figma_text, images
+    return guides, images
 
 
 def _lines(path):

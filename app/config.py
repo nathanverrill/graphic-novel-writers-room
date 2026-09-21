@@ -13,7 +13,6 @@ AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · output/
 OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and never read back
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
-LIBRARY_DIRS = (CAMPAIGNS_DIR,)        # the library: what the Script Coordinator reads for the room
 LOGS_DIR = ROOT / "logs"               # usage ledger
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
@@ -46,13 +45,6 @@ def env_float(name):
 def env_int(name):
     v = env(name)
     return int(v) if v else None
-
-
-class Settings:
-    figma_token = env("FIGMA_TOKEN")
-
-
-settings = Settings()
 
 
 @dataclass

@@ -26,8 +26,7 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the campaign and round, so a file means the same thing
 wherever it ends up.
 
-The campaign's rules/, input/, drafts/ and references/ (and the shared evoke/) are the room's
-library. Only the Script Coordinator reads it (see agents.json, "library": true): it sorts it
+The campaign's rules/, input/, drafts/ and references/ are the room's library. Only the Script Coordinator reads it (see agents.json, "library": true): it sorts it
 into characters.md, world.md and story.md, and that is how the material reaches everyone else. A campaign can pick which files it uses
 ("references" in round-settings.json; default: all). Each file either binds the book or does
 not — see reference_kind. output/ is never among them: the room does not read its own work
@@ -40,7 +39,7 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import CAMPAIGNS_DIR, LIBRARY_DIRS, OUTPUT_NAME
+from .config import CAMPAIGNS_DIR, OUTPUT_NAME
 from .usage import add_to, empty_totals
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
@@ -56,12 +55,9 @@ def now():
     return datetime.now().isoformat(timespec="seconds")
 
 
-SHARED = "evoke"        # true of every campaign, so not a campaign you can run
-
-
 def campaign_dir(slug):
     path = CAMPAIGNS_DIR / slug
-    if slug != slugify(slug) or slug == SHARED or slug.startswith("_") or not path.is_dir():
+    if slug != slugify(slug) or slug.startswith("_") or not path.is_dir():
         raise FileNotFoundError(slug)
     return path
 
@@ -78,10 +74,10 @@ def project_dir(slug):
 
 
 def list_projects():
-    """Every campaign you can run: evoke is shared material, not a book."""
+    """Every campaign: a folder under campaigns/ whose name does not start with an underscore."""
     CAMPAIGNS_DIR.mkdir(exist_ok=True)
     return sorted(p.name for p in CAMPAIGNS_DIR.iterdir()
-                  if p.is_dir() and p.name != SHARED and not p.name.startswith("_"))
+                  if p.is_dir() and not p.name.startswith("_"))
 
 
 def pitch(slug):
@@ -191,7 +187,7 @@ def read_round_file(slug, version, name):
 # ---- references ------------------------------------------------------------
 
 def reference_files(slug, version=None):
-    """{name: Path} for reference .md files, project files overriding shared ones."""
+    """{name: Path} for the campaign's material: the files the round carries, or a round's copy."""
     found = {}
     if version is not None:
         pre = prefix(slug, version) + "ref-"
@@ -200,25 +196,22 @@ def reference_files(slug, version=None):
             found[p.name[len(pre):].replace("--", "/")] = p
         return found
     chosen = library_selection(slug)
-    for folder in LIBRARY_DIRS:
-        if not folder.is_dir():
-            continue
-        for p in sorted(folder.rglob("*.md")):     # the library is a tree: campaign, then folder
-            if p.name.startswith(".") or never_read(p.relative_to(folder)):
-                continue
-            name = library_name(p, folder)
-            if not in_scope(name, slug):
-                continue
-            if chosen is not None and name not in chosen:
-                continue
-            found[name] = p
-    return found
+    return {name: p for name, p in _material(slug) if chosen is None or name in chosen}
 
 
-def library_name(path, folder):
-    """What a library file is called: its path inside the library, so prosperity/rules/chapter-04
-    and prosperity/drafts/chapter-04 are two different files and read as what they are."""
-    return str(path.relative_to(folder))
+def _material(slug=None):
+    """(name, path) for every .md a campaign holds as material — or every campaign's, for search.
+
+    A file is named by its path under campaigns/, so prosperity/rules/chapter-04 and
+    prosperity/drafts/chapter-04 are two different files and read as what they are. A campaign
+    reads its own folder and nothing from another: Prosperity is not told about emperor
+    penguins because Avalanche exists."""
+    roots = [campaign_dir(slug)] if slug else [campaign_dir(s) for s in list_projects()]
+    for root in roots:
+        for p in sorted(root.rglob("*.md")):
+            rel = p.relative_to(CAMPAIGNS_DIR)
+            if not p.name.startswith(".") and not never_read(rel):
+                yield str(rel), p
 
 
 RULES = "rules"       # the book must not contradict it
@@ -239,28 +232,15 @@ def never_read(rel):
     every round. The desk reaches an agent as the project's own files, under their own names,
     which is a different thing from reference material.
 
-    (Only paths under LIBRARY_DIRS come through here — an agent's own agents/_shared/ is
+    (Only paths under campaigns/ come through here — an agent's own agents/_shared/ is
     loaded by name in agents.py.)"""
     return any(part.startswith("_") or part == OUTPUT_NAME for part in rel.parts)
-
-
-def in_scope(name, slug):
-    """Whether a library file is this campaign's to read.
-
-    A campaign reads its own material and the shared evoke/ material, and nothing from another
-    campaign. Prosperity must not be told about emperor penguins because Avalanche exists, and
-    Avalanche must not inherit the lithium triangle.
-
-    Scoping by the folder rather than by a list means adding a file to a campaign works
-    the moment you save it, and adding a whole new campaign cannot reach into the others."""
-    campaign = name.split("/", 1)[0]
-    return campaign in (SHARED, slug)
 
 
 def reference_kind(path):
     """What a folder says about a file: whether it binds the book, and whether it is a draft.
 
-    rules   campaigns/evoke/rules and a campaign's rules/: the book must not contradict it
+    rules   a campaign's rules/: the book must not contradict it
     drafts  a campaign's drafts/: pages or chapters already written. The best evidence of the
             story, the people and their voices, and still an idea draft: it binds nothing
     input   anywhere else in a campaign — input/, references/, a file at its root: read it,
@@ -280,22 +260,9 @@ def reference_kind(path):
 
 
 def library(slug=None):
-    """The library, or the part of it one campaign can read (see in_scope)."""
-    out = []
-    for folder in LIBRARY_DIRS:
-        if not folder.is_dir():
-            continue
-        for p in sorted(folder.rglob("*.md")):
-            if p.name.startswith(".") or never_read(p.relative_to(folder)):
-                continue
-            rel = p.relative_to(folder)
-            name = library_name(p, folder)
-            if slug is not None and not in_scope(name, slug):
-                continue
-            out.append({"name": name, "size": p.stat().st_size,
-                        "kind": reference_kind(p), "folder": folder.name,
-                        "group": str(rel.parent)})
-    return out
+    """One campaign's material, or every campaign's (for search)."""
+    return [{"name": name, "size": p.stat().st_size, "kind": reference_kind(p),
+             "group": str(p.relative_to(CAMPAIGNS_DIR).parent)} for name, p in _material(slug)]
 
 
 def library_selection(slug):
@@ -309,7 +276,7 @@ def library_selection(slug):
 
 def list_references(slug, version=None):
     return [{"name": n, "size": p.stat().st_size, "modified": p.stat().st_mtime, "kind": reference_kind(p),
-             "source": "version" if version is not None else "shared"}
+             "source": "version" if version is not None else "campaign"}
             for n, p in reference_files(slug, version).items()]
 
 
@@ -321,17 +288,10 @@ def read_reference(slug, name, version=None):
     read from the library — which is what makes "anything left off the picker is one
     read_artifact away" true, for the Script Coordinator and for the screen.
 
-    Another campaign's material is a different matter: it is not this book's to read, picked
-    or not, so in_scope applies here too."""
+    Another campaign's material is a different matter: it is not this book's to read."""
     found = reference_files(slug, version).get(name)
-    if found is None and version is None and in_scope(name, slug):
-        for folder in LIBRARY_DIRS:
-            root = folder.resolve()
-            candidate = (folder / name).resolve()
-            if candidate.is_file() and root in candidate.parents \
-                    and not never_read(candidate.relative_to(root)):   # inside, and not an _ folder
-                found = candidate
-                break
+    if found is None and version is None:
+        found = dict(_material(slug)).get(name)
     return found.read_text() if found else None
 
 

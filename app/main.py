@@ -14,7 +14,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import keys, lettering, llm, mcp, notes, objectstore, phases, projects, prompts, review, room, rules, search, thumbnails, usage
-from .config import AGENTS_DIR, AgentConfig, settings
+from .config import AGENTS_DIR, AgentConfig
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
 room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
@@ -72,7 +72,6 @@ def index():
 def config():
     """The .env defaults, as a role with no agent.json would see them."""
     d = AgentConfig().resolve().public()
-    d["figma_token_set"] = bool(settings.figma_token)
     d["storage"] = objectstore.describe()
     return d
 
@@ -609,7 +608,7 @@ def update_settings(slug: str, body: RoundSettings):
     if body.auto_rounds is not None and not 0 <= body.auto_rounds <= 20:
         raise HTTPException(400, "auto_rounds must be 0-20")
     if body.references not in (None, ["*"]):
-        known = {f["name"] for f in projects.library()}
+        known = {f["name"] for f in projects.library(slug)}
         unknown = [r for r in body.references if r not in known]
         if unknown:
             raise HTTPException(400, f"not in the library: {', '.join(unknown)}")

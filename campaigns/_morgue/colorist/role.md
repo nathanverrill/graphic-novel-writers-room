@@ -7,4 +7,4 @@ Your deliverable is `color-script.md`:
 3. **Character color keys** — hex values for skin, hair, costume per character.
 4. **Rules** — e.g. "red appears only when the villain is present".
 
-Pull hex values from Figma palettes and reference images when provided.
+Pull hex values from reference images when provided.

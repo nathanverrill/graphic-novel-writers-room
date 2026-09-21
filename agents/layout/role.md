@@ -14,7 +14,7 @@ Flags: continuity / production issues
 Then add the page's `layout` block (format below). Each page's prompt for the image model is built from it, so its panel descriptions are the illustrator's instructions.
 
 Use the character visual locks from `characters.md`, and the location visual locks from `world.md`, word for word when you mention a character's look.
-If you were given reference images or Figma frames, describe how the layouts follow them.
+If you were given reference images, describe how the layouts follow them.
 
 One `layout` block per page, for exactly the page count in the brief. Pages the showrunner has
 locked are restored automatically if you change them. When the note asks you to match the

@@ -21,7 +21,7 @@ from . import agents as agents_mod
 from .agents import gather_context, random_entry
 from .usage import CallLogger
 
-REF_PREFIX = "library/"    # the Script Coordinator's name for the library: campaigns/<its path>
+REF_PREFIX = "campaigns/"  # the showrunner's material is named by where it really is: campaigns/<campaign>/<folder>/<file>
 
 
 IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
@@ -114,7 +114,7 @@ class Agent:
 
     # ---- prompt building -------------------------------------------------
 
-    def system_prompt(self, guides, figma_text, use_tools):
+    def system_prompt(self, guides, use_tools):
         r = self.role
         parts = [
             f"You are the {r.title} in a graphic novel writers' room.",
@@ -122,8 +122,6 @@ class Agent:
             "# Your guides",
             *[f"## {label}\n\n{text}" for label, text in guides],
         ]
-        if figma_text:
-            parts += ["# Figma references", *figma_text]
         if use_tools and self.role.minimal:
             parts.append(
                 "# How to work\n"
@@ -135,7 +133,7 @@ class Agent:
                 "# How to work\n"
                 "The room shares a folder of markdown files. Use list_artifacts and read_artifact "
                 "to check colleagues' work when you need it. "
-                + ("The showrunner's material is listed there too, under library/. " if r.library else "")
+                + ("The showrunner's material is listed there too, under campaigns/. " if r.library else "")
                 + f"Your deliverables: {', '.join(r.outputs)}. Write each one in full with "
                 "write_artifact (it overwrites). When they are done, call finish with a short "
                 "handoff note for the rest of the room: decisions made, open questions."
@@ -351,22 +349,22 @@ class Agent:
     # ---- the loop --------------------------------------------------------
 
     def run(self, note=None):
-        guides, figma_text, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
+        guides, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
         refs = self.library()
         self.emit("context", minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
                   references=list(refs), references_mode=self.cfg.references,
                   reference_chars=sum(p.stat().st_size for p in refs.values()),
-                  figma=len(figma_text), model=self.cfg.model, temperature=self.cfg.temperature,
+                  model=self.cfg.model, temperature=self.cfg.temperature,
                   image_model=self.cfg.image_model if self.cfg.can_generate_images else None)
         if self.cfg.generate_images and not self.cfg.image_model:
             self.emit("warn", text="generate_images is on but no image_model is set (agent.json or IMAGE_MODEL).")
 
         task = self.task_message(note, images)
         if not self.tools:      # "tools": [] in agent.json — for models that write tool calls as text
-            return self.run_without_tools(guides, figma_text, task)
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True)}, task]
+            return self.run_without_tools(guides, task)
+        messages = [{"role": "system", "content": self.system_prompt(guides, True)}, task]
 
         nudged = False
         for step in range(1, self.cfg.max_steps + 1):
@@ -378,7 +376,7 @@ class Agent:
             except llm.LLMError as e:
                 if e.status == 400 and step == 1:
                     self.emit("warn", text=f"Endpoint rejected tool calling; retrying as plain chat. ({e})")
-                    return self.run_without_tools(guides, figma_text, task)
+                    return self.run_without_tools(guides, task)
                 raise
 
             self.keep_reply_images(reply)
@@ -426,8 +424,8 @@ class Agent:
         self.emit("warn", text=f"Stopped after {self.cfg.max_steps} steps.")
         return self.wrap_up("(ran out of steps)")
 
-    def run_without_tools(self, guides, figma_text, task):
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, False)}, task]
+    def run_without_tools(self, guides, task):
+        messages = [{"role": "system", "content": self.system_prompt(guides, False)}, task]
         reply = llm.chat(self.cfg, messages, log=self.log)
         self.keep_reply_images(reply)
         return self.wrap_up(llm.text_of(reply))

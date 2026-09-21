@@ -416,7 +416,7 @@ the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 r
 How the library reaches the Script Coordinator is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 
 - `"full"` — every file the round picked is pasted into the prompt. Every step of the agent's loop resends them, so big campaigns want a large-context model.
-- `"list"` — only the names are sent, and the Script Coordinator opens each one with `read_artifact("library/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
+- `"list"` — only the names are sent, and the Script Coordinator opens each one with `read_artifact("campaigns/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
 
 ## The library
 
@@ -434,8 +434,8 @@ different thing from reference material.
 
 The campaign folders are what the room calls the **library**, and one agent reads it: the
 **Script Coordinator**, the Director's assistant and the whole of the intake phase, who goes
-through every file the round picked — `rules/`, `input/`, `drafts/`, `references/` and the
-shared `evoke/` — and sorts it into the three files the room works from:
+through every file the round picked — `rules/`, `input/`, `drafts/` and `references/` — and
+sorts it into the three files the room works from:
 
 | File | Holds | Who takes it over in development |
 |---|---|---|
@@ -448,7 +448,7 @@ list: what your material leaves undecided or contradicts itself on. You approve 
 files at the first gate. In development their owners decide what is open and build what is
 missing, in the same files — there is no second copy — and the Director's `brief.md` says what
 the book is and wins wherever it differs. The Script Coordinator organizes; it decides
-nothing. A file reaches it as `library/<its path>`.
+nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
 
 **Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
 `input/` holds raw notes: the three files come out thin with long Open lists, and development
@@ -462,8 +462,6 @@ what they are looking at:
 
 ```
 campaigns/
-  evoke/
-    rules/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
     rules/          what the book must not contradict: hard-sf-rules.md
     input/          anything you want read, any quality: notes, sketches, plans — empty for now
@@ -504,7 +502,7 @@ if you want the hard SF rules to bind the book, the document goes in `rules/`, w
 Prosperity keeps it. The one folder that does say what a file is is `drafts/`: a draft is read for what
 happens in it and how its people talk, and reaches the Script Coordinator under its own heading.
 
-`campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
+A file is
 named by its path, so `prosperity/rules/chapter-04.md` and
 `prosperity/drafts/chapter-04.md` are two different things and are read as what they are.
 A new campaign is `mkdir -p campaigns/<name>/{rules,input,drafts,references,output}`, which is what **+ New campaign** does.
@@ -516,10 +514,9 @@ when an agent asks for a file by name; `never_read` in `app/projects.py` is the 
 there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
 either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
 
-**A campaign reads its own material, the shared `evoke/` material, and the craft skills —
-never another campaign's.** That is a folder rule, not a setting: `in_scope` in
-`app/projects.py` compares the first segment of a file's name against the campaign that is
-running. So Prosperity is not told about emperor penguins because Avalanche exists, a new
+**A campaign reads its own folder and never another campaign's.** That is a folder rule, not
+a setting: the room only ever walks `campaigns/<the campaign that is running>/`. Material two
+books share is copied into each (`hard-sf-rules.md` sits in both campaigns' `rules/`). So Prosperity is not told about emperor penguins because Avalanche exists, a new
 campaign cannot reach into the others, and a file you drop into a campaign's `input/` is read
 the moment you save it, with nothing to add to a list. It holds for a file asked for by name
 too, so an agent cannot read across the boundary either.
@@ -538,13 +535,13 @@ told which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| rules | `evoke/rules/`, a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
+| rules | a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
 | drafts | a campaign's `drafts/` | what is written so far: the best evidence of the story and the voices, and still an idea draft — it binds nothing, and the room writes its own version |
 | input | a campaign's `input/`, `references/`, or anywhere else in it | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
 
-`campaigns/evoke/rules/alpha.md` is the case in point for the one question a folder answers: it
+`rules/alpha.md` is the case in point for the one question a folder answers: it
 arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in
-`rules/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
+`rules/` and binds the book.
 
 The skills label their material with the vocabulary in
 the campaign's `rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
@@ -559,7 +556,7 @@ Designer, the writers, the Layout Agent and the Continuity Editor. (The First Re
 and the Letterer reads only the pages, so neither gets them.) `facts.md` is the
 fact-checker's list — every checkable statement in the material, one per line, tagged with the
 material's own label and its source — and the Continuity Editor reads it beside the book. An
-agent that asks `read_artifact` for a `library/` file is refused and pointed at the three files.
+agent that asks `read_artifact` for a file under `campaigns/` is refused and pointed at the three files.
 
 ## Guiding the agents
 
@@ -577,8 +574,6 @@ agents/
     craft.md              the craft: how to do that job well
     agent.json            provider, model and tuned defaults (committed; no keys)
     images/               reference images (png, jpg, webp, gif)
-    figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
-    figma/*.json          Figma REST API exports, for offline use
 ```
 
 - **Change how an agent works:** edit its `role.md` or `craft.md`. Every `.md` in the folder is
@@ -587,7 +582,6 @@ agents/
   Layout Agent carries four (layout, panel picking, set design, emotion), the writers one
   (`actual-script-writing.md`). They are sent after `role.md` and `craft.md`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
-- **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
   `parameters` are what the model sees, so the wording steers behaviour; `_why` lines are
   comments for the next person. An agent gets every implemented tool unless its `agent.json`
@@ -728,7 +722,7 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 |---|---|
 | `list_projects` | the campaigns you can run, by name |
 | `list_artifacts` | a project's room files and its reference material |
-| `read_artifact` | one file, e.g. `script.md` or `library/evoke/rules/alpha.md` |
+| `read_artifact` | one file, e.g. `script.md` or `campaigns/prosperity/rules/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
 | `search_room` | hybrid search over the library, the skills and a project's files |
 | `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
@@ -749,7 +743,7 @@ writer sees, and pausing the round to edit one is a real way to work. The same g
 tools served over MCP: their descriptions are re-read before a client is shown them.
 
 The exceptions are not markdown: code under `app/` is baked into the Docker image and needs
-`docker compose up -d --build app`, Figma pulls are cached per process, and the browser caches
+`docker compose up -d --build app`, and the browser caches
 the app's own JS and CSS (a hard reload picks up a new build).
 
 ## Call logs and costs
@@ -776,7 +770,7 @@ HTTP status, error, and the path to the full log.
 
 `app/agent.py` is a plain loop:
 
-1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones) and Figma summaries.
+1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones).
 2. The first message is the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
 3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.

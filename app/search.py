@@ -25,7 +25,7 @@ import urllib.request
 from collections import Counter
 
 from . import projects
-from .config import LIBRARY_DIRS, env
+from .config import CAMPAIGNS_DIR, env
 
 INDEX = "writers-room"
 _CORPUS = {"df": Counter(), "docs": 0}   # word counts from the last full pass
@@ -164,17 +164,7 @@ def library_files():
 
     The scope is where it sits — prosperity/rules, prosperity/input — so a search can
     ask one campaign, or one kind of material, without knowing the file names."""
-    out = []
-    for f in projects.library():
-        path = None
-        for folder in LIBRARY_DIRS:
-            candidate = folder / f["name"]
-            if candidate.is_file():
-                path = candidate
-                break
-        if path:
-            out.append((f["name"], path, f["group"], f["kind"]))
-    return out
+    return [(f["name"], CAMPAIGNS_DIR / f["name"], f["group"], f["kind"]) for f in projects.library()]
 
 
 def project_files(slug):
@@ -373,11 +363,9 @@ def indexed_as(path):
                 return path.name, f"project:{slug}"
         except FileNotFoundError:
             continue
-    for folder in LIBRARY_DIRS:
-        if folder in path.parents:
-            rel = path.relative_to(folder)
-            scope = str(rel.parent)
-            return projects.library_name(path, folder), scope
+    if CAMPAIGNS_DIR in path.parents:
+        rel = path.relative_to(CAMPAIGNS_DIR)
+        return str(rel), str(rel.parent)
     return None
 
 

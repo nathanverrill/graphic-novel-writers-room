@@ -46,7 +46,6 @@ async function loadConfig() {
     `defaults: <b>${esc(c.model)}</b> @ ${esc(c.base_url)} · ` +
     (c.api_key_set ? "key set" : `<span class="bad">no API key</span>`) +
     ` · image model ${c.image_model ? `<b>${esc(c.image_model)}</b>` : "none"}` +
-    ` · figma ${c.figma_token_set ? "on" : "off"}` +
     ` · data: ${c.storage ? `<b>${esc(c.storage)}</b>` : "local files"}`;
 }
 
@@ -60,7 +59,7 @@ async function loadRoles() {
     <div class="role" id="role-${r.id}">
       <label><input type="checkbox" value="${r.id}"> ${esc(r.title)}</label>
       <div class="meta">→ ${r.outputs.map(esc).join(", ")}</div>
-      <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
+      <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images${r.context === "minimal" ? " · cold read" : ""}</div>
       <div class="meta">${r.tools.length} tools: ${r.tools.map(esc).join(", ") || "none"}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
@@ -126,12 +125,10 @@ function assetBlock(folder, a) {
     <details class="guide" data-guide="${folder}/${g}"><summary>${esc(g)}</summary><div class="md">loading…</div></details>`).join("");
   const imgs = a.images.map((i) =>
     `<a href="/api/agents/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/agents/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
-  const figma = a.figma.map((f) => `<li class="path">${esc(f)}</li>`).join("");
   return `
     <p class="path">agents/${folder}/</p>
     <h3>Guides</h3>${guides || "<p class='path'>none</p>"}
-    <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>
-    <h3>Figma</h3><ul>${figma || "<li class='path'>none — add links to figma.txt</li>"}</ul>`;
+    <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>`;
 }
 
 function inspectRole(id) {
@@ -280,7 +277,7 @@ async function refreshArtifacts(fresh) {
   $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB to the Script Coordinator`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
-  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
+  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("campaigns/");
   loadCosts();
   loadPreviews();
   loadPrompts();
@@ -297,7 +294,7 @@ async function refreshArtifacts(fresh) {
       <span>${esc(a.name)}</span><small>${ago(a.modified)}</small></li>`).join("");
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
-    <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
+    <li data-name="campaigns/${esc(r.name)}" class="${"campaigns/" + r.name === state.artifact ? "active" : ""}">
       <span>${esc(r.name)}</span><small><span class="src">${r.kind === "drafts" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
     || `<li class="path">none — add .md files to campaigns/${esc(state.project)}/rules/ or /input/</li>`;
   $("#image-count").textContent = `(${images.length})`;
@@ -329,7 +326,7 @@ async function showArtifact(name) {
   if (!$("#editor").hidden && !confirm("Discard unsaved edits?")) return;
   state.artifact = name;
   let text;
-  const path = name.startsWith("library/") ? `library/${encodeURI(name.slice(8))}` : `artifacts/${name}`;
+  const path = name.startsWith("campaigns/") ? `library/${encodeURI(name.slice(10))}` : `artifacts/${name}`;
   try { text = await api(`${base()}${path}`); }
   catch { $("#viewer").hidden = true; return; }
   $("#viewer").hidden = false;
@@ -337,7 +334,7 @@ async function showArtifact(name) {
   renderInto($("#rendered"), text, base());
   $("#editor").value = text;
   setEditing(false);
-  $("#edit").disabled = !!state.version || name.startsWith("library/");
+  $("#edit").disabled = !!state.version || name.startsWith("campaigns/");
   document.querySelectorAll("#artifacts li, #references li").forEach((li) => li.classList.toggle("active", li.dataset.name === name));
 }
 
@@ -801,7 +798,7 @@ function handle(ev, replay = false) {
     case "context":
       log(`${who}${esc(ev.model || "")}${ev.temperature != null ? ` t=${ev.temperature}` : ""}` +
         `${ev.image_model ? ` · images: ${esc(ev.image_model)}` : ""} · read ${ev.guides.length} guides, ` +
-        `${ev.images.length} images, ${ev.figma} figma refs` +
+        `${ev.images.length} images` +
         (ev.references?.length ? `, ${ev.references.length} references (${ev.references_mode}, ${num(ev.reference_chars)} chars)` : ""), "dim");
       break;
     case "thinking": live && setRoleStatus(ev.role, "working", `working… step ${ev.step}`); break;
@@ -1053,7 +1050,7 @@ $("#search-hits").onclick = (e) => {
   const card = e.target.closest("[data-hit]");
   if (!card) return;
   const hit = state.hits[Number(card.dataset.hit)];
-  showArtifact(hit.scope.startsWith("project:") ? hit.file : `library/${hit.name || hit.file}`);
+  showArtifact(hit.scope.startsWith("project:") ? hit.file : `campaigns/${hit.name || hit.file}`);
 };
 $("#search-reindex").onclick = async () => {
   $("#search-note").textContent = "reindexing…";
@@ -1879,8 +1876,8 @@ $("#pick-refs").onclick = () => {
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
     <p class="path">The library this campaign's Script Coordinator reads: everything in its
-      <code>rules/</code>, <code>input/</code>, <code>drafts/</code> and <code>references/</code>,
-      plus the shared <code>evoke/</code> material. The Script Coordinator gets the chosen files
+      <code>rules/</code>, <code>input/</code>, <code>drafts/</code> and <code>references/</code>.
+      The Script Coordinator gets the chosen files
       (in full, unless its settings say "names only") and sorts them into
       <code>characters.md</code>, <code>world.md</code> and <code>story.md</code>, which is how the
       rest of the room learns them. A campaign's own <code>output/</code> is never in here: the room
