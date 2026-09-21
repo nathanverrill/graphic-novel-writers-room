@@ -75,7 +75,7 @@ def tools_for(role, cfg, emit=None):
         if emit:
             emit("warn", text=f"agents/tools/{name}.json has no implementation; skipped")
     order = [n for n in IMPLEMENTED if n in available]      # a sensible order, not the file order
-    wanted = MINIMAL if role.minimal else (cfg.tools or order)
+    wanted = MINIMAL if role.minimal else (order if cfg.tools is None else cfg.tools)   # [] = no tools: plain chat
     if not cfg.can_generate_images:
         wanted = [n for n in wanted if n != "generate_image"]
     return [available[n] for n in wanted if n in available]
@@ -362,8 +362,11 @@ class Agent:
             self.emit("warn", text="generate_images is on but no image_model is set (agent.json or IMAGE_MODEL).")
 
         task = self.task_message(note, images)
+        if not self.tools:      # "tools": [] in agent.json — for models that write tool calls as text
+            return self.run_without_tools(guides, figma_text, task)
         messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True)}, task]
 
+        nudged = False
         for step in range(1, self.cfg.max_steps + 1):
             if self.should_stop():
                 raise Stopped()
@@ -389,6 +392,14 @@ class Agent:
                 self.emit("message", text=text)
 
             if not calls:
+                if not self.written and not nudged:     # it talked about the work instead of doing it
+                    nudged = True
+                    self.emit("warn", text="No tool call and nothing written — asking once for the deliverable.")
+                    messages.append({"role": "user", "content":
+                                     f"You have not written {self.role.outputs[0]} yet. Do not describe what you will do "
+                                     "and do not write a tool call as text: call write_artifact now, with the complete "
+                                     "file as its content, then call finish."})
+                    continue
                 return self.wrap_up(text)
 
             finished = None

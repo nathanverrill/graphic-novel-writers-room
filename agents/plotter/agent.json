@@ -2,7 +2,7 @@
   "_why": "Structure with surprises: a warmer temperature. Needs the full references to stay on canon.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "google/gemma-4-31b-it",
+  "model": "meta-llama/llama-3.3-70b-instruct",
   "api_key_env": null,
   "temperature": 0.9,
   "max_tokens": 8000,
@@ -29,5 +29,6 @@
     "input/lithium-triangle-futures.md",
     "references/triangle-water-wars.md",
     "evoke/rules/social-innovators-framework.md"
-  ]
+  ],
+  "tools": []
 }

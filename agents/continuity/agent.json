@@ -2,7 +2,7 @@
   "_why": "Catch every mistake and report BLOCKERS exactly: coldest. Reads everything.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "google/gemma-4-31b-it",
+  "model": "meta-llama/llama-3.3-70b-instruct",
   "api_key_env": null,
   "temperature": 0.1,
   "max_tokens": 10000,
@@ -21,5 +21,6 @@
     "rules/bible.md",
     "evoke/rules/alpha.md",
     "input/hard-sf-rules.md"
-  ]
+  ],
+  "tools": []
 }
