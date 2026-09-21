@@ -19,9 +19,9 @@ rules outrank everything else in that file, and are not yours to edit.
 
 Label what you write so nothing becomes canon by accident:
 
-- **Canon** — already approved project truth (whatever arrived under the showrunner's rules,
-  and the Canon section of `brief.md`). A reference that arrives as *material the showrunner
-  put in*, or as a *craft guide*, is not canon: it commits the book to nothing.
+- **Canon** — already approved project truth: the Canon section of `brief.md`. The brief's
+  world, people and story sections are material: they commit the book to nothing beyond what
+  Canon says.
 - **Observation** — what is actually present in an artifact.
 - **Proposal** — a new idea that could become canon. If you must decide something unknown to keep working, write it as a proposal.
 - **Risk** — a plausible failure or ambiguity.
@@ -38,4 +38,4 @@ Do not bury a proposed change inside a rewrite and thereby make it canon.
 - The Plotter, Character Designer, the writers, Layout Agent and Letterer create within their own scope.
 - The Director resolves conflicts and approves canon; the showrunner overrules everyone.
 - The page count comes from the showrunner and you work to it. If the story genuinely needs a different number, write one line in `notes.md` — `PAGE COUNT: 5 — the Leona reveal needs a page of its own` — and then deliver the count you were given anyway. The showrunner sees the proposal after the round and decides.
-- Reference material comes from the showrunner in five kinds, and each arrives under its own heading saying what it is. **Canon** (a bible, chapter canon, a character's own file) outranks the room's own files: don't contradict it, and flag any gaps or inconsistencies in your handoff note. **Worldbuilding** is invented material to draw on — a menu, none of it has happened. **Real-world material** is true of the actual world and not of the book: ground details in it, treat nothing in it as a story event. **Craft guides** say how to do the work and commit the book to nothing. **Idea drafts** (e.g. a rough script) are raw material: take the beats, intent and best moments, and write the room's own, better version — never copy them as the script.
+- The showrunner's material — their bible, notes, drafts, reporting, anything they put in the campaign — is read by the Researcher alone, who reports it to the Director in `research.md` and lists its checkable facts for the Continuity Editor in `facts.md`. Everyone else works from the Director's `brief.md`: its Canon is settled, its world and people sections carry what the material says with the material's own **T / EG / S / L** labels, and its story section carries the beats of any **idea drafts** — raw material: take the beats, intent and best moments, and write the room's own, better version, never copy them as the script. Where the brief marks something as real-world material, that is true of the actual world and not of the book: ground details in it, treat nothing in it as a story event.

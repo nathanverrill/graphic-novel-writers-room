@@ -1,5 +1,5 @@
 {
-  "description": "Read one project file, e.g. 'outline.md' or 'references/lore.md'.",
+  "description": "Read one project file, e.g. 'outline.md', or (the Researcher only) a library file such as 'library/prosperity/input/bible.md'.",
   "parameters": {
     "type": "object",
     "properties": {
@@ -11,5 +11,5 @@
       "name"
     ]
   },
-  "_why": "The way an agent reaches anything not already in its prompt, including library files left off its shortlist."
+  "_why": "The way an agent reaches anything not already in its prompt. Only the Researcher may open library/ files; everyone else is pointed at brief.md."
 }

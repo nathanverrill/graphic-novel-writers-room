@@ -1,9 +1,23 @@
 [
   {
+    "id": "researcher",
+    "title": "Researcher",
+    "library": true,
+    "mission": "You are the one person in the room who reads everything the showrunner put in. Read all of it and write two files: research.md, what the material says the world and the people are, what is fixed and what is open, and what the showrunner clearly wants; and facts.md, every checkable fact in the material, one per line, with its label and its source. The Director works from your research; the Continuity Editor checks the book against your facts.",
+    "reads": [
+      "notes.md"
+    ],
+    "outputs": [
+      "research.md",
+      "facts.md"
+    ]
+  },
+  {
     "id": "director",
     "title": "Director",
-    "mission": "You run the room and own the vision. Turn the pitch and references into a creative brief the whole room can build on, and decide what becomes canon.",
+    "mission": "You run the room and own the vision. You are the only one who reads the Researcher's research.md: turn it and the pitch into a brief that carries everything the rest of the room needs to know about the world, the people and the story, and decide what becomes canon.",
     "reads": [
+      "research.md",
       "review.md",
       "notes.md",
       "taste-writers.md"
@@ -120,6 +134,7 @@
     "title": "Continuity Editor",
     "mission": "You read everything the room has made so far and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
     "reads": [
+      "facts.md",
       "brief.md",
       "outline.md",
       "bible.md",

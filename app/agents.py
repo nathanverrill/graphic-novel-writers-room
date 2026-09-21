@@ -17,7 +17,10 @@ agents/agents.json sets the titles and what each agent reads and writes, plus:
     "shares": "_writers"  another folder this agent is given as well: the two writers share
                           one job and one craft, and differ only in voice.md and agent.json
     "context": "minimal"  the agent gets only its own folder, its `reads` and the pitch
-                          (no shared guides, references, or tools to browse the room)
+                          (no shared guides or tools to browse the room)
+    "library": true       the agent reads the library — the campaign's rules/, input/ and
+                          references/. Only the Researcher does; everyone else knows the
+                          book through the room's own files (see app/agent.py)
 
 agents/phases.json says which agents run in which phase, in which order (see phases.py).
 """
@@ -43,6 +46,7 @@ class Role:
     outputs: list = field(default_factory=list)
     context: str = "full"
     shares: str = None       # a second folder of guides, e.g. "_writers"
+    library: bool = False    # reads the showrunner's material (the Researcher)
 
     @property
     def minimal(self):
@@ -119,7 +123,7 @@ class Role:
 EDITABLE = {
     "base_url": str, "api_key_env": str, "model": str,
     "temperature": float, "max_tokens": int, "thinking_budget": int, "max_steps": int, "timeout": int,
-    "send_images": bool, "extra": dict, "references": str, "reference_files": list, "tools": list,
+    "send_images": bool, "extra": dict, "references": str, "tools": list,
     "min_density": float, "refine_passes": int, "parallel": int,
     "generate_images": bool, "image_base_url": str, "image_api_key_env": str,
     "image_model": str, "image_size": str, "image_extra": dict,
@@ -182,7 +186,8 @@ def assets(folder_id):
         return {"guides": [], "images": [], "figma": []}
     img_dir = folder / "images"
     return {
-        "guides": [p.name for p in sorted(folder.glob("*.md"), key=lambda p: (p.name != "role.md", p.name))],
+        "guides": [p.name for p in sorted(folder.glob("*.md"),
+                                          key=lambda p: (p.name != "role.md", p.name != "craft.md", p.name))],
         "images": [p.name for p in sorted(img_dir.iterdir())
                    if p.suffix.lower() in IMAGE_TYPES] if img_dir.is_dir() else [],
         "figma": _figma_refs(folder),

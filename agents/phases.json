@@ -2,8 +2,9 @@
   {
     "id": "development",
     "title": "Development",
-    "does": "Decide what the book is: the brief, the plot, the people.",
+    "does": "Read what you put in, then decide what the book is: the brief, the plot, the people.",
     "agents": [
+      "researcher",
       "director",
       "plotter",
       "character_designer",
@@ -12,6 +13,8 @@
     "gate": "approve",
     "asks": "Is this the right story, told by these people?",
     "read": [
+      "research.md",
+      "facts.md",
       "brief.md",
       "outline.md",
       "bible.md",

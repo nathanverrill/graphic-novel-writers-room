@@ -9,7 +9,7 @@ by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
+| 1 | **Development** | Researcher → Director → Plotter → Character Designer → Continuity Editor | `research.md`, `facts.md`, `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
 | 2 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 3 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
 | 4 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
@@ -412,14 +412,14 @@ produced them — overwritten each time, with every earlier round kept under `ou
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
 `CHAPTER 4 — PAGE 1`.
 
-How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
+How the library reaches the Researcher is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 
-- `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
-- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("library/<path>")`. Cheaper, but the agent has to choose to read them.
+- `"full"` — every file the round picked is pasted into the prompt. Every step of the agent's loop resends them, so big campaigns want a large-context model.
+- `"list"` — only the names are sent, and the Researcher opens each one with `read_artifact("library/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
 
 ## Character references
 
-Each character has a standalone file in the campaign's `rules/` — `alex-phantum.md`,
+Each character has a standalone file in the campaign's `input/` — `alex-phantum.md`,
 `ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
 `bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
 
@@ -438,7 +438,7 @@ belongs in the bible.
 
 **A campaign is the project.** There is no separate `projects/` folder and no separate
 `output/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
-opening the work. The room reads `rules/` and `input/`, and writes `output/`, which is the desk
+opening the work. The Researcher reads `rules/`, `input/` and `references/`, and the room writes `output/`, which is the desk
 the agents share — the script, the layouts, the page prompts, the settings, and every finished
 round under `output/previous/`.
 
@@ -448,9 +448,11 @@ script as input would be working from its own echo, and the drift compounds ever
 desk still reaches an agent — under its own file names, as the project's own work — which is a
 different thing from reference material.
 
-The two together are what the agents call the **library**, and that is the one place the word
-still means a folder that is not there: a file reaches an agent as `library/<its path>`, whether
-it comes from `campaigns/` or from `agents/skills/`.
+The campaign folders are what the room calls the **library**, and one agent reads it: the
+**Researcher**, first in development, who reads every file the round picked — `rules/`,
+`input/`, `references/` and the shared `evoke/` — and writes `research.md` for the Director
+and `facts.md` for the Continuity Editor. Every other agent knows the material through the
+brief the Director makes from it, and its own craft. A file reaches the Researcher as `library/<its path>`.
 
 One folder per campaign, and the same words inside each, so a person opening any folder knows
 what they are looking at:
@@ -460,13 +462,12 @@ campaigns/
   evoke/
     rules/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    rules/          bible.md · chapter-01.md … · alex-phantum.md … — binds the book
-    input/          anything you want the room to read, any quality
+    rules/          what the book must not contradict — empty until you put something there
+    input/          anything you want the Researcher to read, any quality: the bible, the chapter plans, the character files, drafts
     references/     material to draw on, grouped for your own sake
     output/         the room's desk: script, layouts, page prompts, previous/
   avalanche/        the second campaign: the same folders
   _morgue/          clippings kept for people, so an old document is never lost
-agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
 ```
 
 **One question decides where a file goes: does it bind the book?** `rules/` binds — the bible,
@@ -497,8 +498,8 @@ named by its path, so `prosperity/rules/chapter-04.md` and
 `prosperity/input/draft-chapter-04.md` are two different things and are read as what they are.
 A new campaign is `mkdir -p campaigns/<name>/{rules,input,references,output}`, which is what **+ New campaign** does.
 
-And a third rule that is only a naming convention: **inside the library — `campaigns/` and
-`agents/skills/` — a folder whose name starts with an underscore is not library material.**
+And a third rule that is only a naming convention: **inside the library — `campaigns/` — a
+folder whose name starts with an underscore is not library material.**
 The room skips it when it lists the library, when a round carries references into a prompt, and
 when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
 there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
@@ -518,23 +519,21 @@ the moment you save it, with nothing to add to a list. It holds for a file asked
 too, so an agent cannot read across the boundary either.
 
 **Within that, a campaign picks what it uses** — **References…** in **The room** tab lists both
-folders; default: all of them. A writer can narrow that further with its own shortlist (below),
-and the summary beside the picker shows how many KB the selection is. With references in place
-the pitch is optional. Each round keeps a copy of the references it used, and `run.json` records
+folders; default: all of them. The summary beside the picker shows how many KB the Researcher
+will carry. With references in place the pitch is optional. Each round keeps a copy of the references it used, and `run.json` records
 a hash of each.
 
 The campaign's files are the campaign's files: edit them in place. The scripts that once
 split a long source document into them were one-off utilities for importing older material,
 and they are retired to `campaigns/_morgue/utilities/`.
 
-**What a reference is.** Three kinds, each arriving under its own heading so the room is told
-which it is reading:
+**What a reference is.** Two kinds, each arriving under its own heading so the Researcher is
+told which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | rules | `evoke/rules/`, a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
 | input | a campaign's `input/`, `references/`, or anywhere else in it | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
-| guide | `agents/skills/` | how to do the work; binds nothing |
 
 `campaigns/evoke/rules/alpha.md` is the case in point for the one question a folder answers: it
 arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in
@@ -547,34 +546,14 @@ Writers keep those labels when they use guide material, and the Continuity Edito
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
 them, and a license used to skip work the characters should have done.
 
-**Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
-also carries its own shortlist: in its model settings, **Library files for this writer**, which
-lists the references and the skills together.
-
-**A shortlist entry is campaign-relative.** `rules/bible.md` means whichever campaign is
-running, so one line-up of writers works for every book; an entry that names a campaign outright
-(`evoke/rules/alpha.md`) is taken as written, which is how the shared material is picked. If a
-shortlist names nothing the running campaign has, that writer gets everything in scope rather
-than nothing — a stale shortlist should cost a writer its focus, never its material.
-
-What each one reads now:
-
-| Writer | Reads in full |
-|---|---|
-| Director | the bible, Alpha, `hard-sf-rules` |
-| Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `references/triangle-water-wars`, `social-innovators-framework` |
-| Character Designer | the bible, Alpha, `hard-sf-rules` |
-| Writer A, Writer B | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
-| Layout Agent | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
-| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
-| Letterer, First Reader | names only — they read what they want on demand |
-
-That puts every Prosperity writer between 94 and 113 KB a call, out of the 38 files that
-campaign can see — 16 in its `rules/`, 17 in its `input/`, 5 craft skills. The same writers
-running Avalanche read 37 to 94 KB out of its 16. Anything left off a shortlist is still one
-`read_artifact` away, as long as it belongs to the campaign that is running.
-
-Selecting none in that list means the writer reads whatever the round picked.
+**Only the Researcher reads the library, and only the Director reads the Researcher.** The
+Researcher writes two files. `research.md` is the synthesis — what the material says, cited
+file by file, marking what is fixed, what is open and where the sources disagree — and the
+Director is its one reader: the brief carries the world, the people and the story for
+everyone downstream, and what the Director leaves out the room will invent. `facts.md` is the
+fact-checker's list — every checkable statement in the material, one per line, tagged with the
+material's own label and its source — and the Continuity Editor reads it beside the book. An
+agent that asks `read_artifact` for a `library/` file is refused and pointed at the brief.
 
 ## Guiding the agents
 
@@ -584,10 +563,9 @@ Everything an agent knows comes from its folder:
 agents/
   agents.json             title, mission, reads, outputs
   phases.json             the four phases: who runs in each, in order, and each gate
-  skills/                 long craft references, loaded by name in an agent's shortlist
   tools/                  what an agent can call: one json schema per tool
   _shared/                given to every agent: house-style.md, craft.md, the provocation deck
-  _writers/               given to both writers: role.md, craft.md
+  _writers/               given to both writers: role.md, craft.md, actual-script-writing.md
   <agent>/
     role.md               the job: what it delivers, in what format
     craft.md              the craft: how to do that job well
@@ -599,8 +577,9 @@ agents/
 
 - **Change how an agent works:** edit its `role.md` or `craft.md`. Every `.md` in the folder is
   sent to the model, `role.md` first, so a new guide is a new file.
-- **Skills:** the long references in `agents/skills/` reach an agent as library files, chosen by
-  its shortlist (`reference_files` in its `agent.json`). An agent's own `craft.md` is always sent.
+- **Long craft references** are just more `.md` files in the folder that needs them: the
+  Layout Agent carries four (layout, panel picking, set design, emotion), the writers one
+  (`actual-script-writing.md`). They are sent after `role.md` and `craft.md`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
 - **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
@@ -661,8 +640,7 @@ UI changes a setting, the change shows up in `git diff`.
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
 | `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
-| `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
-| `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
+| `references` | Researcher only: `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
 A bad `agent.json` is flagged on the card and blocks runs that include that agent.

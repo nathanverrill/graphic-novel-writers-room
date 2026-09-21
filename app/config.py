@@ -12,9 +12,8 @@ ROOT = Path(__file__).resolve().parent.parent
 AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
 CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · output/
 OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and never read back
-SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
-LIBRARY_DIRS = (CAMPAIGNS_DIR, SKILLS_DIR)   # everything the agents can read, campaigns and craft
+LIBRARY_DIRS = (CAMPAIGNS_DIR,)        # the library: what the Researcher reads for the room
 LOGS_DIR = ROOT / "logs"               # usage ledger
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
@@ -78,8 +77,7 @@ class AgentConfig:
     timeout: int = None
     send_images: bool = None
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
-    references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
-    reference_files: list = None   # library files this writer gets (None = whatever the round picked)
+    references: str = None   # for a role that reads the library — "full": the files go in the prompt; "list": names only, read on demand
     tools: list = None       # tools from agents/tools/ this agent may call (None = all it can use)
     # ASCII Artist
     min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)

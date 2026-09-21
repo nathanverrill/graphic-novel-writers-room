@@ -8,7 +8,6 @@
   "max_tokens": 16000,
   "max_steps": 16,
   "timeout": 600,
-  "references": "full",
   "send_images": false,
   "extra": {},
   "generate_images": false,
@@ -17,16 +16,5 @@
   "image_model": null,
   "image_size": null,
   "image_extra": {},
-  "reference_files": [
-    "rules/chapter-01.md",
-    "rules/chapter-02.md",
-    "rules/chapter-03.md",
-    "rules/chapter-04.md",
-    "rules/chapter-05.md",
-    "rules/chapter-06.md",
-    "evoke/rules/alpha.md",
-    "input/hard-sf-rules.md",
-    "skills/actual-script-writing.md"
-  ],
   "tools": null
 }

@@ -29,9 +29,9 @@ SFX: KRAKK
 PAGE CHECK: what changed / page-turn function / continuity flags
 ```
 
-Write every page you were asked for — do not summarize or skip pages. If the references include an idea
-draft of the script, it is raw material, not the script: keep what it's reaching for, and
-write a new script that's tighter, more visual and better paced. Before delivering, cut redundant dialogue and verify every page has a reason to turn.
+Write every page you were asked for — do not summarize or skip pages. If the outline or the brief carries
+beats from an idea draft of the script, they are raw material, not the script: keep what they
+are reaching for, and write a new script that's tighter, more visual and better paced. Before delivering, cut redundant dialogue and verify every page has a reason to turn.
 
 When a panel should read dark — night, a blackout, a dream or flashback — say so in the
 panel description (e.g. "NIGHT, dark panel"). The pages can show any panel light on dark.

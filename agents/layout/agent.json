@@ -8,7 +8,6 @@
   "max_tokens": 16000,
   "max_steps": 16,
   "timeout": 600,
-  "references": "full",
   "send_images": true,
   "extra": {},
   "generate_images": false,
@@ -16,13 +15,5 @@
   "image_api_key_env": null,
   "image_model": null,
   "image_size": null,
-  "image_extra": {},
-  "reference_files": [
-    "evoke/rules/alpha.md",
-    "input/hard-sf-rules.md",
-    "skills/graphic-novel-layout.md",
-    "skills/comic-layout-picker.md",
-    "skills/near-future-set-design.md",
-    "skills/emotion.md"
-  ]
+  "image_extra": {}
 }

@@ -1,14 +1,13 @@
 {
-  "_why": "Judgment and consistency over flair: moderate temperature. Reads the whole room, the references and any reference images.",
+  "_why": "Judgment and consistency over flair: moderate temperature. The only reader of research.md, and the brief now carries the world and the people for the whole room, so a big output budget.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
   "model": "meta-llama/llama-3.3-70b-instruct",
   "api_key_env": null,
   "temperature": 0.6,
-  "max_tokens": 6000,
+  "max_tokens": 16000,
   "max_steps": 12,
   "timeout": 300,
-  "references": "full",
   "send_images": true,
   "extra": {},
   "generate_images": false,
@@ -17,10 +16,5 @@
   "image_model": null,
   "image_size": null,
   "image_extra": {},
-  "reference_files": [
-    "rules/bible.md",
-    "evoke/rules/alpha.md",
-    "input/hard-sf-rules.md"
-  ],
   "tools": []
 }

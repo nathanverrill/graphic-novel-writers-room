@@ -21,12 +21,12 @@ from . import agents as agents_mod
 from .agents import gather_context, random_entry
 from .usage import CallLogger
 
-REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
-                           # agents/skills/ under one prefix, library/<its path>
+REF_PREFIX = "library/"    # the Researcher's name for the library: campaigns/<its path>
 
 
 IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
+PRIVATE = ("research.md", "facts.md")      # the Researcher's files: only the roles listed as reading them
 
 
 def repair_calls(calls, warn=lambda msg: None):
@@ -135,7 +135,8 @@ class Agent:
                 "# How to work\n"
                 "The room shares a folder of markdown files. Use list_artifacts and read_artifact "
                 "to check colleagues' work when you need it. "
-                f"Your deliverables: {', '.join(r.outputs)}. Write each one in full with "
+                + ("The showrunner's material is listed there too, under library/. " if r.library else "")
+                + f"Your deliverables: {', '.join(r.outputs)}. Write each one in full with "
                 "write_artifact (it overwrites). When they are done, call finish with a short "
                 "handoff note for the rest of the room: decisions made, open questions."
             )
@@ -152,32 +153,21 @@ class Agent:
             )
         return "\n\n".join(parts)
 
-    def shortlist(self, refs):
-        """The library files this writer reads, if its settings name any.
+    def library(self):
+        """The showrunner's material, for the one role that reads it.
 
-        A shortlist entry is campaign-relative — "rules/bible.md" means this campaign's bible,
-        whichever campaign is running — so one line-up of agents works for every book. Entries
-        that name a campaign outright ("evoke/rules/alpha.md") are taken as written, which is
-        how the shared material is picked.
-
-        If a shortlist names nothing this campaign has, the writer gets everything in scope
-        rather than nothing. A stale shortlist should cost a writer its focus, never its
-        material."""
-        if self.cfg.reference_files is None:
-            return refs
-        wanted = {n if "/" in n and n.split("/", 1)[0] in (self.slug, projects.SHARED, "skills")
-                  else f"{self.slug}/{n}"
-                  for n in self.cfg.reference_files}
-        kept = {n: p for n, p in refs.items() if n in wanted}
-        return kept or refs
+        Every other agent knows the book through the room's own files — research.md, the
+        brief, the outline, the bible — and its craft. That is deliberate: a writer handed forty
+        source documents writes from the documents, and the Researcher's synthesis is the
+        room's one reading of them."""
+        return projects.reference_files(self.slug) if self.role.library else {}
 
     def task_message(self, note, images):
         r = self.role
         pitch = projects.read_artifact(self.slug, "pitch.md") or "(no pitch yet)"
         text = [f"Project: {self.slug}", "# Pitch", pitch]
 
-        refs = {} if r.minimal else projects.reference_files(self.slug)
-        refs = self.shortlist(refs)
+        refs = self.library()
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
         groups = [
             ("rules", "# The showrunner's rules for this book\n"
@@ -192,9 +182,6 @@ class Agent:
                       "the room's own version, and where it conflicts with the rules, the rules "
                       "win. Where a document labels material T, EG, S, L or Cut, keep those "
                       "labels when you use it."),
-            ("guide", "# Craft guides from the room — they do NOT bind the book\n"
-                      "How to do the work. They commit the book to nothing and describe no "
-                      "events: take what serves the page and ignore the rest."),
         ]
         for kind, heading in groups:
             chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
@@ -239,13 +226,19 @@ class Agent:
         if name not in {t["function"]["name"] for t in self.tools}:
             return f"Tool {name!r} is not available to you."
         if name == "list_artifacts":
-            names = [a["name"] for a in projects.list_artifacts(self.slug)]
-            names += [REF_PREFIX + n for n in projects.reference_files(self.slug)]
+            names = [a["name"] for a in projects.list_artifacts(self.slug) if self.may_read(a["name"])]
+            names += [REF_PREFIX + n for n in self.library()]
             return json.dumps(names)
         if name == "read_artifact":
             target = args.get("name", "")
-            if target.startswith("audition-") and target not in self.role.outputs + self.role.reads:
+            if target.startswith("audition-") and not self.may_read(target):
                 return "That is the other writer's audition. It is blind: write your own pages."
+            if target in PRIVATE and not self.may_read(target):
+                return (f"{target} is the Researcher's and is not yours to read. What the room knows "
+                        "about the material is in brief.md.")
+            if target.startswith(REF_PREFIX) and not self.role.library:
+                return ("The showrunner's material is the Researcher's to read, and research.md is the "
+                        "Director's. What the room knows and decided is in brief.md.")
             try:
                 if target.startswith(REF_PREFIX):
                     content = projects.read_reference(self.slug, target[len(REF_PREFIX):])
@@ -295,6 +288,11 @@ class Agent:
             path = self.save_image(args.get("name") or "image", data)
             return f"Saved {path}. Embed it as ![caption]({path})."
         return f"Unknown tool {name!r}."
+
+    def may_read(self, name):
+        """The Researcher's files reach only the roles listed as reading them (agents.json), so the
+        rest of the room works from the Director's brief and cannot go around it."""
+        return name not in PRIVATE or name in self.role.reads + self.role.outputs
 
     def save(self, name, content):
         content, restored = review.enforce_locks(self.slug, name, content)
@@ -352,7 +350,7 @@ class Agent:
         guides, figma_text, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
-        refs = self.shortlist({} if self.role.minimal else projects.reference_files(self.slug))
+        refs = self.library()
         self.emit("context", minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
                   references=list(refs), references_mode=self.cfg.references,
                   reference_chars=sum(p.stat().st_size for p in refs.values()),

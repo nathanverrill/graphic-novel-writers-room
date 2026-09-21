@@ -1,4 +1,4 @@
-"""Search over everything the room can read: the library, the skills, a project's own files.
+"""Search over everything the room can read: the library and a project's own files.
 
 One index in OpenSearch, hybrid by default:
 
@@ -25,7 +25,7 @@ import urllib.request
 from collections import Counter
 
 from . import projects
-from .config import LIBRARY_DIRS, SKILLS_DIR, env
+from .config import LIBRARY_DIRS, env
 
 INDEX = "writers-room"
 _CORPUS = {"df": Counter(), "docs": 0}   # word counts from the last full pass
@@ -162,13 +162,13 @@ def keywords(chunk_text, headings, doc_terms, corpus_df, docs_total, limit=12):
 def library_files():
     """Everything the room can read: (name, path, scope, kind).
 
-    The scope is where it sits — prosperity/rules, prosperity/input, skills — so a search can
+    The scope is where it sits — prosperity/rules, prosperity/input — so a search can
     ask one campaign, or one kind of material, without knowing the file names."""
     out = []
     for f in projects.library():
         path = None
         for folder in LIBRARY_DIRS:
-            candidate = folder / f["name"].removeprefix("skills/")
+            candidate = folder / f["name"]
             if candidate.is_file():
                 path = candidate
                 break
@@ -189,7 +189,7 @@ MAPPING = {
     "settings": {"index": {"knn": True}, "analysis": {}},
     "mappings": {"properties": {
         "file": {"type": "keyword"},
-        "scope": {"type": "keyword"},      # references · skills · project:<slug>
+        "scope": {"type": "keyword"},      # <campaign>/<folder> · project:<slug>
         "kind": {"type": "keyword"},       # rules · input · guide · room
         "title": {"type": "text"},
         "headings": {"type": "text"},
@@ -376,7 +376,7 @@ def indexed_as(path):
     for folder in LIBRARY_DIRS:
         if folder in path.parents:
             rel = path.relative_to(folder)
-            scope = "skills" if folder == SKILLS_DIR else str(rel.parent)
+            scope = str(rel.parent)
             return projects.library_name(path, folder), scope
     return None
 

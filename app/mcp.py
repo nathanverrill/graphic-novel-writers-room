@@ -33,8 +33,8 @@ OWN = {     # tools with no agent equivalent, or whose meaning changes outside a
         "brief.md, outline.md, bible.md, script.md, layouts.md, notes.md. Pages the showrunner "
         "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
         "the sketch, exactly as when an agent saves.",
-    "search": ("Search everything the room can read — a campaign's rules and input, the craft "
-               "and world skills, and a project's own files. Hybrid: words and meaning "
+    "search": ("Search everything the room can read — a campaign's rules and input "
+               "and a project's own files. Hybrid: words and meaning "
                "at once. Returns each passage with the file and heading it came from."),
     "page_prompts":
         "The page prompts for a project: one complete markdown brief per page, ready to paste "
@@ -114,7 +114,7 @@ def build():
     @room.tool(description=described("search"))
     def search_room(query: str, scope: str | None = None, kind: str | None = None,
                     limit: int = 6, mode: str = "hybrid") -> str:
-        """scope: references · skills · project:<slug>. mode: hybrid · keywords · vectors."""
+        """scope: <campaign>/<folder> · project:<slug>. mode: hybrid · keywords · vectors."""
         hits = search.search(query, limit=limit, scope=scope, kind=kind, mode=mode)
         return search.as_text(hits)
 

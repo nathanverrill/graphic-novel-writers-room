@@ -277,7 +277,7 @@ async function refreshArtifacts(fresh) {
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
   const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
-  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB per agent call`;
+  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB to the Researcher`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
   $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
@@ -1675,7 +1675,7 @@ function openSettings(id, message) {
           ${field("Timeout (s)", "timeout", s.timeout, d.timeout, "number", 'min="5"')}
         </div>
         <div class="sf-row">
-          <label class="sf"><span>References</span><select name="references">
+          <label class="sf"><span>Library (Researcher only)</span><select name="references">
             <option value="">Default (${d.references})</option>
             <option value="full" ${s.references === "full" ? "selected" : ""}>Full text in the prompt</option>
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
@@ -1688,15 +1688,6 @@ function openSettings(id, message) {
             <small class="path">Select none for everything it can use. Defined in
               <code>agents/tools/</code>; write_artifact still refuses any file that is not this
               agent's own output.</small></label>
-        </div>
-        <div class="sf-row">
-          <label class="sf sf-wide"><span>Library files for this writer</span>
-            <select name="reference_files" multiple size="8">${(state.library || []).map((f) =>
-              `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
-              `${esc(f.name)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
-            <small class="path">Select none to give this writer whatever the round picked. Selecting some
-              means it reads only those, however big the library gets — it can still open any other file
-              with read_artifact.</small></label>
         </div>
         ${field("Key from env var instead", "api_key_env", s.api_key_env, "e.g. OPENROUTER_API_KEY")}
         <label class="sf"><span>Extra request fields (JSON)</span>
@@ -1744,9 +1735,6 @@ function openSettings(id, message) {
     put("references", f.references.value);
     const tools = [...f.tools.selectedOptions].map((o) => o.value);
     if (tools.join("|") !== (s.tools || []).join("|")) out.tools = tools;
-    const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
-    const was = s.reference_files || [];
-    if (picked.join("|") !== was.join("|")) out.reference_files = picked;
     for (const k of ["send_images", "generate_images"]) {
       const v = f[k].value === "" ? null : f[k].value === "true";
       if (v !== (s[k] ?? null)) out[k] = v;
@@ -1889,12 +1877,12 @@ $("#pick-refs").onclick = () => {
   }).join("");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">The shared library this campaign reads: everything in each campaign's
-      <code>rules/</code> and <code>input/</code>, plus the room's craft skills in
-      <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
-      say "names only" or name a shortlist of its own) on every call, so pick only what this book
-      needs. A campaign's own <code>output/</code> is never in here: the room does not read its
-      work back as material.</p>
+    <p class="path">The library this campaign's Researcher reads: everything in its
+      <code>rules/</code>, <code>input/</code> and <code>references/</code>, plus the shared
+      <code>evoke/</code> material. The Researcher gets the chosen files (in full, unless its
+      settings say "names only") and writes <code>research.md</code>, which is how the rest of
+      the room learns them. A campaign's own <code>output/</code> is never in here: the room
+      does not read its work back as material.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>
     <div class="actions">

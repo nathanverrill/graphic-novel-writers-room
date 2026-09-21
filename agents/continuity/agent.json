@@ -8,7 +8,6 @@
   "max_tokens": 10000,
   "max_steps": 12,
   "timeout": 300,
-  "references": "full",
   "send_images": false,
   "extra": {},
   "generate_images": false,
@@ -17,10 +16,5 @@
   "image_model": null,
   "image_size": null,
   "image_extra": {},
-  "reference_files": [
-    "rules/bible.md",
-    "evoke/rules/alpha.md",
-    "input/hard-sf-rules.md"
-  ],
   "tools": []
 }
