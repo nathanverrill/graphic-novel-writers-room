@@ -17,7 +17,7 @@ import time
 import uuid
 from dataclasses import replace
 
-from . import agent as agent_mod
+from . import agent as agent_mod, intake as intake_mod
 from . import notes as notes_mod
 from . import phases, projects, review, usage
 from .agents import load_roles
@@ -26,10 +26,13 @@ MEASURED = "execution"      # the one phase whose gate the room can check for it
 
 
 class Run:
-    def __init__(self, slug, roles, note, plan=None):
+    def __init__(self, slug, roles, note, plan=None, mode=None):
         self.id = uuid.uuid4().hex[:12]
         self.slug = slug
         self.roles = roles
+        self.mode = mode          # intake: which kind of round this is
+        self.awaiting = False     # a runner stopped for the showrunner (intake passes 1-3)
+        self.run_status = None    # a runner's own word for how the round ended (see intake.py)
         self.note = note
         self.plan = plan            # set for a phase's round: {"kind": phase id, "max_passes", "all"}
         self.events = []
@@ -95,12 +98,17 @@ class Run:
             role = self.reload(role)
             emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
             emit("role_start", title=role.title, pass_n=pass_n)
-            a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
+            if role.pipeline == "intake":
+                a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
+            else:
+                a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
             try:
                 done_note = a.run(note)
             finally:
                 emit("role_cost", **a.log.totals)
             emit("role_done", note=done_note)
+            self.awaiting = self.awaiting or getattr(a, "awaiting", False)
+            self.run_status = getattr(a, "run_status", None) or self.run_status
             self.last_done = role
 
     def reload(self, role):
@@ -157,8 +165,8 @@ class Run:
             self.version.update(pages=pages)
             if measured:
                 self.emit("round_ready", version=self.version.id, pages=pages)
-            status = "done"
-            self.emit("run_done", version=self.version.id)
+            status = self.run_status or "done"
+            self.emit("run_done", version=self.version.id, awaiting=self.awaiting)
         except agent_mod.Stopped:
             status = "stopped"
             self.emit("run_stopped", version=self.version.id)
@@ -228,7 +236,7 @@ def _check_configs(roles):
             raise ValueError(f"{r.id}/{e}") from None
 
 
-def start_round(slug, note=None):
+def start_round(slug, note=None, mode=None):
     """Run the phase the book is in. It stops for the showrunner when the phase's agents are done."""
     if active_run(slug):
         raise RuntimeError("the room is already working on this project")
@@ -250,7 +258,7 @@ def start_round(slug, note=None):
     if jotted:
         parts.append(jotted)
     plan = {"kind": phase["id"], "max_passes": int(st["max_passes"]), "all": roles}
-    run = Run(slug, roles, "\n\n".join(p for p in parts if p), plan)
+    run = Run(slug, roles, "\n\n".join(p for p in parts if p), plan, mode)
     if jotted:
         notes_mod.mark_used(slug, [n["id"] for n in notes_mod._all(slug) if n["used_in"] == "pending"], run.version.id)
         run.version.write_file("showrunner-notes.md", jotted)

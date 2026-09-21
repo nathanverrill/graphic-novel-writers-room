@@ -249,7 +249,7 @@ async function refreshArtifacts(fresh) {
     state.versionMeta = v;
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
-      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}` +
+      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${statusText(v.status)}, ${fmtTime(v.started)}` +
       (v.counts ? `<br>${v.counts.kept} kept · ${v.counts.edited} redrawn by you · ${v.counts.noted} with a note` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
@@ -856,7 +856,9 @@ function handle(ev, replay = false) {
       break;
     }
     case "run_done":
-      log(`room adjourned — saved as ${ev.version || "a new version"}`, "dim");
+      log(ev.awaiting
+        ? `intake done — saved as ${ev.version || "a new version"}. Answer the open items below, then run intake again to fold them in.`
+        : `room adjourned — saved as ${ev.version || "a new version"}`, "dim");
       if (live) refreshPageBuild();
       break;
     case "run_stopped": log("stopped by the showrunner", "warn"); break;
@@ -1172,6 +1174,11 @@ function track(ev) {
   if (["run_done", "run_stopped", "error"].includes(ev.type)) p.end = p.end || ev.t;
   renderProgress();
 }
+
+const statusText = (s) => ({
+  awaiting_showrunner_decisions: "waiting on your answers",
+  ready_for_review: "ready for your review",
+}[s] || s);
 
 const dur = (s) => (s < 60 ? `${Math.round(s)}s` : s < 3600 ? `${Math.floor(s / 60)}m ${String(Math.round(s % 60)).padStart(2, "0")}s`
   : `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`);

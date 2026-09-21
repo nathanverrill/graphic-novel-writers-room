@@ -2,12 +2,12 @@
   {
     "id": "intake",
     "title": "Intake",
-    "does": "The Script Coordinator, the Director's assistant, goes through everything you put in — notes, references, any drafts — and sorts it into the three files the room works from: the people, the world, the story.",
+    "does": "The Script Coordinator, the Director's assistant, goes through everything you put in — notes, references, any drafts — and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
     "agents": [
       "script_coordinator"
     ],
     "gate": "approve",
-    "asks": "Is this what your material says? Then answer the open items: approve a proposed answer, edit it, or leave it for the room. Run intake again to fold your answers in.",
+    "asks": "Is this what your material says? Then answer the open items: approve an option, edit it, or leave it for the room. Run intake again and it folds your answers into the files and leaves only what is still open.",
     "read": [
       "characters.md",
       "world.md",

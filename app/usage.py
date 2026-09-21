@@ -163,10 +163,12 @@ class CallLogger:
         self.role_id = role_id
         self.emit = emit
         self.totals = empty_totals()
+        self._lock = threading.Lock()   # parallel calls finish at the same moment
 
     def __call__(self, kind, url, request, response, status, duration, error=None):
         try:
-            return self._record(kind, url, request, response, status, duration, error)
+            with self._lock:
+                return self._record(kind, url, request, response, status, duration, error)
         except Exception as e:  # logging must never break a run
             self.emit("warn", text=f"Couldn't log model call: {e}")
 

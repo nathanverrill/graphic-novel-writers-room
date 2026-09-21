@@ -14,6 +14,7 @@ CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · inpu
 OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and never read back
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
 LOGS_DIR = ROOT / "logs"               # usage ledger
+DEBUG_DIR = ROOT / "debug"             # last run's prompts and raw replies (app/intake.py)
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
 

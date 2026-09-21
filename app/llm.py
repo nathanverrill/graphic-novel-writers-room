@@ -77,13 +77,16 @@ def _download(url, timeout):
         return resp.read()
 
 
-def chat(cfg, messages, tools=None, log=None):
-    """Send one chat request and return the assistant message dict."""
+def chat(cfg, messages, tools=None, log=None, max_tokens=None):
+    """Send one chat request and return the assistant message dict.
+
+    `max_tokens` overrides the agent's own budget for this one call: parallel calls each write
+    a whole file, so one file's output must not eat another's allowance."""
     body = {"model": cfg.model, "messages": messages, **cfg.extra}
     if cfg.temperature is not None:
         body["temperature"] = cfg.temperature
-    if cfg.max_tokens:
-        body["max_tokens"] = cfg.max_tokens
+    if max_tokens or cfg.max_tokens:
+        body["max_tokens"] = max_tokens or cfg.max_tokens
     if cfg.thinking_budget is not None:
         _thinking(body, cfg.base_url, cfg.thinking_budget)
     if tools:

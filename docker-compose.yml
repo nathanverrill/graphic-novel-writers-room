@@ -25,6 +25,7 @@ services:
       - ./campaigns:/app/campaigns    # the work: the room reads and writes here
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
+      - ./debug:/app/debug           # last intake run: what was sent, what came back
     depends_on:
       seaweedfs:
         condition: service_healthy

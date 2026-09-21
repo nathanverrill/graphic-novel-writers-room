@@ -16,9 +16,11 @@ agents/agents.json sets the titles and what each agent reads and writes, plus:
                           one job and one craft, and differ only in voice.md and agent.json
     "context": "minimal"  the agent gets only its own folder, and its `reads`
                           (no shared guides or tools to browse the room)
-    "library": true       the agent reads the library — the campaign's rules/, input/ and
-                          drafts/ and references/. Only the Script Coordinator does; everyone else knows the
+    "library": true       the agent reads the library — the campaign's rules/, input/,
+                          drafts/ and references/. Only intake does; everyone else knows the
                           book through the room's own files (see app/agent.py)
+    "pipeline": "intake"  the role is run by a named pipeline instead of the agent tool loop:
+                          fixed calls, no tools, the room writes the files (see app/intake.py)
 
 agents/phases.json says which agents run in which phase, in which order (see phases.py).
 """
@@ -45,6 +47,7 @@ class Role:
     context: str = "full"
     shares: str = None       # a second folder of guides, e.g. "_writers"
     library: bool = False    # reads the showrunner's material (the Script Coordinator)
+    pipeline: str = None     # run by a named pipeline instead of the tool loop, e.g. "intake"
 
     @property
     def minimal(self):

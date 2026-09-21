@@ -1,0 +1,432 @@
+{
+  "id": "r14-ai",
+  "kind": "ai",
+  "started": "2026-09-21T21:27:39",
+  "finished": "2026-09-21T21:29:12",
+  "status": "stopped",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/input/alpha-notes.md": "3ed4badcd2e1a7bf",
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/open-items.md": "39db770411a3b032",
+    "prosperity/input/pratul-ch3-draft.md": "dfee4895481ac5ee",
+    "prosperity/input/prosperity-ch3-draft.md": "710baf8e1353abe9",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 3,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.3707475,
+      "input_tokens": 99958,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 24580,
+      "reasoning_tokens": 10392,
+      "total_tokens": 124538
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.3707475,
+        "input_tokens": 99958,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 24580,
+        "reasoning_tokens": 10392,
+        "total_tokens": 124538
+      }
+    }
+  },
+  "run_id": "577301756d1f",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-2.5-pro",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": "identifying_open_items",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "destination": "characters.md",
+        "model": "google/gemini-2.5-pro",
+        "snapshot": "5e029d5d7ece9096",
+        "input_chars": 145257,
+        "input_tokens_est": 36314,
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 26300,
+        "preservation": {
+          "source_chars": 104579,
+          "output_chars": 60770,
+          "mass": 0.581,
+          "terms": 279,
+          "missing": 21,
+          "coverage": 0.925,
+          "substantive_terms": 264,
+          "substantive_coverage": 0.936,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Caption",
+              "Dialogue",
+              "Text-first",
+              "Thorne's"
+            ],
+            "named entities": [
+              "Halyard's",
+              "Lock's"
+            ],
+            "names and terms": [
+              "Alchemy",
+              "Astrophage",
+              "Display",
+              "Displayed",
+              "Frequently",
+              "Graphic",
+              "Novel",
+              "Production",
+              "Script",
+              "Sept",
+              "Starting",
+              "Traits"
+            ],
+            "numbers": [
+              "0.03",
+              "96.4"
+            ],
+            "on-screen text": [
+              "DETECTED"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 2,
+            "names and terms": 12,
+            "numbers": 2,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "0.03",
+            "96.4",
+            "Alchemy",
+            "Astrophage",
+            "Caption",
+            "DETECTED",
+            "Dialogue",
+            "Display",
+            "Displayed",
+            "Frequently",
+            "Graphic",
+            "Halyard's",
+            "Lock's",
+            "Novel",
+            "Production",
+            "Script",
+            "Sept",
+            "Starting",
+            "Text-first",
+            "Thorne's",
+            "Traits"
+          ]
+        }
+      },
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "destination": "world.md",
+        "model": "google/gemini-2.5-pro",
+        "snapshot": "5e029d5d7ece9096",
+        "input_chars": 145291,
+        "input_tokens_est": 36322,
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 14527,
+        "preservation": {
+          "source_chars": 104579,
+          "output_chars": 60770,
+          "mass": 0.581,
+          "terms": 279,
+          "missing": 21,
+          "coverage": 0.925,
+          "substantive_terms": 264,
+          "substantive_coverage": 0.936,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Caption",
+              "Dialogue",
+              "Text-first",
+              "Thorne's"
+            ],
+            "named entities": [
+              "Halyard's",
+              "Lock's"
+            ],
+            "names and terms": [
+              "Alchemy",
+              "Astrophage",
+              "Display",
+              "Displayed",
+              "Frequently",
+              "Graphic",
+              "Novel",
+              "Production",
+              "Script",
+              "Sept",
+              "Starting",
+              "Traits"
+            ],
+            "numbers": [
+              "0.03",
+              "96.4"
+            ],
+            "on-screen text": [
+              "DETECTED"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 2,
+            "names and terms": 12,
+            "numbers": 2,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "0.03",
+            "96.4",
+            "Alchemy",
+            "Astrophage",
+            "Caption",
+            "DETECTED",
+            "Dialogue",
+            "Display",
+            "Displayed",
+            "Frequently",
+            "Graphic",
+            "Halyard's",
+            "Lock's",
+            "Novel",
+            "Production",
+            "Script",
+            "Sept",
+            "Starting",
+            "Text-first",
+            "Thorne's",
+            "Traits"
+          ]
+        }
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "destination": "story.md",
+        "model": "google/gemini-2.5-pro",
+        "snapshot": "5e029d5d7ece9096",
+        "input_chars": 146804,
+        "input_tokens_est": 36701,
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 19941,
+        "preservation": {
+          "source_chars": 104579,
+          "output_chars": 60770,
+          "mass": 0.581,
+          "terms": 279,
+          "missing": 21,
+          "coverage": 0.925,
+          "substantive_terms": 264,
+          "substantive_coverage": 0.936,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Caption",
+              "Dialogue",
+              "Text-first",
+              "Thorne's"
+            ],
+            "named entities": [
+              "Halyard's",
+              "Lock's"
+            ],
+            "names and terms": [
+              "Alchemy",
+              "Astrophage",
+              "Display",
+              "Displayed",
+              "Frequently",
+              "Graphic",
+              "Novel",
+              "Production",
+              "Script",
+              "Sept",
+              "Starting",
+              "Traits"
+            ],
+            "numbers": [
+              "0.03",
+              "96.4"
+            ],
+            "on-screen text": [
+              "DETECTED"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 2,
+            "names and terms": 12,
+            "numbers": 2,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "0.03",
+            "96.4",
+            "Alchemy",
+            "Astrophage",
+            "Caption",
+            "DETECTED",
+            "Dialogue",
+            "Display",
+            "Displayed",
+            "Frequently",
+            "Graphic",
+            "Halyard's",
+            "Lock's",
+            "Novel",
+            "Production",
+            "Script",
+            "Sept",
+            "Starting",
+            "Text-first",
+            "Thorne's",
+            "Traits"
+          ]
+        }
+      },
+      {
+        "call": "2",
+        "pass": "open items",
+        "destination": "open-items.md",
+        "model": "google/gemini-2.5-pro",
+        "snapshot": "5e029d5d7ece9096",
+        "input_chars": 129068,
+        "input_tokens_est": 32267,
+        "inputs": [
+          "characters.md",
+          "prosperity/input/open-items.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 0,
+        "status": "failed",
+        "problems": [],
+        "repairs": [],
+        "notes": []
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md"
+    ],
+    "carried_forward": [
+      "open-items.md",
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [
+      "open-items.md"
+    ]
+  }
+}

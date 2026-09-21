@@ -229,3 +229,7 @@ logs/*
 
 # API keys, saved per provider from the UI
 secrets/
+debug/
+
+# big binary scans in _morgue: nothing in the room reads them
+campaigns/_morgue/prosperity-drafts/*.pdf

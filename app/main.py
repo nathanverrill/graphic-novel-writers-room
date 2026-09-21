@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import intake, keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -577,10 +577,12 @@ class RoundSettings(BaseModel):
     max_passes: int | None = None
     auto_rounds: int | None = None  # keep going without a review for this many more rounds
     references: list[str] | None = None   # library files to use; ["*"] = all
+    use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
 
 
 class RoundRequest(BaseModel):
     note: str | None = None
+    mode: str | None = None    # intake only: "synthesis" or "revision"; default is chosen
 
 
 class PageReview(BaseModel):
@@ -618,8 +620,10 @@ def update_settings(slug: str, body: RoundSettings):
 @app.post("/api/projects/{slug}/rounds")
 def start_round(slug: str, body: RoundRequest):
     not_found(projects.project_dir, slug)
+    if body.mode is not None and body.mode not in (intake.SYNTHESIS, intake.REVISION, "integration"):
+        raise HTTPException(400, f"mode must be {intake.SYNTHESIS!r} or {intake.REVISION!r}")
     try:
-        run = room.start_round(slug, (body.note or "").strip() or None)
+        run = room.start_round(slug, (body.note or "").strip() or None, body.mode)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except ValueError as e:
@@ -655,6 +659,12 @@ def move_phase(slug: str, body: PhaseMove):
 
 class OpenItemAnswer(BaseModel):
     answer: str | None = None      # your answer; empty takes it back and leaves the item open
+    feedback: str | None = None    # a note about this item that is not an answer to it
+    defer: str | None = None       # leave it open on purpose; the text is why
+
+
+class Feedback(BaseModel):
+    feedback: str | None = None    # about the book, not about one item; empty clears it
 
 
 @app.get("/api/projects/{slug}/open-items")
@@ -665,11 +675,25 @@ def open_items(slug: str):
 
 @app.post("/api/projects/{slug}/open-items/{n}")
 def answer_open_item(slug: str, n: int, body: OpenItemAnswer):
+    """Answer item n, leave a note about it, defer it — or any combination."""
     not_found(projects.project_dir, slug)
     try:
-        return openitems.answer(slug, n, body.answer)
+        state = openitems.state(slug)
+        for field, value in (("feedback", body.feedback), ("defer", body.defer)):
+            if value is not None:
+                state = openitems.note_on(slug, n, field, value)
+        if body.answer is not None:
+            state = openitems.answer(slug, n, body.answer)
+        return state
     except ValueError as e:
         raise HTTPException(404, str(e))
+
+
+@app.post("/api/projects/{slug}/open-items-feedback")
+def open_items_feedback(slug: str, body: Feedback):
+    """The showrunner's general note about the book: a rule for the next integration."""
+    not_found(projects.project_dir, slug)
+    return openitems.set_feedback(slug, body.feedback)
 
 
 @app.get("/api/projects/{slug}/review")

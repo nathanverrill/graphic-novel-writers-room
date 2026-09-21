@@ -9,7 +9,7 @@ by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `facts.md`, `open-items.md` | **Answer the open items** — approve a proposed answer, edit it, or leave it — run intake again to fold them in, then **Approve** |
+| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `open-items.md`, then `facts.md` | **Answer the open items** — approve an option, edit it, defer it, or leave it — add weighted notes if you have any, run intake again to fold them in, then **Approve** |
 | 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
 | 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
@@ -34,7 +34,7 @@ to do that job well) and an `agent.json` (its model and settings).
 
 | Agent | Phase | Writes | What it is for |
 |---|---|---|---|
-| Script Coordinator | intake | `characters.md`, `world.md`, `story.md`, `facts.md` | the Director's assistant and the only reader of what you put in: sorts it, cited, into the three files the room works from, with a fact list for the Continuity Editor |
+| Script Coordinator | intake | `characters.md`, `world.md`, `story.md`, `open-items.md`, `facts.md` | the Director's assistant and the only reader of what you put in, whatever you named it: organizes it into the three files the room works from, lists what is still undecided, offers options, carries your decisions back in, and derives the fact list for the Continuity Editor. A five-pass pipeline, not a tool loop (`app/intake.py`) |
 | Director | development | `brief.md`, `world.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction; settles what the world leaves open |
 | Plotter | development | `story.md` | what happens, in what order, on which page — never the dialogue |
 | Character Designer | development | `characters.md` | a visual lock per character, pasted word for word into every page prompt |
@@ -413,10 +413,10 @@ produced them — overwritten each time, with every earlier round kept under `ou
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
 `CHAPTER 4 — PAGE 1`.
 
-How the library reaches the Script Coordinator is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
-
-- `"full"` — every file the round picked is pasted into the prompt. Every step of the agent's loop resends them, so big campaigns want a large-context model.
-- `"list"` — only the names are sent, and the Script Coordinator opens each one with `read_artifact("campaigns/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
+Intake always pastes the material in full, so `references` and `max_steps` in the Script
+Coordinator's `agent.json` do not apply to it — it has no tool loop to step through. What it
+does need is `max_tokens` big enough for one whole file per reply; short of that the envelope
+comes back truncated and the call is retried.
 
 ## The library
 
@@ -450,31 +450,175 @@ missing, in the same files — there is no second copy — and the Director's `b
 the book is and wins wherever it differs. The Script Coordinator organizes; it decides
 nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
 
-**If you have already written one of the three files, intake keeps it whole.** Put your own
-`characters.md`, `world.md`, `story.md` or `facts.md` in `input/` and it goes onto the desk
-word for word; the Script Coordinator writes only what it adds — detail from the references,
-what the rules fix, the file's Open list — and that lands after your text under **Added at
-intake**. It is code, not a request: an agent asked to rewrite a 20 KB file hands back a 9 KB
-summary, and what it dropped is lost to every agent after it. A file you have not written, the
-Script Coordinator writes in full.
+**Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
+The room builds every prompt, parses the file envelope that comes back, checks it and writes
+the files itself.
 
-**Open items: the room proposes, you decide.** Last of all the Script Coordinator writes
-`open-items.md`: every gap and contradiction from the three Open lists, numbered, each with
-one to three proposed answers and the one it would pick. Both screens show them under the
-intake gate. For each item you approve a proposal, edit it into your own answer, or leave it
-open for the room to settle in development. Your answers are yours, so they do not go on the
-room's desk: they are written to the campaign's `rules/decisions.md`, where they bind the book
-like any rule and survive every rerun. **Run intake again** and the Script Coordinator states
-each answer as FIXED in the file it belongs to and drops the item from the list. You can edit
-`rules/decisions.md` by hand too; it is plain markdown, one `## question` per answer.
+| | pass | in | out |
+|---|---|---|---|
+| 1 | **synthesis** | everything in `input/`, `rules/`, `references/` | `characters.md`, `world.md`, `story.md` — **three calls at once** |
+| 2 | **open items** | those three, your own open-items list — **no references** | `open-items.md`, questions only |
+| 3 | **options** | those items, the three files, `references/` | `open-items.md`, every item answered |
+| | *the run stops and waits for you* | | |
+| 4 | **revision** | your decisions and notes, the three files | the three files **in parallel**, then what is still open |
+| 5 | **facts** | the settled three files | `facts.md` |
 
-**Your own open items are joined with the room's, not shown to it.** If `input/` holds an
-`open-items.md`, the Script Coordinator does not see it while it works: it writes its own list
-blind, so its list is a second reading and not an echo of yours. Then one more call gives it
-both and it writes the joined list — every item of yours, in your words, with your suggested
-answers first; its own proposals added; its extra items after yours; each marked `from:`
-showrunner, script coordinator or both. For the files you wrote, its additions also carry a
-**Quality check**: where a writer would stumble on your text, quoted, without rewriting it.
+**Throw your material in under any names.** There is no file you have to create first.
+`input/` is whatever you have — `brainstorm.md`, `rough-chapter-1.md`, `pitch.txt`,
+`notes-to-self.md`, an old outline, a half-finished `characters.md`. Intake reads each one and
+works out what it holds; making the structure is its job, not something you do before calling
+it. Early drafts go in `input/` too — a separate `drafts/` folder still works but is not
+needed. `.md` and `.txt` are both read.
+
+**Every specialist gets the whole room, but only one job.** Pass 1 is three calls running at
+the same time, one per file, each reading all your material; pass 4 is the same, then the
+open-items list. This is measured, not theoretical: asked for several long files in one reply,
+the model wrote the first properly and thinned out, delivering 38–52% of the source with the
+last file half empty. Each call now has its own output budget.
+
+Reading broadly is the other half of it. A character fact turns up in a chapter draft, a world
+rule in a line of dialogue, a story beat in a character note — so nothing is routed by
+filename. Every call sees everything and takes what belongs to it.
+
+The three calls are independent views of one snapshot, and they may read an ambiguity
+differently — `characters.md` saying Leona chose exile while `story.md` says she was forced
+out. That is fine. Pass 2 exists to catch exactly that, and there is no hidden reconciliation
+step in pass 1. Each call validates and retries on its own, so a file that came back fine is
+never thrown away because a sibling failed.
+
+**One artifact per reply, and formatting is the room's job.** Each call returns the plain
+markdown of its file — no envelope, no markers. A code fence, a stray marker or a line of "Here
+is the document" gets stripped. Then the room *repairs* the shape rather than rejecting it: a
+characters file whose names came back at `##` with no `## Characters` wrapper gets the names
+demoted and the wrapper added; bolded field lines in `open-items.md` (`- **file:** x`) are
+rewritten so the screen can read them; unnumbered items get numbered; a missing title is added.
+Every repair is logged in `run.json` and shown in the feed.
+
+**Whatever the model returns is used.** There is exactly one reason to make a call again: the
+reply came back empty. Everything else is written down and carried on with. A short file, an
+items list the parser cannot read, an option with no source label, a file that ran to the token
+ceiling, something that reads more like a refusal than a document — all of it is noted in
+`run.json` and shown in the feed, and all of it is used. A model is a model, not a
+deterministic function; spending another call and throwing away what it wrote is the wrong
+answer to a formatting problem. Shaping the result is the room's job, afterwards.
+
+Each call gets a 64,000-token output budget, near the model's ceiling, so a file that should
+run long runs long instead of coming back cut off.
+
+**`facts.md` comes last, and only after you have decided.** It is a continuity ledger derived
+from the settled project — ages, dates, who is related to whom, how a device works, what is
+locked — for the Continuity Editor to check pages against. It is never an input to synthesis,
+and it is not a mirror of your rules: a rule that shapes how the book is written but settles
+nothing about the world produces no line in it.
+
+Pass 1 organizes and enriches; it does not resolve. Pass 2 finds the gaps and is deliberately
+the one pass with no research in reach — a reader holding a shelf will use it to make a thin
+file look finished, and then what it reports missing is not really missing. Pass 3 is the only
+pass that proposes answers.
+
+**The room checks each call:** all the files present, none empty, none truncated, each reading
+like the document its name promises, every option in pass 3 carrying a source label. A call
+that fails is retried — the same call, with every problem seen so far plus the standing bar —
+up to three times, then the run fails. It does not advance and it does not report done.
+
+**The files are working source documents, not summaries.** The room writes the book from them
+and never sees your sources again, so a page-by-page draft stays page-by-page: beats,
+decisions, consequences, reveals, dialogue worth keeping, on-screen text, numbers, objects,
+specific actions and the causal link between one beat and the next. Duplication collapses;
+detail does not. Reducing a detailed chapter to a synopsis is the one failure the synthesis
+guides warn about hardest.
+
+**Preservation is telemetry, not a gate.** Passes 1 and 4 are measured against what they were
+given — what share of the distinctive names, terms and numbers survived, and the rough mass
+ratio — across the whole set rather than file by file, and against your own material and rules,
+never the research shelf. Dropped terms are sorted into numbers, names and terms, on-screen
+text and craft vocabulary, so you can tell a lost measurement from a lost formatting word; a
+second coverage figure ignores the craft vocabulary entirely. Below 85% coverage or 30% mass it
+says so, in the feed and in `run.json`. It never discards a reply and never re-runs a pass, and
+none of the categories is a failure condition. The numbers are there to compare models and
+prompts, and to tell you a synthesis is worth reading closely before you approve it.
+
+**The guard never measures research.** It compares against `input/` and `rules/` only. The
+shelf is there to make the book better and most of it should rightly leave no trace; measuring
+against it would demand the files transcribe your research.
+
+**Research is part of the creative loop.** Have the idea, find the real-world material that
+makes it richer, stranger or more specific, put it in `references/`, and intake uses it twice —
+in pass 1 while it shapes the project, and in pass 3 to ground the options. So
+`use_references_during_synthesis` defaults to **on**. What research may not do is become canon
+by being plausible: a point from the shelf is cited and marked as real-world reporting, and
+anything built on it is written as a proposal and raised as an open item. Set the flag to
+`false` for a consolidation run.
+
+**Open items: the room proposes, you decide.** Passes 2 and 3 write `open-items.md`: every gap
+and contradiction the three files leave, numbered, each with
+
+**Open items are reconciled, never restarted.** Pass 2 works from two independent sources: the
+questions it finds in the new synthesis, and every open item that already existed — the list on
+the desk from the last round, with whatever you edited into it, plus an `input/open-items.md`
+if you keep one. For each prior item it decides: still unresolved (kept, in your words, with
+your proposed solution), resolved by an explicit decision or a binding rule or material that
+now directly settles it (removed), partly resolved (rewritten around what is still uncertain),
+a duplicate (merged, keeping your wording), or contradicted by the synthesis (kept — the
+disagreement is evidence). What comes back is one reconciled list, each item marked `from:`
+showrunner, script coordinator or both.
+
+**A question does not disappear because the synthesis forgot it.** A working document stating
+one version confidently settles nothing — very often it has just carried the problematic
+version forward, which is why you raised the item. Pass 2 is told this explicitly, with a
+worked example.
+
+**Every option says where it comes from.** Pass 3 labels each one **[established]** in your own
+material, **[research]** from the shelf, **[inferred]** from the four files, or **[invented]**,
+with its source — so a plausible suggestion never reads as something the book already settled.
+A pass 3 reply with an unlabelled option is rejected and asked again.
+
+**Three things you can do with an item.** **Answer** it — on either screen, which writes it to
+`rules/decisions.md`, or with a `- decision:` line in `output/open-items.md`. **Defer** it with
+a `- defer: <why>` line, which leaves it open on purpose and holds nothing up; pass 4 must not
+quietly answer it. Or leave it alone.
+
+**Notes carry weight.** Not everything you want to say answers a question: "Adrian should stay
+morally ambiguous", "Oasis should feel more desirable and less sterile", "give Bi11bot slightly
+more humour". Write those in a `## Feedback` block at the end of `open-items.md`, or attach one
+to a single item with `- feedback:`. Mark each with **[HIGH]**, **[MEDIUM]** or **[LOW]** — an
+unmarked note is MEDIUM:
+
+- **[HIGH]** must materially shape all the revision work it touches.
+- **[MEDIUM]** shapes the relevant material unless something with more authority says otherwise.
+- **[LOW]** is a preference: used where it improves the work, never at the cost of an unrelated
+  change.
+
+Pass 4 is given them with the authority of a rule for that run. Where a note and a decision
+pull against each other, the decision says *what is true* and the note says *how it reads*.
+Notes are *not* written into `rules/` — promoting one to a permanent rule is yours to do.
+
+**Pass 4 and 5.** **Run intake again** and the round is a revision: each answer goes into the
+file it belongs to, stated as settled and cited, followed through every other file it touches;
+your notes shape how all of it reads; deferred items stay put; and `open-items.md` comes back
+holding only what is still open. It is a controlled revision, not another synthesis — nothing
+unrelated changes and nothing may fall out. The shelf is absent unless a decision rests on it.
+Then pass 5 derives `facts.md` from the settled project.
+
+The round picks its own mode: revision when the three files exist and anything is waiting — an
+answer *or* a note — and a fresh synthesis otherwise. Post a round with `{"mode": "synthesis"}`
+or `{"mode": "revision"}` to override.
+
+**How a round ends.** Passes 1–3 leave it `awaiting_showrunner_decisions`; a finished pass 5
+leaves it `ready_for_review`. Neither is `done`, and `run.json` also records which files this
+run generated, which were carried forward, and which **you** edited by hand since the last
+round.
+
+**Other mediums.** The pipeline does not care whether the book is a graphic novel, a novel, a
+screenplay, a game or an audio drama. What changes is `craft.md` and the expected shape of
+`story.md`; `characters.md`, `world.md`, `facts.md` and `open-items.md` stay as they are.
+
+**Under the hood.** All three synthesis calls work from one snapshot of the material, recorded
+in `run.json`, so a set of files can never be half from one state and half from another. They
+share an identical system prompt and payload prefix — only the last few lines differ — so a
+provider that caches prefixes can reuse it. Each call gets its own 30,000-token output budget,
+and the room warns if a prompt goes past a soft ceiling well below the model's advertised
+window, since an advertised context is not a good working range.
 
 **Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
 `input/` holds raw notes: the three files come out thin with long Open lists, and development
@@ -506,7 +650,9 @@ Nothing else in a campaign binds: `input/` for anything you want read at any qua
 
 **Only `rules/` binds**, so a folder you invent inside a campaign is non-binding by default —
 group your material however suits you, and you cannot turn a rough note into canon by filing it
-somewhere. `references/` is exactly that: a folder for your own sake, read the same way `input/`
+somewhere. `references/` is research about the real world, and part of the creative loop: read in intake's
+first pass to enrich the project and in its third to ground the options, never canon until you
+approve it. It is otherwise a folder for your own sake, read the same way `input/`
 is read.
 
 **The pitch is optional, and it is input.** If you want to say what the book should be, write
@@ -556,14 +702,15 @@ The campaign's files are the campaign's files: edit them in place. The scripts t
 split a long source document into them were one-off utilities for importing older material,
 and they are retired to `campaigns/_morgue/utilities/`.
 
-**What a reference is.** Three kinds, each arriving under its own heading so the Script Coordinator is
+**What a reference is.** Four kinds, each arriving under its own heading so the Script Coordinator is
 told which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | rules | a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
 | drafts | a campaign's `drafts/` | what is written so far: the best evidence of the story and the voices, and still an idea draft — it binds nothing, and the room writes its own version |
-| input | a campaign's `input/`, `references/`, or anywhere else in it | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
+| input | a campaign's `input/`, or anywhere else in it | your own material, under any names: brainstorms, fragments, notes, rough chapters, old outlines, earlier structured files. It binds the book to nothing and none of it has happened. What each document *is* comes from the document, never from its filename. `.md` and `.txt` |
+| references | a campaign's `references/` | research about the real world, gathered to feed the creative work. Pass 1 reads it to enrich the project (unless you turn `use_references_during_synthesis` off) and pass 3 reads it for options labelled **[research]**; passes 2, 4 and 5 never see it. Nothing here becomes canon by being plausible — it becomes canon when you approve it |
 
 `rules/alpha.md` is the case in point for the one question a folder answers: it
 arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in

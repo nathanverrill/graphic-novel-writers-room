@@ -26,8 +26,9 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the campaign and round, so a file means the same thing
 wherever it ends up.
 
-The campaign's rules/, input/, drafts/ and references/ are the room's library. Only the Script Coordinator reads it (see agents.json, "library": true): it sorts it
-into characters.md, world.md and story.md, and that is how the material reaches everyone else. A campaign can pick which files it uses
+The campaign's rules/, input/, drafts/ and references/ are the room's library. Only intake reads it
+(app/intake.py): it writes what the material establishes into characters.md, world.md, story.md and
+facts.md, and that is how the material reaches everyone else. A campaign can pick which files it uses
 ("references" in round-settings.json; default: all). Each file either binds the book or does
 not — see reference_kind. output/ is never among them: the room does not read its own work
 back as material (see never_read).
@@ -87,54 +88,13 @@ def pitch(slug):
     return path.read_text() if path.exists() else ""
 
 
-ADDED = "<!-- added at intake -->"      # above it, your file word for word; below it, the room's additions
-
-
-def showrunner_file(slug, name):
-    """Your own version of one of the room's files — input/characters.md, say — or None.
-
-    You have already organized that subject, so intake keeps the file whole: an agent asked to
-    rewrite a 20 KB file hands back a 9 KB summary, and what it dropped is gone for every agent
-    after it. The Script Coordinator writes only what it adds, and with_additions joins the two."""
-    path = campaign_dir(slug) / INPUT / name
-    return path.read_text() if NAME_RE.match(name) and path.is_file() else None
-
-
-def with_additions(base, added):
-    """Your file, whole, then what intake added to it under a marked heading.
-
-    Told to write only its additions, an agent still hands back your whole file with its changes
-    folded in. So the rule is kept here: any line of the addition that is already in your file
-    is dropped, and so is a heading left with nothing under it."""
-    added = (added or "").split(ADDED)[-1]
-    added = re.sub(r"\A\s*# Added at intake\s*(_Everything above.*?_\s*)?", "", added, flags=re.S)
-    norm = lambda line: re.sub(r"[\s*_>#-]+", " ", line).strip().lower()
-    yours = {norm(l) for l in base.split("\n")}
-    lines = [l for l in added.split("\n") if (not norm(l) or norm(l) not in yours) and norm(l) != "added at intake"]
-    kept = []
-    for i, line in enumerate(lines):           # a heading survives only if something follows it
-        if re.match(r"#{1,6}\s", line):
-            depth = len(line) - len(line.lstrip("#"))
-            rest = lines[i + 1:]
-            end = next((j for j, l in enumerate(rest) if re.match(r"#{1,%d}\s" % depth, l)), len(rest))
-            if not any(l.strip() and l.strip() != "---" for l in rest[:end]):
-                continue
-        kept.append(line)
-    added = re.sub(r"\n{3,}", "\n\n", "\n".join(l for l in kept if l.strip() != "---")).strip()
-    if not added:
-        return base.rstrip() + "\n"
-    return (f"{base.rstrip()}\n\n{ADDED}\n# Added at intake\n\n"
-            "_Everything above is the showrunner's file, kept word for word. Below is what the "
-            "Script Coordinator added from the references and the rules._\n\n" + added + "\n")
-
-
 def create_project(title, pitch, pages=None, draft=None):
     """A new campaign: rules/ binds the book, input/ is anything to read, drafts/ is what is
     already written, output/ is the desk."""
     slug = slugify(title)
     path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    for sub in (RULES, INPUT, DRAFTS, "references", OUTPUT_NAME):
+    for sub in (RULES, INPUT, DRAFTS, REFERENCES, OUTPUT_NAME):
         (path / sub).mkdir()
     if pitch.strip():       # optional, and yours: it is material like anything else in input/
         (path / INPUT / PITCH).write_text(f"# {title}\n\n{pitch.strip()}\n")
@@ -240,24 +200,33 @@ def reference_files(slug, version=None):
     return {name: p for name, p in _material(slug) if chosen is None or name in chosen}
 
 
+MATERIAL_SUFFIXES = (".md", ".txt")
+
+
 def _material(slug=None):
-    """(name, path) for every .md a campaign holds as material — or every campaign's, for search.
+    """(name, path) for every file a campaign holds as material — or every campaign's, for search.
 
     A file is named by its path under campaigns/, so prosperity/rules/chapter-04 and
-    prosperity/drafts/chapter-04 are two different files and read as what they are. A campaign
+    prosperity/input/chapter-04 are two different files and read as what they are. A campaign
     reads its own folder and nothing from another: Prosperity is not told about emperor
-    penguins because Avalanche exists."""
+    penguins because Avalanche exists.
+
+    No filename is required or special. The showrunner names their files whatever they like —
+    brainstorm.md, rough-chapter-1.md, pitch.txt — and intake works out what each one holds by
+    reading it. Creating structure is intake's job, not a precondition for running it."""
     roots = [campaign_dir(slug)] if slug else [campaign_dir(s) for s in list_projects()]
     for root in roots:
-        for p in sorted(root.rglob("*.md")):
+        found = sorted(p for p in root.rglob("*") if p.suffix.lower() in MATERIAL_SUFFIXES)
+        for p in found:
             rel = p.relative_to(CAMPAIGNS_DIR)
-            if not p.name.startswith(".") and not never_read(rel):
+            if p.is_file() and not p.name.startswith(".") and not never_read(rel):
                 yield str(rel), p
 
 
 RULES = "rules"       # the book must not contradict it
-INPUT = "input"       # read it; it binds nothing
+INPUT = "input"       # the showrunner's own material: read it; it binds nothing
 DRAFTS = "drafts"     # what has been written so far; it binds nothing either
+REFERENCES = "references"   # research about the real world: intake proposes from it, never canon
 PITCH = "pitch.md"    # input/pitch.md, if you wrote one: the Script Coordinator reads it with the rest
 
 
@@ -297,7 +266,9 @@ def reference_kind(path):
     Script Coordinator reads a draft for what happens in it, not for facts."""
     if RULES in path.parts:
         return RULES
-    return DRAFTS if DRAFTS in path.parts else INPUT
+    if DRAFTS in path.parts:
+        return DRAFTS
+    return REFERENCES if REFERENCES in path.parts else INPUT
 
 
 def library(slug=None):
