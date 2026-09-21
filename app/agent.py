@@ -26,7 +26,7 @@ REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
 
 PREVIEW_HOW = artist.PANEL_HOW
 
-IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "write_artifact", "generate_image", "finish")
+IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
 
 
@@ -176,7 +176,7 @@ class Agent:
         kept = {n: p for n, p in refs.items() if n in wanted}
         return kept or refs
 
-    def task_message(self, note, images, sparks=None):
+    def task_message(self, note, images):
         r = self.role
         pitch = projects.read_artifact(self.slug, "pitch.md") or "(no pitch yet)"
         text = [f"Project: {self.slug}", "# Pitch", pitch]
@@ -226,15 +226,6 @@ class Agent:
             text.append("# Your previous drafts — revise rather than start over")
             text += [f"## {n}\n{c}" for n, c in existing]
 
-        if sparks:
-            spark = ["# Random entry (drawn by code for this run)", "Cards:"]
-            spark += [f"- {c}" for c in sparks["cards"]]
-            if sparks["word"]:
-                spark.append(f"Unrelated word: {sparks['word']}")
-            if sparks["target"]:
-                spark.append(f"Target: {sparks['target']}")
-            text.append("\n".join(spark))
-
         if note:
             text += ["# Note from the showrunner — address this first", note]
 
@@ -277,6 +268,18 @@ class Agent:
                 return f"Search is unavailable ({type(e).__name__}). Use list_artifacts and read_artifact."
             self.emit("tool", name="search", args={"query": args.get("query", "")[:80], "hits": len(hits)})
             return search.as_text(hits)
+        if name == "provoke":
+            sparks = random_entry(story_targets(self.slug), int(args.get("cards") or 3))
+            if not sparks:
+                return "The deck is empty (agents/_shared/deck.txt)."
+            self.emit("random_entry", **sparks)
+            out = ["Cards:"] + [f"- {c}" for c in sparks["cards"]]
+            if sparks["word"]:
+                out.append(f"Unrelated word: {sparks['word']}")
+            if sparks["target"]:
+                out.append(f"Target: {sparks['target']}")
+            out.append("None of this is canon. Use what strengthens the page and say what you used.")
+            return "\n".join(out)
         if name == "write_artifact":
             target = args.get("name", "")
             if target not in self.role.outputs:
@@ -353,9 +356,6 @@ class Agent:
         if not self.cfg.send_images:
             images = []
         refs = self.shortlist({} if self.role.minimal else projects.reference_files(self.slug))
-        sparks = random_entry(self.role, story_targets(self.slug))
-        if sparks:
-            self.emit("random_entry", **sparks)
         self.emit("context", hat=hat, minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
                   references=list(refs), references_mode=self.cfg.references,
                   reference_chars=sum(p.stat().st_size for p in refs.values()),
@@ -367,7 +367,7 @@ class Agent:
         if self.role.preview:
             return self.run_preview(note, hat, guides, figma_text, images)
 
-        task = self.task_message(note, images, sparks)
+        task = self.task_message(note, images)
         messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True, hat)}, task]
 
         for step in range(1, self.cfg.max_steps + 1):

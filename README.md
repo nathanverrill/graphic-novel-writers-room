@@ -587,14 +587,16 @@ agents/
   comments for the next person. An agent gets every implemented tool unless its `agent.json`
   names a `tools` list, `write_artifact` refuses any file that is not its own output, and
   `generate_image` needs `generate_images: true`. A cold reader (`"context": "minimal"`) gets
-  `write_artifact` and `finish` only.
+  `write_artifact` and `finish` only, so it can neither browse the room nor be provoked.
 - **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
   `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
   only its own folder, the pitch and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
-- **Random entry:** an agent with `deck.txt` (one prompt per line) gets 3 cards drawn by code
-  each run, plus a word from `words.txt` and a random heading from the outline or script
-  as a target. The draw shows in the live feed.
+- **Random entry:** the `provoke` tool deals 3 cards from `agents/_shared/deck.txt` (one move
+  per line), a word from `words.txt` and a random heading from the outline or script as a
+  target. Drawn by code, so it is not an idea the model talked itself into, and pulled rather
+  than dealt: a writer asks when the obvious version of a beat is the one it keeps writing, and
+  a writer who isn't stuck pays nothing. The draw shows in the live feed.
 
 ## Hats
 

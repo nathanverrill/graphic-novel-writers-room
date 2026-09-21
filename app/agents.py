@@ -7,10 +7,9 @@
     agent.json          this role's provider, model and tuned defaults (committed;
                         API keys live in secrets/keys.json, per provider)
 
-    deck.txt, words.txt  optional random-entry material: when present, each run
-                        draws cards and a word from them (see random_entry)
-
 roles/_shared/ has the same layout and is given to every role.
+agents/_shared/deck.txt and words.txt are the provocation deck, drawn from by the
+`provoke` tool rather than dealt to anyone (see random_entry).
 agents/agents.json sets the order, titles, and what each agent reads and writes, plus:
     "context": "minimal"  the role gets only its own folder, its `reads` and the pitch
                           (no shared guides, references, or tools to browse the room)
@@ -222,15 +221,15 @@ def _lines(path):
     return [l.strip() for l in path.read_text().splitlines() if l.strip() and not l.startswith("#")]
 
 
-def random_entry(role, targets):
-    """Random sparks drawn in code, not by the model: 3 cards, 1 word, 1 target.
-    Returns None for roles without a deck."""
-    deck = _lines(role.dir / "deck.txt")
+def random_entry(targets, cards=3):
+    """Random sparks drawn in code, not by the model: cards, 1 word, 1 target, from the
+    room's shared deck. Returns None when there is no deck to draw from."""
+    deck = _lines(AGENTS_DIR / SHARED / "deck.txt")
     if not deck:
         return None
-    words = _lines(role.dir / "words.txt")
+    words = _lines(AGENTS_DIR / SHARED / "words.txt")
     return {
-        "cards": random.sample(deck, min(3, len(deck))),
+        "cards": random.sample(deck, max(1, min(cards, len(deck)))),
         "word": random.choice(words) if words else None,
         "target": random.choice(targets) if targets else None,
     }

@@ -18,12 +18,13 @@ import json
 from mcp.server.mcpserver import MCPServer
 
 from . import projects, prompts, review, rules, search, thumbnails
-from .agents import load_tools
+from .agents import load_tools, random_entry
 
 PROJECT_ARG = "The project to act on, e.g. 'prosperity'. Call list_projects to see them."
 EXTRA = {   # what a client outside a round needs that an agent mid-round does not
     "list_artifacts": "Takes the project to list.",
     "read_artifact": PROJECT_ARG,
+    "provoke": PROJECT_ARG + " The target heading is drawn from its outline or script.",
 }
 OWN = {     # tools with no agent equivalent, or whose meaning changes outside a round
     "list_projects": "List the room's projects by name.",
@@ -97,6 +98,14 @@ def build():
         else:
             content = projects.read_artifact(project, name)
         return content if content is not None else f"No file named {name!r} in {project}."
+
+    @room.tool(description=described("provoke"))
+    def provoke(project: str, cards: int = 3) -> str:
+        from .agent import story_targets          # imported here: agent.py pulls in the room
+        sparks = random_entry(story_targets(project), cards)
+        if not sparks:
+            return "The deck is empty (agents/_shared/deck.txt)."
+        return json.dumps(sparks)
 
     @room.tool(description=described("write_artifact"))
     def write_artifact(project: str, name: str, content: str) -> str:
