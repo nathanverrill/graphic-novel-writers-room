@@ -9,8 +9,8 @@ by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Research** | Researcher | `research.md`, `facts.md` | **Approve**: is this what the material says? Anything misread, missing, or contradictory that you can settle? |
-| 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, `outline.md`, `bible.md`, `notes.md` | **Approve**: is this the right story, told by these people? |
+| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `facts.md` | **Approve**: is this what your material says? Anything misread, missing, or contradictory that you can settle? |
+| 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
 | 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
 | 5 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
@@ -34,13 +34,13 @@ to do that job well) and an `agent.json` (its model and settings).
 
 | Agent | Phase | Writes | What it is for |
 |---|---|---|---|
-| Researcher | research | `research.md`, `facts.md` | the only reader of what you put in: a cited synthesis for the Director, a fact list for the Continuity Editor |
-| Director | development | `brief.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction |
-| Plotter | development | `outline.md` | what happens, in what order, on which page — never the dialogue |
-| Character Designer | development | `bible.md` | a visual lock per character, pasted word for word into every page prompt |
+| Script Coordinator | intake | `characters.md`, `world.md`, `story.md`, `facts.md` | the Director's assistant and the only reader of what you put in: sorts it, cited, into the three files the room works from, with a fact list for the Continuity Editor |
+| Director | development | `brief.md`, `world.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction; settles what the world leaves open |
+| Plotter | development | `story.md` | what happens, in what order, on which page — never the dialogue |
+| Character Designer | development | `characters.md` | a visual lock per character, pasted word for word into every page prompt |
 | Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
 | Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
-| First Reader | audition | `first-read.md` | reads both auditions cold — pitch and pages, nothing else — and reports reactions. Never picks |
+| First Reader | audition | `first-read.md` | reads both auditions cold — the pages, nothing else — and reports reactions. Never picks |
 | Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page prompts and the sketch |
 | Letterer | execution | `lettering.md` | checks balloon order, placement and word count; the Layout Agent reads it on a fix pass |
 | Continuity Editor | closes 1, 3 and 4 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
@@ -62,7 +62,7 @@ chat client or an editor can work on a book without the screen.
 
 ## Two screens
 
-**`/` is one button.** It runs the phase the Prosperity book is in — **Start research**,
+**`/` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
 spinning, and under it the gate — the question, and **Approve** or **Pick Writer A / Pick
 Writer B**. After execution it shows the lettered pages. Built for a phone, nothing to set.
@@ -98,7 +98,7 @@ not token by token; a file at a time, in step with the live feed:
 
 | When | What appears |
 |---|---|
-| `outline.md` — the Plotter | the page's beat, above the frame |
+| `story.md` — the Plotter | the page's beat, above the frame |
 | `script.md` — the writer | one card per panel, marked *from the script*, with its description and dialog |
 | `layouts.md` — the Layout Agent | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
 | `notes.md` — the Continuity Editor | that page's flags, under the cards |
@@ -120,7 +120,7 @@ self-contained, so you can paste a single page into an image model:
 
 - **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
 - **Style** — the brief's visual direction, the same on every page.
-- **Characters** — the bible's visual lock for everyone on the page, word for word.
+- **Characters** — the visual lock in `characters.md` for everyone on the page, word for word.
 - **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
   and panels with their share of the page, bleeds.
 - **Panels** — shot and angle, the Layout Agent's scene description, light, who stands where
@@ -132,12 +132,12 @@ files, and the character descriptions never get paraphrased. In the app, **Page 
 a **Copy** button per page and **Copy all pages**; the review screen shows the prompt for the
 page you're reviewing. Each round also saves `-pNN-prompt.md` per page, and the final round
 saves `book-prompts.md`. So the prompts are only as good as the brief's visual direction, the
-bible's visual locks and the Layout Agent's panel descriptions — that's where to push the room.
+visual locks in `characters.md` and the Layout Agent's panel descriptions — that's where to push the room.
 
 ## Rounds and review
 
-1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
-   script (high level, directional; saved as `input/draft-script.md`). It starts in research.
+1. **New project** — title, page count (e.g. 7), an optional pitch (saved as `input/pitch.md`), and an optional draft
+   script (high level, directional; saved as `drafts/draft-script.md`). It starts in intake.
 2. **Run *phase*** — runs the phase the book is in, then stops for you. Read what the gate lists,
    and approve, pick, or add a note and run it again. **Pause** holds a round between two agents.
    In execution the room also checks the **readiness gate**: exactly the right pages, zero
@@ -311,8 +311,7 @@ Past rounds are read-only.
 
 `campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
 noting what was adopted from each and why the rest wasn't. It is there so a person can find an
-old document again, and nothing in it reaches an agent — the leading underscore is the rule,
-the same one that keeps `input/_rough/` out of the room (see
+old document again, and nothing in it reaches an agent — the leading underscore is the rule (see
 **The library**).
 
 ## Running the room
@@ -414,33 +413,16 @@ produced them — overwritten each time, with every earlier round kept under `ou
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
 `CHAPTER 4 — PAGE 1`.
 
-How the library reaches the Researcher is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
+How the library reaches the Script Coordinator is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
 
 - `"full"` — every file the round picked is pasted into the prompt. Every step of the agent's loop resends them, so big campaigns want a large-context model.
-- `"list"` — only the names are sent, and the Researcher opens each one with `read_artifact("library/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
-
-## Character references
-
-Each character has a standalone file in the campaign's `input/` — `alex-phantum.md`,
-`ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
-`bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
-
-Each gathers, in this order: an at-a-glance table (want, need, wound, tell, voice, palette), the
-visual lock from the newest project bible exactly as the page prompts paste it, the campaign
-bible's canon sheet verbatim, the bible's relationship sections, every distinct line the scripts
-have given them with the file it was written in, and where all of it came from.
-
-`python scripts/gather_character.py` rebuilds them from every document in the room — the
-library, the skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
-across twenty round snapshots is written once. The at-a-glance wording lives in
-`scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
-belongs in the bible.
+- `"list"` — only the names are sent, and the Script Coordinator opens each one with `read_artifact("library/<path>")`. Fits a smaller context, but needs a `max_steps` large enough to read every file.
 
 ## The library
 
 **A campaign is the project.** There is no separate `projects/` folder and no separate
 `output/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
-opening the work. The Researcher reads `rules/`, `input/` and `references/`, and the room writes `output/`, which is the desk
+opening the work. The Script Coordinator reads `rules/`, `input/`, `drafts/` and `references/`, and the room writes `output/`, which is the desk
 the agents share — the script, the layouts, the page prompts, the settings, and every finished
 round under `output/previous/`.
 
@@ -451,10 +433,29 @@ desk still reaches an agent — under its own file names, as the project's own w
 different thing from reference material.
 
 The campaign folders are what the room calls the **library**, and one agent reads it: the
-**Researcher**, the whole of the research phase, who reads every file the round picked — `rules/`,
-`input/`, `references/` and the shared `evoke/` — and writes `research.md` for the Director
-and `facts.md` for the Continuity Editor. Every other agent knows the material through the
-brief the Director makes from it, and its own craft. A file reaches the Researcher as `library/<its path>`.
+**Script Coordinator**, the Director's assistant and the whole of the intake phase, who goes
+through every file the round picked — `rules/`, `input/`, `drafts/`, `references/` and the
+shared `evoke/` — and sorts it into the three files the room works from:
+
+| File | Holds | Who takes it over in development |
+|---|---|---|
+| `characters.md` | the people: look, voice, wants, relationships | Character Designer |
+| `world.md` | how the world works: places, systems, money, technology | Director |
+| `story.md` | what happens: what you are reaching for, the beats so far, then the structure and the page-by-page plot | Plotter |
+
+Every point is cited and keeps its T / EG / S / L label, and each file ends with an **Open**
+list: what your material leaves undecided or contradicts itself on. You approve the three
+files at the first gate. In development their owners decide what is open and build what is
+missing, in the same files — there is no second copy — and the Director's `brief.md` says what
+the book is and wins wherever it differs. The Script Coordinator organizes; it decides
+nothing. A file reaches it as `library/<its path>`.
+
+**Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
+`input/` holds raw notes: the three files come out thin with long Open lists, and development
+does most of the building. With chapters already written (Prosperity), they go in `drafts/`:
+`story.md` starts as the beats of what exists and `characters.md` as the people the way the
+drafts play them, and development is mostly deciding what to keep. Drafts are idea drafts
+either way — the room writes its own version.
 
 One folder per campaign, and the same words inside each, so a person opening any folder knows
 what they are looking at:
@@ -464,8 +465,9 @@ campaigns/
   evoke/
     rules/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    rules/          what the book must not contradict — empty until you put something there
-    input/          anything you want the Researcher to read, any quality: the bible, the chapter plans, the character files, drafts
+    rules/          what the book must not contradict: hard-sf-rules.md
+    input/          anything you want read, any quality: notes, sketches, plans — empty for now
+    drafts/         pages or chapters already written: the script draft. Empty when a book starts from scratch
     references/     material to draw on, grouped for your own sake
     output/         the room's desk: script, layouts, page prompts, previous/
   avalanche/        the second campaign: the same folders
@@ -476,29 +478,36 @@ campaigns/
 each chapter's own truth, who each character is. (Not to be confused with **the showrunner's
 standing rules**, which are how you want the room to work and live in `taste-writers.md`.)
 Nothing else in a campaign binds: `input/` for anything you want read at any quality,
-`references/` for material to draw on, `output/` for what the room wrote.
+`drafts/` for what is already written, `references/` for material to draw on, `output/` for what the room wrote.
 
 **Only `rules/` binds**, so a folder you invent inside a campaign is non-binding by default —
 group your material however suits you, and you cannot turn a rough note into canon by filing it
 somewhere. `references/` is exactly that: a folder for your own sake, read the same way `input/`
 is read.
 
+**The pitch is optional, and it is input.** If you want to say what the book should be, write
+`input/pitch.md`; the Script Coordinator reads it with everything else and carries it into the
+three files. No agent is handed it separately, and nothing in `output/` steers intake: the
+desk starts empty.
+
 `input/` is the heap, and it is meant to be one: a reference document, a prompt that worked,
 rough notes, dropped in without deciding anything first. The room reads it, mines it, and is
 never bound by it.
 
-**Nothing in the code decides whether a document is worldbuilding, research or a draft.** A
+**Nothing in the code decides whether a document is worldbuilding or reporting.** A
 document says what it is in its own words — its title, its frontmatter, its first line — and the
 agent reading it works that out. `triangle-money.md` opens with "Grounded worldbuilding for what
-money is like…"; `draft-chapter-01.md` opens with "Idea draft, not the script." Those sentences
-are the classification, and they are also what a person reads. There is no marker to write and
-no folder to pick: if you want the hard SF rules followed, the document saying so goes in
-`input/`.
+money is like…"; `hard-sf-rules.md` opens with "How a grounded story invents things without lying to the
+reader." Those sentences
+are the classification, and they are also what a person reads. There is no marker to write:
+if you want the hard SF rules to bind the book, the document goes in `rules/`, which is where
+Prosperity keeps it. The one folder that does say what a file is is `drafts/`: a draft is read for what
+happens in it and how its people talk, and reaches the Script Coordinator under its own heading.
 
 `campaigns/evoke/` applies to every campaign, `campaigns/<campaign>/` to that one. A file is
 named by its path, so `prosperity/rules/chapter-04.md` and
-`prosperity/input/draft-chapter-04.md` are two different things and are read as what they are.
-A new campaign is `mkdir -p campaigns/<name>/{rules,input,references,output}`, which is what **+ New campaign** does.
+`prosperity/drafts/chapter-04.md` are two different things and are read as what they are.
+A new campaign is `mkdir -p campaigns/<name>/{rules,input,drafts,references,output}`, which is what **+ New campaign** does.
 
 And a third rule that is only a naming convention: **inside the library — `campaigns/` — a
 folder whose name starts with an underscore is not library material.**
@@ -506,11 +515,6 @@ The room skips it when it lists the library, when a round carries references int
 when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
 there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
 either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
-
-**`input/_rough/` is the one exception, and it is a leftover.** It holds two long documents an
-earlier import was made from — a 129 KB script draft and a 93 KB campaign bible — whose content
-is already in `rules/` and `input/` in the pieces the room reads. The underscore keeps them out
-of prompts so nothing is sent twice. You can delete the folder and lose nothing the room uses.
 
 **A campaign reads its own material, the shared `evoke/` material, and the craft skills —
 never another campaign's.** That is a folder rule, not a setting: `in_scope` in
@@ -521,7 +525,7 @@ the moment you save it, with nothing to add to a list. It holds for a file asked
 too, so an agent cannot read across the boundary either.
 
 **Within that, a campaign picks what it uses** — **References…** in **The room** tab lists both
-folders; default: all of them. The summary beside the picker shows how many KB the Researcher
+folders; default: all of them. The summary beside the picker shows how many KB the Script Coordinator
 will carry. With references in place the pitch is optional. Each round keeps a copy of the references it used, and `run.json` records
 a hash of each.
 
@@ -529,12 +533,13 @@ The campaign's files are the campaign's files: edit them in place. The scripts t
 split a long source document into them were one-off utilities for importing older material,
 and they are retired to `campaigns/_morgue/utilities/`.
 
-**What a reference is.** Two kinds, each arriving under its own heading so the Researcher is
+**What a reference is.** Three kinds, each arriving under its own heading so the Script Coordinator is
 told which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
 | rules | `evoke/rules/`, a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
+| drafts | a campaign's `drafts/` | what is written so far: the best evidence of the story and the voices, and still an idea draft — it binds nothing, and the room writes its own version |
 | input | a campaign's `input/`, `references/`, or anywhere else in it | read it and take what serves the page: it binds the book to nothing and none of it has happened. What each document *is* comes from the document |
 
 `campaigns/evoke/rules/alpha.md` is the case in point for the one question a folder answers: it
@@ -542,20 +547,19 @@ arrived as a craft skill, but it is who Alpha is rather than a menu of options, 
 `rules/` and binds every campaign — in `evoke/` because AVALANCHE inherits him.
 
 The skills label their material with the vocabulary in
-the campaign's `input/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+the campaign's `rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
 them, and a license used to skip work the characters should have done.
 
-**Only the Researcher reads the library, and only the Director reads the Researcher.** The
-Researcher writes two files. `research.md` is the synthesis — what the material says, cited
-file by file, marking what is fixed, what is open and where the sources disagree — and the
-Director is its one reader: the brief carries the world, the people and the story for
-everyone downstream, and what the Director leaves out the room will invent. `facts.md` is the
+**Only the Script Coordinator reads the library, and the room reads its three files.**
+`characters.md`, `world.md` and `story.md` go to the Director, the Plotter, the Character
+Designer, the writers, the Layout Agent and the Continuity Editor. (The First Reader reads cold
+and the Letterer reads only the pages, so neither gets them.) `facts.md` is the
 fact-checker's list — every checkable statement in the material, one per line, tagged with the
 material's own label and its source — and the Continuity Editor reads it beside the book. An
-agent that asks `read_artifact` for a `library/` file is refused and pointed at the brief.
+agent that asks `read_artifact` for a `library/` file is refused and pointed at the three files.
 
 ## Guiding the agents
 
@@ -592,10 +596,10 @@ agents/
   `write_artifact` and `finish` only, so it can neither browse the room nor be provoked.
 - **Add or change an agent:** edit `agents/agents.json`, create the matching folder, and name
   it in a phase in `agents/phases.json`. `"context": "minimal"` gives it
-  only its own folder, the pitch and its `reads` — no shared guides, references or tools to
+  only its own folder and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
 - **Random entry:** the `provoke` tool deals 3 cards from `agents/_shared/deck.txt` (one move
-  per line), a word from `words.txt` and a random heading from the outline or script as a
+  per line), a word from `words.txt` and a random heading from the story or script as a
   target. Drawn by code, so it is not an idea the model talked itself into, and pulled rather
   than dealt: a writer asks when the obvious version of a beat is the one it keeps writing, and
   a writer who isn't stuck pays nothing. The draw shows in the live feed.
@@ -642,7 +646,7 @@ UI changes a setting, the change shows up in `git diff`.
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
 | `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
-| `references` | Researcher only: `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
+| `references` | Script Coordinator only: `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
 A bad `agent.json` is flagged on the card and blocks runs that include that agent.
@@ -773,7 +777,7 @@ HTTP status, error, and the path to the full log.
 `app/agent.py` is a plain loop:
 
 1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones) and Figma summaries.
-2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
+2. The first message is the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
 3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 

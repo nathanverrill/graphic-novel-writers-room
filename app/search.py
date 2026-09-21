@@ -190,7 +190,7 @@ MAPPING = {
     "mappings": {"properties": {
         "file": {"type": "keyword"},
         "scope": {"type": "keyword"},      # <campaign>/<folder> · project:<slug>
-        "kind": {"type": "keyword"},       # rules · input · guide · room
+        "kind": {"type": "keyword"},       # rules · input · drafts · guide · room
         "title": {"type": "text"},
         "headings": {"type": "text"},
         "heading_path": {"type": "keyword"},

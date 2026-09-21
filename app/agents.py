@@ -16,10 +16,10 @@ are the provocation deck, drawn from by the `provoke` tool (see random_entry).
 agents/agents.json sets the titles and what each agent reads and writes, plus:
     "shares": "_writers"  another folder this agent is given as well: the two writers share
                           one job and one craft, and differ only in voice.md and agent.json
-    "context": "minimal"  the agent gets only its own folder, its `reads` and the pitch
+    "context": "minimal"  the agent gets only its own folder, and its `reads`
                           (no shared guides or tools to browse the room)
     "library": true       the agent reads the library — the campaign's rules/, input/ and
-                          references/. Only the Researcher does; everyone else knows the
+                          drafts/ and references/. Only the Script Coordinator does; everyone else knows the
                           book through the room's own files (see app/agent.py)
 
 agents/phases.json says which agents run in which phase, in which order (see phases.py).
@@ -46,7 +46,7 @@ class Role:
     outputs: list = field(default_factory=list)
     context: str = "full"
     shares: str = None       # a second folder of guides, e.g. "_writers"
-    library: bool = False    # reads the showrunner's material (the Researcher)
+    library: bool = False    # reads the showrunner's material (the Script Coordinator)
 
     @property
     def minimal(self):

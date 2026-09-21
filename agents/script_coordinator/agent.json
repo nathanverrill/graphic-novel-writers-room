@@ -1,0 +1,20 @@
+{
+  "_why": "The only agent that reads the showrunner's material, all of it, so a big context window and a big output budget. Cold: this is reading and sorting, not invention. Four files out (characters.md, world.md, story.md, facts.md), each its own write_artifact call. \"references\": \"full\" pastes every library file the round picked into the prompt; switch to \"list\" for a smaller-context model, and raise max_steps so it can read the files one by one.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "google/gemini-2.5-pro",
+  "api_key_env": null,
+  "temperature": 0.2,
+  "max_tokens": 16000,
+  "max_steps": 60,
+  "timeout": 900,
+  "references": "full",
+  "send_images": true,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {}
+}

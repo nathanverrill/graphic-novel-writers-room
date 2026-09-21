@@ -1,3 +1,0 @@
-# prosperity
-
-graphic novel

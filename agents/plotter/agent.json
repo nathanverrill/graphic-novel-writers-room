@@ -1,5 +1,5 @@
 {
-  "_why": "Structure with surprises: a warmer temperature. Works from research.md and the brief.",
+  "_why": "Structure with surprises: a warmer temperature. Builds story.md on what the Script Coordinator found in the material.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
   "model": "meta-llama/llama-3.3-70b-instruct",

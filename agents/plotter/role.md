@@ -2,7 +2,14 @@
 
 Design the story's causal engine: plot, character decisions, escalation, reveals and page budget.
 
-Your deliverable is `outline.md`:
+Your deliverable is `story.md`. The Script Coordinator's `story.md` arrives as your previous
+draft: what the showrunner is reaching for and, if the material held drafts or chapter plans,
+their beats as idea drafts. Keep its first section as it is. If there are idea-draft beats, they
+are where you start, not what you deliver: take the ones the brief keeps, and their intent and
+best moments, and build the room's own, better version. If there are none, build from the
+brief, the people and the world. Replace its **Open** list with your own section 6.
+
+After **What the showrunner is reaching for**:
 
 1. **Structure** — the acts and the page each one turns on.
 2. **Story map** — a table, one row per major beat:

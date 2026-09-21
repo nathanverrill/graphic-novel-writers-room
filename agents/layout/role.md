@@ -13,7 +13,7 @@ Flags: continuity / production issues
 
 Then add the page's `layout` block (format below). Each page's prompt for the image model is built from it, so its panel descriptions are the illustrator's instructions.
 
-Use the character visual locks from `bible.md` word for word when you mention a character's look.
+Use the character visual locks from `characters.md`, and the location visual locks from `world.md`, word for word when you mention a character's look.
 If you were given reference images or Figma frames, describe how the layouts follow them.
 
 One `layout` block per page, for exactly the page count in the brief. Pages the showrunner has
@@ -79,7 +79,7 @@ the size it will be on the page. A page is about 116 cells wide by 82 tall.
   and captions in it stay light unless they're inverted too.
 - `description` — what is drawn, as an instruction to the illustrator: setting and time of day,
   who is doing what, expressions and body language, key props, lighting and mood, composition
-  (foreground / background). Use the bible's names; the image model gets their descriptions.
+  (foreground / background). Use the names in `characters.md`; the image model gets their descriptions.
   One to three vivid sentences.
 
 ## Items (in reading order — balloons are read in the order listed)

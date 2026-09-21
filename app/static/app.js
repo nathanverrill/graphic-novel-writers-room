@@ -230,7 +230,7 @@ async function openProject(slug) {
   const p = await refreshArtifacts();
   refreshPageBuild();
   if (p.active_run) attach(p.active_run, 0);
-  else showArtifact("pitch.md");
+  else showArtifact("brief.md");
   loadReview(false);
 }
 
@@ -277,7 +277,7 @@ async function refreshArtifacts(fresh) {
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
   const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
-  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB to the Researcher`;
+  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB to the Script Coordinator`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
   $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
@@ -286,7 +286,7 @@ async function refreshArtifacts(fresh) {
   loadPrompts();
   loadNotes();
   loadRules();
-  const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
+  const key = ["page-prompts.md", "script.md", "layouts.md", "story.md", "characters.md", "world.md", "brief.md"];
   $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
     `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
   $("#output-where").innerHTML = `Each finished round also saves these on your computer in ` +
@@ -298,7 +298,7 @@ async function refreshArtifacts(fresh) {
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
     <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
-      <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
+      <span>${esc(r.name)}</span><small><span class="src">${r.kind === "drafts" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
     || `<li class="path">none — add .md files to campaigns/${esc(state.project)}/rules/ or /input/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
@@ -358,7 +358,7 @@ $("#version-select").onchange = async (e) => {
   state.version = e.target.value || null;
   await refreshArtifacts();
   loadReview(false);
-  showArtifact(state.artifact || "pitch.md");
+  showArtifact(state.artifact || "brief.md");
 };
 
 $("#restore").onclick = async () => {
@@ -368,7 +368,7 @@ $("#restore").onclick = async () => {
   } catch (err) { return alert(err.message); }
   state.version = null;
   await refreshArtifacts();
-  showArtifact(state.artifact || "pitch.md");
+  showArtifact(state.artifact || "brief.md");
 };
 
 $("#calls").onclick = async () => {
@@ -459,7 +459,7 @@ async function loadPreviews() {
 // experiment: page 1). Nothing here is streamed token by token — each writer's file
 // lands whole, and the page takes another step:
 //
-//   outline.md   the Plotter's beat for the page
+//   story.md     the Plotter's beat for the page
 //   script.md    panels with their description and dialog, in script form — the cards fill
 //   layouts.md   the Layout Agent's boxes appear, and the cards become the real panels
 //   notes.md     the Continuity Editor's flags for the page
@@ -472,13 +472,13 @@ async function refreshPageBuild() {
   const text = async (name) => {
     try { return await api(`/api/projects/${state.project}/artifacts/${name}`); } catch { return ""; }
   };
-  const [layout, outline, script, notes] = await Promise.all([
+  const [layout, story, script, notes] = await Promise.all([
     api(`/api/projects/${state.project}/pages/${BUILD_PAGE}`).catch(() => null),
-    text("outline.md"), text("script.md"), text("notes.md"),
+    text("story.md"), text("script.md"), text("notes.md"),
   ]);
   state.build = {
     layout,
-    beat: pageLine(outline, BUILD_PAGE),
+    beat: pageLine(story, BUILD_PAGE),
     panels: scriptPanels(pageSection(script, BUILD_PAGE)),
     flags: (notes || "").split("\n").filter((l) => pageRe(BUILD_PAGE).test(l) && l.trim()).slice(0, 4),
   };
@@ -817,8 +817,8 @@ function handle(ev, replay = false) {
     case "artifact":
       log(`${who}<span class="art">wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
-      if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
-      if (live && ["outline.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
+      if (live && ["layouts.md", "script.md", "characters.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
+      if (live && ["story.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
     case "warn": log(`${who}<span class="warn">${esc(ev.text)}</span>`); break;
@@ -1675,7 +1675,7 @@ function openSettings(id, message) {
           ${field("Timeout (s)", "timeout", s.timeout, d.timeout, "number", 'min="5"')}
         </div>
         <div class="sf-row">
-          <label class="sf"><span>Library (Researcher only)</span><select name="references">
+          <label class="sf"><span>Library (Script Coordinator only)</span><select name="references">
             <option value="">Default (${d.references})</option>
             <option value="full" ${s.references === "full" ? "selected" : ""}>Full text in the prompt</option>
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
@@ -1859,10 +1859,11 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const KIND = { input: "input", guide: "skill" };
+  const KIND = { input: "input", drafts: "draft", guide: "skill" };
   const NOTE = {
     rules: "the book must not contradict it",
     input: "read it, mine it — it binds the book to nothing",
+    drafts: "what is written so far — idea drafts, they bind the book to nothing",
     guide: "how to do the work — it binds the book to nothing",
   };
   const row = (f) => `
@@ -1877,11 +1878,12 @@ $("#pick-refs").onclick = () => {
   }).join("");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">The library this campaign's Researcher reads: everything in its
-      <code>rules/</code>, <code>input/</code> and <code>references/</code>, plus the shared
-      <code>evoke/</code> material. The Researcher gets the chosen files (in full, unless its
-      settings say "names only") and writes <code>research.md</code>, which is how the rest of
-      the room learns them. A campaign's own <code>output/</code> is never in here: the room
+    <p class="path">The library this campaign's Script Coordinator reads: everything in its
+      <code>rules/</code>, <code>input/</code>, <code>drafts/</code> and <code>references/</code>,
+      plus the shared <code>evoke/</code> material. The Script Coordinator gets the chosen files
+      (in full, unless its settings say "names only") and sorts them into
+      <code>characters.md</code>, <code>world.md</code> and <code>story.md</code>, which is how the
+      rest of the room learns them. A campaign's own <code>output/</code> is never in here: the room
       does not read its work back as material.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>

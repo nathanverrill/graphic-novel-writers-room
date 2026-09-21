@@ -1,22 +1,24 @@
 [
   {
-    "id": "research",
-    "title": "Research",
-    "does": "The Researcher reads everything you put in and reports what it says, what is fixed, what is open, and where it contradicts itself.",
+    "id": "intake",
+    "title": "Intake",
+    "does": "The Script Coordinator, the Director's assistant, goes through everything you put in — notes, references, any drafts — and sorts it into the three files the room works from: the people, the world, the story.",
     "agents": [
-      "researcher"
+      "script_coordinator"
     ],
     "gate": "approve",
-    "asks": "Is this what the material says? Where it found contradictions or gaps, is anything missing or misread?",
+    "asks": "Is this what your material says? Check each file's Open list: anything misread, missing, or contradictory that you can settle now?",
     "read": [
-      "research.md",
+      "characters.md",
+      "world.md",
+      "story.md",
       "facts.md"
     ]
   },
   {
     "id": "development",
     "title": "Development",
-    "does": "Decide what the book is: the brief, the plot, the people.",
+    "does": "Decide what the book is: the brief, and what the three files leave open — the world, the plot, the people.",
     "agents": [
       "director",
       "plotter",
@@ -27,8 +29,9 @@
     "asks": "Is this the right story, told by these people?",
     "read": [
       "brief.md",
-      "outline.md",
-      "bible.md",
+      "world.md",
+      "story.md",
+      "characters.md",
       "notes.md"
     ]
   },

@@ -21,12 +21,12 @@ from . import agents as agents_mod
 from .agents import gather_context, random_entry
 from .usage import CallLogger
 
-REF_PREFIX = "library/"    # the Researcher's name for the library: campaigns/<its path>
+REF_PREFIX = "library/"    # the Script Coordinator's name for the library: campaigns/<its path>
 
 
 IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
-PRIVATE = ("research.md", "facts.md")      # the Researcher's files: only the roles listed as reading them
+PRIVATE = ("facts.md",)    # the fact-checker's list: only the roles listed as reading it
 
 
 def repair_calls(calls, warn=lambda msg: None):
@@ -83,9 +83,9 @@ def tools_for(role, cfg, emit=None):
 
 
 def story_targets(slug):
-    """Headings from the outline and script: the places a random target can point at."""
+    """Headings from the story and script: the places a random target can point at."""
     found = []
-    for name in ("outline.md", "script.md"):
+    for name in ("story.md", "script.md"):
         text = projects.read_artifact(slug, name) or ""
         found += [l.lstrip("#").strip() for l in text.splitlines() if re.match(r"^#{2,3} \S", l)]
     return found
@@ -156,16 +156,15 @@ class Agent:
     def library(self):
         """The showrunner's material, for the one role that reads it.
 
-        Every other agent knows the book through the room's own files — research.md, the
-        brief, the outline, the bible — and its craft. That is deliberate: a writer handed forty
-        source documents writes from the documents, and the Researcher's synthesis is the
-        room's one reading of them."""
+        Every other agent knows the book through the room's own files — characters.md,
+        world.md, story.md, the brief — and its craft. That is deliberate: a writer handed forty
+        source documents writes from the documents, and the Script Coordinator, the Director's
+        assistant, sorts them once for the whole room."""
         return projects.reference_files(self.slug) if self.role.library else {}
 
     def task_message(self, note, images):
         r = self.role
-        pitch = projects.read_artifact(self.slug, "pitch.md") or "(no pitch yet)"
-        text = [f"Project: {self.slug}", "# Pitch", pitch]
+        text = [f"Project: {self.slug}"]
 
         refs = self.library()
         kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
@@ -182,6 +181,11 @@ class Agent:
                       "the room's own version, and where it conflicts with the rules, the rules "
                       "win. Where a document labels material T, EG, S, L or Cut, keep those "
                       "labels when you use it."),
+            ("drafts", "# Drafts — what has been written so far\n"
+                       "Pages or chapters the showrunner already has. They are the best evidence "
+                       "of the story, the people and their voices, and they are idea drafts: "
+                       "they bind nothing, and the room will write its own version. Carry what "
+                       "happens, what each scene is reaching for and the best moments."),
         ]
         for kind, heading in groups:
             chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
@@ -205,7 +209,7 @@ class Agent:
         existing = [] if r.minimal else [(n, projects.read_artifact(self.slug, n)) for n in r.outputs]
         existing = [(n, c) for n, c in existing if c]
         if existing:
-            text.append("# Your previous drafts — revise rather than start over")
+            text.append("# The files you write, as they stand — revise rather than start over")
             text += [f"## {n}\n{c}" for n, c in existing]
 
         if note:
@@ -234,11 +238,11 @@ class Agent:
             if target.startswith("audition-") and not self.may_read(target):
                 return "That is the other writer's audition. It is blind: write your own pages."
             if target in PRIVATE and not self.may_read(target):
-                return (f"{target} is the Researcher's and is not yours to read. What the room knows "
-                        "about the material is in brief.md.")
+                return (f"{target} is not yours to read. What the room knows about the material "
+                        "is in characters.md, world.md and story.md.")
             if target.startswith(REF_PREFIX) and not self.role.library:
-                return ("The showrunner's material is the Researcher's to read, and research.md is the "
-                        "Director's. What the room knows and decided is in brief.md.")
+                return ("The showrunner's material is the Script Coordinator's to read. What it says "
+                        "is sorted into characters.md, world.md and story.md.")
             try:
                 if target.startswith(REF_PREFIX):
                     content = projects.read_reference(self.slug, target[len(REF_PREFIX):])
@@ -290,8 +294,8 @@ class Agent:
         return f"Unknown tool {name!r}."
 
     def may_read(self, name):
-        """The Researcher's files reach only the roles listed as reading them (agents.json), so the
-        rest of the room works from the Director's brief and cannot go around it."""
+        """facts.md reaches only the roles listed as reading it (agents.json): it is the
+        Continuity Editor's checklist, not something to write from."""
         return name not in PRIVATE or name in self.role.reads + self.role.outputs
 
     def save(self, name, content):

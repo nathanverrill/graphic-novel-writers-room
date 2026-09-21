@@ -64,3 +64,17 @@ nothing to do with laying out a comics page. `artist.py` was the ASCII Artist's 
 code, and with it went the `"preview"` and `"room": "art"` machinery in `app/agent.py` and
 `app/agents.py`: no agent used it, and it is in git history (before this date) for anyone who
 brings the ASCII Artist or the Image Thumbnailer back.
+
+## Prosperity's pieces — moved 2026-09-21
+
+The files an earlier import cut the Prosperity material into, at the top level of this folder:
+the campaign bible (`bible.md`, and the long original `EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`),
+`evoke-prosperity.md`, the six character files (`alex-phantum.md`, `ada-veyra.md`,
+`bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`), the chapter canon
+(`chapter-01.md` … `chapter-06.md`) and the per-chapter idea drafts (`draft-chapter-01.md` …
+`draft-chapter-06.md`).
+
+Moved out so the campaign starts from a small set: `drafts/SCRIPT_DRAFT_AUG_23.md` (the whole
+script draft), `rules/hard-sf-rules.md`, and `references/`. The Script Coordinator now builds
+`characters.md`, `world.md` and `story.md` from those, which is the job these files were
+cut by hand to do.

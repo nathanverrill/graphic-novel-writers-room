@@ -1,6 +1,6 @@
 """The room works in five phases, and you stand at the gate between each:
 
-    research      the Researcher reads what you put in        you approve the reading
+    intake        the Script Coordinator sorts your material  you approve its reading
     development   Director, Plotter, Character Designer     you approve the story
     audition      Writer A and Writer B, the same pages     you pick the voice
     writing       the writer you picked, the whole script   you approve the words

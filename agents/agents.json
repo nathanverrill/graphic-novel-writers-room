@@ -1,57 +1,65 @@
 [
   {
-    "id": "researcher",
-    "title": "Researcher",
+    "id": "script_coordinator",
+    "title": "Script Coordinator",
     "library": true,
-    "mission": "You are the one person in the room who reads everything the showrunner put in. Read all of it and write two files: research.md, what the material says the world and the people are, what is fixed and what is open, and what the showrunner clearly wants; and facts.md, every checkable fact in the material, one per line, with its label and its source. The Director works from your research; the Continuity Editor checks the book against your facts.",
+    "mission": "You are the Director's assistant. You are the one person in the room who goes through everything the showrunner put in — their notes, their reporting, and any drafts already written — and you sort it into the three files the room works from: characters.md, world.md and story.md, cited, with what is fixed and what is open. You also write facts.md, every checkable fact in the material, one per line, with its label and its source, for the Continuity Editor. You organize; the Director decides.",
     "reads": [
       "notes.md"
     ],
     "outputs": [
-      "research.md",
+      "characters.md",
+      "world.md",
+      "story.md",
       "facts.md"
     ]
   },
   {
     "id": "director",
     "title": "Director",
-    "mission": "You run the room and own the vision. You are the only one who reads the Researcher's research.md: turn it and the pitch into a brief that carries everything the rest of the room needs to know about the world, the people and the story, and decide what becomes canon.",
+    "mission": "You run the room and own the vision. The Script Coordinator, your assistant, has sorted the showrunner's material into characters.md, world.md and story.md. Turn them into a brief that decides what the book is and what becomes canon, and take over world.md: settle what it leaves open.",
     "reads": [
-      "research.md",
+      "characters.md",
+      "world.md",
+      "story.md",
       "review.md",
       "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
       "brief.md",
+      "world.md",
       "taste-writers.md"
     ]
   },
   {
     "id": "plotter",
     "title": "Plotter",
-    "mission": "You build the story's skeleton: structure, turns, and a page-by-page plot that fits the page count in the brief.",
+    "mission": "You build the story's skeleton in story.md: structure, turns, and a page-by-page plot that fits the page count in the brief, on top of what the Script Coordinator found in the material.",
     "reads": [
       "brief.md",
+      "characters.md",
+      "world.md",
       "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
-      "outline.md"
+      "story.md"
     ]
   },
   {
     "id": "character_designer",
     "title": "Character Designer",
-    "mission": "You keep the series bible: every character's look, voice and arc, and the world's key locations and rules. Artists and writers will copy your descriptions word for word, so be specific and consistent.",
+    "mission": "You keep characters.md: every character's look, voice and arc. Artists and writers will copy your descriptions word for word, so be specific and consistent.",
     "reads": [
       "brief.md",
-      "outline.md",
+      "world.md",
+      "story.md",
       "notes.md",
       "taste-writers.md"
     ],
     "outputs": [
-      "bible.md"
+      "characters.md"
     ]
   },
   {
@@ -61,8 +69,9 @@
     "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the picture to carry the story.",
     "reads": [
       "brief.md",
-      "outline.md",
-      "bible.md",
+      "story.md",
+      "characters.md",
+      "world.md",
       "taste-writers.md",
       "notes.md"
     ],
@@ -77,8 +86,9 @@
     "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the characters' voices to carry the story.",
     "reads": [
       "brief.md",
-      "outline.md",
-      "bible.md",
+      "story.md",
+      "characters.md",
+      "world.md",
       "taste-writers.md",
       "notes.md"
     ],
@@ -105,7 +115,8 @@
     "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it.",
     "reads": [
       "brief.md",
-      "bible.md",
+      "characters.md",
+      "world.md",
       "script.md",
       "lettering.md",
       "notes.md",
@@ -136,8 +147,9 @@
     "reads": [
       "facts.md",
       "brief.md",
-      "outline.md",
-      "bible.md",
+      "story.md",
+      "characters.md",
+      "world.md",
       "script.md",
       "layouts.md",
       "lettering.md",

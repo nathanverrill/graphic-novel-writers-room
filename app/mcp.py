@@ -24,13 +24,13 @@ PROJECT_ARG = "The project to act on, e.g. 'prosperity'. Call list_projects to s
 EXTRA = {   # what a client outside a round needs that an agent mid-round does not
     "list_artifacts": "Takes the project to list.",
     "read_artifact": PROJECT_ARG,
-    "provoke": PROJECT_ARG + " The target heading is drawn from its outline or script.",
+    "provoke": PROJECT_ARG + " The target heading is drawn from its story or script.",
 }
 OWN = {     # tools with no agent equivalent, or whose meaning changes outside a round
     "list_projects": "List the room's projects by name.",
     "write_artifact":
         "Write (overwrite) one of a project's room files with its complete markdown content — "
-        "brief.md, outline.md, bible.md, script.md, layouts.md, notes.md. Pages the showrunner "
+        "brief.md, story.md, characters.md, world.md, script.md, layouts.md, notes.md. Pages the showrunner "
         "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
         "the sketch, exactly as when an agent saves.",
     "search": ("Search everything the room can read — a campaign's rules and input "

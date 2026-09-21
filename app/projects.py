@@ -3,6 +3,8 @@
     campaigns/<slug>/
       rules/*.md           what the book must not contradict — you write this
       input/*.md           anything you want read, at any quality — you write this too
+        pitch.md             optional: what you want the book to be, in your words
+      drafts/*.md          pages or chapters already written; empty when the book starts from scratch
       references/*.md      material to draw on, grouped for your own sake; binds nothing
       output/              the room's desk, and the only place it writes
         *.md                 working copy — what the room reads back, what you edit
@@ -24,9 +26,9 @@ Round ids are r<NN>-ai, r<NN>-human or r<NN>-final, numbered in one sequence.
 Every file name carries the campaign and round, so a file means the same thing
 wherever it ends up.
 
-The campaign's rules/, input/ and references/ (and the shared evoke/) are the room's library.
-Only the Researcher reads it (see agents.json, "library": true): it writes research.md, and
-that is how the material reaches everyone else. A campaign can pick which files it uses
+The campaign's rules/, input/, drafts/ and references/ (and the shared evoke/) are the room's
+library. Only the Script Coordinator reads it (see agents.json, "library": true): it sorts it
+into characters.md, world.md and story.md, and that is how the material reaches everyone else. A campaign can pick which files it uses
 ("references" in round-settings.json; default: all). Each file either binds the book or does
 not — see reference_kind. output/ is never among them: the room does not read its own work
 back as material (see never_read).
@@ -82,18 +84,25 @@ def list_projects():
                   if p.is_dir() and p.name != SHARED and not p.name.startswith("_"))
 
 
+def pitch(slug):
+    """The showrunner's pitch, if the campaign has one. It lives in input/ and reaches the room
+    as material, through the Script Coordinator; the code only takes the book's title from it."""
+    path = campaign_dir(slug) / INPUT / PITCH
+    return path.read_text() if path.exists() else ""
+
+
 def create_project(title, pitch, pages=None, draft=None):
-    """A new campaign: rules/ binds the book, input/ is anything to read, output/ is the desk."""
+    """A new campaign: rules/ binds the book, input/ is anything to read, drafts/ is what is
+    already written, output/ is the desk."""
     slug = slugify(title)
     path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    for sub in (RULES, "input", "references", OUTPUT_NAME):
+    for sub in (RULES, INPUT, DRAFTS, "references", OUTPUT_NAME):
         (path / sub).mkdir()
-    body = pitch.strip() or "(No pitch — work from the material in rules/, input/ and references/.)"
-    length = f"\n\nTarget length: {pages} pages.\n" if pages else "\n"
-    (path / OUTPUT_NAME / "pitch.md").write_text(f"# {title}\n\n{body}{length}")
+    if pitch.strip():       # optional, and yours: it is material like anything else in input/
+        (path / INPUT / PITCH).write_text(f"# {title}\n\n{pitch.strip()}\n")
     if draft and draft.strip():
-        (path / "input" / "draft-script.md").write_text(
+        (path / DRAFTS / "draft-script.md").write_text(
             "# Draft script (high level, directional only)\n\n"
             "Treat this as the showrunner's direction, not as finished pages: keep its intent, "
             f"improve everything else.\n\n{draft.strip()}\n")
@@ -214,14 +223,15 @@ def library_name(path, folder):
 
 RULES = "rules"       # the book must not contradict it
 INPUT = "input"       # read it; it binds nothing
+DRAFTS = "drafts"     # what has been written so far; it binds nothing either
+PITCH = "pitch.md"    # input/pitch.md, if you wrote one: the Script Coordinator reads it with the rest
 
 
 def never_read(rel):
     """True for a path the agents must not see as reference material, whatever asks for it.
 
     Two things are skipped. A folder whose name starts with an underscore is for people:
-    input/_rough/ holds the long documents an import was made from, campaigns/_morgue/ holds clippings
-    kept so a person can find them again. Nothing needs a list in the code, and a new one
+    campaigns/_morgue/ holds clippings kept so a person can find them again. Nothing needs a list in the code, and a new one
     announces itself.
 
     And output/ — the room's own desk. A round that read back its own last script would be
@@ -248,20 +258,25 @@ def in_scope(name, slug):
 
 
 def reference_kind(path):
-    """Whether a file binds the book, which is the only thing a folder decides.
+    """What a folder says about a file: whether it binds the book, and whether it is a draft.
 
     rules   campaigns/evoke/rules and a campaign's rules/: the book must not contradict it
+    drafts  a campaign's drafts/: pages or chapters already written. The best evidence of the
+            story, the people and their voices, and still an idea draft: it binds nothing
     input   anywhere else in a campaign — input/, references/, a file at its root: read it,
             take what serves the page, it binds nothing
 
     Only rules/ binds, so a folder you invent inside a campaign is non-binding by default and
     you can group your material however you like without risking turning it into canon.
 
-    Nothing here says a document is worldbuilding, research or a draft. A document says what
-    it is in its own words — its title, its frontmatter, its first paragraph — and the agent
-    reading it works that out, which is what the folders used to guess at and get wrong.
-    Where you put a file answers one question: does it bind the book?"""
-    return RULES if RULES in path.parts else INPUT
+    Nothing here says a document is worldbuilding or reporting. A document says what it is in
+    its own words — its title, its frontmatter, its first paragraph — and the agent reading it
+    works that out. drafts/ is the one exception, because a book that starts from written
+    chapters and a book that starts from notes are the two ways a campaign begins, and the
+    Script Coordinator reads a draft for what happens in it, not for facts."""
+    if RULES in path.parts:
+        return RULES
+    return DRAFTS if DRAFTS in path.parts else INPUT
 
 
 def library(slug=None):
@@ -301,10 +316,10 @@ def list_references(slug, version=None):
 def read_reference(slug, name, version=None):
     """One reference by name.
 
-    The round's picker decides what is *carried* into the Researcher's prompt; it does not hide
+    The round's picker decides what is *carried* into the Script Coordinator's prompt; it does not hide
     a file from someone asking for it by name. So a name the project did not select is still
     read from the library — which is what makes "anything left off the picker is one
-    read_artifact away" true, for the Researcher and for the screen.
+    read_artifact away" true, for the Script Coordinator and for the screen.
 
     Another campaign's material is a different matter: it is not this book's to read, picked
     or not, so in_scope applies here too."""

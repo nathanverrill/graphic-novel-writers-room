@@ -7,7 +7,7 @@ word for word (a model would paraphrase them and the characters would drift):
 
     format        trim, orientation, left/right page
     style         the brief's visual direction (the same on every page)
-    characters    the bible's description of everyone on the page, verbatim
+    characters    characters.md's description of everyone on the page, verbatim
     layout        a box map of the page drawn to scale, then rows and panels with their share
     panels        shot, angle, light, what happens, who is where, exact lettering
     script        the page's script, for reference
@@ -59,9 +59,9 @@ def clean_look(text):
     return re.sub(r"^\W*visual lock\W*", "", joined, flags=re.I).strip()
 
 
-def book_title(pitch):
+def book_title(pitch, slug=""):
     m = re.search(r"^#\s+(.+)$", pitch or "", re.M)
-    return m.group(1).strip() if m else "Untitled"
+    return m.group(1).strip() if m else slug.replace("-", " ").title() or "Untitled"
 
 
 def where(item):
@@ -395,21 +395,17 @@ def page_prompt(spec, ctx):
 
 def context(slug, version=None):
     read = lambda name: projects.read_artifact(slug, name, version) or ""
-    pages = None
-    m = re.search(r"Target length:\s*(\d+)", read("pitch.md"))
-    if m:
-        pages = int(m.group(1))
     w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
     settings_file = projects.project_dir(slug) / "round-settings.json"
     settings = json.loads(settings_file.read_text()) if settings_file.exists() else {}
     chapter = settings.get("chapter")
     return {
-        "title": book_title(read("pitch.md")),
-        "pages": pages,
+        "title": book_title(projects.pitch(slug), slug),
+        "pages": settings.get("pages"),
         "chapter": chapter,
         "lettering": settings.get("lettering", "art"),
         "style": section(read("brief.md"), "visual", "style", "look"),
-        "bible": read("bible.md"),
+        "bible": read("characters.md"),
         "script": read("script.md"),
         "trim": f"{w_in:g} x {h_in:g} inches",
     }

@@ -1,5 +1,5 @@
 {
-  "_why": "Judgment and consistency over flair: moderate temperature. The only reader of research.md, and the brief now carries the world and the people for the whole room, so a big output budget.",
+  "_why": "Judgment and consistency over flair: moderate temperature. Writes a two- or three-page brief and takes over world.md from the Script Coordinator, so a big output budget.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
   "model": "meta-llama/llama-3.3-70b-instruct",
