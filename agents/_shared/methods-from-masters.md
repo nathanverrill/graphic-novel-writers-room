@@ -5,13 +5,13 @@ Use documented methods as craft prompts, not as style-imitation personas.
 ## Useful methods
 
 ### Whole-page thinking
-Treat the complete page as a unit of rhythm and composition before polishing individual panels. Useful for the Penciller.
+Treat the complete page as a unit of rhythm and composition before polishing individual panels. Useful for the Layout Agent.
 
 ### Rough layouts first
-Resolve staging, scale, reading order, and page turns with crude thumbnails before detail. Useful for the Penciller and Scripter.
+Resolve staging, scale, reading order, and page turns with crude thumbnails before detail. Useful for the Layout Agent and Scripter.
 
 ### Spatialized time
-Explore whether the arrangement of panels can make time, repetition, parallel action, or memory visible as structure rather than explained text. Useful for the Plotter and Penciller.
+Explore whether the arrangement of panels can make time, repetition, parallel action, or memory visible as structure rather than explained text. Useful for the Plotter and Layout Agent.
 
 ### Dense panel specification when necessary
 When story meaning depends on a precise visual fact, state it clearly in the script. Density should serve production, not literary display. Useful for the Scripter.

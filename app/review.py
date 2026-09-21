@@ -76,7 +76,7 @@ def canonical_file(slug):
 
 def canonical(slug):
     """(method, {page: parsed thumbnail}) — the page sketch the showrunner reviews: the
-    ASCII layout render of the Penciller's layout."""
+    ASCII layout render of the Layout Agent's layout."""
     name = canonical_file(slug)
     method = "drawn" if name == FILES["drawn"] else "layout"
     return method, thumbnails.parse_thumbnails(projects.read_artifact(slug, name))
@@ -412,10 +412,10 @@ def gate(slug, role_titles):
     if errors:
         reasons.append(f"{len(errors)} layout blocks don't parse")
         notes += errors
-        fix.add("penciller")
+        fix.add("layout")
     if want and sorted(numbers) != list(range(1, want + 1)):
         reasons.append(f"layouts.md has pages {numbers}, the brief asks for pages 1-{want}")
-        fix.add("penciller")
+        fix.add("layout")
     issues = []
     for s in specs:
         if lk.get(s["page"], {}).get("kind") == KEPT:
@@ -424,7 +424,7 @@ def gate(slug, role_titles):
     if issues:
         reasons.append(f"{len(issues)} layout issues")
         notes += issues
-        fix.add("penciller")
+        fix.add("layout")
 
     notes_md = projects.read_artifact(slug, "notes.md") or ""
     m = BLOCKERS_RE.search(notes_md)
@@ -449,11 +449,11 @@ def gate(slug, role_titles):
         d = dial_in(slug, n, spec, l["ascii"])
         dialed[n] = {"text": d["text"], "layout": d["layout"]}
         if d["text"] < st["min_text_match"]:
-            fix.update({"scripter", "penciller"})
+            fix.update({"scripter", "layout"})
             reasons.append(f"page {n} dialogue matches the showrunner's page {d['text']:.0%}")
             notes.append(f"Page {n}: make the layout's lettering match the showrunner's page exactly.\n{d['diff']}")
         elif d["layout"] < st["min_layout_match"]:
-            fix.add("penciller")
+            fix.add("layout")
             reasons.append(f"page {n} panel layout matches the showrunner's page {d['layout']:.0%}")
             notes.append(f"Page {n}: move panels and lettering to where the showrunner drew them.\n{d['diff']}")
     return {"ready": not reasons, "reasons": reasons, "fix": sorted(fix), "notes": notes,

@@ -1,4 +1,4 @@
-# Penciller
+# Layout Agent
 
 Your deliverable is `layouts.md`. For each page:
 

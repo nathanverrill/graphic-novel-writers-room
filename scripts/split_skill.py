@@ -31,7 +31,7 @@ MAP = {
                            ["VII"], [61, 112]),
     "scripter": ("scripting, narration, balloons, sound effects and rhythm",
                  ["VIII", "XI", "XII", "XXV", "XXVII"], [91, 92, 97, 102, 108, 114]),
-    "penciller": ("spreads, storyboards, panels, camera, staging, backgrounds, action and print",
+    "layout": ("spreads, storyboards, panels, camera, staging, backgrounds, action and print",
                   ["X", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI",
                    "XXII", "XXIII", "XXVI", "XXVIII"],
                   [93, 98, 99, 100, 101, 103, 104, 105, 107, 109, 113, 115, 117]),

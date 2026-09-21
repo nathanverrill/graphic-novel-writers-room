@@ -487,7 +487,7 @@ class Round:
         self.path(name).write_text(content)
 
     def save_image(self, role_id, label, data):
-        """Save generated image bytes; returns the relative path, e.g. images/<slug>-r02-ai-penciller-page-1.png."""
+        """Save generated image bytes; returns the relative path, e.g. images/<slug>-r02-ai-layoutr-page-1.png."""
         ext = ("png" if data[:4] == b"\x89PNG" else "jpg" if data[:2] == b"\xff\xd8"
                else "webp" if data[8:12] == b"WEBP" else "gif" if data[:3] == b"GIF" else "png")
         base = f"{self.prefix}{role_id}-{slugify(label)[:60]}".replace("_", "-")

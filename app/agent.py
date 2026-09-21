@@ -314,7 +314,7 @@ class Agent:
         return result
 
     def render_thumbnails(self, content):
-        """Every save of layouts.md redraws thumbnails.md; problems go back to the Penciller."""
+        """Every save of layouts.md redraws thumbnails.md; problems go back to the Layout Agent."""
         md, specs, feedback = thumbnails.render_layouts(
             content, projects.read_artifact(self.slug, "thumbnails.md"))
         if not specs and not feedback:
@@ -442,7 +442,7 @@ class Agent:
         target = self.role.outputs[0]
         specs, errors = thumbnails.parse_layouts(projects.read_artifact(self.slug, "layouts.md"))
         if not specs:
-            self.emit("warn", text="layouts.md has no ```layout blocks yet — run the Penciller first.")
+            self.emit("warn", text="layouts.md has no ```layout blocks yet — run the Layout Agent first.")
             self.version.append_log(self.role.title, "No layouts to preview.")
             return "No layouts to preview."
         geo = thumbnails.geometry()

@@ -463,7 +463,7 @@ async function loadPreviews() {
 //
 //   outline.md   the Plotter's beat for the page
 //   script.md    panels with their description and dialog, in script form — the cards fill
-//   layouts.md   the Penciller's boxes appear, and the cards become the real panels
+//   layouts.md   the Layout Agent's boxes appear, and the cards become the real panels
 //   notes.md     the Continuity Editor's flags for the page
 
 const BUILD_PAGE = 1;
@@ -539,8 +539,8 @@ function renderPageBuild() {
   $("#pv-note").textContent = d
     ? `${d.panels.length} panel${d.panels.length === 1 ? "" : "s"}${d.bleeds ? " · * bleeds off the page edge" : ""}`
     : b.panels?.length ? `${b.panels.length} panels in the script` : "";
-  $("#pv-stage").textContent = d ? "laid out by the Penciller"
-    : b.panels?.length ? "written — waiting for the Penciller's layout"
+  $("#pv-stage").textContent = d ? "laid out by the Layout Agent"
+    : b.panels?.length ? "written — waiting for the Layout Agent's layout"
     : b.beat ? "plotted — waiting for the Scripter"
     : state.runId ? "the room is at work…" : "nothing written for this page yet";
   $("#pv-keep").hidden = !d;

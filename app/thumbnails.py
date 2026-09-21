@@ -5,7 +5,7 @@ LETTERING_PT points, a cell is about 0.55 x pt wide and 1.2 x pt tall (one line 
 lettering), so a 6.625" x 10.25" page at 7.5 pt is ~116 x 82 cells, and a balloon
 in the preview is the size it will be on the printed page.
 
-The Penciller writes one ```layout JSON block per page in layouts.md:
+The Layout Agent writes one ```layout JSON block per page in layouts.md:
 
     {"page": 3, "side": "right",
      "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "high",
@@ -810,7 +810,7 @@ def replace_page(markdown, number, art=None, edited=None, invert=None):
 
 
 def render_layouts(markdown, previous=None):
-    """layouts.md -> (thumbnails.md content, specs, feedback for the Penciller).
+    """layouts.md -> (thumbnails.md content, specs, feedback for the Layout Agent).
     Hand-edited pages in `previous` are kept."""
     geo = geometry()
     specs, errors = parse_layouts(markdown)

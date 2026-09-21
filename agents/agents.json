@@ -71,9 +71,9 @@
     ]
   },
   {
-    "id": "penciller",
-    "title": "Penciller",
-    "mission": "You translate the script into page layouts: panel grid, shot size, camera angle, staging and the reader's eye path, as a written thumbnail for every page.",
+    "id": "layout",
+    "title": "Layout Agent",
+    "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it.",
     "reads": [
       "brief.md",
       "bible.md",
@@ -87,7 +87,7 @@
   {
     "id": "image_thumbnailer",
     "title": "Image Thumbnailer",
-    "mission": "You sketch every panel with an image model and convert the sketches to ASCII inside the Penciller's layout skeletons.",
+    "mission": "You sketch every panel with an image model and convert the sketches to ASCII inside the Layout Agent's layout skeletons.",
     "reads": [
       "layouts.md",
       "bible.md"

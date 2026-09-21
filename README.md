@@ -26,14 +26,14 @@ and run only if you tick them and press **Run selected roles only**.
 | 2 | Plotter | `outline.md` | |
 | 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
 | 4 | Scripter | `script.md` | |
-| 5 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
+| 5 | Layout Agent | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
 | 6 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
 | — | Wild Card | `provocations.md` | proposes, never decides |
 | — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
 | — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
 
 A revision round — the one that runs after your review — is Editor-in-Chief, Scripter,
-Penciller, Continuity Editor.
+Layout Agent, Continuity Editor.
 
 The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
 reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
@@ -80,7 +80,7 @@ not token by token; a file at a time, in step with the live feed:
 |---|---|
 | `outline.md` — the Plotter | the page's beat, above the frame |
 | `script.md` — the Scripter | one card per panel, marked *from the script*, with its description and dialog |
-| `layouts.md` — the Penciller | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
+| `layouts.md` — the Layout Agent | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
 | `notes.md` — the Continuity Editor | that page's flags, under the cards |
 
 The boxes are the tier and panel fractions themselves, nothing else — so any layout the format
@@ -103,7 +103,7 @@ self-contained, so you can paste a single page into an image model:
 - **Characters** — the bible's visual lock for everyone on the page, word for word.
 - **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
   and panels with their share of the page, bleeds.
-- **Panels** — shot and angle, the Penciller's scene description, light, who stands where
+- **Panels** — shot and angle, the Layout Agent's scene description, light, who stands where
   and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
 - **Rules**, and the page's script for reference.
 
@@ -112,14 +112,14 @@ files, and the character descriptions never get paraphrased. In the app, **Page 
 a **Copy** button per page and **Copy all pages**; the review screen shows the prompt for the
 page you're reviewing. Each round also saves `-pNN-prompt.md` per page, and the final round
 saves `book-prompts.md`. So the prompts are only as good as the brief's visual direction, the
-bible's visual locks and the Penciller's panel descriptions — that's where to push the room.
+bible's visual locks and the Layout Agent's panel descriptions — that's where to push the room.
 
 ## Writing rounds and review
 
 1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
    script (high level, directional; saved as `references/draft-script.md`).
 2. **Write round** — the room runs Editor → Plotter → Character Designer → Scripter →
-   Penciller → Continuity Editor, then checks the **readiness gate**: exactly the right
+   Layout Agent → Continuity Editor, then checks the **readiness gate**: exactly the right
    pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
    fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
    Readiness is measured, not the model's opinion. The page prompts are written at the end.
@@ -137,7 +137,7 @@ bible's visual locks and the Penciller's panel descriptions — that's where to 
    notes and edits are saved as you go.
 4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
    revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller work the open pages, and the gate checks that the pages you
+   the Scripter and Layout Agent work the open pages, and the gate checks that the pages you
    redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
@@ -249,17 +249,17 @@ The sketch is ASCII art at **print scale**: one character cell is one letter of 
 it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages show in their
 true proportions.
 
-The Penciller writes a ```` ```layout ```` JSON block per page (format:
-`agents/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
+The Layout Agent writes a ```` ```layout ```` JSON block per page (format:
+`agents/layout/layout-format.md`). Every save of `layouts.md` — by the Layout Agent or by you
 in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
 balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
 effects and figure placeholders, in code and for free. The renderer reports overlapping
 lettering, copy that doesn't fit, over-wordy panels, reading-order conflicts, lettering over
-faces, tiny panels and left/right page mistakes back to the Penciller.
+faces, tiny panels and left/right page mistakes back to the Layout Agent.
 
 **Light and dark.** Any cell can be shown inverted (light on dark), for night scenes,
 silhouettes, flashbacks or emphasis. Inversion is a separate mask stored after each page as a
-```` ```invert ```` block (`#` = inverted) and saved as `-pNN-invert.txt`. The Penciller sets
+```` ```invert ```` block (`#` = inverted) and saved as `-pNN-invert.txt`. The Layout Agent sets
 it per panel or item (`"invert": true` — which also tells the image model the panel is dark),
 and you can paint it in the editor with the **invert brush** or **⌘I**. Review diffs report
 inversion changes, and locks keep them.
@@ -548,7 +548,7 @@ What each one reads now:
 | Plotter | the chapter rules, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `references/triangle-water-wars`, `social-innovators-framework` |
 | Character Designer | the bible, Alpha, `hard-sf-rules` |
 | Scripter | the chapter rules, Alpha, `hard-sf-rules`, `actual-script-writing` |
-| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
+| Layout Agent | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
 | Continuity Editor | the bible, Alpha, `hard-sf-rules` |
 | Wild Card, Letterer, First Reader | names only — they read what they want on demand |
 
@@ -629,7 +629,7 @@ view) explains them:
 | Wild Card | 1.1 | 4,000 | divergent leaps; references on demand; few steps |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
 | Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
-| Penciller | 0.5 | 16,000 | valid layout JSON for every page |
+| Layout Agent | 0.5 | 16,000 | valid layout JSON for every page |
 | Letterer | 0.2 | 8,000 | literal and careful |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
 | First Reader | 0.7 | 3,000 | natural reactions, minimal context |
@@ -697,7 +697,7 @@ so a writer can reach the whole library without carrying it. MCP clients get `se
 change: **an edit is searchable a second or two after you save it** — 0.16 s for a host save to
 reach the container, up to 0.5 s of poll, then chunking the one file, embedding what changed
 (0.15 s a passage) and a refresh. The same applies to what an agent writes mid-round, so a page
-the Penciller has just written is searchable while the round is still going.
+the Layout Agent has just written is searchable while the round is still going.
 
 One changed file costs one file's work: the passages it lost are dropped, the ones it gained are
 embedded, everything else is left alone. Rewriting one passage of a 22 KB file re-embeds that
