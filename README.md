@@ -450,6 +450,14 @@ missing, in the same files — there is no second copy — and the Director's `b
 the book is and wins wherever it differs. The Script Coordinator organizes; it decides
 nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
 
+**If you have already written one of the three files, intake keeps it whole.** Put your own
+`characters.md`, `world.md`, `story.md` or `facts.md` in `input/` and it goes onto the desk
+word for word; the Script Coordinator writes only what it adds — detail from the references,
+what the rules fix, the file's Open list — and that lands after your text under **Added at
+intake**. It is code, not a request: an agent asked to rewrite a 20 KB file hands back a 9 KB
+summary, and what it dropped is lost to every agent after it. A file you have not written, the
+Script Coordinator writes in full.
+
 **Open items: the room proposes, you decide.** Last of all the Script Coordinator writes
 `open-items.md`: every gap and contradiction from the three Open lists, numbered, each with
 one to three proposed answers and the one it would pick. Both screens show them under the

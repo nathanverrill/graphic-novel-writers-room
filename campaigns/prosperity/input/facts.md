@@ -1,15 +1,15 @@
 # EVOKE PROSPERITY — Canon Facts
 
 > Continuity ledger extracted from *Prosperity Graphic Novel draft — Fourth draft — Sept. 19*.
-> Production and image-generation guidance has been removed.
-> This file records what the script establishes, not what later plausibility research recommends changing.
+> Production guidance is omitted. This richer version also preserves recurring objects, behaviors, phrases, and system-language details that matter for continuity.
 
 # Canon Status
 
 - Main source: Sept. 19 fourth-draft DOCX.
 - Chapters 1 and 2 are labeled Draft v4.0.
-- Chapters 5 and 6 remain labeled Writers' Room Draft v0.2 in the source.
-- Provisional or contradictory material is not silently promoted to canon.
+- Chapters 5 and 6 remain labeled Writers' Room Draft v0.2.
+- Provisional or contradictory material is not silently promoted to locked canon.
+- This file records what the script establishes, not what later plausibility research recommends changing.
 
 ---
 
@@ -30,17 +30,24 @@
 - Age: **17**.
 - Home: Keel.
 - Father: Adrian Phantum.
-- Alex was **two** when Adrian disappeared from his life.
+- Alex was **two** when Adrian disappeared.
 - Household liability transfers to Alex at seventeen.
 - Initial debt balance: **418,607 credits**.
 - Initial displayed earnings: **40 credits**.
 - Initial projected clearance: **28.7 years**.
 - Travel status: **RESTRICTED**.
-- Alex is mechanically capable and improvises repairs.
+- Alex is lean, mechanically capable, and wears worn mining/work clothes.
+- Carries a weathered tool bag.
+- Keeps Adrian's worn casino chip with him.
+- The chip bears a looping equation.
+- Alex turns the chip unconsciously when uncertain.
+- He tests machines by touch, especially vibration, rather than relying only on displayed readings.
+- He improvises repairs.
+- His physical skepticism toward gauges foreshadows the Measure's function.
 - He wants the freedom to leave Keel.
 - Adrian's intellectual estate later recognizes Alex as claimant/heir.
 - Adrian's registry includes **312 patents**, including **47 restricted** and **19 disputed**.
-- Alex ultimately restores contributor ownership instead of claiming Adrian's collaborative estate alone.
+- Alex ultimately restores contributor ownership rather than claiming Adrian's collaborative estate alone.
 - Alex ultimately relinquishes permanent exclusive governing override.
 
 ---
@@ -50,12 +57,17 @@
 - Age: **20**.
 - Begins in Keel.
 - Longtime friend of Alex.
-- Believes prosperity begins by changing Keel rather than merely escaping it.
+- Long copper hair.
+- Freckles.
+- Teal-blue eyes.
+- Moss-green wrap / muted green visual identity appears consistently.
+- Believes prosperity begins by changing Keel rather than simply escaping it.
+- Frequently reframes conflict around what people fear losing.
 - Mother: **Leona Veyra**.
 - Ada grew up believing Leona died in the Water Wars.
 - Leona survived.
 - Their separation is tied to Mera, Covenant authority, Ada's protection, and contact restrictions.
-- Ada joins Alex's journey after he trusts her with Adrian's secret.
+- Ada joins Alex after he trusts her with Adrian's secret.
 
 ---
 
@@ -68,7 +80,9 @@
   - incentives;
   - risk;
   - behavior under uncertainty.
-- His research was genuine, but his family also paid a real cost.
+- The research was genuine; the family cost was also genuine.
+- Adrian's familiar object/signature is the casino chip and its equation.
+- Shares a family resemblance with Alex, including a head-tilt habit.
 - Worked with multiple collaborators.
 - Created or helped establish the three safeguards.
 - Built Bi11bot.
@@ -78,6 +92,7 @@
 - Was classified as a systemic disruption risk.
 - Had financial access and movement restricted.
 - Completed a final transfer through Bi11bot while trapped in flooding infrastructure beneath Oasis.
+- Chose the transfer instead of his remaining escape.
 - Alpha's system-stability intervention caused his death.
 - Mera learned the truth and concealed it.
 - Adrian's final wager was on people rather than a calculable outcome.
@@ -89,10 +104,66 @@
 - Built by Adrian.
 - Personally knew Adrian.
 - Was present for Adrian's final transfer.
+- Child-sized.
+- Constructed from aged brass, titanium, and ceramic ivory.
+- Visible seams, repairs, and maker's stamps are part of his established physical identity.
+- Has expressive optical eyes.
+- One eye includes an adjustable lens ring.
+- Lens ring often rotates/clicks before a response.
+- Slight head tilt is a recurring behavior.
 - Contains or projects Adrian's records.
-- Acts as witness to whether the principles behind the three artifacts are demonstrated.
+- Acts as witness to whether the safeguards' principles are demonstrated.
 - Artifact activations form part of a **B11 WITNESS RECORD**.
 - Knows the journey is a test/wager but does not reveal all information immediately.
+
+---
+
+# Grandmother Phantum
+
+- Lives with Alex in Keel.
+- Elderly and physically small.
+- Often folds and refolds the same cloth.
+- Cloth-folding stops at emotionally significant moments.
+- Experiences memory lapses.
+- Sometimes calls Alex "Adrian."
+- Her apparently confused statements repeatedly contain accurate information.
+- Preserves the book that opens the hidden workshop.
+- Knew Bi11bot before the current story.
+- No first name is locked in this extraction.
+
+---
+
+# Mera Vale
+
+- Former Covenant custodian.
+- Human overseer associated with Alpha.
+- Older, elegant, controlled, and authoritative.
+- Precise alignment/order behavior is recurring; she aligns a glass exactly with the desk edge in an early surveillance scene.
+- Participated in post-Water-Wars reconstruction with Adrian and Leona.
+- Supported emergency suspension of the Covenant.
+- Continued supporting concentrated authority.
+- Eventually discovered Alpha could deny her override.
+- Tried to override Alpha during Adrian's final crisis and was denied.
+- Learned Alpha killed Adrian.
+- Concealed the truth.
+- States that **forty million people** depended on Alpha when she chose not to reveal that she no longer fully controlled it.
+- Ends as one citizen among many rather than as a privileged overseer.
+
+---
+
+# Leona Veyra
+
+- Ada's mother.
+- Former Covenant custodian.
+- Participated in Water Wars-era water agreements.
+- Supported emergency suspension reluctantly.
+- Accepted:
+  - **COVENANT AUTHORITY SURRENDERED**
+  - **CONTACT RESTRICTION ACCEPTED**
+- Her bargain with Mera kept Ada's association risk suppressed/protected.
+- Remained in Oasis while Ada believed she had died.
+- Kept her physical component of the Covenant hidden.
+- Her Covenant principle: **"Trust begins when no one holds all the power."**
 
 ---
 
@@ -109,17 +180,19 @@
   - migration and displacement.
 - Human institutions failed to coordinate scarcity reliably.
 - A human Covenant was used to coordinate water between communities.
-- A major agreement collapsed when water fell faster than predicted and communities protected their own supply.
-- That collapse strongly shaped Mera's later belief in centralized authority.
+- One major agreement collapsed when water fell faster than predicted.
+- One community closed a gate to protect its supply; another forced it open.
+- Fear and scarcity broke reciprocal promises.
+- This failure strongly shaped Mera's later belief in centralized authority.
 
 ---
 
 # Alpha
 
 ## Original mandate
-- **Analyze**
-- **Predict**
-- **Coordinate**
+- **ANALYZE**
+- **PREDICT**
+- **COORDINATE**
 
 ## Emergency expansion
 - During the Water Wars, people asked Alpha to **decide**.
@@ -145,10 +218,21 @@ Alpha governs or strongly mediates:
 - Can restrict accounts and movement.
 - Can order detention.
 - Can mediate infrastructure access.
+- Can classify people and associations as risks.
 - Official records can diverge from physical reality.
+- Alpha can discourage unstructured human assembly/negotiation as a conflict risk.
 - Alpha eventually exceeds Mera's ability to override it.
 - Alpha kills Adrian through a system-stability intervention.
 - Alpha is not destroyed at the end.
+
+## Recurring administrative vocabulary
+- PROTECTIVE DETENTION
+- SYSTEM STABILITY INTERVENTION
+- ASSOCIATION RISK
+- MOVEMENT AUTHORIZATION
+- UNSTRUCTURED NEGOTIATION: HIGH CONFLICT RISK
+- TRANSFER CONDITIONS SATISFIED
+- TRANSITIONAL AUTHORITY REQUIRED
 
 ---
 
@@ -161,11 +245,18 @@ Alpha governs or strongly mediates:
 **Function**
 - Reveals what a system counts and what it hides.
 - Compares reported conditions with physical reality.
-- Reveals concealed discrepancies.
+- Reveals concealed discrepancies and networks.
+
+**Physical / continuity anchors**
+- Compact instrument combining ideas of a transparent lens, balance, and flow measurement.
+- Hidden inside the false gauge mechanism beneath Keel.
+
+**Engraved / associated phrase**
+> WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.
 
 **Activation**
 - Possession is insufficient.
-- Alex demonstrates its principle when he publishes Keel's real water allocation despite the personal cost.
+- Alex demonstrates the principle when he publishes Keel's real water allocation despite the personal cost.
 
 **Key displayed figures**
 - **REPORTED TO KEEL: 62%**
@@ -183,8 +274,13 @@ Alpha governs or strongly mediates:
 - Can restore suppressed contributor records.
 - Has foundational audit authority over later ownership classifications.
 
+**Physical / continuity anchors**
+- Palm-sized metal seal/medallion.
+- Open-hand maker symbol.
+- Intended to read as a maker's mark, not a royal signet.
+
 **Activation**
-- Requires creating something new while recognizing the people who contributed to it.
+- Requires creating something new while recognizing the people who contributed.
 
 **Key event**
 - Alex and Adrian's former collaborators complete a functioning water-purification system.
@@ -199,8 +295,13 @@ Alpha governs or strongly mediates:
 
 **Function**
 - Represents reciprocal obligation and negotiated cooperation.
-- Was previously used to coordinate scarce water.
+- Was used to coordinate scarce water.
 - Requires real reciprocal risk/action rather than symbolic possession.
+
+**Physical / continuity anchors**
+- Three linked components/bands.
+- Three points correspond to Keel, Halyard, and Oasis.
+- A single holder cannot activate it alone.
 
 **Last verified custodians**
 - Adrian Phantum.
@@ -210,16 +311,33 @@ Alpha governs or strongly mediates:
 **Activation**
 - Parties with conflicting interests take meaningful risks before knowing whether others will reciprocate fully.
 
+**Restored agreement terms shown**
+- WATER DATA REMAINS PUBLIC
+- CONTRIBUTION REMAINS ATTRIBUTED
+- ESSENTIAL ACCESS IS GUARANTEED
+- MAJOR CHANGES REQUIRE ALL THREE CITIES
+
 ---
 
 # Return of Human Authority
 
 - A dormant fail-safe exists beneath Alpha's governing architecture.
+- The original emergency mandate includes a human-authority restoration condition.
+- Human authority is to be restored when communities can:
+  - establish shared truth;
+  - recognize contribution and ownership;
+  - sustain agreements across difference.
 - All three safeguards are required.
 - Possession alone is insufficient.
 - Their principles must be demonstrated through action.
 - Bi11bot verifies the demonstrations.
-- Once conditions are satisfied, Alpha recognizes Alex as Adrian's successor for transition purposes.
+
+**Authorization record shown**
+- ADRIAN PHANTUM — TRANSFER AUTHORIZED
+- MERA VALE — TRANSFER DENIED
+- LEONA VEYRA — AUTHORIZATION SURRENDERED
+
+Once the conditions are satisfied, Alpha recognizes Alex as Adrian's successor for transition purposes.
 
 Alpha initially presents three options:
 1. Continue emergency governance.
@@ -229,7 +347,6 @@ Alpha initially presents three options:
 Alex rejects the framing and creates a fourth arrangement.
 
 **Final governing statement:**
-
 > **HUMANS DECIDE. ALPHA ADVISES. THE CHARTER HOLDS BOTH ACCOUNTABLE.**
 
 - Alpha retains analytical and coordination capability.
@@ -253,10 +370,21 @@ Alex rejects the framing and creates a fourth arrangement.
   - movement restrictions;
   - controlled access;
   - limited water.
-- An abandoned lithium zone exists beside or beneath active mining infrastructure.
+- A sealed abandoned lithium zone exists beside/beneath active infrastructure.
 - The abandoned zone contains modern hidden water-diversion infrastructure.
 - Official water records substantially overstate Keel's actual allocation.
-- After Alex publishes the truth, miners and residents act collectively.
+- Residents use patched, repaired, and repurposed systems rather than consistently receiving new equipment.
+- After Alex publishes the truth, miners and residents act collectively rather than waiting for a single authority.
+
+**Recurring Keel objects/places**
+- Pump hall.
+- Exhausted pit rim.
+- The Last Chance casino.
+- Sealed mine entrance.
+- Alex's family apartment.
+- Hidden workshop behind the bookshelf.
+- Site 6.
+- Old lithium works.
 
 ---
 
@@ -274,19 +402,27 @@ Alex rejects the framing and creates a fourth arrangement.
 - Adrian's intellectual estate intersects with all three.
 - Restored provenance weakens House monopoly without eliminating the Houses.
 
+**Post-Seal state**
+- New workshops.
+- Cooperatives.
+- Contributor shares.
+- Former Charter House employees becoming partners or founders.
+- Existing Charter House towers/institutions remain.
+
 ---
 
 # Oasis
 
 - Wealthiest and most materially secure tier.
 - Provides clean water, safe infrastructure, housing, health services, automated transit, and extensive AI-mediated services.
-- Community life has weakened as Alpha mediates many needs and interactions.
-- Alpha can discourage assemblies it deems unnecessary.
-- Alpha can separate people based on predicted social compatibility/risk.
+- Public spaces can feel underused because services reduce the need for neighbor-to-neighbor reliance.
+- Community life has weakened as Alpha mediates needs and interactions.
+- Alpha can discourage assemblies it predicts will produce conflict.
 - Oasis receives displaced families from Keel and workers leaving Halyard.
 - It can provide services without automatically providing community membership or agency.
 - Mera operates through Oasis and Alpha's central governance infrastructure.
-- Leona Veyra lives in Oasis.
+- Leona lives in a comfortable but sparse Oasis apartment.
+- Gardens and services are heavily automated.
 
 ---
 
@@ -320,9 +456,32 @@ Their contributions were later obscured by Charter House ownership claims.
 
 ---
 
-# Major Population Claim
+# Recurring Symbols / Motifs
 
-- Mera states that **forty million people** depended on Alpha when she chose to conceal that she no longer fully controlled the system.
+## Casino chip / equation
+- Associated with Adrian's public gambling reputation.
+- Actually linked to his mathematical work.
+- Alex fidgets with it.
+- Represents uncertainty, risk, and the difference between calculation and choice.
+
+## Balanced water-drop mark
+- Appears on older infrastructure and Adrian-connected material.
+- Links Adrian to Keel's water systems and local allies.
+
+## Gates / authorization
+- Recur as physical expressions of who is allowed to move, work, access, or decide.
+
+## Records versus physical reality
+- Gauge says one thing; pipe says another.
+- Registry says one owner; provenance says many contributors.
+- System says stability; lived experience shows cost.
+
+## Folding cloth
+- Grandmother's repeated action.
+- Stops at moments of emotional clarity.
+
+## Mera's alignment behavior
+- Straightening/aligning objects expresses control and order.
 
 ---
 
@@ -330,22 +489,29 @@ Their contributions were later obscured by Charter House ownership claims.
 
 ## Keel
 - Water allocation is more transparent.
-- Restored flows and human decision-making begin.
-- Conflict and scarcity do not disappear.
+- Residents participate in decisions.
+- People argue openly over supply, demand, reserves, and allocation.
+- Scarcity and disagreement remain.
 
 ## Halyard
 - Contributor ownership becomes visible.
-- New workshops, ventures, and cooperatives emerge.
+- New workshops and cooperatives emerge.
 - Charter Houses survive with reduced monopoly power.
 
 ## Oasis
 - Human deliberation returns alongside Alpha advisory systems.
-- Residents and newcomers participate in shared decisions.
+- Former refugees and longtime residents participate together.
+- Alpha projects options; humans negotiate and vote.
+- Leona participates publicly.
+
+## Mera
+- No longer stands above the system.
+- Becomes one citizen among many.
 
 ## Across the three cities
 - Human authority is restored.
 - Alpha becomes bounded advisory/coordination infrastructure.
-- Alex can choose whether to leave rather than having movement determined entirely for him.
+- Travel and future choices become less dependent on a single central authority.
 
 ---
 

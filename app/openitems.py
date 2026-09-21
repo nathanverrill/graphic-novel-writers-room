@@ -54,6 +54,8 @@ def parse(text):
             elif len(label) == 1:
                 item["options"].append({"id": label.upper(), "text": value})
         item["suggested"] = item["suggested"][:1].upper()
+        if not item["suggested"]:       # agents also mark it inline: "- A: ... (suggested; ...)"
+            item["suggested"] = next((o["id"] for o in item["options"] if "(suggested" in o["text"].lower()), "")
         items.append(item)
     return items
 

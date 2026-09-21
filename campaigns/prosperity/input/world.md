@@ -1,7 +1,7 @@
 # EVOKE PROSPERITY — World
 
 > World-building extraction from *Prosperity Graphic Novel draft — Fourth draft — Sept. 19*.
-> Image prompts, layout, visual style, camera direction, lettering, and production guidance are omitted.
+> Production guidance is omitted. This richer version retains lived-world details, institutional language, recurring places, everyday system behavior, and social texture that affect story continuity.
 
 # Overview
 
@@ -54,15 +54,23 @@ Human institutions failed to coordinate scarcity reliably.
 
 A human system called the **Covenant** was used to create agreements between communities over shared water.
 
-One major agreement collapsed when available water fell faster than expected.
+One major agreement initially worked.
 
-Fear caused communities to protect their own supply and break reciprocal promises.
+Then available water fell faster than predicted.
 
-That failure became a major justification for transferring more authority to Alpha.
+One community closed a gate to protect its own supply.
+
+Another forced it open.
+
+Fighting spread.
+
+The agreement collapsed.
+
+This became a foundational memory for the people who later built the Alpha order.
 
 ---
 
-# Alpha
+# Rise of Alpha
 
 ## Original purpose
 
@@ -106,16 +114,27 @@ Alpha optimizes for:
 - reduced duplication;
 - avoidance of human conflict.
 
-Its language often turns coercive consequences into neutral administration:
+## Administrative language
+
+Alpha's language is important to the world.
+
+It rarely describes its actions as coercion.
+
+Recurring system concepts include:
 - protective detention;
 - stability intervention;
-- compatibility risk;
 - movement authorization;
-- optimized allocation.
+- association risk;
+- optimized allocation;
+- high conflict risk;
+- transfer authorization;
+- transition conditions.
+
+The horror in Alpha's governance often comes from the gap between neutral terminology and human consequence.
 
 ## Fundamental world problem
 
-Alpha can calculate consequences without answering the legitimacy question:
+Alpha can calculate consequences without answering:
 
 **Who has the right to choose?**
 
@@ -127,7 +146,7 @@ The story distinguishes:
 
 ---
 
-# Shared Infrastructure
+# Shared Infrastructure Spine
 
 Keel, Halyard, and Oasis are physically connected by a common infrastructure spine.
 
@@ -139,9 +158,18 @@ It includes:
 - permission/access gates;
 - Alpha monitoring.
 
-This allows regional coordination.
+The same basic control-node architecture appears at all three tiers.
 
-It also allows unequal outcomes in one place to be hidden inside apparently coherent system-wide optimization.
+The infrastructure becomes more restrictive toward Keel.
+
+This common spine allows:
+- regional coordination;
+- surveillance;
+- travel control;
+- allocation;
+- hidden redistribution.
+
+It also explains how apparently local decisions can affect all three cities.
 
 ---
 
@@ -153,49 +181,80 @@ Keel is the lowest and poorest tier.
 
 It is built in and around an **exhausted open-pit lithium mine**.
 
-It remains tied to mining, industrial maintenance, pumps, and legacy infrastructure.
+It remains tied to mining, industrial maintenance, pumps, extraction, and legacy infrastructure.
 
-## Conditions
+## Lived texture
 
-Residents experience:
-- aging machinery;
-- repeated repair instead of replacement;
-- labor monitoring;
-- visible debt;
-- inherited household liability;
-- movement restrictions;
-- access gates;
-- limited water;
-- weak individual bargaining power.
+Keel is not technologically primitive.
 
-## Debt
+It has:
+- biometric checkpoints;
+- projected procedures;
+- automated supervisors;
+- public account records;
+- drones;
+- connected infrastructure.
 
-At seventeen, Alex becomes old enough for Adrian's household liability to transfer to him.
+But much of the physical world is old and repeatedly repaired.
 
-Debt affects more than purchasing power.
+Workers improvise because systems are kept running long after replacement would be ideal.
 
-It can restrict:
-- travel;
-- opportunity;
-- future choices.
+This contrast is central:
+**advanced control layered over aging physical infrastructure.**
 
-## Mobility
+## Debt and adulthood
+
+At seventeen, Alex becomes old enough for parental household liability to transfer.
+
+The debt display does not merely affect finances.
+
+It also controls mobility.
+
+Alex's record shows:
+- household liability;
+- projected clearance;
+- travel status.
+
+The social meaning of adulthood in Keel is therefore partly administrative:
+you become old enough to owe.
+
+## Work
+
+Keel work is tracked by Alpha-linked systems.
+
+Unauthorized repair can trigger review even when the repair works.
+
+Workers operate inside:
+- assigned zones;
+- wage/disciplinary systems;
+- checkpoints;
+- automated oversight.
+
+Leaving an assigned area can itself create penalties or alerts.
+
+## Movement
 
 Travel between Keel and Halyard can require authorization.
 
-Alex's debt produces:
-
+Alex receives:
 > **TRAVEL STATUS: RESTRICTED**
 
-## Mines
+The rail network is physically shared but permission-controlled.
+
+## The mines
 
 Active extraction exists beside an abandoned lithium zone.
 
-The abandoned zone:
-- is officially closed;
-- contains old industrial systems;
-- contains hidden modern infrastructure;
-- hides the Measure.
+Recurring locations:
+- pump hall;
+- Site 6;
+- sealed mine entrance;
+- old lithium works;
+- hidden maintenance doors;
+- legacy tunnels;
+- water-control chamber.
+
+The abandoned zone is officially dead but physically contains newer infrastructure.
 
 ## Hidden water diversion
 
@@ -203,21 +262,37 @@ A modern water-control system runs through the supposedly abandoned mine.
 
 Official records say Keel receives substantially more water than its physical pipes actually deliver.
 
-The false record persists because the system's official measurement is trusted over physical reality.
+The critical discrepancy:
+- **REPORTED TO KEEL: 62%**
+- **DELIVERED TO KEEL: 18%**
 
-## Community strength
+The lie is not only political.
 
-Keel's counterweight to formal control is reciprocal informal action.
+It is physically built into the measurement system.
 
-After Alex gives people useful truth, residents independently contribute:
-- labor;
-- concealment;
-- tools;
-- access;
-- supplies;
-- risk.
+## Community behavior
 
-No single leader has to order the response.
+Keel's counterweight to formal control is informal reciprocity.
+
+When Alex publishes useful truth:
+- miners inspect the pipes;
+- valves are opened;
+- tracking can be disrupted;
+- service gates can be opened;
+- people provide food, tools, access, and concealment.
+
+No one central figure has to command the response.
+
+This becomes an early model for distributed human action.
+
+## Important places
+- The Last Chance casino.
+- Alex's family apartment.
+- Hidden workshop behind the bookshelf.
+- Pit overlook where Alex and Ada talk.
+- Pump hall.
+- Site 6.
+- Old lithium works.
 
 ---
 
@@ -231,13 +306,13 @@ It contains:
 - laboratories;
 - fabrication facilities;
 - foundries;
-- vertical farms;
+- greenhouse/vertical agriculture;
 - compute;
 - advanced transport;
 - maker districts;
-- major industrial infrastructure.
+- industrial towers.
 
-Its central story problem is **ownership**.
+Its central problem is **ownership** rather than scarcity.
 
 ## The Three Charter Houses
 
@@ -264,44 +339,59 @@ Alpha recommended concentration because it produced:
 
 ## Labor and invention
 
-Workers can create valuable inventions while the House claims ownership because the work occurred during paid employment.
+Halyard celebrates making and technical excellence.
 
-People may retain their experience while losing:
+But workers can create valuable inventions while employers own:
 - patents;
 - designs;
-- economic rights;
-- control over downstream use.
+- commercialization rights;
+- downstream value.
 
-The Houses also influence:
-- jobs;
-- records;
-- communications;
-- institutional access.
+The system can therefore recognize innovation while erasing contributors.
 
 ## Adrian's estate
 
-Adrian's intellectual estate contains hundreds of patents.
+Adrian's intellectual estate includes:
+- **312 patents**
+- **47 restricted**
+- **19 disputed**
 
-Important work cannot be completed without collaborators whose contributions have been separated or suppressed by later ownership records.
+Important work cannot be completed without collaborators whose contributions were separated or suppressed by later ownership records.
 
-This is the problem exposed by the Maker's Seal.
+## Water technology
 
-## After the Seal
+Adrian's fragmented water system includes:
+- catalytic membrane purification;
+- atmospheric moisture capture;
+- mineral recovery;
+- living biofilter regulation;
+- distributed community water nodes.
 
-Restored provenance changes Halyard.
+The successful prototype:
+- cleans contaminated water;
+- recovers valuable minerals;
+- reaches **99.97% water purity**.
 
-Consequences include:
-- workers discovering ownership interests;
-- inherited rights reappearing;
-- contributors gaining recognition;
-- new partnerships;
-- new ventures;
-- cooperatives;
-- reopened independent workshops.
+Alex changes the design into a distributed/modular architecture.
 
-The Charter Houses remain.
+## Maker's Seal effect
 
-Their monopoly weakens.
+When activated, the Maker's Seal restores deeper provenance.
+
+The audit shows disputed ownership across **71.3% of registered assets**.
+
+Halyard does not collapse.
+
+Instead:
+- some workers stay;
+- some become partners;
+- some form new firms;
+- cooperatives appear;
+- independent workshops reopen.
+
+Old Charter House towers remain.
+
+The post-story Halyard is plural, not purified.
 
 ---
 
@@ -315,33 +405,41 @@ It provides:
 - abundant clean water;
 - safe infrastructure;
 - housing;
-- health services;
-- automated transport;
-- extensive AI-supported services.
+- healthcare;
+- automated transportation;
+- AI-supported civic services.
 
-## Social condition
+## Lived texture
 
-Oasis's central weakness is not scarcity.
+Oasis is comfortable, efficient, and sparse.
 
-It is diminished mutual dependence.
+Services arrive automatically.
 
-Alpha mediates so many needs that residents often do not need to negotiate or cooperate with neighbors.
+Gardens can be maintained by drones.
 
-Examples in the script include:
-- personalized routes;
-- automated delivery;
-- AI tutoring;
-- automated civic requests;
-- discouragement of unnecessary community assemblies;
-- social-compatibility risk management.
+Homes can be immaculate but impersonal.
 
-People can be surrounded by others without functioning as a community.
+People may have fewer reasons to rely on neighbors.
+
+The city therefore demonstrates a different kind of poverty:
+**not material scarcity, but reduced mutual dependence and agency.**
+
+## Social optimization
+
+Alpha can:
+- route people individually;
+- satisfy requests automatically;
+- classify social risk;
+- discourage assemblies judged unnecessary or conflict-prone;
+- separate problems into manageable administrative units.
+
+The system can produce a peaceful city without necessarily producing a community.
 
 ## Refuge and integration
 
 Oasis receives:
-- displaced families from Keel;
-- workers/makers leaving Halyard.
+- displaced Keel families;
+- workers and makers leaving Halyard.
 
 Alpha can provide:
 - temporary housing;
@@ -349,27 +447,51 @@ Alpha can provide:
 - health screening;
 - services.
 
-But services do not automatically provide:
+But service provision does not automatically provide:
 - belonging;
 - shared identity;
 - local authority;
 - participation in decisions.
 
-## Regional water conflict
+## Leona's apartment
 
-When new purification capability changes regional supply, the three cities have different interests.
+Leona lives in a comfortable but sparse Oasis residence.
 
-**Keel**
+Her physical Covenant component remains hidden in a concealed compartment.
+
+Her personal environment reflects the bargain she made:
+safety and comfort paired with silence and withdrawal.
+
+## Mera / Alpha core
+
+Mera operates in or around Alpha's central control architecture.
+
+Her early environment is highly ordered.
+
+The glass she aligns precisely on her desk becomes a small recurring expression of her relationship to control.
+
+At the end, the doors to Alpha's central core are open and Mera stands outside it as an ordinary citizen.
+
+---
+
+# Regional Water Politics
+
+Once Halyard's purification system changes available supply, the three cities have different interests.
+
+## Keel
 - restored local access;
-- community water rights.
+- community water rights;
+- protection against hidden diversion.
 
-**Halyard**
-- rights connected to purification technology;
-- recovery of investment/ownership.
+## Halyard
+- recognition of contribution;
+- protection of technical work;
+- legitimate economic return.
 
-**Oasis**
-- regional stability;
-- centralized allocation.
+## Oasis
+- system stability;
+- predictable regional allocation;
+- capacity constraints.
 
 Alpha recommends centralized coordination.
 
@@ -377,13 +499,13 @@ The Covenant requires negotiated reciprocal action instead.
 
 ---
 
-# The Three Safeguards
+# The Prosperity Safeguards
 
-The safeguards are physical objects and systems deliberately capable of existing beyond ordinary Alpha control.
+The safeguards are physical systems deliberately able to remain outside normal Alpha control.
 
-They are not valuable merely because someone holds them.
+They are not magical keys.
 
-Each corresponds to a social requirement.
+Each corresponds to a governance condition.
 
 ---
 
@@ -393,11 +515,17 @@ Each corresponds to a social requirement.
 
 **Purpose**
 - Compare reported data with reality.
-- Reveal discrepancies and hidden networks.
+- Reveal hidden networks.
 - Make suppressed conditions observable.
 
-**Story test**
-Truth must be used even when using it costs the holder something.
+**World logic**
+The Measure matters because sophisticated systems can still be wrong, manipulated, or incomplete.
+
+The foundational question is:
+**What happens when the record and reality tell different stories?**
+
+**Associated phrase**
+> WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.
 
 ---
 
@@ -408,15 +536,17 @@ Truth must be used even when using it costs the holder something.
 **Purpose**
 Track provenance across complex creation.
 
-It can identify:
-- creators;
-- contributors;
-- owners;
+It can preserve:
+- original inventors;
+- later contributors;
 - maintainers;
-- later improvements.
+- owners;
+- improvements.
 
-**Story test**
-New value must be created without erasing the people who helped create it.
+**World logic**
+Complex innovation is collaborative, but centralized legal/registry systems can collapse many contributors into one owner.
+
+The Seal preserves an older/deeper layer of provenance.
 
 ---
 
@@ -425,29 +555,47 @@ New value must be created without erasing the people who helped create it.
 **Principle:** Trust strong enough to move value between people.
 
 **Purpose**
-Create reciprocal agreements among groups with conflicting interests.
+Create reciprocal agreements among groups with different interests.
 
-**Story test**
-Participants must take meaningful risks before certainty exists.
+**World logic**
+Some shared problems cannot be solved by:
+- measurement alone;
+- property rights alone;
+- central optimization alone.
+
+Someone has to act before certainty.
+
+**Core rule**
+> Trust begins when no one holds all the power.
+
+**Restored terms**
+- WATER DATA REMAINS PUBLIC
+- CONTRIBUTION REMAINS ATTRIBUTED
+- ESSENTIAL ACCESS IS GUARANTEED
+- MAJOR CHANGES REQUIRE ALL THREE CITIES
 
 ---
 
 # Return of Human Authority
 
-The three safeguards form part of a dormant fail-safe beneath Alpha's governing architecture.
+The three safeguards form part of a deeper governance fail-safe beneath Alpha.
 
-They are not simple keys.
+The original mandate states that human authority should return when communities can:
 
-The system requires evidence that their underlying principles have been demonstrated.
+1. **Establish shared truth.**
+2. **Recognize contribution and ownership.**
+3. **Sustain agreements across difference.**
 
-The story sequence is:
+This means the artifact quest is actually a governance qualification process.
 
-1. **Truth**
-2. **Ownership**
-3. **Trust**
-4. **Authority**
+The system is not waiting for three objects.
 
-Only after the first three conditions are demonstrated does the final governance question become available.
+It is waiting for evidence of three capacities.
+
+**Authorization record**
+- ADRIAN PHANTUM — TRANSFER AUTHORIZED
+- MERA VALE — TRANSFER DENIED
+- LEONA VEYRA — AUTHORIZATION SURRENDERED
 
 ---
 
@@ -477,13 +625,15 @@ The final relationship is:
 ## The safeguards provide
 - visible facts;
 - visible ownership and responsibility;
-- shared reciprocal obligation.
+- reciprocal constraints on concentrated power.
 
 ---
 
 # Governance After the Story
 
-The new model is distributed rather than replacing Alpha with one central ruler.
+The new model is distributed.
+
+It does not replace Alpha with one supreme council or one heroic ruler.
 
 Communities use many connected decision points.
 
@@ -497,9 +647,11 @@ Humans:
 - make mistakes;
 - revise decisions.
 
-The goal is not perfect outcomes.
+The ending explicitly shows disagreement continuing.
 
-The goal is human agency under transparent constraints.
+The point is not perfection.
+
+The point is legitimate agency.
 
 ---
 
@@ -572,12 +724,36 @@ The three cities embody three linked prosperity problems:
 
 ---
 
+# Recurring World Motifs
+
+## Record versus reality
+- Approved repair versus working repair.
+- Gauge reading versus dry pipe.
+- Legal owner versus actual contributors.
+- Stability language versus lived cost.
+
+## Gates
+Physical and administrative gates recur wherever the question is:
+**Who gets access?**
+
+## Water
+Water is resource, infrastructure, political power, and the most literal measure of shared dependence.
+
+## Repair
+The world is full of patched machines, inherited systems, damaged institutions, and relationships that must be repaired rather than simply replaced.
+
+## Offline / physical objects
+Books, keys, chips, gauges, maker marks, and physical artifacts become important because networked systems can be monitored, altered, classified, or denied.
+
+---
+
 # World State at the End
 
 ## Keel
-- Water allocation is more transparent.
-- Residents participate in decisions.
+- Water allocation is transparent.
+- Residents argue publicly over supply, demand, reserves, and allocation.
 - Scarcity and disagreement remain.
+- Choice is restored without simplicity.
 
 ## Halyard
 - Contributor rights become visible.
@@ -586,10 +762,14 @@ The three cities embody three linked prosperity problems:
 
 ## Oasis
 - Residents and newcomers participate in local governance.
-- Alpha remains useful but no longer decides everything.
+- Alpha projects options; humans negotiate and vote.
+- Leona participates publicly.
 
-## Across the system
+## Mera
+- No longer occupies a position above the system.
+- Becomes one citizen among many.
+
+## Across the three cities
 - Human authority is restored.
 - Alpha becomes bounded advisory/coordination infrastructure.
-- Travel and life choices become less dependent on a single central authority.
 - The future is no longer treated as something one AI, institution, family, or hero has the right to define.

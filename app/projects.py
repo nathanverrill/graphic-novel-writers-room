@@ -87,6 +87,47 @@ def pitch(slug):
     return path.read_text() if path.exists() else ""
 
 
+ADDED = "<!-- added at intake -->"      # above it, your file word for word; below it, the room's additions
+
+
+def showrunner_file(slug, name):
+    """Your own version of one of the room's files — input/characters.md, say — or None.
+
+    You have already organized that subject, so intake keeps the file whole: an agent asked to
+    rewrite a 20 KB file hands back a 9 KB summary, and what it dropped is gone for every agent
+    after it. The Script Coordinator writes only what it adds, and with_additions joins the two."""
+    path = campaign_dir(slug) / INPUT / name
+    return path.read_text() if NAME_RE.match(name) and path.is_file() else None
+
+
+def with_additions(base, added):
+    """Your file, whole, then what intake added to it under a marked heading.
+
+    Told to write only its additions, an agent still hands back your whole file with its changes
+    folded in. So the rule is kept here: any line of the addition that is already in your file
+    is dropped, and so is a heading left with nothing under it."""
+    added = (added or "").split(ADDED)[-1]
+    added = re.sub(r"\A\s*# Added at intake\s*(_Everything above.*?_\s*)?", "", added, flags=re.S)
+    norm = lambda line: re.sub(r"[\s*_>#-]+", " ", line).strip().lower()
+    yours = {norm(l) for l in base.split("\n")}
+    lines = [l for l in added.split("\n") if (not norm(l) or norm(l) not in yours) and norm(l) != "added at intake"]
+    kept = []
+    for i, line in enumerate(lines):           # a heading survives only if something follows it
+        if re.match(r"#{1,6}\s", line):
+            depth = len(line) - len(line.lstrip("#"))
+            rest = lines[i + 1:]
+            end = next((j for j, l in enumerate(rest) if re.match(r"#{1,%d}\s" % depth, l)), len(rest))
+            if not any(l.strip() and l.strip() != "---" for l in rest[:end]):
+                continue
+        kept.append(line)
+    added = re.sub(r"\n{3,}", "\n\n", "\n".join(l for l in kept if l.strip() != "---")).strip()
+    if not added:
+        return base.rstrip() + "\n"
+    return (f"{base.rstrip()}\n\n{ADDED}\n# Added at intake\n\n"
+            "_Everything above is the showrunner's file, kept word for word. Below is what the "
+            "Script Coordinator added from the references and the rules._\n\n" + added + "\n")
+
+
 def create_project(title, pitch, pages=None, draft=None):
     """A new campaign: rules/ binds the book, input/ is anything to read, drafts/ is what is
     already written, output/ is the desk."""

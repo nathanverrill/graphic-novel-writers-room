@@ -204,8 +204,22 @@ class Agent:
             else:
                 text.append(f"# {name}\n(not written yet — work from what you have)")
 
+        kept = self.kept()
+        if kept:
+            text.append(
+                "# Files the showrunner already wrote — you add to them, you do not rewrite them\n"
+                + ", ".join(kept) + ": the showrunner's own version of each is in the material above, "
+                "under input/. It is already organized, and the room keeps it whole, word for word. "
+                "For each of these, what you pass to write_artifact is ONLY WHAT YOU ADD, and it is "
+                "placed after their file under the heading \"Added at intake\". Add what their "
+                "file lacks: detail from the references a writer can put on a page (cited, with its "
+                "T / EG / S / L label), what the rules fix (marked FIXED, cited), and the file's "
+                "Open section. Do not repeat or summarize what their file already says, and do not "
+                "leave a file out: a file with nothing to add still gets its Open section.")
         existing = [] if r.minimal else [(n, projects.read_artifact(self.slug, n)) for n in r.outputs]
-        existing = [(n, c) for n, c in existing if c]
+        existing = [(n, c.split(projects.ADDED)[-1] if n in kept and projects.ADDED in c else "" if n in kept else c)
+                    for n, c in existing if c]
+        existing = [(n, c) for n, c in existing if c.strip()]
         if existing:
             text.append("# The files you write, as they stand — revise rather than start over")
             text += [f"## {n}\n{c}" for n, c in existing]
@@ -296,7 +310,17 @@ class Agent:
         Continuity Editor's checklist, not something to write from."""
         return name not in PRIVATE or name in self.role.reads + self.role.outputs
 
+    def kept(self):
+        """The files this agent writes that the showrunner has already written (see
+        projects.showrunner_file): only the agent that reads their material adds to them."""
+        if not self.role.library:
+            return {}
+        found = {n: projects.showrunner_file(self.slug, n) for n in self.role.outputs}
+        return {n: text for n, text in found.items() if text}
+
     def save(self, name, content):
+        if name in self.kept():
+            content = projects.with_additions(self.kept()[name], content)
         content, restored = review.enforce_locks(self.slug, name, content)
         content, kept_rules = rules.enforce_rules(self.slug, name, content)
         self.version.write(name, content)
@@ -349,6 +373,8 @@ class Agent:
     # ---- the loop --------------------------------------------------------
 
     def run(self, note=None):
+        for name, text in self.kept().items():      # on the desk whole, whatever the agent then adds
+            self.version.write(name, projects.with_additions(text, ""))
         guides, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
