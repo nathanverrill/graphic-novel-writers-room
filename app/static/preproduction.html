@@ -96,25 +96,6 @@
   .field span { font-size: .72rem; color: var(--muted); line-height: 1.45; }
   .field textarea { font: inherit; font-size: .82rem; padding: .4rem .55rem; border: 1px solid var(--line);
                     border-radius: 4px; resize: vertical; width: 100%; }
-  /* the visual check: one brief per row, picture beside the words */
-  .briefs { display: grid; gap: .9rem; }
-  .brief { display: grid; grid-template-columns: minmax(0, 22rem) minmax(0, 1fr); gap: 1rem;
-           border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 6px; padding: .85rem 1rem; }
-  @media (max-width: 48rem) { .brief { grid-template-columns: 1fr; } }
-  .brief.kept { border-left-color: var(--ok); } .brief.back { border-left-color: var(--work); }
-  .brief.rejected { border-left-color: var(--bad); opacity: .7; }
-  .brief img { width: 100%; height: auto; border-radius: 4px; border: 1px solid var(--line); display: block; cursor: zoom-in; }
-  .brief .none { aspect-ratio: 3/2; display: grid; place-items: center; color: var(--muted); font-size: .78rem;
-                 border: 1px dashed var(--line); border-radius: 4px; }
-  .brief h4 { margin: 0 0 .35rem; font-size: .92rem; display: flex; gap: .5rem; align-items: baseline; flex-wrap: wrap; }
-  .brief h4 em { font-style: normal; color: var(--muted); font-family: ui-monospace, monospace; font-size: .74rem; }
-  .brief .verdict { font-size: .66rem; text-transform: uppercase; letter-spacing: .05em; padding: .05rem .4rem;
-                    border-radius: 3px; border: 1px solid currentColor; }
-  .brief .verdict.pass { color: var(--ok); } .brief .verdict.revise { color: var(--bad); }
-  .brief .blocks { font-size: .78rem; display: grid; gap: .3rem; }
-  .brief .blocks b { color: var(--muted); font-weight: 600; font-size: .68rem; text-transform: uppercase; letter-spacing: .05em; margin-right: .3rem; }
-  .brief .found { font-size: .78rem; margin: .5rem 0 0; padding: .4rem .6rem; background: var(--bg); border-left: 2px solid var(--bad); border-radius: 4px; }
-  .brief .found ul { margin: .2rem 0 0; padding-left: 1.1rem; }
   .filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
   .filters button { font: inherit; font-weight: 500; font-size: .76rem; padding: .25rem .6rem;
                     border-radius: 999px; border: 1px solid var(--line);
@@ -218,12 +199,6 @@
       <div class="items" id="items"></div>
     </div>
 
-    <div class="card" id="visual-card" hidden style="margin-top:1.25rem">
-      <h3>Visual check</h3>
-      <p class="hint" style="margin:0 0 .6rem" id="visual-hint"></p>
-      <div class="briefs" id="briefs"></div>
-    </div>
-
     <div class="card notes-box" style="margin-top:1.25rem">
       <h3>Notes to the room</h3>
       <p class="hint" style="margin:0 0 .5rem">
@@ -241,10 +216,6 @@
     </div>
   </main>
 </div>
-
-<dialog id="lightbox" style="max-width:min(96vw,1400px)"><header><b id="lightbox-name"></b>
-  <button class="go alt" style="width:auto;padding:.2rem .6rem" onclick="lightbox.close()">close</button>
-</header><img id="lightbox-img" alt="" style="display:block;max-width:100%;max-height:85vh;margin:0 auto"></dialog>
 
 <dialog id="viewer"><header><b id="viewer-name"></b>
   <span style="display:flex;gap:.4rem">

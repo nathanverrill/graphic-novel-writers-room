@@ -51,15 +51,3 @@ Intake: 4 files from 3 passes (5 model requests). 41 open items, each with optio
 ## Script Coordinator — r18-ai, 2026-09-21 23:26
 
 Revised 5 files from 2 passes (5 model requests): 39 decision(s) and 0 note(s) carried in, facts.md derived. 0 item(s) still open, 2 deferred.
-
-## Script Coordinator — r19-ai, 2026-09-22 00:45
-
-Visual check: 8 image(s) rendered from 8 briefs, 3 flagged by the check. Waiting on you: keep, send back or reject each one. Text is canon; an image only shows it.
-
-## Script Coordinator — r20-ai, 2026-09-22 00:47
-
-Visual check: 8 image(s) rendered from 8 briefs, 6 flagged by the check. Waiting on you: keep, send back or reject each one. Text is canon; an image only shows it.
-
-## Script Coordinator — r21-ai, 2026-09-22 01:01
-
-Visual check: 8 image(s) rendered from 8 briefs, 7 flagged by the check. Waiting on you: keep, send back or reject each one. Text is canon; an image only shows it.

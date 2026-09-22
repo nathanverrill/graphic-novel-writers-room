@@ -5,10 +5,9 @@ this file when it stops being true.
 
 ## What the room is
 
-Six phases with a gate after each: **Intake → Visual check → Development → Audition → Writing →
-Execution** (`agents/phases.json`). Intake and the visual check (`app/visual.py`, passes 6-8,
-same no-tools shape) are built and have run on Prosperity. Development and everything after it
-have not been run since the three-file redesign and are the next thing to look at.
+Five phases with a gate after each: **Intake → Development → Audition → Writing → Execution**
+(`agents/phases.json`). Only intake was rebuilt this session. Development and everything after
+it have not been run since the three-file redesign and are the next thing to look at.
 
 A campaign is a folder. `input/` is whatever the showrunner has, under whatever names they use;
 `references/` is real-world research; `rules/` binds; `output/` is the room's desk. Underscore
@@ -105,10 +104,8 @@ A round's cost is in `output/previous/<round>/<round>-run.json` under `usage.tot
 
 ## Known problems / next steps
 
-1. Passes 4 and 5 ran (r18, 17 cents): the revision touched only what the decisions reach and
-   `facts.md` is a 281-line ledger, 175 of them `[UNLABELLED]`. The visual check ran twice
-   (r19, r20, 55 cents each): the check model misses lettering sometimes; your eyes are the
-   real check. Its unknowns come out as statements rather than questions.
+1. **Run passes 4 and 5.** Never done. Watch whether the revision keeps the files it is not
+   meant to touch, and whether `facts.md` comes out as a ledger rather than prose.
 2. **Development and later phases** have not been run since the three-file redesign.
 3. **`named_in` in `app/prompts.py` matches on the first word of a name**, so "Director Cassian
    Lock" matches any "Director". Fix before page prompts are built.

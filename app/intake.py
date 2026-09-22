@@ -46,11 +46,9 @@ ITEMS = openitems.ITEMS
 
 SYNTHESIS, OPEN_ITEMS, OPTIONS = "synthesis", "open items", "options"
 REVISION, FACTS_PASS = "revision", "facts"
-BRIEFS_PASS, CHECK = "visual briefs", "visual check"      # the visual check, app/visual.py
 
 PASS_GUIDE = {SYNTHESIS: "synthesis.md", OPEN_ITEMS: "open-items.md", OPTIONS: "options.md",
-              REVISION: "revision.md", FACTS_PASS: "facts.md",
-              BRIEFS_PASS: "visual-briefs.md", CHECK: "visual-check.md"}
+              REVISION: "revision.md", FACTS_PASS: "facts.md"}
 DEST_GUIDE = {"characters.md": "synthesis-characters.md",
               "world.md": "synthesis-world.md",
               "story.md": "synthesis-story.md"}

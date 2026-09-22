@@ -188,32 +188,19 @@ def list_models(cfg, timeout=20):
 
 
 def generate_image(cfg, prompt, size=None, log=None):
-    """One image from a prompt; returns its bytes.
-
-    An OpenAI-style host takes /images/generations with n and size. OpenRouter's is /images,
-    which normalizes the rest across its providers: aspect_ratio ("1:1" to "21:9"), resolution
-    ("512", "1K", "2K", "4K"), quality, output_format - all of them go in image_extra. Both
-    answer data[0].b64_json (or a url), and OpenRouter's usage carries the cost in dollars."""
-    host = cfg.image_base_url.split("//", 1)[-1].split("/", 1)[0]
-    if host.endswith("openrouter.ai"):
-        url = cfg.image_base_url + "/images"
-        body = {"model": cfg.image_model, "prompt": prompt, **cfg.image_extra}
-    else:
-        url = cfg.image_base_url + "/images/generations"
-        body = {"model": cfg.image_model, "prompt": prompt, "n": 1,
-                "size": size or cfg.image_size, **cfg.image_extra}
-    data = _post(url, cfg.image_api_key, body, cfg.timeout, log, "image")
-    if isinstance(data, dict) and data.get("error") and not data.get("data"):
-        raise LLMError(data["error"].get("code") or 502, json.dumps(data["error"]))
+    """Returns image bytes."""
+    body = {"model": cfg.image_model, "prompt": prompt, "n": 1,
+            "size": size or cfg.image_size, **cfg.image_extra}
+    data = _post(cfg.image_base_url + "/images/generations", cfg.image_api_key, body, cfg.timeout, log, "image")
     try:
         item = data["data"][0]
     except (KeyError, IndexError, TypeError):
-        raise LLMError(200, json.dumps(data)[:600]) from None
+        raise LLMError(200, json.dumps(data)) from None
     if item.get("b64_json"):
         return base64.b64decode(item["b64_json"])
     if item.get("url"):
         return _download(item["url"], cfg.timeout)
-    raise LLMError(200, json.dumps(data)[:600])
+    raise LLMError(200, json.dumps(data))
 
 
 def images_in_message(msg, timeout=60):

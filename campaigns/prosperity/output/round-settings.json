@@ -1,4 +1,3 @@
 {
-  "use_references_during_synthesis": false,
-  "phase": "visual"
+  "use_references_during_synthesis": false
 }

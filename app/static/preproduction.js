@@ -124,7 +124,6 @@ async function pickCampaign() {
 
 const STATUS = {
   awaiting_showrunner_decisions: ["wait", "waiting on your answers"],
-  awaiting_showrunner_review: ["wait", "waiting on your review"],
   ready_for_review: ["ready", "ready for your review"],
   running: ["run", "working"],
   error: ["fail", "failed"],
@@ -153,14 +152,14 @@ function renderMaterial(p) {
   }).join("") || `<div class="hint">Nothing in this campaign yet.</div>`;
 }
 
-const DOCS = ["characters.md", "world.md", "story.md", "open-items.md", "facts.md", "visual-briefs.md"];
+const DOCS = ["characters.md", "world.md", "story.md", "open-items.md", "facts.md"];
 
 function renderDocs(p) {
   const byName = Object.fromEntries((p.artifacts || []).map((a) => [a.name, a]));
   $("#docs").innerHTML = DOCS.map((n) => {
     const a = byName[n];
     return `<div class="row"><span>${a ? `<a href="#" data-doc="${esc(n)}">${esc(n)}</a>` : esc(n)}</span>` +
-      `<span>${a ? kb(a.size) : n === "facts.md" ? "after pass 5" : n === "visual-briefs.md" ? "visual check" : "—"}</span></div>`;
+      `<span>${a ? kb(a.size) : n === "facts.md" ? "after pass 5" : "—"}</span></div>`;
   }).join("");
 }
 
@@ -185,17 +184,6 @@ function renderRun(p, latest, items) {
   const active = !!p.active_run;
   const btn = $("#run");
   btn.disabled = active || state.busy;
-  if (p.phase === "visual") {
-    const v = state.visual, todo = v.briefs.filter((b) => !b.image || b.status === "back").length;
-    btn.textContent = active ? "working…" : !v.exists ? "Write the briefs and render" : todo ? `Render ${todo} again` : "Run visual check";
-    btn.classList.toggle("alt", !active && v.exists && !todo);
-    $("#hint").innerHTML = active ? "A round is running."
-      : !v.exists ? "One call writes five to eight briefs from the four files; every brief is rendered at once; each picture is checked against its brief."
-      : todo ? "Only what you sent back is rendered again, with your note in the prompt."
-      : "Nothing is sent back. Keep or send back an image, or approve the phase.";
-    $("#hint").innerHTML += ` <a href="#" id="rebrief">Rewrite the briefs</a> · <a href="#" id="approve">Approve →</a>`;
-    return;
-  }
   btn.textContent = active ? "working…" : pending ? "Fold my answers in" : "Run intake";
   btn.classList.toggle("alt", !pending && !active);
   $("#hint").innerHTML = active
@@ -203,14 +191,12 @@ function renderRun(p, latest, items) {
     : pending
       ? "Revision, then facts.md: your answers and notes go into the three files, and only what is still open stays on the list."
       : "Synthesis, then open items, then options. Three calls at once, and it stops here for you.";
-  if (!active && !pending && latest?.intake?.status === "ready_for_review" && p.phase === "intake")
-    $("#hint").innerHTML += ` <a href="#" id="approve">Approve intake → visual check</a>`;
 }
 
-async function startRound(mode) {
+async function startRound() {
   state.busy = true; renderAll();
   try {
-    const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body: mode ? { mode } : {} });
+    const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body: {} });
     state.run = run_id; state.seen = 0;
     $("#feed-card").hidden = false; $("#feed").innerHTML = "";
     follow();
@@ -218,72 +204,6 @@ async function startRound(mode) {
     $("#hint").innerHTML = `<span style="color:var(--bad)">${esc(e.message)}</span>`;
   } finally { state.busy = false; }
 }
-
-/* ---- the visual check ---------------------------------------------------- */
-
-const STATUS_WORD = { kept: "kept", back: "sent back", rejected: "rejected" };
-
-function renderVisual(p) {
-  const v = state.visual;
-  $("#visual-card").hidden = !v.exists && p.phase !== "visual";
-  if ($("#visual-card").hidden) return;
-  $("#visual-hint").innerHTML = v.exists
-    ? `${v.briefs.length} briefs · <b>${v.kept}</b> kept · <b>${v.back}</b> sent back · <b>${v.rejected}</b> rejected · ${v.unreviewed} waiting. ` +
-      `Text is canon: a picture only shows it. Keep what looks right, send back what does not with a note, reject what must not be used. ` +
-      `What a brief could not find in the files is on the open-items list above.`
-    : "No briefs yet. Run the visual check.";
-  $("#briefs").innerHTML = v.briefs.map((b) => `
-    <div class="brief ${esc(b.status)}" data-n="${b.n}">
-      <div>${b.image ? `<img src="/api/projects/${state.slug}/${esc(b.image)}" alt="${esc(b.title)}" data-zoom>` : `<div class="none">not rendered yet</div>`}</div>
-      <div>
-        <h4><em>${b.n}. ${esc(b.slug)}</em> ${esc(b.title)}
-          ${b.verdict ? `<span class="verdict ${esc(b.verdict)}">${b.verdict === "pass" ? "check: pass" : "check: revise"}</span>` : ""}
-          ${b.status ? `<span class="verdict" style="color:var(--muted)">${STATUS_WORD[b.status]}</span>` : ""}</h4>
-        <div class="blocks">
-          ${b.subject ? `<div><b>subject</b>${esc(b.subject)}</div>` : ""}
-          ${b.required ? `<div><b>required</b>${esc(b.required)}</div>` : ""}
-          ${b.allowed ? `<div><b>allowed</b>${esc(b.allowed)}</div>` : ""}
-          ${b.prohibited ? `<div><b>prohibited</b>${esc(b.prohibited)}</div>` : ""}
-          ${b.look ? `<div><b>look</b>${esc(b.look)}</div>` : ""}
-          ${b.unknown.length ? `<div><b>unknown</b>${b.unknown.map(esc).join(" · ")}</div>` : ""}
-        </div>
-        ${b.found.length ? `<div class="found"><b>the check found</b><ul>${b.found.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}
-        <label class="field"><b>Note to the room <i>optional</i></b>
-          <span>Goes into the prompt when this one is rendered again. If the fix belongs in the files, answer the open item instead.</span>
-          <textarea rows="2" data-is="note" id="note-${b.n}">${esc(b.note || "")}</textarea></label>
-        <div class="acts">
-          <button class="primary" data-v="kept">Keep</button>
-          <button data-v="back">Send back</button>
-          <button data-v="rejected">Reject</button>
-          ${b.status ? `<button data-v="">Clear</button>` : ""}
-          <span class="hint" data-said></span>
-        </div>
-      </div>
-    </div>`).join("");
-}
-
-$("#briefs").addEventListener("click", async (e) => {
-  const img = e.target.closest("img[data-zoom]");
-  if (img) { $("#lightbox-img").src = img.src; $("#lightbox-name").textContent = img.alt; lightbox.showModal(); return; }
-  const b = e.target.closest("button[data-v]"); if (!b) return;
-  const row = b.closest(".brief"), n = +row.dataset.n;
-  const note = row.querySelector('[data-is="note"]').value.trim();
-  b.disabled = true;
-  try {
-    await api(`/api/projects/${state.slug}/visual/${n}`, { method: "POST", body: { status: b.dataset.v, note } });
-    await load();
-  } catch (err) { row.querySelector("[data-said]").innerHTML = `<span style="color:var(--bad)">${esc(err.message)}</span>`; b.disabled = false; }
-});
-
-$("#hint").addEventListener("click", async (e) => {
-  const a = e.target.closest("a"); if (!a) return;
-  e.preventDefault();
-  if (a.id === "rebrief") return startRound("briefs");
-  if (a.id === "approve") {
-    try { await api(`/api/projects/${state.slug}/phase`, { method: "POST", body: { action: "approve" } }); await load(); }
-    catch (err) { $("#hint").innerHTML = `<span style="color:var(--bad)">${esc(err.message)}</span>`; }
-  }
-});
 
 function follow() {
   if (!state.run) return;
@@ -440,7 +360,6 @@ async function load() {
   if (latest) { try { latest = await api(`/api/projects/${state.slug}/versions/${latest.id}`); } catch {} }
   const st = await api(`/api/projects/${state.slug}/open-items`);
   state.items = st.items || [];
-  state.visual = await api(`/api/projects/${state.slug}/visual`);
   if (document.activeElement !== $("#notes")) $("#notes").value = st.feedback || "";
   $("#notes-said").textContent = st.feedback ? "saved" : "";
   renderAll();
@@ -453,12 +372,11 @@ function renderAll() {
   renderTelemetry(latest);
   renderTally();
   renderItems();
-  renderVisual(project);
   renderRun(project, latest, state.items);
   $("#model").textContent = latest?.configs?.script_coordinator?.model || "";
 }
 
-$("#run").addEventListener("click", () => startRound());
+$("#run").addEventListener("click", startRound);
 
 $("#camp").addEventListener("change", async () => {
   state.slug = $("#camp").value; state.run = null; state.seen = 0;
