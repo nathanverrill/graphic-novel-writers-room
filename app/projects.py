@@ -11,7 +11,7 @@
         pages/               page-prompts and the lettering layer, per page
         images/              every image ever generated for the campaign
         locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
-        rules.json           standing rules, written into taste-writers.md (rules.py)
+        rules.json           standing rules, written into rules/showrunner-rules.md and taste-writers.md (rules.py)
         previous/<slug>-r01-ai/          one folder per round, every file named for its round:
           <slug>-r01-ai-script.md          book-level files as the round left them
           <slug>-r01-ai-p03-ascii.txt      page files: ascii, render, script, layout, review, diff
@@ -197,7 +197,8 @@ def reference_files(slug, version=None):
             found[p.name[len(pre):].replace("--", "/")] = p
         return found
     chosen = library_selection(slug)
-    return {name: p for name, p in _material(slug) if chosen is None or name in chosen}
+    return {name: p for name, p in _material(slug)
+            if chosen is None or name in chosen or reference_kind(p) == RULES}   # rules always bind
 
 
 MATERIAL_SUFFIXES = (".md", ".txt")

@@ -856,7 +856,8 @@ class Intake:
             if self.should_stop():
                 raise Stopped()
             record["attempts"] = attempt
-            self.emit("thinking", step=label, attempt=attempt)
+            self.emit("thinking", step=label, attempt=attempt, pass_name=pass_name,
+                      destination=destination, model=self.cfg.model, input_chars=size)
             fixes, notes_ = [], []
             seen_raw = {}
 

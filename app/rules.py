@@ -1,16 +1,21 @@
 """Standing rules — what the showrunner always wants, or never wants.
 
 A jotted note is for one round: the room reads it, acts on it, and it's spent. A rule is
-permanent. Rules live in the Director's `taste-writers.md`, the file every writer
-reads before it starts, in a block the room doesn't own:
+permanent, and it reaches the room two ways from the one list in rules.json:
 
-    <!-- showrunner rules -->
-    ## The showrunner's standing rules
-    ...
-    <!-- end showrunner rules -->
+- `rules/showrunner-rules.md` in the campaign, beside decisions.md. Everything in rules/ is
+  binding source material for intake on every pass, so a rule holds for a synthesis from
+  scratch as much as for a revision, and it survives starting pre-production over.
+- The Director's `taste-writers.md`, the file every writer reads before it starts, in a block
+  the room doesn't own:
 
-The Director rewrites that file every round, so the block is put back on every save
-(enforce_rules, beside review.enforce_locks) and the rules survive whatever it wrote.
+      <!-- showrunner rules -->
+      ## The showrunner's standing rules
+      ...
+      <!-- end showrunner rules -->
+
+  The Director rewrites that file every round, so the block is put back on every save
+  (enforce_rules, beside review.enforce_locks) and the rules survive whatever it wrote.
 """
 import json
 import re
@@ -19,6 +24,7 @@ import time
 from . import projects
 
 FILE = "rules.json"
+RULES_FILE = "showrunner-rules.md"    # in the campaign's rules/, read by intake
 TASTE = "taste-writers.md"
 START = "<!-- showrunner rules -->"
 END = "<!-- end showrunner rules -->"
@@ -37,6 +43,7 @@ def all(slug):
 
 def _save(slug, rules):
     _path(slug).write_text(json.dumps(rules, indent=2))
+    write_rules_file(slug, rules)
     write_taste(slug)
     return rules
 
@@ -68,6 +75,26 @@ def markdown(rules):
         label = {"always": "Always", "never": "Never", "note": "Remember"}[r["kind"]]
         lines.append(f"- **{label}:** {r['text']}")
     return "\n".join(lines + ["", END]) + "\n"
+
+
+def rules_file(rules):
+    """rules/showrunner-rules.md: the same list as intake reads it - binding, like a decision."""
+    lines = ["# The showrunner's standing rules", "",
+             "These bind the book. A name, a fact or a prohibition here holds in every file, on "
+             "every page, and outranks anything in the material that says otherwise.", ""]
+    for r in rules:
+        label = {"always": "Always", "never": "Never", "note": "Remember"}[r["kind"]]
+        lines.append(f"- **{label}:** {r['text']}")
+    return "\n".join(lines) + "\n"
+
+
+def write_rules_file(slug, rules):
+    path = projects.campaign_dir(slug) / projects.RULES / RULES_FILE
+    if rules:
+        path.parent.mkdir(exist_ok=True)
+        path.write_text(rules_file(rules))
+    elif path.exists():
+        path.unlink()
 
 
 def enforce_rules(slug, name, content):

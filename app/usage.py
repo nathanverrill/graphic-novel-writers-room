@@ -216,7 +216,8 @@ class CallLogger:
 
         self.emit("usage", kind=kind, model=model, provider=summary["provider"],
                   input_tokens=tokens["input_tokens"], output_tokens=tokens["output_tokens"],
-                  cost_usd=cost, cost_source=source, status=status, log=fname)
+                  cost_usd=cost, cost_source=source, status=status, log=fname,
+                  duration_ms=summary["duration_ms"], error=summary["error"])
         return summary
 
 

@@ -1324,6 +1324,9 @@ $("#stop").onclick = () => {
 (async () => {
   await Promise.all([loadConfig(), loadRoles()]);
   await loadProjects();
+  // /room?p=<slug> opens straight onto that campaign: the pre-production desk's Continue lands here
+  const slug = new URLSearchParams(location.search).get("p");
+  if (slug && $(`#projects li[data-slug="${CSS.escape(slug)}"]`)) openProject(slug);
 })();
 
 
