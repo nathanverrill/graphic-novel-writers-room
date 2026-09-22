@@ -10,7 +10,7 @@ Five phases with a gate after each: **Intake → Development → Audition → Wr
 it have not been run since the three-file redesign and are the next thing to look at.
 
 A campaign is a folder. `input/` is whatever the showrunner has, under whatever names they use;
-`references/` is real-world research; `rules/` binds; `output/` is the room's desk. Underscore
+`references/` is real-world research; `rules/` binds; `preproduction/` is intake's desk and `production/` the room's from development on; production starts from a copy of intake's five files. Underscore
 folders (`_previous/`, `campaigns/_morgue/`) are never read.
 
 ## Intake: five passes, no tools
@@ -100,7 +100,7 @@ curl -X POST localhost:8000/api/projects/prosperity/rounds -H 'content-type: app
 is mounted too and is git-ignored. There is no local FastAPI; verify with `python3 -m py_compile
 app/*.py`, `node --check app/static/*.js` and `tests/` (see `tests/README.md`).
 
-A round's cost is in `output/previous/<round>/<round>-run.json` under `usage.total`.
+A round's cost is in `production/previous/<round>/<round>-run.json` under `usage.total`.
 
 ## Known problems / next steps
 

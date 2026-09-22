@@ -6,12 +6,17 @@
         pitch.md             optional: what you want the book to be, in your words
       drafts/*.md          pages or chapters already written; empty when the book starts from scratch
       references/*.md      material to draw on, grouped for your own sake; binds nothing
-      output/              the room's desk, and the only place it writes
-        *.md                 working copy — what the room reads back, what you edit
+      preproduction/       intake's desk: what the material establishes, as the showrunner approved it
+        characters.md world.md story.md facts.md open-items.md
+        previous/            intake's rounds, in their own sequence
+      production/          the room's desk for everything after, and the only other place it writes
+        *.md                 working copy — what the room reads back, what you edit; production starts
+                             from a copy of intake's five files (seed_production) and rewrites its own
         pages/               page-prompts and the lettering layer, per page
         images/              every image ever generated for the campaign
         locks.json           pages the showrunner keeps, so the room leaves them alone (review.py)
         rules.json           standing rules, written into rules/showrunner-rules.md and taste-writers.md (rules.py)
+        round-settings.json  where the book is, and how it is made (review.py)
         previous/<slug>-r01-ai/          one folder per round, every file named for its round:
           <slug>-r01-ai-script.md          book-level files as the round left them
           <slug>-r01-ai-p03-ascii.txt      page files: ascii, render, script, layout, review, diff
@@ -30,8 +35,11 @@ The campaign's rules/, input/, drafts/ and references/ are the room's library. O
 (app/intake.py): it writes what the material establishes into characters.md, world.md, story.md and
 facts.md, and that is how the material reaches everyone else. A campaign can pick which files it uses
 ("references" in round-settings.json; default: all). Each file either binds the book or does
-not — see reference_kind. output/ is never among them: the room does not read its own work
+not — see reference_kind. Neither desk is ever among them: the room does not read its own work
 back as material (see never_read).
+
+Every function that touches a desk takes `desk`: PRE (intake's) or PROD (the default). The two
+never share a file: intake's reading survives whatever production does to its copy.
 """
 import hashlib
 import json
@@ -40,8 +48,13 @@ import shutil
 import threading
 from datetime import datetime
 
-from .config import CAMPAIGNS_DIR, OUTPUT_NAME
+from .config import CAMPAIGNS_DIR
 from .usage import add_to, empty_totals
+
+PRE, PROD = "preproduction", "production"     # the two desks
+DESKS = (PRE, PROD)
+OLD_DESK = "output"                            # what production/ was called; renamed on startup (migrate)
+INTAKE_FILES = ("characters.md", "world.md", "story.md", "facts.md", "open-items.md")
 
 NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.md$")
 IMAGE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(png|jpg|webp|gif)$")
@@ -63,15 +76,57 @@ def campaign_dir(slug):
     return path
 
 
-def project_dir(slug):
-    """The room's desk: campaigns/<slug>/output/.
+def project_dir(slug, desk=PROD):
+    """A desk: campaigns/<slug>/production/ (the default) or campaigns/<slug>/preproduction/.
 
     A campaign is a project, so there is no projects/ any more. The room writes here and
     nothing here is ever read back as reference material — see library(), which skips it —
     because a round that read its own last script would drift into its own echo."""
-    desk = campaign_dir(slug) / OUTPUT_NAME
-    desk.mkdir(exist_ok=True)
-    return desk
+    if desk not in DESKS:
+        raise ValueError(f"desk must be one of {DESKS}, got {desk!r}")
+    path = campaign_dir(slug) / desk
+    path.mkdir(exist_ok=True)
+    return path
+
+
+def desk_for(phase_id):
+    """Which desk a phase works on: intake at pre-production, everything after at production."""
+    return PRE if phase_id == "intake" else PROD
+
+
+def seed_production(slug):
+    """Production starts from intake's five files, copied. Intake's own stay as they are."""
+    src, dst = project_dir(slug, PRE), project_dir(slug, PROD)
+    copied = []
+    for name in INTAKE_FILES:
+        if (src / name).exists():
+            shutil.copyfile(src / name, dst / name)
+            copied.append(name)
+    return copied
+
+
+def migrate(slug):
+    """A campaign laid out the old way - one output/ desk - becomes two desks.
+
+    output/ is renamed production/ with everything in it, rounds included. preproduction/ is
+    seeded from the newest intake round's files, so intake's reading is back as it was before
+    production rewrote it; with no intake round on record it starts empty."""
+    root = campaign_dir(slug)
+    old, prod, pre = root / OLD_DESK, root / PROD, root / PRE
+    if old.is_dir() and not prod.exists():
+        old.rename(prod)
+    if pre.exists() or not prod.is_dir():
+        return False
+    pre.mkdir()
+    for meta in list_versions(slug, PROD):
+        if "intake" not in meta:
+            continue
+        for name in INTAKE_FILES:
+            p = prod / "previous" / f"{slug}-{meta['id']}" / (prefix(slug, meta["id"]) + name)
+            if p.exists():
+                shutil.copyfile(p, pre / name)
+        break
+    return True
 
 
 def list_projects():
@@ -90,11 +145,11 @@ def pitch(slug):
 
 def create_project(title, pitch, pages=None, draft=None):
     """A new campaign: rules/ binds the book, input/ is anything to read, drafts/ is what is
-    already written, output/ is the desk."""
+    already written, preproduction/ and production/ are the desks."""
     slug = slugify(title)
     path = CAMPAIGNS_DIR / slug
     path.mkdir(parents=True, exist_ok=False)
-    for sub in (RULES, INPUT, DRAFTS, REFERENCES, OUTPUT_NAME):
+    for sub in (RULES, INPUT, DRAFTS, REFERENCES, PRE, PROD):
         (path / sub).mkdir()
     if pitch.strip():       # optional, and yours: it is material like anything else in input/
         (path / INPUT / PITCH).write_text(f"# {title}\n\n{pitch.strip()}\n")
@@ -104,7 +159,7 @@ def create_project(title, pitch, pages=None, draft=None):
             "Treat this as the showrunner's direction, not as finished pages: keep its intent, "
             f"improve everything else.\n\n{draft.strip()}\n")
     if pages:
-        (path / OUTPUT_NAME / "round-settings.json").write_text(json.dumps({"pages": int(pages)}, indent=2))
+        (path / PROD / "round-settings.json").write_text(json.dumps({"pages": int(pages)}, indent=2))
     return slug
 
 
@@ -125,8 +180,8 @@ ROUND_FILE_RE = re.compile(r"^[a-z0-9][a-z0-9_\-]*\.(md|txt|json|jsonl|svg)$")
 PAGE_FILE_RE = re.compile(r"^p\d{2,}-")
 
 
-def _folder(slug, version=None):
-    d = project_dir(slug)
+def _folder(slug, version=None, desk=PROD):
+    d = project_dir(slug, desk)
     if version is None:
         return d
     f = d / "previous" / f"{slug}-{version}"
@@ -139,10 +194,10 @@ def prefix(slug, version):
     return f"{slug}-{version}-"
 
 
-def round_path(slug, version, name):
+def round_path(slug, version, name, desk=PROD):
     if not ROUND_FILE_RE.match(name):
         raise ValueError(f"bad round file name {name!r}")
-    return _folder(slug, version) / (prefix(slug, version) + name)
+    return _folder(slug, version, desk) / (prefix(slug, version) + name)
 
 
 def _files(folder, pre=""):
@@ -157,10 +212,10 @@ def _images(folder):
     return [p.name for p in sorted(d.iterdir()) if IMAGE_RE.match(p.name)]
 
 
-def list_artifacts(slug, version=None):
+def list_artifacts(slug, version=None, desk=PROD):
     if version is None:
-        return _files(project_dir(slug))
-    return _files(_folder(slug, version), prefix(slug, version))
+        return _files(project_dir(slug, desk))
+    return _files(_folder(slug, version, desk), prefix(slug, version))
 
 
 def list_images(slug, version=None):
@@ -174,14 +229,14 @@ def image_path(slug, name, version=None):
     return path
 
 
-def read_artifact(slug, name, version=None):
+def read_artifact(slug, name, version=None, desk=PROD):
     check_name(name)
-    path = project_dir(slug) / name if version is None else round_path(slug, version, name)
+    path = project_dir(slug, desk) / name if version is None else round_path(slug, version, name, desk)
     return path.read_text() if path.exists() else None
 
 
-def read_round_file(slug, version, name):
-    path = round_path(slug, version, name)
+def read_round_file(slug, version, name, desk=PROD):
+    path = round_path(slug, version, name, desk)
     return path.read_text() if path.exists() else None
 
 
@@ -238,14 +293,14 @@ def never_read(rel):
     campaigns/_morgue/ holds clippings kept so a person can find them again. Nothing needs a list in the code, and a new one
     announces itself.
 
-    And output/ — the room's own desk. A round that read back its own last script would be
+    And the desks — the room's own work. A round that read back its own last script would be
     working from its own echo instead of from the rules and your input, and the drift compounds
     every round. The desk reaches an agent as the project's own files, under their own names,
     which is a different thing from reference material.
 
     (Only paths under campaigns/ come through here — an agent's own agents/_shared/ is
     loaded by name in agents.py.)"""
-    return any(part.startswith("_") or part == OUTPUT_NAME for part in rel.parts)
+    return any(part.startswith("_") or part in DESKS or part == OLD_DESK for part in rel.parts)
 
 
 def reference_kind(path):
@@ -308,9 +363,9 @@ def read_reference(slug, name, version=None):
     return found.read_text() if found else None
 
 
-def write_artifact(slug, name, content):
+def write_artifact(slug, name, content, desk=PROD):
     """Manual edit of the working copy (the next run's version will include it)."""
-    (project_dir(slug) / check_name(name)).write_text(content)
+    (project_dir(slug, desk) / check_name(name)).write_text(content)
 
 
 # ---- rounds ----------------------------------------------------------------
@@ -348,12 +403,12 @@ def export_output(slug, page_prompts, book_prompts, round_id, letters=None):
         (pages / f"p{n:02d}-prompt.md").write_text(text)
     for n, svg in (letters or {}).items():
         (pages / f"p{n:02d}-letters.svg").write_text(svg)
-    return f"campaigns/{slug}/{OUTPUT_NAME}"
+    return f"campaigns/{slug}/{PROD}"
 
 
-def list_versions(slug):
-    """All rounds, newest first."""
-    d = project_dir(slug) / "previous"
+def list_versions(slug, desk=PROD):
+    """All rounds on a desk, newest first."""
+    d = project_dir(slug, desk) / "previous"
     out = []
     for f in d.iterdir() if d.is_dir() else []:
         rid = f.name[len(slug) + 1:]
@@ -363,33 +418,33 @@ def list_versions(slug):
     return sorted(out, key=lambda m: int(ROUND_RE.match(m["id"]).group(1)), reverse=True)
 
 
-def next_round_number(slug):
-    d = project_dir(slug) / "previous"
+def next_round_number(slug, desk=PROD):
+    d = project_dir(slug, desk) / "previous"
     nums = [int(m.group(1)) for f in (d.iterdir() if d.is_dir() else [])
             if (m := ROUND_RE.match(f.name[len(slug) + 1:]))]
     return max(nums, default=0) + 1
 
 
-def version_meta(slug, version):
-    return json.loads(round_path(slug, version, "run.json").read_text())
+def version_meta(slug, version, desk=PROD):
+    return json.loads(round_path(slug, version, "run.json", desk).read_text())
 
 
-def version_events(slug, version):
-    path = round_path(slug, version, "events.jsonl")
+def version_events(slug, version, desk=PROD):
+    path = round_path(slug, version, "events.jsonl", desk)
     return [json.loads(line) for line in path.read_text().splitlines() if line] if path.exists() else []
 
 
-def book_files(slug, version):
+def book_files(slug, version, desk=PROD):
     """{name: path} for a round's book-level markdown (not page, review or log files)."""
     pre = prefix(slug, version)
-    return {p.name[len(pre):]: p for p in _folder(slug, version).glob(pre + "*.md")
+    return {p.name[len(pre):]: p for p in _folder(slug, version, desk).glob(pre + "*.md")
             if not PAGE_FILE_RE.match(p.name[len(pre):])}
 
 
-def restore_version(slug, version):
+def restore_version(slug, version, desk=PROD):
     """Make the working copy's markdown match a round's. Images are untouched."""
-    files = book_files(slug, version)
-    root = project_dir(slug)
+    files = book_files(slug, version, desk)
+    root = project_dir(slug, desk)
     for p in root.glob("*.md"):
         if p.name not in files:
             p.unlink()
@@ -401,12 +456,13 @@ class Round:
     """The folder a round writes into. Book files are written to both the working
     copy and the round, so a round is complete even if it is stopped."""
 
-    def __init__(self, slug, kind="ai", **meta):
+    def __init__(self, slug, kind="ai", desk=PROD, **meta):
         self.slug = slug
         self.kind = kind
-        self.root = project_dir(slug)
+        self.desk = desk
+        self.root = project_dir(slug, desk)
         (self.root / "previous").mkdir(exist_ok=True)
-        self.id = f"r{next_round_number(slug):02d}-{kind}"
+        self.id = f"r{next_round_number(slug, desk):02d}-{kind}"
         self.prefix = prefix(slug, self.id)
         self.dir = self.root / "previous" / f"{slug}-{self.id}"
         self.dir.mkdir()

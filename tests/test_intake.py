@@ -8,7 +8,7 @@ from app import projects, intake, llm, openitems, review, usage
 projects.CAMPAIGNS_DIR = tmp; usage.ROOT = tmp.parent
 
 slug = "testbook"; c = tmp / slug
-for sub in ("rules", "input", "references", "output"): (c / sub).mkdir(parents=True)
+for sub in ("rules", "input", "references", "preproduction", "production"): (c / sub).mkdir(parents=True)
 
 NAMES = ["Ana Rey", "Tomas Reed", "Keel", "Halyard", "Grandmother Phantum", "Cassian Lock"]
 def source(title, n):
@@ -89,7 +89,7 @@ role = [r for r in load_roles() if r.id == "script_coordinator"][0]
 def run(replies, keep=1.0, mode=None, note=None):
     SENT.clear(); PEAK[0] = 0; KEEP[0] = keep
     REPLY.clear(); REPLY.update(replies)
-    v = projects.Round(slug, run_id="test")
+    v = projects.Round(slug, desk=projects.PRE, run_id="test")
     a = intake.Intake(role, v, lambda t, **d: None, mode=mode)
     try: return a, v, a.run(note), None
     except Exception as e: return a, v, None, e

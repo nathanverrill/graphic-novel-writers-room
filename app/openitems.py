@@ -17,7 +17,7 @@ You approve a proposal, edit it, or leave the item open for the room to decide i
 An answer is yours, so it does not go on the room's desk: it is written to the campaign's
 `rules/decisions.md`, where it binds the book like any other rule and survives every rerun.
 You can also settle an item by hand, by writing a `- decision:` line into the item in
-`output/open-items.md`. Either way, the next intake run is an integration pass (app/intake.py,
+`preproduction/open-items.md`. Either way, the next intake run is an integration pass (app/intake.py,
 pass 4): it carries each answer into the file it belongs to and leaves only what is still open.
 """
 import re
@@ -99,7 +99,7 @@ def state(slug):
     An item is resolved when you have answered it — in rules/decisions.md, through the screen,
     or with a `- decision:` line — deferred when you have said to leave it (`- defer:`), and
     unresolved otherwise. `- feedback:` is a note about an item that is not an answer to it."""
-    text = projects.read_artifact(slug, ITEMS)
+    text = projects.read_artifact(slug, ITEMS, desk=projects.PRE)
     decided = decisions(slug)
     items = parse(text)
     for item in items:
@@ -123,7 +123,7 @@ def note_on(slug, n, field, text):
     if field not in ("feedback", "defer"):
         raise ValueError(f"no such field {field!r}")
     text = (text or "").strip()
-    body = projects.read_artifact(slug, ITEMS) or ""
+    body = projects.read_artifact(slug, ITEMS, desk=projects.PRE) or ""
     blocks = re.split(r"^(?=##\s)", body, flags=re.M)
     for i, block in enumerate(blocks):
         m = re.match(r"##\s+(\d+)[.)]", block)
@@ -134,7 +134,7 @@ def note_on(slug, n, field, text):
         if text:
             lines.append(f"- {field}: {text}")
         blocks[i] = "\n".join(lines) + "\n\n"
-        projects.write_artifact(slug, ITEMS, "".join(blocks).rstrip("\n") + "\n")
+        projects.write_artifact(slug, ITEMS, "".join(blocks).rstrip("\n") + "\n", desk=projects.PRE)
         return state(slug)
     raise ValueError(f"no open item {n}")
 
@@ -143,19 +143,19 @@ def set_feedback(slug, text):
     """The showrunner's general note about the book, kept in a `## Feedback` block at the end
     of open-items.md. Pass 4 reads it as a rule for that integration."""
     text = (text or "").strip()
-    body = projects.read_artifact(slug, ITEMS) or ""
+    body = projects.read_artifact(slug, ITEMS, desk=projects.PRE) or ""
     blocks = [b for b in re.split(r"^(?=##\s)", body, flags=re.M)
               if b.partition("\n")[0].lstrip("# ").strip().rstrip(":").lower() not in FEEDBACK_HEADS]
     kept = "".join(blocks).rstrip("\n")
     if text:
         kept += f"\n\n## Feedback\n\n{text}"
-    projects.write_artifact(slug, ITEMS, kept.lstrip("\n") + "\n")
+    projects.write_artifact(slug, ITEMS, kept.lstrip("\n") + "\n", desk=projects.PRE)
     return state(slug)
 
 
 def answer(slug, n, text):
     """Record your answer to item n — or, with no text, take it back and leave the item open."""
-    item = next((i for i in parse(projects.read_artifact(slug, ITEMS)) if i["n"] == n), None)
+    item = next((i for i in parse(projects.read_artifact(slug, ITEMS, desk=projects.PRE)) if i["n"] == n), None)
     if item is None:
         raise ValueError(f"no open item {n}")
     path = _decisions_path(slug)

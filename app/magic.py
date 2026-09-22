@@ -89,7 +89,7 @@ def start(slug, step="development", note=None, until="final"):
         raise ValueError(f"{until} comes before {step}")
     if room.active_run(slug) or state(slug)["active"]:
         raise RuntimeError("the room is already working on this project")
-    if step != "development" and not (projects.read_artifact(slug, "story.md") or "").strip():
+    if not (projects.read_artifact(slug, "story.md", desk=projects.PRE) or "").strip():
         raise ValueError("there is no story.md yet - run pre-production first")
     _set(slug, status="running", step=step, until=until, error=None, stop=False,
          started=projects.now(), finished=None)
@@ -163,6 +163,8 @@ def _round(slug, phase_id, note=None, scope=0):
 
 
 def _development(slug, note):
+    seeded = projects.seed_production(slug)
+    _log(slug, f"Production starts from intake's files: {', '.join(seeded) or 'none found'}.")
     _round(slug, "development", note)
     _choice(slug, "development", "Approved the development files as written.",
             "The brief, story and people go forward as the Director's room left them.",

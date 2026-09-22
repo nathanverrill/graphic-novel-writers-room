@@ -482,7 +482,7 @@ class Intake:
         return REVISION if mode == "integration" else mode
 
     def pick_mode(self):
-        if pending(self.slug)["any"] and all(projects.read_artifact(self.slug, n) for n in CORE):
+        if pending(self.slug)["any"] and all(projects.read_artifact(self.slug, n, desk=projects.PRE) for n in CORE):
             return REVISION
         return SYNTHESIS
 
@@ -604,7 +604,7 @@ class Intake:
             text.append(heading)
             text += [f"## campaigns/{name}\n\n{body}" for _, name, body in chosen]
         for name in self.role.reads:
-            body = projects.read_artifact(self.slug, name)
+            body = projects.read_artifact(self.slug, name, desk=projects.PRE)
             if body:
                 text += [f"# {name} (from the room)", body]
         if note:
@@ -654,7 +654,7 @@ class Intake:
                         f"these questions is either in your output or removed because an explicit "
                         f"decision, a binding rule or the material now directly settles it.\n\n"
                         f"{theirs}")
-        ours = projects.read_artifact(self.slug, ITEMS)
+        ours = projects.read_artifact(self.slug, ITEMS, desk=projects.PRE)
         if ours and ours.strip():
             text.append(f"# The room's current open-items list\n\n"
                         f"Source: {ITEMS}, as the last round left it and the showrunner may "
@@ -794,7 +794,7 @@ class Intake:
         text = self.decisions_block(work)
         text.append("# The project as it stands")
         text += [f"## {name}\n\n{body}" for name, body in self.desk().items()]
-        text.append(f"## {ITEMS}\n\n" + (projects.read_artifact(self.slug, ITEMS) or ""))
+        text.append(f"## {ITEMS}\n\n" + (projects.read_artifact(self.slug, ITEMS, desk=projects.PRE) or ""))
         settled = self.material([projects.RULES])
         if settled:
             text.append("# The showrunner's rules")
@@ -966,21 +966,21 @@ class Intake:
         return content
 
     def desk(self, names=CORE):
-        return {n: projects.read_artifact(self.slug, n) or "" for n in names}
+        return {n: projects.read_artifact(self.slug, n, desk=projects.PRE) or "" for n in names}
 
     def expected(self):
         return CORE + (ITEMS,) if self.mode == SYNTHESIS else CORE + (ITEMS, FACTS)
 
     def human_modified(self):
-        past = projects.list_versions(self.slug)
+        past = projects.list_versions(self.slug, projects.PRE)
         last = next((v["id"] for v in past if v["id"] != self.version.id), None)
         if not last:
             return []
         out = []
         for name in CORE + (ITEMS, FACTS):
-            now = projects.read_artifact(self.slug, name)
+            now = projects.read_artifact(self.slug, name, desk=projects.PRE)
             try:
-                then = projects.read_artifact(self.slug, name, last)
+                then = projects.read_artifact(self.slug, name, last, desk=projects.PRE)
             except FileNotFoundError:
                 then = None
             if now and then is not None and now != then:
@@ -1022,7 +1022,7 @@ class Intake:
                   images=[], references=list(refs), references_mode="full",
                   reference_chars=sum(p.stat().st_size for p in refs.values()),
                   model=self.cfg.model, temperature=self.cfg.temperature, image_model=None)
-        before = {p.name for p in projects.project_dir(self.slug).glob("*.md")}
+        before = {p.name for p in projects.project_dir(self.slug, projects.PRE).glob("*.md")}
         self.edited_before_run = self.human_modified()
         if self.debugging:
             self.emit("message", text=f"Writing every prompt and raw reply to "
@@ -1088,7 +1088,7 @@ class Intake:
         if self.research_needed(work):
             inputs += list(self.sources([projects.REFERENCES]))
         current = self.desk()
-        snap = self.snapshot({**current, ITEMS: projects.read_artifact(self.slug, ITEMS) or ""})
+        snap = self.snapshot({**current, ITEMS: projects.read_artifact(self.slug, ITEMS, desk=projects.PRE) or ""})
 
         self.run_status = REVISING
         shared = self.revision_payload(work, note)

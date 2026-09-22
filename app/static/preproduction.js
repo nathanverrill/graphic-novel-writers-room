@@ -6,6 +6,8 @@
  *
  * It talks to the same API as everything else. No framework; desk.js first, then this.  */
 
+docs.desk = "preproduction";
+
 const state = { slug: null, items: [], filter: "all", run: null, seen: 0, busy: false,
                 stopping: false, current: null, skipped: new Set(),
                 tab: "log", stream: null, feedback: "", rules: [], rulesTouched: false };
@@ -43,10 +45,11 @@ const STATUS = {
 function renderState(p, latest) {
   $("#camp").value = p.slug;
   $("#phase").textContent = p.phase || "—";
-  $("#round").textContent = latest ? latest.id : "no rounds yet";
-  const [cls, label] = STATUS[latest?.status] || ["", latest?.status || "not started"];
+  $("#round").textContent = latest ? latest.id : "";
+  const written = (p.artifacts || []).some((a) => a.name === "story.md");
+  const [cls, label] = STATUS[latest?.status] || ["", latest?.status || (written ? "written" : "not started")];
   $("#state").innerHTML =
-    `<b>${esc(p.phases?.find((x) => x.id === p.phase)?.title || p.phase || "Intake")}</b>` +
+    `<b>Intake</b>` +
     `<span class="pill ${cls}">${esc(label)}</span>` +
     (latest?.intake?.mode ? `<div class="hint" style="margin-top:.4rem">last round: ${esc(latest.intake.mode)}</div>` : "");
 }
@@ -104,7 +107,10 @@ function changed() {
 }
 
 function renderActs(p, latest) {
-  const active = !!p.active_run, c = changed(), fresh = !latest;
+  // "fresh" is a desk with nothing on it, not one with no rounds: intake's files may have
+  // come from a round that predates the two desks
+  const written = (p.artifacts || []).some((a) => a.name === "story.md");
+  const active = !!p.active_run, c = changed(), fresh = !latest && !written;
   const upd = $("#update"), go = $("#continue");
   upd.disabled = active || state.busy || (!c.any && !fresh);
   upd.textContent = active ? "working…" : fresh ? "Run intake" : "Update";
@@ -170,7 +176,8 @@ async function goOn() {
  * before that. Starting over forces synthesis, so the three files come from the source
  * material again instead of being revised from what is on the desk. */
 async function startRound(body = {}) {
-  const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body });
+  // always intake, whatever phase the book is in: this desk never runs production
+  const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body: { ...body, phase: "intake" } });
   state.run = run_id; state.seen = 0; state.rulesTouched = false;
   resetFeed();
   await load();          // the project now reports the active run, so the buttons flip
@@ -208,7 +215,7 @@ async function showLastLog() {
   resetFeed();
   if (!latest) { $("#feed").innerHTML = `<div class="dim">No rounds yet. Run intake and every call shows here.</div>`; return; }
   try {
-    const { events } = await api(`/api/projects/${state.slug}/versions/${latest.id}/events`);
+    const { events } = await api(`/api/projects/${state.slug}/versions/${latest.id}/events?desk=preproduction`);
     let how = null;
     for (const ev of events || []) {
       feedEvent(ev);
@@ -372,9 +379,9 @@ function renderDoc(name) {
 let project = null, latest = null;
 
 async function load() {
-  project = await api(`/api/projects/${state.slug}`);
+  project = await api(`/api/projects/${state.slug}?desk=preproduction`);
   latest = project.versions?.[0] || null;
-  if (latest) { try { latest = await api(`/api/projects/${state.slug}/versions/${latest.id}`); } catch {} }
+  if (latest) { try { latest = await api(`/api/projects/${state.slug}/versions/${latest.id}?desk=preproduction`); } catch {} }
   const st = await api(`/api/projects/${state.slug}/open-items`);
   state.items = st.items || [];
   try { state.rules = (await api(`/api/projects/${state.slug}/rules`)).rules || []; } catch { state.rules = []; }
@@ -496,7 +503,7 @@ $("#docs").addEventListener("click", async (e) => {
   $("#viewer-name").textContent = a.dataset.doc;
   $("#viewer-body").innerHTML = "<p>loading…</p>";
   viewer.showModal();
-  const text = await api(`/api/projects/${state.slug}/artifacts/${a.dataset.doc}`);
+  const text = await api(`/api/projects/${state.slug}/artifacts/${a.dataset.doc}?desk=preproduction`);
   viewer.dataset.raw = text;
   $("#viewer-body").innerHTML = markdown(text);
   $("#viewer-raw").setAttribute("aria-pressed", "false");

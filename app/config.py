@@ -10,8 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
-CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · output/
-OUTPUT_NAME = "output"                 # the room's desk inside a campaign, and never read back
+CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · preproduction/ · production/
+# the desks inside a campaign - preproduction/ and production/ - are named in projects.py
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
 LOGS_DIR = ROOT / "logs"               # usage ledger
 DEBUG_DIR = ROOT / "debug"             # last run's prompts and raw replies (app/intake.py)

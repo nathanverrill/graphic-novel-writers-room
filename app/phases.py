@@ -81,10 +81,15 @@ def go_to(slug, phase_id):
 
 
 def approve(slug):
-    """The showrunner approves the phase's work: on to the next phase."""
+    """The showrunner approves the phase's work: on to the next phase.
+
+    Leaving intake copies its five files onto the production desk: that is the reading the
+    book is made from, and intake's own copy stays as approved whatever production does."""
     phase = current(slug)
     if phase["gate"] != "approve":
         raise ValueError(f"{phase['title']} is not closed by approving it")
+    if phase["id"] == "intake":
+        projects.seed_production(slug)
     ids = [p["id"] for p in load()]
     return go_to(slug, ids[ids.index(phase["id"]) + 1])
 

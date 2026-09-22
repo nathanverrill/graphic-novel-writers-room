@@ -235,13 +235,14 @@ function followRun(runId, after, onEnd) {
 
 const docs = {
   store: {},
+  desk: "production",      // the pre-production desk sets "preproduction"
   changed() { return Object.keys(docs.store).filter((n) => docs.store[n].text !== docs.store[n].saved); },
   /* a run rewrote the files: forget what was cached, except an edit still in hand */
   refresh() { for (const n of Object.keys(docs.store)) if (docs.store[n].text === docs.store[n].saved) delete docs.store[n]; },
   reset() { docs.store = {}; },
   async save(slug) {
     for (const n of docs.changed()) {
-      await api(`/api/projects/${slug}/artifacts/${n}`, { method: "PUT", body: { content: docs.store[n].text } });
+      await api(`/api/projects/${slug}/artifacts/${n}?desk=${docs.desk}`, { method: "PUT", body: { content: docs.store[n].text } });
       docs.store[n].saved = docs.store[n].text;
     }
   },
@@ -251,7 +252,7 @@ const docs = {
     if (!d) {
       sec.innerHTML = "<p class=\"hint\">loading…</p>";
       let text = "";
-      try { text = await api(`/api/projects/${slug}/artifacts/${name}`); } catch {}
+      try { text = await api(`/api/projects/${slug}/artifacts/${name}?desk=${docs.desk}`); } catch {}
       d = docs.store[name] = { saved: text, text, editing: false };
       if (!isCurrent()) return;
     }

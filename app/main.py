@@ -33,6 +33,9 @@ def index_in_background(slug=None):
 @asynccontextmanager
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
+    for slug in projects.list_projects():     # a campaign laid out the old way gets its two desks
+        if projects.migrate(slug):
+            print(f"{slug}: output/ is now production/, and preproduction/ holds intake's files", flush=True)
     index_in_background()
     threading.Thread(target=search.watch, args=(0.5, lambda msg: print(f"search: {msg}")),
                      daemon=True).start()   # a file changes, its passages are reindexed
@@ -47,9 +50,9 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 app.mount("/mcp", room_mcp.streamable_http_app(streamable_http_path="/"))   # POST http://host/mcp
 
 
-def not_found(fn, *args):
+def not_found(fn, *args, **kw):
     try:
-        return fn(*args)
+        return fn(*args, **kw)
     except (FileNotFoundError, KeyError) as e:
         raise HTTPException(404, f"not found: {e}")
     except ValueError as e:
@@ -225,20 +228,27 @@ def create_project(body: NewProject):
         raise HTTPException(409, "a project with that name already exists")
 
 
+def _desk(desk):
+    if desk not in projects.DESKS:
+        raise HTTPException(400, f"desk must be one of {', '.join(projects.DESKS)}")
+    return desk
+
+
 @app.get("/api/projects/{slug}")
-def get_project(slug: str):
-    artifacts = not_found(projects.list_artifacts, slug)
+def get_project(slug: str, desk: str = projects.PROD):
+    """The project as one desk sees it: `desk=preproduction` for intake's files and rounds."""
+    artifacts = not_found(projects.list_artifacts, slug, desk=_desk(desk))
     run = room.active_run(slug)
-    return {"slug": slug, "artifacts": artifacts, "images": projects.list_images(slug),
+    return {"slug": slug, "desk": desk, "artifacts": artifacts, "images": projects.list_images(slug),
             "references": projects.list_references(slug),
-            "versions": projects.list_versions(slug),
+            "versions": projects.list_versions(slug, desk),
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
             "magic": magic.state(slug),
             **phases.state(slug),
             "library": projects.library(slug),
-            "output": f"output/{slug}"}
+            "output": f"production/{slug}"}
 
 
 @app.post("/api/projects/{slug}/export")
@@ -254,16 +264,16 @@ def get_image(slug: str, name: str):
 
 
 @app.get("/api/projects/{slug}/artifacts/{name}", response_class=PlainTextResponse)
-def get_artifact(slug: str, name: str):
-    content = not_found(projects.read_artifact, slug, name)
+def get_artifact(slug: str, name: str, desk: str = projects.PROD):
+    content = not_found(projects.read_artifact, slug, name, desk=_desk(desk))
     if content is None:
         raise HTTPException(404)
     return content
 
 
 @app.put("/api/projects/{slug}/artifacts/{name}")
-def put_artifact(slug: str, name: str, body: ArtifactBody):
-    not_found(projects.write_artifact, slug, name, body.content)
+def put_artifact(slug: str, name: str, body: ArtifactBody, desk: str = projects.PROD):
+    not_found(projects.write_artifact, slug, name, body.content, desk=_desk(desk))
     if name == "layouts.md":  # hand edits to layouts redraw the preview too
         md, _, feedback = thumbnails.render_layouts(body.content, projects.read_artifact(slug, "thumbnails.md"))
         projects.write_artifact(slug, "thumbnails.md", md)
@@ -354,9 +364,9 @@ def get_reference(slug: str, name: str):
 # ---- versions --------------------------------------------------------------
 
 @app.get("/api/projects/{slug}/versions/{version}")
-def get_version(slug: str, version: str):
-    meta = not_found(projects.version_meta, slug, version)
-    return {**meta, "artifacts": projects.list_artifacts(slug, version),
+def get_version(slug: str, version: str, desk: str = projects.PROD):
+    meta = not_found(projects.version_meta, slug, version, _desk(desk))
+    return {**meta, "artifacts": projects.list_artifacts(slug, version, desk),
             "image_files": projects.list_images(slug, version),
             "reference_files": projects.list_references(slug, version)}
 
@@ -402,8 +412,8 @@ def get_call_blob(slug: str, version: str, name: str):
 
 
 @app.get("/api/projects/{slug}/versions/{version}/artifacts/{name}", response_class=PlainTextResponse)
-def get_version_artifact(slug: str, version: str, name: str):
-    content = not_found(projects.read_artifact, slug, name, version)
+def get_version_artifact(slug: str, version: str, name: str, desk: str = projects.PROD):
+    content = not_found(projects.read_artifact, slug, name, version, _desk(desk))
     if content is None:
         raise HTTPException(404)
     return content
@@ -415,8 +425,8 @@ def get_version_image(slug: str, version: str, name: str):
 
 
 @app.get("/api/projects/{slug}/versions/{version}/events")
-def get_version_events(slug: str, version: str):
-    return {"events": not_found(projects.version_events, slug, version)}
+def get_version_events(slug: str, version: str, desk: str = projects.PROD):
+    return {"events": not_found(projects.version_events, slug, version, _desk(desk))}
 
 
 @app.post("/api/projects/{slug}/versions/{version}/restore")
@@ -602,6 +612,7 @@ class RoundSettings(BaseModel):
 
 class RoundRequest(BaseModel):
     note: str | None = None
+    phase: str | None = None   # run this phase rather than the one the book is in (the desk: intake)
     mode: str | None = None    # intake only: "synthesis" or "revision"; default is chosen
 
 
@@ -643,7 +654,7 @@ def start_round(slug: str, body: RoundRequest):
     if body.mode is not None and body.mode not in (intake.SYNTHESIS, intake.REVISION, "integration"):
         raise HTTPException(400, f"mode must be {intake.SYNTHESIS!r} or {intake.REVISION!r}")
     try:
-        run = room.start_round(slug, (body.note or "").strip() or None, body.mode)
+        run = room.start_round(slug, (body.note or "").strip() or None, body.mode, body.phase)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except ValueError as e:

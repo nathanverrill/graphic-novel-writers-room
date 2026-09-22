@@ -43,7 +43,8 @@ class Run:
         self.last_done = None       # the writer who handed off last, for the pause banner
         self.cond = threading.Condition()
         self.version = projects.Version(
-            slug, run_id=self.id, note=note, roles=[r.id for r in roles],
+            slug, desk=projects.desk_for(plan["kind"]) if plan else projects.PROD,
+            run_id=self.id, note=note, roles=[r.id for r in roles],
             configs={r.id: r.config().public() for r in (plan["all"] if plan else roles)},
             writing_round=plan and plan["kind"],
         )
@@ -236,12 +237,13 @@ def _check_configs(roles):
             raise ValueError(f"{r.id}/{e}") from None
 
 
-def start_round(slug, note=None, mode=None):
-    """Run the phase the book is in. It stops for the showrunner when the phase's agents are done."""
+def start_round(slug, note=None, mode=None, phase_id=None):
+    """Run the phase the book is in - or the one named. It stops for the showrunner when the
+    phase's agents are done."""
     if active_run(slug):
         raise RuntimeError("the room is already working on this project")
     st = review.settings(slug)
-    phase = phases.current(slug)
+    phase = phases.get(phase_id) if phase_id else phases.current(slug)
     roles = phases.roles(slug, phase)
     _check_configs(roles)
     parts = [f"The room is in {phase['title'].lower()}: {phase['does']}", phases.note(slug, phase)]

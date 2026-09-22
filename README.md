@@ -176,7 +176,7 @@ Every round is a complete folder, and every file name carries the project and ro
 file means the same thing wherever it ends up:
 
 ```
-campaigns/<slug>/output/previous/
+campaigns/<slug>/production/previous/
   <slug>-r01-ai/        the room's work
     <slug>-r01-ai-page-prompts.md, -script.md, -layouts.md, -brief.md, -taste-writers.md …
     <slug>-r01-ai-p03-prompt.md      the page's prompt for the image model
@@ -192,9 +192,9 @@ campaigns/<slug>/output/previous/
   <slug>-r04-final/     the approved book: <slug>-r04-final-book-prompts.md, per-page prompts
 ```
 
-Rounds are numbered in one sequence. The desk (`campaigns/<slug>/output/*.md`) is the live copy
+Rounds are numbered in one sequence. The desk (`campaigns/<slug>/production/*.md`, or `preproduction/` for intake) is the live copy
 the agents read and write; `locks.json`, `review-draft.json` and `round-settings.json` sit beside
-it, and every finished round is kept under `output/previous/`.
+it, and every finished round is kept under the desk's `previous/`.
 
 ## Run it
 
@@ -234,7 +234,7 @@ and **OpenSearch** for the search index. Ollama stays on your machine — the ap
 reindexed about a second later.
 
 **The work is `campaigns/`, bind-mounted from this folder** — the room reads `rules/` and
-`input/` and writes `output/`, all as plain files on your disk, so you can open them in an
+`input/` and writes `preproduction/` (intake) and `production/` (everything after), all as plain files on your disk, so you can open them in an
 editor and git keeps their history. Rebuilding or recreating the container loses nothing,
 because nothing the room made lives inside it.
 
@@ -404,10 +404,10 @@ attaches the page's art, **Download text layer** saves the SVG, and each round a
 
 **Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files.
 Every finished round, review and finalize also writes `page-prompts.md` and
-`pages/pNN-prompt.md` to the campaign's `output/`, beside the script and the layouts that
-produced them — overwritten each time, with every earlier round kept under `output/previous/`.
+`pages/pNN-prompt.md` to the campaign's `production/`, beside the script and the layouts that
+produced them — overwritten each time, with every earlier round kept under the desk's `previous/`.
 **Save to output folder** does it on demand. There is nothing to fetch: the files are in
-`campaigns/<slug>/output/` on your disk.
+`campaigns/<slug>/production/` on your disk.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
@@ -421,14 +421,14 @@ comes back truncated and the call is retried.
 ## The library
 
 **A campaign is the project.** There is no separate `projects/` folder and no separate
-`output/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
-opening the work. The Script Coordinator reads `rules/`, `input/`, `drafts/` and `references/`, and the room writes `output/`, which is the desk
+`production/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
+opening the work. The Script Coordinator reads `rules/`, `input/`, `drafts/` and `references/`, and the room writes two desks — `preproduction/`, intake's, and `production/`, which starts from a copy of it —
 the agents share — the script, the layouts, the page prompts, the settings, and every finished
-round under `output/previous/`.
+round under the desk's `previous/`.
 
-**The room never reads its own `output/` back as material.** A round that took its own last
+**The room never reads its own desks back as material.** A round that took its own last
 script as input would be working from its own echo, and the drift compounds every round, so
-`never_read` in `app/projects.py` skips `output/` the way it skips an underscore folder. The
+`never_read` in `app/projects.py` skips both desks the way it skips an underscore folder. The
 desk still reaches an agent — under its own file names, as the project's own work — which is a
 different thing from reference material.
 
@@ -594,7 +594,7 @@ with its source — so a plausible suggestion never reads as something the book 
 A pass 3 reply with an unlabelled option is rejected and asked again.
 
 **Three things you can do with an item.** **Answer** it — on either screen, which writes it to
-`rules/decisions.md`, or with a `- decision:` line in `output/open-items.md`. **Defer** it with
+`rules/decisions.md`, or with a `- decision:` line in `preproduction/open-items.md`. **Defer** it with
 a `- defer: <why>` line, which leaves it open on purpose and holds nothing up; pass 4 must not
 quietly answer it. Or leave it alone.
 
@@ -657,7 +657,8 @@ campaigns/
     input/          anything you want read, any quality: notes, sketches, plans — empty for now
     drafts/         pages or chapters already written: the script draft. Empty when a book starts from scratch
     references/     material to draw on, grouped for your own sake
-    output/         the room's desk: script, layouts, page prompts, previous/
+    preproduction/  intake's desk: characters, world, story, facts, open items, and its rounds
+    production/     the room's desk from development on: brief, script, layouts, page prompts, previous/
   avalanche/        the second campaign: the same folders
   _morgue/          clippings kept for people, so an old document is never lost
 ```
@@ -666,7 +667,7 @@ campaigns/
 each chapter's own truth, who each character is. (Not to be confused with **the showrunner's
 standing rules**, which are how you want the room to work and live in `taste-writers.md`.)
 Nothing else in a campaign binds: `input/` for anything you want read at any quality,
-`drafts/` for what is already written, `references/` for material to draw on, `output/` for what the room wrote.
+`drafts/` for what is already written, `references/` for material to draw on, `preproduction/` and `production/` for what the room wrote.
 
 **Only `rules/` binds**, so a folder you invent inside a campaign is non-binding by default —
 group your material however suits you, and you cannot turn a rough note into canon by filing it
@@ -677,7 +678,7 @@ is read.
 
 **The pitch is optional, and it is input.** If you want to say what the book should be, write
 `input/pitch.md`; the Script Coordinator reads it with everything else and carries it into the
-three files. No agent is handed it separately, and nothing in `output/` steers intake: the
+three files. No agent is handed it separately, and nothing on either desk steers intake: the
 desk starts empty.
 
 `input/` is the heap, and it is meant to be one: a reference document, a prompt that worked,
