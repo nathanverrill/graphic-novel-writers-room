@@ -94,14 +94,32 @@ def desk_for(phase_id):
     return PRE if phase_id == "intake" else PROD
 
 
+DRAFT = "draft.md"      # on the production desk: the showrunner's drafts/, in one file, to improve
+
+
 def seed_production(slug):
-    """Production starts from intake's five files, copied. Intake's own stay as they are."""
+    """Production starts from intake's five files, copied, and from the showrunner's drafts.
+
+    Intake's own files stay as they are. The drafts - drafts/*.md, in name order - become
+    one draft.md on the production desk: the book as far as the showrunner wrote it, which the
+    room improves against the pre-production files rather than replaces (see phases.note)."""
     src, dst = project_dir(slug, PRE), project_dir(slug, PROD)
     copied = []
     for name in INTAKE_FILES:
         if (src / name).exists():
             shutil.copyfile(src / name, dst / name)
             copied.append(name)
+    drafts = sorted(p for p in (campaign_dir(slug) / DRAFTS).glob("*.md")) if (campaign_dir(slug) / DRAFTS).is_dir() else []
+    if drafts:
+        parts = ["# The showrunner's draft", "",
+                 "What was written before the room began, in the order it was written. Improve it; "
+                 "do not replace it.", ""]
+        for p in drafts:
+            parts += [f"## {p.name}", "", p.read_text().strip(), ""]
+        (dst / DRAFT).write_text("\n".join(parts))
+        copied.append(DRAFT)
+    elif (dst / DRAFT).exists():
+        (dst / DRAFT).unlink()
     return copied
 
 

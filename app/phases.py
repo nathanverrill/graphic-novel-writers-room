@@ -57,16 +57,36 @@ def roles(slug, phase):
     return out
 
 
+DRAFT_NOTE = {
+    "development": "draft.md is the showrunner's own draft of the book. It is not finished and it is "
+                   "not binding, but it is the book they mean to make: plan around what it does - its "
+                   "scenes, its order, its people - and improve on it, rather than planning a "
+                   "different book. Where the pre-production files and the draft disagree, the files "
+                   "win, and say so in your notes.",
+    "audition": "draft.md is the showrunner's own draft. Your audition pages are its opening, rewritten: "
+                "keep what it does and the lines that work, bring it into line with the "
+                "pre-production files, and raise the craft. The voice is yours; the book is theirs.",
+    "writing": "draft.md is the showrunner's own draft of the whole book. Write the book from it, in "
+               "the voice of your audition pages: keep its structure, its scenes and the lines that "
+               "work; fix what story.md, characters.md, world.md and facts.md contradict; make every "
+               "page better than the draft's. Do not start over, and do not drop what it has "
+               "unless the files require it.",
+}
+
+
 def note(slug, phase):
     """What the agents are told about the phase they are running in."""
+    parts = []
     if phase["id"] == "audition":
         n = phase["pages"]
-        return (f"This is the audition. Write pages 1-{n} only, in full, into your audition file. "
-                "The other writer is writing the same pages and you cannot see their work.")
+        parts.append(f"This is the audition. Write pages 1-{n} only, in full, into your audition file. "
+                     "The other writer is writing the same pages and you cannot see their work.")
     if phase["id"] == "writing":
-        return ("The showrunner picked you in the audition. script.md holds your audition pages: "
-                "keep their voice, and write the whole book.")
-    return None
+        parts.append("The showrunner picked you in the audition. script.md holds your audition pages: "
+                     "keep their voice, and write the whole book.")
+    if phase["id"] in DRAFT_NOTE and projects.read_artifact(slug, projects.DRAFT):
+        parts.append(DRAFT_NOTE[phase["id"]])
+    return "\n\n".join(parts) or None
 
 
 def state(slug):

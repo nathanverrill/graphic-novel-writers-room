@@ -68,7 +68,7 @@ function renderState() {
   restart.disabled = state.busy;
 }
 
-const MADE = ["brief.md", "story.md", "characters.md", "audition-a.md", "audition-b.md", "first-read.md", "script.md", "layouts.md", "notes.md"];
+const MADE = ["draft.md", "brief.md", "story.md", "characters.md", "audition-a.md", "audition-b.md", "first-read.md", "script.md", "layouts.md", "notes.md"];
 
 function renderMade() {
   const byName = Object.fromEntries((project.artifacts || []).map((a) => [a.name, a]));
@@ -194,8 +194,13 @@ function renderBegin() {
   const m = state.magic, plan = m.plan || [];
   const total = plan.reduce((t, p) => t + (p.seconds || 0), 0);
   const pages = m.pages ? `a ${m.pages}-page book` : "the book";
+  const drafts = m.drafts || [];
   $('.tab[data-tab="begin"]').innerHTML = `
-    <h2>Make ${pages} from the pre-production files.</h2>
+    <h2>${drafts.length ? `Improve your draft into ${pages}, against the pre-production files.` : `Make ${pages} from the pre-production files.`}</h2>
+    ${drafts.length ? `<p>Your drafts - ${drafts.map((d) => `<code>${esc(d)}</code>`).join(", ")} - go onto the
+      production desk as <code>draft.md</code>. The room plans around it, auditions on its opening,
+      and writes the book from it: keeping its scenes and the lines that work, fixing what the
+      story, characters, world and facts contradict, raising the craft. It does not start over.</p>` : ""}
     <p>The room runs every stage below itself and takes each decision along the way - who writes,
       whether the story stands, when the pages are ready. It stops once at <b>page 1</b> so you can
       judge the look before the rest is made, and again at the end. Your part is notes; if a note
@@ -319,7 +324,7 @@ async function renderPages() {
 
 /* ---- files --------------------------------------------------------------- */
 
-const FILES = ["brief.md", "story.md", "characters.md", "world.md", "script.md", "layouts.md", "notes.md",
+const FILES = ["draft.md", "brief.md", "story.md", "characters.md", "world.md", "script.md", "layouts.md", "notes.md",
                "audition-a.md", "audition-b.md", "first-read.md", "review.md"];
 
 function renderFile() {

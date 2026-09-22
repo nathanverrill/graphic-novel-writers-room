@@ -158,7 +158,7 @@ class Agent:
             content = projects.read_artifact(self.slug, name)
             if content:
                 text += [f"# {name} (from the room)", content]
-            else:
+            elif name != projects.DRAFT:      # a book with no draft has nothing to say about it
                 text.append(f"# {name}\n(not written yet — work from what you have)")
 
         existing = [] if r.minimal else [(n, projects.read_artifact(self.slug, n)) for n in r.outputs]

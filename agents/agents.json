@@ -26,7 +26,8 @@
       "story.md",
       "review.md",
       "notes.md",
-      "taste-writers.md"
+      "taste-writers.md",
+      "draft.md"
     ],
     "outputs": [
       "brief.md",
@@ -43,7 +44,8 @@
       "characters.md",
       "world.md",
       "notes.md",
-      "taste-writers.md"
+      "taste-writers.md",
+      "draft.md"
     ],
     "outputs": [
       "story.md"
@@ -58,7 +60,8 @@
       "world.md",
       "story.md",
       "notes.md",
-      "taste-writers.md"
+      "taste-writers.md",
+      "draft.md"
     ],
     "outputs": [
       "characters.md"
@@ -75,7 +78,8 @@
       "characters.md",
       "world.md",
       "taste-writers.md",
-      "notes.md"
+      "notes.md",
+      "draft.md"
     ],
     "outputs": [
       "script.md"
@@ -92,7 +96,8 @@
       "characters.md",
       "world.md",
       "taste-writers.md",
-      "notes.md"
+      "notes.md",
+      "draft.md"
     ],
     "outputs": [
       "script.md"

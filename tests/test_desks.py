@@ -52,3 +52,18 @@ print("4. migration renames output/ and seeds preproduction/ from the last intak
 # 5. the desk a phase works on
 assert projects.desk_for("intake") == projects.PRE and projects.desk_for("development") == projects.PROD
 print("5. desk_for: ok")
+
+# 6. drafts come onto the production desk as draft.md, and go when they go
+(c / "drafts").mkdir(exist_ok=True)
+(c / "drafts" / "chapter-02.md").write_text("# Two\n\nlater\n")
+(c / "drafts" / "chapter-01.md").write_text("# One\n\nfirst\n")
+assert "draft.md" in projects.seed_production(slug)
+d = projects.read_artifact(slug, "draft.md")
+assert d.index("chapter-01.md") < d.index("chapter-02.md") and "first" in d and "later" in d
+from app import phases
+assert "draft.md" in (phases.note(slug, phases.get("writing")) or "")
+assert "draft.md" not in (phases.note(slug, phases.get("execution")) or "")
+for p in (c / "drafts").glob("*.md"): p.unlink()
+projects.seed_production(slug)
+assert projects.read_artifact(slug, "draft.md") is None
+print("6. drafts seed production as draft.md, in order, and the phases brief the room on it: ok")

@@ -826,7 +826,8 @@ class MagicStart(BaseModel):
 @app.get("/api/projects/{slug}/magic")
 def magic_state(slug: str):
     not_found(projects.project_dir, slug)
-    return {**magic.state(slug), "plan": magic.plan(slug), "pages": review.settings(slug)["pages"]}
+    return {**magic.state(slug), "plan": magic.plan(slug), "pages": review.settings(slug)["pages"],
+            "drafts": magic.drafts(slug)}
 
 
 @app.post("/api/projects/{slug}/magic")

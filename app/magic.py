@@ -269,6 +269,12 @@ def _final(slug, note):
 
 # ---- what the page shows before it begins -----------------------------------------------------
 
+def drafts(slug):
+    """The showrunner's drafts/ files, which production starts from when there are any."""
+    d = projects.campaign_dir(slug) / projects.DRAFTS
+    return sorted(p.name for p in d.glob("*.md")) if d.is_dir() else []
+
+
 def plan(slug):
     """The chain as it will run: each step, who works in it, on which model, and how long it took last time."""
     roles = {r.id: r for r in load_roles()}
