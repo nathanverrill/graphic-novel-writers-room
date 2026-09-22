@@ -1,0 +1,372 @@
+{
+  "id": "r21-ai",
+  "kind": "ai",
+  "started": "2026-09-22T01:00:51",
+  "finished": "2026-09-22T01:01:58",
+  "status": "awaiting_showrunner_review",
+  "files_written": [
+    "visual-briefs.md",
+    "open-items.md",
+    "room-log.md"
+  ],
+  "images": [
+    "prosperity-r21-ai-visual-character-bi11bot.png",
+    "prosperity-r21-ai-visual-location-keel-pump-hall.png",
+    "prosperity-r21-ai-visual-scene-workshop-choice.png",
+    "prosperity-r21-ai-visual-character-ada-veyra.png",
+    "prosperity-r21-ai-visual-character-alex-phantum.png",
+    "prosperity-r21-ai-visual-location-halyard-maker-district.png",
+    "prosperity-r21-ai-visual-world-three-city-basin.png",
+    "prosperity-r21-ai-visual-location-oasis-civic-table.png"
+  ],
+  "references": {
+    "prosperity/input/alpha-notes.md": "3ed4badcd2e1a7bf",
+    "prosperity/input/chapter-01-draft.md": "7cf6cb7e2242d0ee",
+    "prosperity/input/chapter-02-draft.md": "1adb8d8adba5f7ff",
+    "prosperity/input/chapter-03-draft.md": "64ee9627e4178b54",
+    "prosperity/input/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/chapter-05-draft.md": "83837db7e7a3a761",
+    "prosperity/input/chapter-06-draft.md": "0f4095d1cf7f22f8",
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/decisions.md": "9240c5c65219e040",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 17,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.56856438,
+      "input_tokens": 123269,
+      "cached_tokens": 46264,
+      "image_input_tokens": 0,
+      "output_tokens": 16941,
+      "reasoning_tokens": 2923,
+      "total_tokens": 140210
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 17,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.56856438,
+        "input_tokens": 123269,
+        "cached_tokens": 46264,
+        "image_input_tokens": 0,
+        "output_tokens": 16941,
+        "reasoning_tokens": 2923,
+        "total_tokens": 140210
+      }
+    }
+  },
+  "run_id": "bf8bb4a67f15",
+  "note": "The room is in visual check: The Script Coordinator writes five to eight visual briefs from the four settled files, the room renders each one, and the Coordinator holds every picture up against its brief. Text is canon; a picture is a way to see it, and a way to catch a misreading before production makes it expensive.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "google/gemini-3.1-flash-image",
+      "image_size": "1024x1024",
+      "image_extra": {
+        "aspect_ratio": "3:2",
+        "resolution": "1K"
+      },
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "visual",
+  "intake": {
+    "mode": "briefs",
+    "status": "awaiting_showrunner_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "6",
+        "pass": "visual briefs",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "",
+        "input_chars": 263122,
+        "input_tokens_est": 65780,
+        "inputs": [
+          "characters.md",
+          "facts.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 23458
+      },
+      {
+        "call": "7world-three-city-basin",
+        "pass": "images",
+        "destination": "images/world-three-city-basin",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 3810,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-world-three-city-basin.png"
+      },
+      {
+        "call": "7location-halyard-maker-district",
+        "pass": "images",
+        "destination": "images/location-halyard-maker-district",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 3148,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-location-halyard-maker-district.png"
+      },
+      {
+        "call": "7character-alex-phantum",
+        "pass": "images",
+        "destination": "images/character-alex-phantum",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 2876,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-character-alex-phantum.png"
+      },
+      {
+        "call": "7scene-workshop-choice",
+        "pass": "images",
+        "destination": "images/scene-workshop-choice",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 3463,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-scene-workshop-choice.png"
+      },
+      {
+        "call": "7character-ada-veyra",
+        "pass": "images",
+        "destination": "images/character-ada-veyra",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 2540,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-character-ada-veyra.png"
+      },
+      {
+        "call": "7location-keel-pump-hall",
+        "pass": "images",
+        "destination": "images/location-keel-pump-hall",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 3118,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-location-keel-pump-hall.png"
+      },
+      {
+        "call": "7character-bi11bot",
+        "pass": "images",
+        "destination": "images/character-bi11bot",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 2791,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-character-bi11bot.png"
+      },
+      {
+        "call": "7location-oasis-civic-table",
+        "pass": "images",
+        "destination": "images/location-oasis-civic-table",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 2900,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r21-ai-visual-location-oasis-civic-table.png"
+      },
+      {
+        "call": "8world-three-city-basin",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 4269,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8location-halyard-maker-district",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3620,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Unrequested small lettering appears on white labels attached to the orange overhead gantry near the upper center of the image.",
+          "An additional text plaque appears beneath the \u201cCHARTER HOUSE\u201d sign on the right, although only the Charter House facility itself is required."
+        ]
+      },
+      {
+        "call": "8character-ada-veyra",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 2982,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Ada's gaze is directed toward the viewer rather than toward Keel below, so the required attention toward the city is not established."
+        ]
+      },
+      {
+        "call": "8character-alex-phantum",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3335,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "The casino chip in Alex's hand appears to have visible markings but no clearly legible looping equation, so the required etched equation is not established.",
+          "The image adds an unexplained permanent strap and hardware across Alex's torso, which could read as an invented piece of equipment rather than ordinary tool-bag construction."
+        ]
+      },
+      {
+        "call": "8location-oasis-civic-table",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3364,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "The projected Alpha interface contains small, illegible-looking interface markings and colored blocks that read as possible text or labels, although the brief permits only abstract graphics without readable text.",
+          "The image does not clearly identify any seated participants as former refugees or displaced residents; the required mix of displaced and longtime residents is not visually legible.",
+          "The exterior shows a prominent solar-panel structure and multiple automated vehicles, which are allowed technologies, but no healthcare or service-access feature is identifiable; this required aspect of Oasis is not clearly represented."
+        ]
+      },
+      {
+        "call": "8scene-workshop-choice",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3914,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Extensive visible lettering appears on the wall diagrams, loose papers, book spines, and open books throughout the workshop; the brief did not require any exact visible text.",
+          "The required water-system diagrams are not clearly identifiable; the prominent wall diagrams read primarily as generic engineering and circuit schematics.",
+          "Ada's required freckles are not visibly present on her face."
+        ]
+      },
+      {
+        "call": "8character-bi11bot",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3236,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Handwritten labels, equations, and diagram text are visible on the papers pinned above the workbench at upper left; the brief permits diagrams but does not require this exact lettering."
+        ]
+      },
+      {
+        "call": "8location-keel-pump-hall",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 3572,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Visible lettering appears on the projected displays and equipment interfaces, including \u201cPROCEDURE\u201d/\u201cFROCEDURE\u201d and numeric readouts, although the brief did not require any exact text."
+        ]
+      }
+    ],
+    "generated_this_run": [
+      "visual-briefs.md"
+    ],
+    "carried_forward": [
+      "characters.md",
+      "facts.md",
+      "open-items.md",
+      "room-log.md",
+      "story.md",
+      "world.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "rendered": [
+      "world-three-city-basin",
+      "location-keel-pump-hall",
+      "location-halyard-maker-district",
+      "location-oasis-civic-table",
+      "character-alex-phantum",
+      "character-ada-veyra",
+      "character-bi11bot",
+      "scene-workshop-choice"
+    ],
+    "failed_images": []
+  },
+  "pages": []
+}

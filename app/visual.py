@@ -25,7 +25,7 @@ from .intake import Intake, IntakeError
 
 BRIEFS = "visual-briefs.md"
 KINDS = ("world", "location", "character", "scene")
-FIELDS = ("kind", "subject", "required", "allowed", "prohibited", "unknown", "note",
+FIELDS = ("kind", "subject", "required", "allowed", "prohibited", "look", "unknown", "note",
           "image", "verdict", "found", "status")
 MULTI = {"unknown", "found"}
 KEPT, BACK, REJECTED = "kept", "back", "rejected"
@@ -203,6 +203,8 @@ class Visual(Intake):
             parts.append("Not established, so your choice: " + cite(b["allowed"]))
         if b["prohibited"]:
             parts.append("Must not appear: " + cite(b["prohibited"]))
+        if b["look"]:
+            parts.append("The look: " + cite(b["look"]))
         if b["note"]:
             parts.append("The showrunner adds: " + b["note"])
         parts.append("Add nothing that tells a story of its own: no invented symbols, emblems, "
@@ -256,7 +258,7 @@ class Visual(Intake):
             "found:\n"
             "- one problem per line, saying what and where in the image; or 'nothing' if none",
             f"# The brief\n\n## {b['n']}. {b['slug']}: {b['title']}\n"
-            + "\n".join(f"- {f}: {b[f]}" for f in ("kind", "subject", "required", "allowed", "prohibited") if b[f]),
+            + "\n".join(f"- {f}: {b[f]}" for f in ("kind", "subject", "required", "allowed", "prohibited", "look") if b[f]),
         ])
 
     def check_one(self, b, path):

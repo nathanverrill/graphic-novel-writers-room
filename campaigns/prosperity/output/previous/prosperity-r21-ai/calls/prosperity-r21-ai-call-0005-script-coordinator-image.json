@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T01:01:46",
+    "project": "prosperity",
+    "version": "r21-ai",
+    "run_id": "bf8bb4a67f15",
+    "call": 5,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 535,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1655,
+    "cost_usd": 0.0674675,
+    "cost_source": "provider",
+    "duration_ms": 11691,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r21-ai/calls/prosperity-r21-ai-call-0005-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nFull-body reference portrait of Ada Veyra, age 20, standing at a Keel overlook with the city and mine dropping away behind her. She has long, wind-tangled copper hair, freckles, and teal-blue eyes. She wears a dark high-collared top, a rivet-studded shoulder strap, and a muted moss-green wrap. Her stance is steady and rooted, with her attention directed toward Keel rather than toward the distant upper route. Her expression is attentive and emotionally precise, not exaggerated. The background should show enough of Keel's pit, repaired industrial housing, and infrastructure to establish where she belongs.\n\nMust be shown, exactly as written: Ada is twenty. Include long wind-tangled copper hair, freckles, teal-blue eyes, the dark high-collared top, rivet-studded shoulder strap, and muted moss-green wrap. Her posture must be steady and rooted. The overlook must be associated with Keel, and the city should be visible below her. No scars or other distinguishing physical marks are established.\n\nNot established, so your choice: Ada's exact skin tone, body type, height, footwear, garment cut, fabric texture, jewelry, tools, and the precise construction of the overlook are open. Her expression may range from thoughtful to mildly challenging. The weather, time of day, and amount of dust or wind are open.\n\nMust not appear: Do not make Ada look fragile, ornamental, aristocratic, or dressed in generic futuristic bodysuit clothing. Do not remove the shoulder strap or wrap. Do not give her weapons, a uniform, a civic office, or an invented technological implant. Do not make the overlook a lush garden or a polished Oasis terrace.\n\nThe look: Wind-shaped documentary portrait with dry high-altitude light, muted mineral colors, copper hair catching the light, and Keel's industrial geometry below. The figure should be sharply readable against a broad landscape, with clothing showing practical wear but not the same degree of industrial grime as Alex's work clothes. The image should communicate rootedness through stance and composition rather than through symbolic props.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/c5b1fef8cc22ddc3bb4f.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 535,
+      "completion_tokens": 1120,
+      "total_tokens": 1655,
+      "cost": 0.0674675,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0674675,
+        "upstream_inference_prompt_cost": 0.0002675,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

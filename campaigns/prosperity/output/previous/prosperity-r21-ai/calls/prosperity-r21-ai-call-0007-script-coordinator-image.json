@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T01:01:47",
+    "project": "prosperity",
+    "version": "r21-ai",
+    "run_id": "bf8bb4a67f15",
+    "call": 7,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 576,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1696,
+    "cost_usd": 0.067488,
+    "cost_source": "provider",
+    "duration_ms": 12822,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r21-ai/calls/prosperity-r21-ai-call-0007-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nA Halyard maker district combining a fabrication workshop, water-technology laboratory, and industrial street. In the foreground, human workers handle modular water-system components: membrane housings, pretreatment equipment, mineral-recovery parts, sensor modules, pipes, and unfinished community water nodes. The components are distributed across several workstations rather than assembled as one monumental machine. Behind them are a foundry, fabrication gantries, greenhouse or vertical-agriculture structures, compute infrastructure, and industrial towers. A Charter House facility is visible nearby, with a controlled registry or access area connecting institutional ownership to the physical workspaces.\n\nMust be shown, exactly as written: Halyard must read as the industrial and innovation tier. Show laboratories, fabrication equipment, foundry-scale production, advanced materials, compute infrastructure, maker districts, and human technical labor in the same frame. The water system must look modular and feedstock-dependent rather than magical: membrane replacement, pretreatment, substantial electrical equipment, trained maintenance, and limited-throughput processing should be visually apparent. Include evidence of many contributors working on related pieces rather than a single inventor's isolated machine.\n\nNot established, so your choice: The exact appearances of the workers, Charter House architecture, registry interface, fabrication tools, greenhouse structure, labels, and workshop organization are open. The image may show a partial purification demonstration or clean output container, but the exact status of the prototype and the composition of the water are free. House colors and emblems may be chosen if they do not establish additional story facts.\n\nMust not appear: Do not depict the water technology as a limitless abundance machine, a single glowing reactor, or a fully autonomous factory. Do not erase human labor. Do not make Halyard uniformly egalitarian or uniformly oppressive; the city contains Charter Houses, workers, partners, cooperatives, independent workshops, and new ventures. Do not add a spaceport or orbital structure unless it is only a distant, non-specific reference to Astra's wider field.\n\nThe look: Dense but legible industrial daylight, with a layered view from tactile foreground tools to active fabrication in the middle distance and Halyard's towers behind. Use steel, ceramic, translucent membranes, stained concrete, warm work lights, green plant growth, and cool compute light. The future should feel like advanced equipment installed in an active, crowded workshop whose surfaces are handled and repaired, not a showroom.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/0768945bb58650bedfab.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 576,
+      "completion_tokens": 1120,
+      "total_tokens": 1696,
+      "cost": 0.067488,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.067488,
+        "upstream_inference_prompt_cost": 0.000288,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

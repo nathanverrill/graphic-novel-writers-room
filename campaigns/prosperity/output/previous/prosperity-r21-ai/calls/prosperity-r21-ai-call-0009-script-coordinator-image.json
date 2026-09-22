@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T01:01:49",
+    "project": "prosperity",
+    "version": "r21-ai",
+    "run_id": "bf8bb4a67f15",
+    "call": 9,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 537,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1657,
+    "cost_usd": 0.0674685,
+    "cost_source": "provider",
+    "duration_ms": 14783,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r21-ai/calls/prosperity-r21-ai-call-0009-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nAn Oasis civic interior opening onto a clean, sparse district. The room contains a long decision table with longtime residents and displaced people seated together, while a transparent or projected Alpha interface displays modeled options and consequences without physically dominating the room. Beyond the glass or open threshold are safe streets, automated transportation, comfortable sparse housing, abundant clean water, planted areas maintained by small drones, and civic-service infrastructure. The architecture should be orderly and materially secure, but the civic room should visibly depend on people being present together rather than on automatic service delivery alone.\n\nMust be shown, exactly as written: Oasis must read as the most materially secure tier: clean water, safe infrastructure, housing, healthcare or service access, automated transportation, sparse comfortable architecture, and well-maintained public space. Include both former refugees or displaced residents and longtime residents at the local decision table. Include Alpha as a projected advisory or modeling system rather than a physical ruler. The setting must allow participation and discussion while retaining the clean, efficient, individualized service environment.\n\nNot established, so your choice: The exact number, ages, clothing, ethnicity, and physical appearance of the residents are open. The decision table's shape, the district's architecture, the drone design, plant species, interface color, and the specific modeled issue are open. The interface may show abstract graphs, route lines, water levels, or allocation diagrams without readable text.\n\nMust not appear: Do not make Oasis visibly impoverished, militarized, overcrowded, or ruined. Do not depict displaced people as segregated from the civic table. Do not show Alpha's interface issuing a final decision, commanding the room, or replacing all human presence. Do not turn Oasis into a palace or a sterile all-white science-fiction city.\n\nThe look: Quiet, high-key natural light with clean surfaces, pale mineral tones, glass, concrete, water reflections, and restrained vegetation. Keep the composition spacious but not empty. The automated environment should look comfortable and competent, while the human table introduces varied posture, age, clothing, and visual density. A low camera angle at table height should make participation, not architecture, the image's center of gravity.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/0d57929475af7246cfcb.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 537,
+      "completion_tokens": 1120,
+      "total_tokens": 1657,
+      "cost": 0.0674685,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0674685,
+        "upstream_inference_prompt_cost": 0.0002685,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

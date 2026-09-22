@@ -244,6 +244,7 @@ function renderVisual(p) {
           ${b.required ? `<div><b>required</b>${esc(b.required)}</div>` : ""}
           ${b.allowed ? `<div><b>allowed</b>${esc(b.allowed)}</div>` : ""}
           ${b.prohibited ? `<div><b>prohibited</b>${esc(b.prohibited)}</div>` : ""}
+          ${b.look ? `<div><b>look</b>${esc(b.look)}</div>` : ""}
           ${b.unknown.length ? `<div><b>unknown</b>${b.unknown.map(esc).join(" · ")}</div>` : ""}
         </div>
         ${b.found.length ? `<div class="found"><b>the check found</b><ul>${b.found.map((f) => `<li>${esc(f)}</li>`).join("")}</ul></div>` : ""}

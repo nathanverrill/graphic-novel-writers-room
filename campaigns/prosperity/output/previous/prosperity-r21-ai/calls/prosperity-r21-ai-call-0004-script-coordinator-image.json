@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T01:01:45",
+    "project": "prosperity",
+    "version": "r21-ai",
+    "run_id": "bf8bb4a67f15",
+    "call": 4,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 710,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1830,
+    "cost_usd": 0.067555,
+    "cost_source": "provider",
+    "duration_ms": 11230,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r21-ai/calls/prosperity-r21-ai-call-0004-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nInside Adrian's hidden workshop behind the bookshelf in Grandmother Phantum's Keel home, Alex, Ada, and Bi11bot stand around an organized workbench. Alex, in worn work clothes with his tool bag nearby, has one hand near or on an old machine and the other turning Adrian's casino chip. Ada stands beside him in her dark high-collared top, rivet-studded shoulder strap, and moss-green wrap, watching both the people and the equipment. Bi11bot, child-sized and visibly constructed from aged brass, titanium, and ceramic ivory, faces them from the workbench or floor, with his blue and amber lights active. The room contains equations, water-system diagrams, models, prototypes, a physical key, old books, analog gauges, hidden records, and disconnected components. The composition must make the three figures and the physical evidence equally important.\n\nMust be shown, exactly as written: The workshop is concealed behind a bookshelf in a family home in Keel. Include the old book associated with opening the room, an organized workbench, equations, water-system diagrams, models, prototypes, a physical key, and disconnected or offline artifacts. Alex must be visibly seventeen, lean, mechanically capable, and dressed for Keel work; Ada must retain her established hair, freckles, eyes, clothing, and rooted stance; Bi11bot must retain his child-sized aged-brass, titanium, and ceramic-ivory construction, visible repairs, maker's stamps, optical eyes, lens ring, chest key socket, and blue-and-amber lights. The room should contain no seamless networked command center as its only source of information.\n\nNot established, so your choice: The exact arrangement of the workshop, furniture, wall surfaces, lamp design, color of the family home's interior, number of diagrams, prototype shapes, and relative spacing of the three figures are open. The image may include a small projected interface alongside paper, mechanical, and analog records. Any words on diagrams may be abstract or too small to read unless the established terms are needed as visible text.\n\nMust not appear: Do not depict the workshop as a vast laboratory, corporate facility, pristine showroom, or fantasy treasure chamber. Do not show Alex alone, Bi11bot making a decision for the humans, or Ada reduced to a background observer with no access to the work. Do not add a visible Alpha avatar, a permanent override console, or unestablished weapons. Do not make the three safeguards appear as generic glowing gemstones.\n\nThe look: Intimate, low-key workshop lighting with warm lamp pools, deep corners, aged wood or repaired shelving, dust, brass, ceramic, paper, and cool machine accents. Use a medium-wide composition with layered sightlines: bookshelf and concealed doorway behind, workbench and artifacts in the middle ground, and the three figures forming a readable triangle in the foreground. The image should feel materially grounded and production-useful, showing how old offline objects coexist with sophisticated engineering.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/4b5bd913fcc3fea683bf.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 710,
+      "completion_tokens": 1120,
+      "total_tokens": 1830,
+      "cost": 0.067555,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.067555,
+        "upstream_inference_prompt_cost": 0.000355,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}
