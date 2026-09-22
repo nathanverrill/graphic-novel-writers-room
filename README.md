@@ -460,6 +460,19 @@ a second box for anything you want to add to your selection: it is saved with th
 on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
 The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
 
+**The visual check is a phase of its own, between intake and development.** `app/visual.py`,
+same shape as intake: no tools, the room builds every prompt. Pass 6 reads the four settled
+files - and only those - and writes `visual-briefs.md`: five to eight briefs, each sorting what
+it says into *required* (established, must appear), *allowed* (the image model's choice),
+*prohibited* and *unknown*. Every unknown is appended to `open-items.md` with
+`- from: visual-brief`, so it is answered where every other question is answered and carried
+into the files by intake's revision. Pass 7 renders every brief at once (OpenRouter's
+`/images` endpoint; `image_model` and `image_extra` on the Script Coordinator). Pass 8 holds
+each picture up against its brief and writes `- verdict:` and `- found:` lines into it. Then
+it stops: on `/preproduction` you keep, send back (with a note the next render reads) or reject
+each image. Only what is sent back is rendered again. Text is canon; nothing an image shows
+becomes a fact, and nothing reads images back into text. About 7 cents an image.
+
 **Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
 The room builds every prompt, parses the file envelope that comes back, checks it and writes
 the files itself.

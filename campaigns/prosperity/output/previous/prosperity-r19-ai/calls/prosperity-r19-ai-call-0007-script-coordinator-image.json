@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T00:45:49",
+    "project": "prosperity",
+    "version": "r19-ai",
+    "run_id": "b9afb689135d",
+    "call": 7,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 278,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1398,
+    "cost_usd": 0.067339,
+    "cost_source": "provider",
+    "duration_ms": 10525,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r19-ai/calls/prosperity-r19-ai-call-0007-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A full-body reference image of Bi11bot standing beside human-scale workshop equipment, showing his child-sized proportions and handmade construction. The image should make him read as a built machine and companion, not a seamless humanoid android.\n\nMust be shown, exactly as written: If a witness or archive function is suggested visually, it must remain an offline physical record or machine-held record. Bi11bot authenticates events as the B11 witness; he does not visually read as a sovereign command device. `(characters.md; rules/decisions.md)`\n\nNot established, so your choice: The casino chip, physical key socket, offline record carrier, or an analog/isolated communication component may appear as secondary objects, because each is established in the files.\n\nMust not appear: Do not depict Bi11bot as independently deciding whether Adrian\u2019s transfer is valid or as directly granting Alex power. `(characters.md; rules/decisions.md)`\n\nNo lettering of any kind: no captions, labels, signage, logos, numbers, speech balloons or on-screen text, unless the brief requires a specific one. Concept reference, not finished comic art; no panel borders.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/b708ed104b277bb038e7.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 278,
+      "completion_tokens": 1120,
+      "total_tokens": 1398,
+      "cost": 0.067339,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.067339,
+        "upstream_inference_prompt_cost": 0.000139,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

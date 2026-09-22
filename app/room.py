@@ -17,7 +17,7 @@ import time
 import uuid
 from dataclasses import replace
 
-from . import agent as agent_mod, intake as intake_mod
+from . import agent as agent_mod, intake as intake_mod, visual as visual_mod
 from . import notes as notes_mod
 from . import phases, projects, review, usage
 from .agents import load_roles
@@ -98,7 +98,9 @@ class Run:
             role = self.reload(role)
             emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
             emit("role_start", title=role.title, pass_n=pass_n)
-            if role.pipeline == "intake":
+            if self.plan and self.plan["kind"] == "visual":
+                a = visual_mod.Visual(role, self.version, emit, lambda: self.stop_requested, self.mode)
+            elif role.pipeline == "intake":
                 a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
             else:
                 a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)

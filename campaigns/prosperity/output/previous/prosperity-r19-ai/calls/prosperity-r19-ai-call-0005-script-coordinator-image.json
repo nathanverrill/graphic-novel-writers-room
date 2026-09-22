@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T00:45:48",
+    "project": "prosperity",
+    "version": "r19-ai",
+    "run_id": "b9afb689135d",
+    "call": 5,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 304,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1424,
+    "cost_usd": 0.067352,
+    "cost_source": "provider",
+    "duration_ms": 9661,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r19-ai/calls/prosperity-r19-ai-call-0005-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A street-level or elevated interior-edge view of Keel built around its exhausted open-pit copper or polymetallic hard-rock mine. The image should show the city\u2019s worn industrial texture, its dependence on aging machinery, and the advanced control systems layered over it.\n\nMust be shown, exactly as written: The location may include visual traces of the Last Chance casino, family apartments, a pump hall, Site 6, a sealed mine entrance, hidden maintenance doors, or a water-control chamber, all of which are established Keel locations. `(world.md)`\n\nNot established, so your choice: A projected administrative display may use established terminology such as \u201cMOVEMENT AUTHORIZATION,\u201d \u201cPROTECTIVE DETENTION,\u201d \u201cOPTIMIZED ALLOCATION,\u201d or \u201cTRAVEL STATUS: RESTRICTED,\u201d but the image does not require readable text.\n\nMust not appear: Do not show a single visible headquarters or throne-like command centre for Alpha. Alpha is a distributed federation of regional and corporate instances operating through infrastructure, control nodes, contracts, and systems. `(world.md; characters.md)`\n\nNo lettering of any kind: no captions, labels, signage, logos, numbers, speech balloons or on-screen text, unless the brief requires a specific one. Concept reference, not finished comic art; no panel borders.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/634d613bb3be086bfd13.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 304,
+      "completion_tokens": 1120,
+      "total_tokens": 1424,
+      "cost": 0.067352,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.067352,
+        "upstream_inference_prompt_cost": 0.000152,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

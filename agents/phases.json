@@ -17,6 +17,19 @@
     ]
   },
   {
+    "id": "visual",
+    "title": "Visual check",
+    "does": "The Script Coordinator writes five to eight visual briefs from the four settled files, the room renders each one, and the Coordinator holds every picture up against its brief. Text is canon; a picture is a way to see it, and a way to catch a misreading before production makes it expensive.",
+    "agents": [
+      "script_coordinator"
+    ],
+    "gate": "approve",
+    "asks": "Does this look like the world, the people, the technology and the scale the files describe? Keep, send back or reject each image. What a brief could not find in the files is now an open item.",
+    "read": [
+      "visual-briefs.md"
+    ]
+  },
+  {
     "id": "development",
     "title": "Development",
     "does": "Decide what the book is: the brief, and what the three files leave open — the world, the plot, the people.",

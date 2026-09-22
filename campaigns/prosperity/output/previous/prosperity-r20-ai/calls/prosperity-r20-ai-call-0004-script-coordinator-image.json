@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T00:47:13",
+    "project": "prosperity",
+    "version": "r20-ai",
+    "run_id": "2bef5fbfa414",
+    "call": 4,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 412,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1532,
+    "cost_usd": 0.067406,
+    "cost_source": "provider",
+    "duration_ms": 11590,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r20-ai/calls/prosperity-r20-ai-call-0004-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nA full-body or three-quarter reference image of Ada Veyra, age 20, in Keel clothing with a grounded, observant posture. The design should remain distinct from Alex while fitting the same worn high-desert industrial community.\n\nMust be shown, exactly as written: Ada is 20. She has long, wind-tangled copper hair, freckles, and teal-blue eyes.\nShe wears a dark high-collared top, a rivet-studded shoulder strap, and a muted moss-green wrap.\nShe carries herself with a steady, rooted stance. Her physical presentation should suggest someone attentive to people and surroundings without turning that into a costume or literal symbol.\nNo scars or other distinguishing physical marks are established. Do not add a signature scar, tattoo, or other fixed mark.\n\nNot established, so your choice: The exact cut and texture of the clothing, footwear, jewellery, utility objects, hair arrangement, body type, and Keel background are free choices if they preserve the stated hair, eyes, freckles, clothing categories, and stance.\nAda may be shown looking toward Keel rather than toward Oasis, reflecting the established visual contrast between her attention and Alex\u2019s.\n\nMust not appear: Do not dress Ada in Oasis civic clothing, Halyard executive attire, or a generic futuristic jumpsuit. Do not make her posture aggressive, militarized, or glamorous at the expense of her rooted working-community presentation.\nDo not add scars or other distinguishing marks not established in the files.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/3475b896cf8cdc6a3a16.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 412,
+      "completion_tokens": 1120,
+      "total_tokens": 1532,
+      "cost": 0.067406,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.067406,
+        "upstream_inference_prompt_cost": 0.000206,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

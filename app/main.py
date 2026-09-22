@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import intake, keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, visual
 from .config import AGENTS_DIR, AgentConfig
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -630,8 +630,8 @@ def update_settings(slug: str, body: RoundSettings):
 @app.post("/api/projects/{slug}/rounds")
 def start_round(slug: str, body: RoundRequest):
     not_found(projects.project_dir, slug)
-    if body.mode is not None and body.mode not in (intake.SYNTHESIS, intake.REVISION, "integration"):
-        raise HTTPException(400, f"mode must be {intake.SYNTHESIS!r} or {intake.REVISION!r}")
+    if body.mode is not None and body.mode not in (intake.SYNTHESIS, intake.REVISION, "integration", "briefs"):
+        raise HTTPException(400, f"mode must be {intake.SYNTHESIS!r}, {intake.REVISION!r} or 'briefs'")
     try:
         run = room.start_round(slug, (body.note or "").strip() or None, body.mode)
     except RuntimeError as e:
@@ -697,6 +697,28 @@ def answer_open_item(slug: str, n: int, body: OpenItemAnswer):
         return state
     except ValueError as e:
         raise HTTPException(404, str(e))
+
+
+# ---- the visual check: briefs, images, and your word on each ------------------
+
+class BriefReview(BaseModel):
+    status: str | None = None      # kept, back, rejected - or "" to clear
+    note: str | None = None        # read by the regeneration when the brief is sent back
+
+
+@app.get("/api/projects/{slug}/visual")
+def visual_state(slug: str):
+    not_found(projects.project_dir, slug)
+    return visual.state(slug)
+
+
+@app.post("/api/projects/{slug}/visual/{n}")
+def review_brief(slug: str, n: int, body: BriefReview):
+    not_found(projects.project_dir, slug)
+    try:
+        return visual.review(slug, n, body.status, body.note)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
 
 
 @app.post("/api/projects/{slug}/open-items-feedback")

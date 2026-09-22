@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "time": "2026-09-22T00:47:14",
+    "project": "prosperity",
+    "version": "r20-ai",
+    "run_id": "2bef5fbfa414",
+    "call": 6,
+    "role": "script_coordinator",
+    "kind": "image",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/images",
+    "model": "google/gemini-3.1-flash-image",
+    "response_model": null,
+    "price_key": null,
+    "input_tokens": 529,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 1120,
+    "reasoning_tokens": 0,
+    "total_tokens": 1649,
+    "cost_usd": 0.0674645,
+    "cost_source": "provider",
+    "duration_ms": 12245,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity/output/previous/prosperity-r20-ai/calls/prosperity-r20-ai-call-0006-script-coordinator-image.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-flash-image",
+    "prompt": "A photographic concept reference with NO TEXT ANYWHERE IN THE IMAGE: no place names, captions, labels, signage, logos, numbers, speech balloons or on-screen writing, even where a place is named below - the picture identifies things by how they look, never by a word. Not finished comic art; no panel borders.\n\nA full-body reference image of Bi11bot standing beside human-scale workshop equipment, showing his child-sized proportions and handmade construction. The image should make him read as a built machine and companion, not a seamless humanoid android.\n\nMust be shown, exactly as written: Bi11bot is child-sized and built from aged brass, titanium, and ceramic ivory. His construction is visibly made rather than seamless, with tooled seams, repairs, and maker\u2019s stamps.\nHe has soft-blue and amber light accents, expressive optical eyes, and one eye with a small adjustable lens ring. His chest contains the key socket that awakens him.\nHis body should show the physical history of a handmade machine: visible joints, seams, repairs, and material transitions. The files do not establish a single body plan, so these details may be arranged coherently rather than copied from an unstated design.\nIf a witness or archive function is suggested visually, it must remain an offline physical record or machine-held record. Bi11bot authenticates events as the B11 witness; he does not visually read as a sovereign command device.\n\nNot established, so your choice: Exact height within \u201cchild-sized,\u201d limb proportions, face or eye arrangement, degree of brass versus titanium versus ceramic ivory, repair locations, maker\u2019s-stamp shapes, and workshop background are free choices.\nThe casino chip, physical key socket, offline record carrier, or an analog/isolated communication component may appear as secondary objects, because each is established in the files.\n\nMust not appear: Do not make Bi11bot a full-sized industrial robot, a seamless consumer android, a disembodied hologram, or a giant AI control terminal. Do not give him a weapon, crown, throne, or visual authority over humans.\nDo not depict Bi11bot as independently deciding whether Adrian\u2019s transfer is valid or as directly granting Alex power.\n\nThe showrunner adds: Child-sized: his head is below an adult's shoulder. Nothing on his chest that looks like a keyhole or a socket.\n\nAdd nothing that tells a story of its own: no invented symbols, emblems, documents or events. Render the description, not an interpretation of it.",
+    "aspect_ratio": "3:2",
+    "resolution": "1K"
+  },
+  "response": {
+    "created": 0,
+    "data": [
+      {
+        "b64_json": "<blob:calls/blobs/c7abf54b819b8162e045.png>",
+        "media_type": "image/png"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 529,
+      "completion_tokens": 1120,
+      "total_tokens": 1649,
+      "cost": 0.0674645,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.0674645,
+        "upstream_inference_prompt_cost": 0.0002645,
+        "upstream_inference_completions_cost": 0.0672
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 0,
+        "image_tokens": 1120
+      }
+    }
+  }
+}

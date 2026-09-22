@@ -1,0 +1,362 @@
+{
+  "id": "r19-ai",
+  "kind": "ai",
+  "started": "2026-09-22T00:44:58",
+  "finished": "2026-09-22T00:45:59",
+  "status": "awaiting_showrunner_review",
+  "files_written": [
+    "visual-briefs.md",
+    "open-items.md",
+    "room-log.md"
+  ],
+  "images": [
+    "prosperity-r19-ai-visual-character-ada-veyra.png",
+    "prosperity-r19-ai-visual-character-alex-phantum.png",
+    "prosperity-r19-ai-visual-scene-three-city-covenant-table.png",
+    "prosperity-r19-ai-visual-location-keel-pit.png",
+    "prosperity-r19-ai-visual-world-three-city-basin.png",
+    "prosperity-r19-ai-visual-character-bi11bot.png",
+    "prosperity-r19-ai-visual-location-oasis-civic-interior.png",
+    "prosperity-r19-ai-visual-location-halyard-fabrication.png"
+  ],
+  "references": {
+    "prosperity/input/alpha-notes.md": "3ed4badcd2e1a7bf",
+    "prosperity/input/chapter-01-draft.md": "7cf6cb7e2242d0ee",
+    "prosperity/input/chapter-02-draft.md": "1adb8d8adba5f7ff",
+    "prosperity/input/chapter-03-draft.md": "64ee9627e4178b54",
+    "prosperity/input/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/chapter-05-draft.md": "83837db7e7a3a761",
+    "prosperity/input/chapter-06-draft.md": "0f4095d1cf7f22f8",
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/decisions.md": "9240c5c65219e040",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 17,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.56602722,
+      "input_tokens": 117500,
+      "cached_tokens": 40481,
+      "image_input_tokens": 0,
+      "output_tokens": 15476,
+      "reasoning_tokens": 1623,
+      "total_tokens": 132976
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 17,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.56602722,
+        "input_tokens": 117500,
+        "cached_tokens": 40481,
+        "image_input_tokens": 0,
+        "output_tokens": 15476,
+        "reasoning_tokens": 1623,
+        "total_tokens": 132976
+      }
+    }
+  },
+  "run_id": "b9afb689135d",
+  "note": "The room is in visual check: The Script Coordinator writes five to eight visual briefs from the four settled files, the room renders each one, and the Coordinator holds every picture up against its brief. Text is canon; a picture is a way to see it, and a way to catch a misreading before production makes it expensive.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "google/gemini-3.1-flash-image",
+      "image_size": "1024x1024",
+      "image_extra": {
+        "aspect_ratio": "3:2",
+        "resolution": "1K"
+      },
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "visual",
+  "intake": {
+    "mode": "visual",
+    "status": "awaiting_showrunner_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "6",
+        "pass": "visual briefs",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "",
+        "input_chars": 261580,
+        "input_tokens_est": 65395,
+        "inputs": [
+          "characters.md",
+          "facts.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 22790
+      },
+      {
+        "call": "7world-three-city-basin",
+        "pass": "images",
+        "destination": "images/world-three-city-basin",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1530,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-world-three-city-basin.png"
+      },
+      {
+        "call": "7location-halyard-fabrication",
+        "pass": "images",
+        "destination": "images/location-halyard-fabrication",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1305,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-location-halyard-fabrication.png"
+      },
+      {
+        "call": "7character-alex-phantum",
+        "pass": "images",
+        "destination": "images/character-alex-phantum",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1141,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-character-alex-phantum.png"
+      },
+      {
+        "call": "7location-oasis-civic-interior",
+        "pass": "images",
+        "destination": "images/location-oasis-civic-interior",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1293,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-location-oasis-civic-interior.png"
+      },
+      {
+        "call": "7character-ada-veyra",
+        "pass": "images",
+        "destination": "images/character-ada-veyra",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1048,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-character-ada-veyra.png"
+      },
+      {
+        "call": "7location-keel-pit",
+        "pass": "images",
+        "destination": "images/location-keel-pit",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1441,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-location-keel-pit.png"
+      },
+      {
+        "call": "7character-bi11bot",
+        "pass": "images",
+        "destination": "images/character-bi11bot",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1300,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-character-bi11bot.png"
+      },
+      {
+        "call": "7scene-three-city-covenant-table",
+        "pass": "images",
+        "destination": "images/scene-three-city-covenant-table",
+        "model": "google/gemini-3.1-flash-image",
+        "input_chars": 1543,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "output": "images/prosperity-r19-ai-visual-scene-three-city-covenant-table.png"
+      },
+      {
+        "call": "8character-ada-veyra",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1460,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8location-keel-pit",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1868,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8location-oasis-civic-interior",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1753,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8location-halyard-fabrication",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1756,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8character-bi11bot",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1714,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Bi11bot is depicted as a tall, adult human-scale humanoid robot rather than child-sized beside the workshop equipment, contradicting the required proportions.",
+          "The large circular keyhole-like socket centered on Bi11bot\u2019s torso reads as a command or authorization device, which conflicts with the requirement that he not visually read as a sovereign command device.",
+          "The book labeled \u201cOFFLINE LOG\u201d on the workbench is an added written object not specifically required by the brief and may read as a defined archive artifact."
+        ]
+      },
+      {
+        "call": "8character-alex-phantum",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1559,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Alex wears a shoulder bag, multiple tool pouches, a key ring, and additional red-and-blue items in his jacket pocket; these extra fixed carried objects are not established in the brief and could be read as continuity facts.",
+          "Alex has prominent dark work gloves, including one worn on his hand and another pair or glove set hanging at his hip; these specific accessories are not established in the brief and could become unintended character-design facts."
+        ]
+      },
+      {
+        "call": "8scene-three-city-covenant-table",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 2004,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "pass",
+        "found": []
+      },
+      {
+        "call": "8world-three-city-basin",
+        "pass": "visual check",
+        "destination": "visual-briefs.md",
+        "model": "openai/gpt-5.6-luna",
+        "input_chars": 1992,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "verdict": "revise",
+        "found": [
+          "Oasis, in the lower-left and center foreground, is depicted as a cluster of visibly primitive earthen huts and rough compounds while Keel and Halyard have dense engineered construction, rail systems, towers, and industrial facilities; this makes the settlements read as three separate technological eras, contrary to the brief.",
+          "Rectangular agricultural fields around Oasis, especially along the lower-left edge and beside the settlement, establish a specific agricultural geography that the brief says is not established."
+        ]
+      }
+    ],
+    "generated_this_run": [
+      "visual-briefs.md"
+    ],
+    "carried_forward": [
+      "characters.md",
+      "facts.md",
+      "open-items.md",
+      "room-log.md",
+      "story.md",
+      "world.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "rendered": [
+      "world-three-city-basin",
+      "location-keel-pit",
+      "location-halyard-fabrication",
+      "location-oasis-civic-interior",
+      "character-alex-phantum",
+      "character-ada-veyra",
+      "character-bi11bot",
+      "scene-three-city-covenant-table"
+    ],
+    "failed_images": []
+  },
+  "pages": []
+}
