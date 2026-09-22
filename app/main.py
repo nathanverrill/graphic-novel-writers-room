@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
 from .config import AGENTS_DIR, AgentConfig
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -70,6 +70,15 @@ def preproduction():
     happens - the open items, their options and where each one came from, what you answer,
     defer or say about the book. The one-button screen and the full room are untouched."""
     return FileResponse(STATIC / "preproduction.html")
+
+
+@app.get("/production")
+def production():
+    """The production room: what will happen, one button, the log, then the finished work.
+
+    The room takes every gate itself (app/magic.py) and stops twice: at page 1, and at the
+    end. The showrunner's part is notes, and stepping back if a note reaches further."""
+    return FileResponse(STATIC / "production.html")
 
 
 @app.get("/room")
@@ -226,6 +235,7 @@ def get_project(slug: str):
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
+            "magic": magic.state(slug),
             **phases.state(slug),
             "library": projects.library(slug),
             "output": f"output/{slug}"}
@@ -792,6 +802,37 @@ def _get_run(run_id):
     if not run:
         raise HTTPException(404, "no such run")
     return run
+
+
+# ---- production, run all the way ------------------------------------------------
+
+class MagicStart(BaseModel):
+    step: str = "development"    # where to (re-)enter the chain
+    until: str = "final"         # where to stop: page1 or final
+    note: str | None = None      # carried into the first round
+
+
+@app.get("/api/projects/{slug}/magic")
+def magic_state(slug: str):
+    not_found(projects.project_dir, slug)
+    return {**magic.state(slug), "plan": magic.plan(slug), "pages": review.settings(slug)["pages"]}
+
+
+@app.post("/api/projects/{slug}/magic")
+def magic_start(slug: str, body: MagicStart):
+    not_found(projects.project_dir, slug)
+    try:
+        return magic.start(slug, body.step, (body.note or "").strip() or None, body.until)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except RuntimeError as e:
+        raise HTTPException(409, str(e))
+
+
+@app.post("/api/projects/{slug}/magic/stop")
+def magic_stop(slug: str):
+    not_found(projects.project_dir, slug)
+    return magic.stop(slug)
 
 
 @app.post("/api/runs/{run_id}/stop")

@@ -247,6 +247,12 @@ def start_round(slug, note=None, mode=None):
     parts = [f"The room is in {phase['title'].lower()}: {phase['does']}", phases.note(slug, phase)]
     if st["pages"]:
         parts.append(f"The book is exactly {st['pages']} pages: pages 1-{st['pages']}, no more, no fewer.")
+    if st["scope"] and phase["id"] == "execution":
+        n = int(st["scope"])
+        parts.append(f"THIS PASS IS A PROOF: lay out and letter page{'s' if n > 1 else ''} "
+                     f"1{f'-{n}' if n > 1 else ''} only, from the script as it stands, and nothing "
+                     f"past that. The showrunner will judge the book's look on {'these pages' if n > 1 else 'this page'} "
+                     f"before the rest is made. layouts.md holds only {'these pages' if n > 1 else 'this page'}.")
     last = review.latest_round(slug)
     if last and last.get("kind") == "human":
         parts += ["Work from the showrunner's review below. Change only what it asks for; "
