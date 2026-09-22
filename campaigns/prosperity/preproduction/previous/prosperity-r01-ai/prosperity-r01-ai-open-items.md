@@ -219,7 +219,3 @@
 - B: Make the new system explicitly hybrid: in-person assemblies remain authoritative, while remote participation, translated records, public evidence dashboards, and rotating civic offices widen access without eliminating face-to-face deliberation. [research] (references/triangle-everyday-life.md; references/triangle-autonomy.md)
 - C: Let Alpha facilitate agendas, model consequences, and translate testimony while human bodies retain agenda-setting, value judgments, votes, and accountability. [established] (rules/decisions.md; references/social-innovators-framework.md)
 - suggested: B
-
-## Feedback
-
-Lithium extraction was part of what drove the Water Wars: brine pumping and the freshwater it took at the salar edges belong among the crises. Mining today is copper: Keel is an exhausted copper or polymetallic mine, and every remaining "lithium works" in the files and drafts is the old works, not the active mine.

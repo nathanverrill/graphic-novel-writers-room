@@ -235,15 +235,3 @@ _(decided 2026-09-21, about story.md)_
 Make Keel an exhausted copper or polymetallic hard-rock mine, with lithium remaining part of the wider regional economy through salar or DLE operations elsewhere. Preserve the open pit, tunnels, pumps, tailings, industrial labor, and hidden water infrastructure.  (andean-hard-rock-futures.md; triangle-science.md)
 
 _(decided 2026-09-21, about world.md)_
-
-## How should the regional water and currency systems account for the real-world difference between Andean national jurisdictions?
-
-Keel, Halyard and Oasis sit in a fictional gray-area colony of sorts: a territory of ambiguous national jurisdiction in the Andean high desert, not a recognised nation and not cleanly inside any real one. Do not resolve it into a single fictional state.
-
-_(decided 2026-09-22, about world.md)_
-
-## What national legal framework surrounds the restored local civic standing of displaced people?
-
-The three cities are a gray-zone mining colony, of the kind the references describe: a concession territory that foreign conglomerates built, mothballed, flipped through shells and walked away from, leaving the camps, the wells, the roads, the water permits and the social debt behind. The state that nominally holds the land withdrew in practice a generation ago; it exists on paper and at the distant border posts, not in courts, registries or police here. The authority behind the fence thinned out and Alpha filled the vacuum through the concessions, operating contracts and debt covenants it inherited. This is not a Congo-style warlord zone and not a breakaway statelet: no militia holds the pits, and no one has declared independence. It sits between an abandoned company town and a self-governing enclave. Nationality, land title and any appeal to national law are therefore paper questions with no working office to take them; the restored Charter is the only civic standing that operates on the ground. Where this exceeds what the references label plausible (a permanently absent state), record it as a licensed departure. (references/triangle-enclaves-borders.md; references/andean-hard-rock-futures.md; references/lithium-triangle-futures.md)
-
-_(decided 2026-09-22, about world.md)_
