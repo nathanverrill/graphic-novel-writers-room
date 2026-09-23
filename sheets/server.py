@@ -111,7 +111,7 @@ def parent_for(char, stage_id, n, parent_name):
     return parent, False
 
 
-def roll(name, stage_id, notes, models, each):
+def roll(name, stage_id, notes, models, each, base=None):
     d = character(name)
     if not (d / "description.txt").exists():
         raise ValueError("write the description first")
@@ -120,7 +120,17 @@ def roll(name, stage_id, notes, models, each):
     if not found:
         raise ValueError(f"no stage {stage_id}")
     _, n, title, instruction, parent_name = found
-    parent, from_pick = parent_for(char, stage_id, n, parent_name)
+    if base == "kept":                    # redo a kept stage from what was kept, with the note
+        parent, from_pick = kept_for(char, stage_id, title), True
+        if parent is None:
+            raise ValueError("nothing kept for this stage yet")
+    elif base == "parent":                # start the stage over from its parent, ignoring the pick
+        parent, from_pick = (None, False) if stage_id == "00-lock" else (parent_for(char, stage_id, n, parent_name)[0], False)
+        st0 = stage_state(d, stage_id); st0["pick"] = None; save_stage(d, stage_id, st0)
+        if stage_id != "00-lock" and parent is None:
+            raise ValueError("this step's parent has nothing kept yet")
+    else:
+        parent, from_pick = parent_for(char, stage_id, n, parent_name)
     if stage_id != "00-lock" and parent is None:
         raise ValueError("this step's parent has nothing kept yet - lock first, or keep the step it builds on")
     if stage_id == "00-lock":
@@ -380,7 +390,10 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .captured .lock img{width:100%;border-radius:4px;border:1px solid var(--line)}
 .captured .lock .empty{border:1px dashed var(--line);border-radius:4px;padding:1.4rem .8rem;text-align:center;color:var(--muted);font-size:.8rem}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:.4rem;margin-top:.6rem}
-.grid figure{margin:0;cursor:pointer}.grid img{width:100%;border-radius:3px;border:2px solid transparent;display:block}
+.grid figure{margin:0;cursor:pointer;position:relative}.grid img{width:100%;border-radius:3px;border:2px solid transparent;display:block}
+.grid figure.kept::after{content:"redo";position:absolute;top:.3rem;right:.3rem;font-size:.62rem;padding:.05rem .35rem;border-radius:3px;background:rgba(0,0,0,.65);color:#fff;opacity:0;transition:opacity .15s}
+.grid figure.kept:hover::after{opacity:1}.grid figure:hover img{border-color:var(--go)}
+.captured .lock{position:relative;cursor:pointer}.captured .lock:hover img{outline:2px solid var(--go)}
 .grid figure.now img{border-color:var(--go)}.grid figure.kept img{border-color:var(--ok)}
 .grid figcaption{font-size:.64rem;color:var(--muted);margin-top:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .grid .todo{aspect-ratio:2/3;border:1px dashed var(--line);border-radius:3px;display:grid;place-items:center;color:var(--muted);font-size:.7rem}
@@ -529,7 +542,7 @@ function drawCaptured() {
   $("#kept-grid").innerHTML = st.stages.slice(1).map((s) => `<figure data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.id === current ? "now" : ""}">
     ${s.kept ? `<img src="${s.kept}">` : `<div class="todo">${s.n}</div>`}<figcaption title="${esc(s.title)}">${esc(s.title)}</figcaption></figure>`).join("");
   const done = st.stages.slice(1).filter((s) => s.kept).length;
-  $("#set-hint").textContent = `${done} of ${st.stages.length - 1} steps kept${done ? ` · sheets/characters/${who}/set/` : ""}`;
+  $("#set-hint").textContent = `${done} of ${st.stages.length - 1} steps kept${done ? ` · sheets/characters/${who}/set/` : ""}. Click any tile to open it, or redo it.`;
 }
 $("#kept-grid").onclick = (e) => { const f = e.target.closest("figure[data-go]"); if (f) { current = f.dataset.go; lastDrawn = ""; draw(); } };
 $("#lock-box").onclick = () => { current = "00-lock"; lastDrawn = ""; draw(); };
@@ -550,11 +563,12 @@ function drawStage() {
       ${parentImg ? `<img src="${parentImg}" title="builds on this">` : s.kept && isLock ? `<img src="${s.kept}" title="the lock">` : ""}
       <div><h3><b>${isLock ? "lock" : String(s.n).padStart(2, "0")}</b>${esc(isLock ? "The lock" : s.title)}</h3>
         <div class="hint">${esc(s.instruction)}${!isLock ? ` · builds on ${esc(s.parent || "the previous keep")}` : ""}</div>
-        ${s.kept ? `<div class="good" style="margin-top:.3rem">✓ kept${isLock ? " as the lock" : ""}. ${next ? `Next: <a href="#" id="go-next">${esc(next.n === 0 ? "lock" : next.title)}</a>.` : "Every step is kept."} Or roll again below to replace it.</div>` : ""}
+        ${s.kept ? `<div class="good" style="margin-top:.3rem">✓ kept${isLock ? " as the lock" : ""}. ${next ? `Next: <a href="#" id="go-next">${esc(next.n === 0 ? "lock" : next.title)}</a>.` : "Every step is kept."}</div>
+        <div class="hint" style="margin-top:.2rem">Not right in context? Say what is off and <b>Fix the kept one</b>, or <b>Start over</b> from ${isLock ? "the description" : "its parent"}. Or click another candidate below and Keep it.</div>` : ""}
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? "from your pick" : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span>working…` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span>working…` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}</figcaption></figure>`).join("")}</div>` : ""}
     </div>`).join("")}
@@ -563,7 +577,8 @@ function drawStage() {
       ${modelChips()}
       <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
-        <button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>
+        ${s.kept ? `<button class="go" id="fix" ${s.running || !on.size ? "disabled" : ""}>Fix the kept one</button><button id="over" ${s.running || !can || !on.size ? "disabled" : ""}>Start over</button>`
+                 : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
         <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"}>${isLock ? "Lock this one" : "Keep this one"}</button>
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
         <span class="hint">${s.running ? "working…" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : `${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}`}</span>
@@ -573,7 +588,7 @@ function drawStage() {
     e.target.checked ? on.add(m) : on.delete(m);
     localStorage.setItem("sheets-on", JSON.stringify([...on]));
     e.target.parentElement.classList.toggle("on", e.target.checked);
-    $("#roll").disabled = s.running || !can || !on.size;
+    for (const id of ["#roll", "#fix", "#over"]) { const b = $(id); if (b) b.disabled = s.running || !can || !on.size; }
   };
   $("#undo").onclick = async () => {
     try { await api(`/api/characters/${who}/stages/${current}/undo`, { method: "POST", body: {} }); lastDrawn = ""; await load(true); }
@@ -581,13 +596,16 @@ function drawStage() {
   };
   $("#stage-notes").oninput = (e) => { notesDraft[current] = e.target.value; };
   $("#go-next")?.addEventListener("click", (e) => { e.preventDefault(); current = next.id; lastDrawn = ""; draw(); });
-  $("#roll").onclick = async () => {
+  const rollWith = (base) => async () => {
     try {
       await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
-      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2 } });
+      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2, base } });
       notesDraft[current] = ""; await load(true);
     } catch (err) { $("#said").textContent = err.message; $("#top-hint").textContent = err.message; }
   };
+  if ($("#roll")) $("#roll").onclick = rollWith(null);
+  if ($("#fix")) $("#fix").onclick = rollWith("kept");
+  if ($("#over")) $("#over").onclick = rollWith("parent");
   $("#keep").onclick = async () => {
     try {
       await api(`/api/characters/${who}/stages/${current}/keep`, { method: "POST", body: {} });
@@ -713,7 +731,7 @@ class Handler(BaseHTTPRequestHandler):
                 (d / f"lock.{ext}").write_bytes(base64.b64decode(b64))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "roll":
-                roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2))
+                roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2), data.get("base"))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "pick":
                 pick(parts[3], parts[5], data.get("round", ""), data.get("file", ""))
