@@ -286,14 +286,19 @@ def _check_configs(roles):
             raise ValueError(f"{r.id}/{e}") from None
 
 
-def start_round(slug, note=None, mode=None, phase_id=None):
+def start_round(slug, note=None, mode=None, phase_id=None, only=None):
     """Run the phase the book is in - or the one named. It stops for the showrunner when the
-    phase's agents are done."""
+    phase's agents are done. `only` names a subset of the phase's agents to run, with no fix
+    passes: production's layouts stop runs the Layout Agent alone this way."""
     if active_run(slug):
         raise RuntimeError("the room is already working on this project")
     st = review.settings(slug)
     phase = phases.get(phase_id) if phase_id else phases.current(slug)
     roles = phases.roles(slug, phase)
+    if only:
+        roles = [r for r in roles if r.id in only]
+        if not roles:
+            raise ValueError(f"none of {', '.join(only)} run in {phase['title'].lower()}")
     _check_configs(roles)
     parts = [f"The room is in {phase['title'].lower()}: {phase['does']}", phases.note(slug, phase)]
     if st["pages"]:
@@ -314,7 +319,7 @@ def start_round(slug, note=None, mode=None, phase_id=None):
     jotted = notes_mod.take(slug, "pending")   # the round id isn't known until the Run is made
     if jotted:
         parts.append(jotted)
-    plan = {"kind": phase["id"], "max_passes": int(st["max_passes"]), "all": roles,
+    plan = {"kind": phase["id"], "max_passes": 0 if only else int(st["max_passes"]), "all": roles,
             "parallel": phase.get("parallel") or []}
     run = Run(slug, roles, "\n\n".join(p for p in parts if p), plan, mode)
     if jotted:

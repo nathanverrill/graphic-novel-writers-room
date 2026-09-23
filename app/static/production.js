@@ -35,9 +35,9 @@ async function pickCampaign() {
 
 /* ---- the left column --------------------------------------------------- */
 
-const STEPS = ["development", "audition", "page1", "writing", "execution", "final"];
-const TITLES = { development: "Development", audition: "Audition", page1: "Page 1", writing: "Writing", execution: "Pages", final: "Final" };
-const STOPS = { page1: "page 1 proof: you look", final: "the packets: you draw" };
+const STEPS = ["development", "audition", "page1", "writing", "layouts", "execution", "final"];
+const TITLES = { development: "Development", audition: "Audition", page1: "Page 1", writing: "Writing", layouts: "Layouts", execution: "Pages", final: "Final" };
+const STOPS = { page1: "page 1 proof: you look", layouts: "the layouts: you look", final: "the packets: you draw" };
 
 function renderState() {
   const m = state.magic, active = !!project.active_run;
@@ -46,6 +46,7 @@ function renderState() {
   $("#round").textContent = latest ? latest.id : "no rounds yet";
   const [cls, label] = active || m.status === "running" ? ["run", "working"]
     : m.status === "page1" ? ["wait", "page 1 is waiting for you"]
+    : m.status === "layouts" ? ["wait", "the layouts are waiting for you"]
     : m.status === "done" ? ["ready", "the book is done"]
     : m.status === "stopped" ? ["fail", "stopped"]
     : m.status === "failed" ? ["fail", "failed"]
@@ -58,7 +59,7 @@ function renderState() {
   const proof = m.until === "page1" || m.status === "page1" || m.step === "page1";
   $("#steps").innerHTML = STEPS.filter((s) => s !== "page1" || proof).map((s) => {
     const i = STEPS.indexOf(s);
-    const done = at > i || (at === i && !running && ["page1", "done"].includes(m.status) && (s !== "final" || m.status === "done"));
+    const done = at > i || (at === i && !running && ["page1", "layouts", "done"].includes(m.status) && (s !== "final" || m.status === "done"));
     const now = at === i && running;
     const failed = at === i && ["failed", "stopped"].includes(m.status);
     const cls = ["step", s in STOPS ? "stop" : "", done ? "done" : "", now ? "now" : "", failed ? "failed" : ""].filter(Boolean).join(" ");
@@ -94,7 +95,7 @@ function renderMade() {
 
 /* ---- the actions, by where the book is ------------------------------------ */
 
-const BACK = [["page1", "page 1 again"], ["execution", "the pages"], ["writing", "the words"],
+const BACK = [["page1", "page 1 again"], ["layouts", "the layouts"], ["execution", "the pages"], ["writing", "the words"],
               ["audition", "the audition"], ["development", "the story and the people"]];
 
 function renderActs() {
@@ -114,6 +115,11 @@ function renderActs() {
       `<button class="go alt" id="again">Page 1 again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
       `<button class="go" id="rest">Looks right - make the rest →</button>`;
     hint.textContent = "The first page is a proof of the look. Make the rest, or add notes and try page 1 again.";
+  } else if (m.status === "layouts") {
+    acts.innerHTML = save +
+      `<button class="go alt" id="layouts-again">Layouts again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
+      `<button class="go" id="make-pages">Make the pages →</button>`;
+    hint.textContent = "Every page's map and panels are on the Pages tab. Make the pages runs the fix rounds and the packets; or add notes and draw the layouts again.";
   } else if (m.status === "done" || (project.phase === "execution" && latest?.kind === "final")) {
     acts.innerHTML = save + `<a class="go" id="download" href="/api/projects/${encodeURIComponent(state.slug)}/packet.zip">Download the packets</a>` +
       from("execution") + `<button class="go alt" id="run-notes" ${notes || edits ? "" : "disabled"}>Run notes from here</button>`;
@@ -128,7 +134,7 @@ function renderActs() {
     acts.innerHTML = save + `<button class="go alt" id="proof">Page 1 first</button><button class="go" id="make">Produce</button>`;
     hint.textContent = project.phase === "intake"
       ? "Pre-production has not been approved yet - the desk's Continue does that. You can still produce."
-      : "Produce runs everything and ends with the page packets. Page 1 first stops at a proof of the look.";
+      : "Produce runs to the layouts: every page's map and panels, to look at. Then Make the pages. Page 1 first stops at a proof of the look instead.";
   }
   $("#tabs").querySelectorAll("button").forEach((b) => { b.disabled = running && b.dataset.tab !== "log"; });
   if (running && state.tab !== "log") showTab("log");
@@ -150,14 +156,16 @@ async function magic(body) {
 
 $("#acts").addEventListener("click", async (e) => {
   const b = e.target.closest("button"); if (!b || b.disabled) return;
-  if (b.id === "make") return magic({ step: "development", until: "final" });
+  if (b.id === "make") return magic({ step: "development", until: "layouts" });
   if (b.id === "proof") return magic({ step: "development", until: "page1" });
-  if (b.id === "rest") return magic({ step: "writing", until: "final" });
+  if (b.id === "rest") return magic({ step: "writing", until: "layouts" });
+  if (b.id === "layouts-again") return magic({ step: "layouts", until: "layouts" });
+  if (b.id === "make-pages") return magic({ step: "execution", until: "final" });
   if (b.id === "again") return magic({ step: "page1", until: "page1" });
   if (b.id === "resume") return magic({ step: state.magic.step, until: state.magic.until || "final" });
   if (b.id === "run-notes") {
     const step = $("#from").value;
-    return magic({ step, until: step === "page1" ? "page1" : "final" });
+    return magic({ step, until: step === "page1" ? "page1" : step === "layouts" ? "layouts" : "final" });
   }
   if (b.id === "save-edits") {
     state.busy = true; renderAll();
@@ -179,7 +187,7 @@ async function stopAll() {
 $("#stop").addEventListener("click", stopAll);
 
 $("#restart").addEventListener("click", () => $("#confirm-restart").showModal());
-$("#restart-go").addEventListener("click", () => { $("#confirm-restart").close(); magic({ step: "development", until: "final" }); });
+$("#restart-go").addEventListener("click", () => { $("#confirm-restart").close(); magic({ step: "development", until: "layouts" }); });
 
 /* ---- tabs ----------------------------------------------------------------- */
 
@@ -211,13 +219,14 @@ function renderBegin() {
       and writes the book from it: keeping its scenes and the lines that work, fixing what the
       story, characters, world and facts contradict, raising the craft. It does not start over.</p>` : ""}
     <p>The room runs every stage below itself and takes each decision along the way - who writes,
-      whether the story stands, when the pages are ready - and ends with the <b>page packets</b>:
-      one per page, everything to paste into an image model to draw it, with no text on it.
-      You draw the pages, upload the art, and the room letters them. Your part is notes; if a
-      note reaches further back, you step back to there and the room runs on again.</p>
+      whether the story stands - and stops at the <b>layouts</b>: every page's map and its panels,
+      on the Pages tab, to look at before the long part. <b>Make the pages</b> then runs the fix
+      rounds and ends with the <b>page packets</b>: one per page, everything to paste into an image
+      model to draw it, with no text on it. You draw the pages, upload the art, and the room
+      letters them. Your part is notes; if a note reaches further back, you step back to there.</p>
     <div class="plan">${plan.filter((p) => !p.optional).map((p) => `
       <div class="plan-step ${p.stop ? "stop" : ""} ${p.after ? "after" : ""}">
-        <div><b>${esc(p.title)}</b>${p.stop ? `<div class="who">the packets</div>` : p.after ? `<div class="who">after the art</div>` : ""}</div>
+        <div><b>${esc(p.title)}</b>${p.step === "layouts" ? `<div class="who">Produce stops here</div>` : p.stop ? `<div class="who">the packets</div>` : p.after ? `<div class="who">after the art</div>` : ""}</div>
         <div>${esc(p.does)}${p.note ? ` <span class="hint" style="margin:0">${esc(p.note)}</span>` : ""}
           <div class="who">${p.agents.map((a) => `${esc(a.title)}${a.parallel ? "*" : ""} <code>${esc(a.model || "default model")}</code>`).join(" · ")}</div></div>
         <div class="est">${p.seconds ? `~${secs(p.seconds * 1000)}` : ""}</div>
@@ -227,7 +236,7 @@ function renderBegin() {
     ${m.status === "idle" && !m.choices?.length
       ? `<button class="go big" id="begin-go">Produce</button> <button class="go alt" id="begin-proof" style="width:auto">Page 1 first</button>`
       : `<span class="hint">Use the buttons top right: production has already begun.</span>`}`;
-  $("#begin-go")?.addEventListener("click", () => magic({ step: "development", until: "final" }));
+  $("#begin-go")?.addEventListener("click", () => magic({ step: "development", until: "layouts" }));
   $("#begin-proof")?.addEventListener("click", () => magic({ step: "development", until: "page1" }));
 }
 
@@ -250,6 +259,7 @@ function watchMagic() {
       clearInterval(state.poll); state.poll = null;
       await load();
       if (p.magic.status === "page1") showTab("page1");
+      else if (p.magic.status === "layouts") showTab("pages");
       else if (p.magic.status === "done") showTab("packets");
     }
   }, 2500);
@@ -325,7 +335,7 @@ async function renderPage(n, sec) {
 async function renderPages() {
   const sec = $('.tab[data-tab="pages"]');
   const nums = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
-  if (!nums.length) { sec.innerHTML = `<p class="hint">No pages yet. They are made after page 1 is approved.</p>`; return; }
+  if (!nums.length) { sec.innerHTML = `<p class="hint">No pages yet. Produce draws the layouts first.</p>`; return; }
   if (!nums.includes(state.page)) state.page = nums[0];
   sec.innerHTML = `<div class="pager">${nums.map((n) => `<button data-page="${n}" ${n === state.page ? 'aria-current="true"' : ""}>${n}</button>`).join("")}</div><div id="page-body"></div>`;
   sec.querySelector(".pager").onclick = (e) => {
@@ -609,7 +619,7 @@ function begin() {
     showLastLog();
     const tab = new URLSearchParams(location.search).get("tab");
     state.tab = tab && $(`#tabs button[data-tab="${CSS.escape(tab)}"]`) ? tab
-      : m.status === "page1" ? "page1" : m.status === "done" ? "packets" : m.choices?.length ? "log" : "begin";
+      : m.status === "page1" ? "page1" : m.status === "layouts" ? "pages" : m.status === "done" ? "packets" : m.choices?.length ? "log" : "begin";
     showTab(state.tab);
   }
 }

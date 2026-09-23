@@ -5,8 +5,9 @@
     python3 scripts/make_packets.py prosperity --model openai/gpt-5.6-luna --fresh --out ~/Desktop
 
 Every default accepted: intake reads the material, the open items are answered with the room's
-own suggestions, intake folds them in and is approved, production runs to the final round, and
-the packets come down as a zip. It stops there: drawing the pages is yours.
+own suggestions, intake folds them in and is approved, and production runs to the layouts:
+every page's map and panels, to look at on the production screen's Pages tab. --to final goes
+on through the fix rounds to the packets, downloaded as a zip. Drawing the pages is yours.
 
 --model puts every agent on that model (the provider and key the Script Coordinator uses).
 --fresh starts intake over from the material instead of revising what is on the desk.
@@ -107,12 +108,12 @@ def answer_all(slug):
     return n
 
 
-def produce(slug):
+def produce(slug, until):
     m = api(f"/api/projects/{slug}/magic")
     if m["status"] == "running" and m["active"]:
         sys.exit("production is already running")
-    api(f"/api/projects/{slug}/magic", {"step": "development", "until": "final"})
-    say("production: development → audition → writing → pages → final")
+    api(f"/api/projects/{slug}/magic", {"step": "development", "until": until})
+    say("production: development → audition → writing → " + ("layouts" if until == "layouts" else "pages → final"))
     seen = 0
     last_run = None
     while True:
@@ -126,7 +127,7 @@ def produce(slug):
         if not m["active"] and m["status"] != "running":
             break
         time.sleep(10)
-    if m["status"] != "done":
+    if m["status"] not in ("done", "layouts"):
         sys.exit(f"production ended {m['status']}: {m.get('error') or 'see the production screen'}")
 
 
@@ -137,7 +138,9 @@ def main():
     ap.add_argument("--model", help="put every agent on this model (OpenRouter id, e.g. openai/gpt-5.6-luna)")
     ap.add_argument("--fresh", action="store_true", help="start intake over from the material")
     ap.add_argument("--skip-intake", action="store_true", help="the desk is already approved: just produce")
-    ap.add_argument("--out", default=".", help="where the packets zip goes")
+    ap.add_argument("--to", choices=["layouts", "final"], default="layouts",
+                    help="layouts: stop at the page maps and panels (default). final: fix rounds and the packets zip")
+    ap.add_argument("--out", default=".", help="where the packets zip goes (--to final)")
     ap.add_argument("--base", default=BASE)
     args = ap.parse_args()
     BASE = args.base.rstrip("/")
@@ -159,12 +162,16 @@ def main():
         if api(f"/api/projects/{slug}").get("phase") == "intake":
             api(f"/api/projects/{slug}/phase", {"action": "approve"})
             say("intake approved: production starts from its files")
-    produce(slug)
+    produce(slug, args.to)
     p = api(f"/api/projects/{slug}/prompts")
+    if args.to == "layouts":
+        say(f"done in {round((time.time() - t0) / 60)} min: {len(p['pages'])} pages laid out. "
+            f"Look at them on {BASE}/production?p={slug}&tab=pages, then Make the pages (or run again with --to final).")
+        return
     out = Path(args.out).expanduser() / f"{slug}-packets.zip"
     out.write_bytes(api(f"/api/projects/{slug}/packet.zip", raw=True))
     say(f"done in {round((time.time() - t0) / 60)} min: {len(p['pages'])} page packets → {out}")
-    say(f"the book packet, the character and location sheets and the script are inside; draw from those")
+    say("the book packet, the sheets, the script and the source files are inside; draw from those")
 
 
 if __name__ == "__main__":

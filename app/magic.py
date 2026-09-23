@@ -8,10 +8,12 @@ takes the decisions itself:
     page1         execution on page 1 only, from the audition pages already in script.md
                   -> only when asked for (until="page1"): a cheap look at the book before the rest
     writing       the picked writer writes the whole book
+    layouts       one pass of the Layout Agent alone: the page maps and panel definitions
+                  -> the default stop: look at the pages before the long part
     execution     layouts, round after round, until the readiness gate passes; then the packets
     final         the book is finalized: the page packets are the deliverable
 
-"Produce" runs development to final without a stop. The page 1 proof is there for a
+"Produce" runs development to the layouts stop. "Make the pages" runs on to final. The page 1 proof is there for a
 showrunner who wants to see the look first; a chain running to final skips it, because the
 whole book's pages are made right after the writing anyway.
 
@@ -33,12 +35,12 @@ import time
 from . import notes as notes_mod, phases, projects, review, room
 from .agents import load_roles
 
-STEPS = ("development", "audition", "page1", "writing", "execution", "final")
+STEPS = ("development", "audition", "page1", "writing", "layouts", "execution", "final")
 PHASE_OF = {"development": "development", "audition": "audition", "page1": "execution",
-            "writing": "writing", "execution": "execution", "final": "execution"}
+            "writing": "writing", "layouts": "execution", "execution": "execution", "final": "execution"}
 TITLES = {"development": "Development", "audition": "Audition", "page1": "Page 1",
-          "writing": "Writing", "execution": "Pages", "final": "Final"}
-STOPS = {"page1": "page1", "final": "final"}    # a chain ends here and waits for the showrunner
+          "writing": "Writing", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
+STOPS = {"page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
 
 def max_execution_rounds(slug):
     """Rounds of pages before the book is taken as it is (the execution_rounds setting)."""
@@ -147,14 +149,20 @@ def _run(slug, step, until, note):
             if step == "page1" and until != "page1":
                 i += 1                  # no proof asked for: straight on to the writing
                 continue
-            note = {"development": _development, "audition": _audition, "page1": _page1,
-                    "writing": _writing, "execution": _execution, "final": _final}[step](slug, note)
+            if step == "layouts" and until != "layouts":
+                i += 1                  # not stopping there: the pages step lays out and fixes
+                continue
+            note = {"development": _development, "audition": _audition, "page1": _page1, "writing": _writing,
+                    "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
             if step == until:
                 break
             i += 1
         if until == "page1":
             _set(slug, status="page1", finished=projects.now())
             _log(slug, "Page 1 is ready. Have a look: is this about right?")
+        elif until == "layouts":
+            _set(slug, status="layouts", finished=projects.now())
+            _log(slug, "The layouts are drawn: every page's map and panels. Look them over, then Make the pages.")
         else:
             _set(slug, status="done", finished=projects.now())
             _log(slug, "The book is done. The page packets are ready to paste into an image model; "
@@ -167,11 +175,11 @@ def _run(slug, step, until, note):
         _log(slug, f"Failed at {TITLES.get(step, step).lower()}: {type(e).__name__}: {str(e)[:200]}")
 
 
-def _round(slug, phase_id, note=None, scope=0):
+def _round(slug, phase_id, note=None, scope=0, only=None):
     """One round of a phase, waited for. Returns the run; raises if it failed or was stopped."""
     phases.go_to(slug, phase_id)
     review.save_settings(slug, scope=scope)
-    run = room.start_round(slug, note)
+    run = room.start_round(slug, note, only=only)
     _set(slug, run=run.id, round=run.version.id)
     _log(slug, f"Round {run.version.id}: {phases.get(phase_id)['title'].lower()}, "
                f"{', '.join(r.title for r in run.roles)}.")
@@ -242,6 +250,13 @@ def _writing(slug, note):
     return None
 
 
+def _layouts(slug, note):
+    """The Layout Agent alone, once: no continuity, no fix passes. The quick look."""
+    review.save_settings(slug, scope=0)
+    _round(slug, "execution", note, only=["layout"])
+    return None
+
+
 def _execution(slug, note):
     """Layouts until the readiness gate passes, or the round budget is spent."""
     review.save_settings(slug, scope=0)
@@ -289,9 +304,12 @@ def plan(slug):
     for step in STEPS:
         phase = phases.get(PHASE_OF[step])
         ids = [st["writer"] or "writer_a" if a == phases.WRITER else a for a in phase["agents"]]
+        if step == "layouts":
+            ids = ["layout"]
         who = [roles[i] for i in ids if i in roles] if step != "final" else []   # finalizing is no round
         est = room.estimates(who)
         does = {"page1": "Lay out page 1 only, from the audition pages already in the script.",
+                "layouts": "One pass of the Layout Agent alone: every page's map and its panels, to look at before the long part.",
                 "final": "The book is finalized as the last round left it, and the page packets are ready to download."}.get(step, phase["does"])
         groups = [set(g) for g in phase.get("parallel") or []]
         seconds = 0                     # agents side by side count once, as the longest of them
@@ -303,6 +321,7 @@ def plan(slug):
                                 "parallel": any(r.id in g for g in groups)} for r in who],
                     "seconds": seconds, "stop": step in STOPS, "optional": step == "page1",
                     "note": {"page1": "Only if you ask to see page 1 first.",
+                             "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
     letterer = roles.get("letterer")
     if letterer:                    # not in the chain: after the art comes back

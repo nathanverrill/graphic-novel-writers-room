@@ -68,9 +68,13 @@ chat client or an editor can work on a book without the screen.
 
 ## Two screens
 
-**`/production` is Produce.** One button runs development to the packets and takes every gate
-itself (the First Reader's report picks the writer; the pages rerun until the readiness check
-passes, up to **Page rounds**). **Page 1 first** stops at a proof of page 1 instead. The
+**`/production` is Produce.** One button runs development to the **layouts** and takes every
+gate itself (the First Reader's report picks the writer). It stops with every page's map and its
+panels on the Pages tab, to look at before the long part. **Make the pages** then runs the fix
+rounds (the pages rerun until the readiness check passes, up to **Page rounds**) and ends with
+the packets. **Page 1 first** stops at a proof of page 1 instead. From the command line,
+`scripts/make_packets.py <slug>` does the same from the material with every default accepted
+(`--to final` for the packets zip). The
 **Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
 the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 

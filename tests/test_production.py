@@ -58,6 +58,17 @@ src = pathlib.Path("app/magic.py").read_text()
 assert 'if step == "page1" and until != "page1"' in src
 print("4. no page 1 stop on Produce; page rounds are a setting: ok")
 
+# 4b. the layouts stop: the Layout Agent alone, no fix passes
+assert magic.STOPS["layouts"] == "layouts" and "layouts" in magic.STEPS
+assert 'if step == "layouts" and until != "layouts"' in src
+run_l = room.Run(slug, phases.roles(slug, phases.get("execution")), None,
+                 {"kind": "execution", "max_passes": 0, "all": [], "parallel": []})
+run_l.version.update(status="done", finished=projects.now())
+only = [r.id for r in phases.roles(slug, phases.get("execution")) if r.id in ("layout",)]
+assert only == ["layout"]
+assert any(p["step"] == "layouts" and [a["id"] for a in p["agents"]] == ["layout"] for p in magic.plan(slug))
+print("4b. the layouts stop runs the Layout Agent alone: ok")
+
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})
 assert magic.close_stale(slug) is True and magic.state(slug)["status"] == "failed"
