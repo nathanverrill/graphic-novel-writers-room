@@ -238,3 +238,4 @@ campaigns/_morgue/prosperity-drafts/*.pdf
 sheets/characters/*
 !sheets/characters/.gitkeep
 sheets/backup/
+instances/

@@ -1,0 +1,28 @@
+# A second, independent instance on other ports, with its own copies of everything the
+# room writes. Nothing here touches the first instance's files.
+#
+#   docker compose -p writers-room-two -f docker-compose.yml -f docker-compose.second.yml up -d --build
+#   open http://localhost:8010
+#
+# Its data lives in instances/two/ (campaigns, agents, sheets, debug), copied from the
+# first instance when it was made; it drifts from there on its own. The secrets folder is
+# shared read-only: same keys, no writes. Its own SeaweedFS and OpenSearch volumes come
+# from the project name (-p), so its index and ledger are separate too.
+services:
+  app:
+    ports: !override ["127.0.0.1:8010:8000"]
+    volumes: !override
+      - ./instances/two/agents:/app/agents
+      - ./instances/two/campaigns:/app/campaigns
+      - ./instances/two/pricing.json:/app/pricing.json
+      - ./secrets:/app/secrets:ro
+      - ./instances/two/debug:/app/debug
+  seaweedfs:
+    ports: !override ["127.0.0.1:8343:8333"]
+  opensearch:
+    ports: !override ["127.0.0.1:9210:9200"]
+  sheets:
+    volumes: !override
+      - ./instances/two/sheets-characters:/app/sheets/characters
+      - ./instances/two/campaigns:/app/campaigns:ro
+      - ./secrets:/app/secrets:ro
