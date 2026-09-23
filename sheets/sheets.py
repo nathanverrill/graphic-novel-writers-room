@@ -162,10 +162,17 @@ def fake(model, prompt, parent, out_stem, key):
     return out
 
 
-def prompt_for(char, instruction):
+def prompt_for(char, instruction, notes=None, from_pick=False):
+    """A step's prompt. From the step's parent: make the change. From a pick of a previous roll
+    of the same step: the change is mostly there, fix what the notes say."""
+    if from_pick:
+        change = (f"This image is an attempt at: {instruction}. Keep it, and fix only this: "
+                  f"{notes or 'bring it closer to the description'}.")
+    else:
+        change = f"Change only this: {instruction}." + (f" Also: {notes}." if notes else "")
     return (f"Edit the reference image. Keep this exact character: {char.description} "
             + (f"Also: {char.notes} " if char.notes else "")
-            + f"Change only this: {instruction}. Same drawing style, same line and colour as the reference. "
+            + f"{change} Same drawing style, same line and colour as the reference. "
             f"One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
 
 
@@ -210,13 +217,13 @@ figcaption{{margin-top:.4rem;color:#bbb}}b{{color:#fff;font-size:1.3rem;margin-r
 
 # ---- the loop --------------------------------------------------------------------------------
 
-def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print):
+def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print, folder=None, prompt=None):
     """One step's candidates, from every model at once. Returns (folder, [(model, path)], [errors])."""
-    folder = char.dir / "runs" / f"{n:02d}-{step}"
+    folder = folder or char.dir / "runs" / f"{n:02d}-{step}"
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("cand-*"):
         old.unlink()
-    prompt = instruction if step.startswith("lock") else prompt_for(char, instruction)   # the lock brings its own
+    prompt = prompt or prompt_for(char, instruction)
     jobs = [(m, k) for m in models for k in range(1, each + 1)]
     cands, errors = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs)) as pool:
