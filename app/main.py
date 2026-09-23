@@ -358,6 +358,10 @@ def packet_zip(slug: str, version: str | None = None):
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         z.writestr(f"{slug}/00-book.md", book)
         z.writestr(f"{slug}/00-read-me-first.md", prompts.book_packet(slug, version))
+        for name in ("script.md", "layouts.md", "brief.md", "characters.md", "world.md"):   # the instructions behind the packets
+            text = projects.read_artifact(slug, name, version)
+            if text:
+                z.writestr(f"{slug}/source/{name}", text)
         for n in sorted(pages):
             z.writestr(f"{slug}/pages/p{n:02d}.md", pages[n])
             if n in sketches:
