@@ -153,7 +153,7 @@ BLANK_PNG = base64.b64decode(
 
 def fake(model, prompt, parent, out_stem, key):
     """--dry: the parent copied (or a blank), so the flow can be walked without spending."""
-    time.sleep(0.2)
+    time.sleep(float(os.getenv("SHEETS_DRY_SECONDS") or 0.2))
     out = out_stem.parent / (out_stem.name + (parent.suffix if parent is not None else ".png"))
     if parent is not None:
         shutil.copyfile(parent, out)

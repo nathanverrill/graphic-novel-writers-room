@@ -152,8 +152,12 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
                          "each": each, "started": _t.time(), "seconds": None, "batch": batch})
     save_stage(d, stage_id, st)
 
+    _stop.discard((name, stage_id))
+
     def landed(m, path, took):
         with _lock:
+            if (name, stage_id) in _stop:
+                return                      # stopped: late arrivals are left in the folder, unlisted
             st2 = stage_state(d, stage_id)
             st2["rounds"][-1]["candidates"].append({"model": m, "file": path.name, "seconds": took})
             save_stage(d, stage_id, st2)
@@ -164,6 +168,8 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
         try:
             _, cands, errors = core.make_candidates(char, n, title, instruction, parent, models, each, gen, key,
                                                     say=lambda m: None, folder=folder, prompt=prompt, on_candidate=landed)
+            if (name, stage_id) in _stop:
+                return
             st2 = stage_state(d, stage_id)
             have = {c["file"] for c in st2["rounds"][-1]["candidates"]}
             st2["rounds"][-1]["candidates"] += [{"model": m, "file": p.name} for m, p in cands if p.name not in have]
@@ -179,6 +185,20 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
 
 
 _batch = {}
+_stop = set()           # (character, stage) rolls the showrunner asked to stop
+
+
+def stop_roll(name, stage_id):
+    """Stop waiting on the rest of a roll: what has landed stays, the rest is let go."""
+    _stop.add((name, stage_id))
+    d = character(name)
+    st = stage_state(d, stage_id)
+    if st["rounds"] and st["rounds"][-1].get("seconds") is None:
+        import time as _t
+        st["rounds"][-1]["stopped"] = True
+        st["rounds"][-1]["seconds"] = round(_t.time() - st["rounds"][-1]["started"], 1)
+        save_stage(d, stage_id, st)
+    _running[(name, stage_id)] = {"status": "stopped", "errors": []}
 
 
 def fix_all(name, notes, models, each):
@@ -529,6 +549,14 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .batch{background:#1e293b;border:1px solid #3b82f6;border-radius:6px;padding:.5rem .8rem;margin-bottom:.6rem;font-size:.8rem}
 .working{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--go);animation:pulse 1.2s infinite;margin-right:.4rem}
 @keyframes pulse{50%{opacity:.2}}
+#view{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:50;display:grid;grid-template-rows:auto 1fr auto;grid-template-columns:3rem 1fr 3rem;color:var(--ink)}
+#view[hidden]{display:none}
+.v-top{grid-column:1/-1;display:flex;gap:1rem;align-items:center;padding:.5rem 1rem;font-size:.85rem}.v-top #v-title{font-weight:600}.v-top button{margin-left:auto}
+.v-img{display:grid;place-items:center;overflow:auto;padding:.5rem}.v-img img{max-width:100%;max-height:calc(100vh - 8rem);cursor:zoom-in;border-radius:4px}
+.v-img img.zoom{max-width:none;max-height:none;width:200%;cursor:zoom-out}
+.v-nav{font-size:2rem;background:transparent;border:0;color:var(--ink);cursor:pointer}.v-nav:disabled{opacity:.2}
+.v-bottom{grid-column:1/-1;display:flex;gap:1rem;align-items:center;justify-content:center;padding:.6rem 1rem;flex-wrap:wrap}
+.v-check{color:#fde68a;font-size:.8rem}
 dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;width:min(720px,92vw);max-height:80vh}
 dialog .sec{padding:.4rem .5rem;border-bottom:1px solid var(--line);cursor:pointer}dialog .sec:hover{background:var(--bg)}
 dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-height:4.5em;overflow:hidden}
@@ -541,14 +569,6 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
   <span class="hint" id="top-hint"></span></header>
 <main>
 <aside>
-  <div class="card captured"><h2>Captured</h2>
-    <div class="lock" id="lock-box"></div>
-    <div class="grid" id="kept-grid"></div>
-    <p class="hint" id="set-hint" style="margin:.5rem 0 0"></p></div>
-  <div class="card" id="fix-card"><h2>Fix everywhere</h2>
-    <p class="hint" style="margin:0 0 .4rem">Spotted something that carried through - a strap blurring into a hand, a wrong button? One note, and every kept image (the lock too) is rolled again from itself with it. Then you review each.</p>
-    <textarea id="fix-notes" rows="2" placeholder="'the shoulder strap must not touch the hand; the hand is fully clear of it'"></textarea>
-    <div class="row"><button class="go" id="fix-all">Fix everywhere</button><label class="hint">per model <input id="fix-each" type="number" min="1" max="3" value="1" style="width:3rem"></label><span class="hint" id="fix-said"></span></div></div>
   <div class="card"><details id="setup"><summary>Setup: description, notes, steps, models</summary>
     <h2 style="margin-top:.6rem">Description</h2>
     <textarea id="desc" rows="7" placeholder="The character's look, from characters.md - or paste your own."></textarea>
@@ -565,11 +585,30 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
     <div class="row"><button class="go" id="save">Save setup</button><span class="hint" id="said"></span></div>
     <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload a lock image instead</button></label></div>
   </details></div>
+  <div class="card captured"><h2>Captured</h2>
+    <div class="lock" id="lock-box"></div>
+    <div class="grid" id="kept-grid"></div>
+    <p class="hint" id="set-hint" style="margin:.5rem 0 0"></p></div>
+  <div class="card" id="fix-card"><details id="fix-box"><summary>Fix everywhere: one note, every kept image</summary>
+    <p class="hint" style="margin:.4rem 0">Spotted something that carried through - a strap blurring into a hand, a wrong button? One note, and every kept image (the lock too) is rolled again from itself with it. Then you review each.</p>
+    <textarea id="fix-notes" rows="2" placeholder="'the shoulder strap must not touch the hand; the hand is fully clear of it'"></textarea>
+    <div class="row"><button class="go" id="fix-all">Fix everywhere</button><label class="hint">per model <input id="fix-each" type="number" min="1" max="3" value="1" style="width:3rem"></label><span class="hint" id="fix-said"></span></div>
+  </details></div>
 </aside>
 <section>
   <div class="card"><div class="strip" id="strip"></div><div id="work"></div></div>
 </section>
 </main>
+<div id="view" hidden>
+  <div class="v-top"><span id="v-title"></span><span class="hint">← → to move · click the image or <b>Enter</b> to pick · Esc to close</span><button id="v-close">✕</button></div>
+  <button class="v-nav" id="v-prev">‹</button>
+  <div class="v-img"><img id="v-pic" alt=""></div>
+  <button class="v-nav" id="v-next">›</button>
+  <div class="v-bottom">
+    <span class="v-check">⚠ zoom in: hands and fingers · anything passing through anything · eyes · the costume as described · no text</span>
+    <button class="ok" id="v-pick">Pick this one</button>
+  </div>
+</div>
 <dialog id="md"><div class="row"><select id="md-file" style="flex:1"></select><button onclick="document.getElementById('md').close()">close</button></div>
   <p class="hint">Click a section to use it as the description.</p><div id="md-secs"></div></dialog>
 <script>
@@ -714,11 +753,11 @@ function drawStage() {
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.batch ? "fix everywhere" : r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.batch ? "fix everywhere" : r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.stopped ? ` · stopped at ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
         hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.
-        A candidate that is 90% right with a bad hand loses to one that is 80% right and clean.</div>` : ""}
+        <b>Double-click a candidate to see it large</b> and step through with ← →. A candidate that is 90% right with a bad hand loses to one that is 80% right and clean.</div>` : ""}
       ${r.candidates.length || (i === rounds.length - 1 && s.running) ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}${slots(r, i === rounds.length - 1 && s.running)}</div>` : ""}
     </div>`).join("")}
     ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick. Double-click a candidate to see it full size.</p>` : ""}
@@ -726,12 +765,13 @@ function drawStage() {
       ${modelChips()}
       <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
+        ${s.running ? `<button id="stop" title="keep what has landed, stop waiting for the rest">Stop waiting</button>` : ""}
         ${s.kept ? `<button class="go" id="fix" ${s.running || !on.size ? "disabled" : ""}>Fix the kept one</button><button id="over" ${s.running || !can || !on.size ? "disabled" : ""}>Start over</button>`
                  : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
-        <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"} title="Checked hands, fingers, eyes and overlaps at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
+        <button class="ok" id="keep" ${pick ? "" : "disabled"} title="Checked hands, fingers, eyes and overlaps at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
         ${s.review ? `<button id="dismiss" title="the fix made it worse: keep what was kept">Keep the old one</button>` : ""}
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
-        <span class="hint" id="roll-hint">${s.running ? "" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
+        <span class="hint" id="roll-hint">${s.running ? (pick ? "you can keep the pick now, or stop waiting and roll again from it" : "click one that is close enough as soon as it lands") : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
       </div></div>`;
   $("#models").onchange = (e) => {
     const m = e.target.dataset.m; if (!m) return;
@@ -740,6 +780,10 @@ function drawStage() {
     e.target.parentElement.classList.toggle("on", e.target.checked);
     for (const id of ["#roll", "#fix", "#over"]) { const b = $(id); if (b) b.disabled = s.running || !can || !on.size; }
   };
+  $("#stop")?.addEventListener("click", async () => {
+    try { await api(`/api/characters/${who}/stages/${current}/stop`, { method: "POST", body: {} }); lastDrawn = ""; await load(true); }
+    catch (err) { $("#top-hint").textContent = err.message; }
+  });
   $("#undo").onclick = async () => {
     try { await api(`/api/characters/${who}/stages/${current}/undo`, { method: "POST", body: {} }); lastDrawn = ""; await load(true); }
     catch (err) { $("#top-hint").textContent = err.message; }
@@ -764,6 +808,7 @@ function drawStage() {
   $("#keep").onclick = async () => {
     if (!confirm("Looked at it full size? Hands and fingers, nothing passing through anything, eyes, the costume as described. Keep it?")) return;
     try {
+      if (s.running) await api(`/api/characters/${who}/stages/${current}/stop`, { method: "POST", body: {} });
       await api(`/api/characters/${who}/stages/${current}/keep`, { method: "POST", body: {} });
       await load(true);
       const nxt = st.stages.find((x) => x.review) || st.stages.find((x) => x.n > s.n && !x.kept);
@@ -771,8 +816,41 @@ function drawStage() {
     } catch (err) { $("#top-hint").textContent = err.message; }
   };
 }
+/* ---- the overlay: one candidate large, arrows through the roll, pick from there ---- */
+const view = { list: [], i: 0 };
+function openView(round, file) {
+  const s = st.stages.find((x) => x.id === current);
+  view.list = (s.rounds || []).flatMap((r) => r.candidates.map((c) => ({ round: r.round, file: c.file, url: c.url, model: c.model, roll: r.round })));
+  view.i = Math.max(0, view.list.findIndex((c) => c.round === round && c.file === file));
+  $("#view").hidden = false; showView();
+}
+function showView() {
+  const c = view.list[view.i]; if (!c) return;
+  const s = st.stages.find((x) => x.id === current), isPick = s.pick && s.pick.round === c.round && s.pick.file === c.file;
+  $("#v-pic").src = c.url; $("#v-pic").classList.remove("zoom");
+  $("#v-title").textContent = `${view.i + 1} of ${view.list.length} · ${c.roll} · ${c.model}${isPick ? " · the pick" : ""}`;
+  $("#v-prev").disabled = view.i === 0; $("#v-next").disabled = view.i === view.list.length - 1;
+  $("#v-pick").textContent = isPick ? "This is the pick" : "Pick this one";
+}
+async function pickFromView() {
+  const c = view.list[view.i]; if (!c) return;
+  try { await api(`/api/characters/${who}/stages/${current}/pick`, { method: "POST", body: { round: c.round, file: c.file } }); await load(true); showView(); }
+  catch (err) { $("#top-hint").textContent = err.message; }
+}
+$("#v-close").onclick = () => { $("#view").hidden = true; };
+$("#v-prev").onclick = () => { if (view.i > 0) { view.i--; showView(); } };
+$("#v-next").onclick = () => { if (view.i < view.list.length - 1) { view.i++; showView(); } };
+$("#v-pick").onclick = pickFromView;
+$("#v-pic").onclick = (e) => e.target.classList.toggle("zoom");
+document.addEventListener("keydown", (e) => {
+  if ($("#view").hidden) return;
+  if (e.key === "Escape") $("#view").hidden = true;
+  else if (e.key === "ArrowLeft") $("#v-prev").click();
+  else if (e.key === "ArrowRight") $("#v-next").click();
+  else if (e.key === "Enter") pickFromView();
+});
 $("#work").addEventListener("dblclick", (e) => {
-  const fig = e.target.closest("figure[data-round]"); if (fig) window.open(fig.querySelector("img").src, "_blank");
+  const fig = e.target.closest("figure[data-round]"); if (fig) openView(fig.dataset.round, fig.dataset.file);
 });
 $("#work").addEventListener("click", async (e) => {
   const fig = e.target.closest("figure[data-round]"); if (!fig) return;
@@ -911,6 +989,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({"kept": keep(parts[3], parts[5])})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "undo":
                 self.send_json({"rounds": undo(parts[3], parts[5])})
+            elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "stop":
+                stop_roll(parts[3], parts[5]); self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "dismiss":
                 dismiss(parts[3], parts[5]); self.send_json({"ok": True})
             elif len(parts) == 5 and parts[4] == "fix-all":
