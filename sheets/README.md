@@ -11,10 +11,17 @@ docker compose up -d sheets        # http://localhost:8001
 
 Its own container, its own port. Pick the campaign, choose a character from its
 `characters.md` (production's copy, or intake's), and **Start this character**: the description
-is filled from the file. Add notes that go into every prompt ("always the burn scar"), upload
-the lock image, save, and **Run** each step. The candidates appear in the page; click the one
-to keep. What you keep lands in `sheets/characters/<name>/set/` on your disk. The campaigns
-folder is mounted read only; the OpenRouter key comes from the room's `secrets/keys.json`.
+is filled from the file. Add notes that go into every prompt ("always the burn scar").
+
+**Lock it first.** Roll: six candidates from three models, from the description alone (and the
+book's visual direction from `brief.md` when there is one). Click the closest, say what is off
+("hair shorter", "coveralls not a jacket"), roll again: the next round edits your pick with
+your note. Repeat until one is right, then **Lock this one**. Or upload a lock you made
+elsewhere. Every roll is kept under `runs/00-lock-rN/`.
+
+**Then the steps.** Run each one; the candidates appear in the page; click the one to keep.
+What you keep lands in `sheets/characters/<name>/set/` on your disk, with captions. The
+campaigns folder is mounted read only; the OpenRouter key comes from the room's `secrets/keys.json`.
 
 ## The command line
 

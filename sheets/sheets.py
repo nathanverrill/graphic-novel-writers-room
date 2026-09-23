@@ -84,7 +84,7 @@ def read_steps(path):
 
 
 class Character:
-    def __init__(self, folder, trigger=None):
+    def __init__(self, folder, trigger=None, need_lock=True):
         self.dir = Path(folder)
         self.name = self.dir.name
         if not self.dir.is_dir():
@@ -96,9 +96,9 @@ class Character:
         notes = self.dir / "notes.txt"
         self.notes = " ".join(notes.read_text().split()) if notes.exists() else ""
         locks = [p for p in self.dir.glob("lock.*") if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp")]
-        if not locks:
+        if not locks and need_lock:
             sys.exit(f"{self.dir}/lock.png is missing: the approved starting view")
-        self.lock = locks[0]
+        self.lock = locks[0] if locks else None
         steps = self.dir / "steps.txt"
         self.steps = read_steps(steps if steps.exists() else HERE / "steps.txt")
         self.trigger = trigger or f"{re.sub(r'[^a-z]', '', self.name.lower())[:6]}chr"
@@ -125,9 +125,11 @@ def data_url(path):
 
 
 def generate(model, prompt, parent, out_stem, key):
-    """One image from one model, given the parent image as a reference. Returns the path."""
-    payload = {"model": model, "prompt": prompt,
-               "input_references": [{"type": "image_url", "image_url": {"url": data_url(parent)}}]}
+    """One image from one model, given the parent image as a reference (or none, for the
+    first roll of a lock). Returns the path."""
+    payload = {"model": model, "prompt": prompt}
+    if parent is not None:
+        payload["input_references"] = [{"type": "image_url", "image_url": {"url": data_url(parent)}}]
     req = urllib.request.Request(f"{OPENROUTER}/images", data=json.dumps(payload).encode(),
                                  headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                                           "HTTP-Referer": "https://github.com/writers-room", "X-Title": "sheets"})
@@ -145,11 +147,18 @@ def generate(model, prompt, parent, out_stem, key):
     return out
 
 
+BLANK_PNG = base64.b64decode(
+    "iVBORw0KGgoAAAANSUhEUgAAAEAAAABgCAIAAABxbFPeAAAAJklEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAIC3AS5gAAFpm5W4AAAAAElFTkSuQmCC")
+
+
 def fake(model, prompt, parent, out_stem, key):
-    """--dry: the parent copied, so the flow can be walked without spending."""
+    """--dry: the parent copied (or a blank), so the flow can be walked without spending."""
     time.sleep(0.2)
-    out = out_stem.parent / (out_stem.name + parent.suffix)
-    shutil.copyfile(parent, out)
+    out = out_stem.parent / (out_stem.name + (parent.suffix if parent is not None else ".png"))
+    if parent is not None:
+        shutil.copyfile(parent, out)
+    else:
+        out.write_bytes(BLANK_PNG)
     return out
 
 
@@ -158,6 +167,23 @@ def prompt_for(char, instruction):
             + (f"Also: {char.notes} " if char.notes else "")
             + f"Change only this: {instruction}. Same drawing style, same line and colour as the reference. "
             f"One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
+
+
+def lock_prompt(char, style, notes=None, from_pick=False):
+    """The lock: the first roll from words alone; later rolls edit the closest pick with notes."""
+    view = ("Full-length front view, standing, neutral pose, arms at the sides, looking at the camera, "
+            "even daylight, plain light background.")
+    if from_pick:
+        return (f"Edit the reference image. Keep this exact character: {char.description} "
+                + (f"Also: {char.notes} " if char.notes else "")
+                + f"Change this and nothing else: {notes or 'bring it closer to the description'}. "
+                + f"{view} Same drawing style as the reference. One character, nobody else in frame. "
+                "No text, letters, labels or watermarks anywhere.")
+    return (f"Draw this character: {char.description} "
+            + (f"Also: {char.notes} " if char.notes else "")
+            + (f"Notes: {notes} " if notes else "")
+            + f"{view} Style: {style or 'clean comic line art with flat colour'}. "
+            "One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
 
 
 # ---- the contact sheet ----------------------------------------------------------------------
@@ -190,7 +216,7 @@ def make_candidates(char, n, step, instruction, parent, models, each, gen, key, 
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("cand-*"):
         old.unlink()
-    prompt = prompt_for(char, instruction)
+    prompt = instruction if step.startswith("lock") else prompt_for(char, instruction)   # the lock brings its own
     jobs = [(m, k) for m in models for k in range(1, each + 1)]
     cands, errors = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs)) as pool:
@@ -206,8 +232,8 @@ def make_candidates(char, n, step, instruction, parent, models, each, gen, key, 
                 say(f"     ✗ {m} #{k}: {str(e)[:160]}")
     cands.sort(key=lambda c: c[1].name)
     for m, p in cands:
-        char.log(step=step, model=m, prompt=prompt, parent=parent.name, candidate=p.name, picked=False)
-    (folder / "step.json").write_text(json.dumps({"step": step, "n": n, "instruction": instruction, "parent": parent.name,
+        char.log(step=step, model=m, prompt=prompt, parent=parent.name if parent else None, candidate=p.name, picked=False)
+    (folder / "step.json").write_text(json.dumps({"step": step, "n": n, "instruction": instruction, "parent": parent.name if parent else None,
                                                   "candidates": [{"model": m, "file": p.name} for m, p in cands],
                                                   "errors": errors}, indent=1))
     return folder, cands, errors

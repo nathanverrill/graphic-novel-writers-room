@@ -51,6 +51,84 @@ def load(name, need=True):
     return core.Character(d)
 
 
+def lock_state(d):
+    f = d / "lock-rounds.json"
+    return json.loads(f.read_text()) if f.exists() else {"rounds": [], "pick": None}
+
+
+def save_lock_state(d, st):
+    (d / "lock-rounds.json").write_text(json.dumps(st, indent=1))
+
+
+def style_text():
+    """The book's visual direction, if a brief is in reach: the first campaign's brief.md."""
+    for root in MD_ROOTS:
+        for b in sorted(root.glob("*/production/brief.md")) if root.is_dir() else []:
+            m = re.search(r"^#+\s*.*(visual|style|look).*\n(.*?)(?=^#|\Z)", b.read_text(), re.S | re.M | re.I)
+            if m:
+                return " ".join(m.group(2).split())[:600]
+    return None
+
+
+def lock_roll(name, notes, models, each):
+    """A round of lock candidates: from words alone the first time, then edits of the pick."""
+    d = character(name)
+    if not (d / "description.txt").exists():
+        raise ValueError("write the description first")
+    char = core.Character(d, need_lock=False)
+    st = lock_state(d)
+    pick = st.get("pick")
+    parent = (d / "runs" / pick["round"] / pick["file"]) if pick else None
+    if pick and not parent.exists():
+        parent = None
+    r = len(st["rounds"]) + 1
+    step = f"lock-r{r}"
+    prompt = core.lock_prompt(char, style_text(), notes, from_pick=parent is not None)
+    key = "" if DRY else core.api_key()
+    gen = core.fake if DRY else core.generate
+    with _lock:
+        if _running.get((name, "lock"), {}).get("status") == "running":
+            raise ValueError("a lock round is already running")
+        _running[(name, "lock")] = {"status": "running", "errors": []}
+    st["rounds"].append({"round": f"00-{step}", "notes": notes or "", "parent": parent.name if parent else None, "candidates": [], "errors": []})
+    save_lock_state(d, st)
+
+    def work():
+        try:
+            folder, cands, errors = core.make_candidates(char, 0, step, prompt, parent, models, each, gen, key, say=lambda m: None)
+            st2 = lock_state(d)
+            st2["rounds"][-1].update(candidates=[{"model": m, "file": p.name} for m, p in cands], errors=errors)
+            save_lock_state(d, st2)
+            _running[(name, "lock")] = {"status": "done" if cands else "failed", "errors": errors}
+        except Exception as e:      # noqa: BLE001
+            _running[(name, "lock")] = {"status": "failed", "errors": [str(e)[:300]]}
+    threading.Thread(target=work, daemon=True).start()
+
+
+def lock_pick(name, round_name, file):
+    d = character(name)
+    st = lock_state(d)
+    if not (d / "runs" / round_name / file).exists():
+        raise ValueError("no such candidate")
+    st["pick"] = {"round": round_name, "file": file}
+    save_lock_state(d, st)
+
+
+def lock_accept(name):
+    """The pick becomes lock.png: the starting view every step builds from."""
+    d = character(name)
+    st = lock_state(d)
+    if not st.get("pick"):
+        raise ValueError("pick the closest candidate first")
+    src = d / "runs" / st["pick"]["round"] / st["pick"]["file"]
+    for old in d.glob("lock.*"):
+        old.unlink()
+    dst = d / f"lock{src.suffix}"
+    dst.write_bytes(src.read_bytes())
+    core.Character(d).log(step="lock", model=None, parent=None, candidate=str(src.relative_to(d)), picked=True, kept=dst.name)
+    return dst.name
+
+
 def status(name):
     """Everything the page shows for one character."""
     d = character(name)
@@ -60,8 +138,14 @@ def status(name):
     steps_text = steps_file.read_text() if steps_file.exists() else (core.HERE / "steps.txt").read_text()
     lock = next((p.name for p in d.glob("lock.*")), None)
     char = load(name, need=False)
+    lk = lock_state(d)
+    live = _running.get((name, "lock"), {})
     out = {"name": name, "description": desc, "notes": notes, "steps_text": steps_text, "lock": lock, "ready": bool(char),
-           "trigger": char.trigger if char else None, "steps": [], "kept": []}
+           "trigger": char.trigger if char else None, "steps": [], "kept": [],
+           "lock_rounds": [dict(r, candidates=[dict(c, url=f"/files/{name}/runs/{r['round']}/{c['file']}") for c in r["candidates"]])
+                           for r in lk["rounds"]],
+           "lock_pick": lk.get("pick"), "lock_running": live.get("status") == "running",
+           "lock_errors": live.get("errors") or []}
     steps = core.read_steps(steps_file if steps_file.exists() else core.HERE / "steps.txt")
     for n, (step, instruction, parent) in enumerate(steps, 1):
         folder = d / "runs" / f"{n:02d}-{step}"
@@ -269,7 +353,8 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
     <p class="hint" style="margin:.3rem 0 0">Goes into every prompt after the description.</p></div>
   <div class="card lock"><h2>Lock: the approved starting view</h2>
     <div id="lock-img"></div>
-    <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload lock image</button></label></div></div>
+    <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload one instead</button></label>
+      <span class="hint">or build it on the right: roll, pick the closest, note what is off, roll again, lock.</span></div></div>
   <div class="card"><h2>Steps</h2>
     <textarea id="steps" class="mono" spellcheck="false"></textarea>
     <p class="hint" style="margin:.3rem 0 0">One per line: <code>name | what to change | parent</code>. Parent is a step name or <code>lock</code>; leave it out to build on the previous pick.</p></div>
@@ -278,7 +363,8 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
     <div class="row"><button class="go" id="save">Save</button><span class="hint" id="said"></span></div></div>
 </aside>
 <section>
-  <div class="card"><h2>Run</h2><div id="steps-view"></div></div>
+  <div class="card" id="lock-card"><h2>Lock it first</h2><div id="lock-view"></div></div>
+  <div class="card"><h2>Then the steps</h2><div id="steps-view"></div></div>
   <div class="card"><h2>The set so far</h2><div class="set" id="set"></div><p class="hint" id="set-hint"></p></div>
 </section>
 </main>
@@ -326,11 +412,47 @@ async function load() {
   if (!$("#models").value) $("#models").value = localStorage.getItem("sheets-models") || DEFAULT_MODELS;
   $("#lock-img").innerHTML = st.lock ? `<img src="/files/${who}/${esc(st.lock)}?t=${Date.now()}">` : `<p class="hint">No lock yet. Generate the front view elsewhere, approve it by eye, upload it here.</p>`;
   $("#top-hint").textContent = st.ready ? `trigger word: ${st.trigger}` : "needs a description and a lock image";
-  renderSteps(); renderSet();
-  const busy = st.steps.some((s) => s.running);
+  renderLock(); renderSteps(); renderSet();
+  const busy = st.steps.some((s) => s.running) || st.lock_running;
   if (busy && !poll) poll = setInterval(load, 2500);
   if (!busy && poll) { clearInterval(poll); poll = null; }
 }
+function renderLock() {
+  const rounds = st.lock_rounds || [], pick = st.lock_pick;
+  const last = rounds[rounds.length - 1];
+  const notesBox = `<textarea id="lock-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? 'hair shorter', 'coveralls not a jacket', 'older'." : "Anything for this first roll (optional)."}"></textarea>`;
+  $("#lock-view").innerHTML = `
+    ${st.lock ? `<p class="ok">Locked: ${esc(st.lock)}. Roll again to replace it, or go on to the steps.</p>` : ""}
+    ${rounds.map((r, i) => `<div class="step ${i === rounds.length - 1 ? "now" : ""}">
+      <div class="row" style="justify-content:space-between"><span><b>roll ${i + 1}</b> ${r.parent ? `<span class="hint">edited from ${esc(r.parent)}</span>` : `<span class="hint">from the description</span>`}${r.notes ? ` · ${esc(r.notes)}` : ""}</span>
+        ${i === rounds.length - 1 && st.lock_running ? `<span class="hint">working…</span>` : ""}</div>
+      ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
+      ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-lock-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "kept" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}</figcaption></figure>`).join("")}</div>` : ""}
+    </div>`).join("")}
+    ${st.lock_errors.length && !last ? `<div class="err">${st.lock_errors.map(esc).join("<br>")}</div>` : ""}
+    <div class="row">${notesBox}</div>
+    <div class="row">
+      <button class="go" id="lock-roll" ${st.lock_running || !st.description ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll the first candidates"}</button>
+      <button id="lock-accept" ${pick && !st.lock_running ? "" : "disabled"}>Lock this one →</button>
+      <span class="hint">${pick ? `closest so far: ${esc(pick.file)} (${esc(pick.round)})` : rounds.length ? "click the closest candidate" : "six candidates from three models, from the description alone"}</span>
+    </div>`;
+  $("#lock-roll").onclick = async () => {
+    try {
+      await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
+      await api(`/api/characters/${who}/lock/roll`, { method: "POST", body: { notes: $("#lock-notes").value, models: $("#models").value.split(",").map((m) => m.trim()).filter(Boolean), each: +$("#each").value || 2 } });
+      await load();
+    } catch (err) { $("#said").textContent = err.message; }
+  };
+  $("#lock-accept").onclick = async () => {
+    try { await api(`/api/characters/${who}/lock/accept`, { method: "POST", body: {} }); await load(); }
+    catch (err) { $("#said").textContent = err.message; }
+  };
+}
+$("#lock-view").addEventListener("click", async (e) => {
+  const fig = e.target.closest("figure[data-lock-round]"); if (!fig) return;
+  try { await api(`/api/characters/${who}/lock/pick`, { method: "POST", body: { round: fig.dataset.lockRound, file: fig.dataset.file } }); await load(); }
+  catch (err) { $("#said").textContent = err.message; }
+});
 function renderSteps() {
   const next = st.steps.find((s) => !s.kept);
   $("#steps-view").innerHTML = st.steps.map((s) => `
@@ -470,6 +592,14 @@ class Handler(BaseHTTPRequestHandler):
                     old.unlink()
                 (d / f"lock.{ext}").write_bytes(base64.b64decode(b64))
                 self.send_json({"ok": True})
+            elif len(parts) == 6 and parts[4] == "lock" and parts[5] == "roll":
+                lock_roll(parts[3], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2))
+                self.send_json({"ok": True})
+            elif len(parts) == 6 and parts[4] == "lock" and parts[5] == "pick":
+                lock_pick(parts[3], data.get("round", ""), data.get("file", ""))
+                self.send_json({"ok": True})
+            elif len(parts) == 6 and parts[4] == "lock" and parts[5] == "accept":
+                self.send_json({"lock": lock_accept(parts[3])})
             elif len(parts) == 7 and parts[4] == "steps" and parts[6] == "run":
                 run_in_thread(parts[3], parts[5], data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2))
                 self.send_json({"ok": True})
