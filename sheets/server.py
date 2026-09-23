@@ -269,9 +269,7 @@ def undo(name, stage_id):
 
 
 _catalog = {"t": 0, "models": []}
-GOOD = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro",
-        "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image",
-        "openai/gpt-image-1", "black-forest-labs/flux.2-max", "krea/krea-2-large", "microsoft/mai-image-2.6"]
+GOOD = list(core.DEFAULT_MODELS) + ["openai/gpt-image-1", "krea/krea-2-large", "microsoft/mai-image-2.6"]
 
 
 def typical_seconds():
@@ -622,7 +620,10 @@ function loadModels(d) {
   const saved = JSON.parse(localStorage.getItem("sheets-on") || "null");
   const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
   for (const m of extra) if (!catalog.includes(m)) catalog.push(m);
-  on = new Set((saved || d.default).filter((m) => catalog.includes(m)));
+  const stamp = JSON.stringify(d.default);
+  const fresh = localStorage.getItem("sheets-default") !== stamp;     // the defaults changed: take them
+  if (fresh) localStorage.setItem("sheets-default", stamp);
+  on = new Set((fresh ? d.default : (saved || d.default)).filter((m) => catalog.includes(m)));
   if (!on.size) on = new Set(d.default);
 }
 const chosen = () => catalog.filter((m) => on.has(m));

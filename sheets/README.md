@@ -47,6 +47,6 @@ with the trigger word). `lineage.jsonl` records every candidate, which model mad
 which parent, and which was kept - so after one character you know which model to trust for
 faces, poses and light.
 
-Defaults: `--models google/gemini-3.1-flash-image,openai/gpt-image-2,black-forest-labs/flux.2-pro`
+Defaults: nine models on OpenRouter that take a reference image (Gemini 3.1 Flash and 3 Pro Image, GPT Image 2, Flux 2 Pro and Max, Qwen Image 3, Seedream 5 Pro, Recraft v4.1 and v4.1 Pro)
 (all take a reference image on OpenRouter; `qwen/qwen-image-3` and `bytedance-seed/seedream-5-0-pro` are good fourth picks),
 `--each 2` (six candidates a step). `--dry` walks the flow with no model and no cost.

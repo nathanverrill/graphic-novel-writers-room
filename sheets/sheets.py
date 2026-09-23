@@ -44,7 +44,7 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OPENROUTER = "https://openrouter.ai/api/v1"
-DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro"]
+DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro", "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image", "black-forest-labs/flux.2-max", "recraft/recraft-v4.1", "recraft/recraft-v4.1-pro"]
 TIMEOUT = 300
 SECRETS = HERE.parent / "secrets" / "keys.json"     # where the room saves provider keys
 
