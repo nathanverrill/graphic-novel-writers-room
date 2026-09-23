@@ -217,8 +217,10 @@ figcaption{{margin-top:.4rem;color:#bbb}}b{{color:#fff;font-size:1.3rem;margin-r
 
 # ---- the loop --------------------------------------------------------------------------------
 
-def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print, folder=None, prompt=None):
-    """One step's candidates, from every model at once. Returns (folder, [(model, path)], [errors])."""
+def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print, folder=None, prompt=None,
+                    on_candidate=None):
+    """One step's candidates, from every model at once. Returns (folder, [(model, path)], [errors]).
+    on_candidate(model, path, seconds) is called as each one lands, so a page can show it."""
     folder = folder or char.dir / "runs" / f"{n:02d}-{step}"
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("cand-*"):
@@ -228,18 +230,23 @@ def make_candidates(char, n, step, instruction, parent, models, each, gen, key, 
     cands, errors = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs)) as pool:
         futs = {pool.submit(gen, m, prompt, parent, folder / f"cand-{re.sub(r'[^a-z0-9]+', '-', m.split('/')[-1].lower())}-{k}", key): (m, k) for m, k in jobs}
+        started = time.time()
         for fut in concurrent.futures.as_completed(futs):
             m, k = futs[fut]
+            took = round(time.time() - started, 1)
             try:
                 path = fut.result()
                 cands.append((m, path))
-                say(f"     ✓ {m} #{k}")
+                say(f"     ✓ {m} #{k} in {took:g}s")
+                char.log(step=step, model=m, prompt=prompt, parent=parent.name if parent else None, candidate=path.name,
+                         picked=False, seconds=took)
+                if on_candidate:
+                    on_candidate(m, path, took)
             except Exception as e:      # noqa: BLE001 - one model failing is not the step failing
                 errors.append(f"{m} #{k}: {str(e)[:300]}")
                 say(f"     ✗ {m} #{k}: {str(e)[:160]}")
+                char.log(step=step, model=m, error=str(e)[:200], seconds=took)
     cands.sort(key=lambda c: c[1].name)
-    for m, p in cands:
-        char.log(step=step, model=m, prompt=prompt, parent=parent.name if parent else None, candidate=p.name, picked=False)
     (folder / "step.json").write_text(json.dumps({"step": step, "n": n, "instruction": instruction, "parent": parent.name if parent else None,
                                                   "candidates": [{"model": m, "file": p.name} for m, p in cands],
                                                   "errors": errors}, indent=1))

@@ -146,16 +146,28 @@ def roll(name, stage_id, notes, models, each, base=None):
         if _running.get((name, stage_id), {}).get("status") == "running":
             raise ValueError("that stage is already rolling")
         _running[(name, stage_id)] = {"status": "running", "errors": []}
+    import time as _t
     st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "pick_before": st.get("pick"),
-                         "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models)})
+                         "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models),
+                         "each": each, "started": _t.time(), "seconds": None})
     save_stage(d, stage_id, st)
+
+    def landed(m, path, took):
+        with _lock:
+            st2 = stage_state(d, stage_id)
+            st2["rounds"][-1]["candidates"].append({"model": m, "file": path.name, "seconds": took})
+            save_stage(d, stage_id, st2)
+            with (d / "timings.jsonl").open("a") as f:
+                f.write(json.dumps({"model": m, "seconds": took}) + "\n")
 
     def work():
         try:
             _, cands, errors = core.make_candidates(char, n, title, instruction, parent, models, each, gen, key,
-                                                    say=lambda m: None, folder=folder, prompt=prompt)
+                                                    say=lambda m: None, folder=folder, prompt=prompt, on_candidate=landed)
             st2 = stage_state(d, stage_id)
-            st2["rounds"][-1].update(candidates=[{"model": m, "file": p.name} for m, p in cands], errors=errors)
+            have = {c["file"] for c in st2["rounds"][-1]["candidates"]}
+            st2["rounds"][-1]["candidates"] += [{"model": m, "file": p.name} for m, p in cands if p.name not in have]
+            st2["rounds"][-1].update(errors=errors, seconds=round(_t.time() - st2["rounds"][-1]["started"], 1))
             save_stage(d, stage_id, st2)
             _running[(name, stage_id)] = {"status": "done" if cands else "failed", "errors": errors}
         except Exception as e:      # noqa: BLE001
@@ -189,6 +201,19 @@ _catalog = {"t": 0, "models": []}
 GOOD = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro",
         "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image",
         "openai/gpt-image-1", "black-forest-labs/flux.2-max", "krea/krea-2-large", "microsoft/mai-image-2.6"]
+
+
+def typical_seconds():
+    """{model: median seconds} from every character's timings, for the estimate beside Roll."""
+    times = {}
+    for f in ROOT.glob("*/timings.jsonl"):
+        for line in f.read_text().splitlines():
+            try:
+                r = json.loads(line)
+                times.setdefault(r["model"], []).append(float(r["seconds"]))
+            except (ValueError, KeyError, TypeError):
+                continue
+    return {m: sorted(v)[len(v) // 2] for m, v in times.items() if v}
 
 
 def catalog():
@@ -414,7 +439,7 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .models{display:flex;gap:.3rem;flex-wrap:wrap;margin:.3rem 0 .5rem}
 .models label{font-size:.72rem;font-family:ui-monospace,monospace;padding:.15rem .5rem;border:1px solid var(--line);border-radius:12px;cursor:pointer;color:var(--muted)}
 .models label.on{border-color:var(--go);color:var(--ink);background:color-mix(in srgb,var(--go) 18%,var(--panel))}
-.models input{display:none}
+.models input{display:none}.models i{font-style:normal;opacity:.7;margin-left:.3rem}
 .roll .who button{font-size:.68rem;padding:.05rem .4rem;margin-left:.4rem}
 .working{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--go);animation:pulse 1.2s infinite;margin-right:.4rem}
 @keyframes pulse{50%{opacity:.2}}
@@ -462,9 +487,9 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DEFAULT_MODELS = %MODELS%;
 let who = null, st = null, poll = null, castData = null, current = null, lastDrawn = "", notesDraft = {};
-let catalog = [], on = new Set();
+let catalog = [], on = new Set(), typical = {};
 function loadModels(d) {
-  catalog = d.models;
+  catalog = d.models; typical = d.seconds || {};
   const saved = JSON.parse(localStorage.getItem("sheets-on") || "null");
   const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
   for (const m of extra) if (!catalog.includes(m)) catalog.push(m);
@@ -472,8 +497,14 @@ function loadModels(d) {
   if (!on.size) on = new Set(d.default);
 }
 const chosen = () => catalog.filter((m) => on.has(m));
+const secs = (n) => n == null ? "" : n >= 90 ? `${Math.round(n / 60)}m` : `${Math.round(n)}s`;
 function modelChips() {
-  return `<div class="models" id="models">${catalog.map((m) => `<label class="${on.has(m) ? "on" : ""}"><input type="checkbox" data-m="${esc(m)}" ${on.has(m) ? "checked" : ""}>${esc(m)}</label>`).join("")}</div>`;
+  return `<div class="models" id="models">${catalog.map((m) => `<label class="${on.has(m) ? "on" : ""}" title="${typical[m] ? `usually ${secs(typical[m])}` : "no timing yet"}"><input type="checkbox" data-m="${esc(m)}" ${on.has(m) ? "checked" : ""}>${esc(m)}${typical[m] ? ` <i>${secs(typical[m])}</i>` : ""}</label>`).join("")}</div>`;
+}
+/* a roll takes about as long as its slowest model (they run at once) */
+function estimate() {
+  const known = chosen().map((m) => typical[m]).filter(Boolean);
+  return known.length ? Math.max(...known) : null;
 }
 async function api(path, opts = {}) {
   const r = await fetch(path, { method: opts.method || "GET", headers: { "content-type": "application/json" }, body: opts.body ? JSON.stringify(opts.body) : undefined });
@@ -517,6 +548,10 @@ $("#make").onclick = async () => {
 $("#who").onchange = async () => { if ($("#who").value) { who = $("#who").value; current = null; lastDrawn = ""; await load(true); } };
 
 /* ---- load: redraw only when something changed, so nothing blinks ---- */
+setInterval(() => {
+  const now = Date.now() / 1000;
+  document.querySelectorAll(".elapsed[data-since]").forEach((el) => { const t = +el.dataset.since; if (t) el.textContent = `working ${secs(now - t)}`; });
+}, 1000);
 async function load(force) {
   if (!who) { $("#work").innerHTML = `<p class="hint">Choose a campaign and a character, then Start.</p>`; return; }
   st = await api(`/api/characters/${who}`);
@@ -528,7 +563,7 @@ async function load(force) {
   $("#top-hint").textContent = st.trigger ? `${who} · trigger word ${st.trigger}` : "";
   const busy = st.stages.some((s) => s.running);
   if (busy && !poll) poll = setInterval(load, 2500);
-  if (!busy && poll) { clearInterval(poll); poll = null; }
+  if (!busy && poll) { clearInterval(poll); poll = null; loadModels(await api("/api/models")); lastDrawn = ""; draw(); }
 }
 function draw() {
   if (!st.stages.length) { $("#work").innerHTML = `<p class="hint">Open Setup on the left and write the description first.</p>`; $("#strip").innerHTML = ""; return; }
@@ -568,9 +603,9 @@ function drawStage() {
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span>working…` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
-      ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}</figcaption></figure>`).join("")}</div>` : ""}
+      ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}</div>` : ""}
     </div>`).join("")}
     ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick.</p>` : ""}
     <div class="acts">
@@ -581,7 +616,7 @@ function drawStage() {
                  : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
         <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"}>${isLock ? "Lock this one" : "Keep this one"}</button>
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
-        <span class="hint">${s.running ? "working…" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : `${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}`}</span>
+        <span class="hint" id="roll-hint">${s.running ? "" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
       </div></div>`;
   $("#models").onchange = (e) => {
     const m = e.target.dataset.m; if (!m) return;
@@ -692,7 +727,7 @@ class Handler(BaseHTTPRequestHandler):
             elif url.path == "/api/md":
                 self.send_json(md_read(q["path"][0]) if "path" in q else {"files": md_files()})
             elif url.path == "/api/models":
-                self.send_json({"models": catalog(), "default": core.DEFAULT_MODELS})
+                self.send_json({"models": catalog(), "default": core.DEFAULT_MODELS, "seconds": typical_seconds()})
             elif url.path == "/api/campaigns":
                 self.send_json({"campaigns": campaigns()})
             elif url.path.startswith("/api/campaigns/"):
