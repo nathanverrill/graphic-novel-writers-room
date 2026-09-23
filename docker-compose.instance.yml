@@ -1,0 +1,28 @@
+# Another independent instance of the room on another port, with its own copies of
+# everything the room writes. Nothing it does touches the first instance's files.
+#
+#   INSTANCE=two PORT=8010 docker compose -p writers-room-two \
+#       -f docker-compose.yml -f docker-compose.instance.yml up -d --build
+#
+# Its data lives in instances/<INSTANCE>/ (campaigns, agents, pricing.json, sheets-characters,
+# debug). Make that folder first, copied from the first instance or empty. The secrets folder
+# is shared read-only: same keys, no writes. Its SeaweedFS and OpenSearch volumes come from
+# the project name (-p), so its index and ledger are its own; their ports are not published.
+services:
+  app:
+    ports: !override ["127.0.0.1:${PORT:-8010}:8000"]
+    volumes: !override
+      - ./instances/${INSTANCE:-two}/agents:/app/agents
+      - ./instances/${INSTANCE:-two}/campaigns:/app/campaigns
+      - ./instances/${INSTANCE:-two}/pricing.json:/app/pricing.json
+      - ./secrets:/app/secrets:ro
+      - ./instances/${INSTANCE:-two}/debug:/app/debug
+  seaweedfs:
+    ports: !override []
+  opensearch:
+    ports: !override []
+  sheets:
+    volumes: !override
+      - ./instances/${INSTANCE:-two}/sheets-characters:/app/sheets/characters
+      - ./instances/${INSTANCE:-two}/campaigns:/app/campaigns:ro
+      - ./secrets:/app/secrets:ro
