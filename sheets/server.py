@@ -435,6 +435,11 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .check b{color:#fff;font-size:.86rem;letter-spacing:.02em}
 .cands figure.pick::before{content:"looked closely? hands · fingers · eyes · overlaps";position:absolute;left:.3rem;right:.3rem;bottom:.3rem;font-size:.62rem;text-align:center;padding:.2rem;background:rgba(180,83,9,.9);color:#fff;border-radius:3px}
 .cands figure{position:relative}
+.cands figure.waiting{cursor:default;border-color:transparent;background:#1a1a1a}
+.cands figure.waiting:hover{border-color:transparent}
+.cands .slot{aspect-ratio:2/3;border-radius:3px;background:linear-gradient(110deg,#1e1e1e 30%,#262626 50%,#1e1e1e 70%);background-size:200% 100%;animation:shimmer 1.6s linear infinite;display:grid;place-items:center;color:var(--muted);font-size:.7rem}
+@keyframes shimmer{to{background-position:-200% 0}}
+.cands figure.failed .slot{animation:none;background:#2a1717;color:var(--bad)}
 .cands{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin-top:.5rem}
 .cands figure{margin:0;background:var(--bg);padding:.3rem;border-radius:4px;cursor:pointer;border:2px solid transparent}
 .cands figure:hover{border-color:var(--go)}.cands figure.pick{border-color:var(--ok)}
@@ -590,6 +595,16 @@ function drawStrip() {
   $("#strip").innerHTML = st.stages.map((s) => `<button data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.id === current ? "now" : ""}">${s.n === 0 ? "lock" : String(s.n).padStart(2, "0")}${s.running ? " …" : ""}</button>`).join("");
 }
 $("#strip").onclick = (e) => { const b = e.target.closest("button[data-go]"); if (b) { current = b.dataset.go; lastDrawn = ""; draw(); } };
+/* one dark card per candidate still to come, labelled with its model; failures in red */
+function slots(r, running) {
+  const expected = (r.models || []).flatMap((m) => Array.from({ length: r.each || 1 }, () => m));
+  const back = r.candidates.map((c) => c.model);
+  for (const m of back) { const i = expected.indexOf(m); if (i >= 0) expected.splice(i, 1); }
+  const failed = (r.errors || []).map((e) => e.split(" #")[0]);
+  for (const m of failed) { const i = expected.indexOf(m); if (i >= 0) expected.splice(i, 1); }
+  return (running ? expected.map((m) => `<figure class="waiting"><div class="slot">waiting on<br>${esc(m.split("/").pop())}</div><figcaption>${esc(m)}${typical[m] ? ` · usually ${secs(typical[m])}` : ""}</figcaption></figure>`).join("") : "")
+    + failed.map((m) => `<figure class="waiting failed"><div class="slot">failed</div><figcaption>${esc(m)}</figcaption></figure>`).join("");
+}
 function drawStage() {
   const s = st.stages.find((x) => x.id === current);
   const isLock = s.n === 0, rounds = s.rounds || [], pick = s.pick;
@@ -612,7 +627,7 @@ function drawStage() {
       ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
         hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.
         A candidate that is 90% right with a bad hand loses to one that is 80% right and clean.</div>` : ""}
-      ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}</div>` : ""}
+      ${r.candidates.length || (i === rounds.length - 1 && s.running) ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}${slots(r, i === rounds.length - 1 && s.running)}</div>` : ""}
     </div>`).join("")}
     ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick. Double-click a candidate to see it full size.</p>` : ""}
     <div class="acts">
