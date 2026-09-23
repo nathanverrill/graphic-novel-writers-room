@@ -111,7 +111,7 @@ def parent_for(char, stage_id, n, parent_name):
     return parent, False
 
 
-def roll(name, stage_id, notes, models, each, base=None):
+def roll(name, stage_id, notes, models, each, base=None, batch=False):
     d = character(name)
     if not (d / "description.txt").exists():
         raise ValueError("write the description first")
@@ -149,7 +149,7 @@ def roll(name, stage_id, notes, models, each, base=None):
     import time as _t
     st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "pick_before": st.get("pick"),
                          "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models),
-                         "each": each, "started": _t.time(), "seconds": None})
+                         "each": each, "started": _t.time(), "seconds": None, "batch": batch})
     save_stage(d, stage_id, st)
 
     def landed(m, path, took):
@@ -176,6 +176,57 @@ def roll(name, stage_id, notes, models, each, base=None):
             save_stage(d, stage_id, st2)
             _running[(name, stage_id)] = {"status": "failed", "errors": [str(e)[:300]]}
     threading.Thread(target=work, daemon=True).start()
+
+
+_batch = {}
+
+
+def fix_all(name, notes, models, each):
+    """One note, every kept stage: each is rolled again from what was kept, with the note,
+    one stage after another (its candidates still in parallel). You then review each."""
+    if not notes:
+        raise ValueError("say what to fix")
+    d = character(name)
+    char = core.Character(d, need_lock=False)
+    todo = [(sid, title) for sid, n, title, _, _ in stages(char) if kept_for(char, sid, title)]
+    if not todo:
+        raise ValueError("nothing kept yet")
+    if _batch.get(name, {}).get("status") == "running":
+        raise ValueError("a fix is already running")
+    _batch[name] = {"status": "running", "done": 0, "total": len(todo), "current": None, "notes": notes}
+
+    def work():
+        import time as _t
+        for sid, title in todo:
+            _batch[name]["current"] = sid
+            try:
+                roll(name, sid, notes, models, each, base="kept", batch=True)
+                while _running.get((name, sid), {}).get("status") == "running":
+                    _t.sleep(1)
+            except ValueError:
+                pass
+            _batch[name]["done"] += 1
+        _batch[name].update(status="done", current=None)
+    threading.Thread(target=work, daemon=True).start()
+
+
+def set_zip(name):
+    """The finished set: every kept image with its caption, and the lock, ready to train on."""
+    import io, zipfile
+    d = character(name)
+    char = core.Character(d, need_lock=False)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        if char.lock:
+            z.write(char.lock, f"{name}/00-lock{char.lock.suffix}")
+            z.writestr(f"{name}/00-lock.txt", f"{char.trigger}, full-length front view, neutral pose, plain background\n")
+        for p in sorted((d / "set").iterdir()) if (d / "set").is_dir() else []:
+            z.write(p, f"{name}/{p.name}")
+        z.writestr(f"{name}/README.txt", f"Training set for {name}. Trigger word: {char.trigger}.\n"
+                   "Each image has a .txt caption beside it. Train a character LoRA on this folder;\n"
+                   "use the trigger word in every prompt afterwards.\n")
+    buf.seek(0)
+    return buf.read()
 
 
 def undo(name, stage_id):
@@ -237,6 +288,15 @@ def catalog():
     return models
 
 
+def dismiss(name, stage_id):
+    """The batch roll for this stage was no better: keep what was kept, drop the review flag."""
+    d = character(name)
+    st = stage_state(d, stage_id)
+    if st["rounds"] and st["rounds"][-1].get("batch"):
+        st["rounds"][-1]["kept_from"] = True
+        save_stage(d, stage_id, st)
+
+
 def pick(name, stage_id, round_name, file):
     d = character(name)
     if not (d / "runs" / stage_id / round_name / file).exists():
@@ -254,6 +314,9 @@ def keep(name, stage_id):
     if not st.get("pick"):
         raise ValueError("pick the closest candidate first")
     src = d / "runs" / stage_id / st["pick"]["round"] / st["pick"]["file"]
+    for r in st["rounds"]:
+        r["kept_from"] = r["round"] == st["pick"]["round"]
+    save_stage(d, stage_id, st)
     if stage_id == "00-lock":
         for old in d.glob("lock.*"):
             old.unlink()
@@ -288,13 +351,20 @@ def status(name):
         kept = kept_for(char, sid, title)
         rounds = [dict(r, candidates=[dict(c, url=f"/files/{name}/runs/{sid}/{r['round']}/{c['file']}") for c in r["candidates"]])
                   for r in st["rounds"]]
+        last = st["rounds"][-1] if st["rounds"] else None
+        review = bool(last and last.get("batch") and last.get("candidates") and not (st.get("pick") or {}).get("round") == last["round"]
+                      and not (kept and last.get("kept_from")))
         out["stages"].append({"id": sid, "n": n, "title": title, "instruction": instruction, "parent": parent_name,
                               "kept": f"/files/{name}/{kept.relative_to(d)}?v={int(kept.stat().st_mtime)}" if kept else None,
-                              "rounds": rounds, "pick": st.get("pick"), "running": live.get("status") == "running"})
+                              "rounds": rounds, "pick": st.get("pick"), "running": live.get("status") == "running",
+                              "review": review})
     for p in sorted((d / "set").iterdir()) if (d / "set").is_dir() else []:
         if p.suffix != ".txt":
             cap = p.with_suffix(".txt")
             out["set"].append({"file": p.name, "url": f"/files/{name}/set/{p.name}", "caption": cap.read_text().strip() if cap.exists() else ""})
+    b = _batch.get(name)
+    out["batch"] = b and {k: b[k] for k in ("status", "done", "total", "current", "notes")}
+    out["done"] = bool(out["stages"]) and all(x["kept"] for x in out["stages"]) and not any(x["review"] or x["running"] for x in out["stages"])
     return out
 
 
@@ -450,6 +520,13 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .models label.on{border-color:var(--go);color:var(--ink);background:color-mix(in srgb,var(--go) 18%,var(--panel))}
 .models input{display:none}.models i{font-style:normal;opacity:.7;margin-left:.3rem}
 .roll .who button{font-size:.68rem;padding:.05rem .4rem;margin-left:.4rem}
+.done{background:#052e16;border:1px solid var(--ok);border-radius:6px;padding:.8rem 1rem;margin-bottom:.8rem}
+.done h3{margin:0 0 .3rem;color:var(--ok)}.done a.go{display:inline-block;text-decoration:none;color:#fff;margin-top:.4rem}
+.sheet{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.5rem;margin-top:.6rem}
+.sheet figure{margin:0;background:var(--bg);padding:.3rem;border-radius:4px}.sheet img{width:100%;border-radius:3px;display:block}
+.sheet figcaption{font-size:.64rem;color:var(--muted);margin-top:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.strip button.review{border-color:#f59e0b;color:#fde68a}.grid figure.review img{border-color:#f59e0b}
+.batch{background:#1e293b;border:1px solid #3b82f6;border-radius:6px;padding:.5rem .8rem;margin-bottom:.6rem;font-size:.8rem}
 .working{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--go);animation:pulse 1.2s infinite;margin-right:.4rem}
 @keyframes pulse{50%{opacity:.2}}
 dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;width:min(720px,92vw);max-height:80vh}
@@ -468,6 +545,10 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
     <div class="lock" id="lock-box"></div>
     <div class="grid" id="kept-grid"></div>
     <p class="hint" id="set-hint" style="margin:.5rem 0 0"></p></div>
+  <div class="card" id="fix-card"><h2>Fix everywhere</h2>
+    <p class="hint" style="margin:0 0 .4rem">Spotted something that carried through - a strap blurring into a hand, a wrong button? One note, and every kept image (the lock too) is rolled again from itself with it. Then you review each.</p>
+    <textarea id="fix-notes" rows="2" placeholder="'the shoulder strap must not touch the hand; the hand is fully clear of it'"></textarea>
+    <div class="row"><button class="go" id="fix-all">Fix everywhere</button><label class="hint">per model <input id="fix-each" type="number" min="1" max="3" value="1" style="width:3rem"></label><span class="hint" id="fix-said"></span></div></div>
   <div class="card"><details id="setup"><summary>Setup: description, notes, steps, models</summary>
     <h2 style="margin-top:.6rem">Description</h2>
     <textarea id="desc" rows="7" placeholder="The character's look, from characters.md - or paste your own."></textarea>
@@ -564,13 +645,13 @@ setInterval(() => {
 async function load(force) {
   if (!who) { $("#work").innerHTML = `<p class="hint">Choose a campaign and a character, then Start.</p>`; return; }
   st = await api(`/api/characters/${who}`);
-  const key = JSON.stringify([st.stages, st.set, st.lock, st.lock_v, current]);
+  const key = JSON.stringify([st.stages, st.set, st.lock, st.lock_v, current, st.batch, st.done]);
   if (force || key !== lastDrawn) { lastDrawn = key; draw(); }
   if (force) {
     $("#desc").value = st.description; $("#notes").value = st.notes || ""; $("#steps").value = st.steps_text;
   }
   $("#top-hint").textContent = st.trigger ? `${who} · trigger word ${st.trigger}` : "";
-  const busy = st.stages.some((s) => s.running);
+  const busy = st.stages.some((s) => s.running) || st.batch?.status === "running";
   if (busy && !poll) poll = setInterval(load, 2500);
   if (!busy && poll) { clearInterval(poll); poll = null; loadModels(await api("/api/models")); lastDrawn = ""; draw(); }
 }
@@ -578,12 +659,15 @@ function draw() {
   if (!st.stages.length) { $("#work").innerHTML = `<p class="hint">Open Setup on the left and write the description first.</p>`; $("#strip").innerHTML = ""; return; }
   if (!current || !st.stages.find((s) => s.id === current)) current = (st.stages.find((s) => !s.kept) || st.stages[st.stages.length - 1]).id;
   drawCaptured(); drawStrip(); drawStage();
+  const fixing = st.batch?.status === "running";
+  $("#fix-all").disabled = fixing || !st.stages.some((s) => s.kept);
+  $("#fix-said").textContent = fixing ? `fixing ${st.batch.done + 1} of ${st.batch.total}: ${st.batch.current}` : st.batch?.status === "done" ? `rolled ${st.batch.total} stages with “${st.batch.notes}” - review each (amber)` : "";
 }
 /* ---- left: what is captured ---- */
 function drawCaptured() {
   const lock = st.stages[0];
   $("#lock-box").innerHTML = lock.kept ? `<img src="${lock.kept}" title="the lock">` : `<div class="empty">no lock yet - roll it on the right</div>`;
-  $("#kept-grid").innerHTML = st.stages.slice(1).map((s) => `<figure data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.id === current ? "now" : ""}">
+  $("#kept-grid").innerHTML = st.stages.slice(1).map((s) => `<figure data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.review ? "review" : ""} ${s.id === current ? "now" : ""}">
     ${s.kept ? `<img src="${s.kept}">` : `<div class="todo">${s.n}</div>`}<figcaption title="${esc(s.title)}">${esc(s.title)}</figcaption></figure>`).join("");
   const done = st.stages.slice(1).filter((s) => s.kept).length;
   $("#set-hint").textContent = `${done} of ${st.stages.length - 1} steps kept${done ? ` · sheets/characters/${who}/set/` : ""}. Click any tile to open it, or redo it.`;
@@ -592,7 +676,7 @@ $("#kept-grid").onclick = (e) => { const f = e.target.closest("figure[data-go]")
 $("#lock-box").onclick = () => { current = "00-lock"; lastDrawn = ""; draw(); };
 /* ---- right: the workspace ---- */
 function drawStrip() {
-  $("#strip").innerHTML = st.stages.map((s) => `<button data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.id === current ? "now" : ""}">${s.n === 0 ? "lock" : String(s.n).padStart(2, "0")}${s.running ? " …" : ""}</button>`).join("");
+  $("#strip").innerHTML = st.stages.map((s) => `<button data-go="${esc(s.id)}" class="${s.kept ? "kept" : ""} ${s.review ? "review" : ""} ${s.id === current ? "now" : ""}">${s.n === 0 ? "lock" : String(s.n).padStart(2, "0")}${s.running ? " …" : s.review ? " !" : ""}</button>`).join("");
 }
 $("#strip").onclick = (e) => { const b = e.target.closest("button[data-go]"); if (b) { current = b.dataset.go; lastDrawn = ""; draw(); } };
 /* one dark card per candidate still to come, labelled with its model; failures in red */
@@ -612,7 +696,15 @@ function drawStage() {
   const prev = st.stages.find((x) => x.id === current) && st.stages[st.stages.indexOf(s) - 1];
   const parentImg = isLock ? null : (s.parent ? st.stages.find((x) => x.title === s.parent)?.kept : (st.stages.slice(0, st.stages.indexOf(s)).reverse().find((x) => x.kept)?.kept));
   const can = isLock || parentImg;
-  $("#work").innerHTML = `
+  const reviews = st.stages.filter((x) => x.review);
+  const nextReview = reviews.find((x) => x.id !== current) || null;
+  const doneBanner = st.done ? `<div class="done"><h3>✓ ${esc(who)} is done: the lock and ${st.stages.length - 1} steps, every one kept.</h3>
+      <div class="hint">This is the character sheet. Download it and train the LoRA on the folder: each image has its caption, trigger word <b>${esc(st.trigger)}</b>. Spot something later? Fix everywhere on the left, or click any tile to redo one.</div>
+      <a class="go" href="/api/characters/${who}/set.zip">Download the training set (.zip)</a>
+      <div class="sheet">${st.stages.map((x) => `<figure><img src="${x.kept}"><figcaption>${esc(x.n === 0 ? "lock" : x.title)}</figcaption></figure>`).join("")}</div></div>` : "";
+  const batchBanner = st.batch?.status === "running" ? `<div class="batch"><span class="working"></span>Fixing everywhere with “${esc(st.batch.notes)}”: ${st.batch.done} of ${st.batch.total} rolled, now ${esc(st.batch.current || "")}. Review the amber ones as they land.</div>`
+    : reviews.length ? `<div class="batch">${reviews.length} stage${reviews.length > 1 ? "s" : ""} to review after the fix: ${s.review ? "this one first - " : ""}${nextReview ? `<a href="#" id="go-review">${esc(nextReview.n === 0 ? "lock" : nextReview.title)}</a>` : ""}. On each: keep the fixed one, or <b>Keep the old one</b> if the fix made it worse.</div>` : "";
+  $("#work").innerHTML = doneBanner + batchBanner + `
     <div class="stage-head">
       ${parentImg ? `<img src="${parentImg}" title="builds on this">` : s.kept && isLock ? `<img src="${s.kept}" title="the lock">` : ""}
       <div><h3><b>${isLock ? "lock" : String(s.n).padStart(2, "0")}</b>${esc(isLock ? "The lock" : s.title)}</h3>
@@ -622,7 +714,7 @@ function drawStage() {
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.batch ? "fix everywhere" : r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
         hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.
@@ -637,6 +729,7 @@ function drawStage() {
         ${s.kept ? `<button class="go" id="fix" ${s.running || !on.size ? "disabled" : ""}>Fix the kept one</button><button id="over" ${s.running || !can || !on.size ? "disabled" : ""}>Start over</button>`
                  : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
         <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"} title="Checked hands, fingers, eyes and overlaps at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
+        ${s.review ? `<button id="dismiss" title="the fix made it worse: keep what was kept">Keep the old one</button>` : ""}
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
         <span class="hint" id="roll-hint">${s.running ? "" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
       </div></div>`;
@@ -653,6 +746,11 @@ function drawStage() {
   };
   $("#stage-notes").oninput = (e) => { notesDraft[current] = e.target.value; };
   $("#go-next")?.addEventListener("click", (e) => { e.preventDefault(); current = next.id; lastDrawn = ""; draw(); });
+  $("#go-review")?.addEventListener("click", (e) => { e.preventDefault(); current = nextReview.id; lastDrawn = ""; draw(); });
+  $("#dismiss")?.addEventListener("click", async () => {
+    try { await api(`/api/characters/${who}/stages/${current}/dismiss`, { method: "POST", body: {} }); await load(true); const r = st.stages.find((x) => x.review); if (r) { current = r.id; lastDrawn = ""; draw(); } }
+    catch (err) { $("#top-hint").textContent = err.message; }
+  });
   const rollWith = (base) => async () => {
     try {
       await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
@@ -667,8 +765,8 @@ function drawStage() {
     if (!confirm("Looked at it full size? Hands and fingers, nothing passing through anything, eyes, the costume as described. Keep it?")) return;
     try {
       await api(`/api/characters/${who}/stages/${current}/keep`, { method: "POST", body: {} });
-      const nxt = st.stages.find((x) => x.n > s.n && !x.kept);
       await load(true);
+      const nxt = st.stages.find((x) => x.review) || st.stages.find((x) => x.n > s.n && !x.kept);
       if (nxt) { current = nxt.id; lastDrawn = ""; draw(); }
     } catch (err) { $("#top-hint").textContent = err.message; }
   };
@@ -682,6 +780,12 @@ $("#work").addEventListener("click", async (e) => {
   catch (err) { $("#top-hint").textContent = err.message; }
 });
 /* ---- setup ---- */
+$("#fix-all").onclick = async () => {
+  const notes = $("#fix-notes").value.trim(); if (!notes) { $("#fix-said").textContent = "say what to fix"; return; }
+  if (!confirm(`Roll the lock and every kept step again from itself with: “${notes}”? ${chosen().length} model(s) × ${+$("#fix-each").value || 1} each, one stage at a time.`)) return;
+  try { await api(`/api/characters/${who}/fix-all`, { method: "POST", body: { notes, models: chosen(), each: +$("#fix-each").value || 1 } }); $("#fix-notes").value = ""; lastDrawn = ""; await load(true); }
+  catch (err) { $("#fix-said").textContent = err.message; }
+};
 $("#model-add-go").onclick = () => {
   const m = $("#model-add").value.trim(); if (!m) return;
   const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
@@ -748,6 +852,12 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_header("Content-Length", str(len(page))); self.end_headers(); self.wfile.write(page)
             elif url.path == "/api/characters":
                 self.send_json({"characters": sorted(p.name for p in ROOT.iterdir() if p.is_dir() and re.fullmatch(r"[a-z0-9][a-z0-9_-]*", p.name))})
+            elif url.path.startswith("/api/characters/") and url.path.endswith("/set.zip"):
+                name = url.path.split("/")[3]
+                data = set_zip(name)
+                self.send_response(200); self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Disposition", f'attachment; filename="{name}-training-set.zip"')
+                self.send_header("Content-Length", str(len(data))); self.end_headers(); self.wfile.write(data)
             elif url.path.startswith("/api/characters/"):
                 self.send_json(status(url.path.split("/")[3]))
             elif url.path == "/api/md":
@@ -801,6 +911,11 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({"kept": keep(parts[3], parts[5])})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "undo":
                 self.send_json({"rounds": undo(parts[3], parts[5])})
+            elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "dismiss":
+                dismiss(parts[3], parts[5]); self.send_json({"ok": True})
+            elif len(parts) == 5 and parts[4] == "fix-all":
+                fix_all(parts[3], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 1))
+                self.send_json({"ok": True})
             else:
                 self.send_json({"error": "not found"}, 404)
         except FileNotFoundError as e:
