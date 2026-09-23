@@ -127,6 +127,8 @@ def chat(cfg, messages, tools=None, log=None, max_tokens=None):
                 raise LLMError(failed.get("code") or 502, json.dumps(failed))
             time.sleep(20 if failed.get("code") == 429 else 5)      # rate limit, upstream timeout: wait and retry
         except LLMError as e:
+            if e.status == 0 and "no complete reply" in str(e) and attempt == 0:
+                continue                    # one more try after a wall-clock timeout: the provider may have stalled
             fix = _relax(body, e.body) if e.status == 400 and attempt < 2 else None
             if not fix:
                 raise
