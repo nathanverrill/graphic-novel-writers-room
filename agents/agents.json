@@ -119,13 +119,12 @@
   {
     "id": "layout",
     "title": "Layout Agent",
-    "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it.",
+    "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it. Your layout block is the source of the page packet and of the lettering, so every word on the page is in it, with a place kept clear for it.",
     "reads": [
       "brief.md",
       "characters.md",
       "world.md",
       "script.md",
-      "lettering.md",
       "notes.md",
       "taste-writers.md"
     ],
@@ -136,7 +135,7 @@
   {
     "id": "letterer",
     "title": "Letterer",
-    "mission": "You check the lettering the layouts carry: balloon order and placement per panel, caption styles, SFX treatment, and you flag any panel with too many words.",
+    "mission": "You letter the book last, over art drawn without any text. You check every balloon, caption and sound effect the layouts carry against the real page: reading order, placement, fit, tails, words per panel. Where a balloon would cover a face or the thing the reader must see, you move it. The room draws the letters from the layout's items; you make sure they land right.",
     "reads": [
       "script.md",
       "layouts.md",
@@ -145,7 +144,8 @@
     ],
     "outputs": [
       "lettering.md"
-    ]
+    ],
+    "page_art": true
   },
   {
     "id": "continuity",
@@ -159,7 +159,6 @@
       "world.md",
       "script.md",
       "layouts.md",
-      "lettering.md",
       "thumbnails.md",
       "taste-writers.md"
     ],

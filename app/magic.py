@@ -1,18 +1,22 @@
 """Production, run all the way: the room takes every gate, the showrunner sees finished work.
 
 The phases (app/phases.py) each stop for the showrunner. This runs them back to back and
-takes the decisions itself, in an order with one deliberate pause:
+takes the decisions itself:
 
-    development   Director, Plotter, Character Designer, Continuity
-    audition      Writer A and Writer B; the First Reader's reaction picks the writer
+    development   Director, then Plotter and Character Designer side by side, then Continuity
+    audition      Writer A and Writer B side by side; the First Reader's reaction picks the writer
     page1         execution on page 1 only, from the audition pages already in script.md
-                  -> STOP: the showrunner sees the first page and says "about right" or not
+                  -> only when asked for (until="page1"): a cheap look at the book before the rest
     writing       the picked writer writes the whole book
-    execution     layout and lettering, round after round, until the readiness gate passes
-    final         the book is finalized
+    execution     layouts, round after round, until the readiness gate passes; then the packets
+    final         the book is finalized: the page packets are the deliverable
 
-The pause at page 1 is the point: the cheapest place to find out the book looks wrong.
-Everything after it is the standard the showrunner accepted, applied to the rest.
+"Produce" runs development to final without a stop. The page 1 proof is there for a
+showrunner who wants to see the look first; a chain running to final skips it, because the
+whole book's pages are made right after the writing anyway.
+
+Lettering is not in the chain. It comes after the pages are drawn from the packets, as its own
+phase, over the uploaded art (phases.json, "lettering").
 
 Every choice the room makes for the showrunner is written down (choices), with the round it
 was made in, so it can be seen and stepped back to. Stepping back is start(slug, step, note):
@@ -26,7 +30,7 @@ import re
 import threading
 import time
 
-from . import llm, notes as notes_mod, phases, projects, review, room
+from . import notes as notes_mod, phases, projects, review, room
 from .agents import load_roles
 
 STEPS = ("development", "audition", "page1", "writing", "execution", "final")
@@ -35,7 +39,10 @@ PHASE_OF = {"development": "development", "audition": "audition", "page1": "exec
 TITLES = {"development": "Development", "audition": "Audition", "page1": "Page 1",
           "writing": "Writing", "execution": "Pages", "final": "Final"}
 STOPS = {"page1": "page1", "final": "final"}    # a chain ends here and waits for the showrunner
-MAX_EXECUTION_ROUNDS = 4                        # rounds of layout+lettering before the book is taken as is
+
+def max_execution_rounds(slug):
+    """Rounds of pages before the book is taken as it is (the execution_rounds setting)."""
+    return max(1, int(review.settings(slug).get("execution_rounds") or 2))
 
 _threads = {}
 _lock = threading.Lock()
@@ -77,6 +84,18 @@ def _choice(slug, step, what, why, rnd):
 
 class Halted(Exception):
     pass
+
+
+def close_stale(slug):
+    """At startup: a chain the record says is running cannot be - the process it ran in is
+    gone. Say so, rather than showing "working" forever."""
+    st = review.settings(slug).get("magic") or {}
+    if st.get("status") == "running" and not state(slug)["active"]:
+        _set(slug, status="failed", finished=projects.now(),
+             error="The app restarted while the room was working. Resume picks up at that step.")
+        _log(slug, f"The app restarted during {TITLES.get(st.get('step'), st.get('step') or 'the run')}. Resume to go on.")
+        return True
+    return False
 
 
 # ---- the chain ------------------------------------------------------------------------
@@ -125,6 +144,9 @@ def _run(slug, step, until, note):
             _set(slug, step=step)
             if _stopping(slug):
                 raise Halted()
+            if step == "page1" and until != "page1":
+                i += 1                  # no proof asked for: straight on to the writing
+                continue
             note = {"development": _development, "audition": _audition, "page1": _page1,
                     "writing": _writing, "execution": _execution, "final": _final}[step](slug, note)
             if step == until:
@@ -135,7 +157,8 @@ def _run(slug, step, until, note):
             _log(slug, "Page 1 is ready. Have a look: is this about right?")
         else:
             _set(slug, status="done", finished=projects.now())
-            _log(slug, "The book is done.")
+            _log(slug, "The book is done. The page packets are ready to paste into an image model; "
+                       "upload the art it draws and run the lettering.")
     except Halted:
         _set(slug, status="stopped", finished=projects.now())
         _log(slug, "Stopped.")
@@ -181,9 +204,7 @@ def _audition(slug, note):
     reaction = projects.read_artifact(slug, "first-read.md") or ""
     writer, why = pick_from_first_read(reaction)
     if not writer:
-        writer, why = ask_reader(slug, reaction)
-    if not writer:
-        writer, why = "writer_a", "The First Reader gave no verdict, so Writer A goes forward."
+        writer, why = "writer_a", "The First Reader gave no plain verdict, so Writer A goes forward."
     phases.pick(slug, writer)
     _choice(slug, "audition", f"Picked {'Writer A' if writer == 'writer_a' else 'Writer B'}.", why, rnd)
     _log(slug, f"Audition: picked {'Writer A' if writer == 'writer_a' else 'Writer B'} - {why}")
@@ -191,37 +212,21 @@ def _audition(slug, note):
 
 
 def pick_from_first_read(text):
-    """The First Reader's last section says which one they would keep reading."""
+    """The First Reader's "which one I would keep reading" section names a version. No second
+    model call: the section is read, and if it does not say plainly, the last version named
+    anywhere in the report counts."""
     m = re.search(r"#+\s*Which one I would keep reading.*?\n(.*?)(?=\n#+\s|\Z)", text, re.S | re.I)
-    if not m:
-        return None, None
-    body = m.group(1).strip()
+    body = m.group(1).strip() if m else ""
     found = [x.group(2).upper() for x in PICK_RE.finditer(body)]
-    if not found or len(set(found)) > 1 and found[0] != found[-1]:
-        return None, None
-    letter = found[-1]
-    why = " ".join(body.split())[:240]
-    return ("writer_a" if letter == "A" else "writer_b"), why
-
-
-def ask_reader(slug, reaction):
-    """A one-line question to the First Reader's own model, when the write-up did not say plainly."""
-    role = next((r for r in load_roles() if r.id == "first_reader"), None)
-    if role is None or not reaction.strip():
-        return None, None
-    try:
-        reply = llm.chat(role.config(), [
-            {"role": "system", "content": "Answer with one letter, A or B, then one sentence."},
-            {"role": "user", "content": "This is a reader's report on two versions of the same pages. "
-                                        "Which version would they keep reading?\n\n" + reaction[:12000]}],
-            max_tokens=80)
-        text = llm.text_of(reply).strip()
-        m = re.match(r"\W*([AB])\b(.*)", text, re.S | re.I)
-        if m:
-            return ("writer_a" if m.group(1).upper() == "A" else "writer_b"), (m.group(2).strip() or text)[:240]
-    except Exception:       # noqa: BLE001 - a failed tie-break is not a failed audition
-        pass
+    if found and (len(set(found)) == 1 or found[0] == found[-1]):
+        letter = found[-1]
+        return ("writer_a" if letter == "A" else "writer_b"), " ".join(body.split())[:240]
+    tail = [x.group(2).upper() for x in PICK_RE.finditer(text or "")]
+    if tail:
+        return ("writer_a" if tail[-1] == "A" else "writer_b"), "The report did not conclude plainly; the last version it named."
     return None, None
+
+
 
 
 def _page1(slug, note):
@@ -238,16 +243,17 @@ def _writing(slug, note):
 
 
 def _execution(slug, note):
-    """Layout and lettering until the readiness gate passes, or the round budget is spent."""
+    """Layouts until the readiness gate passes, or the round budget is spent."""
     review.save_settings(slug, scope=0)
-    for n in range(1, MAX_EXECUTION_ROUNDS + 1):
+    most = max_execution_rounds(slug)
+    for n in range(1, most + 1):
         run = _round(slug, "execution", note if n == 1 else None)
         gate = run.version.meta.get("gate") or {}
         if gate.get("ready"):
-            _log(slug, f"Pages: ready after round {n} of layout and lettering.")
+            _log(slug, f"Pages: ready after round {n} of layouts.")
             return None
         reasons = "; ".join(gate.get("reasons") or [])[:200]
-        if n == MAX_EXECUTION_ROUNDS:
+        if n == most:
             _choice(slug, "execution", f"Took the pages after {n} rounds, not fully ready.",
                     reasons or "The readiness gate still had reasons.", run.version.id)
             _log(slug, f"Pages: not fully ready after {n} rounds - taking them as they are ({reasons}).")
@@ -285,11 +291,26 @@ def plan(slug):
         ids = [st["writer"] or "writer_a" if a == phases.WRITER else a for a in phase["agents"]]
         who = [roles[i] for i in ids if i in roles] if step != "final" else []   # finalizing is no round
         est = room.estimates(who)
-        does = {"page1": "Lay out and letter page 1 only, from the audition pages already in the script.",
-                "final": "The book is finalized as the last round left it, as a -final round."}.get(step, phase["does"])
+        does = {"page1": "Lay out page 1 only, from the audition pages already in the script.",
+                "final": "The book is finalized as the last round left it, and the page packets are ready to download."}.get(step, phase["does"])
+        groups = [set(g) for g in phase.get("parallel") or []]
+        seconds = 0                     # agents side by side count once, as the longest of them
+        for g in groups:
+            seconds += max([est.get(i, 0) for i in g] or [0])
+        seconds += sum(v for i, v in est.items() if not any(i in g for g in groups))
         out.append({"step": step, "title": TITLES[step], "phase": phase["id"], "does": does,
-                    "agents": [{"id": r.id, "title": r.title, "model": r.config().public().get("model")} for r in who],
-                    "seconds": sum(est.values()), "stop": step in STOPS,
-                    "note": {"page1": "You judge the look before the rest is made.",
-                             "execution": f"Up to {MAX_EXECUTION_ROUNDS} rounds, until the pages pass the readiness check."}.get(step)})
+                    "agents": [{"id": r.id, "title": r.title, "model": r.config().public().get("model"),
+                                "parallel": any(r.id in g for g in groups)} for r in who],
+                    "seconds": seconds, "stop": step in STOPS, "optional": step == "page1",
+                    "note": {"page1": "Only if you ask to see page 1 first.",
+                             "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
+    letterer = roles.get("letterer")
+    if letterer:                    # not in the chain: after the art comes back
+        out.append({"step": "lettering", "title": "Lettering", "phase": "lettering", "after": True,
+                    "does": "You draw the pages from the packets and upload the art. The Letterer checks every "
+                            "balloon against the real page, and the room draws the words over the art.",
+                    "agents": [{"id": "letterer", "title": letterer.title,
+                                "model": letterer.config().public().get("model"), "parallel": False}],
+                    "seconds": room.estimates([letterer]).get("letterer", 0), "stop": False, "optional": False,
+                    "note": "Runs from the Lettering tab, page by page as the art comes in."})
     return out

@@ -1,6 +1,6 @@
-"""Page prompts — the writers' room's deliverable.
+"""Page packets — the writers' room's deliverable.
 
-For every page, one self-contained markdown prompt to paste into an image model
+For every page, one self-contained markdown packet to paste into an image model
 (outside the room) to draw the finished comic page. Assembled in code, not by a
 model, so it always matches the room's files and the character descriptions go in
 word for word (a model would paraphrase them and the characters would drift):
@@ -9,14 +9,22 @@ word for word (a model would paraphrase them and the characters would drift):
     style         the brief's visual direction (the same on every page)
     characters    characters.md's description of everyone on the page, verbatim
     layout        a box map of the page drawn to scale, then rows and panels with their share
-    panels        shot, angle, light, what happens, who is where, exact lettering
+    sketch        the layout drawn at print scale (one cell = one letter), balloons boxed
+    panels        shot, angle, light, what happens, who is where, the clear space for lettering
+    rules         no text on the page (the lettering is a layer, added afterwards)
+    checklist     what to look for before accepting the image
     script        the page's script, for reference
+
+And one book packet in front of them: how to use the packets, the rules that hold for every
+page, a character sheet prompt to draw first, and a page index.
 """
 import json
 import re
 
 from . import projects, thumbnails
 from .config import env
+
+DEFAULTS = {"lettering": "layer"}   # the same default as review.DEFAULT_SETTINGS (review imports this module)
 
 WHERE = {
     "top-left": "top left", "top": "top center", "top-right": "top right",
@@ -29,9 +37,33 @@ KIND = {
     "caption": "Caption box",
 }
 SFX_SIZE = {"small": "small", "medium": "medium", "large": "large, bold", "huge": "huge, dramatic"}
-HOW_TO_USE = """How to use: paste one page's prompt (everything under its heading) into an image model
-that can draw comic pages, one page at a time. Keep the same model and settings for the whole
-book so the style and characters stay consistent."""
+HOW_TO_USE = """## How to use these packets
+
+1. **Start with the character sheet** below: paste it first, keep the result, and show it to
+   the model (as a reference image) with every page if the model takes references.
+2. **One page at a time.** Paste everything under a page's heading, nothing else. Keep the
+   same model and settings for the whole book so the style and the characters stay put.
+3. **No text on the pages.** The words are added afterwards, in the room, as a layer over
+   your art - so a beautiful model that cannot spell is fine. If the model draws any letters,
+   regenerate; do not keep a page with text on it.
+4. **Check the page** against its checklist before you keep it. One thing wrong: regenerate
+   with the same packet, and only then adjust wording.
+5. **Upload each kept page** in the room (Production, Lettering tab) and run the lettering:
+   the room draws every balloon and caption where the layout put them, and you download the
+   finished, lettered page.
+
+## Rules for every page
+
+- Never render text of any kind: no balloons, captions, sound effects, page numbers,
+  titles, chapter names, signatures, watermarks, nameplates or labels.
+- Keep the areas each panel lists as clear: uncluttered art (sky, wall, shadow) where a
+  balloon will sit, never a face or the thing the panel is about.
+- Draw every character exactly as described, every time. The description wins over the
+  previous page's picture.
+- Panel count, panel shape and reading order are fixed by the map. Do not add, merge or
+  reshape panels."""
+
+PAGE_HEAD = "_Copy everything under this heading and paste it into the image model._"
 
 
 def section(markdown, *words):
@@ -355,19 +387,29 @@ def page_prompt(spec, ctx):
         "",
         ctx["style"] or "(no visual direction in the brief yet)",
     ]
+    layer = ctx.get("lettering") == "layer"
+    if layer:                    # the art is drawn with no text: say so where the model reads first
+        out[2] = out[2].replace(", and professional comic lettering.", ". NO TEXT anywhere on the page.")
+    out.insert(1, PAGE_HEAD)
     if names:
         out += ["", "**Characters — draw them exactly as described:**", ""]
         for name in names:
             look = clean_look(looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
-    if ctx.get("lettering") != "layer":
+    if not layer:
         out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
     out += ["", "**Page layout, top to bottom** (the map is the page itself, panels to scale):", "",
             *panel_map(spec), "", *layout_lines(spec), ""]
+    sketch = (ctx.get("sketches") or {}).get(number)
+    if sketch:
+        fence = "`" * 3
+        out += ["**Layout sketch at print scale** (one character cell is one letter of lettering; "
+                "figures are the shaded shapes, and the boxed words are where balloons and captions "
+                "will go" + (" - keep those areas clear" if layer else "") + "):", "",
+                fence + "text", sketch.rstrip("\n"), fence, ""]
     by_panel = {}
     for item in items:
         by_panel.setdefault(item.get("panel"), []).append(item)
-    layer = ctx.get("lettering") == "layer"
     for n, p in enumerate(panel_specs, 1):
         out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer)), ""]
     if layer:
@@ -378,6 +420,7 @@ def page_prompt(spec, ctx):
             "uncluttered (sky, wall, shadow — nothing the reader needs to see). Keep the "
             "characters' looks identical to their descriptions.",
         ]
+        out += ["", *checklist(spec, panel_specs, by_panel, names, side)]
     else:
         out += [
             "**Rules:** letter every balloon, caption and sound effect exactly as written above, in "
@@ -391,6 +434,30 @@ def page_prompt(spec, ctx):
         out += ["", "**The page's script, for reference:**", "", fence + "text",
                 script.replace(fence, "'" * 3), fence]
     return "\n".join(out).strip() + "\n"
+
+
+def checklist(spec, panel_specs, by_panel, names, side):
+    """What to look at before the image is kept: the count, each panel's one thing, the
+    people, the clear space, and no text. Written for the showrunner, not the model."""
+    lines = ["**Before you keep this image, check:**", "",
+             f"- [ ] {len(panel_specs)} panels, shaped and ordered as the map shows; a {side}-hand page"]
+    for n, p in enumerate(panel_specs, 1):
+        gist = " ".join(str(p.get("description") or "").split())
+        gist = re.split(r"(?<=[.;!?])\s", gist, 1)[0][:110].rstrip(".;, ")
+        if gist:
+            lines.append(f"- [ ] Panel {n}: {gist}")
+    if names:
+        lines.append(f"- [ ] {', '.join(n.upper() for n in names)}: as described, same as the other pages")
+    clear = []
+    for n in range(1, len(panel_specs) + 1):
+        spots = [where(i) for i in by_panel.get(n, []) if i.get("type") in KIND or i.get("type") == "sfx"]
+        if spots:
+            clear.append(f"panel {n} {', '.join(dict.fromkeys(spots))}")
+    if clear:
+        lines.append(f"- [ ] Clear, uncluttered space at: {'; '.join(clear)}")
+    lines += ["- [ ] No letters, numbers, balloons, captions, signatures or watermarks anywhere",
+              "", "_One box fails: regenerate with the same packet. Then upload the page in the room and letter it._"]
+    return lines
 
 
 # ---- who is on the page: characters.md -----------------------------------
@@ -419,11 +486,19 @@ def character_entries(bible):
     return names
 
 
+ARTICLES = {"the", "a", "an", "old", "young", "mr", "mrs", "ms", "dr"}
+
+
 def named_in(bible, text):
     """Bible characters a passage mentions, by full name or by the name they go by."""
     found = []
     for name in character_entries(bible):
-        first = name.split()[0]
+        words = name.split()
+        first = words[0]
+        if first.lower() in ARTICLES and len(words) > 1:    # "The Founder": the whole name, or nothing
+            if re.search(rf"\b{re.escape(name)}\b", text or "", re.I):
+                found.append(name)
+            continue
         if re.search(rf"\b{re.escape(first)}\b", text or "", re.I):
             found.append(first.title() if not first.isupper() or len(first) > 6 else first)
     return found
@@ -466,17 +541,58 @@ def context(slug, version=None):
     w_in, h_in = (float(v) for v in (env("PAGE_TRIM") or "6.625x10.25").lower().split("x"))
     settings_file = projects.project_dir(slug) / "round-settings.json"
     settings = json.loads(settings_file.read_text()) if settings_file.exists() else {}
+    settings = {**DEFAULTS, **settings}
     chapter = settings.get("chapter")
     return {
         "title": book_title(projects.pitch(slug), slug),
         "pages": settings.get("pages"),
         "chapter": chapter,
-        "lettering": settings.get("lettering", "art"),
+        "lettering": settings.get("lettering") or "layer",
         "style": section(read("brief.md"), "visual", "style", "look"),
         "bible": read("characters.md"),
         "script": read("script.md"),
         "trim": f"{w_in:g} x {h_in:g} inches",
+        "sketches": {n: p["art"] for n, p in thumbnails.parse_thumbnails(read("thumbnails.md")).items()},
     }
+
+
+def character_sheet(ctx):
+    """A prompt for one reference image of the whole cast, to draw before any page."""
+    entries = character_entries(ctx["bible"])
+    if not entries:
+        return None
+    out = ["## Character sheet — draw this first", "", PAGE_HEAD, "",
+           "Draw one character reference sheet: every character below standing full length in a "
+           "row, front view, neutral pose, even daylight, plain light background, in the book's "
+           "style. Same scale for everyone so heights compare. No text, names, labels or captions "
+           "anywhere on the sheet.", "",
+           "**Style:**", "", ctx["style"] or "(no visual direction in the brief yet)", "",
+           "**Characters — draw them exactly as described:**", ""]
+    for name in entries:
+        look = clean_look(looks_for(ctx["bible"], [name]))
+        if look:
+            out.append(f"- **{name.upper()}** — {look}")
+    return "\n".join(out)
+
+
+def page_index(specs, ctx):
+    """Page | panels | who is on it | where the lettering goes - the book at a glance."""
+    rows = ["| Page | Panels | On the page | Clear space for lettering |", "|---|---|---|---|"]
+    for s in specs:
+        items = s.get("items") or []
+        panels = [p for t in s.get("tiers") or [] for p in (t.get("panels") or [{}])]
+        who = []
+        for i in items:
+            name = i.get("label") if i.get("type") == "figure" else i.get("speaker")
+            if name and name.upper() not in who:
+                who.append(name.upper())
+        spots = {}
+        for i in items:
+            if i.get("type") in KIND or i.get("type") == "sfx":
+                spots.setdefault(i.get("panel"), []).append(where(i))
+        clear = "; ".join(f"p{n} {', '.join(dict.fromkeys(v))}" for n, v in sorted(spots.items(), key=lambda kv: kv[0] or 0))
+        rows.append(f"| {s.get('page', 0)} | {len(panels)} | {', '.join(who) or '—'} | {clear or '—'} |")
+    return "\n".join(rows)
 
 
 def build(slug, version=None):
@@ -484,10 +600,24 @@ def build(slug, version=None):
     specs, errors = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md", version))
     ctx = context(slug, version)
     pages = {s["page"]: page_prompt(s, ctx) for s in specs}
-    head = [f"# Page prompts — {ctx['title']}", "", HOW_TO_USE, ""]
+    n = len(pages)
+    head = [f"# Page packets — {ctx['title']}", "",
+            f"{n} page{'s' if n != 1 else ''}, {ctx['trim']}" + (f", chapter {ctx['chapter']}" if ctx.get("chapter") else "")
+            + ". Made by the writers' room; every packet below is complete on its own.", "", HOW_TO_USE, ""]
     if errors:
         head += ["**Layout errors (these pages are missing):**", ""] + [f"- {e}" for e in errors] + [""]
     if not pages:
         head.append("_No page layouts yet — run the room first._")
-    book = "\n".join(head) + "\n" + "\n---\n\n".join(pages[n] for n in sorted(pages))
+    else:
+        sheet = character_sheet(ctx)
+        if sheet:
+            head += [sheet, ""]
+        head += ["## The pages at a glance", "", page_index(sorted(specs, key=lambda s: s["page"]), ctx), ""]
+    book = "\n".join(head) + "\n---\n\n" + "\n---\n\n".join(pages[n] for n in sorted(pages))
     return pages, book
+
+
+def book_packet(slug, version=None):
+    """The book packet alone: how to use, the rules, the character sheet, the index."""
+    _, book = build(slug, version)
+    return book.split("\n---\n\n", 1)[0]

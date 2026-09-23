@@ -1,15 +1,19 @@
 /* The production room.
  *
- * One button makes the book: the room runs development, the audition, a proof of page 1,
- * the writing and the pages, and takes every gate itself (app/magic.py). It stops twice for
- * the showrunner - at page 1, and at the end - and what the showrunner does is notes, and
- * stepping back to wherever a note reaches. Everything the room decided is on the Choices
- * tab. Settings and agents are behind a tab, not in the way.
+ * One button makes the book: Produce runs development, the audition, the writing and the
+ * pages, takes every gate itself (app/magic.py), and ends with the page packets - everything
+ * to paste into an image model, one page at a time, for art with no text on it. A second
+ * button, "Page 1 first", stops at a proof of page 1 for a showrunner who wants to see the
+ * look before the rest is made. What the showrunner does is notes, and stepping back to
+ * wherever a note reaches. Everything the room decided is on the Choices tab.
+ *
+ * Then the pages come back drawn: the Lettering tab takes the art per page, the room draws
+ * the words over it, and the lettered page is downloaded from there.
  *
  * desk.js first (api, markdown, the feed, the file editor), then this.  */
 
 const state = { slug: null, run: null, seen: 0, stream: null, tab: "begin", busy: false,
-                magic: null, rules: [], notes: [], page: 1, magicSeen: 0, poll: null, file: null };
+                magic: null, rules: [], notes: [], page: 1, letterPage: 1, magicSeen: 0, poll: null, file: null };
 
 let project = null, latest = null;
 
@@ -33,7 +37,7 @@ async function pickCampaign() {
 
 const STEPS = ["development", "audition", "page1", "writing", "execution", "final"];
 const TITLES = { development: "Development", audition: "Audition", page1: "Page 1", writing: "Writing", execution: "Pages", final: "Final" };
-const STOPS = { page1: "page 1 proof: you look", final: "the book: you look" };
+const STOPS = { page1: "page 1 proof: you look", final: "the packets: you draw" };
 
 function renderState() {
   const m = state.magic, active = !!project.active_run;
@@ -51,13 +55,15 @@ function renderState() {
   // the stepper: what is done, what is on, what is still to come
   const at = m.step ? STEPS.indexOf(m.step) : -1;
   const running = m.status === "running" || active;
-  $("#steps").innerHTML = STEPS.map((s, i) => {
+  const proof = m.until === "page1" || m.status === "page1" || m.step === "page1";
+  $("#steps").innerHTML = STEPS.filter((s) => s !== "page1" || proof).map((s) => {
+    const i = STEPS.indexOf(s);
     const done = at > i || (at === i && !running && ["page1", "done"].includes(m.status) && (s !== "final" || m.status === "done"));
     const now = at === i && running;
     const failed = at === i && ["failed", "stopped"].includes(m.status);
     const cls = ["step", s in STOPS ? "stop" : "", done ? "done" : "", now ? "now" : "", failed ? "failed" : ""].filter(Boolean).join(" ");
-    return `<div class="${cls}"><i></i><span>${TITLES[s]}</span><small>${s in STOPS ? "you look" : ""}</small></div>`;
-  }).join("");
+    return `<div class="${cls}"><i></i><span>${TITLES[s]}</span><small>${s === "final" ? "packets" : s in STOPS ? "you look" : ""}</small></div>`;
+  }).join("") + `<div class="step after"><i></i><span>Lettering</span><small>after the art</small></div>`;
 
   const stop = $("#stop");
   stop.hidden = !running;
@@ -99,6 +105,7 @@ function renderActs() {
   const from = (sel) => `<span class="from"><select id="from">${BACK.map(([s, t]) =>
     `<option value="${s}" ${s === sel ? "selected" : ""}>${t}</option>`).join("")}</select></span>`;
   const notes = state.notes.length;
+  const pages = Object.keys(state.prompts?.pages || {}).length;
   if (running) {
     acts.innerHTML = `<button class="go" disabled>working…</button>`;
     hint.textContent = "Every call shows in the log. Stop is on the left.";
@@ -108,20 +115,20 @@ function renderActs() {
       `<button class="go" id="rest">Looks right - make the rest →</button>`;
     hint.textContent = "The first page is a proof of the look. Make the rest, or add notes and try page 1 again.";
   } else if (m.status === "done" || (project.phase === "execution" && latest?.kind === "final")) {
-    acts.innerHTML = save + from("execution") +
-      `<button class="go alt" id="run-notes" ${notes || edits ? "" : "disabled"}>Run notes from here</button>`;
+    acts.innerHTML = save + `<a class="go" id="download" href="/api/projects/${encodeURIComponent(state.slug)}/packet.zip">Download the packets</a>` +
+      from("execution") + `<button class="go alt" id="run-notes" ${notes || edits ? "" : "disabled"}>Run notes from here</button>`;
     hint.textContent = notes || edits
-      ? "Your notes and edits go to the step you choose, and the room runs on from there to a new final."
-      : "The book is done. Add notes on the Showrunner notes tab, choose how far back they reach, and run them.";
+      ? "Your notes and edits go to the step you choose, and the room runs on from there to new packets."
+      : `The packets are ready: ${pages} page${pages === 1 ? "" : "s"}. Draw them, upload the art on the Lettering tab, and letter. Notes go on the Showrunner notes tab.`;
   } else if (["stopped", "failed"].includes(m.status)) {
     acts.innerHTML = save + `<button class="go alt" id="resume">Resume at ${TITLES[m.step] || m.step}</button>` +
-      `<button class="go" id="make">Make the book</button>`;
+      `<button class="go" id="make">Produce</button>`;
     hint.textContent = m.status === "failed" ? `Failed: ${m.error || "see the log"}. Resume picks up at the step that failed.` : "Stopped. Resume picks up where it was.";
   } else {
-    acts.innerHTML = save + `<button class="go" id="make">Make the book</button>`;
+    acts.innerHTML = save + `<button class="go alt" id="proof">Page 1 first</button><button class="go" id="make">Produce</button>`;
     hint.textContent = project.phase === "intake"
-      ? "Pre-production has not been approved yet - the desk's Continue does that. You can still begin."
-      : "The room runs all the way to page 1, then stops for you.";
+      ? "Pre-production has not been approved yet - the desk's Continue does that. You can still produce."
+      : "Produce runs everything and ends with the page packets. Page 1 first stops at a proof of the look.";
   }
   $("#tabs").querySelectorAll("button").forEach((b) => { b.disabled = running && b.dataset.tab !== "log"; });
   if (running && state.tab !== "log") showTab("log");
@@ -143,7 +150,8 @@ async function magic(body) {
 
 $("#acts").addEventListener("click", async (e) => {
   const b = e.target.closest("button"); if (!b || b.disabled) return;
-  if (b.id === "make") return magic({ step: "development", until: "page1" });
+  if (b.id === "make") return magic({ step: "development", until: "final" });
+  if (b.id === "proof") return magic({ step: "development", until: "page1" });
   if (b.id === "rest") return magic({ step: "writing", until: "final" });
   if (b.id === "again") return magic({ step: "page1", until: "page1" });
   if (b.id === "resume") return magic({ step: state.magic.step, until: state.magic.until || "final" });
@@ -171,7 +179,7 @@ async function stopAll() {
 $("#stop").addEventListener("click", stopAll);
 
 $("#restart").addEventListener("click", () => $("#confirm-restart").showModal());
-$("#restart-go").addEventListener("click", () => { $("#confirm-restart").close(); magic({ step: "development", until: "page1" }); });
+$("#restart-go").addEventListener("click", () => { $("#confirm-restart").close(); magic({ step: "development", until: "final" }); });
 
 /* ---- tabs ----------------------------------------------------------------- */
 
@@ -180,7 +188,8 @@ function showTab(name) {
   $("#tabs").querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === name));
   document.querySelectorAll(".tab").forEach((s) => { s.hidden = s.dataset.tab !== name; });
   ({ begin: renderBegin, page1: () => renderPage(1, $('.tab[data-tab="page1"]')),
-     pages: renderPages, files: renderFile, choices: renderChoices, settings: renderSettings })[name]?.();
+     pages: renderPages, packets: renderPackets, lettering: renderLettering,
+     files: renderFile, choices: renderChoices, settings: renderSettings })[name]?.();
 }
 
 $("#tabs").addEventListener("click", (e) => {
@@ -192,7 +201,7 @@ $("#tabs").addEventListener("click", (e) => {
 
 function renderBegin() {
   const m = state.magic, plan = m.plan || [];
-  const total = plan.reduce((t, p) => t + (p.seconds || 0), 0);
+  const total = plan.filter((p) => !p.optional && !p.after).reduce((t, p) => t + (p.seconds || 0), 0);
   const pages = m.pages ? `a ${m.pages}-page book` : "the book";
   const drafts = m.drafts || [];
   $('.tab[data-tab="begin"]').innerHTML = `
@@ -202,20 +211,24 @@ function renderBegin() {
       and writes the book from it: keeping its scenes and the lines that work, fixing what the
       story, characters, world and facts contradict, raising the craft. It does not start over.</p>` : ""}
     <p>The room runs every stage below itself and takes each decision along the way - who writes,
-      whether the story stands, when the pages are ready. It stops once at <b>page 1</b> so you can
-      judge the look before the rest is made, and again at the end. Your part is notes; if a note
-      reaches further back, you step back to there and the room runs on again.</p>
-    <div class="plan">${plan.map((p) => `
-      <div class="plan-step ${p.stop ? "stop" : ""}">
-        <div><b>${esc(p.title)}</b>${p.stop ? `<div class="who">stops for you</div>` : ""}</div>
+      whether the story stands, when the pages are ready - and ends with the <b>page packets</b>:
+      one per page, everything to paste into an image model to draw it, with no text on it.
+      You draw the pages, upload the art, and the room letters them. Your part is notes; if a
+      note reaches further back, you step back to there and the room runs on again.</p>
+    <div class="plan">${plan.filter((p) => !p.optional).map((p) => `
+      <div class="plan-step ${p.stop ? "stop" : ""} ${p.after ? "after" : ""}">
+        <div><b>${esc(p.title)}</b>${p.stop ? `<div class="who">the packets</div>` : p.after ? `<div class="who">after the art</div>` : ""}</div>
         <div>${esc(p.does)}${p.note ? ` <span class="hint" style="margin:0">${esc(p.note)}</span>` : ""}
-          <div class="who">${p.agents.map((a) => `${esc(a.title)} <code>${esc(a.model || "default model")}</code>`).join(" · ")}</div></div>
+          <div class="who">${p.agents.map((a) => `${esc(a.title)}${a.parallel ? "*" : ""} <code>${esc(a.model || "default model")}</code>`).join(" · ")}</div></div>
         <div class="est">${p.seconds ? `~${secs(p.seconds * 1000)}` : ""}</div>
       </div>`).join("")}</div>
-    <p class="hint" style="margin:0 0 .9rem">${total ? `About ${secs(total * 1000)} of model time to page 1 and beyond, going by past rounds. ` : ""}
+    <p class="hint" style="margin:0 0 .9rem">${total ? `About ${secs(total * 1000)} of model time to the packets, going by past rounds; agents marked * run side by side. ` : ""}
       Everything is kept under <code>previous/</code>, round by round, and every model call shows in the log as it happens.</p>
-    ${m.status === "idle" && !m.choices?.length ? `<button class="go big" id="begin-go">Make the book</button>` : `<span class="hint">Use the buttons top right: production has already begun.</span>`}`;
-  $("#begin-go")?.addEventListener("click", () => magic({ step: "development", until: "page1" }));
+    ${m.status === "idle" && !m.choices?.length
+      ? `<button class="go big" id="begin-go">Produce</button> <button class="go alt" id="begin-proof" style="width:auto">Page 1 first</button>`
+      : `<span class="hint">Use the buttons top right: production has already begun.</span>`}`;
+  $("#begin-go")?.addEventListener("click", () => magic({ step: "development", until: "final" }));
+  $("#begin-proof")?.addEventListener("click", () => magic({ step: "development", until: "page1" }));
 }
 
 /* ---- the log --------------------------------------------------------------- */
@@ -237,7 +250,7 @@ function watchMagic() {
       clearInterval(state.poll); state.poll = null;
       await load();
       if (p.magic.status === "page1") showTab("page1");
-      else if (p.magic.status === "done") showTab("pages");
+      else if (p.magic.status === "done") showTab("packets");
     }
   }, 2500);
 }
@@ -320,6 +333,129 @@ async function renderPages() {
     state.page = +b.dataset.page; renderPages();
   };
   renderPage(state.page, sec.querySelector("#page-body"));
+}
+
+/* ---- the packets: the deliverable ---------------------------------------------------- */
+
+async function copyText(text, btn) {
+  try { await navigator.clipboard.writeText(text); btn.textContent = "copied"; }
+  catch { btn.textContent = "select and copy"; }
+  setTimeout(() => { btn.textContent = "copy"; }, 1500);
+}
+
+function renderPackets() {
+  const sec = $('.tab[data-tab="packets"]');
+  const nums = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
+  if (!nums.length) { sec.innerHTML = `<p class="hint">No packets yet. Produce makes them, one per page, at the end.</p>`; return; }
+  if (!nums.includes(state.page) && state.page !== 0) state.page = 0;
+  const book = (state.prompts.book || "").split("\n---\n\n", 1)[0];
+  sec.innerHTML = `
+    <div class="packet-bar">
+      <a class="go" style="width:auto" href="/api/projects/${encodeURIComponent(state.slug)}/packet.zip">Download all (.zip)</a>
+      <span class="hint" style="margin:0">${nums.length} page packets, the book packet, the sketches and the lettering layers. One page at a time into the image model; text off.</span>
+    </div>
+    <div class="pager"><button data-page="0" ${state.page === 0 ? 'aria-current="true"' : ""}>book</button>${nums.map((n) =>
+      `<button data-page="${n}" ${n === state.page ? 'aria-current="true"' : ""}>${n}</button>`).join("")}</div>
+    <div class="packet">
+      <div class="packet-head"><b>${state.page === 0 ? "The book packet: read this first, then draw the character sheet" : `Page ${state.page}`}</b>
+        <button class="copy" id="copy-packet">copy</button></div>
+      <pre class="raw packet-text" id="packet-text">${esc(state.page === 0 ? book : state.prompts.pages[state.page])}</pre>
+    </div>`;
+  sec.querySelector(".pager").onclick = (e) => {
+    const b = e.target.closest("button[data-page]"); if (!b) return;
+    state.page = +b.dataset.page; renderPackets();
+  };
+  $("#copy-packet").onclick = (e) => copyText(state.page === 0 ? book : state.prompts.pages[state.page], e.target);
+}
+
+/* ---- lettering: the art comes back, the words go on ------------------------------------ */
+
+async function renderLettering() {
+  const sec = $('.tab[data-tab="lettering"]');
+  const nums = Object.keys(state.prompts?.pages || {}).map(Number).sort((a, b) => a - b);
+  if (!nums.length) { sec.innerHTML = `<p class="hint">Nothing to letter yet: the pages come first.</p>`; return; }
+  if (!nums.includes(state.letterPage)) state.letterPage = nums[0];
+  const n = state.letterPage;
+  let d; try { d = await api(`/api/projects/${state.slug}/lettering/${n}`); }
+  catch (e) { sec.innerHTML = `<p class="hint">${esc(e.message)}</p>`; return; }
+  const withArt = nums.filter((k) => (project.images || []).some((i) => i.includes(`-p${String(k).padStart(2, "0")}-art`)));
+  const running = state.magic.status === "running" || !!project.active_run;
+  sec.innerHTML = `
+    <div class="packet-bar">
+      <button class="go" style="width:auto" id="letter-run" ${running || !withArt.length ? "disabled" : ""}>Run the Letterer</button>
+      <span class="hint" style="margin:0">${withArt.length ? `Art uploaded for ${withArt.length} of ${nums.length} pages. ` : "Upload the art the image model drew, page by page. "}
+        The Letterer checks every balloon against the real page and moves what would cover a face; the words are drawn by the room.</span>
+    </div>
+    <div class="pager">${nums.map((k) => `<button data-page="${k}" ${k === n ? 'aria-current="true"' : ""} class="${withArt.includes(k) ? "has-art" : ""}">${k}</button>`).join("")}</div>
+    <div class="letter">
+      <div>
+        <div class="letter-stage" id="stage" style="aspect-ratio:${d.size[0]}/${d.size[1]}">
+          ${d.art ? `<img id="art" src="/api/projects/${encodeURIComponent(state.slug)}/${esc(d.art)}?t=${Date.now()}" alt="page ${n} art">` : `<div class="letter-empty">no art for page ${n} yet</div>`}
+          <div class="letter-svg" id="svg-holder">${d.svg}</div>
+        </div>
+        <div class="acts" style="margin-top:.5rem;flex-wrap:wrap">
+          <label class="go alt" style="width:auto;cursor:pointer">Upload art for page ${n}<input type="file" id="art-file" accept="image/*" hidden></label>
+          <button class="go" style="width:auto" id="letter-download" ${d.art ? "" : "disabled"}>Download lettered page ${n}</button>
+          <span class="hint" id="letter-said" style="margin:0"></span>
+        </div>
+      </div>
+      <div class="letter-items">
+        <b>On this page</b>
+        ${(d.items || []).length ? d.items.map((it) => `<div class="say"><i>${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}${it.at ? ` · ${esc(it.at)}` : ""}</i> ${esc(it.text || "")}</div>`).join("")
+          : `<div class="hint">No lettering on this page.</div>`}
+        <p class="hint" style="margin-top:.6rem">Words and places are edited in the <a href="/room">full room</a>'s Lettering tab; the Letterer moves balloons on its own when it runs.</p>
+      </div>
+    </div>`;
+  sec.querySelector(".pager").onclick = (e) => {
+    const b = e.target.closest("button[data-page]"); if (!b) return;
+    state.letterPage = +b.dataset.page; renderLettering();
+  };
+  $("#art-file").onchange = async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    const data_url = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(f); });
+    try {
+      await api(`/api/projects/${state.slug}/lettering/${n}/art`, { method: "POST", body: { data_url } });
+      project = await api(`/api/projects/${state.slug}`);
+      renderLettering();
+    } catch (err) { $("#letter-said").textContent = err.message; }
+  };
+  $("#letter-run").onclick = async () => {
+    state.busy = true; renderActs();
+    try {
+      const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body: { phase: "lettering" } });
+      state.run = run_id; state.seen = 0; resetFeed();
+      await load(); follow();
+    } catch (err) { $("#letter-said").textContent = err.message; }
+    state.busy = false;
+  };
+  $("#letter-download").onclick = () => flattenPage(n, d);
+}
+
+/* The lettered page: the art, then the SVG layer, drawn into one PNG in the browser. Saved
+ * back beside the art, and handed to the showrunner as a file. */
+async function flattenPage(n, d) {
+  const said = $("#letter-said");
+  const img = $("#art");
+  if (!img) return;
+  said.textContent = "drawing…";
+  try {
+    await img.decode();
+    const W = img.naturalWidth, H = img.naturalHeight;
+    const canvas = document.createElement("canvas"); canvas.width = W; canvas.height = H;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0, W, H);
+    const svg = new Blob([d.svg], { type: "image/svg+xml" });
+    const url = URL.createObjectURL(svg);
+    const layer = new Image();
+    await new Promise((res, rej) => { layer.onload = res; layer.onerror = rej; layer.src = url; });
+    ctx.drawImage(layer, 0, 0, W, H);
+    URL.revokeObjectURL(url);
+    const data_url = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = data_url; a.download = `${state.slug}-p${String(n).padStart(2, "0")}-lettered.png`; a.click();
+    await api(`/api/projects/${state.slug}/lettering/${n}/lettered`, { method: "POST", body: { data_url } });
+    said.textContent = `saved as images/${state.slug}-p${String(n).padStart(2, "0")}-lettered.png`;
+  } catch (e) { said.textContent = `could not draw it: ${e.message}`; }
 }
 
 /* ---- files --------------------------------------------------------------- */
@@ -415,9 +551,10 @@ function renderSettings() {
   $("#settings").innerHTML =
     field("pages", "Pages", "How long the book is. Empty: the room decides.", `<input type="number" min="1" max="200" data-s="pages" value="${s.pages ?? ""}">`) +
     field("chapter", "Chapter", "Labels page 1 as this chapter's opening.", `<input type="number" min="1" data-s="chapter" value="${s.chapter ?? ""}">`) +
-    field("lettering", "Lettering", "art: the image model letters the page. layer: the room does, over art without text.",
-      `<select data-s="lettering"><option value="art" ${s.lettering === "art" ? "selected" : ""}>art</option><option value="layer" ${s.lettering === "layer" ? "selected" : ""}>layer</option></select>`) +
-    field("max_passes", "Fix passes", "Within a round of pages: how many times the agents may go again before it is handed over.", `<input type="number" min="0" max="10" data-s="max_passes" value="${s.max_passes ?? 2}">`);
+    field("lettering", "Lettering", "layer: the pages are drawn with no text and the room letters them afterwards (the point of the packets). art: the image model letters the page itself.",
+      `<select data-s="lettering"><option value="layer" ${s.lettering !== "art" ? "selected" : ""}>layer</option><option value="art" ${s.lettering === "art" ? "selected" : ""}>art</option></select>`) +
+    field("max_passes", "Fix passes", "Within a round of pages: how many times the agents may go again before it is handed over.", `<input type="number" min="0" max="10" data-s="max_passes" value="${s.max_passes ?? 2}">`) +
+    field("execution_rounds", "Page rounds", "Produce: how many rounds of pages before the book is taken as it is.", `<input type="number" min="1" max="10" data-s="execution_rounds" value="${s.execution_rounds ?? 2}">`);
   const seen = new Set();
   $("#agents").innerHTML = (state.magic.plan || []).flatMap((p) => p.agents).filter((a) => !seen.has(a.id) && seen.add(a.id))
     .map((a) => `<div class="row"><span>${esc(a.title)}</span><span>${esc(a.model || "default")}</span></div>`).join("");
@@ -472,7 +609,7 @@ function begin() {
     showLastLog();
     const tab = new URLSearchParams(location.search).get("tab");
     state.tab = tab && $(`#tabs button[data-tab="${CSS.escape(tab)}"]`) ? tab
-      : m.status === "page1" ? "page1" : m.status === "done" ? "pages" : m.choices?.length ? "log" : "begin";
+      : m.status === "page1" ? "page1" : m.status === "done" ? "packets" : m.choices?.length ? "log" : "begin";
     showTab(state.tab);
   }
 }

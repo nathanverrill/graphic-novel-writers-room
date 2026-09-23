@@ -1,10 +1,12 @@
 import base64
 import dataclasses
+import io
 import json
 import mimetypes
 import re
 import threading
 import time
+import zipfile
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -36,6 +38,10 @@ async def lifespan(_app):
     for slug in projects.list_projects():     # a campaign laid out the old way gets its two desks
         if projects.migrate(slug):
             print(f"{slug}: output/ is now production/, and preproduction/ holds intake's files", flush=True)
+        for rid in projects.close_stale_rounds(slug):
+            print(f"{slug}: round {rid} was running when the app last stopped; marked interrupted", flush=True)
+        if magic.close_stale(slug):
+            print(f"{slug}: production was running when the app last stopped; marked failed, resumable", flush=True)
     index_in_background()
     threading.Thread(target=search.watch, args=(0.5, lambda msg: print(f"search: {msg}")),
                      daemon=True).start()   # a file changes, its passages are reindexed
@@ -299,6 +305,46 @@ def page_prompts(slug: str, version: str | None = None):
     return {"pages": pages, "book": book}
 
 
+@app.get("/api/projects/{slug}/packet.zip")
+def packet_zip(slug: str, version: str | None = None):
+    """Everything to take to the image model, in one download: the book packet, one file per
+    page, each page's print-scale sketch, and the lettering layers for later."""
+    not_found(projects.project_dir, slug)
+    pages, book = not_found(prompts.build, slug, version)
+    if not pages:
+        raise HTTPException(404, "no pages yet - run production first")
+    sketches = prompts.context(slug, version).get("sketches") or {}
+    letters = review.text_layers(slug, version)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr(f"{slug}/00-book.md", book)
+        z.writestr(f"{slug}/00-read-me-first.md", prompts.book_packet(slug, version))
+        for n in sorted(pages):
+            z.writestr(f"{slug}/pages/p{n:02d}.md", pages[n])
+            if n in sketches:
+                z.writestr(f"{slug}/sketches/p{n:02d}.txt", sketches[n])
+            if n in letters:
+                z.writestr(f"{slug}/letters/p{n:02d}.svg", letters[n])
+    buf.seek(0)
+    name = f"{slug}-packets{'-' + version if version else ''}.zip"
+    return StreamingResponse(buf, media_type="application/zip",
+                             headers={"Content-Disposition": f'attachment; filename="{name}"'})
+
+
+class LetteredPage(BaseModel):
+    data_url: str
+
+
+@app.post("/api/projects/{slug}/lettering/{page}/lettered")
+def put_lettered_page(slug: str, page: int, body: LetteredPage):
+    """The finished page: art with the lettering flattened onto it, as the browser drew it."""
+    head, _, b64 = body.data_url.partition(",")
+    if not b64 or "image/png" not in head:
+        raise HTTPException(400, "expected a PNG data URL")
+    path = not_found(projects.save_lettered_page, slug, page, base64.b64decode(b64))
+    return {"lettered": path}
+
+
 @app.get("/api/projects/{slug}/previews")
 def previews(slug: str, version: str | None = None):
     """ASCII page previews from each method, keyed by method then page number."""
@@ -497,7 +543,7 @@ def _lettering(slug, page, version=None):
     ctx = prompts.context(slug, version)
     return {"page": page, "items": lettering.items(spec), "svg": lettering.svg(spec, ctx),
             "spots": list(lettering.ANCHORS),
-            "art": projects.page_art(slug, page), "mode": ctx.get("lettering", "art"),
+            "art": projects.page_art(slug, page), "lettered": projects.lettered_page(slug, page), "mode": ctx.get("lettering", "layer"),
             "size": lettering.page_size()}
 
 
@@ -606,6 +652,7 @@ class RoundSettings(BaseModel):
     lettering: str | None = None   # "art" (the model letters it) or "layer" (we do)
     max_passes: int | None = None
     auto_rounds: int | None = None  # keep going without a review for this many more rounds
+    execution_rounds: int | None = None   # production: rounds of pages before the book is taken as is
     references: list[str] | None = None   # library files to use; ["*"] = all
     use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
 
@@ -640,6 +687,8 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "max_passes must be 0-10")
     if body.auto_rounds is not None and not 0 <= body.auto_rounds <= 20:
         raise HTTPException(400, "auto_rounds must be 0-20")
+    if body.execution_rounds is not None and not 1 <= body.execution_rounds <= 10:
+        raise HTTPException(400, "execution_rounds must be 1-10")
     if body.references not in (None, ["*"]):
         known = {f["name"] for f in projects.library(slug)}
         unknown = [r for r in body.references if r not in known]

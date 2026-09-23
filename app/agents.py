@@ -21,6 +21,8 @@ agents/agents.json sets the titles and what each agent reads and writes, plus:
                           book through the room's own files (see app/agent.py)
     "pipeline": "intake"  the role is run by a named pipeline instead of the agent tool loop:
                           fixed calls, no tools, the room writes the files (see app/intake.py)
+    "page_art": true      the agent is sent the page art the showrunner uploaded, page by page
+                          (the Letterer, checking balloons against the drawn page)
 
 agents/phases.json says which agents run in which phase, in which order (see phases.py).
 """
@@ -48,6 +50,7 @@ class Role:
     shares: str = None       # a second folder of guides, e.g. "_writers"
     library: bool = False    # reads the showrunner's material (the Script Coordinator)
     pipeline: str = None     # run by a named pipeline instead of the tool loop, e.g. "intake"
+    page_art: bool = False   # is sent the showrunner's uploaded page art (the Letterer)
 
     @property
     def minimal(self):

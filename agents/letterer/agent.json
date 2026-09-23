@@ -1,5 +1,5 @@
 {
-  "_why": "Careful and literal (word counts, balloon order): cold. A cheaper model works.",
+  "_why": "Careful and literal (word counts, balloon order): cold. Runs last, over the drawn pages, so it is sent the uploaded page art and needs a model that reads images.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
   "model": "google/gemma-4-31b-it",
@@ -8,7 +8,7 @@
   "max_tokens": 8000,
   "max_steps": 8,
   "timeout": 300,
-  "send_images": false,
+  "send_images": true,
   "extra": {},
   "generate_images": false,
   "image_base_url": null,

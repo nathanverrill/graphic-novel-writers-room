@@ -1,10 +1,11 @@
-"""The room works in five phases, and you stand at the gate between each:
+"""The room works in six phases, and you stand at the gate between each:
 
     intake        the Script Coordinator sorts your material  you approve its reading
     development   Director, Plotter, Character Designer     you approve the story
     audition      Writer A and Writer B, the same pages     you pick the voice
     writing       the writer you picked, the whole script   you approve the words
-    execution     Layout Agent, Letterer                    you review the pages
+    execution     Layout Agent, page packets                you review the pages, then draw them
+    lettering     Letterer, over the art you drew           you download the lettered pages
 
 agents/phases.json is the whole definition: who runs in each phase and in what order, and what
 to read before you decide. A campaign remembers where it is in round-settings.json ("phase",
@@ -14,6 +15,8 @@ anywhere, which is how a book goes back to an earlier phase.
 
 A phase never reruns the ones before it. That is the point of having them: a lettering problem
 reruns the Letterer, not the writer.
+
+"parallel" in a phase names groups of its agents that run at the same time (see room.py).
 """
 import json
 from dataclasses import replace
@@ -84,6 +87,17 @@ def note(slug, phase):
     if phase["id"] == "writing":
         parts.append("The showrunner picked you in the audition. script.md holds your audition pages: "
                      "keep their voice, and write the whole book.")
+    if phase["id"] == "execution":
+        parts.append("The pages are drawn from your layouts by an image model, with NO text on them: "
+                     "the lettering is added afterwards as a layer, from the items in each layout block. "
+                     "So every balloon, caption and sound effect must be in the layout block with the "
+                     "exact words, and each panel's description must say where the clear space for them is.")
+    if phase["id"] == "lettering":
+        have = [n for n in range(1, 400) if projects.page_art(slug, n)]
+        parts.append("The showrunner has drawn the pages from the packets and uploaded the art "
+                     + (f"for pages {', '.join(map(str, have))}. " if have else "for no pages yet. ")
+                     + "Judge the lettering against the real page where there is one, and against the "
+                       "layout sketch where there is not.")
     if phase["id"] in DRAFT_NOTE and projects.read_artifact(slug, projects.DRAFT):
         parts.append(DRAFT_NOTE[phase["id"]])
     return "\n\n".join(parts) or None
@@ -111,6 +125,8 @@ def approve(slug):
     if phase["id"] == "intake":
         projects.seed_production(slug)
     ids = [p["id"] for p in load()]
+    if phase["id"] == ids[-1]:          # the last phase: approving it closes the book where it is
+        return state(slug)
     return go_to(slug, ids[ids.index(phase["id"]) + 1])
 
 

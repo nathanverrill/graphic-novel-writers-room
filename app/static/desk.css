@@ -189,3 +189,9 @@ dialog header { position: sticky; top: 0; z-index: 1; }
 .md table { border-collapse: collapse; margin: .9em 0; font-size: .86rem; display: block; overflow-x: auto; }
 .md th, .md td { border: 1px solid var(--line); padding: .35em .6em; text-align: left; vertical-align: top; }
 .md th { background: var(--bg); font-weight: 650; }
+
+/* inside a feed line: the estimate beside the timer, a note under a step, a slow agent */
+.feed .step span.dim, .feed-now span.dim { color: var(--muted); font-weight: 400; }
+.feed .step .msg { color: #e9e4da; font-weight: 400; margin-top: .1rem; }
+.feed-now span.warn { color: var(--bad); }
+.feed-now b { font-weight: 600; }

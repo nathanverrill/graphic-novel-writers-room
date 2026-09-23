@@ -238,6 +238,59 @@ def set_items(slug, page, changes):
     return spec
 
 
+MOVES_RE = re.compile(r"```moves\s*\n(.*?)\n```", re.S)
+
+
+def moves_in(text):
+    """The Letterer's ```moves blocks: [(page, [{"item", "at" | "x","y"}])], bad JSON skipped."""
+    out = []
+    for m in MOVES_RE.finditer(text or ""):
+        try:
+            block = json.loads(re.sub(r",(\s*[\]}])", r"\1", m.group(1)))
+        except ValueError:
+            continue
+        if isinstance(block, dict) and block.get("moves"):
+            out.append((int(block.get("page", 0)), [x for x in block["moves"] if isinstance(x, dict)]))
+    return out
+
+
+def apply_moves(slug, text, locked=()):
+    """Move balloons and captions as the Letterer asked in lettering.md. Only the position of a
+    lettering item changes - never its words, never a figure, never a locked page. Returns
+    [(page, item, what)] for what was applied."""
+    done = []
+    for page, moves in moves_in(text):
+        if page in locked:
+            continue
+        spec = page_spec(slug, page)
+        if not spec:
+            continue
+        all_items = spec.get("items") or []
+        changed = False
+        for mv in moves:
+            try:
+                i = int(mv.get("item"))
+            except (TypeError, ValueError):
+                continue
+            if not 0 <= i < len(all_items) or all_items[i].get("type") not in KINDS:
+                continue
+            if mv.get("at") in ANCHORS:
+                all_items[i]["at"] = mv["at"]
+                all_items[i].pop("x", None); all_items[i].pop("y", None)
+                done.append((page, i, mv["at"])); changed = True
+            elif mv.get("x") is not None and mv.get("y") is not None:
+                try:
+                    x, y = float(mv["x"]), float(mv["y"])
+                except (TypeError, ValueError):
+                    continue
+                all_items[i]["x"], all_items[i]["y"] = max(0, min(100, x)), max(0, min(100, y))
+                all_items[i].pop("at", None)
+                done.append((page, i, f"{x:g},{y:g}")); changed = True
+        if changed:
+            write_spec(slug, page, spec)
+    return done
+
+
 def delete_item(slug, page, index):
     """Drop one balloon, caption or sound effect from the page."""
     spec = page_spec(slug, page)

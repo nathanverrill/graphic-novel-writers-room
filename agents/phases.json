@@ -19,7 +19,7 @@
   {
     "id": "development",
     "title": "Development",
-    "does": "Decide what the book is: the brief, and what the three files leave open — the world, the plot, the people.",
+    "does": "Decide what the book is: the Director writes the brief and settles the world, then the Plotter and the Character Designer work at the same time on the plot and the people, and the Continuity Editor checks the four files agree.",
     "agents": [
       "director",
       "plotter",
@@ -34,12 +34,18 @@
       "story.md",
       "characters.md",
       "notes.md"
+    ],
+    "parallel": [
+      [
+        "plotter",
+        "character_designer"
+      ]
     ]
   },
   {
     "id": "audition",
     "title": "Audition",
-    "does": "Two writers write the same opening pages. You pick the voice.",
+    "does": "Two writers write the same opening pages at the same time, blind to each other. You pick the voice.",
     "agents": [
       "writer_a",
       "writer_b",
@@ -56,6 +62,12 @@
       "audition-a.md",
       "audition-b.md",
       "first-read.md"
+    ],
+    "parallel": [
+      [
+        "writer_a",
+        "writer_b"
+      ]
     ]
   },
   {
@@ -76,18 +88,30 @@
   {
     "id": "execution",
     "title": "Execution",
-    "does": "Lay out and letter every page until the pages pass the readiness check. Then the page prompts are written.",
+    "does": "Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.",
     "agents": [
       "layout",
-      "letterer",
       "continuity"
     ],
     "gate": "review",
-    "asks": "Review the pages: keep them, note them, send them back, or finalize.",
+    "asks": "Review the pages: keep them, note them, send them back, or finalize. Then draw them, and come back to letter.",
     "read": [
       "layouts.md",
-      "lettering.md",
       "notes.md"
+    ]
+  },
+  {
+    "id": "lettering",
+    "title": "Lettering",
+    "does": "Over the art you drew from the packets: the Letterer checks every balloon and caption against the real page - order, placement, fit - and moves a balloon in layouts.md when it would cover a face. The room draws the letters itself, as a layer over your art.",
+    "agents": [
+      "letterer"
+    ],
+    "gate": "approve",
+    "asks": "Are the words where they belong on every page? Download the lettered pages, or note and run again.",
+    "read": [
+      "lettering.md",
+      "layouts.md"
     ]
   }
 ]

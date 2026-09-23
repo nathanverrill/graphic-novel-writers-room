@@ -178,7 +178,7 @@ async function goOn() {
 async function startRound(body = {}) {
   // always intake, whatever phase the book is in: this desk never runs production
   const { run_id } = await api(`/api/projects/${state.slug}/rounds`, { method: "POST", body: { ...body, phase: "intake" } });
-  state.run = run_id; state.seen = 0; state.rulesTouched = false;
+  state.run = run_id; state.seen = 0; state.rulesTouched = false; state.startedHere = true;
   resetFeed();
   await load();          // the project now reports the active run, so the buttons flip
   follow();
@@ -231,6 +231,13 @@ function follow() {
   if (!state.run) return;
   showTab("log");
   setPill("run", "working");
+  if (project.phase && project.phase !== "intake" && !state.startedHere) {
+    // the room is busy on another desk: say so, or this log reads as intake at work
+    feedLine({ t: Date.now() / 1000 }, "warn",
+      `This is the room working on <b>${esc(project.phase)}</b> for this book, not intake. ` +
+      `Intake runs when it is done, or after Stop on the <a href="/production?p=${encodeURIComponent(state.slug)}">production</a> screen.`);
+  }
+  state.startedHere = false;
   state.stream?.close();
   state.stream = followRun(state.run, state.seen, async (how) => {
     state.seen = state.stream.seen();

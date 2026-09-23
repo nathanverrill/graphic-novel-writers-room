@@ -18,7 +18,7 @@ import re
 
 from . import llm, projects, review, rules, search, thumbnails
 from . import agents as agents_mod
-from .agents import gather_context, random_entry
+from .agents import IMAGE_TYPES, gather_context, random_entry
 from .usage import CallLogger
 
 REF_PREFIX = "campaigns/"  # the showrunner's material: intake's to read (app/intake.py), nobody else's
@@ -96,6 +96,21 @@ def page_of(message):
     return int(m.group(1)) if m else None
 
 
+def page_art_images(slug, limit=24):
+    """The showrunner's uploaded page art, as (label, mime, bytes), lowest page first."""
+    out = []
+    for n in range(1, 400):
+        rel = projects.page_art(slug, n)
+        if not rel:
+            continue
+        path = projects.project_dir(slug) / rel
+        mime = IMAGE_TYPES.get(path.suffix.lower(), "image/png")
+        out.append((f"page {n} art (no lettering)", mime, path.read_bytes()))
+        if len(out) >= limit:
+            break
+    return out
+
+
 class Stopped(Exception):
     pass
 
@@ -170,6 +185,8 @@ class Agent:
         if note:
             text += ["# Note from the showrunner — address this first", note]
 
+        if r.page_art and self.cfg.send_images:
+            images = list(images) + page_art_images(self.slug)
         if images:
             text.append("# Reference images attached: " + ", ".join(l for l, _, _ in images))
 

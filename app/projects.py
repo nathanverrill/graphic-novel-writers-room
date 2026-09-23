@@ -399,6 +399,41 @@ def save_page_art(slug, page, data, ext="png"):
     return f"images/{name}"
 
 
+def save_lettered_page(slug, page, data):
+    """The finished page, lettering flattened onto the art, beside the art in images/."""
+    folder = project_dir(slug) / "images"
+    folder.mkdir(parents=True, exist_ok=True)
+    name = f"{slug}-p{page:02d}-lettered.png"
+    (folder / name).write_bytes(data)
+    return f"images/{name}"
+
+
+def lettered_page(slug, page):
+    p = project_dir(slug) / "images" / f"{slug}-p{page:02d}-lettered.png"
+    return f"images/{p.name}" if p.exists() else None
+
+
+def close_stale_rounds(slug):
+    """At startup: a round whose record still says "running" died with the process. Mark it,
+    so the desk does not wait on it. Returns the ids marked."""
+    out = []
+    for desk in (PRE, PROD):
+        d = project_dir(slug, desk) / "previous"
+        for f in d.iterdir() if d.is_dir() else []:
+            meta = f / f"{f.name}-run.json"
+            if not meta.exists():
+                continue
+            try:
+                m = json.loads(meta.read_text())
+            except ValueError:
+                continue
+            if m.get("status") == "running":
+                m.update(status="interrupted", finished=now())
+                meta.write_text(json.dumps(m, indent=2))
+                out.append(m.get("id", f.name))
+    return out
+
+
 def page_art(slug, page):
     folder = project_dir(slug) / "images"
     found = sorted(folder.glob(f"{slug}-p{page:02d}-art.*")) if folder.is_dir() else []
@@ -529,13 +564,15 @@ class Round:
             f.write(json.dumps(event) + "\n")
 
     def write(self, name, content):
-        """A book file: working copy and round."""
+        """A book file: working copy and round. Agents running side by side write through
+        the same lock, so two of them never interleave a file or the run's record."""
         check_name(name)
-        (self.root / name).write_text(content)
-        self.path(name).write_text(content)
-        if name not in self.meta["files_written"]:
-            self.meta["files_written"].append(name)
-            self.save_meta()
+        with self._lock:
+            (self.root / name).write_text(content)
+            self.path(name).write_text(content)
+            if name not in self.meta["files_written"]:
+                self.meta["files_written"].append(name)
+                self.save_meta()
 
     def write_file(self, name, content):
         """A file that exists only in the round (page files, reviews)."""
@@ -558,10 +595,16 @@ class Round:
         return f"images/{name}"
 
     def append_log(self, who, text):
-        path = self.root / LOG
-        current = path.read_text() if path.exists() else "# Room log\n"
-        stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
-        self.write(LOG, current + f"\n## {who} — {self.id}, {stamp}\n\n{text.strip()}\n")
+        with self._lock:
+            path = self.root / LOG
+            current = path.read_text() if path.exists() else "# Room log\n"
+            stamp = datetime.now().strftime("%Y-%m-%d %H:%M")
+            content = current + f"\n## {who} — {self.id}, {stamp}\n\n{text.strip()}\n"
+            (self.root / LOG).write_text(content)
+            self.path(LOG).write_text(content)
+            if LOG not in self.meta["files_written"]:
+                self.meta["files_written"].append(LOG)
+                self.save_meta()
 
 
 Version = Round

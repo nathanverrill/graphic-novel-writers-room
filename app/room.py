@@ -11,7 +11,12 @@ up to max_passes times, before handing the pages over for review.
 Two things can interrupt that: the showrunner can hold the round between two writers
 (hold(), pause/resume) and change settings or leave notes for whoever runs next, and
 auto mode (auto_step) can hand a finished round straight back to the room instead of
-waiting for a review."""
+waiting for a review.
+
+A phase may name groups of agents that run at the same time ("parallel" in phases.json):
+the two writers in the audition, the Plotter and the Character Designer in development.
+run_roles() runs such a group in threads and waits for all of them before the next agent
+starts; everything else about a round is unchanged."""
 import threading
 import time
 import uuid
@@ -19,7 +24,7 @@ from dataclasses import replace
 
 from . import agent as agent_mod, intake as intake_mod
 from . import notes as notes_mod
-from . import phases, projects, review, usage
+from . import lettering, phases, projects, review, usage
 from .agents import load_roles
 
 MEASURED = "execution"      # the one phase whose gate the room can check for itself
@@ -34,7 +39,8 @@ class Run:
         self.awaiting = False     # a runner stopped for the showrunner (intake passes 1-3)
         self.run_status = None    # a runner's own word for how the round ended (see intake.py)
         self.note = note
-        self.plan = plan            # set for a phase's round: {"kind": phase id, "max_passes", "all"}
+        self.plan = plan            # set for a phase's round: {"kind": phase id, "max_passes", "all", "parallel"}
+        self.groups = [set(g) for g in (plan or {}).get("parallel") or []]
         self.events = []
         self.done = False
         self.stop_requested = False
@@ -42,6 +48,7 @@ class Run:
         self.paused = False
         self.last_done = None       # the writer who handed off last, for the pause banner
         self.cond = threading.Condition()
+        self.estimate = estimates(roles)
         self.version = projects.Version(
             slug, desk=projects.desk_for(plan["kind"]) if plan else projects.PROD,
             run_id=self.id, note=note, roles=[r.id for r in roles],
@@ -93,24 +100,66 @@ class Run:
         self.emit("resumed", changed=changed, notes=bool(jotted))
         return "\n\n".join(p for p in (note, jotted) if p)
 
+    def steps(self, roles):
+        """The roles as they run: one at a time, or a group of them side by side."""
+        out, i = [], 0
+        while i < len(roles):
+            group = next((g for g in self.groups if roles[i].id in g), None)
+            if group:
+                batch = [r for r in roles[i:] if r.id in group]
+                rest = [r for r in roles[i:] if r.id not in group]
+                if len(batch) > 1:
+                    out.append(batch)
+                    roles = roles[:i] + batch + rest
+                    i += len(batch)
+                    continue
+            out.append([roles[i]])
+            i += 1
+        return out
+
     def run_roles(self, roles, note, pass_n=1):
-        for role in roles:
-            note = self.hold(note, role)
-            role = self.reload(role)
-            emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
-            emit("role_start", title=role.title, pass_n=pass_n)
-            if role.pipeline == "intake":
-                a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
-            else:
-                a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
-            try:
-                done_note = a.run(note)
-            finally:
-                emit("role_cost", **a.log.totals)
-            emit("role_done", note=done_note)
-            self.awaiting = self.awaiting or getattr(a, "awaiting", False)
-            self.run_status = getattr(a, "run_status", None) or self.run_status
-            self.last_done = role
+        for batch in self.steps(list(roles)):
+            note = self.hold(note, batch[0])
+            if len(batch) == 1:
+                self.run_role(batch[0], note, pass_n)
+                continue
+            self.emit("parallel", roles=[r.id for r in batch], titles=[r.title for r in batch])
+            errors = []
+            def one(role):
+                try:
+                    self.run_role(role, note, pass_n)
+                except BaseException as e:       # noqa: BLE001 - carried back to the round's thread
+                    errors.append(e)
+            threads = [threading.Thread(target=one, args=(r,), daemon=True) for r in batch]
+            for t in threads:
+                t.start()
+            for t in threads:
+                t.join()
+            if errors:
+                raise errors[0]
+
+    def run_role(self, role, note, pass_n=1):
+        role = self.reload(role)
+        emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
+        started = time.time()
+        emit("role_start", title=role.title, pass_n=pass_n, estimate=self.estimate.get(role.id))
+        if role.pipeline == "intake":
+            a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
+        else:
+            a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
+        try:
+            done_note = a.run(note)
+        finally:
+            emit("role_cost", **a.log.totals)
+        if role.id == "letterer":
+            moved = lettering.apply_moves(self.slug, projects.read_artifact(self.slug, "lettering.md"),
+                                          locked=set(review.kept(self.slug)))
+            if moved:
+                emit("message", text=f"Moved {len(moved)} balloon{'s' if len(moved) > 1 else ''} as the Letterer asked.")
+        emit("role_done", note=done_note, seconds=round(time.time() - started))
+        self.awaiting = self.awaiting or getattr(a, "awaiting", False)
+        self.run_status = getattr(a, "run_status", None) or self.run_status
+        self.last_done = role
 
     def reload(self, role):
         """The role as it is on disk now — settings can have changed while the round was paused.
@@ -152,7 +201,7 @@ class Run:
 
     def work(self):
         measured = bool(self.plan) and self.plan["kind"] == MEASURED
-        times = estimates(self.roles)
+        times = self.estimate
         self.emit("run_start", roles=[r.id for r in self.roles], version=self.version.id,
                   writing_round=self.plan and self.plan["kind"],
                   max_passes=self.plan["max_passes"] if measured else 0,
@@ -265,7 +314,8 @@ def start_round(slug, note=None, mode=None, phase_id=None):
     jotted = notes_mod.take(slug, "pending")   # the round id isn't known until the Run is made
     if jotted:
         parts.append(jotted)
-    plan = {"kind": phase["id"], "max_passes": int(st["max_passes"]), "all": roles}
+    plan = {"kind": phase["id"], "max_passes": int(st["max_passes"]), "all": roles,
+            "parallel": phase.get("parallel") or []}
     run = Run(slug, roles, "\n\n".join(p for p in parts if p), plan, mode)
     if jotted:
         notes_mod.mark_used(slug, [n["id"] for n in notes_mod._all(slug) if n["used_in"] == "pending"], run.version.id)

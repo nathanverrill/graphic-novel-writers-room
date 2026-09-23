@@ -1,11 +1,14 @@
 # Writers' Room
 
-A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
+A web-based, agentic writers' room for graphic novels. Its product is **page packets**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
-to draw the finished page. Drawing the pages is not this application's job.
+to draw the page with **no text on it**. Drawing the pages is not this application's job;
+lettering them is: you upload the art, and the room draws the words over it.
 
-The room works in **five phases**, and you stand at the gate between each. Nothing moves on
-by itself:
+**Produce** is one button (`/production`): it runs development, the audition, the writing and
+the pages back to back, takes every gate itself, and ends with the packets to download. Or
+take the gates yourself. The room works in **six phases**, and you stand at the gate between
+each. Nothing moves on by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
@@ -13,12 +16,15 @@ by itself:
 | 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
 | 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
-| 5 | **Execution** | Layout Agent → Letterer → Continuity Editor | `layouts.md`, `lettering.md`, the page sketches, and the **page prompts** | **Review** the pages: keep, note, send back, or finalize |
+| 5 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
+| 6 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
 
 Three rules make this work, and they are the whole design:
 
 - **A phase never reruns the ones before it.** A lettering problem reruns the Letterer, not the
   writer. Not happy with a phase? Add a note and run it again; each agent revises its own last draft.
+- **Agents that don't need each other run side by side.** The two writers in the audition; the
+  Plotter and the Character Designer in development (`"parallel"` in `agents/phases.json`).
 - **The first four gates are your judgment; the last one is measured.** Execution checks itself
   — right page count, no layout issues, no continuity blockers — and reruns its own agents until
   it passes (up to **Fix passes**), before it asks you anything.
@@ -41,9 +47,9 @@ to do that job well) and an `agent.json` (its model and settings).
 | Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
 | Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
 | First Reader | audition | `first-read.md` | reads both auditions cold — the pages, nothing else — and reports reactions. Never picks |
-| Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page prompts and the sketch |
-| Letterer | execution | `lettering.md` | checks balloon order, placement and word count; the Layout Agent reads it on a fix pass |
-| Continuity Editor | closes 1, 3 and 4 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
+| Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page packets, the sketch and the lettering |
+| Letterer | lettering | `lettering.md` | runs last, over the art you upload: checks balloon order, placement and fit against the real page, and moves a balloon off a face with a `moves` block the room applies to `layouts.md` |
+| Continuity Editor | closes 2, 4 and 5 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
 
 **The two writers** are the room's one deliberate act of divergence. They share a job and a
 craft (`agents/_writers/role.md` and `craft.md`) and differ in voice (`agents/writer_a/voice.md`,
@@ -61,6 +67,12 @@ a second or two after you save a file. The same tools the agents call are served
 chat client or an editor can work on a book without the screen.
 
 ## Two screens
+
+**`/production` is Produce.** One button runs development to the packets and takes every gate
+itself (the First Reader's report picks the writer; the pages rerun until the readiness check
+passes, up to **Page rounds**). **Page 1 first** stops at a proof of page 1 instead. The
+**Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
+the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 
 **`/` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
@@ -118,13 +130,22 @@ place, which is what you edit and review) and in the page prompts, each with its
 `page-prompts.md` (in the project, and in every round) has one section per page. Each is
 self-contained, so you can paste a single page into an image model:
 
-- **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
+Each packet is complete on its own, and the book packet in front of them (`00-book.md` in the
+zip) says how to use them, the rules that hold for every page, a **character sheet** prompt to
+draw first, and a page index. A page packet holds:
+
+- **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels. **No text.**
 - **Style** — the brief's visual direction, the same on every page.
 - **Characters** — the visual lock in `characters.md` for everyone on the page, word for word.
 - **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
-  and panels with their share of the page, bleeds.
+  and panels with their share of the page, bleeds; and the **sketch at print scale**, one
+  character cell per letter, with the balloons boxed where they will go.
 - **Panels** — shot and angle, the Layout Agent's scene description, light, who stands where
-  and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
+  and how big, and the clear space to leave for each balloon, caption and sound effect.
+- **Rules and a checklist** — no text anywhere; then what to look for before you keep the
+  image: the panel count, each panel's one thing, the cast, the clear space, no letters.
+
+Set **Lettering** to *art* and the packet asks the image model to letter the page itself instead.
 - **Rules**, and the page's script for reference.
 
 They're **assembled in code**, not written by a model: free, always in step with the room's

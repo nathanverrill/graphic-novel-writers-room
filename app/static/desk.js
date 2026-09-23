@@ -102,10 +102,11 @@ function markdown(src) {
  *
  * One line per event kind. Silent kinds (context, role_cost, thumbnails…) draw nothing.  */
 
-const feed = { open: {}, calls: 0, replies: 0, inTok: 0, outTok: 0, cost: 0, started: null, ended: null, timer: null };
+const feed = { open: {}, calls: 0, replies: 0, inTok: 0, outTok: 0, cost: 0, started: null, ended: null, timer: null,
+               roles: {}, phase: null };
 
 function resetFeed() {
-  Object.assign(feed, { open: {}, calls: 0, replies: 0, inTok: 0, outTok: 0, cost: 0, started: null, ended: null });
+  Object.assign(feed, { open: {}, calls: 0, replies: 0, inTok: 0, outTok: 0, cost: 0, started: null, ended: null, roles: {}, phase: null });
   $("#feed").innerHTML = ""; $("#feed-stats").innerHTML = ""; $("#feed-now").innerHTML = "";
 }
 
@@ -132,11 +133,17 @@ function feedLine(ev, cls, html) {
 function feedEvent(ev) {
   const step = (s) => `<b>${esc(s)}</b>`;
   switch (ev.type) {
-    case "run_start":
-      feed.started = ev.t;
-      return feedLine(ev, "round", `Round ${esc(ev.version)} started · ${esc((ev.roles || []).join(", "))}`);
+    case "run_start": {
+      feed.started = ev.t; feed.phase = ev.writing_round || null;
+      const est = ev.pass_seconds ? ` · about ${secs(ev.pass_seconds * 1000)} by past rounds` : "";
+      return feedLine(ev, "round", `Round ${esc(ev.version)} started${feed.phase ? ` · ${esc(feed.phase)}` : ""} · ${esc((ev.roles || []).join(", "))}${est}`);
+    }
+    case "parallel":
+      return feedLine(ev, "step", `${esc((ev.titles || ev.roles || []).join(" and "))} work side by side`);
     case "role_start":
-      return feedLine(ev, "step", `${esc(ev.title || ev.role)} begins${ev.pass_n > 1 ? ` (pass ${ev.pass_n})` : ""}`);
+      feed.roles[ev.role] = { t: ev.t, title: ev.title || ev.role, estimate: ev.estimate || 0 };
+      return feedLine(ev, "step", `${esc(ev.title || ev.role)} begins${ev.pass_n > 1 ? ` (pass ${ev.pass_n})` : ""}` +
+        (ev.estimate ? ` <span class="dim">· usually ${secs(ev.estimate * 1000)}</span>` : ""));
     case "message":
       return feedLine(ev, "msg", esc(ev.text));
     case "thinking": {
@@ -168,8 +175,13 @@ function feedEvent(ev) {
       return feedLine(ev, "warn", esc(ev.text));
     case "error":
       return feedLine(ev, "err", `failed: ${esc(ev.text)}`);
-    case "role_done":
-      return feedLine(ev, "step", esc(ev.note || `${ev.role} done`));
+    case "role_done": {
+      const r = feed.roles[ev.role]; delete feed.roles[ev.role];
+      const took = ev.seconds != null ? secs(ev.seconds * 1000) : r ? secs((ev.t - r.t) * 1000) : "";
+      return feedLine(ev, "step", `${r ? `${esc(r.title)} done in ${took}` : esc(`${ev.role} done`)}` +
+        (r && r.estimate ? ` <span class="dim">(usually ${secs(r.estimate * 1000)})</span>` : "") +
+        (ev.note ? `<div class="msg">${esc(ev.note)}</div>` : ""));
+    }
     case "paused":
       return feedLine(ev, "warn", `paused before ${esc(ev.title || ev.next)}`);
     case "resumed":
@@ -192,10 +204,15 @@ function renderFeedStats(done) {
     `<div><b>${feed.calls}</b> <span>sent</span></div><div><b>${feed.replies}</b> <span>replied</span></div>` +
     `<div><b>${ktok(feed.inTok)}</b> <span>tokens in</span></div><div><b>${ktok(feed.outTok)}</b> <span>tokens out</span></div>` +
     (feed.cost ? `<div><b>$${feed.cost.toFixed(3)}</b> <span>so far</span></div>` : "");
-  $("#feed-now").innerHTML = done ? "" : out.length
-    ? `<i></i>waiting on ${esc(out[0][1].model || "the model")}: ` +
-      out.map(([k, c]) => `pass ${esc(k)}${c.to ? ` → ${esc(c.to)}` : ""} (${secs((Date.now() / 1000 - c.t) * 1000)})`).join(", ")
-    : `<i></i>working…`;
+  const now = Date.now() / 1000;
+  const who = Object.values(feed.roles).map((r) => {
+    const gone = now - r.t, over = r.estimate && gone > r.estimate * 1.5;
+    return `<b>${esc(r.title)}</b> ${secs(gone * 1000)}${r.estimate ? ` <span class="${over ? "warn" : "dim"}">of ~${secs(r.estimate * 1000)}</span>` : ""}`;
+  }).join(" · ");
+  $("#feed-now").innerHTML = done ? "" : (who ? `<i></i>${who}` : `<i></i>working…`) + (out.length
+    ? `<span class="dim"> · waiting on ${esc(out[0][1].model || "the model")}: ` +
+      out.map(([k, c]) => `pass ${esc(k)}${c.to ? ` → ${esc(c.to)}` : ""} (${secs((now - c.t) * 1000)})`).join(", ") + "</span>"
+    : "");
 }
 
 const PILL = { run_done: ["ready", "done"], run_stopped: ["fail", "stopped"], error: ["fail", "failed"] };

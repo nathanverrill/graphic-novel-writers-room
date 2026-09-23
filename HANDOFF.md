@@ -51,6 +51,21 @@ Preservation is telemetry, never a gate: coverage 0.85 and mass 0.30 are levels 
 about, measured across the whole output set against `input/` + `rules/` and never the research
 shelf. `run.json` records it per call along with attempts, repairs, notes, inputs and snapshot.
 
+## Fast and awesome (2026-09-22)
+
+Six phases now: the Letterer left execution and runs last, over the art the showrunner uploads
+(`phases.json` "lettering"; its `moves` blocks are applied to `layouts.md` by
+`lettering.apply_moves`). Agents that do not need each other run side by side (`"parallel"` in
+`phases.json`; `room.Run.steps`). Produce (`/production`) runs development to final with no
+page 1 stop (`until="page1"` still gives the proof); the audition pick reads the First Reader's
+report with no second call; page rounds are the `execution_rounds` setting. The deliverable is
+the page packets (`prompts.py`: sketch at print scale, no-text rules, a checklist, a book packet
+with a character sheet and an index), downloaded as a zip (`/api/projects/<slug>/packet.zip`).
+The Lettering tab flattens the SVG layer onto the art in the browser and saves the PNG back
+(`/lettering/<page>/lettered`). Stale runs are closed at startup. `tests/test_production.py`.
+
+Do not edit `agents/` while a round is live: it is bind-mounted and read per round.
+
 ## The screens
 
 - `/preproduction` — the desk. Material in, documents out, preservation, and the open items

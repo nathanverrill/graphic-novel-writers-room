@@ -23,8 +23,9 @@ LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 KEPT, EDITED = "keep", "edited"        # the two kinds of lock a page can carry
 OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdicts went away
-DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
+DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
+                    "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
                     "scope": None,       # execution on the first N pages only (magic's page-1 proof); None = the book
                     "use_references_during_synthesis": True,    # see app/intake.py, pass 1
                     "phase": "intake", "writer": None}      # where the book is: see phases.py
