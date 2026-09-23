@@ -162,7 +162,7 @@ def _thinking(body, base_url, budget):
     against max_tokens, so an uncapped model can spend the whole budget and say nothing."""
     host = base_url.split("//", 1)[-1].split("/", 1)[0]
     if host.endswith("openrouter.ai"):
-        body.setdefault("reasoning", {"max_tokens": budget} if budget else {"effort": "low"})
+        body.setdefault("reasoning", {"max_tokens": budget} if budget else {"effort": "minimal"})
     elif host.endswith("api.openai.com"):
         body.setdefault("reasoning_effort", "minimal" if budget <= 1024 else "low" if budget <= 4096 else "medium")
     elif host.endswith("api.anthropic.com"):

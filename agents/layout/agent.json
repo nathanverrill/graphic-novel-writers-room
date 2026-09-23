@@ -15,5 +15,7 @@
   "image_api_key_env": null,
   "image_model": null,
   "image_size": null,
-  "image_extra": {}
+  "image_extra": {},
+  "thinking_budget": 0,
+  "tools": []
 }

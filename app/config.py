@@ -65,7 +65,7 @@ class AgentConfig:
     model: str = None
     temperature: float = None
     max_tokens: int = None
-    thinking_budget: int = None   # cap on a reasoning model's thinking tokens (None = the provider's default)
+    thinking_budget: int = None   # cap on a reasoning model's thinking tokens (None = the provider's default; 0 = as little as it allows)
     max_steps: int = None
     timeout: int = None
     send_images: bool = None

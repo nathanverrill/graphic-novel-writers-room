@@ -2,7 +2,7 @@
   "_why": "Judgment and consistency over flair: moderate temperature. Writes a two- or three-page brief and takes over world.md from the Script Coordinator, so a big output budget.",
   "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "meta-llama/llama-3.3-70b-instruct",
+  "model": "openai/gpt-5.6-luna",
   "api_key_env": null,
   "temperature": 0.6,
   "max_tokens": 16000,
@@ -16,5 +16,6 @@
   "image_model": null,
   "image_size": null,
   "image_extra": {},
-  "tools": []
+  "tools": [],
+  "thinking_budget": 0
 }
