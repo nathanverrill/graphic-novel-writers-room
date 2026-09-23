@@ -237,3 +237,4 @@ campaigns/_morgue/prosperity-drafts/*.pdf
 # the sheet builder: images and picks stay local
 sheets/characters/*
 !sheets/characters/.gitkeep
+sheets/backup/

@@ -270,7 +270,6 @@ def undo(name, stage_id):
 
 
 _catalog = {"t": 0, "models": []}
-GOOD = list(core.DEFAULT_MODELS) + ["openai/gpt-image-1", "krea/krea-2-large", "microsoft/mai-image-2.6"]
 
 
 def typical_seconds():
@@ -302,7 +301,9 @@ def catalog():
             ids = [m["id"] for m in data if (m.get("supported_parameters") or {}).get("input_references")]
     except (SystemExit, Exception):        # noqa: BLE001 - the page still works without the catalog
         ids = []
-    models = [m for m in GOOD if not ids or m in ids] + sorted(m for m in ids if m not in GOOD)
+    # the list: the defaults, then the other OpenAI and xAI models that take a reference
+    keep = lambda m: m.split("/")[0] in ("openai", "x-ai")
+    models = [m for m in core.DEFAULT_MODELS if not ids or m in ids] + sorted(m for m in ids if m not in core.DEFAULT_MODELS and keep(m))
     _catalog.update(t=_t.time(), models=models)
     return models
 
