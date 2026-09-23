@@ -3,9 +3,10 @@
 
     python3 sheets/server.py            # http://localhost:8001
 
-Same folders as the command line (sheets/<character>/...), so the two can be mixed. The page
-can also read markdown from the campaigns folder - a character's section of characters.md,
-say - to fill in the description. Standard library only; one thread per request, and the
+Same folders as the command line (sheets/<character>/...), so the two can be mixed. A subject
+is a character or a place (kind.txt). The page can also read markdown from the campaigns
+folder - a character's section of characters.md, a place's section of world.md - to fill in
+the description. Standard library only; one thread per request, and the
 generation of a step runs in a thread of its own while the page polls."""
 import base64
 import json
@@ -72,7 +73,7 @@ def style_text():
     """The book's visual direction, if a brief is in reach: the first campaign's brief.md."""
     for root in MD_ROOTS:
         for b in sorted(root.glob("*/production/brief.md")) if root.is_dir() else []:
-            m = re.search(r"^#+\s*.*(visual|style|look).*\n(.*?)(?=^#|\Z)", b.read_text(), re.S | re.M | re.I)
+            m = re.search(r"^#+[^\n]*\b(visual|style|look)\b[^\n]*\n(.*?)(?=^#|\Z)", b.read_text(), re.S | re.M | re.I)
             if m:
                 return " ".join(m.group(2).split())[:600]
     return None
@@ -80,7 +81,9 @@ def style_text():
 
 def stages(char):
     """[(id, n, title, instruction, parent_name)] - the lock, then the steps."""
-    out = [("00-lock", 0, "lock", "the approved starting view: full-length front, neutral, plain background", None)]
+    first = ("the approved establishing view: wide, eye level, daylight, nobody in frame" if char.kind == "place"
+             else "the approved starting view: full-length front, neutral, plain background")
+    out = [("00-lock", 0, "lock", first, None)]
     for n, (step, instruction, parent) in enumerate(char.steps, 1):
         out.append((f"{n:02d}-{step}", n, step, instruction, parent))
     return out
@@ -134,7 +137,11 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
         parent, from_pick = parent_for(char, stage_id, n, parent_name)
     if stage_id != "00-lock" and parent is None:
         raise ValueError("this step's parent has nothing kept yet - lock first, or keep the step it builds on")
-    if stage_id == "00-lock":
+    from_reference = False
+    if stage_id == "00-lock" and parent is None and char.reference is not None and base != "kept":
+        parent, from_reference = char.reference, True       # what is where comes from the reference
+        prompt = core.reference_prompt(char, style_text(), notes)
+    elif stage_id == "00-lock":
         prompt = core.lock_prompt(char, style_text(), notes, from_pick=from_pick)
     else:
         prompt = core.prompt_for(char, instruction, notes, from_pick=from_pick)
@@ -148,7 +155,7 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
             raise ValueError("that stage is already rolling")
         _running[(name, stage_id)] = {"status": "running", "errors": []}
     import time as _t
-    st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "pick_before": st.get("pick"),
+    st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "from_reference": from_reference, "pick_before": st.get("pick"),
                          "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models),
                          "each": each, "started": _t.time(), "seconds": None, "batch": batch})
     save_stage(d, stage_id, st)
@@ -240,14 +247,45 @@ def set_zip(name):
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         if char.lock:
             z.write(char.lock, f"{name}/00-lock{char.lock.suffix}")
-            z.writestr(f"{name}/00-lock.txt", f"{char.trigger}, full-length front view, neutral pose, plain background\n")
+            z.writestr(f"{name}/00-lock.txt", f"{char.trigger}, " + ("wide establishing view, eye level, daylight" if char.kind == "place"
+                                                                    else "full-length front view, neutral pose, plain background") + "\n")
         for p in sorted((d / "set").iterdir()) if (d / "set").is_dir() else []:
             z.write(p, f"{name}/{p.name}")
-        z.writestr(f"{name}/README.txt", f"Training set for {name}. Trigger word: {char.trigger}.\n"
-                   "Each image has a .txt caption beside it. Train a character LoRA on this folder;\n"
+        z.writestr(f"{name}/README.txt", f"Training set for {name}, a {char.kind}. Trigger word: {char.trigger}.\n"
+                   f"Each image has a .txt caption beside it. Train a {char.kind} LoRA on this folder;\n"
                    "use the trigger word in every prompt afterwards.\n")
     buf.seek(0)
     return buf.read()
+
+
+RESET_WORD = "evoke"
+
+
+def reset(name, confirm):
+    """Start this subject over: the reference, the lock, every roll, every kept image and the
+    logs move to previous/<time>/ inside its folder. The setup text stays: description, notes,
+    style, steps, kind. Confirmed by typing the word, checked here as well."""
+    if (confirm or "").strip().lower() != RESET_WORD:
+        raise ValueError(f"type {RESET_WORD} to confirm")
+    d = character(name)
+    if not d.is_dir():
+        raise FileNotFoundError(name)
+    if any(v.get("status") == "running" for (n, _), v in _running.items() if n == name) or _batch.get(name, {}).get("status") == "running":
+        raise ValueError("wait for the roll to finish")
+    import shutil, time as _t
+    work = [p for p in d.iterdir() if p.name in ("runs", "set", "lineage.jsonl", "timings.jsonl") or p.name.startswith(("lock.", "reference."))]
+    stamp = _t.strftime("%Y%m%d-%H%M%S")
+    if work:
+        prev = d / "previous" / stamp
+        prev.mkdir(parents=True, exist_ok=True)
+        for p in work:
+            shutil.move(str(p), str(prev / p.name))
+    (d / "runs").mkdir(exist_ok=True)
+    (d / "set").mkdir(exist_ok=True)
+    for k in [k for k in _running if k[0] == name]:
+        del _running[k]
+    _batch.pop(name, None)
+    return stamp if work else None
 
 
 def undo(name, stage_id):
@@ -359,8 +397,15 @@ def status(name):
     steps_file = d / "steps.txt"
     steps_text = steps_file.read_text() if steps_file.exists() else (core.HERE / "steps.txt").read_text()
     char = core.Character(d, need_lock=False) if desc.strip() else None
-    out = {"name": name, "description": desc, "notes": notes, "steps_text": steps_text,
+    kind_file = d / "kind.txt"
+    kind = "place" if kind_file.exists() and kind_file.read_text().strip() == "place" else "character"
+    if not steps_file.exists() and kind == "place":
+        steps_text = (core.HERE / "steps-place.txt").read_text()
+    style = (d / "style.txt").read_text() if (d / "style.txt").exists() else ""
+    out = {"name": name, "kind": kind, "description": desc, "notes": notes, "style": style, "brief_style": style_text() or "", "steps_text": steps_text,
+           "own_steps": steps_file.exists(),
            "lock": char.lock.name if char and char.lock else None,
+           "reference": f"{PREFIX}/files/{name}/{char.reference.name}?v={int(char.reference.stat().st_mtime)}" if char and char.reference else None,
            "lock_v": int(char.lock.stat().st_mtime) if char and char.lock else 0,
            "trigger": char.trigger if char else None, "stages": [], "set": []}
     if not char:
@@ -385,33 +430,113 @@ def status(name):
     b = _batch.get(name)
     out["batch"] = b and {k: b[k] for k in ("status", "done", "total", "current", "notes")}
     out["done"] = bool(out["stages"]) and all(x["kept"] for x in out["stages"]) and not any(x["review"] or x["running"] for x in out["stages"])
+    out["previous"] = sorted(p.name for p in (d / "previous").iterdir() if p.is_dir()) if (d / "previous").is_dir() else []
     return out
 
 
 def campaigns():
-    """The campaign folders under the markdown roots that have a characters.md."""
+    """The campaign folders under the markdown roots that have a characters.md or a world.md."""
     out = []
     for root in MD_ROOTS:
         for d in sorted(root.iterdir()) if root.is_dir() else []:
-            if d.is_dir() and not d.name.startswith(("_", ".")) and characters_file(d):
+            if d.is_dir() and not d.name.startswith(("_", ".")) and (room_file(d, "characters.md") or room_file(d, "world.md")):
                 out.append(d.name)
     return out
 
 
-def characters_file(d):
-    """production/characters.md if the room has been there, else intake's copy, else the root."""
-    for rel in ("production/characters.md", "preproduction/characters.md", "characters.md"):
+def room_file(d, name):
+    """production/<name> if the room has been there, else intake's copy, else the root."""
+    for rel in (f"production/{name}", f"preproduction/{name}", name):
         if (d / rel).exists():
             return d / rel
     return None
 
 
-def cast(campaign):
-    """[(name, look)] from the campaign's characters.md: each character heading and its section."""
+def subjects(campaign):
+    """The campaign's characters (from characters.md) and places (from world.md), each with
+    the text that becomes its description."""
     d = next((r / campaign for r in MD_ROOTS if (r / campaign).is_dir()), None)
-    f = characters_file(d) if d else None
-    if not f:
-        raise FileNotFoundError(f"{campaign} has no characters.md")
+    if d is None:
+        raise FileNotFoundError(campaign)
+    people, world, story = room_file(d, "characters.md"), room_file(d, "world.md"), room_file(d, "story.md")
+    if not people and not world:
+        raise FileNotFoundError(f"{campaign} has no characters.md or world.md")
+    rel = lambda f: str(f.relative_to(f.parents[2])) if f else None
+    where = places(world) if world else []
+    return {"campaign": campaign, "file": rel(people), "characters": cast(people) if people else [],
+            "hard_sf": bool(world and "80/15/5" in world.read_text()),      # the world declares the rule: places start with it
+            "world_file": rel(world), "places": where,
+            "story_file": rel(story), "scenes": scenes(story, where) if story else []}
+
+
+def scenes(f, where):
+    """[(name, look)] from story.md, in story order: the numbered lines of a page plot
+    ("5. Explore the abandoned mine...") and the ### sections under a chapter heading. Each
+    scene's look is its own text, then the world.md text of every place it names, so the
+    lock can be rolled from what the story says happens there and what the place looks like."""
+    secs = md_read_file(f)["sections"]
+    out, chapter = [], None
+    for sec in secs:
+        head = sec["heading"]
+        if sec["depth"] <= 2:
+            m = re.match(r"(?:chapter|ch\.?)\s*(\d+|[ivx]+)\b", head, re.I)
+            chapter = f"ch{m.group(1)}" if m else None
+            if sec["depth"] == 2 and re.search(r"\bpage(s| plot|-by-page)\b|\bbeats\b", head, re.I):
+                for n, text in re.findall(r"^\s*(\d+)[.)]\s+(.+)$", sec["body"], re.M):
+                    out.append({"name": f"p{n} · {text.strip().rstrip('.')}", "look": text.strip()})
+        elif sec["depth"] == 3 and chapter and sec["body"] and not re.match(r"function|chapter change|material status", head, re.I):
+            out.append({"name": f"{chapter} · {head}", "look": sec["body"]})
+    for sc in out:
+        named = [w for w in where if re.search(r"\b" + re.escape(re.sub(r" \(.*\)$", "", w["name"])) + r"\b", sc["look"], re.I)]
+        seen = set()
+        for w in named:
+            base = re.sub(r" \(.*\)$", "", w["name"])
+            if base in seen or base.lower() in ("setting and geography", "daily life and lived texture"):
+                continue
+            seen.add(base)
+            sc["look"] += f"\n\nWhere, from world.md - {w['name']}: {w['look']}"
+    return out
+
+
+PLACE = re.compile(r"\b(setting|geograph\w*|location\w*|place\w*|city|cities|environment|texture|district\w*|building\w*|rooms?)\b", re.I)
+
+
+def places(f):
+    """[(name, look)] from world.md: every section under a heading that reads like a place -
+    or, when nothing does, every section. A section's look is its own text and its
+    subsections', so "Keel" carries everything said about Keel."""
+    secs = md_read_file(f)["sections"]
+    out = []
+    for i, s in enumerate(secs):
+        if s["depth"] == 1:
+            continue
+        chain, depth = [s["heading"]], s["depth"]
+        for prev in reversed(secs[:i]):
+            if prev["depth"] < depth:
+                chain.append(prev["heading"]); depth = prev["depth"]
+        parts = [s["body"]] if s["body"] else []
+        for nxt in secs[i + 1:]:
+            if nxt["depth"] <= s["depth"]:
+                break
+            if nxt["body"]:
+                parts.append(f"{nxt['heading']}: {nxt['body']}")
+        out.append({"name": s["heading"], "under": chain[1] if len(chain) > 1 else "", "look": "\n".join(parts).strip(),
+                    "placey": any(PLACE.search(h) for h in chain)})
+    if any(x["placey"] for x in out):
+        out = [x for x in out if x["placey"]]
+    out = [x for x in out if x["look"]]
+    count = {}
+    for x in out:
+        count[x["name"]] = count.get(x["name"], 0) + 1
+    for x in out:
+        if count[x["name"]] > 1 and x["under"]:
+            x["name"] = f"{x['name']} ({x['under']})"
+        x.pop("placey"); x.pop("under")
+    return out
+
+
+def cast(f):
+    """[(name, look)] from the campaign's characters.md: each character heading and its section."""
     text = f.read_text()
     people = re.compile(r"\bcharacters?\b|\bcast\b|\bensemble\b", re.I)
     out, name, body, inside, top = [], None, [], False, None
@@ -443,7 +568,7 @@ def cast(campaign):
         elif name is not None:
             body.append(line)        # a deeper heading inside the character's own section
     close()
-    return {"campaign": campaign, "file": str(f.relative_to(f.parents[2])), "characters": out}
+    return out
 
 
 def md_files():
@@ -467,6 +592,12 @@ def md_read(path):
     p = (root / rel).resolve()
     if root not in p.parents or p.suffix != ".md" or not p.exists():
         raise FileNotFoundError(path)
+    d = md_read_file(p)
+    return {"path": path, "text": d["text"], "sections": [s for s in d["sections"] if s["body"]]}
+
+
+def md_read_file(p):
+    """{text, sections: [{heading, depth, body}]} - every heading, with its own text (which may be empty)."""
     text = p.read_text()
     sections, cur = [], None
     for line in text.split("\n"):
@@ -478,7 +609,7 @@ def md_read(path):
             cur["body"].append(line)
     for s in sections:
         s["body"] = "\n".join(s["body"]).strip()
-    return {"path": path, "text": text, "sections": [s for s in sections if s["body"]]}
+    return {"text": text, "sections": sections}
 
 
 # ---- the page ---------------------------------------------------------------------------------------
@@ -563,7 +694,7 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
 </style>
 <header><h1>Sheets</h1>
   <label class="hint">campaign <select id="camp"></select></label>
-  <label class="hint">character <select id="cast"><option value="">choose…</option></select></label>
+  <label class="hint">character, scene or place <select id="cast"><option value="">choose…</option></select></label>
   <button id="make" class="go">Start</button>
   <span class="hint">· open</span><select id="who"></select>
   <span class="hint" id="top-hint"></span></header>
@@ -571,19 +702,25 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
 <aside>
   <div class="card"><details id="setup"><summary>Setup: description, notes, steps, models</summary>
     <h2 style="margin-top:.6rem">Description</h2>
-    <textarea id="desc" rows="7" placeholder="The character's look, from characters.md - or paste your own."></textarea>
+    <textarea id="desc" rows="7" placeholder="The character's look from characters.md, a place from world.md - or paste your own."></textarea>
     <div class="row"><button id="from-md">From a .md file…</button></div>
     <h2 style="margin-top:.8rem">Notes for every prompt</h2>
     <textarea id="notes" rows="2" placeholder="'always the burn scar on the left hand', 'never a hat'"></textarea>
+    <h2 style="margin-top:.8rem">Style</h2>
+    <textarea id="style" rows="3" placeholder="How it is drawn. Empty: the brief's visual direction."></textarea>
+    <div class="row"><button id="style-photo">Photo-real</button><button id="notes-hardsf" title="adds the 80/15/5 rule to the notes for every prompt">Hard SF 80/15/5</button><span class="hint" id="style-hint"></span></div>
     <h2 style="margin-top:.8rem">Steps</h2>
     <textarea id="steps" class="mono" spellcheck="false"></textarea>
-    <p class="hint" style="margin:.3rem 0 0"><code>name | what to change | parent</code> per line. Parent: a step name or <code>lock</code>; empty builds on the previous keep.</p>
+    <p class="hint" style="margin:.3rem 0 0"><code>name | what to change | parent</code> per line. Parent: a step name or <code>lock</code>; empty builds on the previous keep. <span id="steps-hint"></span></p>
     <h2 style="margin-top:.8rem">Models</h2>
     <p class="hint" style="margin:0">Toggled beside the Roll button, before every roll. Add one by id here:</p>
     <div class="row"><input id="model-add" type="text" placeholder="provider/model-id" style="flex:1"><button id="model-add-go">Add</button></div>
     <div class="row"><label class="hint">candidates per model <input id="each" type="number" min="1" max="4" value="2" style="width:3rem"></label></div>
     <div class="row"><button class="go" id="save">Save setup</button><span class="hint" id="said"></span></div>
-    <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload a lock image instead</button></label></div>
+    <div class="row" style="margin-top:.8rem"><button id="reset" title="start this one over; the reference and the work so far go to previous/">Reset…</button><span class="hint" id="reset-hint"></span></div>
+    <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload a lock image instead</button></label>
+      <label><input type="file" id="ref-file" accept="image/*" hidden><button onclick="document.getElementById('ref-file').click()">Roll the lock from a reference image…</button></label></div>
+    <p class="hint" style="margin:.2rem 0 0">A reference (a screenshot, a photo, a game scene) fixes what is where; the lock is redrawn from it in the book's style, with your note. It is never kept itself.</p>
   </details></div>
   <div class="card captured"><h2>Captured</h2>
     <div class="lock" id="lock-box"></div>
@@ -605,7 +742,7 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
   <div class="v-img"><img id="v-pic" alt=""></div>
   <button class="v-nav" id="v-next">›</button>
   <div class="v-bottom">
-    <span class="v-check">⚠ zoom in: hands and fingers · anything passing through anything · eyes · the costume as described · no text</span>
+    <span class="v-check" id="v-check"></span>
     <button class="ok" id="v-pick">Pick this one</button>
   </div>
 </div>
@@ -616,8 +753,18 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DEFAULT_MODELS = %MODELS%;
 const BASE = "%PREFIX%";
+const PHOTO = %PHOTO%;
+const HARD_SF = %HARD_SF%;
 let who = null, st = null, poll = null, castData = null, current = null, lastDrawn = "", notesDraft = {};
 let catalog = [], on = new Set(), typical = {};
+/* what to look for before picking, by kind */
+const CHECK = {
+  character: { short: "⚠ zoom in: hands and fingers · anything passing through anything · eyes · the costume as described · no text",
+    long: `hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.` },
+  place: { short: "⚠ zoom in: perspective · doors, stairs and windows at one scale · nothing floating · repeated tiles · no readable text",
+    long: `perspective lines that agree · doors, stairs, windows and furniture at one believable scale · nothing floating or cut off mid-air · the same texture stamped over and over · the place exactly as described · nothing the description does not have · no readable signs, text or watermark.` },
+};
+const check = () => CHECK[st?.kind === "place" ? "place" : "character"];
 function loadModels(d) {
   catalog = d.models; typical = d.seconds || {};
   const saved = JSON.parse(localStorage.getItem("sheets-on") || "null");
@@ -647,8 +794,8 @@ async function api(path, opts = {}) {
 }
 /* ---- who ---- */
 async function listWho() {
-  const { characters } = await api("/api/characters");
-  $("#who").innerHTML = `<option value="">${characters.length ? "started…" : "(none yet)"}</option>` + characters.map((c) => `<option ${c === who ? "selected" : ""}>${esc(c)}</option>`).join("");
+  const { characters, kinds } = await api("/api/characters");
+  $("#who").innerHTML = `<option value="">${characters.length ? "started…" : "(none yet)"}</option>` + characters.map((c) => `<option value="${esc(c)}" ${c === who ? "selected" : ""}>${esc(c)}${kinds?.[c] === "place" ? " (place)" : ""}</option>`).join("");
   if (!who && characters.length) { who = characters[0]; $("#who").value = who; }
 }
 async function listCampaigns() {
@@ -663,19 +810,21 @@ async function listCast() {
   localStorage.setItem("sheets-camp", camp);
   try {
     castData = await api(`/api/campaigns/${encodeURIComponent(camp)}`);
-    $("#cast").innerHTML = `<option value="">choose…</option>` + castData.characters.map((c, i) => `<option value="${i}">${esc(c.name)}</option>`).join("");
+    const group = (label, list, k) => list.length ? `<optgroup label="${label}">${list.map((c, i) => `<option value="${k}${i}">${esc(c.name)}</option>`).join("")}</optgroup>` : "";
+    $("#cast").innerHTML = `<option value="">choose…</option>` + group("characters", castData.characters, "c") + group("scenes, from the story", castData.scenes || [], "s") + group("places, from the world", castData.places, "p");
   } catch (err) { $("#top-hint").textContent = err.message; }
 }
 $("#camp").onchange = listCast;
 $("#make").onclick = async () => {
-  const c = castData?.characters[+$("#cast").value];
-  if (!c) { $("#top-hint").textContent = "choose a character first"; return; }
+  const v = $("#cast").value, list = { c: "characters", s: "scenes", p: "places" }[v[0]], kind = list === "characters" ? "character" : "place";
+  const c = castData?.[list]?.[+v.slice(1)];
+  if (!c) { $("#top-hint").textContent = "choose a character, a scene or a place first"; return; }
   const name = c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40);
   try {
-    await api("/api/characters", { method: "POST", body: { name } });
-    await api(`/api/characters/${name}`, { method: "PUT", body: { description: `${c.name}: ${c.look}` } });
+    await api("/api/characters", { method: "POST", body: { name, kind } });
+    await api(`/api/characters/${name}`, { method: "PUT", body: { description: `${c.name}: ${c.look}`, ...(kind === "place" && castData.hard_sf ? { notes: HARD_SF } : {}) } });
     who = name; current = null; lastDrawn = ""; await listWho(); await load(true);
-    $("#top-hint").textContent = `${c.name}: description filled from ${castData.file}.`;
+    $("#top-hint").textContent = `${c.name}: description filled from ${{ characters: castData.file, scenes: castData.story_file, places: castData.world_file }[list]}.`;
   } catch (err) { $("#top-hint").textContent = err.message; }
 };
 $("#who").onchange = async () => { if ($("#who").value) { who = $("#who").value; current = null; lastDrawn = ""; await load(true); } };
@@ -691,9 +840,13 @@ async function load(force) {
   const key = JSON.stringify([st.stages, st.set, st.lock, st.lock_v, current, st.batch, st.done]);
   if (force || key !== lastDrawn) { lastDrawn = key; draw(); }
   if (force) {
-    $("#desc").value = st.description; $("#notes").value = st.notes || ""; $("#steps").value = st.steps_text;
+    $("#desc").value = st.description; $("#notes").value = st.notes || ""; $("#style").value = st.style || ""; $("#steps").value = st.steps_text;
+    $("#style-hint").textContent = st.brief_style ? `empty means the brief's: “${st.brief_style.slice(0, 90)}…”` : "";
+    $("#steps-hint").textContent = st.own_steps ? "These are this one's own steps; the default file no longer applies to it." : `The default for a ${st.kind}; edit to give this one its own.`;
+    $("#reset-hint").textContent = st.previous?.length ? `${st.previous.length} previous version${st.previous.length > 1 ? "s" : ""} in sheets/characters/${who}/previous/` : "";
   }
-  $("#top-hint").textContent = st.trigger ? `${who} · trigger word ${st.trigger}` : "";
+  $("#top-hint").textContent = st.trigger ? `${who}${st.kind === "place" ? " (a place)" : ""} · trigger word ${st.trigger}` : "";
+  $("#v-check").textContent = check().short;
   const busy = st.stages.some((s) => s.running) || st.batch?.status === "running";
   if (busy && !poll) poll = setInterval(load, 2500);
   if (!busy && poll) { clearInterval(poll); poll = null; loadModels(await api("/api/models")); lastDrawn = ""; draw(); }
@@ -737,42 +890,42 @@ function drawStage() {
   const isLock = s.n === 0, rounds = s.rounds || [], pick = s.pick;
   const next = st.stages.find((x) => x.n > s.n && !x.kept);
   const prev = st.stages.find((x) => x.id === current) && st.stages[st.stages.indexOf(s) - 1];
-  const parentImg = isLock ? null : (s.parent ? st.stages.find((x) => x.title === s.parent)?.kept : (st.stages.slice(0, st.stages.indexOf(s)).reverse().find((x) => x.kept)?.kept));
+  const parentImg = isLock ? (s.kept ? null : st.reference) : (s.parent ? st.stages.find((x) => x.title === s.parent)?.kept : (st.stages.slice(0, st.stages.indexOf(s)).reverse().find((x) => x.kept)?.kept));
   const can = isLock || parentImg;
   const reviews = st.stages.filter((x) => x.review);
   const nextReview = reviews.find((x) => x.id !== current) || null;
   const doneBanner = st.done ? `<div class="done"><h3>✓ ${esc(who)} is done: the lock and ${st.stages.length - 1} steps, every one kept.</h3>
-      <div class="hint">This is the character sheet. Download it and train the LoRA on the folder: each image has its caption, trigger word <b>${esc(st.trigger)}</b>. Spot something later? Fix everywhere on the left, or click any tile to redo one.</div>
+      <div class="hint">This is the ${st.kind === "place" ? "location" : "character"} sheet. Download it and train the LoRA on the folder: each image has its caption, trigger word <b>${esc(st.trigger)}</b>. Spot something later? Fix everywhere on the left, or click any tile to redo one.</div>
       <a class="go" href="${BASE}/api/characters/${who}/set.zip">Download the training set (.zip)</a>
       <div class="sheet">${st.stages.map((x) => `<figure><img src="${x.kept}"><figcaption>${esc(x.n === 0 ? "lock" : x.title)}</figcaption></figure>`).join("")}</div></div>` : "";
   const batchBanner = st.batch?.status === "running" ? `<div class="batch"><span class="working"></span>Fixing everywhere with “${esc(st.batch.notes)}”: ${st.batch.done} of ${st.batch.total} rolled, now ${esc(st.batch.current || "")}. Review the amber ones as they land.</div>`
     : reviews.length ? `<div class="batch">${reviews.length} stage${reviews.length > 1 ? "s" : ""} to review after the fix: ${s.review ? "this one first - " : ""}${nextReview ? `<a href="#" id="go-review">${esc(nextReview.n === 0 ? "lock" : nextReview.title)}</a>` : ""}. On each: keep the fixed one, or <b>Keep the old one</b> if the fix made it worse.</div>` : "";
   $("#work").innerHTML = doneBanner + batchBanner + `
     <div class="stage-head">
-      ${parentImg ? `<img src="${parentImg}" title="builds on this">` : s.kept && isLock ? `<img src="${s.kept}" title="the lock">` : ""}
+      ${parentImg ? `<img src="${parentImg}" title="${isLock ? "the reference: what is where" : "builds on this"}">` : s.kept && isLock ? `<img src="${s.kept}" title="the lock">` : ""}
       <div><h3><b>${isLock ? "lock" : String(s.n).padStart(2, "0")}</b>${esc(isLock ? "The lock" : s.title)}</h3>
-        <div class="hint">${esc(s.instruction)}${!isLock ? ` · builds on ${esc(s.parent || "the previous keep")}` : ""}</div>
+        <div class="hint">${esc(s.instruction)}${!isLock ? ` · builds on ${esc(s.parent || "the previous keep")}` : st.reference && !s.kept ? " · redrawn from the reference: say in the note what to change, and how it should look" : ""}</div>
         ${s.kept ? `<div class="good" style="margin-top:.3rem">✓ kept${isLock ? " as the lock" : ""}. ${next ? `Next: <a href="#" id="go-next">${esc(next.n === 0 ? "lock" : next.title)}</a>.` : "Every step is kept."}</div>
         <div class="hint" style="margin-top:.2rem">Not right in context? Say what is off and <b>Fix the kept one</b>, or <b>Start over</b> from ${isLock ? "the description" : "its parent"}. Or click another candidate below and Keep it.</div>` : ""}
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.batch ? "fix everywhere" : r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.stopped ? ` · stopped at ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.batch ? "fix everywhere" : r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : r.from_reference ? "from the reference" : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.stopped ? ` · stopped at ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
-        hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.
-        <b>Double-click a candidate to see it large</b> and step through with ← →. A candidate that is 90% right with a bad hand loses to one that is 80% right and clean.</div>` : ""}
+        ${check().long}
+        <b>Double-click a candidate to see it large</b> and step through with ← →. A candidate that is 90% right with one flaw loses to one that is 80% right and clean.</div>` : ""}
       ${r.candidates.length || (i === rounds.length - 1 && s.running) ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}${slots(r, i === rounds.length - 1 && s.running)}</div>` : ""}
     </div>`).join("")}
     ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick. Double-click a candidate to see it full size.</p>` : ""}
     <div class="acts">
       ${modelChips()}
-      <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
+      <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : isLock && st.reference ? "How to redraw it: 'not a game scene: photo-real graphic novel, weathered concrete and steel, dusk'." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
         ${s.running ? `<button id="stop" title="keep what has landed, stop waiting for the rest">Stop waiting</button>` : ""}
         ${s.kept ? `<button class="go" id="fix" ${s.running || !on.size ? "disabled" : ""}>Fix the kept one</button><button id="over" ${s.running || !can || !on.size ? "disabled" : ""}>Start over</button>`
                  : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
-        <button class="ok" id="keep" ${pick ? "" : "disabled"} title="Checked hands, fingers, eyes and overlaps at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
+        <button class="ok" id="keep" ${pick ? "" : "disabled"} title="Looked at it at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
         ${s.review ? `<button id="dismiss" title="the fix made it worse: keep what was kept">Keep the old one</button>` : ""}
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
         <span class="hint" id="roll-hint">${s.running ? (pick ? "you can keep the pick now, or stop waiting and roll again from it" : "click one that is close enough as soon as it lands") : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
@@ -801,7 +954,7 @@ function drawStage() {
   });
   const rollWith = (base) => async () => {
     try {
-      await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
+      await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value, style: $("#style").value } });
       await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2, base } });
       notesDraft[current] = ""; await load(true);
     } catch (err) { $("#said").textContent = err.message; $("#top-hint").textContent = err.message; }
@@ -810,7 +963,7 @@ function drawStage() {
   if ($("#fix")) $("#fix").onclick = rollWith("kept");
   if ($("#over")) $("#over").onclick = rollWith("parent");
   $("#keep").onclick = async () => {
-    if (!confirm("Looked at it full size? Hands and fingers, nothing passing through anything, eyes, the costume as described. Keep it?")) return;
+    if (!confirm(`Looked at it full size? ${check().short.replace("⚠ zoom in: ", "")}. Keep it?`)) return;
     try {
       if (s.running) await api(`/api/characters/${who}/stages/${current}/stop`, { method: "POST", body: {} });
       await api(`/api/characters/${who}/stages/${current}/keep`, { method: "POST", body: {} });
@@ -879,16 +1032,34 @@ $("#model-add-go").onclick = () => {
 };
 $("#save").onclick = async () => {
   try {
-    await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value, steps_text: $("#steps").value } });
+    await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value, style: $("#style").value, steps_text: $("#steps").value } });
     $("#said").textContent = "saved"; lastDrawn = ""; await load(true);
   } catch (err) { $("#said").textContent = err.message; }
 };
-$("#lock-file").onchange = async (e) => {
+const upload = (what) => async (e) => {
   const f = e.target.files[0]; if (!f) return;
   const data_url = await new Promise((res) => { const r = new FileReader(); r.onload = () => res(r.result); r.readAsDataURL(f); });
-  try { await api(`/api/characters/${who}/lock`, { method: "POST", body: { data_url } }); lastDrawn = ""; await load(true); }
-  catch (err) { $("#said").textContent = err.message; }
+  try {
+    await api(`/api/characters/${who}/${what}`, { method: "POST", body: { data_url } });
+    if (what === "reference") { current = "00-lock"; $("#said").textContent = "reference saved: say how to redraw it, then Roll the lock"; }
+    lastDrawn = ""; await load(true);
+  } catch (err) { $("#said").textContent = err.message; }
+  e.target.value = "";
 };
+$("#notes-hardsf").onclick = () => { if (!$("#notes").value.includes("80/15/5")) $("#notes").value = ($("#notes").value.trim() ? $("#notes").value.trim() + "\n" : "") + HARD_SF; $("#said").textContent = "hard SF added to the notes for every prompt: save setup, or just Roll (it saves)"; };
+$("#style-photo").onclick = () => { $("#style").value = PHOTO; $("#said").textContent = "style set: save setup, or just Roll (it saves)"; };
+$("#reset").onclick = async () => {
+  if (!who) return;
+  const word = prompt(`Reset ${who}? The reference image, the lock, every roll, every kept image and the logs move to previous/ inside its folder. Only the description, notes, style and steps stay.\n\nType evoke to confirm.`);
+  if (word === null) return;
+  try {
+    const { previous } = await api(`/api/characters/${who}/reset`, { method: "POST", body: { confirm: word } });
+    current = null; lastDrawn = ""; notesDraft = {}; await load(true);
+    $("#reset-hint").textContent = previous ? `reset: the work so far is in previous/${previous}` : "nothing to reset";
+  } catch (err) { $("#reset-hint").textContent = err.message; }
+};
+$("#lock-file").onchange = upload("lock");
+$("#ref-file").onchange = upload("reference");
 $("#from-md").onclick = async () => {
   const { files } = await api("/api/md");
   $("#md-file").innerHTML = files.map((f) => `<option>${esc(f)}</option>`).join("") || "<option value=''>(no .md files found)</option>";
@@ -929,11 +1100,13 @@ class Handler(BaseHTTPRequestHandler):
         q = urllib.parse.parse_qs(url.query)
         try:
             if url.path == "/":
-                page = PAGE.replace("%MODELS%", json.dumps(",".join(core.DEFAULT_MODELS))).replace("%PREFIX%", PREFIX).encode()
+                page = PAGE.replace("%MODELS%", json.dumps(",".join(core.DEFAULT_MODELS))).replace("%PREFIX%", PREFIX).replace("%PHOTO%", json.dumps(core.PHOTO)).replace("%HARD_SF%", json.dumps(core.HARD_SF)).encode()
                 self.send_response(200); self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(page))); self.end_headers(); self.wfile.write(page)
             elif url.path == "/api/characters":
-                self.send_json({"characters": sorted(p.name for p in ROOT.iterdir() if p.is_dir() and re.fullmatch(r"[a-z0-9][a-z0-9_-]*", p.name))})
+                names = sorted(p.name for p in ROOT.iterdir() if p.is_dir() and re.fullmatch(r"[a-z0-9][a-z0-9_-]*", p.name))
+                is_place = lambda n: (ROOT / n / "kind.txt").exists() and (ROOT / n / "kind.txt").read_text().strip() == "place"
+                self.send_json({"characters": names, "kinds": {n: "place" if is_place(n) else "character" for n in names}})
             elif url.path.startswith("/api/characters/") and url.path.endswith("/set.zip"):
                 name = url.path.split("/")[3]
                 data = set_zip(name)
@@ -949,7 +1122,7 @@ class Handler(BaseHTTPRequestHandler):
             elif url.path == "/api/campaigns":
                 self.send_json({"campaigns": campaigns()})
             elif url.path.startswith("/api/campaigns/"):
-                self.send_json(cast(urllib.parse.unquote(url.path.split("/")[3])))
+                self.send_json(subjects(urllib.parse.unquote(url.path.split("/")[3])))
             elif url.path.startswith("/files/"):
                 rel = urllib.parse.unquote(url.path[len("/files/"):])
                 p = (ROOT / rel).resolve()
@@ -972,16 +1145,20 @@ class Handler(BaseHTTPRequestHandler):
             if self.path == "/api/characters":
                 d = character(data.get("name", ""))
                 d.mkdir(exist_ok=True)
+                if data.get("kind") == "place":
+                    (d / "kind.txt").write_text("place\n")
+                elif "kind" in data and (d / "kind.txt").exists():
+                    (d / "kind.txt").unlink()
                 self.send_json({"ok": True, "name": d.name})
-            elif len(parts) == 5 and parts[4] == "lock":
+            elif len(parts) == 5 and parts[4] in ("lock", "reference"):
                 head, _, b64 = data.get("data_url", "").partition(",")
                 if "image/" not in head or not b64:
                     raise ValueError("expected an image")
                 ext = head.split("image/")[1].split(";")[0].replace("jpeg", "jpg")
                 d = character(parts[3])
-                for old in d.glob("lock.*"):
+                for old in d.glob(f"{parts[4]}.*"):
                     old.unlink()
-                (d / f"lock.{ext}").write_bytes(base64.b64decode(b64))
+                (d / f"{parts[4]}.{ext}").write_bytes(base64.b64decode(b64))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "roll":
                 roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2), data.get("base"))
@@ -997,6 +1174,8 @@ class Handler(BaseHTTPRequestHandler):
                 stop_roll(parts[3], parts[5]); self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "dismiss":
                 dismiss(parts[3], parts[5]); self.send_json({"ok": True})
+            elif len(parts) == 5 and parts[4] == "reset":
+                self.send_json({"previous": reset(parts[3], data.get("confirm"))})
             elif len(parts) == 5 and parts[4] == "fix-all":
                 fix_all(parts[3], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 1))
                 self.send_json({"ok": True})
@@ -1017,11 +1196,18 @@ class Handler(BaseHTTPRequestHandler):
                     raise FileNotFoundError(parts[3])
                 if "description" in data:
                     (d / "description.txt").write_text(data["description"].strip() + "\n")
+                if "style" in data:
+                    (d / "style.txt").write_text(data["style"].strip() + "\n")
                 if "notes" in data:
                     (d / "notes.txt").write_text(data["notes"].strip() + "\n")
                 if "steps_text" in data:
-                    (d / "steps.txt").write_text(data["steps_text"].rstrip() + "\n")
-                    core.read_steps(d / "steps.txt")     # complains now rather than at run time
+                    kind_file = d / "kind.txt"
+                    default = core.HERE / ("steps-place.txt" if kind_file.exists() and kind_file.read_text().strip() == "place" else "steps.txt")
+                    if data["steps_text"].strip() == default.read_text().strip():
+                        (d / "steps.txt").unlink(missing_ok=True)     # the default: follow it if it changes
+                    else:
+                        (d / "steps.txt").write_text(data["steps_text"].rstrip() + "\n")
+                        core.read_steps(d / "steps.txt")     # complains now rather than at run time
                 self.send_json({"ok": True})
             else:
                 self.send_json({"error": "not found"}, 404)

@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
-"""sheets.py - build a LoRA training set for one character, one step at a time.
+"""sheets.py - build a LoRA training set for one character or one place, a step at a time.
 
 You lock one view by hand. Every other image is made FROM it: each step asks two or three
 image models for a change ("turn to three-quarter view"), you pick the best candidate on a
 contact sheet, and the pick is the parent of the next step. What you kept, with its caption,
 is the training set; lineage.jsonl says which model won which kind of change.
 
-A character is a folder:
+A subject, a character or a place, is a folder:
 
     sheets/ada/
-      description.txt   the character's look, pasted in (the room's visual lock, or your words)
+      kind.txt          "place" for a place; absent or "character" for a character
+      description.txt   the subject's look, pasted in (the room's visual lock, or your words)
       notes.txt         optional: anything more for every step ("always the burn scar on the left hand")
+      style.txt         optional: how it is drawn; otherwise the brief's visual direction
       lock.png          the approved starting view (front, neutral, plain background)
-      steps.txt         optional; otherwise sheets/steps.txt, one step per line:
+      reference.png     optional: an image to roll the lock FROM - a screenshot, a photo, a game
+                        scene - keeping what is where, redrawn in the book's style
+      steps.txt         optional; otherwise sheets/steps.txt (a place: steps-place.txt), one step per line:
                         name | instruction | parent     (parent: a step name, or "lock"; default: the last pick)
       runs/             every candidate, per step, with the contact sheet you chose from
       set/              the picks: NN-name.png and NN-name.txt (the caption), ready to train on
@@ -93,15 +97,21 @@ class Character:
         if not desc.exists():
             sys.exit(f"{self.dir}/description.txt is missing: paste the character's look there")
         self.description = " ".join(desc.read_text().split())
+        kind = self.dir / "kind.txt"
+        self.kind = "place" if kind.exists() and kind.read_text().strip() == "place" else "character"
         notes = self.dir / "notes.txt"
         self.notes = " ".join(notes.read_text().split()) if notes.exists() else ""
+        style = self.dir / "style.txt"
+        self.style = " ".join(style.read_text().split()) if style.exists() else ""
         locks = [p for p in self.dir.glob("lock.*") if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp")]
         if not locks and need_lock:
             sys.exit(f"{self.dir}/lock.png is missing: the approved starting view")
         self.lock = locks[0] if locks else None
+        refs = [p for p in self.dir.glob("reference.*") if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp")]
+        self.reference = refs[0] if refs else None
         steps = self.dir / "steps.txt"
-        self.steps = read_steps(steps if steps.exists() else HERE / "steps.txt")
-        self.trigger = trigger or f"{re.sub(r'[^a-z]', '', self.name.lower())[:6]}chr"
+        self.steps = read_steps(steps if steps.exists() else HERE / ("steps-place.txt" if self.kind == "place" else "steps.txt"))
+        self.trigger = trigger or f"{re.sub(r'[^a-z]', '', self.name.lower())[:6]}{'plc' if self.kind == 'place' else 'chr'}"
         (self.dir / "runs").mkdir(exist_ok=True)
         (self.dir / "set").mkdir(exist_ok=True)
 
@@ -162,6 +172,15 @@ def fake(model, prompt, parent, out_stem, key):
     return out
 
 
+# What the lock shows, and who may be in frame, by kind.
+VIEW = {"character": ("Full-length front view, standing, neutral pose, arms at the sides, looking at the camera, "
+                      "even daylight, plain light background."),
+        "place": "A wide establishing view at eye level, the whole place readable in one frame, nobody in frame."}
+FRAME = {"character": "One character, nobody else in frame.",
+         "place": "Nobody in frame unless the change asks for people."}
+NO_TEXT = "No text, letters, labels or watermarks anywhere."
+
+
 def prompt_for(char, instruction, notes=None, from_pick=False):
     """A step's prompt. From the step's parent: make the change. From a pick of a previous roll
     of the same step: the change is mostly there, fix what the notes say."""
@@ -170,27 +189,48 @@ def prompt_for(char, instruction, notes=None, from_pick=False):
                   f"{notes or 'bring it closer to the description'}.")
     else:
         change = f"Change only this: {instruction}." + (f" Also: {notes}." if notes else "")
-    return (f"Edit the reference image. Keep this exact character: {char.description} "
+    return (f"Edit the reference image. Keep this exact {char.kind}: {char.description} "
             + (f"Also: {char.notes} " if char.notes else "")
             + f"{change} Same drawing style, same line and colour as the reference. "
-            f"One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
+            f"{FRAME[char.kind]} {NO_TEXT}")
 
 
 def lock_prompt(char, style, notes=None, from_pick=False):
     """The lock: the first roll from words alone; later rolls edit the closest pick with notes."""
-    view = ("Full-length front view, standing, neutral pose, arms at the sides, looking at the camera, "
-            "even daylight, plain light background.")
+    view, frame = VIEW[char.kind], FRAME[char.kind]
+    style = char.style or style
     if from_pick:
-        return (f"Edit the reference image. Keep this exact character: {char.description} "
+        return (f"Edit the reference image. Keep this exact {char.kind}: {char.description} "
                 + (f"Also: {char.notes} " if char.notes else "")
                 + f"Change this and nothing else: {notes or 'bring it closer to the description'}. "
-                + f"{view} Same drawing style as the reference. One character, nobody else in frame. "
-                "No text, letters, labels or watermarks anywhere.")
-    return (f"Draw this character: {char.description} "
-            + (f"Also: {char.notes} " if char.notes else "")
+                + f"{view} Same drawing style as the reference. {frame} {NO_TEXT}")
+    return (f"Style: {(style or 'clean comic line art with flat colour').rstrip('.')}. "
+            + (f"{char.notes.rstrip('.')}. " if char.notes else "")
             + (f"Notes: {notes} " if notes else "")
-            + f"{view} Style: {style or 'clean comic line art with flat colour'}. "
-            "One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
+            + f"Draw this {char.kind}: {char.description} {view} {frame} {NO_TEXT}")
+
+
+HARD_SF = ("Hard science fiction on the 80/15/5 rule: 80% of what is in frame is today's real technology, "
+           "materials, infrastructure and wear carried forward; 15% is a straight-line development of it that "
+           "has become ordinary and looks used; 5% at most is new. Nothing fantastical: no impossible structures, "
+           "no holograms, no glowing seams, nothing floating; every building, machine and vehicle could be built "
+           "with what exists")
+PHOTO = ("Photographic realism: as if photographed on location with a full-frame camera, physically "
+         "accurate materials, weathering and light, true perspective, subtle film grain. Not a cartoon, "
+         "not cel-shaded, not flat colour, not painterly, not stylised")
+
+
+def reference_prompt(char, style, notes=None):
+    """The lock from a reference image: the reference says what is where; everything else -
+    materials, light, line, colour - comes from the style, the notes and the description.
+    The style leads, because that is what the models weigh most."""
+    style = (char.style or style or PHOTO).rstrip(".")
+    return (f"{style}. " + (f"{char.notes.rstrip('.')}. " if char.notes else "") + (f"{notes.rstrip('.')}. " if notes else "")
+            + "Use the reference image only for what is where: the same terrain and geography, the same "
+            "buildings and structures in the same places at the same sizes, the same viewpoint and framing. "
+            "Nothing of the reference's medium survives: no blocks, voxels, cubes, pixel textures, game "
+            "rendering or screenshot artefacts; real materials, real proportions, natural light. "
+            f"This {char.kind}: {char.description} {FRAME[char.kind]} {NO_TEXT}")
 
 
 # ---- the contact sheet ----------------------------------------------------------------------
@@ -295,7 +335,7 @@ def run_step(char, n, step, instruction, parent_name, models, each, gen, key, op
 
 def main():
     ap = argparse.ArgumentParser(description="Build a LoRA training set for one character, step by step.")
-    ap.add_argument("character", help="folder under sheets/, e.g. ada")
+    ap.add_argument("character", help="folder under sheets/, e.g. ada (a place: put `place` in its kind.txt)")
     ap.add_argument("--models", default=",".join(DEFAULT_MODELS), help="comma-separated OpenRouter image models")
     ap.add_argument("--each", type=int, default=2, help="candidates per model per step")
     ap.add_argument("--step", help="run only this step (redo it)")

@@ -1,0 +1,7 @@
+# One step per line:  name | what to change | parent
+# parent is a step name or "lock"; leave it out to build on the previous pick.
+# A place: one view is the lock; every step keeps that view and changes only the named thing.
+
+day          | the same view in full daylight: sun high, hard shadows, haze in the distance | lock
+night        | the same view at night, lit only by what the place itself has: windows, work lights, vehicles | lock
+close-detail | move in close on one thing that is only found here: a surface, a fixture, a machine, a doorway | lock
