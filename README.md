@@ -74,7 +74,10 @@ passes, up to **Page rounds**). **Page 1 first** stops at a proof of page 1 inst
 **Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
 the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 
-**`/` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
+**`/` is the front door**: three buttons, pre-production, production and sheets (the LoRA sheet
+builder, its own container reached as `/sheets`). The one-button phone screen is at `/quick`.
+
+**`/quick` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
 spinning, and under it the gate — the question, and **Approve** or **Pick Writer A / Pick
 Writer B**. After execution it shows the lettered pages. Built for a phone, nothing to set.

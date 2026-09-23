@@ -10,13 +10,17 @@ import zipfile
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+import urllib.error
+import urllib.request
+
+import anyio
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
-from .config import AGENTS_DIR, AgentConfig
+from .config import AGENTS_DIR, AgentConfig, env
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
 room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
@@ -66,9 +70,44 @@ def not_found(fn, *args, **kw):
 
 
 @app.get("/")
+def landing():
+    """Three doors: pre-production, production, sheets."""
+    return FileResponse(STATIC / "landing.html")
+
+
+@app.get("/quick")
 def home():
     """One button, on a phone: start the book, watch it, see the lettered pages."""
     return FileResponse(STATIC / "home.html")
+
+
+# ---- sheets: its own container, reached through this port --------------------------------
+
+SHEETS_URL = (env("SHEETS_URL") or "http://sheets:8001").rstrip("/")
+
+
+@app.api_route("/sheets", methods=["GET"])
+@app.api_route("/sheets/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def sheets_proxy(request: Request, path: str = ""):
+    """Hand the request to the sheets container and hand its answer back, as is. The sheets
+    page is told its prefix (PREFIX=/sheets in docker-compose.yml), so its links come back
+    pointing here."""
+    url = f"{SHEETS_URL}/{path}" + (f"?{request.url.query}" if request.url.query else "")
+    body = await request.body()
+    headers = {k: v for k, v in request.headers.items() if k.lower() in ("content-type", "accept")}
+    req = urllib.request.Request(url, data=body if body else None, headers=headers, method=request.method)
+
+    def call():
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return r.status, dict(r.headers), r.read()
+        except urllib.error.HTTPError as e:
+            return e.code, dict(e.headers), e.read()
+        except (urllib.error.URLError, OSError) as e:
+            return 502, {"Content-Type": "text/plain"}, f"sheets is not running: {e}".encode()
+    status, hdrs, data = await anyio.to_thread.run_sync(call)
+    keep = {k: v for k, v in hdrs.items() if k.lower() in ("content-type", "content-disposition", "cache-control")}
+    return Response(content=data, status_code=status, headers=keep)
 
 
 @app.get("/preproduction")

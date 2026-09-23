@@ -20,6 +20,7 @@ services:
       OPENSEARCH_URL: ${OPENSEARCH_URL:-http://opensearch:9200}
       OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
       EMBED_MODEL: ${EMBED_MODEL:-embeddinggemma}
+      SHEETS_URL: http://sheets:8001          # /sheets on this port is the sheets container
     volumes:              # configuration stays in this folder
       - ./agents:/app/agents          # agents, phases, skills and tools
       - ./campaigns:/app/campaigns    # the work: the room reads and writes here
@@ -81,9 +82,10 @@ services:
       timeout: 3s
       retries: 40
 
-  sheets:                      # the LoRA sheet builder: its own page, its own port, nothing shared but files
+  sheets:                      # the LoRA sheet builder: its own container, reached as /sheets on the app's port
     build: ./sheets
-    ports: ["127.0.0.1:8001:8001"]
+    environment:
+      PREFIX: /sheets
     env_file:
       - path: .env
         required: false

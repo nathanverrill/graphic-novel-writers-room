@@ -27,6 +27,7 @@ if os.getenv("SECRETS_FILE"):
 ROOT = Path(os.getenv("SHEETS_DIR") or core.HERE).resolve()            # where the characters live
 MD_ROOTS = [Path(p).resolve() for p in (os.getenv("MD_DIRS") or str(core.HERE.parent / "campaigns")).split(":") if p]
 PORT = int(os.getenv("PORT") or 8001)
+PREFIX = (os.getenv("PREFIX") or "").rstrip("/")     # "/sheets" when the room's app proxies to us
 DRY = bool(os.getenv("SHEETS_DRY"))
 
 _running = {}          # (character, step) -> {"status": "running"|"done"|"failed", "errors": [...]}
@@ -367,19 +368,19 @@ def status(name):
         st = stage_state(d, sid)
         live = _running.get((name, sid), {})
         kept = kept_for(char, sid, title)
-        rounds = [dict(r, candidates=[dict(c, url=f"/files/{name}/runs/{sid}/{r['round']}/{c['file']}") for c in r["candidates"]])
+        rounds = [dict(r, candidates=[dict(c, url=f"{PREFIX}/files/{name}/runs/{sid}/{r['round']}/{c['file']}") for c in r["candidates"]])
                   for r in st["rounds"]]
         last = st["rounds"][-1] if st["rounds"] else None
         review = bool(last and last.get("batch") and last.get("candidates") and not (st.get("pick") or {}).get("round") == last["round"]
                       and not (kept and last.get("kept_from")))
         out["stages"].append({"id": sid, "n": n, "title": title, "instruction": instruction, "parent": parent_name,
-                              "kept": f"/files/{name}/{kept.relative_to(d)}?v={int(kept.stat().st_mtime)}" if kept else None,
+                              "kept": f"{PREFIX}/files/{name}/{kept.relative_to(d)}?v={int(kept.stat().st_mtime)}" if kept else None,
                               "rounds": rounds, "pick": st.get("pick"), "running": live.get("status") == "running",
                               "review": review})
     for p in sorted((d / "set").iterdir()) if (d / "set").is_dir() else []:
         if p.suffix != ".txt":
             cap = p.with_suffix(".txt")
-            out["set"].append({"file": p.name, "url": f"/files/{name}/set/{p.name}", "caption": cap.read_text().strip() if cap.exists() else ""})
+            out["set"].append({"file": p.name, "url": f"{PREFIX}/files/{name}/set/{p.name}", "caption": cap.read_text().strip() if cap.exists() else ""})
     b = _batch.get(name)
     out["batch"] = b and {k: b[k] for k in ("status", "done", "total", "current", "notes")}
     out["done"] = bool(out["stages"]) and all(x["kept"] for x in out["stages"]) and not any(x["review"] or x["running"] for x in out["stages"])
@@ -613,6 +614,7 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DEFAULT_MODELS = %MODELS%;
+const BASE = "%PREFIX%";
 let who = null, st = null, poll = null, castData = null, current = null, lastDrawn = "", notesDraft = {};
 let catalog = [], on = new Set(), typical = {};
 function loadModels(d) {
@@ -637,7 +639,7 @@ function estimate() {
   return known.length ? Math.max(...known) : null;
 }
 async function api(path, opts = {}) {
-  const r = await fetch(path, { method: opts.method || "GET", headers: { "content-type": "application/json" }, body: opts.body ? JSON.stringify(opts.body) : undefined });
+  const r = await fetch(BASE + path, { method: opts.method || "GET", headers: { "content-type": "application/json" }, body: opts.body ? JSON.stringify(opts.body) : undefined });
   const d = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(d.error || r.statusText);
   return d;
@@ -740,7 +742,7 @@ function drawStage() {
   const nextReview = reviews.find((x) => x.id !== current) || null;
   const doneBanner = st.done ? `<div class="done"><h3>✓ ${esc(who)} is done: the lock and ${st.stages.length - 1} steps, every one kept.</h3>
       <div class="hint">This is the character sheet. Download it and train the LoRA on the folder: each image has its caption, trigger word <b>${esc(st.trigger)}</b>. Spot something later? Fix everywhere on the left, or click any tile to redo one.</div>
-      <a class="go" href="/api/characters/${who}/set.zip">Download the training set (.zip)</a>
+      <a class="go" href="${BASE}/api/characters/${who}/set.zip">Download the training set (.zip)</a>
       <div class="sheet">${st.stages.map((x) => `<figure><img src="${x.kept}"><figcaption>${esc(x.n === 0 ? "lock" : x.title)}</figcaption></figure>`).join("")}</div></div>` : "";
   const batchBanner = st.batch?.status === "running" ? `<div class="batch"><span class="working"></span>Fixing everywhere with “${esc(st.batch.notes)}”: ${st.batch.done} of ${st.batch.total} rolled, now ${esc(st.batch.current || "")}. Review the amber ones as they land.</div>`
     : reviews.length ? `<div class="batch">${reviews.length} stage${reviews.length > 1 ? "s" : ""} to review after the fix: ${s.review ? "this one first - " : ""}${nextReview ? `<a href="#" id="go-review">${esc(nextReview.n === 0 ? "lock" : nextReview.title)}</a>` : ""}. On each: keep the fixed one, or <b>Keep the old one</b> if the fix made it worse.</div>` : "";
@@ -926,7 +928,7 @@ class Handler(BaseHTTPRequestHandler):
         q = urllib.parse.parse_qs(url.query)
         try:
             if url.path == "/":
-                page = PAGE.replace("%MODELS%", json.dumps(",".join(core.DEFAULT_MODELS))).encode()
+                page = PAGE.replace("%MODELS%", json.dumps(",".join(core.DEFAULT_MODELS))).replace("%PREFIX%", PREFIX).encode()
                 self.send_response(200); self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(page))); self.end_headers(); self.wfile.write(page)
             elif url.path == "/api/characters":
@@ -1030,6 +1032,6 @@ class Handler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     ROOT.mkdir(parents=True, exist_ok=True)
-    print(f"sheets: http://0.0.0.0:{PORT}  characters in {ROOT}  markdown from {', '.join(map(str, MD_ROOTS))}"
+    print(f"sheets: http://0.0.0.0:{PORT}{PREFIX or ''}  characters in {ROOT}  markdown from {', '.join(map(str, MD_ROOTS))}"
           + ("  (DRY: no model is called)" if DRY else ""), flush=True)
     ThreadingHTTPServer(("0.0.0.0", PORT), Handler).serve_forever()

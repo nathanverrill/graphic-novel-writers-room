@@ -6,10 +6,11 @@ images and captions beside it. Two ways in: a page, or the command line.
 ## The page
 
 ```
-docker compose up -d sheets        # http://localhost:8001
+docker compose up -d               # http://localhost:8000/sheets
 ```
 
-Its own container, its own port. Pick the campaign, choose a character from its
+Its own container, reached through the room's port (the app proxies `/sheets` to it; on its
+own, `python3 sheets/server.py` serves it at http://localhost:8001). Pick the campaign, choose a character from its
 `characters.md` (production's copy, or intake's), and **Start**: the description is filled
 from the file. Setup on the left (description, notes for every prompt, the steps, the models)
 folds away once it is right.
