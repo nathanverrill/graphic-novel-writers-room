@@ -333,6 +333,7 @@ button.go{background:var(--go);border-color:var(--go)}button:disabled{opacity:.5
 .cands img{width:100%;border-radius:3px}.cands figcaption{font-size:.7rem;color:var(--muted);margin-top:.2rem;word-break:break-all}
 .set{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.4rem}.set img{width:100%;border-radius:3px}
 .err{color:var(--bad);font-size:.76rem}.ok{color:var(--ok)}
+.card.done{border-color:var(--ok)}.card.done h2{color:var(--ok)}
 dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;width:min(720px,92vw);max-height:80vh}
 dialog .sec{padding:.4rem .5rem;border-bottom:1px solid var(--line);cursor:pointer}dialog .sec:hover{background:var(--bg)}
 dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-height:4.5em;overflow:hidden}
@@ -354,7 +355,7 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
   <div class="card lock"><h2>Lock: the approved starting view</h2>
     <div id="lock-img"></div>
     <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload one instead</button></label>
-      <span class="hint">or build it on the right: roll, pick the closest, note what is off, roll again, lock.</span></div></div>
+      <span class="hint">or build it on the right.</span></div></div>
   <div class="card"><h2>Steps</h2>
     <textarea id="steps" class="mono" spellcheck="false"></textarea>
     <p class="hint" style="margin:.3rem 0 0">One per line: <code>name | what to change | parent</code>. Parent is a step name or <code>lock</code>; leave it out to build on the previous pick.</p></div>
@@ -364,7 +365,7 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
 </aside>
 <section>
   <div class="card" id="lock-card"><h2>Lock it first</h2><div id="lock-view"></div></div>
-  <div class="card"><h2>Then the steps</h2><div id="steps-view"></div></div>
+  <div class="card" id="steps-card"><h2>Then the steps</h2><div id="steps-view"></div></div>
   <div class="card"><h2>The set so far</h2><div class="set" id="set"></div><p class="hint" id="set-hint"></p></div>
 </section>
 </main>
@@ -405,7 +406,9 @@ async function listCast() {
 $("#camp").onchange = listCast;
 async function load() {
   if (!who) { $("#steps-view").innerHTML = `<p class="hint">Make a character to begin.</p>`; return; }
+  const lockOpen = st?.lockOpen && st.name === who;
   st = await api(`/api/characters/${who}`);
+  st.lockOpen = !!lockOpen;
   if (document.activeElement !== $("#desc")) $("#desc").value = st.description;
   if (document.activeElement !== $("#notes")) $("#notes").value = st.notes || "";
   if (document.activeElement !== $("#steps")) $("#steps").value = st.steps_text;
@@ -419,32 +422,46 @@ async function load() {
 }
 function renderLock() {
   const rounds = st.lock_rounds || [], pick = st.lock_pick;
-  const last = rounds[rounds.length - 1];
+  const locked = !!st.lock && !st.lockOpen;
+  const card = $("#lock-card");
+  if (locked) {
+    card.classList.add("done");
+    $("#lock-view").innerHTML = `
+      <div class="row" style="justify-content:space-between">
+        <span><span class="ok">✓ Locked</span> <span class="hint">${esc(st.lock)}${rounds.length ? ` · after ${rounds.length} roll${rounds.length > 1 ? "s" : ""}` : ""}</span></span>
+        <span><button id="lock-next" class="go">Next: the steps ↓</button> <button id="lock-reopen">Change the lock</button></span>
+      </div>`;
+    $("#lock-next").onclick = () => { $("#steps-card").scrollIntoView({ behavior: "smooth" }); };
+    $("#lock-reopen").onclick = () => { st.lockOpen = true; renderLock(); };
+    return;
+  }
+  card.classList.remove("done");
   const notesBox = `<textarea id="lock-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? 'hair shorter', 'coveralls not a jacket', 'older'." : "Anything for this first roll (optional)."}"></textarea>`;
   $("#lock-view").innerHTML = `
-    ${st.lock ? `<p class="ok">Locked: ${esc(st.lock)}. Roll again to replace it, or go on to the steps.</p>` : ""}
+    ${st.lock ? `<p class="hint">Locked as ${esc(st.lock)}. Roll again to try for a better one, or <a href="#" id="lock-keep">keep it</a>.</p>` : ""}
     ${rounds.map((r, i) => `<div class="step ${i === rounds.length - 1 ? "now" : ""}">
       <div class="row" style="justify-content:space-between"><span><b>roll ${i + 1}</b> ${r.parent ? `<span class="hint">edited from ${esc(r.parent)}</span>` : `<span class="hint">from the description</span>`}${r.notes ? ` · ${esc(r.notes)}` : ""}</span>
         ${i === rounds.length - 1 && st.lock_running ? `<span class="hint">working…</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-lock-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "kept" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}</figcaption></figure>`).join("")}</div>` : ""}
     </div>`).join("")}
-    ${st.lock_errors.length && !last ? `<div class="err">${st.lock_errors.map(esc).join("<br>")}</div>` : ""}
+    ${st.lock_errors.length && !rounds.length ? `<div class="err">${st.lock_errors.map(esc).join("<br>")}</div>` : ""}
     <div class="row">${notesBox}</div>
     <div class="row">
       <button class="go" id="lock-roll" ${st.lock_running || !st.description ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll the first candidates"}</button>
-      <button id="lock-accept" ${pick && !st.lock_running ? "" : "disabled"}>Lock this one →</button>
+      <button id="lock-accept" ${pick && !st.lock_running ? "" : "disabled"}>Lock this one</button>
       <span class="hint">${pick ? `closest so far: ${esc(pick.file)} (${esc(pick.round)})` : rounds.length ? "click the closest candidate" : "six candidates from three models, from the description alone"}</span>
     </div>`;
+  $("#lock-keep")?.addEventListener("click", (e) => { e.preventDefault(); st.lockOpen = false; renderLock(); });
   $("#lock-roll").onclick = async () => {
     try {
       await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
       await api(`/api/characters/${who}/lock/roll`, { method: "POST", body: { notes: $("#lock-notes").value, models: $("#models").value.split(",").map((m) => m.trim()).filter(Boolean), each: +$("#each").value || 2 } });
-      await load();
+      st.lockOpen = true; await load();
     } catch (err) { $("#said").textContent = err.message; }
   };
   $("#lock-accept").onclick = async () => {
-    try { await api(`/api/characters/${who}/lock/accept`, { method: "POST", body: {} }); await load(); }
+    try { await api(`/api/characters/${who}/lock/accept`, { method: "POST", body: {} }); st.lockOpen = false; await load(); $("#steps-card").scrollIntoView({ behavior: "smooth" }); }
     catch (err) { $("#said").textContent = err.message; }
   };
 }
