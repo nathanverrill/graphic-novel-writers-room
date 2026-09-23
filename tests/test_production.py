@@ -118,4 +118,37 @@ review.save_settings(slug, lettering="layer")
 letters = review.text_layers(slug)
 assert 1 in letters and letters[1].startswith("<svg")
 print("8. lettering layers for the zip: ok")
+
+
+# 9. agents in a group really run at the same time, and the round survives them
+import threading, time
+from app import agent as agent_mod
+seen, gate = [], threading.Barrier(2, timeout=5)      # both must be inside run() at once, or it times out
+
+class Stub:
+    def __init__(self, role, version, emit, should_stop=lambda: False, *a):
+        self.role, self.emit, self.log = role, emit, type("L", (), {"totals": {}})()
+    def run(self, note=None):
+        seen.append(self.role.id)
+        if self.role.id in ("plotter", "character_designer"):
+            gate.wait()             # each waits for the other: only true if they run at once
+        time.sleep(0.05)
+        self.emit("artifact", name=self.role.outputs[0])
+        return f"{self.role.id} done"
+
+real = agent_mod.Agent
+agent_mod.Agent = Stub
+try:
+    dev = phases.roles(slug, phases.get("development"))
+    run3 = room.Run(slug, dev, None, {"kind": "development", "max_passes": 0, "all": dev,
+                                      "parallel": phases.get("development")["parallel"]})
+    run3.run_roles(dev, None)
+finally:
+    agent_mod.Agent = real
+    run3.version.update(status="done", finished=projects.now())
+assert seen[0] == "director" and set(seen[1:3]) == {"plotter", "character_designer"} and seen[3] == "continuity", seen
+kinds = [e["type"] for e in run3.events]
+assert kinds.count("role_start") == 4 and kinds.count("role_done") == 4 and "parallel" in kinds
+assert all(e.get("seconds") is not None for e in run3.events if e["type"] == "role_done")
+print("9. a parallel group runs side by side (the barrier proves it) and the events are whole: ok")
 print("\nall checks ran")
