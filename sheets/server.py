@@ -431,6 +431,10 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .stage-head h3{margin:0 0 .2rem;font-size:1rem}.stage-head h3 b{font-family:ui-monospace,monospace;color:var(--muted);font-weight:500;margin-right:.4rem}
 .roll{border:1px solid var(--line);border-radius:6px;padding:.5rem .7rem;margin-bottom:.6rem}
 .roll.now{border-color:var(--go)}.roll .who{font-size:.76rem;color:var(--muted)}
+.check{background:#3b2a05;border:1px solid #b45309;color:#fde68a;border-radius:6px;padding:.55rem .8rem;margin:.5rem 0;font-size:.8rem;line-height:1.5}
+.check b{color:#fff;font-size:.86rem;letter-spacing:.02em}
+.cands figure.pick::before{content:"looked closely? hands · fingers · eyes · overlaps";position:absolute;left:.3rem;right:.3rem;bottom:.3rem;font-size:.62rem;text-align:center;padding:.2rem;background:rgba(180,83,9,.9);color:#fff;border-radius:3px}
+.cands figure{position:relative}
 .cands{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.6rem;margin-top:.5rem}
 .cands figure{margin:0;background:var(--bg);padding:.3rem;border-radius:4px;cursor:pointer;border:2px solid transparent}
 .cands figure:hover{border-color:var(--go)}.cands figure.pick{border-color:var(--ok)}
@@ -605,16 +609,19 @@ function drawStage() {
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
       <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? (r.parent && s.kept && r.parent === s.kept.split("/").pop().split("?")[0] ? "fixing the kept one" : "from your pick") : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span><span class="elapsed" data-since="${r.started || 0}">working</span> · ${r.candidates.length} of ${(r.models || []).length * (r.each || 1)} back${estimate() ? `, usually about ${secs(estimate())}` : ""}` : r.seconds ? ` · ${secs(r.seconds)}` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
+      ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
+        hands and fingers (count them) · a limb or hair passing <i>through</i> clothes, props or the body · eyes level and matching · extra or missing straps, buttons, pockets · the costume exactly as described · nothing the description does not have · no text or watermark.
+        A candidate that is 90% right with a bad hand loses to one that is 80% right and clean.</div>` : ""}
       ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}</div>` : ""}
     </div>`).join("")}
-    ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick.</p>` : ""}
+    ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick. Double-click a candidate to see it full size.</p>` : ""}
     <div class="acts">
       ${modelChips()}
       <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
         ${s.kept ? `<button class="go" id="fix" ${s.running || !on.size ? "disabled" : ""}>Fix the kept one</button><button id="over" ${s.running || !can || !on.size ? "disabled" : ""}>Start over</button>`
                  : `<button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>`}
-        <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"}>${isLock ? "Lock this one" : "Keep this one"}</button>
+        <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"} title="Checked hands, fingers, eyes and overlaps at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
         <span class="hint" id="roll-hint">${s.running ? "" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
       </div></div>`;
@@ -642,6 +649,7 @@ function drawStage() {
   if ($("#fix")) $("#fix").onclick = rollWith("kept");
   if ($("#over")) $("#over").onclick = rollWith("parent");
   $("#keep").onclick = async () => {
+    if (!confirm("Looked at it full size? Hands and fingers, nothing passing through anything, eyes, the costume as described. Keep it?")) return;
     try {
       await api(`/api/characters/${who}/stages/${current}/keep`, { method: "POST", body: {} });
       const nxt = st.stages.find((x) => x.n > s.n && !x.kept);
@@ -650,6 +658,9 @@ function drawStage() {
     } catch (err) { $("#top-hint").textContent = err.message; }
   };
 }
+$("#work").addEventListener("dblclick", (e) => {
+  const fig = e.target.closest("figure[data-round]"); if (fig) window.open(fig.querySelector("img").src, "_blank");
+});
 $("#work").addEventListener("click", async (e) => {
   const fig = e.target.closest("figure[data-round]"); if (!fig) return;
   try { await api(`/api/characters/${who}/stages/${current}/pick`, { method: "POST", body: { round: fig.dataset.round, file: fig.dataset.file } }); await load(true); }
