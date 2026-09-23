@@ -10,6 +10,7 @@ A character is a folder:
 
     sheets/ada/
       description.txt   the character's look, pasted in (the room's visual lock, or your words)
+      notes.txt         optional: anything more for every step ("always the burn scar on the left hand")
       lock.png          the approved starting view (front, neutral, plain background)
       steps.txt         optional; otherwise sheets/steps.txt, one step per line:
                         name | instruction | parent     (parent: a step name, or "lock"; default: the last pick)
@@ -45,6 +46,7 @@ HERE = Path(__file__).resolve().parent
 OPENROUTER = "https://openrouter.ai/api/v1"
 DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro"]
 TIMEOUT = 300
+SECRETS = HERE.parent / "secrets" / "keys.json"     # where the room saves provider keys
 
 
 # ---- the key -----------------------------------------------------------------------------
@@ -53,7 +55,7 @@ def api_key():
     key = os.getenv("OPENROUTER_API_KEY")
     if key:
         return key
-    saved = HERE.parent / "secrets" / "keys.json"
+    saved = SECRETS
     if saved.exists():
         try:
             key = json.loads(saved.read_text()).get(OPENROUTER)
@@ -91,6 +93,8 @@ class Character:
         if not desc.exists():
             sys.exit(f"{self.dir}/description.txt is missing: paste the character's look there")
         self.description = " ".join(desc.read_text().split())
+        notes = self.dir / "notes.txt"
+        self.notes = " ".join(notes.read_text().split()) if notes.exists() else ""
         locks = [p for p in self.dir.glob("lock.*") if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".webp")]
         if not locks:
             sys.exit(f"{self.dir}/lock.png is missing: the approved starting view")
@@ -151,7 +155,8 @@ def fake(model, prompt, parent, out_stem, key):
 
 def prompt_for(char, instruction):
     return (f"Edit the reference image. Keep this exact character: {char.description} "
-            f"Change only this: {instruction}. Same drawing style, same line and colour as the reference. "
+            + (f"Also: {char.notes} " if char.notes else "")
+            + f"Change only this: {instruction}. Same drawing style, same line and colour as the reference. "
             f"One character, nobody else in frame. No text, letters, labels or watermarks anywhere.")
 
 
@@ -179,16 +184,14 @@ figcaption{{margin-top:.4rem;color:#bbb}}b{{color:#fff;font-size:1.3rem;margin-r
 
 # ---- the loop --------------------------------------------------------------------------------
 
-def run_step(char, n, step, instruction, parent_name, models, each, gen, key, open_browser):
-    parent = char.pick_of(parent_name) if parent_name else char.last_pick
-    if parent is None:
-        print(f"  {step}: its parent {parent_name!r} has no pick yet - skipped")
-        return None
+def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print):
+    """One step's candidates, from every model at once. Returns (folder, [(model, path)], [errors])."""
     folder = char.dir / "runs" / f"{n:02d}-{step}"
     folder.mkdir(parents=True, exist_ok=True)
+    for old in folder.glob("cand-*"):
+        old.unlink()
     prompt = prompt_for(char, instruction)
     jobs = [(m, k) for m in models for k in range(1, each + 1)]
-    print(f"\n[{n:02d}] {step}: {instruction}\n     from {parent.name} · {len(jobs)} candidates from {len(models)} models…")
     cands, errors = [], []
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs)) as pool:
         futs = {pool.submit(gen, m, prompt, parent, folder / f"cand-{re.sub(r'[^a-z0-9]+', '-', m.split('/')[-1].lower())}-{k}", key): (m, k) for m, k in jobs}
@@ -197,13 +200,37 @@ def run_step(char, n, step, instruction, parent_name, models, each, gen, key, op
             try:
                 path = fut.result()
                 cands.append((m, path))
-                print(f"     ✓ {m} #{k}")
+                say(f"     ✓ {m} #{k}")
             except Exception as e:      # noqa: BLE001 - one model failing is not the step failing
-                errors.append(str(e))
-                print(f"     ✗ {m} #{k}: {str(e)[:160]}")
+                errors.append(f"{m} #{k}: {str(e)[:300]}")
+                say(f"     ✗ {m} #{k}: {str(e)[:160]}")
     cands.sort(key=lambda c: c[1].name)
     for m, p in cands:
         char.log(step=step, model=m, prompt=prompt, parent=parent.name, candidate=p.name, picked=False)
+    (folder / "step.json").write_text(json.dumps({"step": step, "n": n, "instruction": instruction, "parent": parent.name,
+                                                  "candidates": [{"model": m, "file": p.name} for m, p in cands],
+                                                  "errors": errors}, indent=1))
+    return folder, cands, errors
+
+
+def keep(char, n, step, instruction, parent, model, path):
+    """The pick: into set/ with its caption. Returns the kept path."""
+    kept = char.dir / "set" / f"{n:02d}-{step}{path.suffix}"
+    for old in (char.dir / "set").glob(f"{n:02d}-{step}.*"):
+        old.unlink()
+    shutil.copyfile(path, kept)
+    (char.dir / "set" / f"{n:02d}-{step}.txt").write_text(f"{char.trigger}, {instruction}\n")
+    char.log(step=step, model=model, parent=parent.name, candidate=path.name, picked=True, kept=kept.name)
+    return kept
+
+
+def run_step(char, n, step, instruction, parent_name, models, each, gen, key, open_browser):
+    parent = char.pick_of(parent_name) if parent_name else char.last_pick
+    if parent is None:
+        print(f"  {step}: its parent {parent_name!r} has no pick yet - skipped")
+        return None
+    print(f"\n[{n:02d}] {step}: {instruction}\n     from {parent.name} · {len(models) * each} candidates from {len(models)} models…")
+    folder, cands, errors = make_candidates(char, n, step, instruction, parent, models, each, gen, key)
     if not cands:
         print("     nothing came back; skipping this step")
         return None
@@ -221,14 +248,9 @@ def run_step(char, n, step, instruction, parent_name, models, each, gen, key, op
             return "redo"
         if ans.isdigit() and 1 <= int(ans) <= len(cands):
             m, p = cands[int(ans) - 1]
-            keep = char.dir / "set" / f"{n:02d}-{step}{p.suffix}"
-            for old in (char.dir / "set").glob(f"{n:02d}-{step}.*"):
-                old.unlink()
-            shutil.copyfile(p, keep)
-            (char.dir / "set" / f"{n:02d}-{step}.txt").write_text(f"{char.trigger}, {instruction}\n")
-            char.log(step=step, model=m, parent=parent.name, candidate=p.name, picked=True, kept=keep.name)
-            print(f"     kept {keep.name} ({m})")
-            return keep
+            kept = keep(char, n, step, instruction, parent, m, p)
+            print(f"     kept {kept.name} ({m})")
+            return kept
 
 
 def main():

@@ -81,6 +81,17 @@ services:
       timeout: 3s
       retries: 40
 
+  sheets:                      # the LoRA sheet builder: its own page, its own port, nothing shared but files
+    build: ./sheets
+    ports: ["127.0.0.1:8001:8001"]
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./sheets/characters:/app/sheets/characters   # what you build: description, lock, runs, set
+      - ./campaigns:/app/campaigns:ro                # read only: characters.md and the rest
+      - ./secrets:/app/secrets:ro                    # the OpenRouter key the room saved
+
   mock:
     profiles: [mock]
     build: .

@@ -1,7 +1,22 @@
 # Sheets: a LoRA training set, one character at a time
 
 Standalone. Nothing here touches the room; it reads a folder you fill by hand and writes
-images and captions beside it.
+images and captions beside it. Two ways in: a page, or the command line.
+
+## The page
+
+```
+docker compose up -d sheets        # http://localhost:8001
+```
+
+Its own container, its own port. Pick the campaign, choose a character from its
+`characters.md` (production's copy, or intake's), and **Start this character**: the description
+is filled from the file. Add notes that go into every prompt ("always the burn scar"), upload
+the lock image, save, and **Run** each step. The candidates appear in the page; click the one
+to keep. What you keep lands in `sheets/characters/<name>/set/` on your disk. The campaigns
+folder is mounted read only; the OpenRouter key comes from the room's `secrets/keys.json`.
+
+## The command line
 
 1. Make a folder: `sheets/ada/`.
 2. Drop in `description.txt` (paste the character's look, from `characters.md` or your own words)
