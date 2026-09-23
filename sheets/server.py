@@ -15,6 +15,7 @@ import re
 import sys
 import threading
 import urllib.parse
+import urllib.request
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
@@ -135,8 +136,8 @@ def roll(name, stage_id, notes, models, each):
         if _running.get((name, stage_id), {}).get("status") == "running":
             raise ValueError("that stage is already rolling")
         _running[(name, stage_id)] = {"status": "running", "errors": []}
-    st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick,
-                         "parent": parent.name if parent else None, "candidates": [], "errors": []})
+    st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "pick_before": st.get("pick"),
+                         "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models)})
     save_stage(d, stage_id, st)
 
     def work():
@@ -153,6 +154,52 @@ def roll(name, stage_id, notes, models, each):
             save_stage(d, stage_id, st2)
             _running[(name, stage_id)] = {"status": "failed", "errors": [str(e)[:300]]}
     threading.Thread(target=work, daemon=True).start()
+
+
+def undo(name, stage_id):
+    """Drop the last roll of a stage and put the pick back where it was before it."""
+    d = character(name)
+    st = stage_state(d, stage_id)
+    if not st["rounds"]:
+        raise ValueError("nothing to undo")
+    if _running.get((name, stage_id), {}).get("status") == "running":
+        raise ValueError("wait for the roll to finish")
+    last = st["rounds"].pop()
+    folder = d / "runs" / stage_id / last["round"]
+    if folder.is_dir():
+        import shutil
+        shutil.rmtree(folder)
+    if st.get("pick") and st["pick"]["round"] == last["round"]:
+        st["pick"] = last.get("pick_before")
+    save_stage(d, stage_id, st)
+    return len(st["rounds"])
+
+
+_catalog = {"t": 0, "models": []}
+GOOD = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro",
+        "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image",
+        "openai/gpt-image-1", "black-forest-labs/flux.2-max", "krea/krea-2-large", "microsoft/mai-image-2.6"]
+
+
+def catalog():
+    """Image models that take a reference image, from OpenRouter (cached an hour); the good
+    ones first. Without a key, the good ones alone."""
+    import time as _t
+    if _t.time() - _catalog["t"] < 3600 and _catalog["models"]:
+        return _catalog["models"]
+    ids = []
+    try:
+        key = core.api_key() if not DRY else None
+        if key:
+            req = urllib.request.Request(f"{core.OPENROUTER}/images/models", headers={"Authorization": f"Bearer {key}"})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                data = json.load(r).get("data", [])
+            ids = [m["id"] for m in data if (m.get("supported_parameters") or {}).get("input_references")]
+    except (SystemExit, Exception):        # noqa: BLE001 - the page still works without the catalog
+        ids = []
+    models = [m for m in GOOD if not ids or m in ids] + sorted(m for m in ids if m not in GOOD)
+    _catalog.update(t=_t.time(), models=models)
+    return models
 
 
 def pick(name, stage_id, round_name, file):
@@ -351,6 +398,11 @@ details summary{cursor:pointer;color:var(--muted);font-size:.8rem;margin:.2rem 0
 .cands figure:hover{border-color:var(--go)}.cands figure.pick{border-color:var(--ok)}
 .cands img{width:100%;border-radius:3px;display:block}.cands figcaption{font-size:.68rem;color:var(--muted);margin-top:.2rem}
 .acts{position:sticky;bottom:0;background:var(--panel);padding:.6rem 0 0;border-top:1px solid var(--line);margin-top:.6rem}
+.models{display:flex;gap:.3rem;flex-wrap:wrap;margin:.3rem 0 .5rem}
+.models label{font-size:.72rem;font-family:ui-monospace,monospace;padding:.15rem .5rem;border:1px solid var(--line);border-radius:12px;cursor:pointer;color:var(--muted)}
+.models label.on{border-color:var(--go);color:var(--ink);background:color-mix(in srgb,var(--go) 18%,var(--panel))}
+.models input{display:none}
+.roll .who button{font-size:.68rem;padding:.05rem .4rem;margin-left:.4rem}
 .working{display:inline-block;width:.5rem;height:.5rem;border-radius:50%;background:var(--go);animation:pulse 1.2s infinite;margin-right:.4rem}
 @keyframes pulse{50%{opacity:.2}}
 dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;width:min(720px,92vw);max-height:80vh}
@@ -379,7 +431,9 @@ dialog .sec small{color:var(--muted);display:block;white-space:pre-wrap;max-heig
     <textarea id="steps" class="mono" spellcheck="false"></textarea>
     <p class="hint" style="margin:.3rem 0 0"><code>name | what to change | parent</code> per line. Parent: a step name or <code>lock</code>; empty builds on the previous keep.</p>
     <h2 style="margin-top:.8rem">Models</h2>
-    <input id="models" type="text"><div class="row"><label class="hint">candidates per model <input id="each" type="number" min="1" max="4" value="2" style="width:3rem"></label></div>
+    <p class="hint" style="margin:0">Toggled beside the Roll button, before every roll. Add one by id here:</p>
+    <div class="row"><input id="model-add" type="text" placeholder="provider/model-id" style="flex:1"><button id="model-add-go">Add</button></div>
+    <div class="row"><label class="hint">candidates per model <input id="each" type="number" min="1" max="4" value="2" style="width:3rem"></label></div>
     <div class="row"><button class="go" id="save">Save setup</button><span class="hint" id="said"></span></div>
     <div class="row"><label><input type="file" id="lock-file" accept="image/*" hidden><button onclick="document.getElementById('lock-file').click()">Upload a lock image instead</button></label></div>
   </details></div>
@@ -395,6 +449,19 @@ const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const DEFAULT_MODELS = %MODELS%;
 let who = null, st = null, poll = null, castData = null, current = null, lastDrawn = "", notesDraft = {};
+let catalog = [], on = new Set();
+function loadModels(d) {
+  catalog = d.models;
+  const saved = JSON.parse(localStorage.getItem("sheets-on") || "null");
+  const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
+  for (const m of extra) if (!catalog.includes(m)) catalog.push(m);
+  on = new Set((saved || d.default).filter((m) => catalog.includes(m)));
+  if (!on.size) on = new Set(d.default);
+}
+const chosen = () => catalog.filter((m) => on.has(m));
+function modelChips() {
+  return `<div class="models" id="models">${catalog.map((m) => `<label class="${on.has(m) ? "on" : ""}"><input type="checkbox" data-m="${esc(m)}" ${on.has(m) ? "checked" : ""}>${esc(m)}</label>`).join("")}</div>`;
+}
 async function api(path, opts = {}) {
   const r = await fetch(path, { method: opts.method || "GET", headers: { "content-type": "application/json" }, body: opts.body ? JSON.stringify(opts.body) : undefined });
   const d = await r.json().catch(() => ({}));
@@ -444,7 +511,6 @@ async function load(force) {
   if (force || key !== lastDrawn) { lastDrawn = key; draw(); }
   if (force) {
     $("#desc").value = st.description; $("#notes").value = st.notes || ""; $("#steps").value = st.steps_text;
-    if (!$("#models").value) $("#models").value = localStorage.getItem("sheets-models") || DEFAULT_MODELS;
   }
   $("#top-hint").textContent = st.trigger ? `${who} · trigger word ${st.trigger}` : "";
   const busy = st.stages.some((s) => s.running);
@@ -488,24 +554,37 @@ function drawStage() {
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
       </div></div>
     ${rounds.map((r, i) => `<div class="roll ${i === rounds.length - 1 ? "now" : ""}">
-      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? "from your pick" : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span>working…` : ""}</div>
+      <div class="who"><b>roll ${i + 1}</b> ${r.from_pick ? "from your pick" : isLock ? "from the description" : "from the parent"}${r.notes ? ` · “${esc(r.notes)}”` : ""}${i === rounds.length - 1 && s.running ? ` <span class="working"></span>working…` : ""}${pick && pick.round === r.round ? ` · <span class="good">the pick is here</span>` : ""}</div>
       ${(r.errors || []).length ? `<div class="err">${r.errors.map(esc).join("<br>")}</div>` : ""}
       ${r.candidates.length ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}</figcaption></figure>`).join("")}</div>` : ""}
     </div>`).join("")}
-    ${!rounds.length && can ? `<p class="hint">Roll: ${$("#models").value.split(",").filter(Boolean).length || 3} models, ${+$("#each").value || 2} each. Then click the closest, say what is off, and roll again from it until one is right.</p>` : ""}
+    ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick.</p>` : ""}
     <div class="acts">
+      ${modelChips()}
       <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
-        <button class="go" id="roll" ${s.running || !can ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>
+        <button class="go" id="roll" ${s.running || !can || !on.size ? "disabled" : ""}>${rounds.length ? (pick ? "Roll again from the pick" : "Roll again") : "Roll"}</button>
         <button class="ok" id="keep" ${pick && !s.running ? "" : "disabled"}>${isLock ? "Lock this one" : "Keep this one"}</button>
-        <span class="hint">${s.running ? "working…" : pick ? `closest: ${esc(pick.file)}` : rounds.length ? "click the closest candidate" : ""}</span>
+        <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
+        <span class="hint">${s.running ? "working…" : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : `${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}`}</span>
       </div></div>`;
+  $("#models").onchange = (e) => {
+    const m = e.target.dataset.m; if (!m) return;
+    e.target.checked ? on.add(m) : on.delete(m);
+    localStorage.setItem("sheets-on", JSON.stringify([...on]));
+    e.target.parentElement.classList.toggle("on", e.target.checked);
+    $("#roll").disabled = s.running || !can || !on.size;
+  };
+  $("#undo").onclick = async () => {
+    try { await api(`/api/characters/${who}/stages/${current}/undo`, { method: "POST", body: {} }); lastDrawn = ""; await load(true); }
+    catch (err) { $("#top-hint").textContent = err.message; }
+  };
   $("#stage-notes").oninput = (e) => { notesDraft[current] = e.target.value; };
   $("#go-next")?.addEventListener("click", (e) => { e.preventDefault(); current = next.id; lastDrawn = ""; draw(); });
   $("#roll").onclick = async () => {
     try {
       await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value } });
-      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: $("#models").value.split(",").map((m) => m.trim()).filter(Boolean), each: +$("#each").value || 2 } });
+      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2 } });
       notesDraft[current] = ""; await load(true);
     } catch (err) { $("#said").textContent = err.message; $("#top-hint").textContent = err.message; }
   };
@@ -524,9 +603,17 @@ $("#work").addEventListener("click", async (e) => {
   catch (err) { $("#top-hint").textContent = err.message; }
 });
 /* ---- setup ---- */
+$("#model-add-go").onclick = () => {
+  const m = $("#model-add").value.trim(); if (!m) return;
+  const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
+  if (!extra.includes(m)) extra.push(m);
+  localStorage.setItem("sheets-extra", JSON.stringify(extra));
+  if (!catalog.includes(m)) catalog.push(m);
+  on.add(m); localStorage.setItem("sheets-on", JSON.stringify([...on]));
+  $("#model-add").value = ""; lastDrawn = ""; draw();
+};
 $("#save").onclick = async () => {
   try {
-    localStorage.setItem("sheets-models", $("#models").value);
     await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value, steps_text: $("#steps").value } });
     $("#said").textContent = "saved"; lastDrawn = ""; await load(true);
   } catch (err) { $("#said").textContent = err.message; }
@@ -549,7 +636,7 @@ async function showMd() {
   $("#md-secs").innerHTML = d.sections.map((s, i) => `<div class="sec" data-i="${i}"><b>${"#".repeat(s.depth)} ${esc(s.heading)}</b><small>${esc(s.body.slice(0, 300))}</small></div>`).join("");
   $("#md-secs").onclick = (e) => { const el = e.target.closest(".sec"); if (!el) return; const s = d.sections[+el.dataset.i]; $("#desc").value = `${s.heading}: ${s.body}`; $("#md").close(); };
 }
-(async () => { await listCampaigns(); await listWho(); await load(true); if (st && !st.description) $("#setup").open = true; })();
+(async () => { loadModels(await api("/api/models")); await listCampaigns(); await listWho(); await load(true); if (st && !st.description) $("#setup").open = true; })();
 </script></html>"""
 
 
@@ -586,6 +673,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json(status(url.path.split("/")[3]))
             elif url.path == "/api/md":
                 self.send_json(md_read(q["path"][0]) if "path" in q else {"files": md_files()})
+            elif url.path == "/api/models":
+                self.send_json({"models": catalog(), "default": core.DEFAULT_MODELS})
             elif url.path == "/api/campaigns":
                 self.send_json({"campaigns": campaigns()})
             elif url.path.startswith("/api/campaigns/"):
@@ -631,6 +720,8 @@ class Handler(BaseHTTPRequestHandler):
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "keep":
                 self.send_json({"kept": keep(parts[3], parts[5])})
+            elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "undo":
+                self.send_json({"rounds": undo(parts[3], parts[5])})
             else:
                 self.send_json({"error": "not found"}, 404)
         except FileNotFoundError as e:
