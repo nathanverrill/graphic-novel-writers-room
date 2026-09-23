@@ -5,6 +5,8 @@ that receives the full request and response of every call, failed ones included.
 import base64
 import http.client
 import json
+import socket
+import threading
 import time
 import urllib.error
 import urllib.request
@@ -18,6 +20,16 @@ class LLMError(Exception):
         super().__init__(f"request failed ({status}): {body[:500]}")
         self.status = status
         self.body = body
+
+
+def _cut(resp):
+    """The watchdog: shut the socket under a read that has gone on too long. Not close():
+    the buffered reader holds its lock while read() blocks, and close() would wait for it."""
+    try:
+        sock = resp.fp.raw._sock            # HTTPResponse -> BufferedReader -> SocketIO -> socket
+        sock.shutdown(socket.SHUT_RDWR)
+    except Exception:       # noqa: BLE001 - a socket that is already gone is fine
+        pass
 
 
 def _post(url, api_key, body, timeout, log=None, kind="chat"):
@@ -36,7 +48,18 @@ def _post(url, api_key, body, timeout, log=None, kind="chat"):
             try:
                 with urllib.request.urlopen(req, timeout=timeout) as resp:
                     status = resp.status
-                    raw = resp.read().decode(errors="replace")
+                    # `timeout` above is per socket read. OpenRouter keeps a slow call alive
+                    # with ": OPENROUTER PROCESSING" comments, so that alone never fires; the
+                    # watchdog makes it a wall-clock limit on the whole reply as well.
+                    watchdog = threading.Timer(timeout, _cut, args=(resp,))
+                    watchdog.daemon = True
+                    watchdog.start()
+                    try:
+                        raw = resp.read().decode(errors="replace")
+                    finally:
+                        if not watchdog.is_alive():
+                            raise TimeoutError(f"no complete reply after {timeout:g}s")
+                        watchdog.cancel()
                 break
             except (http.client.IncompleteRead, ConnectionResetError) as e:
                 if attempt == DROPPED_TRIES - 1:
