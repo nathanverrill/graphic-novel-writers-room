@@ -69,7 +69,7 @@ print("5. stale runs are marked at startup: ok")
 
 # 6. the Letterer's moves land in layouts.md; words never change; locked pages stay
 layout = {"page": 1, "side": "right",
-          "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "wide", "description": "ADA at the pump. Sky above her, clear."}]},
+          "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "wide", "description": "ADA at the pump yard. Sky above her, clear."}]},
                     {"h": 1, "panels": [{"w": 1, "shot": "close", "description": "The gauge needle."}]}],
           "items": [{"panel": 1, "type": "figure", "label": "Ada", "at": "bottom-left", "size": 60},
                     {"panel": 1, "type": "balloon", "speaker": "ADA", "text": "The pump says it's lying.", "at": "bottom-right"},
@@ -95,7 +95,12 @@ print("6. the Letterer's moves: applied to balloons and captions only, never a l
 projects.write_artifact(slug, "characters.md", "# Characters\n\n## Ada\n\n**Look:** red hair, grey coveralls, a burn scar on the left hand.\n")
 projects.write_artifact(slug, "brief.md", "# Brief\n\n## Visual direction\n\nClean line, flat colour, hard desert light.\n")
 projects.write_artifact(slug, "script.md", "## Page 1\n\nPanel 1. ADA: The pump says it's lying.\n")
+projects.write_artifact(slug, "world.md", "# World\n\n## Setting\n\n### The pump yard\n\nA fenced yard of rusted pumps under hard light.\n\n"
+                                          "### Travel and access\n\nroads.\n\n## History\n\n### The Water Wars\n\nlong ago.\n")
 pages, book = prompts.build(slug)
+assert prompts.location_entries(projects.read_artifact(slug, "world.md")) == [("The pump yard", "A fenced yard of rusted pumps under hard light.")]
+assert "**Reference images to attach**" in pages[1] and "the character sheet (ADA)" in pages[1] and "the location sheet (THE PUMP YARD)" in pages[1]
+assert "## Location sheet — draw this next" in book and "THE PUMP YARD" in book
 p1 = pages[1]
 for must in ("NO TEXT anywhere", "**Layout sketch at print scale**", "**Before you keep this image, check:**",
              "- [ ] 2 panels", "- [ ] ADA:", "Clear, uncluttered space at: panel 1 top right; panel 2 ",

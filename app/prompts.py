@@ -39,8 +39,10 @@ KIND = {
 SFX_SIZE = {"small": "small", "medium": "medium", "large": "large, bold", "huge": "huge, dramatic"}
 HOW_TO_USE = """## How to use these packets
 
-1. **Start with the character sheet** below: paste it first, keep the result, and show it to
-   the model (as a reference image) with every page if the model takes references.
+1. **Start with the sheets** below: the character sheet, then the location sheet. Paste each,
+   keep the results, and attach them as reference images with every page that names them
+   (each page packet says which). Approve one page as your style page and attach that too.
+   For a long book, train a LoRA on the approved sheets and pages; references alone drift.
 2. **One page at a time.** Paste everything under a page's heading, nothing else. Keep the
    same model and settings for the whole book so the style and the characters stay put.
 3. **No text on the pages.** The words are added afterwards, in the room, as a layer over
@@ -396,6 +398,8 @@ def page_prompt(spec, ctx):
         for name in names:
             look = clean_look(looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
+    places = places_on(ctx, described)
+    out += ["", reference_line(names, places, ctx)]
     if not layer:
         out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]
     out += ["", "**Page layout, top to bottom** (the map is the page itself, panels to scale):", "",
@@ -550,6 +554,7 @@ def context(slug, version=None):
         "lettering": settings.get("lettering") or "layer",
         "style": section(read("brief.md"), "visual", "style", "look"),
         "bible": read("characters.md"),
+        "world": read("world.md"),
         "script": read("script.md"),
         "trim": f"{w_in:g} x {h_in:g} inches",
         "sketches": {n: p["art"] for n, p in thumbnails.parse_thumbnails(read("thumbnails.md")).items()},
@@ -573,6 +578,76 @@ def character_sheet(ctx):
         if look:
             out.append(f"- **{name.upper()}** — {look}")
     return "\n".join(out)
+
+
+PLACES = re.compile(r"\bsetting|\bplaces?\b|\blocations?\b|\benvironment|\bgeograph", re.I)
+
+
+def location_entries(world):
+    """The places in world.md: the "###" headings under its setting / places / locations
+    section, each with the first paragraph of its description."""
+    out, inside, name, body = [], False, None, []
+    def close():
+        if name:
+            text = " ".join(" ".join(body).split())
+            out.append((name, text[:420].rsplit(".", 1)[0] + "." if "." in text[:420] else text[:420]))
+    for line in (world or "").split("\n"):
+        m = re.match(r"^(#{1,6})\s+(.*)", line)
+        if m:
+            depth, head = len(m.group(1)), m.group(2).strip().rstrip("*").strip()
+            if depth <= 2:
+                close(); name, body = None, []
+                inside = bool(PLACES.search(head))
+            elif depth == 3:
+                close(); name, body = None, []
+                if inside and 1 <= len(head.split()) <= 5 and not re.search(r"travel|access|distance", head, re.I):
+                    name = head
+            continue
+        if name and line.strip() and not body and not line.lstrip().startswith(("-", "*", "|")):
+            body.append(line.strip())
+        elif name and body and line.strip() and not line.lstrip().startswith(("-", "*", "|")):
+            if len(" ".join(body)) < 420:
+                body.append(line.strip())
+    close()
+    return out
+
+
+def location_sheet(ctx):
+    """A prompt for one reference image per place, to draw before the pages."""
+    places = location_entries(ctx.get("world"))
+    if not places:
+        return None
+    out = ["## Location sheet — draw this next", "", PAGE_HEAD, "",
+           "Draw one establishing view of each place below, in the book's style, as separate images "
+           "or one sheet: wide shot, daylight unless the description says otherwise, no people in "
+           "the foreground. No text, names, labels or captions anywhere.", "",
+           "**Style:**", "", ctx["style"] or "(no visual direction in the brief yet)", "",
+           "**Places — draw them exactly as described:**", ""]
+    for name, look in places:
+        out.append(f"- **{name.upper()}** — {look or '(no description yet)'}")
+    return "\n".join(out)
+
+
+def places_on(ctx, text):
+    """Which of the world's places a page's descriptions name."""
+    found = []
+    for name, _ in location_entries(ctx.get("world")):
+        key = name.split()[-1] if name.split()[0].lower() in ARTICLES else name.split()[0]
+        if len(key) > 3 and re.search(rf"\b{re.escape(key)}\b", text or "", re.I):
+            found.append(name)
+    return found
+
+
+def reference_line(names, places, ctx):
+    """What to attach to this page, for a model that takes reference images."""
+    bits = []
+    if names:
+        bits.append(f"the character sheet ({', '.join(n.upper() for n in names)})")
+    if places:
+        bits.append(f"the location sheet ({', '.join(p.upper() for p in places)})")
+    bits.append("your approved style page")
+    return ("**Reference images to attach** (if the model takes them): " + "; ".join(bits)
+            + ". The descriptions below still win where the two differ.")
 
 
 def page_index(specs, ctx):
@@ -609,9 +684,9 @@ def build(slug, version=None):
     if not pages:
         head.append("_No page layouts yet — run the room first._")
     else:
-        sheet = character_sheet(ctx)
-        if sheet:
-            head += [sheet, ""]
+        for sheet in (character_sheet(ctx), location_sheet(ctx)):
+            if sheet:
+                head += [sheet, ""]
         head += ["## The pages at a glance", "", page_index(sorted(specs, key=lambda s: s["page"]), ctx), ""]
     book = "\n".join(head) + "\n---\n\n" + "\n---\n\n".join(pages[n] for n in sorted(pages))
     return pages, book
