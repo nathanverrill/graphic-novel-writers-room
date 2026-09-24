@@ -27,6 +27,7 @@ services:
       - ./pricing.json:/app/pricing.json
       - ./secrets:/app/secrets       # API keys saved from the UI (git-ignored)
       - ./debug:/app/debug           # last intake run: what was sent, what came back
+      - ./sheets/characters:/app/sheets/characters:ro   # which characters have a sheet (app/draftedit.py)
     depends_on:
       seaweedfs:
         condition: service_healthy

@@ -29,6 +29,9 @@ DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_p
                     "scope": None,       # execution on the first N pages only (magic's page-1 proof); None = the book
                     "use_references_during_synthesis": True,    # see app/intake.py, pass 1
                     "draft_mode": "improve",   # improve | edit: how the room treats the showrunner's draft (phases.py)
+                    "expand_pages": 0,   # edit mode: pages the edited drafts grow by (app/draftedit.py)
+                    "max_panels": 4,     # drawability: an image model draws a page in one go, and drifts past this
+                    "max_characters": 3,  # drawability: named characters in one panel
                     "phase": "intake", "writer": None}      # where the book is: see phases.py
 
 

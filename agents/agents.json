@@ -68,6 +68,25 @@
     ]
   },
   {
+    "id": "draft_editor",
+    "title": "Draft Editor",
+    "mission": "You bring the showrunner's drafts into line with the canon, chapter by chapter - the scenes, details and dialogue the canon or the dialogue rules contradict, and nothing else - then grow them by the pages asked for, inserting only, every addition marked. You count pages the way an image model can draw them, and you never write anew.",
+    "reads": [
+      "brief.md",
+      "characters.md",
+      "world.md",
+      "story.md",
+      "facts.md",
+      "draft.md"
+    ],
+    "outputs": [
+      "draft-edited.md",
+      "draft-final.md",
+      "draft-changes.md"
+    ],
+    "pipeline": "draftedit"
+  },
+  {
     "id": "writer_a",
     "title": "Writer A",
     "shares": "_writers",
@@ -79,7 +98,9 @@
       "world.md",
       "taste-writers.md",
       "notes.md",
-      "draft.md"
+      "draft.md",
+      "draft-edited.md",
+      "draft-final.md"
     ],
     "outputs": [
       "script.md"
@@ -97,7 +118,9 @@
       "world.md",
       "taste-writers.md",
       "notes.md",
-      "draft.md"
+      "draft.md",
+      "draft-edited.md",
+      "draft-final.md"
     ],
     "outputs": [
       "script.md"
@@ -161,7 +184,9 @@
       "layouts.md",
       "thumbnails.md",
       "taste-writers.md",
-      "draft.md"
+      "draft.md",
+      "draft-edited.md",
+      "draft-final.md"
     ],
     "outputs": [
       "notes.md"

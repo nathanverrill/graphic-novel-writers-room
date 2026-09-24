@@ -22,7 +22,7 @@ import time
 import uuid
 from dataclasses import replace
 
-from . import agent as agent_mod, intake as intake_mod
+from . import agent as agent_mod, draftedit as draftedit_mod, intake as intake_mod
 from . import notes as notes_mod
 from . import lettering, phases, projects, review, usage
 from .agents import load_roles
@@ -145,6 +145,8 @@ class Run:
         emit("role_start", title=role.title, pass_n=pass_n, estimate=self.estimate.get(role.id))
         if role.pipeline == "intake":
             a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
+        elif role.pipeline == "draftedit":
+            a = draftedit_mod.DraftEdit(role, self.version, emit, lambda: self.stop_requested)
         else:
             a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
         try:

@@ -35,12 +35,12 @@ import time
 from . import notes as notes_mod, phases, projects, review, room
 from .agents import load_roles
 
-STEPS = ("development", "audition", "page1", "writing", "layouts", "execution", "final")
-PHASE_OF = {"development": "development", "audition": "audition", "page1": "execution",
+STEPS = ("development", "drafts", "audition", "page1", "writing", "layouts", "execution", "final")
+PHASE_OF = {"development": "development", "drafts": "drafts", "audition": "audition", "page1": "execution",
             "writing": "writing", "layouts": "execution", "execution": "execution", "final": "execution"}
-TITLES = {"development": "Development", "audition": "Audition", "page1": "Page 1",
+TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Page 1",
           "writing": "Writing", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
-STOPS = {"page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
+STOPS = {"drafts": "drafts", "page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
 
 def max_execution_rounds(slug):
     """Rounds of pages before the book is taken as it is (the execution_rounds setting)."""
@@ -116,6 +116,8 @@ def start(slug, step="development", note=None, until="final"):
          started=projects.now(), finished=None)
     if step == "development":
         _set(slug, choices=[], log=[])
+    if STEPS.index(step) <= STEPS.index("page1"):
+        _set(slug, written_for_page1=False)     # a chain that reaches page 1 again writes again
     _log(slug, f"Production starts at {TITLES[step]}, running to {TITLES[until].lower()}."
                + (f" With your note: {note[:120]}" if note else ""))
     t = threading.Thread(target=_run, args=(slug, step, until, note), daemon=True)
@@ -146,18 +148,25 @@ def _run(slug, step, until, note):
             _set(slug, step=step)
             if _stopping(slug):
                 raise Halted()
+            if step == "drafts" and not phases.editing(slug):
+                i += 1                  # only an edit of the showrunner's drafts has a draft edit
+                continue
             if step == "page1" and until != "page1":
                 i += 1                  # no proof asked for: straight on to the writing
                 continue
             if step == "layouts" and until != "layouts":
                 i += 1                  # not stopping there: the pages step lays out and fixes
                 continue
-            note = {"development": _development, "audition": _audition, "page1": _page1, "writing": _writing,
-                    "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
-            if step == until:
+            note = {"development": _development, "drafts": _drafts, "audition": _audition, "page1": _page1,
+                    "writing": _writing, "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
+            if step == until or step == "drafts":     # an edit always stops at the edited drafts
                 break
             i += 1
-        if until == "page1":
+        if step == "drafts":
+            _set(slug, status="drafts", finished=projects.now())
+            _log(slug, "Your drafts are edited to the canon: every change and everything that does not fit "
+                       "is in draft-changes.md. Read them, then script them - or stop here.")
+        elif until == "page1":
             _set(slug, status="page1", finished=projects.now())
             _log(slug, "Page 1 is ready. Have a look: is this about right?")
         elif until == "layouts":
@@ -204,6 +213,12 @@ def _development(slug, note):
 
 
 TITLE_OF = {"writer_a": "Writer A", "writer_b": "Writer B"}
+def _drafts(slug, note):
+    """Edit mode: the Draft Editor brings the showrunner's drafts into line with the canon."""
+    _round(slug, "drafts", note)
+    return None
+
+
 PICK_RE = re.compile(r"(version|writer)\s*([ab])\b", re.I)
 
 
@@ -246,15 +261,26 @@ def pick_from_first_read(text):
 
 
 def _page1(slug, note):
+    """Page 1 is laid out from the script. After an audition the script holds its pages; an
+    edit of the draft has no audition, so the writer edits the draft into the script first."""
+    if phases.editing(slug) and not (projects.read_artifact(slug, "script.md") or "").strip():
+        _log(slug, "No audition in an edit: the writer edits the draft into the script first, for page 1 to be laid out from.")
+        note = _writing(slug, note)
+        _set(slug, written_for_page1=True)
     _round(slug, "execution", note, scope=1)
     return None
 
 
 def _writing(slug, note):
     review.save_settings(slug, scope=0)
+    st = review.settings(slug).get("magic") or {}
+    if st.get("written_for_page1") and not note and (projects.read_artifact(slug, "script.md") or "").strip():
+        _set(slug, written_for_page1=False)     # written for the page 1 proof already: not twice
+        _log(slug, "The script was written for the page 1 proof; going on from it.")
+        return note
     _round(slug, "writing", note)
     _choice(slug, "writing", "Approved the script as written.", "The whole book, in the picked writer's voice.",
-            review.latest_round(slug)["id"])
+            (review.latest_round(slug) or {}).get("id"))
     return None
 
 
@@ -313,6 +339,8 @@ def plan(slug):
     for step in STEPS:
         if step == "audition" and edit:
             continue                # an edit has no audition (see _audition)
+        if step == "drafts" and not edit:
+            continue                # only an edit has a draft edit
         phase = phases.get(PHASE_OF[step])
         ids = [st["writer"] or "writer_a" if a == phases.WRITER else a for a in phase["agents"]]
         if step == "layouts":
@@ -332,6 +360,7 @@ def plan(slug):
                                 "parallel": any(r.id in g for g in groups)} for r in who],
                     "seconds": seconds, "stop": step in STOPS, "optional": step == "page1",
                     "note": {"page1": "Only if you ask to see page 1 first.",
+                             "drafts": "An edit stops here: read what changed, then script it - or stop.",
                              "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
     letterer = roles.get("letterer")

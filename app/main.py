@@ -705,6 +705,9 @@ class RoundSettings(BaseModel):
     references: list[str] | None = None   # library files to use; ["*"] = all
     use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
     draft_mode: str | None = None   # "improve" or "edit": how production treats the showrunner's draft
+    expand_pages: int | None = None  # edit mode: pages the edited drafts grow by
+    max_panels: int | None = None    # drawability: panels a page
+    max_characters: int | None = None  # drawability: named characters a panel
 
 
 class RoundRequest(BaseModel):
@@ -739,6 +742,12 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "auto_rounds must be 0-20")
     if body.execution_rounds is not None and not 1 <= body.execution_rounds <= 10:
         raise HTTPException(400, "execution_rounds must be 1-10")
+    if body.expand_pages is not None and not 0 <= body.expand_pages <= 200:
+        raise HTTPException(400, "expand_pages must be 0-200")
+    if body.max_panels is not None and not 1 <= body.max_panels <= 9:
+        raise HTTPException(400, "max_panels must be 1-9")
+    if body.max_characters is not None and not 1 <= body.max_characters <= 8:
+        raise HTTPException(400, "max_characters must be 1-8")
     if body.draft_mode not in (None, "improve", "edit"):
         raise HTTPException(400, "draft_mode must be improve or edit")
     if body.references not in (None, ["*"]):

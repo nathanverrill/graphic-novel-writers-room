@@ -35,9 +35,10 @@ async function pickCampaign() {
 
 /* ---- the left column --------------------------------------------------- */
 
-const STEPS = ["development", "audition", "page1", "writing", "layouts", "execution", "final"];
-const TITLES = { development: "Development", audition: "Audition", page1: "Page 1", writing: "Writing", layouts: "Layouts", execution: "Pages", final: "Final" };
-const STOPS = { page1: "page 1 proof: you look", layouts: "the layouts: you look", final: "the packets: you draw" };
+const STEPS = ["development", "drafts", "audition", "page1", "writing", "layouts", "execution", "final"];
+const TITLES = { development: "Development", drafts: "Draft edit", audition: "Audition", page1: "Page 1", writing: "Writing", layouts: "Layouts", execution: "Pages", final: "Final" };
+const STOPS = { drafts: "the edited drafts: you read", page1: "page 1 proof: you look", layouts: "the layouts: you look", final: "the packets: you draw" };
+const editing = () => project.settings?.draft_mode === "edit";
 
 function renderState() {
   const m = state.magic, active = !!project.active_run;
@@ -45,6 +46,7 @@ function renderState() {
   $("#phase").textContent = project.phase || "—";
   $("#round").textContent = latest ? latest.id : "no rounds yet";
   const [cls, label] = active || m.status === "running" ? ["run", "working"]
+    : m.status === "drafts" ? ["wait", "the edited drafts are waiting for you"]
     : m.status === "page1" ? ["wait", "page 1 is waiting for you"]
     : m.status === "layouts" ? ["wait", "the layouts are waiting for you"]
     : m.status === "done" ? ["ready", "the book is done"]
@@ -57,7 +59,8 @@ function renderState() {
   const at = m.step ? STEPS.indexOf(m.step) : -1;
   const running = m.status === "running" || active;
   const proof = m.until === "page1" || m.status === "page1" || m.step === "page1";
-  $("#steps").innerHTML = STEPS.filter((s) => s !== "page1" || proof).map((s) => {
+  // an edit has a draft edit and no audition; anything else the other way round
+  $("#steps").innerHTML = STEPS.filter((s) => (s !== "page1" || proof) && (s !== "drafts" || editing()) && (s !== "audition" || !editing())).map((s) => {
     const i = STEPS.indexOf(s);
     const done = at > i || (at === i && !running && ["page1", "layouts", "done"].includes(m.status) && (s !== "final" || m.status === "done"));
     const now = at === i && running;
@@ -75,7 +78,7 @@ function renderState() {
   restart.disabled = state.busy;
 }
 
-const MADE = ["draft.md", "brief.md", "story.md", "characters.md", "audition-a.md", "audition-b.md", "first-read.md", "script.md", "layouts.md", "notes.md"];
+const MADE = ["draft.md", "draft-changes.md", "draft-final.md", "draft-edited.md", "brief.md", "story.md", "characters.md", "audition-a.md", "audition-b.md", "first-read.md", "script.md", "layouts.md", "notes.md"];
 
 function renderMade() {
   const byName = Object.fromEntries((project.artifacts || []).map((a) => [a.name, a]));
@@ -110,6 +113,11 @@ function renderActs() {
   if (running) {
     acts.innerHTML = `<button class="go" disabled>working…</button>`;
     hint.textContent = "Every call shows under Activity. Stop is on the left.";
+  } else if (m.status === "drafts") {
+    acts.innerHTML = save +
+      `<button class="go alt" id="drafts-again">Edit the drafts again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
+      `<button class="go" id="script-them">Script them and lay out →</button>`;
+    hint.textContent = `The book is ${project.settings?.pages || "?"} pages. On the Files tab: draft-changes.md has every change, every addition, what does not fit, the page count by chapter and who still needs a sheet; draft-final.md is the book the script is made from. Notes (\"cut NEW 3.2\", \"more of TJ in ch. 4\") go to Edit the drafts again.`;
   } else if (m.status === "page1") {
     acts.innerHTML = save +
       `<button class="go alt" id="again">Page 1 again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
@@ -159,6 +167,8 @@ $("#acts").addEventListener("click", async (e) => {
   if (b.id === "make") return magic({ step: "development", until: "layouts" });
   if (b.id === "proof") return magic({ step: "development", until: "page1" });
   if (b.id === "rest") return magic({ step: "writing", until: "layouts" });
+  if (b.id === "drafts-again") return magic({ step: "drafts", until: "drafts" });
+  if (b.id === "script-them") return magic({ step: "audition", until: "layouts" });
   if (b.id === "layouts-again") return magic({ step: "layouts", until: "layouts" });
   if (b.id === "make-pages") return magic({ step: "execution", until: "final" });
   if (b.id === "again") return magic({ step: "page1", until: "page1" });
@@ -215,21 +225,25 @@ function renderBegin() {
   const edit = (project.settings || {}).draft_mode === "edit";
   $('.tab[data-tab="begin"]').innerHTML = `
     <h2>${!drafts.length ? `Make ${pages} from the pre-production files.`
-      : edit ? `Edit your draft into ${pages}: improvements, no substantial changes.`
+      : edit ? `Edit your drafts to the canon: change only what it contradicts, nothing written anew.`
       : `Improve your draft into ${pages}, against the pre-production files.`}</h2>
     ${drafts.length ? `<p>Your drafts - ${drafts.map((d) => `<code>${esc(d)}</code>`).join(", ")} - go onto the
       production desk as <code>draft.md</code>. ${edit
-        ? `The room edits it: every scene kept, in its order, your lines word for word unless one is
-           broken, and what the pre-production files add worked into the scenes you have. There is no
-           audition: one writer edits, and notes on each page what it changed and why.`
+        ? `After development settles the canon, the Draft Editor goes through each chapter against it: it
+           changes only the scenes, dialogue and details the canon contradicts, keeps everything else word
+           for word, lists every change, and flags what in the story no longer fits. Produce stops there,
+           for you to read. Nothing is scripted until you say so.`
         : `The room plans around it, auditions on its opening, and writes the book from it: keeping its
            scenes and the lines that work, fixing what the story, characters, world and facts
            contradict, raising the craft. It does not start over.`}</p>
     <div class="filters" role="group" aria-label="What the room does with your draft">
       <button type="button" data-draft-mode="improve" aria-pressed="${!edit}">Improve it</button>
-      <button type="button" data-draft-mode="edit" aria-pressed="${edit}">Edit it - no substantial changes</button>
+      <button type="button" data-draft-mode="edit" aria-pressed="${edit}">Edit it to the canon</button>
       <span class="hint" id="draft-mode-said" style="margin:0"></span>
-    </div>` : ""}
+    </div>
+    ${edit ? `<div class="filters" role="group"><label class="hint" style="margin:0">Then expand it by
+      <input type="number" min="0" max="200" id="expand-pages" value="${(project.settings || {}).expand_pages ?? 0}" style="width:4.5rem"> pages</label>
+      <span class="hint" style="margin:0">0 keeps it to the canon edit. Steer what fills them with a note.</span></div>` : ""}` : ""}
     <p>The room runs every stage below itself and takes each decision along the way - who writes,
       whether the story stands - and stops at the <b>layouts</b>: every page's map and its panels,
       on the Pages tab, to look at before the long part. <b>Make the pages</b> then runs the fix
@@ -238,7 +252,8 @@ function renderBegin() {
       letters them. Your part is notes; if a note reaches further back, you step back to there.</p>
     <div class="plan">${plan.filter((p) => !p.optional).map((p) => `
       <div class="plan-step ${p.stop ? "stop" : ""} ${p.after ? "after" : ""}">
-        <div><b>${esc(p.title)}</b>${p.step === "layouts" ? `<div class="who">Produce stops here</div>` : p.stop ? `<div class="who">the packets</div>` : p.after ? `<div class="who">after the art</div>` : ""}</div>
+        <div><b>${esc(p.title)}</b>${p.step === (editing() ? "drafts" : "layouts") ? `<div class="who">Produce stops here</div>`
+          : p.step === "final" ? `<div class="who">the packets</div>` : p.stop ? `<div class="who">you look</div>` : p.after ? `<div class="who">after the art</div>` : ""}</div>
         <div>${esc(p.does)}${p.note ? ` <span class="hint" style="margin:0">${esc(p.note)}</span>` : ""}
           <div class="who">${p.agents.map((a) => `${esc(a.title)}${a.parallel ? "*" : ""} <code>${esc(a.model || "default model")}</code>`).join(" · ")}</div></div>
         <div class="est">${p.seconds ? `~${secs(p.seconds * 1000)}` : ""}</div>
@@ -574,6 +589,14 @@ $("#rules").addEventListener("click", async (e) => {
   renderRules();
 });
 
+document.addEventListener("change", async (e) => {
+  if (e.target.id !== "expand-pages") return;
+  try {
+    await api(`/api/projects/${state.slug}/settings`, { method: "PUT", body: { expand_pages: Math.max(0, +e.target.value || 0) } });
+    await load();
+  } catch (err) { $("#draft-mode-said").textContent = err.message; }
+});
+
 document.addEventListener("click", async (e) => {
   const b = e.target.closest("button[data-draft-mode]"); if (!b || b.getAttribute("aria-pressed") === "true") return;
   try {
@@ -593,6 +616,8 @@ function renderSettings() {
     field("lettering", "Lettering", "layer: the pages are drawn with no text and the room letters them afterwards (the point of the packets). art: the image model letters the page itself.",
       `<select data-s="lettering"><option value="layer" ${s.lettering !== "art" ? "selected" : ""}>layer</option><option value="art" ${s.lettering === "art" ? "selected" : ""}>art</option></select>`) +
     field("max_passes", "Fix passes", "Within a round of pages: how many times the agents may go again before it is handed over.", `<input type="number" min="0" max="10" data-s="max_passes" value="${s.max_passes ?? 2}">`) +
+    field("max_panels", "Panels a page, at most", "Drawability: an image model draws each page in one go, from the sheets, and drifts past this. The script, the draft edit's page count and the layouts keep to it.", `<input type="number" min="1" max="9" data-s="max_panels" value="${s.max_panels ?? 4}">`) +
+    field("max_characters", "Characters a panel, at most", "Drawability: named characters in one panel.", `<input type="number" min="1" max="8" data-s="max_characters" value="${s.max_characters ?? 3}">`) +
     field("execution_rounds", "Page rounds", "Produce: how many rounds of pages before the book is taken as it is.", `<input type="number" min="1" max="10" data-s="execution_rounds" value="${s.execution_rounds ?? 2}">`);
   const seen = new Set();
   $("#agents").innerHTML = (state.magic.plan || []).flatMap((p) => p.agents).filter((a) => !seen.has(a.id) && seen.add(a.id))
@@ -648,7 +673,7 @@ function begin() {
     showLastLog();
     const tab = new URLSearchParams(location.search).get("tab");
     state.tab = tab && $(`#tabs button[data-tab="${CSS.escape(tab)}"]`) ? tab
-      : m.status === "page1" ? "page1" : m.status === "layouts" ? "pages" : m.status === "done" ? "packets" : m.choices?.length ? "log" : "begin";
+      : m.status === "drafts" ? "files" : m.status === "page1" ? "page1" : m.status === "layouts" ? "pages" : m.status === "done" ? "packets" : m.choices?.length ? "log" : "begin";
     showTab(state.tab);
   }
 }

@@ -2,6 +2,7 @@
 
     intake        the Script Coordinator sorts your material  you approve its reading
     development   Director, Plotter, Character Designer     you approve the story
+    drafts        edit mode only: the Draft Editor          you approve your drafts, edited to the canon
     audition      Writer A and Writer B, the same pages     you pick the voice
     writing       the writer you picked, the whole script   you approve the words
     execution     Layout Agent, page packets                you review the pages, then draw them
@@ -23,7 +24,7 @@ import time
 from dataclasses import replace
 from datetime import datetime
 
-from . import openitems, projects, review, voices
+from . import draftedit, openitems, projects, review, voices
 from .agents import load_roles
 from .config import AGENTS_DIR
 
@@ -95,16 +96,18 @@ EDIT_NOTE = {
     "audition": "draft.md is the showrunner's own draft, and this book is an EDIT of it. Your audition "
                 "pages are the draft's opening, edited: every scene and beat kept, the draft's lines "
                 "word for word unless a line is broken, the craft raised only where it is. " + ADDED,
-    "writing": "draft.md is the showrunner's own draft of the whole book, and script.md is an EDIT of "
-               "it: improvements, no substantial changes. Writer: go page by page through the draft "
-               "into full-script format. Keep every scene, in its order, and keep the draft's lines "
-               "word for word unless a line is broken - unclear, overwritten, off-voice, or "
-               "contradicted by story.md, characters.md, world.md or facts.md. Tighten, clarify and "
-               "make it drawable; do not rewrite for taste. " + ADDED + " End each page's PAGE CHECK "
-               "with `CHANGED:` - what you changed from the draft and why, or `none`. "
-               "Continuity Editor: check script.md against draft.md as well as the files. A dropped, "
-               "merged or reordered scene, or a changed story beat the files do not require, is a "
-               "Blocker; a line rewritten for no reason the CHANGED note gives is a Minor.",
+    "drafts": "draft.md is the showrunner's own draft. Edit it to the canon, chapter by chapter: change "
+              "only what the canon contradicts, keep everything else word for word, and flag what no "
+              "longer fits rather than rewriting it.",
+    "writing": "draft-final.md is the book: the showrunner's draft, edited to the canon and expanded, "
+               "and approved. Script it, and do nothing else: break it into pages and panels, one page "
+               "after another in its order, with panel descriptions an artist can draw and a balloon for "
+               "each of its lines, word for word. No new beats, no new dialogue, nothing cut, nothing "
+               "moved; [NEW] marks are the editor's and are not printed. Where there is no draft-final.md, "
+               "script draft.md the same way. End each page's PAGE CHECK with `CHANGED: none`, or what "
+               "you had to change to draw it and why. Continuity Editor: check script.md against "
+               "draft-final.md. A dropped, merged or reordered beat, a line not word for word, or "
+               "anything added that the draft does not have is a Blocker.",
 }
 
 
@@ -135,6 +138,8 @@ def note(slug, phase):
     if phase["id"] == "writing" and not editing(slug):
         parts.append("The showrunner picked you in the audition. script.md holds your audition pages: "
                      "keep their voice, and write the whole book.")
+    if phase["id"] in ("audition", "writing", "execution"):
+        parts.append("Drawability: " + draftedit.drawability(slug) + " Every page you make keeps to it.")
     if phase["id"] == "execution":
         parts.append("The pages are drawn from your layouts by an image model, with NO text on them: "
                      "the lettering is added afterwards as a layer, from the items in each layout block. "
@@ -175,7 +180,9 @@ def approve(slug):
         raise ValueError(f"{phase['title']} is not closed by approving it")
     if phase["id"] == "intake":
         projects.seed_production(slug)
-    if phase["id"] == "development" and editing(slug):
+    if phase["id"] == "development":    # an edit goes to the draft edit; anything else skips it
+        return go_to(slug, "drafts" if editing(slug) else "audition")
+    if phase["id"] == "drafts":
         return start_edit(slug)         # an edit has no audition
     ids = [p["id"] for p in load()]
     if phase["id"] == ids[-1]:          # the last phase: approving it closes the book where it is

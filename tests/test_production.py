@@ -15,7 +15,7 @@ slug = projects.create_project("Fast Book", "a pitch")
 
 # 1. the phases: the Letterer is out of execution and has a phase of its own, last
 ids = [p["id"] for p in phases.load()]
-assert ids == ["intake", "development", "audition", "writing", "execution", "lettering"], ids
+assert ids == ["intake", "development", "drafts", "audition", "writing", "execution", "lettering"], ids
 assert phases.get("execution")["agents"] == ["layout", "continuity"]
 assert phases.get("lettering")["agents"] == ["letterer"]
 assert phases.get("development")["parallel"] == [["plotter", "character_designer"]]
@@ -23,7 +23,7 @@ assert phases.get("audition")["parallel"] == [["writer_a", "writer_b"]]
 phases.go_to(slug, "lettering")
 assert phases.approve(slug)["phase"] == "lettering", "approving the last phase keeps the book there"
 phases.go_to(slug, "intake")
-print("1. six phases, the Letterer last, two parallel groups: ok")
+print("1. seven phases, the Letterer last, two parallel groups: ok")
 
 # 2. the runner groups agents that run side by side, and keeps the order otherwise
 dev = phases.roles(slug, phases.get("development"))
@@ -79,15 +79,76 @@ review.save_settings(eslug, draft_mode="edit")
 assert phases.editing(eslug)
 assert any(p["step"] == "audition" for p in magic.plan(slug))
 assert not any(p["step"] == "audition" for p in magic.plan(eslug))
+assert any(p["step"] == "drafts" for p in magic.plan(eslug)) and not any(p["step"] == "drafts" for p in magic.plan(slug))
 dn = phases.note(eslug, phases.get("development"))
 assert "EDIT" in dn and "improve on it" not in dn
 wn = phases.note(eslug, phases.get("writing"))
 assert "CHANGED:" in wn and "audition pages" not in wn
 phases.go_to(eslug, "development")
-assert phases.approve(eslug) == {**phases.state(eslug), "phase": "writing"}
+assert phases.approve(eslug)["phase"] == "drafts", "an edit goes to the draft edit"
+assert phases.approve(eslug)["phase"] == "writing", "and from there to the writing, no audition"
 assert review.settings(eslug)["writer"] == "writer_a"
 assert "draft.md" in next(r for r in load_roles() if r.id == "continuity").reads
 print("4c. edit mode skips the audition and tells the room to edit: ok")
+
+# 4d. edit mode's page 1 proof writes the script first, and the writing step does not write it twice
+calls = []
+real_round = magic._round
+magic._round = lambda slug, phase_id, note=None, scope=0, only=None: calls.append((phase_id, scope))
+try:
+    projects.write_artifact(eslug, "script.md", "")
+    review.save_settings(eslug, magic={})
+    magic._page1(eslug, None)
+    assert calls == [("writing", 0), ("execution", 1)], calls
+    projects.write_artifact(eslug, "script.md", "## Page 1\n\nBi11bot opens the door.")
+    calls.clear(); magic._writing(eslug, None)
+    assert calls == [], "the script was written twice"
+    calls.clear(); magic._writing(eslug, None)
+    assert calls == [("writing", 0)], "the flag is spent after one skip"
+finally:
+    magic._round = real_round
+print("4d. edit mode writes the script before the page 1 proof, once: ok")
+
+# 4e. the Draft Editor: the canon pass, then the expansion, pages counted and set
+from app import draftedit
+draft = "# The showrunner's draft\n\n## chapter-01-draft.md\n\n# Chapter 1\n\nAlex: \"One day... I'm leaving.\"\n\n## chapter-02-draft.md\n\n# Chapter 2\n\nBi11bot wakes.\n"
+assert [n for n, _ in draftedit.chapters(draft)] == ["chapter-01-draft.md", "chapter-02-draft.md"]
+assert draftedit.parse("<<<CHAPTER>>>\nx\n<<<CHANGES>>>\n- none\n<<<DOES NOT FIT>>>\n- none\n<<<PAGES>>>\n12") == ("x", "- none", "- none", 12)
+assert draftedit.parse("just prose") is None
+assert draftedit.share(5, [10, 16], [16, 16]) == [5, 0], "pages go where a chapter falls short of its plan"
+assert draftedit.share(3, [16, 16], [16, 16]) == [2, 1] and sum(draftedit.share(7, [1, 2, 3], [None] * 3)) == 7
+assert draftedit.kept_whole("a b\n\nc d", "a b\n\n[NEW 1.1]\nnew\n[/NEW]\n\nc d") == 1.0
+assert draftedit.kept_whole("a b\n\nc d", "a b changed") == 0.5
+projects.write_artifact(eslug, "draft.md", draft)
+projects.write_artifact(eslug, "story.md", "## 3. Page plot\n\n### Chapter 1\n\n**Page 1:** a\n**Page 2:** b\n\n### Chapter 2\n\n**Page 3:** c\n")
+assert draftedit.planned(eslug, 2) == [2, 1]
+review.save_settings(eslug, expand_pages=2, pages=None)
+ch1 = "# Chapter 1\n\nAlex: \"One day... I'm leaving.\""
+replies = {
+    ("edit", "chapter-01-draft.md"): f"<<<CHAPTER>>>\n{ch1}\n<<<CHANGES>>>\n- none\n<<<DOES NOT FIT>>>\n- none\n<<<PAGES>>>\n1",
+    ("edit", "chapter-02-draft.md"): "<<<CHAPTER>>>\nshort\n<<<CHANGES>>>\n- **Scene**: x\n<<<DOES NOT FIT>>>\n- **Scene**: the mine is sealed\n<<<PAGES>>>\n1",
+    ("grow", "chapter-01-draft.md"): f"<<<CHAPTER>>>\n{ch1}\n\n[NEW 1.1]\nTJ rolls in.\n[/NEW]\n<<<ADDED>>>\n- **[NEW 1.1]** TJ's first moment\n<<<PAGES>>>\n2",
+    ("grow", "chapter-02-draft.md"): "<<<CHAPTER>>>\nsomething else entirely\n<<<ADDED>>>\n- **[NEW 2.1]** x\n<<<PAGES>>>\n3"}
+def fake(cfg, messages, log=None, max_tokens=None):
+    stage = "grow" if "grow it by" in messages[0]["content"] else "edit"
+    return {"content": next(v for (st, k), v in replies.items() if st == stage and k in messages[-1]["content"])}
+real_chat = draftedit.llm.chat
+draftedit.llm.chat = fake
+try:
+    ed_role = next(r for r in load_roles() if r.id == "draft_editor")
+    ed_run = room.Run(eslug, [ed_role], None, {"kind": "drafts", "max_passes": 0, "all": [ed_role], "parallel": []})
+    note = draftedit.DraftEdit(ed_role, ed_run.version, lambda *a, **k: None).run()
+    ed_run.version.update(status="done", finished=projects.now())
+finally:
+    draftedit.llm.chat = real_chat
+edited, final, changes = (projects.read_artifact(eslug, n) for n in ("draft-edited.md", "draft-final.md", "draft-changes.md"))
+assert "Bi11bot wakes." in edited and "short" not in edited, "a short canon pass keeps the chapter as written"
+assert "[NEW 1.1]" in final and "I'm leaving." in final, "chapter 1 grew, its own text intact"
+assert "something else entirely" not in final and "Bi11bot wakes." in final, "an expansion that changed the text is refused"
+assert "the mine is sealed" in changes and "| **the book** |" in changes
+assert review.settings(eslug)["pages"] == 3, "the book's page count is what the chapters come to"
+assert "Drawability" in phases.note(eslug, phases.get("writing")) and "draft-final.md" in phases.note(eslug, phases.get("writing"))
+print("4e. the Draft Editor: canon pass, expansion that only inserts, pages counted for drawing: ok")
 
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})

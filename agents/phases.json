@@ -43,6 +43,21 @@
     ]
   },
   {
+    "id": "drafts",
+    "title": "Draft edit",
+    "does": "Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.",
+    "agents": [
+      "draft_editor"
+    ],
+    "gate": "approve",
+    "asks": "Are these your drafts, brought into line with the canon? Answer what does not fit, then script them - or stop here.",
+    "read": [
+      "draft-changes.md",
+      "draft-final.md",
+      "draft-edited.md"
+    ]
+  },
+  {
     "id": "audition",
     "title": "Audition",
     "does": "Two writers write the same opening pages at the same time, blind to each other. You pick the voice.",

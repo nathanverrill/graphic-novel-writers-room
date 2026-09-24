@@ -488,6 +488,35 @@ a second box for anything you want to add to your selection: it is saved with th
 on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
 The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
 
+**With drafts, edit mode: your drafts are the book.** With Draft set to *Edit it to the canon*
+on Produce's Begin tab, Produce runs development and then the **Draft Editor**
+(`app/draftedit.py`), one call per chapter, side by side, in two stages:
+
+1. **The canon pass.** It changes only the scenes and details the canon contradicts, and dialogue
+   that breaks how the canon says people talk (the slang and vocabulary rules in `rules/`, each
+   character's Voice, the tuning from Voices). Everything else comes back word for word. What no
+   longer fits is flagged, never rewritten. A chapter that comes back much shorter is asked for
+   again, then kept as written.
+2. **The expansion**, when *expand it by N pages* is set. The pages go where a chapter falls
+   short of its pages in the page plot, then evenly. Each chapter grows by inserting only - a
+   payoff the canon sets up, a character with no moment, a transition the draft jumps, a
+   breather - steered by your note, every addition marked `[NEW 3.2]`. An expansion that changed
+   your text is refused.
+
+Out come `draft-edited.md` (the canon pass), `draft-final.md` (the book) and `draft-changes.md`:
+every change, every addition, what does not fit, the pages by chapter, and which characters in
+the book still need a sheet. Produce stops there. **Edit the drafts again** takes notes ("cut NEW
+3.2", "more TJ in chapter 4"); **Script them and lay out** makes the script from `draft-final.md`
+by breaking it into pages and panels only - its lines word for word, nothing added. Without
+drafts, or with *Improve it*, the room develops the whole script instead.
+
+**Pages are counted for an image model.** Each page is one generation from the sheets, and a
+page drifts when it carries too much, so the page count comes from drawability limits, not comic
+convention: at most **4 panels a page** and **3 named characters a panel** (Settings), one location
+a page where the story allows, a splash for a big moment. The draft edit counts each chapter
+that way and sets the book's page count to the total; the writer and the Layout Agent are held
+to the same limits.
+
 **Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
 character, or a stranger in the world - and when in the story: a page of the page plot, or a
 scene of the outline. The character speaks first and never leaves the world; they know the story
