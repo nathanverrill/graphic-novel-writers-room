@@ -47,21 +47,18 @@
 
   <main>
     <div class="card desk">
+      <ol class="canon-steps" id="canon-steps" aria-label="Pre-production, in three steps"></ol>
+      <div class="hint" id="acts-hint"></div>
       <div class="tabs-row">
         <div class="tabs" id="tabs" role="tablist">
-          <button data-tab="log" aria-selected="true">Log <span class="pill run" id="feed-pill" hidden>working</span></button>
+          <button data-tab="log" aria-selected="true">Activity <span class="pill run" id="feed-pill" hidden>working</span></button>
           <button data-tab="items">Open items <span class="count" id="items-count"></span></button>
           <button data-tab="story.md">Premise &amp; outline</button>
           <button data-tab="characters.md">Characters</button>
           <button data-tab="world.md">World</button>
-          <button data-tab="notes">Showrunner notes</button>
-        </div>
-        <div class="acts main-acts">
-          <button class="go alt" id="update" disabled>Update canon</button>
-          <button class="go" id="approve" disabled>Approve for production</button>
+          <button data-tab="notes">Rules &amp; notes</button>
         </div>
       </div>
-      <div class="hint" id="acts-hint"></div>
 
       <section class="tab" data-tab="log">
         <div class="feed-stats" id="feed-stats"></div>

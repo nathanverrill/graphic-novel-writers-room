@@ -91,7 +91,7 @@ function renderTelemetry(latest) {
 
 /* ---- Update canon, and Approve for production ----------------------------------
  *
- * Two actions, on the right of the tabs. Update canon is live once anything on the desk has
+ * Three steps above the tabs, each box holding its own button. Update canon is live once anything on the desk has
  * changed - an answer, a note, an edit to one of the three files - and it saves the edits and
  * runs the room again so they are folded in. Approve for production opens only when every
  * open item is answered or deferred and folded in (phases.readiness), and asks the showrunner
@@ -113,38 +113,54 @@ function renderActs(p, latest) {
   // come from a round that predates the two desks
   const written = (p.artifacts || []).some((a) => a.name === "story.md");
   const active = !!p.active_run, c = changed(), fresh = !latest && !written;
-  const upd = $("#update"), go = $("#approve");
   const ready = state.readiness || {}, unsaved = c.docs.length > 0 || c.notes;
-  const recs = ready.will_recommend || 0;
-  upd.disabled = active || state.busy || (!c.any && !fresh && !recs);
-  upd.textContent = active ? "working…" : fresh ? "Run intake" : "Update canon";
-  go.disabled = active || state.busy || fresh || !ready.ready || unsaved;
-  const approved = ready.approved
-    ? ` Approved for production ${esc(when(ready.approved.t))} (round ${esc(ready.approved.round)}) - <a href="/production?p=${encodeURIComponent(p.slug)}">open the production room</a>.`
-    : "";
+  const recs = ready.will_recommend || 0, updates = ready.updates || 0;
+  const unanswered = state.items.filter((i) => i.status === "unresolved").length;
+  const idle = !active && !state.busy;
+  const canUpdate = idle && (fresh || c.any || recs > 0);
+  const approvedNow = ready.approved && ready.approved.round === ready.round;
+
+  // where the showrunner is: 1 answer and update, 2 review and update again, 3 approve
+  const at = fresh || updates === 0 ? 1 : ready.ready && !c.any ? 3 : 2;
+  const btn = (act, label, enabled, primary) =>
+    `<button class="go ${primary ? "" : "alt"}" data-act="${act}" ${enabled ? "" : "disabled"}>${active && act === "update" ? "working…" : label}</button>`;
+  const box = (n, title, body, done, cta, status) => `
+    <li class="${at === n ? "now" : done ? "done" : "next"}">
+      <div class="head"><i>${done && at !== n ? "✓" : n}</i><b>${title}</b><span>${status}</span></div>
+      <p>${body}</p>${cta}</li>`;
+  $("#canon-steps").innerHTML =
+    box(1, "Answer and update",
+      fresh ? "The Script Coordinator reads your material and writes the canon: the premise and outline, the characters, the world. Then the open items, with options."
+            : "Answer the open items, edit the canon, add notes. Update canon carries them in.",
+      !fresh && updates > 0,
+      at === 1 ? btn("update", fresh ? "Run intake" : "Update canon", canUpdate, true) : "",
+      fresh ? "" : updates > 0 ? "done" : unanswered ? `${unanswered} open` : "") +
+    box(2, "Review and update again",
+      "Read the updated canon. Answer what is still open, make any last changes, and update again. Anything you leave unanswered takes the room's recommendation.",
+      updates > 1 || (updates === 1 && at === 3),
+      at >= 2 ? btn("update", updates > 1 ? "Update canon again" : "Update canon", canUpdate, at === 2) : "",
+      updates > 1 ? `done · ${updates} updates` : updates === 1 && at === 3 ? "nothing left open" : recs ? `${recs} to recommend` : "") +
+    box(3, "Approve for production",
+      approvedNow ? `Approved ${esc(when(ready.approved.t))}. <a href="/production?p=${encodeURIComponent(p.slug)}">Open the production room →</a>`
+                  : "The canon becomes what the whole book is made from. You confirm by typing a word.",
+      !!approvedNow,
+      btn("approve", approvedNow ? "Approve again" : "Approve for production", idle && !fresh && ready.ready && !unsaved, at === 3),
+      approvedNow ? "approved" : ready.ready ? "ready" : "");
+
   const what = [c.docs.length ? "your edits" : "", c.answers ? "your answers" : "", c.notes ? "your notes" : "", c.rules ? "your rules" : ""]
     .filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1");
-  const updates = ready.updates || 0, unanswered = state.items.filter((i) => i.status === "unresolved").length;
-  // the three steps, and where the showrunner is in them
-  const step = (n, on, done, text) => `<li class="${on ? "on" : ""} ${done ? "done" : ""}"><b>${n}</b> ${text}</li>`;
-  const guide = fresh ? "" : `<ol class="canon-steps">` +
-    step(1, updates === 0, updates > 0, "Answer the open items, edit the canon, add notes. <b>Update canon</b>.") +
-    step(2, updates === 1 || (updates > 1 && !ready.ready), updates > 1,
-      "Read the updated canon. Answer what is still open, make any last changes. <b>Update canon</b> again: anything you leave unanswered takes the room's recommendation.") +
-    step(3, ready.ready, !!ready.approved, "<b>Approve for production</b>.") + `</ol>`;
-  $("#acts-hint").innerHTML = (active
-    ? state.stopping ? "Stopping as soon as the call at work finishes." : "Working - every call shows in the log."
+  $("#acts-hint").innerHTML = active
+    ? state.stopping ? "Stopping as soon as the call at work finishes." : "Working - every call shows under Activity."
     : fresh
-      ? "Synthesis, then open items, then options. It stops for you when the canon - premise and outline, characters, world - is written."
+      ? "It stops for you when the canon and the open items are written. A few minutes."
       : (c.any || recs)
-        ? "<b>Update canon</b> carries " + (what || "the room's recommendations") + " into the canon: the premise and outline, the characters, the world. "
-          + "It is not a rewrite: only what an answer or a note touches changes, and everything else comes back word for word. "
-          + "Then the facts are derived again and only what is still open stays on the list. A few minutes."
+        ? "Update canon carries " + (what || "the room's recommendations") + " into the canon. It is not a rewrite: only what an answer or a note "
+          + "touches changes, everything else comes back word for word, the facts are derived again, and only what is still open stays on the list. A few minutes."
           + (recs ? ` ${recs} unanswered item${recs > 1 ? "s" : ""} will take the room's recommendation.` : "")
           + (unanswered && !recs && updates === 0 ? " Items you leave open now come back to you; on the second update the room takes its recommendation." : "")
-        : !ready.ready
-          ? esc(ready.why || "Not ready yet.")
-          : "The canon carries every answer. Read it once more, then approve it for production.") + approved + guide;
+          + (unsaved ? " Approve opens once the canon carries your edits." : "")
+        : !ready.ready ? esc(ready.why || "Not ready yet.")
+        : approvedNow ? "" : "The canon carries every answer. Read it once more, then approve it.";
 
   const stop = $("#stop");
   stop.hidden = !active;
@@ -159,7 +175,7 @@ function renderActs(p, latest) {
   $("#tabs").querySelectorAll("button").forEach((b) => { b.disabled = active && b.dataset.tab !== "log"; });
   if (active && state.tab !== "log") showTab("log");
   const open = state.items.filter((i) => i.status === "unresolved").length;
-  $("#items-count").textContent = state.items.length ? `${open} open` : "";
+  $("#items-count").textContent = open ? `${open} open` : "";
 }
 
 /* Save what the desk holds that the server does not yet: edited files, changed notes. */
@@ -344,7 +360,8 @@ function renderItems() {
   $("#items").innerHTML = `
     <div class="walk">
       <button data-go="${shown[at - 1]?.n ?? ""}" ${at ? "" : "disabled"}>← Back</button>
-      <span><b>${at + 1}</b> of ${shown.length}${open ? ` · ${open} still open` : " · none left open"}</span>
+      <span>${open ? `<b>${at + 1}</b> of ${shown.length} · ${open} still open`
+        : `<b>No open items</b>${shown.length > 1 ? ` · looking back at ${at + 1} of ${shown.length}` : ""}`}</span>
       <button data-go="${shown[at + 1]?.n ?? ""}" ${at < shown.length - 1 ? "" : "disabled"}>Next →</button>
     </div>
     <div class="dots">${shown.map((x) =>
@@ -391,9 +408,12 @@ function renderTally() {
   const n = state.items.length;
   const res = state.items.filter((i) => i.status === "resolved").length;
   const def = state.items.filter((i) => i.status === "deferred").length;
-  $("#tally").innerHTML =
-    `<div><b>${n}</b>items</div><div class="n-res"><b>${res}</b>answered</div>` +
-    `<div class="n-def"><b>${def}</b>deferred</div><div><b>${n - res - def}</b>still open</div>`;
+  const left = n - res - def;
+  $("#tally").innerHTML = !left
+    ? `<div class="none"><b>No open items</b>${res || def ? [res ? `${res} answered` : "", def ? `${def} deferred` : ""].filter(Boolean).join(" · ") : ""}</div>`
+    : `<div><b>${n}</b>items</div><div class="n-res"><b>${res}</b>answered</div>` +
+      `<div class="n-def"><b>${def}</b>deferred</div><div><b>${left}</b>still open</div>`;
+  $("#meter").hidden = !left;
   $("#meter .res").style.width = n ? `${(res / n) * 100}%` : "0";
   $("#meter .def").style.width = n ? `${(def / n) * 100}%` : "0";
 }
@@ -452,8 +472,10 @@ function renderAll() {
   $("#model").textContent = latest?.configs?.script_coordinator?.model || "";
 }
 
-$("#update").addEventListener("click", update);
-$("#approve").addEventListener("click", openApprove);
+$("#canon-steps").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-act]"); if (!b || b.disabled) return;
+  if (b.dataset.act === "update") update(); else openApprove();
+});
 $("#approve-form").addEventListener("submit", approve);
 $("#stop").addEventListener("click", stopRound);
 $("#tabs").addEventListener("click", (e) => {

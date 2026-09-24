@@ -41,7 +41,7 @@ button.go.stop { background: var(--panel); color: var(--bad); border-color: var(
 .acts button.primary, .filters button[aria-pressed="true"] { color: var(--panel); }
 .hint { font-size: .72rem; color: var(--muted); margin-top: .4rem; line-height: 1.45; }
 
-/* The main pane: tabs across the top, Update and Continue on the right. */
+/* The main pane: the steps, then the tabs. */
 .tabs-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap;
             border-bottom: 1px solid var(--line); margin: -.2rem 0 .8rem; }
 .tabs { display: flex; gap: .1rem; flex-wrap: wrap; }
@@ -54,7 +54,6 @@ button.go.stop { background: var(--panel); color: var(--bad); border-color: var(
 .main-acts { display: flex; gap: .5rem; padding-bottom: .4rem; }
 .main-acts .go { width: auto; padding: .4rem .9rem; }
 .main-acts .go.alt:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-#acts-hint { margin: -.4rem 0 .8rem; text-align: right; min-height: 1em; }
 .doc { font-size: .9rem; }
 .doc-bar { display: flex; justify-content: space-between; align-items: center; gap: .75rem; margin-bottom: .6rem; }
 .doc-bar .go { width: auto; padding: .25rem .6rem; font-size: .76rem; }
@@ -196,12 +195,27 @@ dialog header { position: sticky; top: 0; z-index: 1; }
 .feed-now span.warn { color: var(--bad); }
 .feed-now b { font-weight: 600; }
 
-/* pre-production's three steps, under Update canon and Approve for production */
-.canon-steps { list-style: none; display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-end;
-               margin: .5rem 0 0; padding: 0; text-align: left; }
-.canon-steps li { flex: 1 1 12rem; max-width: 22rem; border: 1px solid var(--line); border-radius: 5px;
-                  padding: .35rem .55rem; color: var(--muted); }
-.canon-steps li b:first-child { display: inline-block; min-width: 1.1rem; }
-.canon-steps li.on { border-color: var(--accent); color: var(--ink); }
-.canon-steps li.done { opacity: .6; }
-.canon-steps li.done b:first-child::after { content: " ✓"; }
+/* pre-production's three steps, above the tabs: each box holds its own button */
+.canon-steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem;
+               margin: 0 0 .5rem; padding: 0; counter-reset: none; }
+@media (max-width: 52rem) { .canon-steps { grid-template-columns: 1fr; } }
+.canon-steps li { display: flex; flex-direction: column; gap: .45rem; border: 1px solid var(--line); border-radius: 6px;
+                  padding: .65rem .75rem; background: var(--bg); position: relative; }
+.canon-steps li:not(:last-child)::after { content: "→"; position: absolute; right: -.55rem; top: .7rem; font-size: .8rem;
+                                          color: var(--muted); background: var(--panel); line-height: 1; padding: 0 .05rem; }
+@media (max-width: 52rem) { .canon-steps li:not(:last-child)::after { display: none; } }
+.canon-steps .head { display: flex; align-items: center; gap: .5rem; font-size: .86rem; }
+.canon-steps .head i { font-style: normal; width: 1.35rem; height: 1.35rem; border-radius: 50%; display: grid; place-items: center;
+                       font-size: .72rem; font-weight: 600; border: 1px solid var(--line); color: var(--muted); flex: 0 0 auto; }
+.canon-steps .head span { margin-left: auto; font-family: ui-monospace, monospace; font-size: .68rem; color: var(--muted); }
+.canon-steps p { margin: 0; font-size: .76rem; line-height: 1.45; color: var(--muted); flex: 1; }
+.canon-steps .go { width: 100%; padding: .4rem .8rem; font-size: .84rem; }
+.canon-steps li.now { border-color: var(--accent); background: var(--panel); box-shadow: 0 0 0 1px var(--accent) inset; }
+.canon-steps li.now .head i { background: var(--accent); border-color: var(--accent); color: var(--panel); }
+.canon-steps li.now p { color: var(--ink); }
+.canon-steps li.done .head i { border-color: var(--ok); color: var(--ok); }
+.canon-steps li.done .head span { color: var(--ok); }
+.canon-steps li.next { opacity: .7; }
+#acts-hint { margin: 0 0 .7rem; min-height: 1em; }
+.tally .none { display: flex; align-items: baseline; gap: .6rem; color: var(--muted); font-size: .78rem; }
+.tally .none b { display: inline; color: var(--ok); font-size: .95rem; }

@@ -109,7 +109,7 @@ function renderActs() {
   const pages = Object.keys(state.prompts?.pages || {}).length;
   if (running) {
     acts.innerHTML = `<button class="go" disabled>working…</button>`;
-    hint.textContent = "Every call shows in the log. Stop is on the left.";
+    hint.textContent = "Every call shows under Activity. Stop is on the left.";
   } else if (m.status === "page1") {
     acts.innerHTML = save +
       `<button class="go alt" id="again">Page 1 again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
@@ -129,7 +129,7 @@ function renderActs() {
   } else if (["stopped", "failed"].includes(m.status)) {
     acts.innerHTML = save + `<button class="go alt" id="resume">Resume at ${TITLES[m.step] || m.step}</button>` +
       `<button class="go" id="make">Produce</button>`;
-    hint.textContent = m.status === "failed" ? `An error stopped it at ${TITLES[m.step] || m.step}: ${m.error || "see the log"}. Resume picks up there.` : "Stopped. Resume picks up where it was.";
+    hint.textContent = m.status === "failed" ? `An error stopped it at ${TITLES[m.step] || m.step}: ${m.error || "see Activity"}. Resume picks up there.` : "Stopped. Resume picks up where it was.";
   } else {
     acts.innerHTML = save + `<button class="go alt" id="proof">Page 1 first</button><button class="go" id="make">Produce</button>`;
     hint.textContent = project.phase === "intake"
@@ -244,7 +244,7 @@ function renderBegin() {
         <div class="est">${p.seconds ? `~${secs(p.seconds * 1000)}` : ""}</div>
       </div>`).join("")}</div>
     <p class="hint" style="margin:0 0 .9rem">${total ? `About ${secs(total * 1000)} of model time to the packets, going by past rounds; agents marked * run side by side. ` : ""}
-      Everything is kept under <code>previous/</code>, round by round, and every model call shows in the log as it happens.</p>
+      Everything is kept under <code>previous/</code>, round by round, and every model call shows under Activity as it happens.</p>
     ${m.status === "idle" && !m.choices?.length
       ? `<button class="go big" id="begin-go">Produce</button> <button class="go alt" id="begin-proof" style="width:auto">Page 1 first</button>`
       : `<span class="hint">Use the buttons top right: production has already begun.</span>`}`;
