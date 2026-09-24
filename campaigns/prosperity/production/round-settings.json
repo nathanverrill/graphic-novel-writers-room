@@ -1,5 +1,61 @@
 {
   "use_references_during_synthesis": false,
-  "phase": "development",
-  "draft_mode": "edit"
+  "phase": "execution",
+  "draft_mode": "edit",
+  "approved": {
+    "at": "2026-09-24T17:12:46",
+    "t": 1790269966.6791317,
+    "round": "r06-ai"
+  },
+  "magic": {
+    "status": "page1",
+    "choices": [
+      {
+        "t": 1790270149.6980903,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r26-ai"
+      },
+      {
+        "t": 1790270149.7078075,
+        "step": "audition",
+        "what": "No audition: Writer A edits the draft.",
+        "why": "The book is an edit of the showrunner's draft (draft_mode \"edit\").",
+        "round": "r26-ai"
+      }
+    ],
+    "log": [
+      {
+        "t": 1790270001.8018284,
+        "text": "Production starts at Development, running to page 1."
+      },
+      {
+        "t": 1790270001.81019,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
+      },
+      {
+        "t": 1790270001.9880648,
+        "text": "Round r26-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1790270149.8036826,
+        "text": "Round r27-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790270191.4314837,
+        "text": "Page 1 is ready. Have a look: is this about right?"
+      }
+    ],
+    "step": "page1",
+    "until": "page1",
+    "error": null,
+    "stop": false,
+    "started": "2026-09-24T17:13:21",
+    "finished": "2026-09-24T17:16:31",
+    "run": "d728aaa6d5d0",
+    "round": "r27-ai"
+  },
+  "scope": 1,
+  "writer": "writer_a"
 }

@@ -1,0 +1,19 @@
+{"i": 0, "type": "run_start", "t": 1790270149.8008132, "roles": ["layout", "continuity"], "version": "r27-ai", "writing_round": "execution", "max_passes": 2, "estimates": {"layout": 62, "continuity": 44}, "pass_seconds": 106}
+{"i": 1, "type": "role_start", "t": 1790270149.8015933, "role": "layout", "title": "Layout Agent", "pass_n": 1, "estimate": 62}
+{"i": 2, "type": "context", "t": 1790270149.8089871, "role": "layout", "minimal": false, "guides": ["_shared/craft.md", "_shared/house-style.md", "layout/role.md", "layout/craft.md", "layout/comic-layout-picker.md", "layout/emotion.md", "layout/graphic-novel-layout.md", "layout/near-future-set-design.md"], "images": [], "model": "openai/gpt-5.6-luna", "temperature": 0.5, "image_model": null}
+{"i": 3, "type": "usage", "t": 1790270167.3451102, "role": "layout", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 53232, "output_tokens": 2072, "cost_usd": 0.01579425, "cost_source": "provider", "status": 200, "log": "prosperity-r27-ai-call-0001-layout-chat.json", "duration_ms": 17530, "error": null}
+{"i": 4, "type": "artifact", "t": 1790270167.3473647, "role": "layout", "name": "layouts.md"}
+{"i": 5, "type": "artifact", "t": 1790270167.3568814, "role": "layout", "name": "thumbnails.md"}
+{"i": 6, "type": "thumbnails", "t": 1790270167.3570545, "role": "layout", "pages": 1, "issues": 0}
+{"i": 7, "type": "role_cost", "t": 1790270167.3581645, "role": "layout", "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.01579425, "input_tokens": 53232, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 2072, "reasoning_tokens": 231, "total_tokens": 55304}
+{"i": 8, "type": "role_done", "t": 1790270167.3583245, "role": "layout", "note": "Delivered layouts.md.", "seconds": 18}
+{"i": 9, "type": "role_start", "t": 1790270167.358812, "role": "continuity", "title": "Continuity Editor", "pass_n": 1, "estimate": 44}
+{"i": 10, "type": "context", "t": 1790270167.361863, "role": "continuity", "minimal": false, "guides": ["_shared/craft.md", "_shared/house-style.md", "continuity/role.md", "continuity/craft.md"], "images": [], "model": "openai/gpt-5.6-luna", "temperature": 0.1, "image_model": null}
+{"i": 11, "type": "usage", "t": 1790270191.4105847, "role": "continuity", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 56344, "output_tokens": 1884, "cost_usd": 0.0150437, "cost_source": "provider", "status": 200, "log": "prosperity-r27-ai-call-0002-continuity-chat.json", "duration_ms": 24041, "error": null}
+{"i": 12, "type": "artifact", "t": 1790270191.4118524, "role": "continuity", "name": "notes.md"}
+{"i": 13, "type": "role_cost", "t": 1790270191.4126608, "role": "continuity", "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.0150437, "input_tokens": 56344, "cached_tokens": 5665, "image_input_tokens": 0, "output_tokens": 1884, "reasoning_tokens": 372, "total_tokens": 58228}
+{"i": 14, "type": "role_done", "t": 1790270191.4128344, "role": "continuity", "note": "Delivered notes.md.", "seconds": 24}
+{"i": 15, "type": "gate", "t": 1790270191.4172504, "pass_n": 0, "final": true, "ready": true, "reasons": [], "fix": [], "dialed_in": {}}
+{"i": 16, "type": "round_ready", "t": 1790270191.428721, "version": "r27-ai", "pages": [1]}
+{"i": 17, "type": "run_done", "t": 1790270191.428926, "version": "r27-ai", "awaiting": false}
+{"i": 18, "type": "run_cost", "t": 1790270191.4296079, "calls": 2, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.03083795, "input_tokens": 109576, "cached_tokens": 5665, "image_input_tokens": 0, "output_tokens": 3956, "reasoning_tokens": 603, "total_tokens": 113532}
