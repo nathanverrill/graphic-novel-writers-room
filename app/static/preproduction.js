@@ -124,7 +124,7 @@ function renderActs(p, latest) {
     : "";
   const what = [c.docs.length ? "your edits" : "", c.answers ? "your answers" : "", c.notes ? "your notes" : "", c.rules ? "your rules" : ""]
     .filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1");
-  const updates = ready.updates || 0, open = state.items.filter((i) => i.status === "unresolved").length;
+  const updates = ready.updates || 0, unanswered = state.items.filter((i) => i.status === "unresolved").length;
   // the three steps, and where the showrunner is in them
   const step = (n, on, done, text) => `<li class="${on ? "on" : ""} ${done ? "done" : ""}"><b>${n}</b> ${text}</li>`;
   const guide = fresh ? "" : `<ol class="canon-steps">` +
@@ -141,7 +141,7 @@ function renderActs(p, latest) {
           + "It is not a rewrite: only what an answer or a note touches changes, and everything else comes back word for word. "
           + "Then the facts are derived again and only what is still open stays on the list. A few minutes."
           + (recs ? ` ${recs} unanswered item${recs > 1 ? "s" : ""} will take the room's recommendation.` : "")
-          + (open && !recs && updates === 0 ? " Items you leave open now come back to you; on the second update the room takes its recommendation." : "")
+          + (unanswered && !recs && updates === 0 ? " Items you leave open now come back to you; on the second update the room takes its recommendation." : "")
         : !ready.ready
           ? esc(ready.why || "Not ready yet.")
           : "The canon carries every answer. Read it once more, then approve it for production.") + approved + guide;
