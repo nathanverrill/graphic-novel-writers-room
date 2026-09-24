@@ -12,7 +12,7 @@ each. Nothing moves on by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
-| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `open-items.md`, then `facts.md` | **Answer the open items** — approve an option, edit it, defer it, or leave it — add weighted notes if you have any, run intake again to fold them in, then **Approve** |
+| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `open-items.md`, then `facts.md` | **Answer the open items** — approve an option, edit it, defer it, or leave it — add weighted notes if you have any, **Update canon**; read it, answer what is left, **Update canon** again (the room's recommendation settles anything still unanswered), then **Approve for production** (type `evoke`) |
 | 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
 | 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
@@ -487,6 +487,21 @@ a second box for anything you want to add to your selection: it is saved with th
 `rules/decisions.md` as "Showrunner's comment", becomes the reason if you defer, or can be saved
 on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
 The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
+
+**Update canon** runs intake's revision. The canon is the three files - the premise and outline
+(`story.md`), the characters, the world - and updating it is not a rewrite: only what an answer,
+a note or a rule touches changes, everything else comes back word for word, `facts.md` is
+derived again, and only what is still open stays on the list.
+
+**Two updates, then approve.** The desk shows three steps. First, answer the open items, edit
+the canon, add notes, and Update canon. Second, read what came back, answer what is still open,
+and Update canon again: from the second update on, every item still unanswered and not deferred
+takes the room's recommendation (its suggested option), and the round records which ones it
+took. Third, **Approve for production**. It opens only when every item is answered or
+deferred and the canon carries every answer; it says what approving does and asks you to type
+`evoke`. Approving copies the canon onto the production desk, puts the book in development and
+starts the Produce chain clean, so the production room's log opens on nothing older than the
+approval.
 
 **Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
 The room builds every prompt, parses the file envelope that comes back, checks it and writes

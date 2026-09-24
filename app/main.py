@@ -760,9 +760,10 @@ def start_round(slug: str, body: RoundRequest):
 # ---- phases: where the book is, and the gate out of each one ----------------
 
 class PhaseMove(BaseModel):
-    action: str                    # "approve", "pick" (with writer) or "go" (with phase)
+    action: str                    # "approve", "approve_preproduction", "pick" (with writer) or "go" (with phase)
     writer: str | None = None
     phase: str | None = None
+    confirm: str | None = None     # approve_preproduction: the word typed to confirm
 
 
 @app.post("/api/projects/{slug}/phase")
@@ -772,13 +773,15 @@ def move_phase(slug: str, body: PhaseMove):
     try:
         if body.action == "approve":
             return phases.approve(slug)
+        if body.action == "approve_preproduction":
+            return phases.approve_preproduction(slug, body.confirm)
         if body.action == "pick":
             return phases.pick(slug, body.writer)
         if body.action == "go":
             return phases.go_to(slug, body.phase)
     except ValueError as e:
         raise HTTPException(400, str(e))
-    raise HTTPException(400, "action must be approve, pick or go")
+    raise HTTPException(400, "action must be approve, approve_preproduction, pick or go")
 
 
 # ---- open items: what intake could not settle, and your answers ---------------
@@ -796,7 +799,7 @@ class Feedback(BaseModel):
 @app.get("/api/projects/{slug}/open-items")
 def open_items(slug: str):
     not_found(projects.project_dir, slug)
-    return openitems.state(slug)
+    return {**openitems.state(slug), "readiness": phases.readiness(slug)}
 
 
 @app.post("/api/projects/{slug}/open-items/{n}")

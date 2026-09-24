@@ -19,9 +19,11 @@ reruns the Letterer, not the writer.
 "parallel" in a phase names groups of its agents that run at the same time (see room.py).
 """
 import json
+import time
 from dataclasses import replace
+from datetime import datetime
 
-from . import projects, review
+from . import openitems, projects, review
 from .agents import load_roles
 from .config import AGENTS_DIR
 
@@ -179,6 +181,63 @@ def approve(slug):
     if phase["id"] == ids[-1]:          # the last phase: approving it closes the book where it is
         return state(slug)
     return go_to(slug, ids[ids.index(phase["id"]) + 1])
+
+
+def readiness(slug):
+    """Whether pre-production can be approved for production, and if not, what is left.
+
+    Every open item answered or deferred; intake finished, facts.md and all; and nothing in
+    rules/ or on the open-items list changed since the last intake round - an answer or a rule the room has not
+    folded into the files would never reach production, which does not read rules/."""
+    items = openitems.state(slug)
+    rounds = projects.list_versions(slug, desk=projects.PRE)
+    latest = rounds[0] if rounds else None
+    rules = [f for f in (projects.campaign_dir(slug) / projects.RULES).glob("*") if f.is_file()]
+    changed = max((f.stat().st_mtime for f in rules), default=0)     # decisions.md is one of them
+    listed = projects.project_dir(slug, projects.PRE) / openitems.ITEMS   # defers and item notes go here
+    stamp = lambda k: datetime.fromisoformat(latest[k]).timestamp() if latest and latest.get(k) else 0
+    unfolded = bool(latest) and (changed > stamp("started")
+                                 or (listed.exists() and listed.stat().st_mtime > stamp("finished") + 2))
+    why = None
+    if items["unresolved"]:
+        n, recs = items["unresolved"], len(openitems.recommended(slug))
+        why = f"{n} open item{'s' if n > 1 else ''} still unanswered: answer or defer {'them' if n > 1 else 'it'}" + (
+            ", or Update canon again and the room takes its recommendation." if recs == n else ".")
+    elif latest and latest.get("status") in ("running", "stopped", "error", "interrupted"):
+        why = "The last intake round did not finish. Press Update canon."
+    elif not projects.read_artifact(slug, "facts.md", desk=projects.PRE):
+        why = "Intake has not finished: facts.md is written after the canon is updated. Press Update canon."
+    elif unfolded:
+        why = "Your answers or rules changed since the canon was last updated. Press Update canon so it carries them."
+    return {"ready": why is None, "why": why, "round": latest and latest["id"],
+            "unfolded": unfolded,       # answers, defers, notes or rules the canon does not carry yet
+            "updates": openitems.revisions(slug),      # times the canon was updated since synthesis
+            "will_recommend": len(openitems.recommended(slug)),
+            "approved": review.settings(slug).get("approved")}
+
+
+CONFIRM_WORD = "evoke"      # typed to approve pre-production, as the sheets page's reset is
+
+
+def approve_preproduction(slug, confirm=None):
+    """The showrunner approves pre-production for production.
+
+    Intake's files are copied onto the production desk, the book goes to development, and the
+    Produce chain starts clean: whatever an earlier production did is in its rounds, not on
+    the page the showrunner opens next."""
+    if (confirm or "").strip().lower() != CONFIRM_WORD:
+        raise ValueError(f"type {CONFIRM_WORD} to confirm")
+    ready = readiness(slug)
+    if not ready["ready"]:
+        raise ValueError(ready["why"])
+    projects.seed_production(slug)
+    approved = {"at": projects.now(), "t": time.time(), "round": ready["round"]}   # at: the server's clock, as rounds have it
+    review.save_settings(slug, phase="development", approved=approved,
+                         magic={"status": "idle", "choices": [], "log": [{
+                             "t": time.time(),
+                             "text": f"Pre-production approved (intake round {ready['round']}). "
+                                     "Production starts from its files."}]})
+    return state(slug)
 
 
 def pick(slug, writer):

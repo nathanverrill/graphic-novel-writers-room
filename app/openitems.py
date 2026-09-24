@@ -114,6 +114,35 @@ def state(slug):
             "decisions_file": f"{projects.RULES}/{DECISIONS}"}
 
 
+def revisions(slug):
+    """Revision rounds finished since the last synthesis: how many times the canon has been
+    updated from the showrunner's answers since the room last read the material afresh."""
+    n = 0
+    for meta in projects.list_versions(slug, desk=projects.PRE):
+        mode = (meta.get("intake") or {}).get("mode")
+        if mode == "synthesis":
+            break
+        if mode == "revision" and meta.get("status") == "ready_for_review":
+            n += 1
+    return n
+
+
+def recommended(slug):
+    """What the next revision settles with the room's recommendation: from the second update of
+    the canon on, an item still unanswered (not deferred) that has a suggested option. The first
+    update is the showrunner's alone."""
+    if revisions(slug) < 1:
+        return []
+    out = []
+    for i in state(slug)["items"]:
+        opt = next((o for o in i["options"] if o["id"] == i["suggested"]), None)
+        if i["status"] == UNRESOLVED and opt:
+            text = opt["text"].split(" (suggested", 1)[0].strip()
+            out.append({**i, "answer": f"{text} (the room's recommendation, option {opt['id']}: "
+                                       "left unanswered at a second update of the canon)"})
+    return out
+
+
 def note_on(slug, n, field, text):
     """Write a `- feedback:` or `- defer:` line onto item n in open-items.md, or clear it.
 

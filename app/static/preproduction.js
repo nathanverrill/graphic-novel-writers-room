@@ -89,19 +89,21 @@ function renderTelemetry(latest) {
     Object.entries(m.dropped_counts || {}).map(([k, n]) => row(`· ${k}`, n)).join("");
 }
 
-/* ---- Update and Continue ------------------------------------------------
+/* ---- Update canon, and Approve for production ----------------------------------
  *
- * Two actions, on the right of the tabs. Update is live once anything on the desk has
+ * Two actions, on the right of the tabs. Update canon is live once anything on the desk has
  * changed - an answer, a note, an edit to one of the three files - and it saves the edits and
- * runs the room again so they are folded in. Continue is the fast path: approve the room's
- * reading as it stands, open items and all, and go to the production room.  */
+ * runs the room again so they are folded in. Approve for production opens only when every
+ * open item is answered or deferred and folded in (phases.readiness), and asks the showrunner
+ * to confirm they have read what goes forward.  */
 
 const DOC_TABS = ["story.md", "characters.md", "world.md"];
 
 function changed() {
   const edited = docs.changed();
   const notes = $("#notes").value.trim() !== (state.feedback || "").trim();
-  const answers = state.items.some((i) => i.answer || i.defer || i.feedback);
+  // answered, deferred or noted since the canon was last updated (the server compares file times)
+  const answers = !!state.readiness?.unfolded;
   const rules = state.rulesTouched;
   return { docs: edited, notes, answers, rules, any: edited.length > 0 || notes || answers || rules };
 }
@@ -111,21 +113,38 @@ function renderActs(p, latest) {
   // come from a round that predates the two desks
   const written = (p.artifacts || []).some((a) => a.name === "story.md");
   const active = !!p.active_run, c = changed(), fresh = !latest && !written;
-  const upd = $("#update"), go = $("#continue");
-  upd.disabled = active || state.busy || (!c.any && !fresh);
-  upd.textContent = active ? "working…" : fresh ? "Run intake" : "Update";
-  go.disabled = active || state.busy || fresh;
-  $("#acts-hint").innerHTML = active
+  const upd = $("#update"), go = $("#approve");
+  const ready = state.readiness || {}, unsaved = c.docs.length > 0 || c.notes;
+  const recs = ready.will_recommend || 0;
+  upd.disabled = active || state.busy || (!c.any && !fresh && !recs);
+  upd.textContent = active ? "working…" : fresh ? "Run intake" : "Update canon";
+  go.disabled = active || state.busy || fresh || !ready.ready || unsaved;
+  const approved = ready.approved
+    ? ` Approved for production ${esc(when(ready.approved.t))} (round ${esc(ready.approved.round)}) - <a href="/production?p=${encodeURIComponent(p.slug)}">open the production room</a>.`
+    : "";
+  const what = [c.docs.length ? "your edits" : "", c.answers ? "your answers" : "", c.notes ? "your notes" : "", c.rules ? "your rules" : ""]
+    .filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1");
+  const updates = ready.updates || 0, open = state.items.filter((i) => i.status === "unresolved").length;
+  // the three steps, and where the showrunner is in them
+  const step = (n, on, done, text) => `<li class="${on ? "on" : ""} ${done ? "done" : ""}"><b>${n}</b> ${text}</li>`;
+  const guide = fresh ? "" : `<ol class="canon-steps">` +
+    step(1, updates === 0, updates > 0, "Answer the open items, edit the canon, add notes. <b>Update canon</b>.") +
+    step(2, updates === 1 || (updates > 1 && !ready.ready), updates > 1,
+      "Read the updated canon. Answer what is still open, make any last changes. <b>Update canon</b> again: anything you leave unanswered takes the room's recommendation.") +
+    step(3, ready.ready, !!ready.approved, "<b>Approve for production</b>.") + `</ol>`;
+  $("#acts-hint").innerHTML = (active
     ? state.stopping ? "Stopping as soon as the call at work finishes." : "Working - every call shows in the log."
     : fresh
-      ? "Synthesis, then open items, then options. It stops for you when the three files are written."
-      : c.any
-        ? "Update folds " + [c.docs.length ? "your edits" : "", c.answers ? "your answers" : "", c.notes ? "your notes" : "", c.rules ? "your rules" : ""]
-            .filter(Boolean).join(", ").replace(/, ([^,]*)$/, " and $1")
-          + " into the room's files. Continue saves them and goes on as they are."
-        : p.phase === "intake"
-          ? "Nothing changed. Continue approves the room's reading and opens the production room."
-          : `This book is past intake (${esc(p.phase)}). Continue opens the production room.`;
+      ? "Synthesis, then open items, then options. It stops for you when the canon - premise and outline, characters, world - is written."
+      : (c.any || recs)
+        ? "<b>Update canon</b> carries " + (what || "the room's recommendations") + " into the canon: the premise and outline, the characters, the world. "
+          + "It is not a rewrite: only what an answer or a note touches changes, and everything else comes back word for word. "
+          + "Then the facts are derived again and only what is still open stays on the list. A few minutes."
+          + (recs ? ` ${recs} unanswered item${recs > 1 ? "s" : ""} will take the room's recommendation.` : "")
+          + (open && !recs && updates === 0 ? " Items you leave open now come back to you; on the second update the room takes its recommendation." : "")
+        : !ready.ready
+          ? esc(ready.why || "Not ready yet.")
+          : "The canon carries every answer. Read it once more, then approve it for production.") + approved + guide;
 
   const stop = $("#stop");
   stop.hidden = !active;
@@ -160,11 +179,33 @@ async function update() {
   finally { state.busy = false; renderAll(); }
 }
 
-async function goOn() {
+const when = (t) => new Date(t * 1000).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
+/* Approving is the showrunner's step, not a click-through: a summary of what goes forward,
+ * and a box to tick saying they have read it. */
+function openApprove() {
+  const answered = state.items.filter((i) => i.status === "resolved").length;
+  const deferred = state.items.filter((i) => i.status === "deferred").length;
+  const row = (k, v) => `<div class="row"><span>${k}</span><span>${v}</span></div>`;
+  $("#approve-summary").innerHTML = row("intake round", esc(state.readiness?.round || "")) +
+    row("open items answered", answered) + row("deferred to the room", deferred) +
+    row("your rules", state.rules.length);
+  $("#approve-restart").hidden = !(project.phase && project.phase !== "intake");
+  $("#approve-word").value = "";
+  $("#approve-go").disabled = true;
+  $("#confirm-approve").showModal();
+  $("#approve-word").focus();
+}
+$("#approve-word").addEventListener("input", (e) => { $("#approve-go").disabled = e.target.value.trim().toLowerCase() !== "evoke"; });
+
+async function approve(e) {
+  e.preventDefault();
+  const confirm = $("#approve-word").value;
+  if (confirm.trim().toLowerCase() !== "evoke") return;
+  $("#confirm-approve").close();
   state.busy = true; renderAll();
   try {
-    await saveChanges();
-    if (project.phase === "intake") await api(`/api/projects/${state.slug}/phase`, { method: "POST", body: { action: "approve" } });
+    await api(`/api/projects/${state.slug}/phase`, { method: "POST", body: { action: "approve_preproduction", confirm } });
     location.href = `/production?p=${encodeURIComponent(state.slug)}`;
   } catch (e) {
     $("#acts-hint").innerHTML = `<span style="color:var(--bad)">${esc(e.message)}</span>`;
@@ -372,8 +413,8 @@ async function act(n, what, text, comment) {
 
 /* ---- the three files ----------------------------------------------------
  *
- * Rendered markdown by default; Edit swaps in the source. Nothing is written until Update or
- * Continue, so an edit can be walked away from. A run rewrites the files, so a tab is reloaded
+ * Rendered markdown by default; Edit swaps in the source. Nothing is written until Update canon, so
+ * an edit can be walked away from. A run rewrites the files, so a tab is reloaded
  * from the server whenever it has no unsaved edit of its own.  */
 
 function renderDoc(name) {
@@ -391,6 +432,7 @@ async function load() {
   if (latest) { try { latest = await api(`/api/projects/${state.slug}/versions/${latest.id}?desk=preproduction`); } catch {} }
   const st = await api(`/api/projects/${state.slug}/open-items`);
   state.items = st.items || [];
+  state.readiness = st.readiness || null;
   try { state.rules = (await api(`/api/projects/${state.slug}/rules`)).rules || []; } catch { state.rules = []; }
   const notes = $("#notes");
   if (notes.value.trim() === (state.feedback || "").trim()) notes.value = st.feedback || "";   // untouched: take the server's
@@ -411,7 +453,8 @@ function renderAll() {
 }
 
 $("#update").addEventListener("click", update);
-$("#continue").addEventListener("click", goOn);
+$("#approve").addEventListener("click", openApprove);
+$("#approve-form").addEventListener("submit", approve);
 $("#stop").addEventListener("click", stopRound);
 $("#tabs").addEventListener("click", (e) => {
   const b = e.target.closest("button[data-tab]");

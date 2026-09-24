@@ -49,7 +49,7 @@ function renderState() {
     : m.status === "layouts" ? ["wait", "the layouts are waiting for you"]
     : m.status === "done" ? ["ready", "the book is done"]
     : m.status === "stopped" ? ["fail", "stopped"]
-    : m.status === "failed" ? ["fail", "failed"]
+    : m.status === "failed" ? ["fail", "stopped by an error"]
     : ["", project.phase === "intake" ? "not started" : `in ${project.phase}`];
   $("#state").innerHTML = `<b>Production</b><span class="pill ${cls}">${esc(label)}</span>`;
 
@@ -129,11 +129,11 @@ function renderActs() {
   } else if (["stopped", "failed"].includes(m.status)) {
     acts.innerHTML = save + `<button class="go alt" id="resume">Resume at ${TITLES[m.step] || m.step}</button>` +
       `<button class="go" id="make">Produce</button>`;
-    hint.textContent = m.status === "failed" ? `Failed: ${m.error || "see the log"}. Resume picks up at the step that failed.` : "Stopped. Resume picks up where it was.";
+    hint.textContent = m.status === "failed" ? `An error stopped it at ${TITLES[m.step] || m.step}: ${m.error || "see the log"}. Resume picks up there.` : "Stopped. Resume picks up where it was.";
   } else {
     acts.innerHTML = save + `<button class="go alt" id="proof">Page 1 first</button><button class="go" id="make">Produce</button>`;
     hint.textContent = project.phase === "intake"
-      ? "Pre-production has not been approved yet - the desk's Continue does that. You can still produce."
+      ? "Pre-production has not been approved yet - Approve for production on its desk does that. You can still produce."
       : "Produce runs to the layouts: every page's map and panels, to look at. Then Make the pages. Page 1 first stops at a proof of the look instead.";
   }
   $("#tabs").querySelectorAll("button").forEach((b) => { b.disabled = running && b.dataset.tab !== "log"; });
@@ -291,26 +291,35 @@ function follow() {
   state.stream = followRun(state.run, state.seen, async (how) => {
     state.seen = state.stream.seen();
     state.run = null;
-    setPill(...PILL[how] || ["", "ended"]);
+    setPill(...ENDED[how] || ["", "ended"]);
     docs.refresh();
     if (!state.poll) { await load(); }
   });
 }
 
+/* How a round ended, in the log's pill: with the round and when, so an old round never reads
+ * as something that just happened. */
+const ENDED = { run_done: ["ready", "finished"], run_stopped: ["", "stopped"], error: ["fail", "ended with an error"] };
+const day = (t) => new Date(t * 1000).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+
 async function showLastLog() {
   resetFeed(); state.magicSeen = 0;
   const log = state.magic.log || [];
-  if (!latest && !log.length) { $("#feed").innerHTML = `<div class="dim">Nothing has run yet. Begin, and every call shows here.</div>`; return; }
+  // a round from before pre-production was approved belongs to an earlier production: not shown
+  const approved = project.settings?.approved;
+  const round = latest && !(approved && latest.started < approved.at) ? latest : null;
+  if (!round && !log.length) { $("#feed").innerHTML = `<div class="dim">Nothing has run yet. Begin, and every call shows here.</div>`; return; }
   try {
-    if (latest) {
-      const { events } = await api(`/api/projects/${state.slug}/versions/${latest.id}/events`);
+    if (round) {
+      const { events } = await api(`/api/projects/${state.slug}/versions/${round.id}/events`);
       let how = null;
-      for (const ev of events || []) { feedEvent(ev); if (PILL[ev.type]) { how = ev.type; feed.ended = ev.t; } }
+      for (const ev of events || []) { feedEvent(ev); if (ENDED[ev.type]) { how = ev.type; feed.ended = ev.t; } }
       renderFeedStats(true);
-      setPill(...(PILL[how] || ["", `round ${latest.id}`]));
+      const [cls, word] = ENDED[how] || ["", ""];
+      setPill(cls, [`round ${round.id}`, feed.ended ? day(feed.ended) : "", word].filter(Boolean).join(" · "));
     }
     // the chain's own lines after the round, so the last thing said is the state of the book
-    const since = latest ? log.filter((l) => l.t >= (feed.ended || 0)) : log;
+    const since = round ? log.filter((l) => l.t >= (feed.ended || 0)) : log;
     for (const line of since) feedLine(line, "round", `★ ${esc(line.text)}`);
     state.magicSeen = log.length;
     $("#feed").scrollTop = $("#feed").scrollHeight;

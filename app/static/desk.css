@@ -195,3 +195,13 @@ dialog header { position: sticky; top: 0; z-index: 1; }
 .feed .step .msg { color: #e9e4da; font-weight: 400; margin-top: .1rem; }
 .feed-now span.warn { color: var(--bad); }
 .feed-now b { font-weight: 600; }
+
+/* pre-production's three steps, under Update canon and Approve for production */
+.canon-steps { list-style: none; display: flex; gap: .5rem; flex-wrap: wrap; justify-content: flex-end;
+               margin: .5rem 0 0; padding: 0; text-align: left; }
+.canon-steps li { flex: 1 1 12rem; max-width: 22rem; border: 1px solid var(--line); border-radius: 5px;
+                  padding: .35rem .55rem; color: var(--muted); }
+.canon-steps li b:first-child { display: inline-block; min-width: 1.1rem; }
+.canon-steps li.on { border-color: var(--accent); color: var(--ink); }
+.canon-steps li.done { opacity: .6; }
+.canon-steps li.done b:first-child::after { content: " ✓"; }

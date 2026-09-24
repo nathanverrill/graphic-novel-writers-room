@@ -417,10 +417,11 @@ def deferred(slug):
 
 
 def pending(slug):
-    """Everything waiting to be carried into the files: answers and notes both."""
-    answers, said = resolved(slug), notes(slug)
-    return {"decisions": answers, "notes": said, "deferred": deferred(slug),
-            "any": bool(answers or said["any"])}
+    """Everything waiting to be carried into the files: answers and notes both, and from the
+    second update on, the room's recommendation for every item still left unanswered."""
+    answers, said, recs = resolved(slug), notes(slug), openitems.recommended(slug)
+    return {"decisions": answers + recs, "recommended": recs, "notes": said, "deferred": deferred(slug),
+            "any": bool(answers or recs or said["any"])}
 
 
 class Intake:
@@ -1080,6 +1081,10 @@ class Intake:
             raise IntakeError("nothing to revise: no open item has been answered and no notes "
                               "have been left")
         said = work["notes"]
+        if work["recommended"]:
+            self.emit("message", text=(
+                f"Taking the room's recommendation for {len(work['recommended'])} item(s) left "
+                f"unanswered: " + ", ".join(str(i["n"]) for i in work["recommended"]) + "."))
         self.emit("message", text=(
             f"Revising with {len(work['decisions'])} decision(s), "
             f"{len(said['general']) + len(said['items'])} note(s), "
@@ -1111,6 +1116,8 @@ class Intake:
         done = self.record(before, {
             "snapshot": snap,
             "decisions_integrated": [a["n"] for a in work["decisions"]],
+            "recommendations_taken": [{"n": a["n"], "question": a["question"], "answer": a["answer"]}
+                                      for a in work["recommended"]],
             "notes_applied": [f"[{n['weight']}] {n['text'][:80]}"
                               for n in said["general"] + said["items"]],
             "deferred": [d["n"] for d in work["deferred"]]})
