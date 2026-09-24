@@ -79,6 +79,49 @@ def style_text():
     return None
 
 
+PLATE_DIR = ROOT / "_style"      # the book's style plate: a kept lock every new lock can be rolled from
+
+
+def plate():
+    """(path, the subject it came from) - or (None, None) when there is no style plate."""
+    found = [p for p in PLATE_DIR.glob("plate.*")] if PLATE_DIR.is_dir() else []
+    src = PLATE_DIR / "from.txt"
+    return (found[0], src.read_text().strip() if src.exists() else None) if found else (None, None)
+
+
+def set_plate(name):
+    """This subject's lock becomes the book's style plate; no name clears it."""
+    for old in PLATE_DIR.glob("plate.*") if PLATE_DIR.is_dir() else []:
+        old.unlink()
+    (PLATE_DIR / "from.txt").unlink(missing_ok=True)
+    if not name:
+        return None
+    char = core.Character(character(name), need_lock=False)
+    if not char.lock:
+        raise ValueError("lock this one first")
+    PLATE_DIR.mkdir(exist_ok=True)
+    import shutil
+    shutil.copyfile(char.lock, PLATE_DIR / f"plate{char.lock.suffix}")
+    (PLATE_DIR / "from.txt").write_text(name + "\n")
+    return name
+
+
+def kept_rates():
+    """{model: [kept, rolled]} over every subject's lineage: how often a model's candidate was the one kept."""
+    out = {}
+    for f in ROOT.glob("*/lineage.jsonl"):
+        for line in f.read_text().splitlines():
+            try:
+                r = json.loads(line)
+            except ValueError:
+                continue
+            if not r.get("model") or r.get("error"):
+                continue
+            n = out.setdefault(r["model"], [0, 0])
+            n[0 if r.get("picked") else 1] += 1
+    return out
+
+
 def stages(char):
     """[(id, n, title, instruction, parent_name)] - the lock, then the steps."""
     first = ("the approved establishing view: wide, eye level, daylight, nobody in frame" if char.kind == "place"
@@ -115,7 +158,7 @@ def parent_for(char, stage_id, n, parent_name):
     return parent, False
 
 
-def roll(name, stage_id, notes, models, each, base=None, batch=False):
+def roll(name, stage_id, notes, models, each, base=None, batch=False, variants=None):
     d = character(name)
     if not (d / "description.txt").exists():
         raise ValueError("write the description first")
@@ -137,7 +180,7 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
         parent, from_pick = parent_for(char, stage_id, n, parent_name)
     if stage_id != "00-lock" and parent is None:
         raise ValueError("this step's parent has nothing kept yet - lock first, or keep the step it builds on")
-    from_reference = False
+    from_reference, plan = False, None
     if stage_id == "00-lock" and parent is None and char.reference is not None and base != "kept":
         parent, from_reference = char.reference, True       # what is where comes from the reference
         prompt = core.reference_prompt(char, style_text(), notes)
@@ -145,6 +188,13 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
         prompt = core.lock_prompt(char, style_text(), notes, from_pick=from_pick)
     else:
         prompt = core.prompt_for(char, instruction, notes, from_pick=from_pick)
+    plate_img = plate()[0]
+    if stage_id == "00-lock" and not from_pick and plate_img:   # a fresh lock: plain, with the plate, or both
+        wanted = [v for v in (variants or ["plain", "styled"]) if v in ("plain", "styled")] or ["plain"]
+        styled = (core.reference_prompt(char, style_text(), notes, plate=True) if from_reference
+                  else core.lock_prompt(char, style_text(), notes, plate=True))
+        plan = [v for v in [("plain", prompt, parent), ("styled", styled, [parent, plate_img] if parent else plate_img)]
+                if v[0] in wanted]
     st = stage_state(d, stage_id)
     k = len(st["rounds"]) + 1
     folder = d / "runs" / stage_id / f"r{k}"
@@ -157,17 +207,17 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
     import time as _t
     st["rounds"].append({"round": f"r{k}", "notes": notes or "", "from_pick": from_pick, "from_reference": from_reference, "pick_before": st.get("pick"),
                          "parent": parent.name if parent else None, "candidates": [], "errors": [], "models": list(models),
-                         "each": each, "started": _t.time(), "seconds": None, "batch": batch})
+                         "each": each * (len(plan) if plan else 1), "variants": [v[0] for v in plan] if plan else None, "started": _t.time(), "seconds": None, "batch": batch})
     save_stage(d, stage_id, st)
 
     _stop.discard((name, stage_id))
 
-    def landed(m, path, took):
+    def landed(m, path, took, variant=None):
         with _lock:
             if (name, stage_id) in _stop:
                 return                      # stopped: late arrivals are left in the folder, unlisted
             st2 = stage_state(d, stage_id)
-            st2["rounds"][-1]["candidates"].append({"model": m, "file": path.name, "seconds": took})
+            st2["rounds"][-1]["candidates"].append({"model": m, "file": path.name, "seconds": took, "variant": variant})
             save_stage(d, stage_id, st2)
             with (d / "timings.jsonl").open("a") as f:
                 f.write(json.dumps({"model": m, "seconds": took}) + "\n")
@@ -175,7 +225,8 @@ def roll(name, stage_id, notes, models, each, base=None, batch=False):
     def work():
         try:
             _, cands, errors = core.make_candidates(char, n, title, instruction, parent, models, each, gen, key,
-                                                    say=lambda m: None, folder=folder, prompt=prompt, on_candidate=landed)
+                                                    say=lambda m: None, folder=folder, prompt=prompt, on_candidate=landed,
+                                                    variants=plan)
             if (name, stage_id) in _stop:
                 return
             st2 = stage_state(d, stage_id)
@@ -339,9 +390,8 @@ def catalog():
             ids = [m["id"] for m in data if (m.get("supported_parameters") or {}).get("input_references")]
     except (SystemExit, Exception):        # noqa: BLE001 - the page still works without the catalog
         ids = []
-    # the list: the defaults, then the other OpenAI and xAI models that take a reference
-    keep = lambda m: m.split("/")[0] in ("openai", "x-ai")
-    models = [m for m in core.DEFAULT_MODELS if not ids or m in ids] + sorted(m for m in ids if m not in core.DEFAULT_MODELS and keep(m))
+    # the list: the defaults, then every other model that takes a reference
+    models = [m for m in core.DEFAULT_MODELS if not ids or m in ids] + sorted(m for m in ids if m not in core.DEFAULT_MODELS and not core.excluded(m))
     _catalog.update(t=_t.time(), models=models)
     return models
 
@@ -375,18 +425,19 @@ def keep(name, stage_id):
     for r in st["rounds"]:
         r["kept_from"] = r["round"] == st["pick"]["round"]
     save_stage(d, stage_id, st)
+    rnd = next(r for r in st["rounds"] if r["round"] == st["pick"]["round"])
+    cand = next((c for c in rnd["candidates"] if c["file"] == src.name), {})
     if stage_id == "00-lock":
         for old in d.glob("lock.*"):
             old.unlink()
         dst = d / f"lock{src.suffix}"
         dst.write_bytes(src.read_bytes())
-        char.log(step="lock", model=None, parent=None, candidate=str(src.relative_to(d)), picked=True, kept=dst.name)
+        char.log(step="lock", model=cand.get("model"), parent=None, candidate=str(src.relative_to(d)), picked=True, kept=dst.name,
+                 **({"variant": cand["variant"]} if cand.get("variant") else {}))
         return dst.name
     _, n, title, instruction, _ = next(x for x in stages(char) if x[0] == stage_id)
-    rnd = next(r for r in st["rounds"] if r["round"] == st["pick"]["round"])
-    model = next((c["model"] for c in rnd["candidates"] if c["file"] == src.name), None)
     parent = Path(rnd["parent"] or "lock")
-    return core.keep(char, n, title, instruction, parent, model, src).name
+    return core.keep(char, n, title, instruction, parent, cand.get("model"), src).name
 
 
 def status(name):
@@ -408,6 +459,8 @@ def status(name):
            "reference": f"{PREFIX}/files/{name}/{char.reference.name}?v={int(char.reference.stat().st_mtime)}" if char and char.reference else None,
            "lock_v": int(char.lock.stat().st_mtime) if char and char.lock else 0,
            "trigger": char.trigger if char else None, "stages": [], "set": []}
+    img, src = plate()
+    out["plate"] = img and {"url": f"{PREFIX}/files/{img.relative_to(ROOT)}?v={int(img.stat().st_mtime)}", "from": src}
     if not char:
         return out
     for sid, n, title, instruction, parent_name in stages(char):
@@ -756,7 +809,10 @@ const BASE = "%PREFIX%";
 const PHOTO = %PHOTO%;
 const HARD_SF = %HARD_SF%;
 let who = null, st = null, poll = null, castData = null, current = null, lastDrawn = "", notesDraft = {};
-let catalog = [], on = new Set(), typical = {};
+let catalog = [], on = new Set(), typical = {}, keptRate = {};
+/* a fresh lock with a style plate: rolled from the words alone, with the plate, or both side by side */
+let variants = new Set(JSON.parse(localStorage.getItem("sheets-variants") || '["plain","styled"]'));
+const VARIANT = { plain: "text only", styled: "with the style plate" };
 /* what to look for before picking, by kind */
 const CHECK = {
   character: { short: "⚠ zoom in: hands and fingers · anything passing through anything · eyes · the costume as described · no text",
@@ -766,7 +822,7 @@ const CHECK = {
 };
 const check = () => CHECK[st?.kind === "place" ? "place" : "character"];
 function loadModels(d) {
-  catalog = d.models; typical = d.seconds || {};
+  catalog = d.models; typical = d.seconds || {}; keptRate = d.kept || {};
   const saved = JSON.parse(localStorage.getItem("sheets-on") || "null");
   const extra = JSON.parse(localStorage.getItem("sheets-extra") || "[]");
   for (const m of extra) if (!catalog.includes(m)) catalog.push(m);
@@ -779,7 +835,8 @@ function loadModels(d) {
 const chosen = () => catalog.filter((m) => on.has(m));
 const secs = (n) => n == null ? "" : n >= 90 ? `${Math.round(n / 60)}m` : `${Math.round(n)}s`;
 function modelChips() {
-  return `<div class="models" id="models">${catalog.map((m) => `<label class="${on.has(m) ? "on" : ""}" title="${typical[m] ? `usually ${secs(typical[m])}` : "no timing yet"}"><input type="checkbox" data-m="${esc(m)}" ${on.has(m) ? "checked" : ""}>${esc(m)}${typical[m] ? ` <i>${secs(typical[m])}</i>` : ""}</label>`).join("")}</div>`;
+  const rate = (m) => keptRate[m]?.[1] ? ` <i>${keptRate[m][0]}/${keptRate[m][1]} kept</i>` : "";
+  return `<div class="models" id="models">${catalog.map((m) => `<label class="${on.has(m) ? "on" : ""}" title="${typical[m] ? `usually ${secs(typical[m])}` : "no timing yet"}${keptRate[m]?.[1] ? ` · ${keptRate[m][0]} kept of ${keptRate[m][1]} rolled, every subject` : ""}"><input type="checkbox" data-m="${esc(m)}" ${on.has(m) ? "checked" : ""}>${esc(m)}${typical[m] ? ` <i>${secs(typical[m])}</i>` : ""}${rate(m)}</label>`).join("")}</div>`;
 }
 /* a roll takes about as long as its slowest model (they run at once) */
 function estimate() {
@@ -837,7 +894,7 @@ setInterval(() => {
 async function load(force) {
   if (!who) { $("#work").innerHTML = `<p class="hint">Choose a campaign and a character, then Start.</p>`; return; }
   st = await api(`/api/characters/${who}`);
-  const key = JSON.stringify([st.stages, st.set, st.lock, st.lock_v, current, st.batch, st.done]);
+  const key = JSON.stringify([st.stages, st.set, st.lock, st.lock_v, current, st.batch, st.done, st.plate]);
   if (force || key !== lastDrawn) { lastDrawn = key; draw(); }
   if (force) {
     $("#desc").value = st.description; $("#notes").value = st.notes || ""; $("#style").value = st.style || ""; $("#steps").value = st.steps_text;
@@ -892,6 +949,8 @@ function drawStage() {
   const prev = st.stages.find((x) => x.id === current) && st.stages[st.stages.indexOf(s) - 1];
   const parentImg = isLock ? (s.kept ? null : st.reference) : (s.parent ? st.stages.find((x) => x.title === s.parent)?.kept : (st.stages.slice(0, st.stages.indexOf(s)).reverse().find((x) => x.kept)?.kept));
   const can = isLock || parentImg;
+  const plated = isLock && !pick && !s.kept && st.plate;      // the next roll can use the style plate
+  const perModel = (plated ? [...variants].filter((v) => VARIANT[v]).length || 1 : 1) * (+$("#each").value || 2);
   const reviews = st.stages.filter((x) => x.review);
   const nextReview = reviews.find((x) => x.id !== current) || null;
   const doneBanner = st.done ? `<div class="done"><h3>✓ ${esc(who)} is done: the lock and ${st.stages.length - 1} steps, every one kept.</h3>
@@ -905,6 +964,10 @@ function drawStage() {
       ${parentImg ? `<img src="${parentImg}" title="${isLock ? "the reference: what is where" : "builds on this"}">` : s.kept && isLock ? `<img src="${s.kept}" title="the lock">` : ""}
       <div><h3><b>${isLock ? "lock" : String(s.n).padStart(2, "0")}</b>${esc(isLock ? "The lock" : s.title)}</h3>
         <div class="hint">${esc(s.instruction)}${!isLock ? ` · builds on ${esc(s.parent || "the previous keep")}` : st.reference && !s.kept ? " · redrawn from the reference: say in the note what to change, and how it should look" : ""}</div>
+        ${plated ? `<div class="hint" style="margin-top:.3rem"><img src="${st.plate.url}" style="width:40px;vertical-align:middle;border-radius:3px;margin-right:.4rem" title="the style plate">style plate from <b>${esc(st.plate.from || "?")}</b>: its rendering, not its content. Tick below to roll text only, with the plate, or both side by side.</div>` : ""}
+        ${isLock && s.kept ? `<div class="row" style="margin:.3rem 0 0">${st.plate?.from === who
+            ? `<span class="good">✓ This lock is the book's style plate: new locks can be rolled with it.</span><button id="plate-clear">Clear it</button>`
+            : `<button id="plate-set" title="new locks of other characters and places are rolled with this image for line, palette and light - never its content">Use as the book's style</button>${st.plate ? `<span class="hint">replaces the plate from ${esc(st.plate.from || "?")}</span>` : ""}`}</div>` : ""}
         ${s.kept ? `<div class="good" style="margin-top:.3rem">✓ kept${isLock ? " as the lock" : ""}. ${next ? `Next: <a href="#" id="go-next">${esc(next.n === 0 ? "lock" : next.title)}</a>.` : "Every step is kept."}</div>
         <div class="hint" style="margin-top:.2rem">Not right in context? Say what is off and <b>Fix the kept one</b>, or <b>Start over</b> from ${isLock ? "the description" : "its parent"}. Or click another candidate below and Keep it.</div>` : ""}
         ${!can ? `<div class="err" style="margin-top:.3rem">Nothing to build on yet: ${s.parent ? `keep <b>${esc(s.parent)}</b> first` : "lock first"}.</div>` : ""}
@@ -915,11 +978,12 @@ function drawStage() {
       ${r.candidates.length && i === rounds.length - 1 ? `<div class="check"><b>⚠ LOOK CLOSELY BEFORE YOU PICK.</b> One flaw here is in every image trained from it. Zoom in and check:
         ${check().long}
         <b>Double-click a candidate to see it large</b> and step through with ← →. A candidate that is 90% right with one flaw loses to one that is 80% right and clean.</div>` : ""}
-      ${r.candidates.length || (i === rounds.length - 1 && s.running) ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}${slots(r, i === rounds.length - 1 && s.running)}</div>` : ""}
+      ${r.candidates.length || (i === rounds.length - 1 && s.running) ? `<div class="cands">${r.candidates.map((c) => `<figure data-round="${esc(r.round)}" data-file="${esc(c.file)}" class="${pick && pick.round === r.round && pick.file === c.file ? "pick" : ""}"><img src="${c.url}"><figcaption>${esc(c.model)}${c.variant ? ` · <b>${esc(VARIANT[c.variant] || c.variant)}</b>` : ""}${c.seconds ? ` · ${secs(c.seconds)}` : ""}</figcaption></figure>`).join("")}${slots(r, i === rounds.length - 1 && s.running)}</div>` : ""}
     </div>`).join("")}
     ${!rounds.length && can ? `<p class="hint">Roll, then click the closest, say what is off, and roll again from it until one is right. Any candidate from any roll can be the pick. Double-click a candidate to see it full size.</p>` : ""}
     <div class="acts">
       ${modelChips()}
+      ${plated ? `<div class="models" id="variants">${Object.entries(VARIANT).map(([v, label]) => `<label class="${variants.has(v) ? "on" : ""}"><input type="checkbox" data-v="${v}" ${variants.has(v) ? "checked" : ""}>${label}</label>`).join("")}</div>` : ""}
       <textarea id="stage-notes" rows="2" placeholder="${rounds.length ? "What is off in the closest one? Then roll again from it." : isLock && st.reference ? "How to redraw it: 'not a game scene: photo-real graphic novel, weathered concrete and steel, dusk'." : "Anything for this first roll (optional)."}">${esc(notesDraft[current] || "")}</textarea>
       <div class="row">
         ${s.running ? `<button id="stop" title="keep what has landed, stop waiting for the rest">Stop waiting</button>` : ""}
@@ -928,7 +992,7 @@ function drawStage() {
         <button class="ok" id="keep" ${pick ? "" : "disabled"} title="Looked at it at full size?">${isLock ? "Lock this one" : "Keep this one"}</button>
         ${s.review ? `<button id="dismiss" title="the fix made it worse: keep what was kept">Keep the old one</button>` : ""}
         <button id="undo" ${rounds.length && !s.running ? "" : "disabled"} title="drop the last roll and put the pick back">Undo last roll</button>
-        <span class="hint" id="roll-hint">${s.running ? (pick ? "you can keep the pick now, or stop waiting and roll again from it" : "click one that is close enough as soon as it lands") : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${+$("#each").value || 2}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
+        <span class="hint" id="roll-hint">${s.running ? (pick ? "you can keep the pick now, or stop waiting and roll again from it" : "click one that is close enough as soon as it lands") : pick ? `pick: ${esc(pick.round)} ${esc(pick.file)}` : rounds.length ? "click the closest candidate, in any roll" : ""}${!s.running ? ` · ${on.size} model${on.size === 1 ? "" : "s"} × ${perModel}${estimate() ? `, about ${secs(estimate())}` : ""}` : ""}</span>
       </div></div>`;
   $("#models").onchange = (e) => {
     const m = e.target.dataset.m; if (!m) return;
@@ -937,6 +1001,19 @@ function drawStage() {
     e.target.parentElement.classList.toggle("on", e.target.checked);
     for (const id of ["#roll", "#fix", "#over"]) { const b = $(id); if (b) b.disabled = s.running || !can || !on.size; }
   };
+  $("#variants")?.addEventListener("change", (e) => {
+    const v = e.target.dataset.v; if (!v) return;
+    e.target.checked ? variants.add(v) : variants.delete(v);
+    if (!variants.size) { variants.add(v); e.target.checked = true; }       // one of the two, always
+    localStorage.setItem("sheets-variants", JSON.stringify([...variants]));
+    lastDrawn = ""; draw();
+  });
+  const setPlate = (name) => async () => {
+    try { await api("/api/style", { method: "POST", body: { name } }); lastDrawn = ""; await load(true); }
+    catch (err) { $("#top-hint").textContent = err.message; }
+  };
+  $("#plate-set")?.addEventListener("click", setPlate(who));
+  $("#plate-clear")?.addEventListener("click", setPlate(null));
   $("#stop")?.addEventListener("click", async () => {
     try { await api(`/api/characters/${who}/stages/${current}/stop`, { method: "POST", body: {} }); lastDrawn = ""; await load(true); }
     catch (err) { $("#top-hint").textContent = err.message; }
@@ -955,7 +1032,7 @@ function drawStage() {
   const rollWith = (base) => async () => {
     try {
       await api(`/api/characters/${who}`, { method: "PUT", body: { description: $("#desc").value, notes: $("#notes").value, style: $("#style").value } });
-      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2, base } });
+      await api(`/api/characters/${who}/stages/${current}/roll`, { method: "POST", body: { notes: $("#stage-notes").value, models: chosen(), each: +$("#each").value || 2, base, variants: [...variants] } });
       notesDraft[current] = ""; await load(true);
     } catch (err) { $("#said").textContent = err.message; $("#top-hint").textContent = err.message; }
   };
@@ -1118,7 +1195,7 @@ class Handler(BaseHTTPRequestHandler):
             elif url.path == "/api/md":
                 self.send_json(md_read(q["path"][0]) if "path" in q else {"files": md_files()})
             elif url.path == "/api/models":
-                self.send_json({"models": catalog(), "default": core.DEFAULT_MODELS, "seconds": typical_seconds()})
+                self.send_json({"models": catalog(), "default": core.DEFAULT_MODELS, "seconds": typical_seconds(), "kept": kept_rates()})
             elif url.path == "/api/campaigns":
                 self.send_json({"campaigns": campaigns()})
             elif url.path.startswith("/api/campaigns/"):
@@ -1142,7 +1219,9 @@ class Handler(BaseHTTPRequestHandler):
         parts = self.path.split("?")[0].split("/")
         try:
             data = self.body()
-            if self.path == "/api/characters":
+            if self.path == "/api/style":
+                self.send_json({"from": set_plate(data.get("name"))})
+            elif self.path == "/api/characters":
                 d = character(data.get("name", ""))
                 d.mkdir(exist_ok=True)
                 if data.get("kind") == "place":
@@ -1161,7 +1240,8 @@ class Handler(BaseHTTPRequestHandler):
                 (d / f"{parts[4]}.{ext}").write_bytes(base64.b64decode(b64))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "roll":
-                roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2), data.get("base"))
+                roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2), data.get("base"),
+                     variants=data.get("variants"))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "pick":
                 pick(parts[3], parts[5], data.get("round", ""), data.get("file", ""))

@@ -48,7 +48,20 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OPENROUTER = "https://openrouter.ai/api/v1"
-DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro", "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image", "black-forest-labs/flux.2-max", "recraft/recraft-v4.1", "recraft/recraft-v4.1-pro"]
+DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro", "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image", "black-forest-labs/flux.2-max"]
+# Never offered, whatever OpenRouter lists: a trailing "/" or "-" is a prefix. Design and vector
+# models, previews of models that have shipped, and generations a newer model here replaces.
+# Everything left takes at least three reference images, so a lock from a reference with the
+# style plate (two images) works on all of them.
+EXCLUDED = ["recraft/", "inclusionai/", "sourceful/", "krea/",
+            "google/gemini-3.1-flash-image-preview", "google/gemini-3-pro-image-preview", "google/gemini-2.5-flash-image",
+            "openai/gpt-image-1", "openai/gpt-image-1-mini", "openai/gpt-5-image", "openai/gpt-5-image-mini",
+            "microsoft/mai-image-2.5", "microsoft/mai-image-2.5-pro", "bytedance-seed/seedream-4.5",
+            "black-forest-labs/flux.2-klein-4b"]
+
+
+def excluded(model):
+    return any(model.startswith(x) if x.endswith(("/", "-")) else model == x for x in EXCLUDED)
 TIMEOUT = 300
 SECRETS = HERE.parent / "secrets" / "keys.json"     # where the room saves provider keys
 
@@ -134,12 +147,17 @@ def data_url(path):
     return f"data:{mime};base64,{base64.b64encode(path.read_bytes()).decode()}"
 
 
+def refs_of(parent):
+    """The reference images for one call: none, one, or a list (a lock with the style plate)."""
+    return [] if parent is None else list(parent) if isinstance(parent, (list, tuple)) else [parent]
+
+
 def generate(model, prompt, parent, out_stem, key):
     """One image from one model, given the parent image as a reference (or none, for the
-    first roll of a lock). Returns the path."""
+    first roll of a lock; or a list, the style plate last). Returns the path."""
     payload = {"model": model, "prompt": prompt}
-    if parent is not None:
-        payload["input_references"] = [{"type": "image_url", "image_url": {"url": data_url(parent)}}]
+    if refs_of(parent):
+        payload["input_references"] = [{"type": "image_url", "image_url": {"url": data_url(r)}} for r in refs_of(parent)]
     req = urllib.request.Request(f"{OPENROUTER}/images", data=json.dumps(payload).encode(),
                                  headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                                           "HTTP-Referer": "https://github.com/writers-room", "X-Title": "sheets"})
@@ -164,6 +182,7 @@ BLANK_PNG = base64.b64decode(
 def fake(model, prompt, parent, out_stem, key):
     """--dry: the parent copied (or a blank), so the flow can be walked without spending."""
     time.sleep(float(os.getenv("SHEETS_DRY_SECONDS") or 0.2))
+    parent = (refs_of(parent) or [None])[0]
     out = out_stem.parent / (out_stem.name + (parent.suffix if parent is not None else ".png"))
     if parent is not None:
         shutil.copyfile(parent, out)
@@ -195,7 +214,12 @@ def prompt_for(char, instruction, notes=None, from_pick=False):
             f"{FRAME[char.kind]} {NO_TEXT}")
 
 
-def lock_prompt(char, style, notes=None, from_pick=False):
+PLATE = ("Draw it in exactly the rendering of the {which} reference image: its line weight, palette, lighting, "
+         "texture and level of detail. Take nothing else from that image: not its subject, face, body, clothes, "
+         "pose, props, composition or background.")
+
+
+def lock_prompt(char, style, notes=None, from_pick=False, plate=False):
     """The lock: the first roll from words alone; later rolls edit the closest pick with notes."""
     view, frame = VIEW[char.kind], FRAME[char.kind]
     style = char.style or style
@@ -205,6 +229,7 @@ def lock_prompt(char, style, notes=None, from_pick=False):
                 + f"Change this and nothing else: {notes or 'bring it closer to the description'}. "
                 + f"{view} Same drawing style as the reference. {frame} {NO_TEXT}")
     return (f"Style: {(style or 'clean comic line art with flat colour').rstrip('.')}. "
+            + (PLATE.format(which="attached") + " " if plate else "")
             + (f"{char.notes.rstrip('.')}. " if char.notes else "")
             + (f"Notes: {notes} " if notes else "")
             + f"Draw this {char.kind}: {char.description} {view} {frame} {NO_TEXT}")
@@ -220,13 +245,14 @@ PHOTO = ("Photographic realism: as if photographed on location with a full-frame
          "not cel-shaded, not flat colour, not painterly, not stylised")
 
 
-def reference_prompt(char, style, notes=None):
+def reference_prompt(char, style, notes=None, plate=False):
     """The lock from a reference image: the reference says what is where; everything else -
     materials, light, line, colour - comes from the style, the notes and the description.
     The style leads, because that is what the models weigh most."""
     style = (char.style or style or PHOTO).rstrip(".")
-    return (f"{style}. " + (f"{char.notes.rstrip('.')}. " if char.notes else "") + (f"{notes.rstrip('.')}. " if notes else "")
-            + "Use the reference image only for what is where: the same terrain and geography, the same "
+    return (f"{style}. " + (PLATE.format(which="second") + " " if plate else "")
+            + (f"{char.notes.rstrip('.')}. " if char.notes else "") + (f"{notes.rstrip('.')}. " if notes else "")
+            + f"Use the {'first ' if plate else ''}reference image only for what is where: the same terrain and geography, the same "
             "buildings and structures in the same places at the same sizes, the same viewpoint and framing. "
             "Nothing of the reference's medium survives: no blocks, voxels, cubes, pixel textures, game "
             "rendering or screenshot artefacts; real materials, real proportions, natural light. "
@@ -258,37 +284,42 @@ figcaption{{margin-top:.4rem;color:#bbb}}b{{color:#fff;font-size:1.3rem;margin-r
 # ---- the loop --------------------------------------------------------------------------------
 
 def make_candidates(char, n, step, instruction, parent, models, each, gen, key, say=print, folder=None, prompt=None,
-                    on_candidate=None):
+                    on_candidate=None, variants=None):
     """One step's candidates, from every model at once. Returns (folder, [(model, path)], [errors]).
-    on_candidate(model, path, seconds) is called as each one lands, so a page can show it."""
+    on_candidate(model, path, seconds, variant) is called as each one lands, so a page can show it.
+    variants [(name, prompt, parent)] rolls every model once per variant - a lock "plain" and
+    "styled", side by side; without them, one variant from `prompt` and `parent`."""
     folder = folder or char.dir / "runs" / f"{n:02d}-{step}"
     folder.mkdir(parents=True, exist_ok=True)
     for old in folder.glob("cand-*"):
         old.unlink()
-    prompt = prompt or prompt_for(char, instruction)
-    jobs = [(m, k) for m in models for k in range(1, each + 1)]
-    cands, errors = [], []
+    variants = variants or [(None, prompt or prompt_for(char, instruction), parent)]
+    jobs = [(m, k, v) for v in variants for m in models for k in range(1, each + 1)]
+    cands, errors, labels = [], [], {}
+    stem = lambda m, k, v: folder / (f"cand-{re.sub(r'[^a-z0-9]+', '-', m.split('/')[-1].lower())}-{k}" + (f"-{v[0]}" if v[0] else ""))
     with concurrent.futures.ThreadPoolExecutor(max_workers=len(jobs)) as pool:
-        futs = {pool.submit(gen, m, prompt, parent, folder / f"cand-{re.sub(r'[^a-z0-9]+', '-', m.split('/')[-1].lower())}-{k}", key): (m, k) for m, k in jobs}
+        futs = {pool.submit(gen, m, v[1], v[2], stem(m, k, v), key): (m, k, v) for m, k, v in jobs}
         started = time.time()
         for fut in concurrent.futures.as_completed(futs):
-            m, k = futs[fut]
+            m, k, (variant, prompt, parent) = futs[fut]
+            parent = (refs_of(parent) or [None])[0]
             took = round(time.time() - started, 1)
             try:
                 path = fut.result()
                 cands.append((m, path))
-                say(f"     ✓ {m} #{k} in {took:g}s")
+                labels[path.name] = variant
+                say(f"     ✓ {m} #{k}{f' {variant}' if variant else ''} in {took:g}s")
                 char.log(step=step, model=m, prompt=prompt, parent=parent.name if parent else None, candidate=path.name,
-                         picked=False, seconds=took)
+                         picked=False, seconds=took, **({"variant": variant} if variant else {}))
                 if on_candidate:
-                    on_candidate(m, path, took)
+                    on_candidate(m, path, took, variant)
             except Exception as e:      # noqa: BLE001 - one model failing is not the step failing
                 errors.append(f"{m} #{k}: {str(e)[:300]}")
                 say(f"     ✗ {m} #{k}: {str(e)[:160]}")
                 char.log(step=step, model=m, error=str(e)[:200], seconds=took)
     cands.sort(key=lambda c: c[1].name)
     (folder / "step.json").write_text(json.dumps({"step": step, "n": n, "instruction": instruction, "parent": parent.name if parent else None,
-                                                  "candidates": [{"model": m, "file": p.name} for m, p in cands],
+                                                  "candidates": [{"model": m, "file": p.name, "variant": labels[p.name]} for m, p in cands],
                                                   "errors": errors}, indent=1))
     return folder, cands, errors
 

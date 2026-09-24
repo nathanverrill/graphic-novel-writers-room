@@ -46,6 +46,22 @@ fills in a photographic one) and your note ("not a game scene:
 photo-real graphic novel, weathered concrete and steel, dusk"). Pick the closest, note, roll
 again from the pick, and Lock as usual. **Start over** on the lock goes back to the reference.
 
+## The book's style plate
+
+A text-only lock follows the words, and the words are too loose to keep twenty characters
+looking like one book. Once one lock is exactly right, **Use as the book's style** on it copies
+it to `characters/_style/plate.*`. From then on, every fresh lock (the first roll, or Start
+over) can be rolled **text only**, **with the style plate**, or both side by side: the plate
+goes along as a reference for line, palette, light and texture, and the prompt forbids taking
+its subject, face, clothes, pose or background. Models copy content from a reference as
+readily as style, so look for that; the side-by-side is there to show whether the plate helps.
+With a reference image, the reference goes first (what is where) and the plate second.
+Rolling again from a pick, and every step after the lock, builds on its parent, which already
+carries the style, so the plate is not sent there.
+
+Each model chip shows how often that model's candidate was the one kept, over every subject
+(`kept/rolled`, from each `lineage.jsonl`); kept rows record `variant` too.
+
 ## Places
 
 A place is built the same way. Its lock is one establishing view (wide, eye level, nobody in
