@@ -107,6 +107,7 @@ with the trigger word). `lineage.jsonl` records every candidate, which model mad
 which parent, and which was kept - so after one character you know which model to trust for
 faces, poses and light.
 
-Defaults: nine models on OpenRouter that take a reference image (Gemini 3.1 Flash and 3 Pro Image, GPT Image 2, Flux 2 Pro and Max, Qwen Image 3, Seedream 5 Pro, Recraft v4.1 and v4.1 Pro)
-(all take a reference image on OpenRouter; `qwen/qwen-image-3` and `bytedance-seed/seedream-5-0-pro` are good fourth picks),
-`--each 2` (six candidates a step). `--dry` walks the flow with no model and no cost.
+Defaults: five models on OpenRouter that take a reference image (Gemini 3.1 Flash Image, GPT Image 2,
+GPT Image 2.5 Flare and Sunburst, MAI Image 2.6 Flash), `--each 2` (ten candidates a step). Flux is
+offered but not on by default. Qwen, ByteDance (Seedream), xAI (Grok) and Gemini 3 Pro Image are never
+offered (`EXCLUDED` in `sheets.py`, and the room's model picker in `app/llm.py`). `--dry` walks the flow with no model and no cost.

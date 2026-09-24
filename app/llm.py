@@ -197,8 +197,17 @@ def _relax(body, error):
     return fix
 
 
+# Never offered in the model picker, whatever the provider lists (the showrunner's call; sheets/
+# keeps the same list for its image models). A trailing "/" is a prefix.
+EXCLUDED_MODELS = ("qwen/", "bytedance/", "bytedance-seed/", "x-ai/", "google/gemini-3-pro-image")
+
+
+def excluded(model):
+    return any(model.startswith(x) if x.endswith("/") else model == x for x in EXCLUDED_MODELS)
+
+
 def list_models(cfg, timeout=20):
-    """Model ids from the provider's OpenAI-compatible /models endpoint."""
+    """Model ids from the provider's OpenAI-compatible /models endpoint, less the excluded ones."""
     headers = {"Authorization": f"Bearer {cfg.api_key}"} if cfg.api_key else {}
     req = urllib.request.Request(cfg.base_url + "/models", headers=headers)
     try:
@@ -209,7 +218,8 @@ def list_models(cfg, timeout=20):
     except (urllib.error.URLError, TimeoutError, OSError) as e:
         raise LLMError(0, str(getattr(e, "reason", e))) from None
     items = data.get("data", data.get("models", [])) if isinstance(data, dict) else data
-    return sorted({(m.get("id") or m.get("name")) if isinstance(m, dict) else str(m) for m in items} - {None})
+    ids = {(m.get("id") or m.get("name")) if isinstance(m, dict) else str(m) for m in items} - {None}
+    return sorted(m for m in ids if not excluded(m))
 
 
 def generate_image(cfg, prompt, size=None, log=None):

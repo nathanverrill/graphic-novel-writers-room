@@ -34,6 +34,7 @@ answer in the terminal: a number to keep, r to redo the step, s to skip it, q to
 import argparse
 import base64
 import concurrent.futures
+import http.client
 import json
 import mimetypes
 import os
@@ -48,15 +49,17 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OPENROUTER = "https://openrouter.ai/api/v1"
-DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "black-forest-labs/flux.2-pro", "qwen/qwen-image-3", "bytedance-seed/seedream-5-0-pro", "google/gemini-3-pro-image", "black-forest-labs/flux.2-max"]
+DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "openai/gpt-image-2.5-flare", "openai/gpt-image-2.5-sunburst",
+                  "microsoft/mai-image-2.6-flash"]
 # Never offered, whatever OpenRouter lists: a trailing "/" or "-" is a prefix. Design and vector
 # models, previews of models that have shipped, and generations a newer model here replaces.
 # Everything left takes at least three reference images, so a lock from a reference with the
 # style plate (two images) works on all of them.
 EXCLUDED = ["recraft/", "inclusionai/", "sourceful/", "krea/",
+            "qwen/", "bytedance/", "bytedance-seed/", "x-ai/", "google/gemini-3-pro-image",   # the showrunner's call
             "google/gemini-3.1-flash-image-preview", "google/gemini-3-pro-image-preview", "google/gemini-2.5-flash-image",
             "openai/gpt-image-1", "openai/gpt-image-1-mini", "openai/gpt-5-image", "openai/gpt-5-image-mini",
-            "microsoft/mai-image-2.5", "microsoft/mai-image-2.5-pro", "bytedance-seed/seedream-4.5",
+            "microsoft/mai-image-2.5", "microsoft/mai-image-2.5-pro",
             "black-forest-labs/flux.2-klein-4b"]
 
 
@@ -161,11 +164,18 @@ def generate(model, prompt, parent, out_stem, key):
     req = urllib.request.Request(f"{OPENROUTER}/images", data=json.dumps(payload).encode(),
                                  headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
                                           "HTTP-Referer": "https://github.com/writers-room", "X-Title": "sheets"})
-    try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
-            result = json.loads(r.read())
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"{model}: HTTP {e.code} {e.read()[:300].decode(errors='replace')}")
+    for attempt in (1, 2):
+        try:
+            with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
+                result = json.loads(r.read())
+            break
+        except urllib.error.HTTPError as e:
+            raise RuntimeError(f"{model}: HTTP {e.code} {e.read()[:300].decode(errors='replace')}")
+        except (http.client.RemoteDisconnected, ConnectionResetError):
+            # a provider under load (Qwen's, with several calls at once) can hang up after ~180s
+            # instead of answering: once more, and then it is that candidate's failure
+            if attempt == 2:
+                raise RuntimeError(f"{model}: the provider closed the connection twice without answering")
     data = (result.get("data") or [{}])[0]
     if not data.get("b64_json"):
         raise RuntimeError(f"{model}: no image in the reply: {json.dumps(result)[:300]}")

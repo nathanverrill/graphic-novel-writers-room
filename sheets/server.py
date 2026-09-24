@@ -117,6 +117,8 @@ def kept_rates():
                 continue
             if not r.get("model") or r.get("error"):
                 continue
+            if core.excluded(r["model"]):
+                continue
             n = out.setdefault(r["model"], [0, 0])
             n[0 if r.get("picked") else 1] += 1
     return out
@@ -372,6 +374,11 @@ def typical_seconds():
             except (ValueError, KeyError, TypeError):
                 continue
     return {m: sorted(v)[len(v) // 2] for m, v in times.items() if v}
+
+
+def allowed(models):
+    """The models asked for, less any excluded since the page loaded; the defaults if none are left."""
+    return [m for m in models or [] if not core.excluded(m)] or core.DEFAULT_MODELS
 
 
 def catalog():
@@ -1240,7 +1247,7 @@ class Handler(BaseHTTPRequestHandler):
                 (d / f"{parts[4]}.{ext}").write_bytes(base64.b64decode(b64))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "roll":
-                roll(parts[3], parts[5], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 2), data.get("base"),
+                roll(parts[3], parts[5], (data.get("notes") or "").strip(), allowed(data.get("models")), int(data.get("each") or 2), data.get("base"),
                      variants=data.get("variants"))
                 self.send_json({"ok": True})
             elif len(parts) == 7 and parts[4] == "stages" and parts[6] == "pick":
@@ -1257,7 +1264,7 @@ class Handler(BaseHTTPRequestHandler):
             elif len(parts) == 5 and parts[4] == "reset":
                 self.send_json({"previous": reset(parts[3], data.get("confirm"))})
             elif len(parts) == 5 and parts[4] == "fix-all":
-                fix_all(parts[3], (data.get("notes") or "").strip(), data.get("models") or core.DEFAULT_MODELS, int(data.get("each") or 1))
+                fix_all(parts[3], (data.get("notes") or "").strip(), allowed(data.get("models")), int(data.get("each") or 1))
                 self.send_json({"ok": True})
             else:
                 self.send_json({"error": "not found"}, 404)
