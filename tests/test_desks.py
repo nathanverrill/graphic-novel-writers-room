@@ -116,3 +116,31 @@ try:
 finally:
     projects.list_versions = real
 print("8. the second update takes the room's recommendation; deferred items stay put: ok")
+
+# 9. voices: the cast and the moments from the canon, tuning kept per character, folded in by Update canon
+from app import voices
+vslug = projects.create_project("Voice Book", "a pitch")
+projects.write_artifact(vslug, "characters.md", "# Characters\n\n## Characters\n\n### Bi11bot\n\nDry, warm.\n\n### Alex Phantum\n\nSeventeen.\n\n## Open\n\n### Nobody\n\nx\n", desk=projects.PRE)
+projects.write_artifact(vslug, "story.md", "# Story\n\n## 2. Story map\n\nThe ending: Alex wins.\n\n## 3. Page plot\n\n### Chapter 1\n\n**Page 1:** Alex tests the pump.\n**Page 2:** Bi11bot wakes. **Page-turn reveal:** a node.\n**Page 3:** The mine.\n\n## 4. Setups\n\nlater\n", desk=projects.PRE)
+assert [c["key"] for c in voices.characters(vslug)] == ["bi11bot", "alex-phantum"]
+ms = voices.moments(vslug)
+assert [m["id"] for m in ms] == ["p1", "p2", "p3"] and ms[1]["label"] == "Page 2 · Bi11bot wakes.", ms
+upto = voices.story_until(vslug, "p2")
+assert "Bi11bot wakes" in upto and "The mine" not in upto and "Alex wins" not in upto and "later" not in upto
+assert not voices.pending(vslug)
+voices.note(vslug, "bi11bot", "Never says certainly.")
+t = voices.tuning(vslug, "bi11bot")
+assert t["notes"][0]["text"] == "Never says certainly." and voices.pending(vslug)
+assert "Never says certainly." in voices.all_tuning_md(vslug)[0][1]
+chat = {"id": "abcdef123456", "character": "bi11bot", "as": "alex-phantum", "moment": "p2", "moment_label": "Page 2 · x"}
+sp = voices.system_prompt(vslug, chat)
+assert "Never says certainly." in sp and "Seventeen." in sp and "The mine" not in sp
+voices.forget(vslug, "bi11bot", t["notes"][0]["id"])
+assert not voices.tuning(vslug, "bi11bot")["notes"]
+try:
+    voices.tuning(vslug, "../x"); raise AssertionError("a path got through")
+except ValueError:
+    pass
+from app import intake as _in2
+assert _in2.pending(vslug)["voices"]
+print("9. voices: cast, moments that stop at the page, tuning kept and carried to Update canon: ok")

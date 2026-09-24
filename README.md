@@ -488,6 +488,18 @@ a second box for anything you want to add to your selection: it is saved with th
 on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
 The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
 
+**Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
+character, or a stranger in the world - and when in the story: a page of the page plot, or a
+scene of the outline. The character speaks first and never leaves the world; they know the story
+only up to that moment. They talk on the picked writer's model (Writer A until one is picked), so
+the voice you tune is the voice that writes the script. Mark their lines **that's them** or
+**not them** (with how they would really say it, and why), or add a note on the voice as a whole;
+**say it again** redraws a line with the voice as tuned now. The tuning shapes the conversation at
+once and is kept in `campaigns/<slug>/voices/` - `<character>.json`, and `<character>.md` for
+intake - with every conversation under `voices/chats/`. It is a proposal: the next **Update
+canon** carries it into that character's Voice in `characters.md`, and until it has, pre-production
+cannot be approved.
+
 **Update canon** runs intake's revision. The canon is the three files - the premise and outline
 (`story.md`), the characters, the world - and updating it is not a rewrite: only what an answer,
 a note or a rule touches changes, everything else comes back word for word, `facts.md` is

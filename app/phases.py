@@ -23,7 +23,7 @@ import time
 from dataclasses import replace
 from datetime import datetime
 
-from . import openitems, projects, review
+from . import openitems, projects, review, voices
 from .agents import load_roles
 from .config import AGENTS_DIR
 
@@ -196,6 +196,7 @@ def readiness(slug):
     changed = max((f.stat().st_mtime for f in rules), default=0)     # decisions.md is one of them
     listed = projects.project_dir(slug, projects.PRE) / openitems.ITEMS   # defers and item notes go here
     stamp = lambda k: datetime.fromisoformat(latest[k]).timestamp() if latest and latest.get(k) else 0
+    changed = max(changed, voices.changed_at(slug))      # the dialog simulator's tuning waits for the canon too
     unfolded = bool(latest) and (changed > stamp("started")
                                  or (listed.exists() and listed.stat().st_mtime > stamp("finished") + 2))
     why = None

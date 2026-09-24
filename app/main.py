@@ -19,7 +19,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices
 from .config import AGENTS_DIR, AgentConfig, env
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -71,7 +71,7 @@ def not_found(fn, *args, **kw):
 
 @app.get("/")
 def landing():
-    """Three doors: pre-production, production, sheets."""
+    """The doors: pre-production, production, voices, sheets."""
     return FileResponse(STATIC / "landing.html")
 
 
@@ -118,6 +118,12 @@ def preproduction():
     happens - the open items, their options and where each one came from, what you answer,
     defer or say about the book. The one-button screen and the full room are untouched."""
     return FileResponse(STATIC / "preproduction.html")
+
+
+@app.get("/voices")
+def voices_page():
+    """The dialog simulator: talk with a character in the world, and tune how they talk."""
+    return FileResponse(STATIC / "voices.html")
 
 
 @app.get("/production")
@@ -991,3 +997,79 @@ def run_events(run_id: str, after: int = 0):
 
     return StreamingResponse(stream(), media_type="text/event-stream",
                              headers={"Cache-Control": "no-cache"})
+
+
+# ---- the dialog simulator: talk with a character, tune the voice (app/voices.py) -----------------
+
+class VoiceStart(BaseModel):
+    character: str
+    as_: str | None = None          # who the showrunner is: another character's key, or none for a stranger
+    moment: str | None = None       # where in the story: a page ("p12") or a scene ("s40")
+
+
+class VoiceSay(BaseModel):
+    text: str
+
+
+class VoiceJudge(BaseModel):
+    verdict: str                    # "yes": that's them · "no": not them
+    rewrite: str | None = None      # not them: how they would really say it
+    why: str | None = None
+
+
+class VoiceNote(BaseModel):
+    text: str
+
+
+def _voices(fn, *a):
+    try:
+        return fn(*a)
+    except FileNotFoundError as e:
+        raise HTTPException(404, f"not found: {e}")
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except llm.LLMError as e:
+        raise HTTPException(502, f"the model did not answer: {str(e)[:300]}")
+
+
+@app.get("/api/voices/{slug}")
+def voices_overview(slug: str):
+    not_found(projects.project_dir, slug)
+    return _voices(voices.overview, slug)
+
+
+@app.post("/api/voices/{slug}/chats")
+def voices_start(slug: str, body: VoiceStart):
+    not_found(projects.project_dir, slug)
+    return _voices(voices.start, slug, body.character, body.as_, body.moment)
+
+
+@app.get("/api/voices/{slug}/chats/{cid}")
+def voices_chat(slug: str, cid: str):
+    return _voices(voices.load_chat, slug, cid)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/say")
+def voices_say(slug: str, cid: str, body: VoiceSay):
+    return _voices(voices.say, slug, cid, body.text)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/turns/{i}/again")
+def voices_again(slug: str, cid: str, i: int):
+    return _voices(voices.again, slug, cid, i)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/turns/{i}/judge")
+def voices_judge(slug: str, cid: str, i: int, body: VoiceJudge):
+    chat, tuning = _voices(voices.judge, slug, cid, i, body.verdict, body.rewrite, body.why)
+    return {"chat": chat, "tuning": tuning}
+
+
+@app.post("/api/voices/{slug}/tuning/{character}/notes")
+def voices_note(slug: str, character: str, body: VoiceNote):
+    return _voices(voices.note, slug, character, body.text)
+
+
+@app.delete("/api/voices/{slug}/tuning/{character}/{entry}")
+def voices_forget(slug: str, character: str, entry: str):
+    return _voices(voices.forget, slug, character, entry)
