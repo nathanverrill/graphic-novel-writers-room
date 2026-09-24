@@ -1,4 +1,5 @@
 {
   "use_references_during_synthesis": false,
-  "phase": "development"
+  "phase": "development",
+  "draft_mode": "edit"
 }

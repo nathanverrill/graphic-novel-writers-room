@@ -76,6 +76,52 @@ DRAFT_NOTE = {
                "unless the files require it.",
 }
 
+# draft_mode "edit": the draft is the book, and the room edits it. Improvements, no substantial
+# changes. Where this and a role guide disagree about the draft, this wins.
+ADDED = ("Where the pre-production files add something the draft does not have - a character, a "
+         "look, a rule, a fact - bring it into the draft's existing scenes: give it the moments the "
+         "scene has room for, without adding, cutting or moving a scene.")
+EDIT_NOTE = {
+    "development": "draft.md is the showrunner's own draft, and this book is an EDIT of it: improvements, "
+                   "no substantial changes. Director: the brief keeps the draft's story, scenes and "
+                   "ending; it decides only what the draft leaves open. Plotter: the draft's scenes, "
+                   "in the draft's order, ARE the page plot. Do not build a new version: fit them to "
+                   "the page count, fix what contradicts the pre-production files, and fill only real "
+                   "gaps. Character Designer: the draft's people as they are, made specific and "
+                   "drawable. " + ADDED + " Continuity Editor: a scene the files cut, merged or "
+                   "reordered against the draft is a Blocker unless the files require it.",
+    "audition": "draft.md is the showrunner's own draft, and this book is an EDIT of it. Your audition "
+                "pages are the draft's opening, edited: every scene and beat kept, the draft's lines "
+                "word for word unless a line is broken, the craft raised only where it is. " + ADDED,
+    "writing": "draft.md is the showrunner's own draft of the whole book, and script.md is an EDIT of "
+               "it: improvements, no substantial changes. Writer: go page by page through the draft "
+               "into full-script format. Keep every scene, in its order, and keep the draft's lines "
+               "word for word unless a line is broken - unclear, overwritten, off-voice, or "
+               "contradicted by story.md, characters.md, world.md or facts.md. Tighten, clarify and "
+               "make it drawable; do not rewrite for taste. " + ADDED + " End each page's PAGE CHECK "
+               "with `CHANGED:` - what you changed from the draft and why, or `none`. "
+               "Continuity Editor: check script.md against draft.md as well as the files. A dropped, "
+               "merged or reordered scene, or a changed story beat the files do not require, is a "
+               "Blocker; a line rewritten for no reason the CHANGED note gives is a Minor.",
+}
+
+
+def editing(slug):
+    """The book is an edit of the showrunner's draft: draft_mode "edit", and a draft to edit."""
+    return (review.settings(slug).get("draft_mode") == "edit"
+            and bool(projects.read_artifact(slug, projects.DRAFT)))
+
+
+EDIT_WRITER = "writer_a"      # the writer an edit goes to when nobody has auditioned
+
+
+def start_edit(slug):
+    """An edit has no audition: the writer already picked, or Writer A, starts script.md empty."""
+    writer = review.settings(slug)["writer"] or EDIT_WRITER
+    projects.write_artifact(slug, "script.md", "")
+    review.save_settings(slug, writer=writer)
+    return go_to(slug, "writing")
+
 
 def note(slug, phase):
     """What the agents are told about the phase they are running in."""
@@ -84,7 +130,7 @@ def note(slug, phase):
         n = phase["pages"]
         parts.append(f"This is the audition. Write pages 1-{n} only, in full, into your audition file. "
                      "The other writer is writing the same pages and you cannot see their work.")
-    if phase["id"] == "writing":
+    if phase["id"] == "writing" and not editing(slug):
         parts.append("The showrunner picked you in the audition. script.md holds your audition pages: "
                      "keep their voice, and write the whole book.")
     if phase["id"] == "execution":
@@ -98,7 +144,10 @@ def note(slug, phase):
                      + (f"for pages {', '.join(map(str, have))}. " if have else "for no pages yet. ")
                      + "Judge the lettering against the real page where there is one, and against the "
                        "layout sketch where there is not.")
-    if phase["id"] in DRAFT_NOTE and projects.read_artifact(slug, projects.DRAFT):
+    if editing(slug):
+        if phase["id"] in EDIT_NOTE:
+            parts.append(EDIT_NOTE[phase["id"]])
+    elif phase["id"] in DRAFT_NOTE and projects.read_artifact(slug, projects.DRAFT):
         parts.append(DRAFT_NOTE[phase["id"]])
     return "\n\n".join(parts) or None
 
@@ -124,6 +173,8 @@ def approve(slug):
         raise ValueError(f"{phase['title']} is not closed by approving it")
     if phase["id"] == "intake":
         projects.seed_production(slug)
+    if phase["id"] == "development" and editing(slug):
+        return start_edit(slug)         # an edit has no audition
     ids = [p["id"] for p in load()]
     if phase["id"] == ids[-1]:          # the last phase: approving it closes the book where it is
         return state(slug)

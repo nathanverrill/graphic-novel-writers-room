@@ -8,6 +8,7 @@ tmp = pathlib.Path(tempfile.mkdtemp()) / "campaigns"
 tmp.mkdir(parents=True)
 from app import config; config.CAMPAIGNS_DIR = tmp
 from app import projects, review, phases, room, magic, lettering, prompts, thumbnails
+from app.agents import load_roles
 projects.CAMPAIGNS_DIR = tmp
 
 slug = projects.create_project("Fast Book", "a pitch")
@@ -68,6 +69,25 @@ only = [r.id for r in phases.roles(slug, phases.get("execution")) if r.id in ("l
 assert only == ["layout"]
 assert any(p["step"] == "layouts" and [a["id"] for a in p["agents"]] == ["layout"] for p in magic.plan(slug))
 print("4b. the layouts stop runs the Layout Agent alone: ok")
+
+# 4c. edit mode: the draft is the book; no audition, and the notes say edit, not rewrite
+eslug = projects.create_project("Edit Book", "a pitch", draft="PAGE 1. Bi11bot opens the door.")
+assert not phases.editing(eslug)
+projects.seed_production(eslug)
+assert "improve on it" in phases.note(eslug, phases.get("development"))
+review.save_settings(eslug, draft_mode="edit")
+assert phases.editing(eslug)
+assert any(p["step"] == "audition" for p in magic.plan(slug))
+assert not any(p["step"] == "audition" for p in magic.plan(eslug))
+dn = phases.note(eslug, phases.get("development"))
+assert "EDIT" in dn and "improve on it" not in dn
+wn = phases.note(eslug, phases.get("writing"))
+assert "CHANGED:" in wn and "audition pages" not in wn
+phases.go_to(eslug, "development")
+assert phases.approve(eslug) == {**phases.state(eslug), "phase": "writing"}
+assert review.settings(eslug)["writer"] == "writer_a"
+assert "draft.md" in next(r for r in load_roles() if r.id == "continuity").reads
+print("4c. edit mode skips the audition and tells the room to edit: ok")
 
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})

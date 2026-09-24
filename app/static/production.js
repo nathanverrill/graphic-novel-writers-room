@@ -212,12 +212,24 @@ function renderBegin() {
   const total = plan.filter((p) => !p.optional && !p.after).reduce((t, p) => t + (p.seconds || 0), 0);
   const pages = m.pages ? `a ${m.pages}-page book` : "the book";
   const drafts = m.drafts || [];
+  const edit = (project.settings || {}).draft_mode === "edit";
   $('.tab[data-tab="begin"]').innerHTML = `
-    <h2>${drafts.length ? `Improve your draft into ${pages}, against the pre-production files.` : `Make ${pages} from the pre-production files.`}</h2>
+    <h2>${!drafts.length ? `Make ${pages} from the pre-production files.`
+      : edit ? `Edit your draft into ${pages}: improvements, no substantial changes.`
+      : `Improve your draft into ${pages}, against the pre-production files.`}</h2>
     ${drafts.length ? `<p>Your drafts - ${drafts.map((d) => `<code>${esc(d)}</code>`).join(", ")} - go onto the
-      production desk as <code>draft.md</code>. The room plans around it, auditions on its opening,
-      and writes the book from it: keeping its scenes and the lines that work, fixing what the
-      story, characters, world and facts contradict, raising the craft. It does not start over.</p>` : ""}
+      production desk as <code>draft.md</code>. ${edit
+        ? `The room edits it: every scene kept, in its order, your lines word for word unless one is
+           broken, and what the pre-production files add worked into the scenes you have. There is no
+           audition: one writer edits, and notes on each page what it changed and why.`
+        : `The room plans around it, auditions on its opening, and writes the book from it: keeping its
+           scenes and the lines that work, fixing what the story, characters, world and facts
+           contradict, raising the craft. It does not start over.`}</p>
+    <div class="filters" role="group" aria-label="What the room does with your draft">
+      <button type="button" data-draft-mode="improve" aria-pressed="${!edit}">Improve it</button>
+      <button type="button" data-draft-mode="edit" aria-pressed="${edit}">Edit it - no substantial changes</button>
+      <span class="hint" id="draft-mode-said" style="margin:0"></span>
+    </div>` : ""}
     <p>The room runs every stage below itself and takes each decision along the way - who writes,
       whether the story stands - and stops at the <b>layouts</b>: every page's map and its panels,
       on the Pages tab, to look at before the long part. <b>Make the pages</b> then runs the fix
@@ -551,6 +563,14 @@ $("#rules").addEventListener("click", async (e) => {
   const b = e.target.closest("button[data-rule]"); if (!b) return;
   state.rules = (await api(`/api/projects/${state.slug}/rules/${b.dataset.rule}`, { method: "DELETE" })).rules;
   renderRules();
+});
+
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest("button[data-draft-mode]"); if (!b || b.getAttribute("aria-pressed") === "true") return;
+  try {
+    await api(`/api/projects/${state.slug}/settings`, { method: "PUT", body: { draft_mode: b.dataset.draftMode } });
+    await load();
+  } catch (err) { $("#draft-mode-said").textContent = err.message; }
 });
 
 /* ---- settings ----------------------------------------------------------------- */

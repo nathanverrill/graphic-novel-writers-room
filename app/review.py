@@ -28,6 +28,7 @@ DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_p
                     "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
                     "scope": None,       # execution on the first N pages only (magic's page-1 proof); None = the book
                     "use_references_during_synthesis": True,    # see app/intake.py, pass 1
+                    "draft_mode": "improve",   # improve | edit: how the room treats the showrunner's draft (phases.py)
                     "phase": "intake", "writer": None}      # where the book is: see phases.py
 
 

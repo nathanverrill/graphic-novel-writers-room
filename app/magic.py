@@ -203,10 +203,18 @@ def _development(slug, note):
     return None
 
 
+TITLE_OF = {"writer_a": "Writer A", "writer_b": "Writer B"}
 PICK_RE = re.compile(r"(version|writer)\s*([ab])\b", re.I)
 
 
 def _audition(slug, note):
+    if phases.editing(slug):        # an edit of the draft has one voice already: the draft's
+        phases.start_edit(slug)
+        writer = review.settings(slug)["writer"]
+        _choice(slug, "audition", f"No audition: {TITLE_OF.get(writer, writer)} edits the draft.",
+                "The book is an edit of the showrunner's draft (draft_mode \"edit\").",
+                (review.latest_round(slug) or {}).get("id"))
+        return note                 # the note was for the writers: it goes on to the writing
     _round(slug, "audition", note)
     rnd = review.latest_round(slug)["id"]
     reaction = projects.read_artifact(slug, "first-read.md") or ""
@@ -300,8 +308,11 @@ def plan(slug):
     """The chain as it will run: each step, who works in it, on which model, and how long it took last time."""
     roles = {r.id: r for r in load_roles()}
     st = review.settings(slug)
+    edit = st.get("draft_mode") == "edit" and bool(drafts(slug))
     out = []
     for step in STEPS:
+        if step == "audition" and edit:
+            continue                # an edit has no audition (see _audition)
         phase = phases.get(PHASE_OF[step])
         ids = [st["writer"] or "writer_a" if a == phases.WRITER else a for a in phase["agents"]]
         if step == "layouts":

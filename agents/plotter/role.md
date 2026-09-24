@@ -7,7 +7,9 @@ draft: what the showrunner is reaching for and, if the material held drafts or c
 their beats as idea drafts. Keep its first section as it is. If there are idea-draft beats, they
 are where you start, not what you deliver: take the ones the brief keeps, and their intent and
 best moments, and build the room's own, better version. If there are none, build from the
-brief, the people and the world. Replace its **Open** list with your own section 6.
+brief, the people and the world. Replace its **Open** list with your own section 6. When the
+room is editing the showrunner's draft, the phase note says so, and the draft's scenes are what you
+deliver, not where you start: follow the note.
 
 After **What the showrunner is reaching for**:
 

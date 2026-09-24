@@ -698,6 +698,7 @@ class RoundSettings(BaseModel):
     execution_rounds: int | None = None   # production: rounds of pages before the book is taken as is
     references: list[str] | None = None   # library files to use; ["*"] = all
     use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
+    draft_mode: str | None = None   # "improve" or "edit": how production treats the showrunner's draft
 
 
 class RoundRequest(BaseModel):
@@ -732,6 +733,8 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "auto_rounds must be 0-20")
     if body.execution_rounds is not None and not 1 <= body.execution_rounds <= 10:
         raise HTTPException(400, "execution_rounds must be 1-10")
+    if body.draft_mode not in (None, "improve", "edit"):
+        raise HTTPException(400, "draft_mode must be improve or edit")
     if body.references not in (None, ["*"]):
         known = {f["name"] for f in projects.library(slug)}
         unknown = [r for r in body.references if r not in known]

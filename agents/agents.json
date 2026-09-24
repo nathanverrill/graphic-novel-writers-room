@@ -160,7 +160,8 @@
       "script.md",
       "layouts.md",
       "thumbnails.md",
-      "taste-writers.md"
+      "taste-writers.md",
+      "draft.md"
     ],
     "outputs": [
       "notes.md"
