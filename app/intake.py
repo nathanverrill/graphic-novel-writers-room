@@ -34,7 +34,7 @@ import re
 import shutil
 import threading
 
-from . import llm, openitems, projects, review, rules as rules_mod
+from . import llm, openitems, projects, review, rules as rules_mod, voices
 from .config import DEBUG_DIR
 from .agent import Stopped
 from .agents import gather_context
@@ -420,8 +420,9 @@ def pending(slug):
     """Everything waiting to be carried into the files: answers and notes both, and from the
     second update on, the room's recommendation for every item still left unanswered."""
     answers, said, recs = resolved(slug), notes(slug), openitems.recommended(slug)
+    tuned = voices.pending(slug)
     return {"decisions": answers + recs, "recommended": recs, "notes": said, "deferred": deferred(slug),
-            "any": bool(answers or recs or said["any"])}
+            "voices": tuned, "any": bool(answers or recs or said["any"] or tuned)}
 
 
 class Intake:
@@ -807,6 +808,14 @@ class Intake:
                             "Here because a decision above rests on it. Use it for that decision "
                             "and nothing else.")
                 text += [f"## campaigns/{name}\n\n{body}" for _, name, body in shelf]
+        tuned = voices.all_tuning_md(self.slug)
+        if tuned:
+            text.append("# Voice tuning - the showrunner's, from talking with the characters\n"
+                        "For characters.md only, with the authority of a [HIGH] note. Carry each into "
+                        "that character's Voice: the notes shape how it is described, lines marked "
+                        "\"that's them\" may join their representative lines, and nothing they say may "
+                        "sound like a line marked \"not them\". The other files are not touched by it.")
+            text += [f"## {FOLDER_NOTE}{name}\n\n{body}" for name, body in tuned]
         if note:
             text += ["# Note from the showrunner", note]
         return "\n\n".join(text)
@@ -951,6 +960,28 @@ class Intake:
                     f"Diagnostics only - the output is kept either way."))
         return written
 
+    def whole(self, label, name, revised, before, build, snapshot, inputs):
+        """A revision comes back whole, or not at all.
+
+        Pass 4 returns each file changed only where a decision or a note reaches it, so a reply
+        much shorter than the file it revises has dropped material, not tightened it: Prosperity
+        lost its whole world.md to a two-line "nothing reaches this file" note, and 40% of every
+        character entry to one decision about the supporting cast. Such a reply is asked for once
+        more; if it is short again, the file stays as it was and the round says so. Returns
+        (content, kept_previous)."""
+        if not before or len(revised) >= SHORTEST_REVISION * len(before):
+            return revised, False
+        self.emit("warn", text=(f"Pass {label} ({name}) came back at {len(revised) / len(before):.0%} of the "
+                                f"file it revises. Asking once more for the whole file."))
+        again = self.call(f"{label}-again", GUIDES_PASS["4"], name, build() + WHOLE_AGAIN,
+                          snapshot, False, False, inputs)
+        if len(again) >= SHORTEST_REVISION * len(before):
+            return again, False
+        self.emit("warn", text=(f"Pass {label} ({name}) was short again ({len(again) / len(before):.0%}). "
+                                f"{name} stays as it was; what the decisions and notes meant for it is "
+                                f"not carried in. Update canon again, or edit it by hand."))
+        return before, True
+
     # ---- the run ---------------------------------------------------------
 
     def write(self, name, content):
@@ -1081,6 +1112,8 @@ class Intake:
             raise IntakeError("nothing to revise: no open item has been answered and no notes "
                               "have been left")
         said = work["notes"]
+        if work["voices"]:
+            self.emit("message", text="Carrying the voice tuning from the dialog simulator into characters.md.")
         if work["recommended"]:
             self.emit("message", text=(
                 f"Taking the room's recommendation for {len(work['recommended'])} item(s) left "
@@ -1099,7 +1132,12 @@ class Intake:
         shared = self.revision_payload(work, note)
         written = self.parallel("4", CORE, lambda n: self.revision_message(n, shared),
                                 snap, inputs, current)
-        for name in CORE:
+        kept = []
+        for i, name in enumerate(CORE):
+            written[name], same = self.whole(f"4{chr(ord('A') + i)}", name, written[name], current.get(name),
+                                             lambda n=name: self.revision_message(n, shared), snap, inputs)
+            if same:
+                kept.append(name)
             self.write(name, written[name])
         # the list last, so it is reconciled against the revised files
         listed = self.call("4D", REVISION, ITEMS,
@@ -1115,6 +1153,7 @@ class Intake:
         self.run_status = READY
         done = self.record(before, {
             "snapshot": snap,
+            "kept_previous": kept,
             "decisions_integrated": [a["n"] for a in work["decisions"]],
             "recommendations_taken": [{"n": a["n"], "question": a["question"], "answer": a["answer"]}
                                       for a in work["recommended"]],
@@ -1127,9 +1166,16 @@ class Intake:
                    f"{len(work['decisions'])} decision(s) and "
                    f"{len(said['general']) + len(said['items'])} note(s) carried in, "
                    f"{FACTS} derived. {after['unresolved']} item(s) still open, "
-                   f"{after['deferred']} deferred.")
+                   f"{after['deferred']} deferred."
+                   + (f" Kept as they were, because the revision came back short twice: {', '.join(kept)}." if kept else ""))
         self.version.append_log(self.role.title, summary)
         return summary
 
 
+SHORTEST_REVISION = 0.8     # of the file it revises: shorter than this, a revision has lost material
+WHOLE_AGAIN = ("\n\n# Again, whole\nYour last reply was far shorter than the file it revises. Return "
+               "the ENTIRE file: every section, every entry, every line, word for word except where a "
+               "decision or a note above changes it. If nothing above reaches this file, return it "
+               "exactly as it is. Never return a note about the file instead of the file.")
+FOLDER_NOTE = "campaigns/<campaign>/voices/"
 GUIDES_PASS = {"1": SYNTHESIS, "4": REVISION}

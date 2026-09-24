@@ -80,6 +80,9 @@ def fake_chat(cfg, messages, tools=None, log=None, max_tokens=None):
         CONCURRENT[0] -= 1
     d = dest_of(messages[-1]["content"])
     text = REPLY.get(d, body(d, KEEP[0]) if d in intake.CORE else "")
+    if isinstance(text, list):          # one reply per call, the last one repeated
+        with LOCK:
+            text = text.pop(0) if len(text) > 1 else text[0]
     return {"role": "assistant", "content": text, "finish_reason": "stop"}
 llm.chat = fake_chat
 
@@ -219,6 +222,21 @@ p4 = SENT[0][1]["content"]
 print("   pass 4 carried: decision", "She is 61. Lock it." in p4,
       "| [HIGH]", "[HIGH] Keep Ana morally ambiguous." in p4,
       "| deferral", "not until chapter 3" in p4, "| no shelf", "Pump research" not in p4)
+
+# ---- 8b. a revision that comes back short is asked again, then refused ---------
+stub = "# World\n\nNo decision reaches world.md. The file remains unchanged."
+world_before = projects.read_artifact(slug, "world.md", desk=projects.PRE)
+openitems.set_feedback(slug, "[LOW] Tighter captions.")
+a, v, note, err = run({"pass4items": LEFT, intake.FACTS: FACTSFILE, "world.md": [stub, world_before]})
+assert err is None, err
+assert projects.read_artifact(slug, "world.md", desk=projects.PRE) == world_before
+assert any(x["call"].endswith("-again") for x in v.meta["intake"]["calls"]) and v.meta["intake"]["kept_previous"] == []
+openitems.set_feedback(slug, "[LOW] Tighter captions, again.")
+a, v, note, err = run({"pass4items": LEFT, intake.FACTS: FACTSFILE, "world.md": [stub]})
+assert err is None, err
+assert projects.read_artifact(slug, "world.md", desk=projects.PRE) == world_before, "a stub replaced the world"
+assert v.meta["intake"]["kept_previous"] == ["world.md"] and "Kept as they were" in note
+print("\n8b. a short revision is asked again, and a stub never replaces the file: ok")
 
 # ---- 9. soft input ceiling ----------------------------------------------
 print("\n9. soft input ceiling:", f"{intake.SOFT_INPUT_CHARS:,} chars",
