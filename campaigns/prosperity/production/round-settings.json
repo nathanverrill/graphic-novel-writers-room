@@ -1,103 +1,58 @@
 {
   "use_references_during_synthesis": false,
-  "phase": "execution",
+  "phase": "drafts",
   "draft_mode": "edit",
   "approved": {
-    "at": "2026-09-25T02:55:16",
-    "t": 1790304916.744883,
-    "round": "r08-ai"
+    "at": "2026-09-25T06:06:54",
+    "t": 1790316414.402662,
+    "round": "r12-ai"
   },
   "magic": {
-    "status": "page1",
+    "status": "failed",
     "choices": [
       {
-        "t": 1790307486.9987967,
+        "t": 1790316826.165379,
         "step": "development",
         "what": "Approved the development files as written.",
         "why": "The brief, story and people go forward as the Director's room left them.",
-        "round": "r34-ai"
-      },
-      {
-        "t": 1790307642.0582757,
-        "step": "audition",
-        "what": "No audition: Writer A edits the draft.",
-        "why": "The book is an edit of the showrunner's draft (draft_mode \"edit\").",
-        "round": "r35-ai"
-      },
-      {
-        "t": 1790307791.23827,
-        "step": "writing",
-        "what": "Approved the script as written.",
-        "why": "The whole book, in the picked writer's voice.",
-        "round": "r36-ai"
+        "round": "r39-ai"
       }
     ],
     "log": [
       {
-        "t": 1790307362.3608086,
-        "text": "Production starts at Development, running to proof page."
+        "t": 1790316414.450324,
+        "text": "Production starts at Development, running to draft edit."
       },
       {
-        "t": 1790307362.3767078,
+        "t": 1790316414.4736154,
         "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
       },
       {
-        "t": 1790307362.5508444,
-        "text": "Round r34-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+        "t": 1790316414.828853,
+        "text": "Round r39-ai: development, Director, Plotter, Character Designer, Continuity Editor."
       },
       {
-        "t": 1790307487.1206453,
-        "text": "Round r35-ai: draft edit, Draft Editor."
+        "t": 1790316826.442503,
+        "text": "Round r40-ai: draft edit, Draft Editor."
       },
       {
-        "t": 1790307572.472378,
-        "text": "Your drafts are edited to the canon: every change and everything that does not fit is in draft-changes.md. Read them, then script them - or stop here."
-      },
-      {
-        "t": 1790307642.0360658,
-        "text": "Production starts at Audition, running to proof page."
-      },
-      {
-        "t": 1790307642.063196,
-        "text": "No audition in an edit: the writer scripts the drafts first, for the proof page to be laid out from."
-      },
-      {
-        "t": 1790307642.3557246,
-        "text": "Round r36-ai: writing, Writer A, Continuity Editor."
-      },
-      {
-        "t": 1790307791.3490942,
-        "text": "Round r37-ai: execution, Layout Agent, Continuity Editor."
-      },
-      {
-        "t": 1790307914.900411,
-        "text": "The proof, page 28, is ready. Have a look: is this about right?"
-      },
-      {
-        "t": 1790308453.9144053,
-        "text": "Production starts at Proof page, running to proof page."
-      },
-      {
-        "t": 1790308454.1764848,
-        "text": "Round r38-ai: execution, Layout Agent, Continuity Editor."
-      },
-      {
-        "t": 1790308547.285796,
-        "text": "The proof, page 46, is ready. Have a look: is this about right?"
+        "t": 1790317947.8366444,
+        "text": "Failed at draft edit: RuntimeError: round r40-ai ended with status 'error'"
       }
     ],
-    "step": "page1",
-    "until": "page1",
-    "error": null,
+    "step": "drafts",
+    "until": "drafts",
+    "error": "RuntimeError: round r40-ai ended with status 'error'",
     "stop": false,
-    "started": "2026-09-25T03:54:13",
-    "finished": "2026-09-25T03:55:47",
+    "started": "2026-09-25T06:06:54",
+    "finished": "2026-09-25T06:32:27",
     "written_for_page1": false,
-    "run": "c0b2ed15de62",
-    "round": "r38-ai"
+    "run": "9707b57a2f0e",
+    "round": "r40-ai"
   },
-  "scope": 1,
+  "scope": 0,
   "writer": "writer_a",
   "proof_page": 46,
-  "pages": 65
+  "pages": 65,
+  "expand_pages": 0
 }

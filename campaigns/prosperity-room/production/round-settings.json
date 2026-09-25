@@ -1,0 +1,57 @@
+{
+  "use_references_during_synthesis": false,
+  "phase": "audition",
+  "draft_mode": "improve",
+  "approved": {
+    "at": "2026-09-25T06:06:54",
+    "t": 1790316414.402662,
+    "round": "r12-ai"
+  },
+  "magic": {
+    "status": "failed",
+    "choices": [
+      {
+        "t": 1790316570.1012645,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r01-ai"
+      }
+    ],
+    "log": [
+      {
+        "t": 1790316414.4466171,
+        "text": "Production starts at Development, running to final."
+      },
+      {
+        "t": 1790316414.4699178,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
+      },
+      {
+        "t": 1790316414.5888622,
+        "text": "Round r01-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1790316570.1631436,
+        "text": "Round r02-ai: audition, Writer A, Writer B, First Reader."
+      },
+      {
+        "t": 1790317940.2989335,
+        "text": "Failed at audition: RuntimeError: round r02-ai ended with status 'error'"
+      }
+    ],
+    "step": "audition",
+    "until": "final",
+    "error": "RuntimeError: round r02-ai ended with status 'error'",
+    "stop": false,
+    "started": "2026-09-25T06:06:54",
+    "finished": "2026-09-25T06:32:20",
+    "written_for_page1": false,
+    "run": "67974b1e58db",
+    "round": "r02-ai"
+  },
+  "scope": 0,
+  "writer": null,
+  "proof_page": null,
+  "pages": 65
+}
