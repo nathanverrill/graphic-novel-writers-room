@@ -3,7 +3,7 @@
  * One button makes the book: Produce runs development, the audition, the writing and the
  * pages, takes every gate itself (app/magic.py), and ends with the page packets - everything
  * to paste into an image model, one page at a time, for art with no text on it. A second
- * button, "Page 1 first", stops at a proof of page 1 for a showrunner who wants to see the
+ * button, "Proof first", stops at a proof of one page - page 1, or any page picked - for a showrunner who wants to see the
  * look before the rest is made. What the showrunner does is notes, and stepping back to
  * wherever a note reaches. Everything the room decided is on the Choices tab.
  *
@@ -36,8 +36,8 @@ async function pickCampaign() {
 /* ---- the left column --------------------------------------------------- */
 
 const STEPS = ["development", "drafts", "audition", "page1", "writing", "layouts", "execution", "final"];
-const TITLES = { development: "Development", drafts: "Draft edit", audition: "Audition", page1: "Page 1", writing: "Writing", layouts: "Layouts", execution: "Pages", final: "Final" };
-const STOPS = { drafts: "the edited drafts: you read", page1: "page 1 proof: you look", layouts: "the layouts: you look", final: "the packets: you draw" };
+const TITLES = { development: "Development", drafts: "Draft edit", audition: "Audition", page1: "Proof page", writing: "Writing", layouts: "Layouts", execution: "Pages", final: "Final" };
+const STOPS = { drafts: "the edited drafts: you read", page1: "the proof page: you look", layouts: "the layouts: you look", final: "the packets: you draw" };
 const editing = () => project.settings?.draft_mode === "edit";
 
 function renderState() {
@@ -47,7 +47,7 @@ function renderState() {
   $("#round").textContent = latest ? latest.id : "no rounds yet";
   const [cls, label] = active || m.status === "running" ? ["run", "working"]
     : m.status === "drafts" ? ["wait", "the edited drafts are waiting for you"]
-    : m.status === "page1" ? ["wait", "page 1 is waiting for you"]
+    : m.status === "page1" ? ["wait", `the proof, page ${proofPage()}, is waiting for you`]
     : m.status === "layouts" ? ["wait", "the layouts are waiting for you"]
     : m.status === "done" ? ["ready", "the book is done"]
     : m.status === "stopped" ? ["fail", "stopped"]
@@ -98,7 +98,7 @@ function renderMade() {
 
 /* ---- the actions, by where the book is ------------------------------------ */
 
-const BACK = [["page1", "page 1 again"], ["layouts", "the layouts"], ["execution", "the pages"], ["writing", "the words"],
+const BACK = [["page1", "the proof page again"], ["layouts", "the layouts"], ["execution", "the pages"], ["writing", "the words"],
               ["audition", "the audition"], ["development", "the story and the people"]];
 
 function renderActs() {
@@ -116,13 +116,15 @@ function renderActs() {
   } else if (m.status === "drafts") {
     acts.innerHTML = save +
       `<button class="go alt" id="drafts-again">Edit the drafts again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
+      proofPicker() + `<button class="go alt" id="proof">Script and proof</button>` +
       `<button class="go" id="script-them">Script them and lay out →</button>`;
     hint.textContent = `The book is ${project.settings?.pages || "?"} pages. On the Files tab: draft-changes.md has every change, every addition, what does not fit, the page count by chapter and who still needs a sheet; draft-final.md is the book the script is made from. Notes (\"cut NEW 3.2\", \"more of TJ in ch. 4\") go to Edit the drafts again.`;
   } else if (m.status === "page1") {
     acts.innerHTML = save +
-      `<button class="go alt" id="again">Page 1 again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
+      proofPicker() +
+      `<button class="go alt" id="again">Proof again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
       `<button class="go" id="rest">Looks right - make the rest →</button>`;
-    hint.textContent = "The first page is a proof of the look. Make the rest, or add notes and try page 1 again.";
+    hint.textContent = `Page ${proofPage()}${proofWhere(proofPage()) ? ` (${proofWhere(proofPage())})` : ""} is a proof of the look, on the Proof tab. Make the rest, or pick a page, add notes, and proof again.`;
   } else if (m.status === "layouts") {
     acts.innerHTML = save +
       `<button class="go alt" id="layouts-again">Layouts again${notes ? ` with ${notes} note${notes > 1 ? "s" : ""}` : ""}</button>` +
@@ -139,10 +141,10 @@ function renderActs() {
       `<button class="go" id="make">Produce</button>`;
     hint.textContent = m.status === "failed" ? `An error stopped it at ${TITLES[m.step] || m.step}: ${m.error || "see Activity"}. Resume picks up there.` : "Stopped. Resume picks up where it was.";
   } else {
-    acts.innerHTML = save + `<button class="go alt" id="proof">Page 1 first</button><button class="go" id="make">Produce</button>`;
+    acts.innerHTML = save + proofPicker() + `<button class="go alt" id="proof">Proof first</button><button class="go" id="make">Produce</button>`;
     hint.textContent = project.phase === "intake"
       ? "Pre-production has not been approved yet - Approve for production on its desk does that. You can still produce."
-      : "Produce runs to the layouts: every page's map and panels, to look at. Then Make the pages. Page 1 first stops at a proof of the look instead.";
+      : "Produce runs to the layouts: every page's map and panels, to look at. Then Make the pages. Proof first stops at a proof of the look on the page you pick instead.";
   }
   $("#tabs").querySelectorAll("button").forEach((b) => { b.disabled = running && b.dataset.tab !== "log"; });
   if (running && state.tab !== "log") showTab("log");
@@ -165,7 +167,7 @@ async function magic(body) {
 $("#acts").addEventListener("click", async (e) => {
   const b = e.target.closest("button"); if (!b || b.disabled) return;
   if (b.id === "make") return magic({ step: "development", until: "layouts" });
-  if (b.id === "proof") return magic({ step: "development", until: "page1" });
+  if (b.id === "proof") return magic({ step: proofStart(), until: "page1" });
   if (b.id === "rest") return magic({ step: "writing", until: "layouts" });
   if (b.id === "drafts-again") return magic({ step: "drafts", until: "drafts" });
   if (b.id === "script-them") return magic({ step: "audition", until: "layouts" });
@@ -205,7 +207,7 @@ function showTab(name) {
   state.tab = name;
   $("#tabs").querySelectorAll("button").forEach((b) => b.setAttribute("aria-selected", b.dataset.tab === name));
   document.querySelectorAll(".tab").forEach((s) => { s.hidden = s.dataset.tab !== name; });
-  ({ begin: renderBegin, page1: () => renderPage(1, $('.tab[data-tab="page1"]')),
+  ({ begin: renderBegin, page1: () => renderPage(proofPage(), $('.tab[data-tab="page1"]')),
      pages: renderPages, packets: renderPackets, lettering: renderLettering,
      files: renderFile, choices: renderChoices, settings: renderSettings })[name]?.();
 }
@@ -261,10 +263,10 @@ function renderBegin() {
     <p class="hint" style="margin:0 0 .9rem">${total ? `About ${secs(total * 1000)} of model time to the packets, going by past rounds; agents marked * run side by side. ` : ""}
       Everything is kept under <code>previous/</code>, round by round, and every model call shows under Activity as it happens.</p>
     ${m.status === "idle" && !m.choices?.length
-      ? `<button class="go big" id="begin-go">Produce</button> <button class="go alt" id="begin-proof" style="width:auto">Page 1 first</button>`
+      ? `<button class="go big" id="begin-go">Produce</button> ${proofPicker()} <button class="go alt" id="begin-proof" style="width:auto">Proof first</button>`
       : `<span class="hint">Use the buttons top right: production has already begun.</span>`}`;
   $("#begin-go")?.addEventListener("click", () => magic({ step: "development", until: "layouts" }));
-  $("#begin-proof")?.addEventListener("click", () => magic({ step: "development", until: "page1" }));
+  $("#begin-proof")?.addEventListener("click", () => magic({ step: proofStart(), until: "page1" }));
 }
 
 /* ---- the log --------------------------------------------------------------- */
@@ -347,7 +349,7 @@ async function renderPage(n, sec) {
   sec.innerHTML = `<p class="hint">loading page ${n}…</p>`;
   let v, prompt = state.prompts?.pages?.[n];
   try { v = await api(`/api/projects/${state.slug}/pages/${n}`); }
-  catch { sec.innerHTML = `<p class="hint">No page ${n} yet${n === 1 ? " - it is made at the page 1 stop" : ""}.</p>`; return; }
+  catch { sec.innerHTML = `<p class="hint">No page ${n} yet${n === proofPage() ? " - it is made by the proof" : ""}.</p>`; return; }
   const art = (project.images || []).find((i) => i.includes(`-p${String(n).padStart(2, "0")}-art`));
   sec.innerHTML = `
     <div class="page">
@@ -603,6 +605,41 @@ document.addEventListener("click", async (e) => {
     await api(`/api/projects/${state.slug}/settings`, { method: "PUT", body: { draft_mode: b.dataset.draftMode } });
     await load();
   } catch (err) { $("#draft-mode-said").textContent = err.message; }
+});
+
+/* ---- the proof: one page, any page ------------------------------------------------ *
+ * The proof lays out one page to judge the look before the rest. Pick it by chapter and page
+ * where the outline numbers the chapter's pages, or by its page in the book. */
+
+const proofPage = () => state.magic.proof?.page || 1;
+const proofChapters = () => state.magic.proof?.chapters || [];
+const chapterOf = (n) => proofChapters().find((c) => n >= c.first && n < c.first + c.pages);
+function proofWhere(n) { const c = chapterOf(n); return c ? `chapter ${c.chapter}, page ${n - c.first + 1}` : ""; }
+
+/* An edit whose drafts are done scripts from them and proofs; anything else starts at development. */
+function proofStart() {
+  return editing() && (project.artifacts || []).some((a) => a.name === "draft-final.md") ? "audition" : "development";
+}
+
+function proofPicker() {
+  const n = proofPage(), cur = chapterOf(n), chs = proofChapters();
+  return `<span class="proof-pick" title="The page the proof lays out">Proof
+    <select id="proof-ch">${chs.map((c) => `<option value="${c.chapter}" ${cur?.chapter === c.chapter ? "selected" : ""}>ch. ${c.chapter}</option>`).join("")}
+      <option value="" ${cur ? "" : "selected"}>book</option></select>
+    page <input type="number" id="proof-n" min="1" value="${cur ? n - cur.first + 1 : n}">
+    ${cur ? `<span class="hint">= book p. ${n}</span>` : ""}</span>`;
+}
+
+document.addEventListener("change", async (e) => {
+  if (!["proof-ch", "proof-n"].includes(e.target.id)) return;
+  const ch = proofChapters().find((c) => String(c.chapter) === $("#proof-ch").value);
+  let k = Math.max(1, +$("#proof-n").value || 1);
+  if (e.target.id === "proof-ch") k = 1;                // a new chapter starts at its first page
+  const page = ch ? ch.first + Math.min(k, ch.pages) - 1 : k;
+  try {
+    await api(`/api/projects/${state.slug}/settings`, { method: "PUT", body: { proof_page: page } });
+    await load();
+  } catch (err) { $("#acts-hint").textContent = err.message; }
 });
 
 /* ---- settings ----------------------------------------------------------------- */

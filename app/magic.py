@@ -5,7 +5,7 @@ takes the decisions itself:
 
     development   Director, then Plotter and Character Designer side by side, then Continuity
     audition      Writer A and Writer B side by side; the First Reader's reaction picks the writer
-    page1         execution on page 1 only, from the audition pages already in script.md
+    page1         the proof: execution on one page only (page 1, or proof_page), from the script
                   -> only when asked for (until="page1"): a cheap look at the book before the rest
     writing       the picked writer writes the whole book
     layouts       one pass of the Layout Agent alone: the page maps and panel definitions
@@ -38,9 +38,41 @@ from .agents import load_roles
 STEPS = ("development", "drafts", "audition", "page1", "writing", "layouts", "execution", "final")
 PHASE_OF = {"development": "development", "drafts": "drafts", "audition": "audition", "page1": "execution",
             "writing": "writing", "layouts": "execution", "execution": "execution", "final": "execution"}
-TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Page 1",
+TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Proof page",
           "writing": "Writing", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
 STOPS = {"drafts": "drafts", "page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
+
+def chapter_pages(slug):
+    """[{chapter, title, first, pages}]: where each chapter starts in the book, for the proof picker.
+
+    An edit of the drafts counts its own chapters (the pages table in draft-changes.md); otherwise
+    the page plot in story.md numbers every page under its chapter heading."""
+    if phases.editing(slug):
+        rows = re.findall(r"^\|\s*(chapter-(\d+)[^|]*?)\s*\|[^|]*\|[^|]*\|[^|]*\|\s*\**(\d+)\**\s*\|\s*$",
+                          projects.read_artifact(slug, "draft-changes.md") or "", re.M)
+        if rows:
+            out, first = [], 1
+            for name, n, pages in rows:
+                out.append({"chapter": int(n), "title": name, "first": first, "pages": int(pages)})
+                first += int(pages)
+            return out
+    # the Plotter writes pages either through the whole book ("**Page 33:**") or within each
+    # chapter ("#### Page 1", "Pages 5-6"); a chapter whose pages start again at 1 is the second kind
+    text = projects.read_artifact(slug, "story.md") or ""
+    out, after = [], 0
+    for m in re.finditer(r"^#{2,3}\s+Chapter\s+(\d+)\b[^\n]*\n(.*?)(?=^#{2,3}\s|\Z)", text, re.M | re.S | re.I):
+        nums = []
+        for a, b in re.findall(r"^\s*(?:#{1,6}\s*|\*\*)?Pages?\s+(\d+)(?:\s*[\u2013\u2014-]\s*(\d+))?", m.group(2), re.M | re.I):
+            nums += [int(a), int(b or a)]
+        if not nums:
+            continue
+        low, high = min(nums), max(nums)
+        first = low if low > after else after + 1
+        title = m.group(0).split("\n", 1)[0].lstrip("# ").strip()
+        out.append({"chapter": int(m.group(1)), "title": title, "first": first, "pages": high - low + 1})
+        after = first + high - low
+    return out
+
 
 def max_execution_rounds(slug):
     """Rounds of pages before the book is taken as it is (the execution_rounds setting)."""
@@ -168,7 +200,7 @@ def _run(slug, step, until, note):
                        "is in draft-changes.md. Read them, then script them - or stop here.")
         elif until == "page1":
             _set(slug, status="page1", finished=projects.now())
-            _log(slug, "Page 1 is ready. Have a look: is this about right?")
+            _log(slug, f"The proof, page {review.proof_page(slug)}, is ready. Have a look: is this about right?")
         elif until == "layouts":
             _set(slug, status="layouts", finished=projects.now())
             _log(slug, "The layouts are drawn: every page's map and panels. Look them over, then Make the pages.")
@@ -261,10 +293,10 @@ def pick_from_first_read(text):
 
 
 def _page1(slug, note):
-    """Page 1 is laid out from the script. After an audition the script holds its pages; an
+    """The proof page is laid out from the script. After an audition the script holds its first pages; an
     edit of the draft has no audition, so the writer edits the draft into the script first."""
     if phases.editing(slug) and not (projects.read_artifact(slug, "script.md") or "").strip():
-        _log(slug, "No audition in an edit: the writer edits the draft into the script first, for page 1 to be laid out from.")
+        _log(slug, "No audition in an edit: the writer scripts the drafts first, for the proof page to be laid out from.")
         note = _writing(slug, note)
         _set(slug, written_for_page1=True)
     _round(slug, "execution", note, scope=1)
@@ -276,7 +308,7 @@ def _writing(slug, note):
     st = review.settings(slug).get("magic") or {}
     if st.get("written_for_page1") and not note and (projects.read_artifact(slug, "script.md") or "").strip():
         _set(slug, written_for_page1=False)     # written for the page 1 proof already: not twice
-        _log(slug, "The script was written for the page 1 proof; going on from it.")
+        _log(slug, "The script was written for the proof; going on from it.")
         return note
     _round(slug, "writing", note)
     _choice(slug, "writing", "Approved the script as written.", "The whole book, in the picked writer's voice.",
@@ -347,7 +379,7 @@ def plan(slug):
             ids = ["layout"]
         who = [roles[i] for i in ids if i in roles] if step != "final" else []   # finalizing is no round
         est = room.estimates(who)
-        does = {"page1": "Lay out page 1 only, from the audition pages already in the script.",
+        does = {"page1": f"Lay out one page only, page {review.proof_page(slug)}, from the script: a proof of the look.",
                 "layouts": "One pass of the Layout Agent alone: every page's map and its panels, to look at before the long part.",
                 "final": "The book is finalized as the last round left it, and the page packets are ready to download."}.get(step, phase["does"])
         groups = [set(g) for g in phase.get("parallel") or []]
@@ -359,7 +391,7 @@ def plan(slug):
                     "agents": [{"id": r.id, "title": r.title, "model": r.config().public().get("model"),
                                 "parallel": any(r.id in g for g in groups)} for r in who],
                     "seconds": seconds, "stop": step in STOPS, "optional": step == "page1",
-                    "note": {"page1": "Only if you ask to see page 1 first.",
+                    "note": {"page1": "Only if you ask for a proof first.",
                              "drafts": "An edit stops here: read what changed, then script it - or stop.",
                              "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})

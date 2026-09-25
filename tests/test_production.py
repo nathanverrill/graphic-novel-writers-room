@@ -150,6 +150,23 @@ assert review.settings(eslug)["pages"] == 3, "the book's page count is what the 
 assert "Drawability" in phases.note(eslug, phases.get("writing")) and "draft-final.md" in phases.note(eslug, phases.get("writing"))
 print("4e. the Draft Editor: canon pass, expansion that only inserts, pages counted for drawing: ok")
 
+# 4f. the proof can be any page: chapters mapped from the outline, the gate asks for that page only
+pslug = projects.create_project("Proof Book", "a pitch")
+projects.write_artifact(pslug, "story.md", "## Story So Far\n\n### Chapter 1 — One\n\n#### Page 1 — a\n\n#### Pages 2–3 — b\n\n"
+                        "### Chapter 2 — Two\n\n#### Page 1 — c\n\n#### Page 2 — d\n\n### Chapter 3 — Three\n\n#### A scene\n")
+assert magic.chapter_pages(pslug) == [{"chapter": 1, "title": "Chapter 1 — One", "first": 1, "pages": 3},
+                                      {"chapter": 2, "title": "Chapter 2 — Two", "first": 4, "pages": 2}], magic.chapter_pages(pslug)
+projects.write_artifact(pslug, "story.md", "## 3. Page plot\n\n### Chapter 1\n\n**Page 1:** a\n**Page 2:** b\n\n### Chapter 2\n\n**Page 3:** c\n")
+assert [(c["first"], c["pages"]) for c in magic.chapter_pages(pslug)] == [(1, 2), (3, 1)], "book-wide numbering is kept"
+assert review.proof_page(pslug) == 1
+review.save_settings(pslug, scope=1, proof_page=3, pages=None)
+projects.write_artifact(pslug, "layouts.md", "## Page 1\n")
+g = review.gate(pslug, {})
+assert any("proof of page 3 only" in r for r in g["reasons"]), g["reasons"]
+assert room.magic_chapter_of(pslug, 3) == " (chapter 2, its page 1)"
+review.save_settings(pslug, scope=0)
+print("4f. the proof is any page: chapters mapped, the gate asks for that page: ok")
+
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})
 assert magic.close_stale(slug) is True and magic.state(slug)["status"] == "failed"

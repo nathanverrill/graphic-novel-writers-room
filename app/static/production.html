@@ -9,6 +9,10 @@
 <style>
   /* Production: same desk, a different colour, and the stepper always in view. */
   :root { --prod: #1d4ed8; }
+  .proof-pick { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--muted); margin-right: .3rem; }
+  .proof-pick select, .proof-pick input { font: inherit; font-size: .8rem; padding: .2rem .3rem; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); }
+  .proof-pick input { width: 3.6rem; }
+  .proof-pick .hint { margin: 0; }
   body.production header { border-bottom-color: var(--prod); }
   body.production header h1 span { color: var(--prod); font-weight: 600; }
   body.production .main-acts .go:not(.alt):not(:disabled) { background: var(--prod); border-color: var(--prod); }
@@ -129,7 +133,7 @@
         <div class="tabs" id="tabs" role="tablist">
           <button data-tab="begin" aria-selected="true">Begin</button>
           <button data-tab="log">Activity <span class="pill run" id="feed-pill" hidden>working</span></button>
-          <button data-tab="page1">Page 1</button>
+          <button data-tab="page1">Proof</button>
           <button data-tab="pages">Pages</button>
           <button data-tab="packets">Packets</button>
           <button data-tab="lettering">Lettering</button>

@@ -26,7 +26,8 @@ OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdi
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
                     "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
-                    "scope": None,       # execution on the first N pages only (magic's page-1 proof); None = the book
+                    "scope": None,       # set: execution is a proof of one page (magic's proof); None = the book
+                    "proof_page": None,  # the book page the proof lays out; None = page 1 (see magic.chapter_pages)
                     "use_references_during_synthesis": True,    # see app/intake.py, pass 1
                     "draft_mode": "improve",   # improve | edit: how the room treats the showrunner's draft (phases.py)
                     "expand_pages": 0,   # edit mode: pages the edited drafts grow by (app/draftedit.py)
@@ -410,10 +411,16 @@ def dial_in(slug, n, spec, locked_ascii):
             "diff": asciitext.diff_markdown(asciitext.page_diff(render, locked_ascii, page.panels))}
 
 
+def proof_page(slug):
+    """The book page a proof lays out: the showrunner's pick, or page 1."""
+    return int(settings(slug).get("proof_page") or 1)
+
+
 def gate(slug, role_titles):
     """Is the round ready for the showrunner? Returns reasons and which roles should fix what."""
     st = settings(slug)
-    want = st["scope"] or st["pages"]
+    proof = proof_page(slug) if st["scope"] else None
+    want = st["pages"]
     specs, errors = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))
     lk = locks(slug)
     reasons, fix, notes = [], set(), []
@@ -422,9 +429,11 @@ def gate(slug, role_titles):
         reasons.append(f"{len(errors)} layout blocks don't parse")
         notes += errors
         fix.add("layout")
-    if want and sorted(numbers) != list(range(1, want + 1)):
-        asks = f"this pass is pages 1-{want} only" if st["scope"] else f"the brief asks for pages 1-{want}"
-        reasons.append(f"layouts.md has pages {numbers}, {asks}")
+    if proof and sorted(numbers) != [proof]:
+        reasons.append(f"layouts.md has pages {numbers}, this pass is a proof of page {proof} only")
+        fix.add("layout")
+    elif not proof and want and sorted(numbers) != list(range(1, want + 1)):
+        reasons.append(f"layouts.md has pages {numbers}, the brief asks for pages 1-{want}")
         fix.add("layout")
     issues = []
     for s in specs:

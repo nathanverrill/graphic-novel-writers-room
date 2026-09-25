@@ -288,6 +288,15 @@ def _check_configs(roles):
             raise ValueError(f"{r.id}/{e}") from None
 
 
+def magic_chapter_of(slug, n):
+    """", chapter 3's page 1" for book page n, when the chapters are known."""
+    from . import magic
+    for c in magic.chapter_pages(slug):
+        if c["first"] <= n < c["first"] + c["pages"]:
+            return f" (chapter {c['chapter']}, its page {n - c['first'] + 1})"
+    return ""
+
+
 def start_round(slug, note=None, mode=None, phase_id=None, only=None):
     """Run the phase the book is in - or the one named. It stops for the showrunner when the
     phase's agents are done. `only` names a subset of the phase's agents to run, with no fix
@@ -306,11 +315,11 @@ def start_round(slug, note=None, mode=None, phase_id=None, only=None):
     if st["pages"]:
         parts.append(f"The book is exactly {st['pages']} pages: pages 1-{st['pages']}, no more, no fewer.")
     if st["scope"] and phase["id"] == "execution":
-        n = int(st["scope"])
-        parts.append(f"THIS PASS IS A PROOF: lay out and letter page{'s' if n > 1 else ''} "
-                     f"1{f'-{n}' if n > 1 else ''} only, from the script as it stands, and nothing "
-                     f"past that. The showrunner will judge the book's look on {'these pages' if n > 1 else 'this page'} "
-                     f"before the rest is made. layouts.md holds only {'these pages' if n > 1 else 'this page'}.")
+        n = review.proof_page(slug)
+        where = magic_chapter_of(slug, n)
+        parts.append(f"THIS PASS IS A PROOF: lay out and letter page {n}{where} only, from the script as it "
+                     f"stands, and no other page. The showrunner will judge the book's look on this page "
+                     f"before the rest is made. layouts.md holds only page {n}, numbered {n}.")
     last = review.latest_round(slug)
     if last and last.get("kind") == "human":
         parts += ["Work from the showrunner's review below. Change only what it asks for; "

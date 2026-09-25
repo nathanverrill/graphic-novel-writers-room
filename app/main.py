@@ -706,6 +706,7 @@ class RoundSettings(BaseModel):
     use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
     draft_mode: str | None = None   # "improve" or "edit": how production treats the showrunner's draft
     expand_pages: int | None = None  # edit mode: pages the edited drafts grow by
+    proof_page: int | None = None    # the book page a proof lays out
     max_panels: int | None = None    # drawability: panels a page
     max_characters: int | None = None  # drawability: named characters a panel
 
@@ -742,6 +743,8 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "auto_rounds must be 0-20")
     if body.execution_rounds is not None and not 1 <= body.execution_rounds <= 10:
         raise HTTPException(400, "execution_rounds must be 1-10")
+    if body.proof_page is not None and not 1 <= body.proof_page <= 500:
+        raise HTTPException(400, "proof_page must be 1-500")
     if body.expand_pages is not None and not 0 <= body.expand_pages <= 200:
         raise HTTPException(400, "expand_pages must be 0-200")
     if body.max_panels is not None and not 1 <= body.max_panels <= 9:
@@ -940,7 +943,8 @@ class MagicStart(BaseModel):
 def magic_state(slug: str):
     not_found(projects.project_dir, slug)
     return {**magic.state(slug), "plan": magic.plan(slug), "pages": review.settings(slug)["pages"],
-            "drafts": magic.drafts(slug)}
+            "drafts": magic.drafts(slug),
+            "proof": {"page": review.proof_page(slug), "chapters": magic.chapter_pages(slug)}}
 
 
 @app.post("/api/projects/{slug}/magic")
