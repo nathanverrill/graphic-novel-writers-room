@@ -525,6 +525,23 @@ is named in every page packet as the reference to attach. Its words are locked: 
 and the writer are told them, and the gate sends a script that drops or changes one back to the
 writer. Its layout is that page's. The production room shows the key art on its page.
 
+**The Art Department** (`/art`, `art/server.py`, its own container) is the simple way to lock a book's visuals,
+starting fresh. Make a project, upload a reference image or two, and roll the **style plate**:
+each candidate is a whole plate - wide shot, two-shot, lit close-up, detail, a palette strip and
+material swatches, no text. Keep one per model. Then add characters (a name, a description, a
+reference image if you have one) and roll: each candidate is a whole **character sheet** - front,
+three-quarter, side and back at one scale, and four expressions - drawn from that model's plate,
+the reference, the first character kept and the one kept before. Keep one per model, Next.
+Pick a **campaign** and its canon's characters and places are listed to add with one click - a
+character with its Visual lock as the description, a place with its world entry. A place rolls
+as a **location sheet** (establishing, reverse, street level, detail, another light), drawn from
+the plate and the places kept before it; characters follow characters. **Props** (the chip, the
+key, the old book) roll as an object sheet - four views, a hand for scale, a close detail, its
+other state. **Ready to render** lists every character, place and prop the campaign's laid-out book
+draws (`/api/projects/<slug>/needs`), with the pages each is on, against every model with a kept
+plate - kept, missing, or not in the cast yet (add it in one click). Choose the models on every roll. Projects live in `art/data/` (not committed); every roll records
+what each model was shown.
+
 **Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
 Image 2.5 Sunburst - and letter it in the room, so there are four versions: each model's art, and
 that art lettered. Every page is drawn from its packet with reference images: Sheets' style plate

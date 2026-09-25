@@ -242,3 +242,9 @@ instances/
 
 # rendered pages: large, and remade from the packets and locks (app/render.py)
 campaigns/*/renders/
+
+# the overnight runs: PDFs and PNGs, large (scripts/overnight.py)
+overnight/
+
+# Art Department projects: plates, sheets and every roll (art/server.py)
+art/data/

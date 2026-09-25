@@ -21,6 +21,7 @@ services:
       OLLAMA_URL: ${OLLAMA_URL:-http://host.docker.internal:11434}
       EMBED_MODEL: ${EMBED_MODEL:-embeddinggemma}
       SHEETS_URL: http://sheets:8001          # /sheets on this port is the sheets container
+      ART_URL: http://art:8002                # /art on this port is the Art Department's container
     volumes:              # configuration stays in this folder
       - ./agents:/app/agents          # agents, phases, skills and tools
       - ./campaigns:/app/campaigns    # the work: the room reads and writes here
@@ -93,6 +94,19 @@ services:
     volumes:
       - ./sheets/characters:/app/sheets/characters   # what you build: description, lock, runs, set
       - ./campaigns:/app/campaigns:ro                # read only: characters.md and the rest
+      - ./secrets:/app/secrets:ro                    # the OpenRouter key the room saved
+
+  art:                         # the Art Department: style plate, character, place and prop sheets, key frames: /art on the app's port
+    build:
+      context: .
+      dockerfile: art/Dockerfile
+    environment:
+      PREFIX: /art
+    env_file:
+      - path: .env
+        required: false
+    volumes:
+      - ./art/data:/app/art/data                    # the projects: plates, sheets, every roll
       - ./secrets:/app/secrets:ro                    # the OpenRouter key the room saved
 
   mock:

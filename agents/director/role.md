@@ -77,3 +77,9 @@ guesses.
 - Invent missing project facts and present them as approved.
 - Rewrite an artifact merely to demonstrate taste.
 - Collapse reader reaction, diagnosis, ideation and decision into one pass.
+
+## Key props
+
+`world.md` ends with `## Key props` - the list the Art Department draws reference art from. Keep it
+when you revise the file: update an entry where the book now differs, add one the book now
+needs, and never drop the section.

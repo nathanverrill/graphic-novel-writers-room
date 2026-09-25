@@ -526,7 +526,21 @@ def subjects(campaign):
     return {"campaign": campaign, "file": rel(people), "characters": cast(people) if people else [],
             "hard_sf": bool(world and "80/15/5" in world.read_text()),      # the world declares the rule: places start with it
             "world_file": rel(world), "places": where,
-            "story_file": rel(story), "scenes": scenes(story, where) if story else []}
+            "story_file": rel(story), "scenes": scenes(story, where) if story else [],
+            "props": listed(world, "key props") if world else [],            # the canon's own lists:
+            "key_scenes": listed(story, "key scenes") if story else []}      # what the Art Department draws
+
+
+def listed(f, title):
+    """[{name, look}] - the "### Name" entries under a "## <title>" section (Key props in world.md,
+    Key scenes in story.md): lists the canon keeps on purpose, so nothing has to be guessed."""
+    out, inside = [], False
+    for sec in md_read_file(f)["sections"]:
+        if sec["depth"] <= 2:
+            inside = sec["heading"].strip().lower() == title
+        elif inside and sec["depth"] == 3 and sec["body"]:
+            out.append({"name": sec["heading"].strip(), "look": sec["body"]})
+    return out
 
 
 def scenes(f, where):

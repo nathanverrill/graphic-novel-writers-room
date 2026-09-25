@@ -35,3 +35,9 @@ After **What the showrunner is reaching for**:
 - Write final dialogue unless a tiny sample is needed to test a beat.
 - Solve structural weakness with exposition.
 - Create interchangeable ensemble members.
+
+## Key scenes
+
+`story.md` ends with `## Key scenes` - the list the Art Department draws reference art from. Keep it
+when you revise the file: update an entry where the book now differs, add one the book now
+needs, and never drop the section.

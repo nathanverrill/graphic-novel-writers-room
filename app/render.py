@@ -33,7 +33,7 @@ from .draftedit import SHEETS_DIR
 
 MODELS = {"gemini": "google/gemini-3.1-flash-image", "sunburst": "openai/gpt-image-2.5-sunburst"}
 OPENROUTER = "https://openrouter.ai/api/v1"
-MAX_REFS = 4            # the plate, then the page's key art, then locks - what the models take well
+MAX_REFS = 6            # the plate, then the page's key art, then up to four locks
 WORKERS = 3             # pages at a time, per model
 TIMEOUT = 300
 MIME = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}
@@ -188,6 +188,37 @@ def page(slug, tag, spec, ctx, key):
 
 def _page_started(slug, tag, n):
     return status(slug)["models"].get(tag, {}).get("pages", {}).get(str(n), {}).get("started") or time.time()
+
+
+# ---- what the book needs drawn ------------------------------------------------------------------
+
+def needs(slug, props=()):
+    """Every character, place and prop the laid-out book draws, with the pages it is on - what
+    has to have a reference before rendering. Characters by their canon names ("ALEX" is Alex
+    Phantum); a prop is on a page whose panels or script name it (or its last word, "chip").
+    With no layouts yet, the canon's characters, on no pages."""
+    specs = book(slug)
+    ctx = prompts.context(slug)
+    script = projects.read_artifact(slug, "script.md") or ""
+    chars, places, found = {}, {}, {p: [] for p in props if p.strip()}
+    for s in specs:
+        n = s["page"]
+        names, where, described = prompts.page_cast(s, ctx)
+        for name in names:
+            chars.setdefault(full_name(name, ctx["bible"]), []).append(n)
+        for place in where:
+            places.setdefault(place, []).append(n)
+        m = re.search(rf"^##\s*Page\s+{n}\b.*?(?=^##\s*Page\s+\d+|\Z)", script, re.M | re.S | re.I)
+        text = (described + " " + (m.group(0) if m else "")).lower()
+        for prop in found:
+            words = [w for w in re.findall(r"[a-z0-9']+", prop.lower()) if len(w) > 3]
+            if prop.lower() in text or (words and re.search(rf"\b{re.escape(words[-1])}\b", text)):
+                found[prop].append(n)
+    if not specs:
+        chars = {e: [] for e in prompts.character_entries(ctx["bible"])}
+    row = lambda d: [{"name": k, "pages": sorted(set(v))} for k, v in sorted(d.items(), key=lambda kv: (-len(set(kv[1])), kv[0]))]
+    return {"source": "layouts" if specs else "canon", "pages": len(specs),
+            "characters": row(chars), "places": row(places), "props": row(found)}
 
 
 # ---- the book --------------------------------------------------------------------------------

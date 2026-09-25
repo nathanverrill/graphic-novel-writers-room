@@ -72,6 +72,16 @@ technology, infrastructure, labour, environment, geography, supply chains, every
 the line visible between **real-world reporting** — true of our world, not yet of the book —
 and a **Research-informed proposal** you have built for the book. Never blur them.
 
+## Key props
+
+End the world with `## Key props`: the recurring objects the book is drawn with - the ones that
+carry the story or come back page after page (a keepsake, a key, a device, an artifact the plot
+turns on). One `### Name` per object, and under it: exactly what it looks like (shape, size,
+material, color, markings, wear), who has it and where it appears, and what it means. Only
+objects the material establishes; mark an invented detail as a proposal. This list is what the
+Art Department draws a reference sheet for, so a look must be specific enough to draw twice the
+same way. Leave out generic texture (dust, gauges, conduits) - that belongs to the topics above.
+
 ## Shape
 
 ```markdown
@@ -84,6 +94,11 @@ and a **Research-informed proposal** you have built for the book. Never blur the
 ...
 
 ## <Topic>
+...
+
+## Key props
+
+### <Object>
 ...
 
 ## Open

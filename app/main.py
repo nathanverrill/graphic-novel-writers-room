@@ -84,6 +84,7 @@ def home():
 # ---- sheets: its own container, reached through this port --------------------------------
 
 SHEETS_URL = (env("SHEETS_URL") or "http://sheets:8001").rstrip("/")
+ART_URL = (env("ART_URL") or "http://art:8002").rstrip("/")
 
 
 @app.api_route("/sheets", methods=["GET"])
@@ -92,7 +93,18 @@ async def sheets_proxy(request: Request, path: str = ""):
     """Hand the request to the sheets container and hand its answer back, as is. The sheets
     page is told its prefix (PREFIX=/sheets in docker-compose.yml), so its links come back
     pointing here."""
-    url = f"{SHEETS_URL}/{path}" + (f"?{request.url.query}" if request.url.query else "")
+    return await _proxy(request, SHEETS_URL, path, "sheets")
+
+
+@app.api_route("/art", methods=["GET"])
+@app.api_route("/art/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def art_proxy(request: Request, path: str = ""):
+    """The Art Department's container (art/server.py): the style plate and reference sheets."""
+    return await _proxy(request, ART_URL, path, "the art department")
+
+
+async def _proxy(request, base, path, name):
+    url = f"{base}/{path}" + (f"?{request.url.query}" if request.url.query else "")
     body = await request.body()
     headers = {k: v for k, v in request.headers.items() if k.lower() in ("content-type", "accept")}
     req = urllib.request.Request(url, data=body if body else None, headers=headers, method=request.method)
@@ -104,7 +116,7 @@ async def sheets_proxy(request: Request, path: str = ""):
         except urllib.error.HTTPError as e:
             return e.code, dict(e.headers), e.read()
         except (urllib.error.URLError, OSError) as e:
-            return 502, {"Content-Type": "text/plain"}, f"sheets is not running: {e}".encode()
+            return 502, {"Content-Type": "text/plain"}, f"{name} is not running: {e}".encode()
     status, hdrs, data = await anyio.to_thread.run_sync(call)
     keep = {k: v for k, v in hdrs.items() if k.lower() in ("content-type", "content-disposition", "cache-control")}
     return Response(content=data, status_code=status, headers=keep)
@@ -1131,6 +1143,14 @@ def render_state(slug: str):
     not_found(projects.project_dir, slug)
     return {**render.status(slug), "pages": [s["page"] for s in render.book(slug)], "models": render.MODELS,
             "state": render.status(slug)["models"]}
+
+
+@app.get("/api/projects/{slug}/needs")
+def render_needs(slug: str, props: str = ""):
+    """What the book draws - characters, places, the props asked about - and on which pages:
+    what the Art Department has to have a reference for before rendering."""
+    not_found(projects.project_dir, slug)
+    return render.needs(slug, [p for p in props.split("|") if p.strip()])
 
 
 @app.post("/api/projects/{slug}/render")

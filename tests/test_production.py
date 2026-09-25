@@ -230,6 +230,19 @@ finally:
     render.generate, render.letter = real_gen, real_letter
 print("4h. the renderer: each model's locks, the plate and key art, a failed page recorded: ok")
 
+# 4i. what the book needs drawn: characters by canon name, places, props by the pages that name them
+nslug = projects.create_project("Needs Book", "a pitch")
+projects.write_artifact(nslug, "characters.md", "## Characters\n\n### Alex Phantum\n\nA boy.\n\n### Ada Veyra\n\nA girl.\n")
+assert {c["name"] for c in render.needs(nslug)["characters"]} == {"Alex Phantum", "Ada Veyra"} and render.needs(nslug)["source"] == "canon"
+projects.write_artifact(nslug, "layouts.md", "## Page 1\n\n```layout\n" + json.dumps({"page": 1, "tiers": [{"panels": [{"description": "Alex turns the casino chip."}]}],
+    "items": [{"type": "balloon", "speaker": "ALEX", "text": "Hi."}]}) + "\n```\n## Page 2\n\n```layout\n" + json.dumps({"page": 2, "tiers": [{"panels": [{"description": "Ada at the gate."}]}],
+    "items": []}) + "\n```\n")
+nd = render.needs(nslug, ["Adrian's casino chip", "the old book"])
+assert nd["source"] == "layouts" and nd["pages"] == 2, nd
+assert {c["name"]: c["pages"] for c in nd["characters"]} == {"Alex Phantum": [1], "Ada Veyra": [2]}, nd["characters"]
+assert {p["name"]: p["pages"] for p in nd["props"]} == {"Adrian's casino chip": [1], "the old book": []}
+print("4i. what the book needs drawn, page by page: ok")
+
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})
 assert magic.close_stale(slug) is True and magic.state(slug)["status"] == "failed"

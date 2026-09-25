@@ -84,6 +84,15 @@ sequence where established, visual reveals, a reveal that depends on a page turn
 visual story devices, and places where the relationship between dialogue and image *is* the
 story beat. Do not turn this into a layout or page-design pass.
 
+## Key scenes
+
+Before the ending, add `## Key scenes`: the moments the book must land - the images a reader will
+remember, the reveals, the turns. Usually eight to fifteen. One `### Name` per scene, and under it:
+where it falls (chapter or sequence), where it happens, who is in it, what happens, and the one
+image the reader must see. Use the material's own moments; mark an invented one as a proposal.
+The Art Department draws a key frame of each, so name the place and the people exactly as the
+other files do.
+
 ## Boundaries
 
 No full character profiles. No encyclopedic world sections. Include either only where it is
@@ -106,6 +115,11 @@ about the story itself.
 ## Story So Far
 
 ### <Chapter / Act / Sequence>
+...
+
+## Key scenes
+
+### <Scene>
 ...
 
 ## Ending
