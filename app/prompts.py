@@ -21,7 +21,7 @@ page, a character sheet prompt to draw first, and a page index.
 import json
 import re
 
-from . import projects, thumbnails
+from . import projects, thumbnails, keypages
 from .config import env
 
 DEFAULTS = {"lettering": "layer"}   # the same default as review.DEFAULT_SETTINGS (review imports this module)
@@ -548,6 +548,8 @@ def context(slug, version=None):
     settings = {**DEFAULTS, **settings}
     chapter = settings.get("chapter")
     return {
+        "keypages": [k["book"] for k in keypages.pages(slug) if k["art"]],
+        "keypage_notes": keypages.exceptions(slug),
         "title": book_title(projects.pitch(slug), slug),
         "pages": settings.get("pages"),
         "chapter": chapter,
@@ -645,7 +647,9 @@ def reference_line(names, places, ctx):
         bits.append(f"the character sheet ({', '.join(n.upper() for n in names)})")
     if places:
         bits.append(f"the location sheet ({', '.join(p.upper() for p in places)})")
-    bits.append("your approved style page")
+    bits.append("the key pages (keypages/ in the packet) as the book's style reference"
+                + (f" - for style only where they differ from the descriptions: {ctx['keypage_notes']}" if ctx.get("keypage_notes") else "")
+                if ctx.get("keypages") else "your approved style page")
     return ("**Reference images to attach** (if the model takes them): " + "; ".join(bits)
             + ". The descriptions below still win where the two differ.")
 

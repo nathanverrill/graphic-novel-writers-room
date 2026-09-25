@@ -167,6 +167,32 @@ assert room.magic_chapter_of(pslug, 3) == " (chapter 2, its page 1)"
 review.save_settings(pslug, scope=0)
 print("4f. the proof is any page: chapters mapped, the gate asks for that page: ok")
 
+# 4g. key pages: found by chapter and page, their words checked in the script, their look sent along
+from app import keypages
+kslug = projects.create_project("Key Book", "a pitch")
+kd = keypages.folder(kslug); kd.mkdir(parents=True, exist_ok=True)
+(kd / "ch01-p02.md").write_text("# Chapter 1 — Page 2: DEBT\n\n## Dialogue / On-Page Text\n\n- SUPERVISOR: That's not the approved repair.\n"
+                                "- ALEX: Then don't approve it.\n- Caption: Seventeen.\n\n## Layout\n\nFour tiers.\n")
+(kd / "ch01-p02.jpg").write_bytes(b"\xff\xd8fake")
+(kd / "notes.txt").write_text("ignored")
+ks = keypages.pages(kslug)
+assert [(k["book"], len(k["lines"]), k["layout"]) for k in ks] == [(2, 3, "Four tiers.")], ks
+assert ks[0]["lines"][0] == ("SUPERVISOR", "That's not the approved repair.") and ks[0]["lines"][2] == (None, "Caption: Seventeen.")
+assert keypages.check(kslug, "## Page 1\n\nx\n") == ["page 2 is a key page and is missing from the script"]
+script = "## Page 2\n\nSUPERVISOR: That’s not the approved repair.\nALEX: Then don't approve it!\nCAPTION: Seventeen.\n## Page 3\n"
+assert keypages.check(kslug, script) == [], keypages.check(kslug, script)
+assert len(keypages.check(kslug, script.replace("approve it", "sign it"))) == 1
+review.save_settings(kslug, phase="writing")
+projects.write_artifact(kslug, "script.md", "## Page 2\n\nnothing\n")
+g = review.gate(kslug, {"writer_a": "Writer A", "continuity": "Continuity Editor"})
+assert "writer_a" in g["fix"] and any("key-page" in r for r in g["reasons"]), g
+assert "Then don't approve it." in phases.note(kslug, phases.get("writing"))
+assert keypages.images(kslug)[0][0].startswith("key page 2")
+(kd / "notes.md").write_text("# What the key pages do not lock\n\n- **Bi11bot is off-model.** Take the style,\n  not his design.\n")
+assert keypages.exceptions(kslug) == "Bi11bot is off-model. Take the style, not his design.", keypages.exceptions(kslug)
+assert "not his design" in keypages.images(kslug)[0][0] and "not his design" in phases.note(kslug, phases.get("writing"))
+print("4g. key pages: mapped, their words held in the script, their look sent along, the canon winning where noted: ok")
+
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})
 assert magic.close_stale(slug) is True and magic.state(slug)["status"] == "failed"

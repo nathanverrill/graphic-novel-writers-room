@@ -16,7 +16,7 @@ Locks are enforced in code on every write (enforce_locks).
 import json
 import re
 
-from . import asciitext, lettering, notes, projects, prompts, thumbnails
+from . import asciitext, keypages, lettering, notes, projects, prompts, thumbnails
 
 DRAFT = "review-draft.json"
 LOCKS = "locks.json"
@@ -435,6 +435,12 @@ def gate(slug, role_titles):
     elif not proof and want and sorted(numbers) != list(range(1, want + 1)):
         reasons.append(f"layouts.md has pages {numbers}, the brief asks for pages 1-{want}")
         fix.add("layout")
+    if st.get("phase") in ("writing", "execution"):
+        missing = keypages.check(slug, projects.read_artifact(slug, "script.md") or "")
+        if missing:
+            reasons.append(f"{len(missing)} key-page line(s) not word for word in the script")
+            notes += missing
+            fix.update(rid for rid, title in role_titles.items() if rid.startswith("writer"))   # whoever writes this book
     issues = []
     for s in specs:
         if lk.get(s["page"], {}).get("kind") == KEPT:

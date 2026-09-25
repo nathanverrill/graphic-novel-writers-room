@@ -348,13 +348,21 @@ async function showLastLog() {
 async function renderPage(n, sec) {
   sec.innerHTML = `<p class="hint">loading page ${n}…</p>`;
   let v, prompt = state.prompts?.pages?.[n];
+  const key = (state.keypages || []).find((k) => k.book === n);
+  const keyArt = key?.art ? `<img src="/api/projects/${state.slug}/keypages/${esc(key.art)}" alt="key page ${n}">` : "";
+  const keyNote = key ? `<div class="hint"><b>Key page</b> - ${esc(key.title)}. Its look sets the book's; its words and panels are locked.</div>` : "";
   try { v = await api(`/api/projects/${state.slug}/pages/${n}`); }
-  catch { sec.innerHTML = `<p class="hint">No page ${n} yet${n === proofPage() ? " - it is made by the proof" : ""}.</p>`; return; }
+  catch {
+    sec.innerHTML = key ? `<div class="page"><div>${keyArt}${keyNote}</div><div>${key.lines.map((l) => `<div class="hint">${esc(l)}</div>`).join("")}</div></div>`
+      : `<p class="hint">No page ${n} yet${n === proofPage() ? " - it is made by the proof" : ""}.</p>`;
+    return;
+  }
   const art = (project.images || []).find((i) => i.includes(`-p${String(n).padStart(2, "0")}-art`));
   sec.innerHTML = `
     <div class="page">
       <div>
-        ${art ? `<img src="/api/projects/${state.slug}/images/${esc(art)}" alt="page ${n} art">` : `<pre class="map">${esc((v.map || []).join("\n"))}</pre>`}
+        ${art ? `<img src="/api/projects/${state.slug}/images/${esc(art)}" alt="page ${n} art">` : keyArt || `<pre class="map">${esc((v.map || []).join("\n"))}</pre>`}
+        ${keyNote}
         ${v.kept ? `<div class="hint">kept since ${esc(v.kept)}</div>` : ""}
       </div>
       <div>
@@ -681,6 +689,7 @@ async function load() {
   try { state.rules = (await api(`/api/projects/${state.slug}/rules`)).rules || []; } catch { state.rules = []; }
   try { state.notes = (await api(`/api/projects/${state.slug}/notes`)).pending || []; } catch { state.notes = []; }
   try { state.prompts = await api(`/api/projects/${state.slug}/prompts`); } catch { state.prompts = null; }
+  try { state.keypages = (await api(`/api/projects/${state.slug}/keypages`)).pages || []; } catch { state.keypages = []; }
   renderAll();
 }
 

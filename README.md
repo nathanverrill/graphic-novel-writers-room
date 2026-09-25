@@ -517,6 +517,14 @@ a page where the story allows, a splash for a big moment. The draft edit counts 
 that way and sets the book's page count to the total; the writer and the Layout Agent are held
 to the same limits.
 
+**Key pages lock the look and the words.** Finished pages go in `campaigns/<slug>/keypages/` as
+`ch01-p01.md` (purpose, description, dialogue, layout, notes) and `ch01-p01.jpg` (the page as drawn
+and lettered). A key page is chapter N's page K; the chapter map puts it in the book. Its art is
+sent to every agent that sees images as the book's style reference, rides in the packet zip, and
+is named in every page packet as the reference to attach. Its words are locked: the Draft Editor
+and the writer are told them, and the gate sends a script that drops or changes one back to the
+writer. Its layout is that page's. The production room shows the key art on its page.
+
 **Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
 character, or a stranger in the world - and when in the story: a page of the page plot, or a
 scene of the outline. The character speaks first and never leaves the world; they know the story

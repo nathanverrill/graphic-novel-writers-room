@@ -19,7 +19,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages
 from .config import AGENTS_DIR, AgentConfig, env
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -350,6 +350,25 @@ def page_prompts(slug: str, version: str | None = None):
     return {"pages": pages, "book": book}
 
 
+@app.get("/api/projects/{slug}/keypages")
+def keypages_list(slug: str):
+    """The key pages: which book page each is, its locked words, whether it has art."""
+    not_found(projects.project_dir, slug)
+    return {"pages": [{"chapter": k["chapter"], "page": k["page"], "book": k["book"], "title": k["title"],
+                       "lines": [f"{w + ': ' if w else ''}{t}" for w, t in k["lines"]],
+                       "art": k["art"].name if k["art"] else None} for k in keypages.pages(slug)]}
+
+
+@app.get("/api/projects/{slug}/keypages/{name}")
+def keypage_file(slug: str, name: str):
+    if not keypages.NAME_RE.match(name):
+        raise HTTPException(404, "not a key page")
+    path = keypages.folder(slug) / name
+    if not path.is_file():
+        raise HTTPException(404, "not found")
+    return FileResponse(path)
+
+
 @app.get("/api/projects/{slug}/packet.zip")
 def packet_zip(slug: str, version: str | None = None):
     """Everything to take to the image model, in one download: the book packet, one file per
@@ -368,6 +387,11 @@ def packet_zip(slug: str, version: str | None = None):
             text = projects.read_artifact(slug, name, version)
             if text:
                 z.writestr(f"{slug}/source/{name}", text)
+        for k in keypages.pages(slug):      # the locked look: attach these as style references
+            if k["art"]:
+                z.write(k["art"], f"{slug}/keypages/{k['art'].name}")
+        if keypages.notes(slug):
+            z.writestr(f"{slug}/keypages/notes.md", keypages.notes(slug))
         for n in sorted(pages):
             z.writestr(f"{slug}/pages/p{n:02d}.md", pages[n])
             if n in sketches:

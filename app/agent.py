@@ -16,7 +16,7 @@ import base64
 import json
 import re
 
-from . import llm, projects, review, rules, search, thumbnails
+from . import llm, projects, review, rules, search, thumbnails, keypages
 from . import agents as agents_mod
 from .agents import IMAGE_TYPES, gather_context, random_entry
 from .usage import CallLogger
@@ -322,6 +322,8 @@ class Agent:
         guides, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
+        else:
+            images += keypages.images(self.slug)     # the book's locked look
         self.emit("context", minimal=self.role.minimal, guides=[g for g, _ in guides],
                   images=[i for i, _, _ in images], model=self.cfg.model, temperature=self.cfg.temperature,
                   image_model=self.cfg.image_model if self.cfg.can_generate_images else None)

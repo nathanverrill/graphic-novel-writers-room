@@ -24,7 +24,7 @@ import time
 from dataclasses import replace
 from datetime import datetime
 
-from . import draftedit, openitems, projects, review, voices
+from . import draftedit, keypages, openitems, projects, review, voices
 from .agents import load_roles
 from .config import AGENTS_DIR
 
@@ -151,6 +151,8 @@ def note(slug, phase):
                      + (f"for pages {', '.join(map(str, have))}. " if have else "for no pages yet. ")
                      + "Judge the lettering against the real page where there is one, and against the "
                        "layout sketch where there is not.")
+    if phase["id"] in ("development", "drafts", "audition", "writing", "execution") and keypages.pages(slug):
+        parts.append(keypages.brief(slug))
     if editing(slug):
         if phase["id"] in EDIT_NOTE:
             parts.append(EDIT_NOTE[phase["id"]])
