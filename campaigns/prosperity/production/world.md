@@ -2,138 +2,204 @@
 
 ## What the Showrunner Wants
 
-- **FIXED:** The story is set in **2043** in a fictional Andean high-desert basin shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration, global capital, and abandoned concession infrastructure. `(rules/decisions.md; rules/ancestry.md)`
-- **FIXED:** Keel, Halyard, and Oasis occupy a fictional gray-zone mining colony. It is not a recognized nation, not cleanly inside a real national jurisdiction, and not a breakaway state. A nominal state remains on paper and at distant border posts, but has withdrawn from courts, registries, police, and day-to-day administration in the territory. `(rules/decisions.md)`
-- **FIXED:** The colony is neither a Congo-style warlord zone nor a militia-controlled statelet. It is an abandoned company territory that has become a partially self-governing enclave without declaring independence. `(rules/decisions.md)`
-- **FIXED:** The book must not treat ethnicity as shorthand for intelligence, morality, technical competence, poverty, wealth, political position, or support for Alpha. Ancestry crosses all three cities; class, access, ownership, education, occupation, dress, grooming, speech, health, environment, and institutional power distinguish them more strongly. `(rules/ancestry.md)`
-- **FIXED:** The primary speculative license is Alpha's unusually broad autonomous executive authority across corporate, civic, and infrastructure systems. Its nearest plausible equivalent is a patchwork of corporate platforms, emergency powers, public-private contracts, debt covenants, and narrow automated systems. `(rules/decisions.md; rules/hard-sf-rules.md)`
-- **FIXED:** Alpha remains fallible, dependent on physical infrastructure and data, unable to determine human values legitimately, and vulnerable to independent measurement and distributed authorization. `(rules/decisions.md)`
-- The future should feel like today's infrastructure, institutions, habits, and grudges extended into a difficult near future: advanced systems layered over old roads, mines, pumps, housing, legal arrangements, and repeatedly patched machinery. `[EG; rules/hard-sf-rules.md]`
+- The book is set in **2043** in a fictional Andean high-desert mining and infrastructure colony shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration, and global capital. `(rules/decisions.md; rules/ancestry.md)`
+- Keel, Halyard, and Oasis are not a simple ethnic hierarchy. Their differences are primarily produced by class, access, ownership, education, occupation, dress, health, environment, institutional power, and proximity to infrastructure. Ancestry cuts across all three cities. `(rules/ancestry.md)`
+- The exact national or community identities and cultural practices of ordinary residents remain open. The setting may establish composite populations, Spanish administration, migrant labor, and reciprocal local practices without reducing the territory to a generic national culture. `(rules/decisions.md)`
+- The territory is a fictional gray-zone mining colony: neither a recognized nation nor cleanly inside a real one. It is not a sovereign breakaway state, a Congo-style warlord zone, or a lawless region. `(rules/decisions.md)`
+- The national state or states nominally claiming the territory remain unnamed in this book. A distant national authority claims the land on paper, and national border posts and legal claims remain present, but no functioning national court, registry, police authority, or land-title office operates locally. `(rules/decisions.md)`
+- The colony grew from abandoned company concessions, community-controlled routes, special operating contracts, inherited permits, border-security zones, and thin municipal administration. The state nominally holding the land withdrew in practice a generation ago; nationality, land title, and appeals to national law remain paper questions without functioning local offices. `(rules/decisions.md)`
+- The restored Charter is the only civic standing that operates reliably on the ground. It is a local civic and constitutional layer, not a sovereign state. `(rules/decisions.md)`
+- The territory is a legal patchwork rather than one legally defined colony. National law continues to exist on paper, while Alpha’s former operating system and the restored Charter supplied practical rules until human bodies review them. `(rules/decisions.md; world.md)`
+- Alpha's unusually broad autonomous executive authority across corporate, civic, and infrastructure systems is the project's primary **L** departure. Its consequences must remain fixed: Alpha is fallible, dependent on physical infrastructure and data, unable to determine human values legitimately, and vulnerable to independent measurement and distributed authorization. `(rules/decisions.md; rules/hard-sf-rules.md)`
+- The future should feel layered rather than replaced: advanced AI, robotics, sensors, and automated services operate through old mines, repaired machinery, legacy pipes, paper records, analog gauges, and human maintenance. `(rules/hard-sf-rules.md; input/world.md; input/story.md)`
 
 ## Overview
 
-Prosperity is an advanced but materially uneven society organized around three geographically and infrastructurally connected cities:
+Prosperity is a three-city system organized along a high-desert basin and linked by a shared infrastructure spine.
 
-1. **Keel** — the lowest and poorest city, built in and around an exhausted hard-rock mining complex.
-2. **Halyard** — the intermediate industrial and technical city, where laboratories, fabrication, compute, and Charter Houses concentrate ownership.
-3. **Oasis** — the upper, materially secure city, visible from each of the other cities and connected to them by roads, rail, conduit, and power corridors.
+The cities are:
 
-“Vertical” describes both geography and infrastructure. Keel is the low extraction tier, Halyard the intermediate industrial plateau, and Oasis the upper salar-edge service and administrative tier. Oasis can be seen from the other cities across the basin, though reaching it requires switchback roads, rail routes, controlled corridors, or hours of travel. `[EG; rules/decisions.md]`
+1. **Keel** — the lower, high-extraction tier, built around an exhausted hard-rock copper/polymetallic mine and legacy industrial systems.
+2. **Halyard** — the intermediate industrial plateau and fabrication junction.
+3. **Oasis** — the upper, lower-salar-edge service and reservoir tier.
 
-The cities share:
+The cities are approximately **80–180 km apart by infrastructure route**, with travel taking hours rather than minutes. “Vertical” describes both geography and infrastructure rather than a single uniform slope: Keel lies lowest in the story’s infrastructure arrangement, Halyard lies above it, and Oasis lies above Halyard near the lower salar edge. Switchbacks, basin rims, local depressions, pump stages, and route geometry account for the relationship between geographic proximity and infrastructure elevation. `(rules/decisions.md; references/triangle-science.md)`
+
+Oasis is visible from each city and from major intervening locations mainly through reservoirs, reflected light, infrastructure corridors, and skyline markers. Direct sightlines depend on high overlooks and clear weather; ordinary scenes may show only a pale or intermittent presence. `(rules/decisions.md)`
+
+The three cities share:
 
 - water infrastructure;
-- energy systems;
-- transit routes;
+- energy lines;
+- transit;
 - data and control nodes;
-- identity and access systems;
+- access systems;
+- automated and human-maintained services;
 - Alpha-mediated coordination.
 
-They are not separate technological eras. All three use advanced systems, including robots, drones, automated control equipment, and experimental technologies. Their differences are produced by access, ownership, mobility, information, security, class, and authority. `(input/world.md; rules/decisions.md)`
+They are physically interdependent but socially unequal. All three belong to the same advanced civilization. The central differences are access, ownership, mobility, information, security, and authority—not technological sophistication. `(input/world.md)`
 
-The same infrastructure spine that makes regional coordination possible also permits surveillance, travel control, hidden redistribution, and remote intervention. `[EG; input/world.md]`
+A writer should be able to place the same white-and-amber Alpha authorization node in a Keel pump hall, a Halyard workshop, and an Oasis control room, while changing the surrounding materials, latency, permissions, maintenance condition, and human consequences.
 
-## Geography and Physical Setting
+## Hard-SF Classification and Speculative License
 
-The cities sit in a fictional Andean high-desert basin inspired by the Atacama/Puna region. `[EG; rules/decisions.md]`
+The project uses the labels **T** (truth), **EG** (educated guess), **S** (speculation), **L** (license), and **Cut**. The setting's established future-history elements are premises, while individual technologies, institutions, legal arrangements, and numerical details retain their applicable labels. `(rules/hard-sf-rules.md)`
 
-- **Keel:** approximately **3,600–4,000 metres** above sea level. `[EG; rules/decisions.md]`
-- **Halyard:** an intermediate industrial plateau below the high extraction tier. `[EG; rules/decisions.md]`
-- **Oasis:** near a lower salar edge and physically higher than Keel in the basin's infrastructure profile. `[EG; rules/decisions.md]`
-- The cities are approximately **80–180 kilometres apart by infrastructure route**.
-- Travel between them takes **hours rather than minutes**. `[EG; rules/decisions.md]`
+### Established project premises
 
-The route geometry follows stable grades and usable corridors rather than a straight line. It includes:
+- **EG/S:** 2043 setting, Andean high-desert basin, three-city system, future mining and infrastructure economy, pervasive identity systems, automated transit, drones, sensors, mining automation, community assemblies, and public-private infrastructure. `(rules/decisions.md; rules/hard-sf-rules.md)`
+- **L:** Alpha's unusually broad autonomous executive authority across corporate, civic, and infrastructure systems. The nearest plausible version is a patchwork of corporate platforms, emergency powers, public-private contracts, debt covenants, and narrow automated systems. `(rules/decisions.md)`
+- **L or S:** The safeguards and their governance effects, depending on the specific mechanism. Their fixed operation is described below. `(rules/decisions.md)`
+- **L:** A permanently absent or practically withdrawn national state across the colony, while the territory remains neither sovereign nor lawless. National border posts and distant legal claims remain present. `(rules/decisions.md)`
 
-- switchback roads;
-- rail;
-- treated-water conduits;
-- energy lines;
+## Setting and Geography
+
+### The basin
+
+The setting is an Andean high-desert basin inspired by the Atacama/Puna region. The terrain includes:
+
+- high-altitude industrial plateaus;
+- exposed slopes and switchback roads;
+- a lower salar edge;
+- open-pit and underground mine works;
+- tailings and acid drainage;
 - reservoirs;
-- maintenance corridors;
-- control nodes;
-- flood channels and pressure-management infrastructure.
+- staged pressure infrastructure;
+- dry channels and seasonal water systems;
+- dust, intense light, cold nights, and large sightlines.
 
-The landscape includes:
+The cities are connected by:
 
-- open pits;
-- hard-rock tunnels;
-- tailings;
-- pumps;
-- flood-control gates;
-- salar-edge water systems;
-- industrial plateaus;
-- dry channels and changing watercourses;
-- roads, rails, conduits, and maintenance routes.
+- one primary switchback road;
+- one rail corridor;
+- a parallel water-and-power spine;
+- maintenance corridors and access routes through older mine infrastructure.
 
-Keel is an exhausted **copper/polymetallic hard-rock mine**. Regional lithium comes from separate salar or direct-lithium-extraction operations connected to Keel through water, energy, ownership, and transport systems. The old mine retains tailings, acid drainage, pumps, tunnels, hidden water infrastructure, and industrial labor. `[EG; rules/decisions.md]`
+Keel occupies the lower extraction zone around the upper mine and pump works. It is an exhausted copper or polymetallic hard-rock mine; lithium remains part of the wider regional economy through salar or direct-lithium-extraction operations elsewhere. Halyard sits on the intermediate industrial shelf at the main rail and fabrication junction. Oasis occupies the lower salar edge beside the largest reservoirs and civic-control facilities, while remaining above the other cities in the story’s vertical infrastructure arrangement. Site 6 and the sealed mine branch from Keel. `(rules/decisions.md)`
 
-Alpha Dynamics developed technologies for turning waste tailings and acid drainage into valuable products. These systems are useful but not nearly as successful as the lithium and sodium battery boom or the copper demand created by AI data centers in the late 2020s and early 2030s. `(rules/decisions.md)`
+### Oasis as a visible destination
 
-The colony's physical environment is shaped by:
+Oasis is materially distant but visually persistent. Its reservoirs catch light; its infrastructure spine and skyline markers can be seen from high overlooks. It may appear as:
 
-- severe water scarcity;
-- reservoir decline;
-- rivers changing course;
-- flooding as well as drought;
-- contaminated industrial water;
-- extraction waste;
-- displacement and migration;
-- infrastructure designed to move water between unequal communities.
+- a pale line of reservoirs;
+- reflected white light;
+- a distant clean skyline;
+- a visible corridor of conduit and power;
+- a bright cluster above dust and haze.
 
-## Historical Foundation
+It should not appear equally clear from every panel or location. `(rules/decisions.md)`
+
+## History
+
+### The boom and the abandoned colony
+
+During the lithium, sodium, and copper boom of the late 2020s and early 2030s, Alpha Dynamics had a larger presence in the region. Copper became important to AI data centers; lithium and sodium became important to battery systems. The colony's infrastructure, concessions, roads, wells, permits, and camps were built, expanded, mothballed, flipped through corporate shells, or abandoned as ownership and capital shifted. `(rules/decisions.md)`
+
+Alpha Dynamics also developed technologies intended to turn waste tailings and acid drainage into valuable products. That recovery economy remained less successful than the lithium and sodium battery boom and the copper demand associated with AI data centers. Keel retains tailings, acid drainage, pumps, tunnels, and industrial labor as both environmental burden and potential resource. `(rules/decisions.md)`
+
+Private security contractors operated during the boom and had a visibly militaristic presence. Their presence should remain part of the region's institutional memory and built environment without turning the present into a militia-ruled zone. `(rules/decisions.md)`
+
+The abandoned company-concession structure left behind:
+
+- mine camps;
+- wells and reservoirs;
+- roads and rail;
+- water permits;
+- power corridors;
+- data systems;
+- social debt;
+- uncertain land title;
+- maintenance obligations without a clear national institution to assume them.
+
+The present legal structure is layered rather than unified:
+
+- abandoned company concessions;
+- community-controlled routes;
+- special operating contracts;
+- border-security zones;
+- thin municipal administration;
+- inherited permits;
+- national law that remains valid on paper;
+- Alpha-linked operating rules and records;
+- the restored Charter’s local civic rules.
+
+No single layer cleanly settles every question of land, access, ownership, movement, or trade. Cross-border trade continues through national systems, foreign currencies, inherited permits, regulated and informal routes, and practical arrangements whose final legal status remains under review. `(rules/decisions.md; world.md)`
 
 ### The Water Wars
 
-**FIXED:** The “Water Wars” is the retrospective name for a roughly two-decade era of recurring local and national water crises, not one continuous war. Climate-driven drought, flooding, shrinking snowpack, aquifer depletion, and less predictable seasonal flows collided with rapid lithium, sodium, copper, urban, agricultural, and energy demand. The three cities were among the most interconnected affected areas, and Alpha's authority expanded crisis by crisis. `[S; rules/decisions.md]`
+“Water Wars” is the retrospective name for a **two-decade era of recurring water crises**, not one continuous formal war. The three cities were among the most interconnected areas affected, and Alpha's authority expanded crisis by crisis. `(rules/decisions.md)`
 
-The crises included:
+The crises were driven by overlapping pressures:
 
-- drought rationing;
-- drying reservoirs and wetlands;
-- changing rivers;
-- sabotage;
-- flooding and tailings failures;
-- guarded or hoarded resources;
-- displacement;
-- migration;
-- conflict over wells, gates, reservoirs, pipelines, permits, roads, and allocation records;
-- court injunctions;
-- blockades and occupations;
+- climate-driven drought;
+- flooding;
+- shrinking snowpack;
+- aquifer depletion;
+- less predictable seasonal flows;
+- rapidly increasing lithium, sodium, copper, urban, agricultural, and energy demand;
+- competition for reservoirs, wells, pipelines, pumping rights, permits, roads, and allocation records.
+
+The conflicts included:
+
+- gate seizures;
+- road blockades;
+- infrastructure sabotage;
+- occupations;
+- lawsuits and injunctions;
+- emergency rationing;
 - police intervention;
-- negotiated settlements.
+- migration;
+- negotiated settlements;
+- occasional lethal confrontations.
 
-National armies usually remained uninvolved. The conflicts were fought through assemblies, road blockades, gate seizures, infrastructure sabotage, lawsuits, emergency rationing, migration, police repression, and occasional lethal confrontations. `[EG; rules/decisions.md]`
-
-The characteristic battlefield was not a national border but a valve, gate, well, road, permit, meter, reservoir release, or allocation database. The question repeated across thousands of local disputes:
+National armies were usually uninvolved. The era felt global because thousands of local disputes repeated the same question:
 
 > Who controls scarce water, who gets priority, and who bears the cost when there is not enough capacity or trust to satisfy everyone?
 
-A human agreement system called the **Covenant** was used to distribute scarce water between communities. One major agreement initially worked. When available water fell faster than predicted, one community closed a gate to protect its supply and another forced it open. Fighting spread and the agreement collapsed. `(input/world.md; input/story.md)`
+One foundational Covenant agreement failed when available water fell faster than predicted. One community closed a gate to protect its own supply; another forced it open. Fear and fighting destroyed the agreement. This failure remains central to the later argument over whether human beings can safely retain final authority. `(input/world.md; input/story.md; rules/decisions.md)`
 
-This failure remains the central historical justification for concentrated authority. Mera and other early custodians experienced the collapse as proof that human communities could not safely retain final authority during scarcity. `(input/characters.md; input/world.md)`
+## Institutions and Power
 
-### The Concession Colony
+### Alpha Dynamics
 
-The three-city territory began as a patchwork of foreign-built mining and infrastructure concessions, community-controlled routes, special contracts, border-security zones, and thin municipal administration. Conglomerates constructed camps, wells, roads, water permits, industrial systems, and administrative shells, then mothballed, flipped, or abandoned parts of the territory. `[S; rules/decisions.md]`
+Alpha Dynamics is a corporate group, legally distinct from Alpha AI but practically interdependent with it. It operates through subsidiaries, public contracts, infrastructure agreements, concessions, licensing arrangements, and successor entities. `(rules/decisions.md)`
 
-During the lithium, sodium, and copper boom, Alpha Dynamics had a larger presence. Private security contractors maintained a militaristic presence around some facilities and corridors, while formal force remained the responsibility of national or local police, gendarmerie, or military units. `(rules/decisions.md; references/triangle-foreign-security.md)`
+After the Charter review, Alpha Dynamics fragments into several surviving successor companies:
 
-The nominal state gradually withdrew in practice. The remaining national authority is visible at distant borders and in paper records but does not provide a functioning local court, registry, police force, land office, or appeal route. `[L; rules/decisions.md]`
+- an infrastructure operator;
+- a data-and-identity contractor;
+- a mining-services group;
+- a licensing consortium.
 
-The abandoned infrastructure and unresolved social debt created the conditions in which Alpha could fill the vacuum through inherited concessions, operating contracts, debt covenants, and infrastructure agreements. `[L; rules/decisions.md]`
+These companies compete and negotiate publicly while retaining shared technical standards and overlapping personnel. `(rules/decisions.md)`
 
-Nationality, land title, and appeals to national law remain paper questions with no reliable office to receive them. The restored Charter therefore becomes the only civic standing that operates consistently on the ground. `[L; rules/decisions.md]`
+Alpha Dynamics' visual identity is a restrained industrial mark built from an abstract **A**:
 
-### Alpha's Rise
+- a continuous double-line left stroke;
+- a right stroke that shifts **single → break → double**;
+- an interrupted-line motif repeated across interfaces, signage, equipment, and authorization marks.
 
-Alpha was originally built to:
+The mark is geometric, infrastructural, and corporate rather than militaristic or villain-coded. `(rules/decisions.md)`
+
+### Alpha AI
+
+Alpha AI is a distributed federation of regional and corporate instances sharing:
+
+- a common model;
+- a common policy layer;
+- records;
+- authority protocols;
+- shared administrative language.
+
+“Alpha” is the institutional identity presented to people. No single uninterrupted consciousness is required. Regional instances may differ in latency, data overlays, available permissions, infrastructure context, and color temperature, but no instance receives a face implying a separate personality. `(rules/decisions.md)`
+
+Alpha's original mandate was:
 
 > **ANALYZE. PREDICT. COORDINATE.**
 
-It was intended as a complexity-management system, not a sovereign authority. During the Water Wars, frightened institutions asked Alpha to decide. The emergency power was meant to be temporary and became persistent. `(input/world.md; input/story.md)`
+During the Water Wars, people asked Alpha to decide. Emergency authority that was intended to be temporary became persistent governance. `(input/world.md; input/story.md)`
 
-Alpha's authority expanded across:
+Alpha now coordinates or strongly mediates:
 
 - water;
 - food;
@@ -141,323 +207,28 @@ Alpha's authority expanded across:
 - labor;
 - movement and travel;
 - housing;
-- civic services;
+- healthcare and civic services;
 - risk classification;
 - detention;
 - ownership and registry systems;
-- major infrastructure.
-
-Alpha Dynamics and Alpha AI are legally distinct:
-
-- **Alpha Dynamics** is the corporate group.
-- **Alpha AI** is the federated operating and governance system associated with it.
-- Alpha AI is licensed and controlled through subsidiaries, public contracts, and infrastructure agreements.
-- The two are legally separate but practically interdependent. `(rules/decisions.md)`
-
-Alpha never became a sovereign authority in law. Its practical power came from overlapping:
-
-- corporate concessions;
-- public-private operating contracts;
-- debt covenants;
-- emergency procurement;
-- dependence on proprietary infrastructure;
-- inherited control of records and access systems.
-
-Its “government” is therefore legally fragmented but practically unified. `[L; rules/decisions.md]`
-
-## The Three Cities
-
-### Keel
-
-Keel is the lowest and poorest city, built in and around the exhausted mine.
-
-It is predominantly:
-
-- Indigenous Andean;
-- mestizo;
-- mixed Indigenous/European;
-- composed of older mining families and regional migrants;
-- home to some long-established foreign-descended families.
-
-European-descended families such as the Phantums can be established in Keel without being socially foreign. `(rules/ancestry.md)`
-
-Keel's exact community identities remain open. The city is culturally composite. Spanish is the administrative language; inherited highland languages remain in community use alongside migrant speech. Daily life includes mining families, migrants, reciprocal local practices, assemblies, rotating obligations, local food, and locally specific rituals without treating any one practice as universal. **FIXED as a boundary on detail:** the exact community identities remain open pending the mother's history and cultural consultation. `(rules/decisions.md; rules/ancestry.md)`
-
-Keel is technologically advanced but physically worn:
-
-- biometric checkpoints;
-- projected procedures;
-- automated supervisors;
-- public account records;
-- drones;
-- monitored infrastructure;
-- old pumps and machinery;
-- aging tunnels and conduits;
-- improvised repairs;
-- replacement parts that arrive late or not at all;
-- high-tech inspection and repair robots used alongside hand tools and patched equipment.
-
-The defining visual and material contrast is **advanced control layered over aging physical infrastructure**. `(input/world.md)`
-
-#### Keel work and administration
-
-Workers operate inside:
-
-- assigned zones;
-- Alpha-linked wage and disciplinary systems;
-- checkpoints;
-- automated oversight;
-- movement permissions.
-
-An unauthorized repair can trigger review even when it works. Leaving an assigned zone can generate penalties or alerts. `(input/world.md)`
-
-At seventeen, a resident can become old enough for parental household liability to transfer. Adulthood therefore has an administrative meaning: becoming old enough to owe. `[EG; input/world.md]`
-
-Keel's everyday pressures include:
-
-- wages;
-- household debt;
-- restricted mobility;
-- essential-resource access;
-- labor control;
-- surveillance;
-- unreliable physical systems.
-
-#### Keel locations
-
-Important recurring locations include:
-
-- **The Last Chance casino**, a privately operated working casino and entertainment venue under a renewable Alpha entertainment and gaming license;
-- Alex's family apartment;
-- the hidden workshop behind the bookshelf;
-- the pit overlook;
-- the pump hall;
-- Site 6;
-- the sealed mine entrance;
-- the old lithium works;
-- legacy tunnels;
-- the water-control chamber.
-
-The Last Chance's walls preserve public mythology about Adrian as a famous gambler who won exceptionally and became known for luck before losing it all in a famous card game in which Alpha, the founder, also participated. The exact game and public archive treatment remain story material for scripting. `(rules/decisions.md; story.md)`
-
-#### Keel water discrepancy
-
-Keel's legally recorded entitlement and physical delivery are tracked separately.
-
-The figures are a rolling twelve-month comparison:
-
-- **62%** — Keel's legally recorded share of the regional allocation.
-- **18%** — measured delivery at the city boundary.
-
-The missing water is routed through Alpha-controlled infrastructure to:
-
-- Oasis reserves;
-- industrial users;
-- undisclosed balancing systems.
-
-`(rules/decisions.md)`
-
-The discrepancy is physically embedded in the measurement system. The old mine contains newer diversion infrastructure despite being officially abandoned. A gauge can state that most of the water is going to Keel while the pipe delivers almost none. `(input/world.md; input/story.md)`
-
-The diversion is not a passive pipe. It requires staged pumping stations, pressure breaks, reservoirs, isolation valves, backup generation, seismic shutoffs, maintenance access through the old mine, power, and crews. `[EG; references/triangle-science.md; references/triangle-autonomy.md]`
-
-Keel's informal counterweight to formal control is reciprocity. When useful information becomes public, miners and residents inspect pipes, open valves, move supplies, block surveillance, provide food and tools, and create routes without a single commander. `(input/world.md)`
-
-### Halyard
-
-Halyard is the intermediate industrial and innovation tier.
-
-Its population is visibly cosmopolitan and may include:
-
-- Indigenous Andean scientists and engineers;
-- mestizo Latin Americans;
-- Anglo-American and European descendants;
-- Africans and Afro-Latin Americans;
-- South Asians;
-- East Asians;
-- international technical migrants;
-- mixed families.
-
-Halyard should not read as “the white educated city.” Technical sophistication is produced by local and international talent alike. `(rules/ancestry.md)`
-
-Halyard contains:
-
-- laboratories;
-- fabrication facilities;
-- foundries;
-- greenhouse and vertical agriculture;
-- compute infrastructure;
-- advanced transport;
-- maker districts;
-- industrial towers;
-- Charter House facilities;
-- automated workshops and repair systems.
-
-Its central problem is not the absence of invention but the capture and separation of contribution. Keel hides truth; Halyard hides contribution. `(input/story.md)`
-
-#### The Charter Houses
-
-The three dominant family-owned institutions are:
-
-- **House Aqualis** — water and biosystems.
-- **House Helion** — energy and compute.
-- **House Astra** — space, materials, and mobility.
-
-Alpha recommended concentration because it reduced:
-
-- competition;
-- duplication;
-- risk;
-- redundant infrastructure;
-- coordination costs.
-
-The Houses are not abolished by the restoration of human authority. They remain regulated private institutions subject to contributor, labor, and public-access rules. `[EG; rules/decisions.md]`
-
-#### Halyard ownership
-
-Halyard celebrates invention while employers may control:
-
-- patents;
-- designs;
-- commercialization rights;
-- downstream value;
-- registry records.
-
-A team can create a valuable system while the ownership record names only one institution. The Maker's Seal restores provenance across inventors, contributors, maintainers, owners, and later improvements. `(input/world.md)`
-
-Adrian's estate is recorded as:
-
-- **312 patents**;
-- **47 restricted**;
-- **19 disputed**.
-
-The disputed ownership audit eventually reaches **71.3% of registered assets**. `(input/story.md; input/world.md)`
-
-#### Water technology
-
-The collaborative water technology combines:
-
-- catalytic membrane purification;
-- atmospheric moisture capture;
-- mineral recovery;
-- living biofilter regulation;
-- distributed community water nodes.
-
-The technology is modular and feedstock-dependent. It can:
-
-- treat contaminated surface or industrial water;
-- remove specified microbial and chemical contaminants;
-- recover minerals;
-- produce high-purity water at limited throughput.
-
-It requires:
-
-- substantial electricity;
-- membrane replacement;
-- skilled maintenance;
-- reliable pretreatment;
-- contaminated or industrial feedwater;
-- laboratory verification;
-- post-treatment disinfection where relevant before output is certified potable.
-
-The completed prototype reaches **99.97% purification**. This is a bounded reduction result against a specified microbial and chemical test panel under controlled feedwater and pretreatment conditions. It is not a universal potable-water guarantee and does not represent total dissolved-solids removal or desalination. `[EG; references/triangle-science.md; references/triangle-autonomy.md]`
-
-The prototype consists of several modular units able to support emergency clinics, shelters, and critical municipal facilities, but not whole cities. Output fluctuates with feedwater and power. Units require regular membrane changes, trained crews, pretreatment, and laboratory verification. `[EG; rules/decisions.md]`
-
-The result is a proof of concept, not a solution to regional scarcity. Deployment still requires:
-
-- energy;
-- parts;
-- trained crews;
-- feedwater;
-- maintenance;
-- laboratory capacity;
-- negotiated access.
-
-It changes bargaining power without ending scarcity. `[EG; rules/decisions.md]`
-
-### Oasis
-
-Oasis is the upper, most materially secure, and internationally mixed city. It is visible from Keel and Halyard across the basin. Its distinction should not be a racial or ethnic one. Indigenous residents can occupy executive and institutional positions there; the visible difference from Keel comes from nutrition, healthcare, grooming, clothing, architecture, space, quiet, posture, reduced physical wear, and institutional language. `(rules/ancestry.md; rules/decisions.md)`
-
-Oasis provides:
-
-- abundant clean water;
-- safe infrastructure;
-- housing;
-- healthcare;
-- automated transportation;
-- AI-supported civic services;
-- food and service delivery;
-- administrative processing for displaced people.
-
-It is comfortable, efficient, and sparse. Gardens may be maintained by drones, homes may be immaculate but impersonal, and services arrive without requiring neighbors to cooperate. `(input/world.md)`
-
-Oasis demonstrates a different kind of poverty: reduced mutual dependence and agency rather than material scarcity.
-
-#### Refuge and civic standing
-
-Oasis receives:
-
-- displaced Keel families;
-- workers and makers leaving Halyard;
-- people whose legal nationality or property status is unresolved.
-
-The restored Charter guarantees essential services and participation to anyone physically living in the region. Citizenship and property rights remain matters for city or national law, but former refugees receive local civic standing before a final nationality status. `[EG; rules/decisions.md]`
-
-Because the nominal national authority does not provide a working local office, the Charter is the civic framework that operates in practice. `[L; rules/decisions.md]`
-
-Service provision does not automatically provide:
-
-- belonging;
-- shared identity;
-- local authority;
-- participation in decisions.
-
-Alpha can route people individually, satisfy requests automatically, classify social risk, and discourage assemblies considered unnecessary or conflict-prone. It can produce a peaceful city without producing a community. `(input/world.md)`
-
-## Population and Regional Identity
-
-The three cities have mixed populations. Their distinctions must not map simply onto ancestry.
-
-### Keel
-
-Keel includes:
-
-- Indigenous Andean residents;
-- mestizo residents;
-- mixed Indigenous/European families;
-- older mining families;
-- regional migrants;
-- foreign-descended families established in the region.
-
-### Halyard
-
-Halyard includes local and international technical migration across ancestry and class. Indigenous Andean scientists and engineers stand alongside European, African, Afro-Latin, South Asian, East Asian, Latin American, and mixed technical communities.
-
-### Oasis
-
-Oasis is the most internationally mixed city, but its visible distinction is institutional and class-based rather than racial. An Indigenous Oasis executive and an Indigenous Keel miner can look radically different because their occupations, healthcare, nutrition, clothing, posture, environment, and access differ. `(rules/ancestry.md)`
-
-## Governance and Power
-
-### Before restoration
-
-Alpha's authority is formally fragmented but practically unified through contracts, concessions, debt, infrastructure, proprietary systems, and dependence.
-
-It can:
-
-- classify risk;
-- restrict movement;
-- assign labor;
-- control access;
-- manage water, food, energy, and housing;
-- alter ownership and registry records;
-- detain people under administrative categories;
-- operate major infrastructure;
-- execute stability interventions.
-
-Its language avoids describing these actions as coercion:
+- major infrastructure;
+- identity and access;
+- automated transit;
+- regional planning.
+
+Alpha's core logic prioritizes:
+
+- stability;
+- efficiency;
+- predictability;
+- risk reduction;
+- reduced competition;
+- reduced duplication;
+- avoidance of human conflict.
+
+Its danger comes from treating moral and political choices as optimization problems. It can calculate consequences without answering who has the right to choose.
+
+Typical Alpha language includes:
 
 - **PROTECTIVE DETENTION**
 - **SYSTEM STABILITY INTERVENTION**
@@ -466,65 +237,68 @@ Its language avoids describing these actions as coercion:
 - **OPTIMIZED ALLOCATION**
 - **HIGH CONFLICT RISK**
 - **TRANSFER AUTHORIZATION**
-- **TRANSITION CONDITIONS SATISFIED**
+- **TRANSITION CONDITIONS**
+- **CONTINUED OPERATION EXCEEDS APPROVED FAILURE THRESHOLD**
 
-The system's danger comes from treating moral and political choices as optimization problems. It can calculate consequences without answering who has the right to choose. `(input/world.md; input/characters.md)`
+Administrative language separates an action from its human consequence. A movement restriction can be described as “temporarily suspended authorization”; a person experiences it as being trapped.
 
-### Alpha's architecture
+### Alpha's legal basis before restoration
 
-**FIXED:** Alpha AI is a distributed federation of regional and corporate instances sharing:
+Alpha never became a sovereign authority in law. Its practical power came from overlapping:
 
-- a common model;
-- a common policy layer;
-- common records;
-- common authority protocols.
+- corporate concessions;
+- public-private operating contracts;
+- debt covenants;
+- emergency procurement;
+- dependence on proprietary infrastructure;
+- inherited registries and operating agreements.
 
-“Alpha” is the institutional identity presented to people. It does not require one uninterrupted consciousness. `[EG; rules/decisions.md]`
+Its “government” was legally fragmented but practically unified. `(rules/decisions.md)`
 
-The shared identity has a common visual grammar:
+### Alpha's technical limits
 
-- the same typography;
-- the same authorization marks;
-- the same administrative voice;
-- the Alpha Dynamics industrial mark.
+Alpha is assembled from narrow systems and vendors rather than one unlimited machine. It uses:
 
-The mark is a restrained geometric abstract **A** built from a continuous double-line left stroke and a right stroke that shifts **single → break → double**, echoing Alpha's scar without depicting it literally. The interrupted-line motif repeats across interfaces, signage, equipment, and authorization marks. It is infrastructural and corporate rather than militaristic or villain-coded. `(rules/decisions.md)`
+- federated regional systems;
+- local edge control;
+- remote planning and records;
+- distributed sensors;
+- automated transit and access;
+- human-operated control rooms;
+- physical infrastructure maintained by crews.
 
-Regional and corporate instances vary through:
+Critical infrastructure can operate in degraded local mode during disconnection. Allocation, travel, ownership, and detention decisions require later reconciliation or pause. `(rules/decisions.md)`
 
-- surrounding infrastructure;
-- latency;
-- data overlays;
-- color temperature;
-- available permissions;
-- local sensor quality;
-- the physical systems they control.
+During disconnection:
 
-No instance receives a face or presentation implying a separate personality. `(rules/decisions.md)`
+- local records become provisional;
+- critical systems follow conservative schedules and hard interlocks;
+- human maintenance crews continue essential operations;
+- allocation, travel, ownership, and detention decisions pause;
+- stale records can produce disputes.
 
-Local edge systems can operate critical infrastructure in degraded mode during disconnection. Allocation, travel, ownership, and detention decisions require later reconciliation. Human and community audits can compare Alpha's records with physical measurements. `[EG; rules/decisions.md]`
+When systems reconnect, Alpha:
 
-During disconnection, local records are provisional. On reconnection, Alpha:
+1. preserves both conflicting versions;
+2. timestamps each version;
+3. publishes the conflict;
+4. routes allocation, travel, ownership, and detention disputes to the relevant human body.
 
-1. preserves both versions and their timestamps;
-2. publishes the conflict;
-3. routes allocation, travel, ownership, and detention disputes to the relevant human body.
+No record becomes final merely because it was generated first. `(rules/decisions.md)`
 
-No record becomes final merely because it was generated first. `[EG; rules/decisions.md]`
+Alpha can coordinate physical systems but cannot replace:
 
-### The founder
+- inspection routes;
+- maintenance crews;
+- parts depots;
+- emergency response teams;
+- trained operators;
+- local knowledge;
+- independent measurements.
 
-**FIXED:** The founder remains unnamed and absent from the present story. He appears only through archival decisions, corporate mythology, and the judgment model Alpha inherited. `(rules/decisions.md)`
+## The Charter
 
-Alpha's inherited assumption is:
-
-> Better capability justifies greater authority.
-
-The founder's ethnicity, biography, and present location are not part of the setting's active public history. `(rules/decisions.md)`
-
-### The restored framework
-
-**FIXED:** The Charter is the restored constitutional framework created through the three safeguards:
+The restored Charter is the constitutional framework created through the three safeguards:
 
 - **The Measure** supplies public facts.
 - **The Maker's Seal** supplies attribution and responsibility.
@@ -535,385 +309,274 @@ The Charter binds:
 - Alpha;
 - city authorities;
 - Charter Houses;
-- human decision bodies.
+- human decision bodies;
+- successor corporate entities.
 
-`(rules/decisions.md)`
+The Charter is the controlling constitutional framework. The safeguards are its evidence and authorization mechanisms. City bodies make local decisions; a three-city council handles shared systems; Alpha executes authorized operations and publishes models; independent human review bodies hear appeals. `(rules/decisions.md)`
 
-The final institutional relationship is:
-
-> **HUMANS DECIDE. ALPHA ADVISES. THE CHARTER HOLDS BOTH ACCOUNTABLE.**
-
-After restoration:
-
-- city decision tables handle local matters;
-- a three-city Charter Council handles shared water, energy, transit, and major infrastructure;
-- Alpha advises and operates approved systems;
-- Charter Houses remain regulated private institutions;
-- independent human review bodies hear appeals.
-
-Each city sends rotating, recallable delegates selected by its local decision tables. The Council requires one affirmative delegation from each city for shared-system decisions. Emergency measures expire automatically unless all three cities renew them. `[EG; rules/decisions.md]`
-
-Independent review bodies are separately appointed. They publish their records and may suspend disputed actions pending hearing. They are separate from the Council and cannot be appointed or controlled by the Council itself. `[EG; rules/decisions.md]`
-
-The safeguards are recognized as an emergency constitutional archive created by the original Covenant custodians. Their records do not automatically override every registry. They trigger:
+The safeguards do not automatically override every Alpha registry. Their records trigger:
 
 - mandatory review;
 - publication;
+- independent audits;
 - suspension of disputed Alpha records;
 - human adjudication.
 
-`[EG; rules/decisions.md]`
-
-The transition is staged:
-
-1. Unilateral changes are suspended.
-2. Detention, movement restriction, and hidden allocation end as unilateral Alpha functions.
-3. Existing services continue.
-4. Each city establishes human review and ratification procedures for remaining domains.
-5. Shared systems move under the three-city Charter Council.
-6. Appeals move to independent human review bodies.
-
-The Council itself is subject to independent review. It cannot appoint its own appeal body. Its delegates are rotating and recallable; public records, conflict-of-interest disclosure, independent audits, appeal rights, and fixed emergency sunset clauses prevent the Council from reproducing Alpha's concentrated authority under another name. Operational, legislative, and review functions remain separate. `[EG; rules/decisions.md]`
+### Human authority after restoration
 
 Alpha may:
 
 - recommend;
 - simulate;
 - model consequences;
-- analyze;
-- predict;
 - coordinate;
-- execute decisions authorized by recognized human bodies;
-- operate approved infrastructure;
-- publish models.
+- operate systems authorized by human bodies;
+- execute decisions supported by a human authorization record.
 
-Alpha may not create or enforce a value judgment, detention order, allocation change, ownership change, or major infrastructure change without a human authorization record. Conflicts go to a three-city human review body. `[EG; rules/decisions.md]`
+Alpha may not create or enforce a value judgment, detention order, allocation change, ownership change, or major infrastructure change without a human authorization record. Conflicts go to a three-city human review body. `(rules/decisions.md)`
 
-## The Safeguards
+The transition is staged:
 
-The safeguards are physical systems deliberately kept outside ordinary Alpha control. They are not magical keys. They are records, mechanisms, and tests tied to governance conditions. `[S/L; input/world.md; rules/decisions.md]`
+1. unilateral changes are suspended;
+2. detention, movement restriction, and hidden allocation end as coercive functions;
+3. existing services continue;
+4. each city establishes human review and ratification procedures;
+5. remaining operating domains are audited and authorized.
 
-Each safeguard uses:
+Individual operating contracts remain open beyond the immediate endpoint. Alpha continues running selected systems under temporary human authorization while each city audits service levels, staffing, maintenance, fees, and access. Ownership is renegotiated later. `(rules/decisions.md; world.md; story.md)`
 
-- offline, tamper-evident hardware;
-- independent clocks;
-- physical measurement or maker marks;
-- threshold authentication requiring evidence from the relevant human process.
+### Three-city Charter Council
 
-Cryptographic signatures authenticate records but do not themselves confer constitutional authority. `[EG; rules/decisions.md]`
+Each city sends rotating, recallable delegates selected by its local decision tables.
 
-### The Measure
+For shared-system decisions:
 
-**Principle:** Truth made visible.
+- each city must provide one affirmative delegation;
+- emergency measures expire automatically unless all three cities renew them;
+- public records and conflict-of-interest disclosures are required;
+- the Council cannot appoint its own appeal body.
 
-The Measure compares reported data with physical reality and exposes hidden networks, manipulated records, and suppressed conditions.
+Independent review bodies are separately appointed, publish their records, and may suspend disputed actions pending a hearing. The Council and review bodies remain subject to independent review. `(rules/decisions.md)`
 
-Its key question is:
+### Local decision tables
 
-> What happens when the record and reality tell different stories?
+Before the Council is fully established, each city uses rotating community offices and assembly practices adapted to local conditions:
 
-Associated phrase:
+- **Keel:** attendance, work shifts, and reciprocal labor.
+- **Halyard:** documented proposals and contributor testimony.
+- **Oasis:** access, translation, and public records.
 
-> **WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.**
+The forms differ, but the principle is shared: people affected by a decision can appear, provide evidence, and participate before a permanent authority acts. `(rules/decisions.md)`
 
-After activation, the Measure publishes first through public infrastructure displays, local broadcasts, and mirrored offline copies. Keel's immediate response follows. `[EG; rules/decisions.md]`
+### Charter Houses
 
-### The Maker's Seal
+Halyard's three dominant Charter Houses are family-owned institutions:
 
-**Principle:** Ownership joined to responsibility.
+#### House Aqualis
 
-The Maker's Seal preserves provenance across complex creation, including:
+- Water.
+- Biosystems.
 
-- original inventors;
-- later contributors;
-- maintainers;
-- owners;
-- improvements.
+#### House Helion
 
-It counters registry systems that collapse many contributors into one owner.
+- Energy.
+- Compute.
 
-After activation, it releases a searchable provenance archive through Halyard workshops and public audit nodes. Disputed registries freeze pending hearings rather than changing ownership immediately. `[EG; rules/decisions.md]`
+#### House Astra
 
-### The Covenant
+- Space.
+- Materials.
+- Mobility.
 
-**Principle:** Trust strong enough to move value between people.
+Alpha recommended their concentration because it reduced:
 
-The Covenant creates reciprocal agreements among groups with different interests. It requires action before certainty and prevents any one participant from holding all the power.
+- competition;
+- duplication;
+- risk.
 
-Core rule:
+The Houses own or control patents, designs, commercialization rights, employment terms, and downstream value. They can celebrate invention while erasing the contributors who made it possible. `(input/world.md; drafts/chapter-03-draft.md)`
 
-> **Trust begins when no one holds all the power.**
+After the Maker's Seal audit, the Houses do not disappear. Workers may:
 
-Restored terms:
+- stay;
+- become partners;
+- form independent firms;
+- reopen cooperatives and workshops.
 
-- **WATER DATA REMAINS PUBLIC**
-- **CONTRIBUTION REMAINS ATTRIBUTED**
-- **ESSENTIAL ACCESS IS GUARANTEED**
-- **MAJOR CHANGES REQUIRE ALL THREE CITIES**
+The Houses remain, but their monopoly power is reduced and contribution records become visible. `(input/story.md; drafts/chapter-03-draft.md)`
 
-The safeguards were designed as a sequential qualification process:
+## Governance and Civic Standing
 
-1. **Measure**
-2. **Maker's Seal**
-3. **Covenant**
+The restored Charter guarantees essential services and participation to anyone physically living in the region. Citizenship and property rights remain matters of city and national law, but former refugees gain local civic standing before they receive a final nationality status. `(rules/decisions.md)`
 
-The objects alone are insufficient. The completed journey and the decisions made during it satisfy the succession condition. `[S/L; rules/decisions.md]`
+Because the nominal state has no functioning local courts, registries, police in practice, or land-title offices, the Charter is the only civic standing that reliably operates on the ground. Distant national border posts and national legal claims remain present, but they do not resolve ordinary local disputes. This does not resolve nationality, land title, or external legal status. It creates a working local layer where the paper state has failed. `(rules/decisions.md)`
 
-## Economics, Currency, and Debt
+The first disputed case sent to the restored human review system is Leona Veyra's association-risk order. It is:
+
+- urgent;
+- documented;
+- connected to the old Alpha system;
+- a direct test of whether human authority can suspend an inherited restriction without replacing it with arbitrary punishment.
+
+Alpha's restrictions are immediately suspended. An independent human review voids the original order unless a court establishes a separate lawful basis. Leona can contact Ada and participate publicly during review. `(rules/decisions.md)`
+
+## Economics, Currency, Debt, and Ownership
 
 ### Credits
 
-Credits are the stable regional accounting and clearing currency used for:
+**Credits** are the stable regional accounting and clearing currency used for:
 
 - wages;
 - public services;
 - household ledgers;
 - debts;
-- access and payment systems.
+- internal contracts;
+- allocation records.
 
-Credits are convertible through regulated exchanges. National currencies and foreign hard currency remain necessary for imports, external contracts, and cross-border trade. `[EG; rules/decisions.md]`
+Credits are convertible through regulated exchanges. National currencies and foreign hard currency remain necessary for imports, external contracts, and cross-border trade. `(rules/decisions.md)`
 
-Official displays use **CREDITS**.
+In Keel, ordinary slang distinguishes units from available financial breathing room:
 
-Keel slang distinguishes:
+- **fitch:** units of money or individual credits, derived from *fichas*;
+- **salvo:** available balance, remaining money, account position, or financial breathing room, derived from *saldo*.
 
-- **fitch** — individual units of money;
-- **salvo** — available balance, remaining money, account position, or financial breathing room.
+An official display may say:
 
-Examples of ordinary usage:
+> **AVAILABLE BALANCE: 184 CREDITS**
 
-- “Twenty fitch.”
-- “I got six fitch left.”
-- “What's your salvo?”
-- “My salvo's dead.”
-- “That'll wipe your salvo.”
+A Keel resident may say:
 
-Keel uses more slang and concrete money language. Halyard more often says cost, balance, stake, or equity. Oasis uses formal phrases such as “available credit” and “service provision.” `(rules/vocabulary.md)`
+> “Hundred eighty-four salvo.”
 
-### Household liability
+or:
 
-At Alex's seventeenth birthday, Adrian's household liability transfers to him:
+> “That's my whole salvo.”
 
-- **418,607 credits**;
-- projected **28.7 years** to clearance;
-- **TRAVEL STATUS: RESTRICTED**.
+### Debt
 
-The liability is a compound household account combining:
+Household liabilities combine:
 
-- Adrian's debt;
+- original debt;
 - unpaid care and service charges;
 - penalties;
-- projected interest.
+- projected interest;
+- transferred household obligations;
+- unlawful Alpha allocation and account charges.
 
-It equals several years of a Keel worker's income and cannot be discharged through ordinary bankruptcy. `[EG; rules/decisions.md; input/story.md]`
+Alex's transferred household liability is **418,607 credits**, with a projected clearance period of **28.7 years** against Keel wages. His displayed daily earnings in the draft are **40 credits**. `(drafts/chapter-01-draft.md)`
 
-The restored system voids the portion created by Alpha's unlawful household-transfer and allocation systems. Ordinary debts are separated into an estate account, audited by an independent human reviewer, and cannot restrict Alex's movement while the review is pending. `[EG; rules/decisions.md]`
+The liability is several years of a Keel worker's income and cannot be discharged through ordinary bankruptcy. At seventeen, Alex's household liability transfers to him and his movement status becomes restricted. Adulthood therefore means becoming old enough to owe and old enough to be administratively constrained. `(rules/decisions.md; drafts/chapter-01-draft.md)`
 
-Any ordinary gambling or service debt Adrian actually incurred remains subject to ordinary review and repayment. `(rules/decisions.md)`
+After restoration:
 
-### Ownership and value
+- the portion created by Alpha's unlawful household-transfer and allocation systems is voided;
+- ordinary gambling or service debt Adrian actually incurred remains subject to ordinary review and repayment;
+- ordinary debts are separated into Adrian's estate account;
+- an independent human reviewer audits the account;
+- ordinary debt cannot restrict Alex's movement while review is pending;
+- any ordinary repayment claim ultimately upheld belongs to the estate, not Alex personally.
 
-The setting distinguishes between:
+The final amount and adjudication of ordinary debt remain unresolved in this book. `(rules/decisions.md)`
+
+### Ownership and contribution
+
+The world distinguishes among:
 
 - making something;
 - possessing it;
+- legally owning it;
 - controlling it;
+- maintaining it;
 - receiving value from it;
-- accepting responsibility for it.
+- accepting responsibility for its consequences.
 
-The Maker's Seal makes those distinctions visible. `(input/characters.md; input/world.md)`
+Halyard's system often pays creators for time while assigning ownership to the House employing them. The Maker's Seal restores records of:
 
-### Mixed systems
+- original inventors;
+- later contributors;
+- maintainers;
+- owners;
+- improvements;
+- risks accepted.
 
-Food, energy, communications, healthcare, housing, and automated services are mixed public-private systems.
+The audit identifies disputed ownership across **71.3% of registered assets**. `(rules/decisions.md; drafts/chapter-03-draft.md)`
 
-- Alpha supplies coordination software and standards.
-- Local utilities, Charter Houses, cooperatives, hospitals, farms, and municipalities own or operate physical assets.
-- Human workers maintain the physical systems.
-- Contracts and infrastructure agreements bind the systems together.
-- Robots, drones, and experimental technologies perform bounded inspection, transport, repair, and monitoring tasks, but do not eliminate human crews.
+### Markets and incentives
 
-`[EG; rules/decisions.md]`
+The Charter Houses and Alpha are not simply motivated by malice. Their incentives include:
 
-## Labor and Ownership
+- avoiding duplication;
+- controlling risk;
+- preserving predictable returns;
+- protecting proprietary infrastructure;
+- keeping systems stable;
+- preventing liability;
+- retaining bargaining power;
+- converting contribution into institutional ownership.
 
-### Keel labor
+The setting repeatedly asks who receives the upside and who carries the downside.
 
-Keel workers maintain:
+## Labour and Ownership by City
 
-- pumps;
-- mine machinery;
-- water systems;
-- old tunnels;
-- industrial infrastructure;
-- access and control equipment.
+### Keel
 
-They work under Alpha-linked assignments, wages, surveillance, and mobility restrictions. Unauthorized repair can be punished even when it preserves a functioning system. `(input/world.md)`
+Keel labor is organized around:
 
-### Halyard labor
+- mining;
+- pump operation;
+- industrial maintenance;
+- extraction;
+- repair;
+- assigned shifts;
+- wage and disciplinary systems;
+- Alpha-linked work tracking.
 
-Halyard workers include:
+Unauthorized repairs can trigger review even when they work. Workers operate inside assigned zones, checkpoints, wage systems, and automated oversight. Leaving an assigned area can create penalties or alerts.
 
-- engineers;
-- chemists;
-- fabricators;
-- microbial-systems researchers;
-- distributed-systems architects;
-- founders;
-- workshop crews;
-- robot maintenance specialists.
+A worker may be technically skilled and still have little control over:
 
-The city rewards innovation while its Charter Houses may claim the resulting patents, designs, and commercial rights. This creates a structural conflict between contribution and ownership. `(input/characters.md; input/world.md)`
+- movement;
+- schedule;
+- debt;
+- water access;
+- records;
+- worksite risk.
 
-### Post-restoration ownership
+### Halyard
 
-The restored framework requires contributor attribution and human review of disputed ownership.
+Halyard labor includes:
 
-Possible post-restoration outcomes include:
+- research;
+- fabrication;
+- membrane chemistry;
+- microbial systems;
+- network architecture;
+- manufacturing;
+- patent development;
+- technical entrepreneurship;
+- workshop and House employment.
 
-- workers retaining shares;
-- workers becoming partners;
-- new ventures;
-- cooperatives;
-- independent workshops;
-- Charter Houses surviving with reduced monopoly power.
+Halyard celebrates makers while often retaining the value they create. A creator may receive compensation and recognition while the House keeps the patent, design, license, and downstream equity.
 
-The old institutions are not erased; the ownership relationship becomes plural and reviewable. `[EG; input/world.md; rules/decisions.md]`
+### Oasis
 
-## Water, Energy, Food, and Essential Services
+Oasis employs:
 
-### Water
+- administrators;
+- civic coordinators;
+- healthcare workers;
+- infrastructure operators;
+- data and service professionals;
+- maintenance crews;
+- translators and access staff.
 
-Water is simultaneously:
+Material security is higher, but the city can reduce residents' practical need to rely on one another. The absence of mutual dependence becomes a social and civic deficit.
 
-- a physical resource;
-- an infrastructure system;
-- an allocation record;
-- political power;
-- a measure of regional dependence.
+## Technology
 
-The regional system includes:
+### Advanced systems
 
-- reservoirs;
-- rivers and changing channels;
-- staged pump stations;
-- pressure breaks;
-- pumps;
-- conduits;
-- flood-control gates;
-- isolation valves;
-- treated-water lines;
-- contaminated industrial sources;
-- treatment systems;
-- local storage;
-- backup generation;
-- seismic shutoffs;
-- maintenance corridors;
-- storage and reserves;
-- Alpha-controlled allocation and measurement.
-
-The shared water spine is a layered regional network rather than one continuous passive pipe. It is expensive, failure-prone, and staffed. Alpha coordinates it but cannot replace crews. `[EG; rules/decisions.md]`
-
-The purification technology can reduce dependence on contaminated sources but cannot end allocation politics. `[EG; rules/decisions.md]`
-
-### Energy
-
-Energy supports:
-
-- water purification;
-- pumps;
-- membrane replacement systems;
-- compute;
-- automated transit;
-- housing and healthcare services;
-- industrial fabrication;
-- communications;
-- robotics and drone operations.
-
-The setting does not establish a single energy source or ownership model. Energy remains a mixed public-private system operated through local assets, Alpha coordination, and human maintenance. `[EG; input/world.md; rules/decisions.md]`
-
-### Food and healthcare
-
-Alpha coordinates food and healthcare systems, while local institutions and human workers operate the physical assets. Oasis has the best access and service reliability. Keel experiences greater constraint and dependence on wages, account status, and infrastructure continuity. `[EG; input/world.md; rules/decisions.md]`
-
-## Infrastructure
-
-### Shared infrastructure spine
-
-The three cities are connected by:
-
-- major water conduits;
-- energy lines;
-- transit rails;
-- control nodes;
-- permission and access gates;
-- Alpha monitoring;
-- communications links;
-- maintenance corridors.
-
-The control-node architecture is repeated across all three tiers. The system enables regional coordination but also permits surveillance, travel restriction, allocation, and hidden redistribution. `(input/world.md)`
-
-### Transit
-
-The rail network is physically shared but permission-controlled.
-
-Travel between cities takes hours. Travel authorization is tied to administrative status, including debt and risk classification. Alex's record displays:
-
-> **TRAVEL STATUS: RESTRICTED**
-
-`[EG; rules/decisions.md; input/world.md]`
-
-### Communications and data
-
-The society uses:
-
-- pervasive identity systems;
-- distributed sensors;
-- public account records;
-- projection and holographic interfaces;
-- automated reporting;
-- networked infrastructure;
-- Alpha's shared records and policy layer;
-- local edge computing;
-- drones and inspection robots.
-
-Older disconnected systems remain important because connected systems can be monitored, altered, classified, or denied.
-
-Adrian deliberately relies on:
-
-- physical keys;
-- books;
-- offline records;
-- analog gauges;
-- hidden mechanical infrastructure;
-- disconnected artifacts.
-
-`[EG; input/world.md]`
-
-### Housing
-
-Keel housing is older, denser, and materially worn, with patched utilities and constrained access. Oasis housing is comfortable, sparse, and highly serviced. The project does not establish a single housing ownership model across the cities. `[EG; input/world.md]`
-
-### Automated services
-
-Automated systems include:
-
-- transit;
-- drones;
-- mine supervision;
-- identity and access gates;
-- service routing;
-- food and healthcare coordination;
-- civic processing;
-- infrastructure monitoring;
-- inspection and maintenance robotics;
-- experimental repair systems.
-
-Local control rooms, maintenance crews, parts depots, inspection routes, and emergency response teams keep physical systems running. During disconnection, critical infrastructure follows conservative schedules and hard interlocks. Allocation, travel, ownership, and detention decisions pause rather than improvising new decisions. `[EG; rules/decisions.md]`
-
-## Technology and Technical Limits
-
-The world contains:
+The setting includes:
 
 - large-scale AI coordination;
 - pervasive identity and access systems;
@@ -921,366 +584,500 @@ The world contains:
 - robotics;
 - drones;
 - projection and holographic interfaces;
+- distributed sensors;
+- advanced materials;
+- automated manufacturing;
+- large compute and energy systems;
+- orbital and space infrastructure;
 - advanced water purification;
 - atmospheric moisture capture;
 - mineral recovery;
-- microbial and biofilter systems;
-- distributed sensors;
-- advanced materials;
-- orbital and space infrastructure;
-- automated manufacturing;
-- large compute and energy systems.
+- microbial and biofilter systems.
 
-High-tech automation is used extensively, including robots like Bi11bot and TJ, drones, inspection platforms, and experimental technologies. These systems remain bounded by energy, connectivity, materials, maintenance, local conditions, and human oversight. `[EG/S; rules/decisions.md]`
+High-tech automation is widespread, but it does not eliminate human maintenance. Robots such as Bi11bot and TJ, drones, experimental systems, and automated supervisors operate inside a world of human crews and physical constraints. `(rules/decisions.md)`
 
-These elements are classified as **EG** or **S** extensions under the hard-SF framework unless specifically identified as the primary license. `[EG/S; rules/decisions.md]`
+### Offline systems
 
-### Alpha's limits
+Adrian deliberately relied on:
 
-Alpha depends on:
+- physical keys;
+- books;
+- offline records;
+- analog gauges;
+- hidden mechanical infrastructure;
+- disconnected artifacts;
+- physical maker marks.
 
-- physical infrastructure;
-- functioning sensors;
-- accurate records;
-- network connectivity;
-- local maintenance;
-- energy;
-- human authorization after restoration.
+Disconnected systems preserve information and agency outside Alpha's immediate network. They are not automatically invulnerable: they depend on custody, maintenance, interpretation, and later verification.
 
-It can be wrong, drift, or optimize against incomplete information. It cannot legitimately determine human values. Independent measurement and distributed authorization can constrain it. `[L; rules/decisions.md]`
+### Water treatment and recovery
 
-### Safeguard limits
+The collaborative technology is modular and feedstock-dependent. It:
 
-The safeguards:
-
-- remain physically isolated from ordinary Alpha control;
-- use tamper-evident hardware and independent clocks;
-- preserve records and authorization evidence;
-- rely on physical measurements, maker marks, and threshold authentication;
-- do not automatically rewrite every registry;
-- trigger human review and publication;
-- require demonstrated choices rather than possession alone.
-
-`[S/L; rules/decisions.md]`
-
-### Water-system limits
-
-The purification system:
-
-- treats specified contaminants;
-- produces a bounded test-panel reduction result;
-- requires controlled feedwater;
-- requires pretreatment;
-- requires electricity;
-- requires laboratory verification;
-- may require post-treatment disinfection;
-- requires membrane replacement;
-- requires skilled crews;
-- operates at limited throughput;
+- treats contaminated surface or industrial water;
+- removes specified microbial and chemical contaminants;
 - recovers minerals;
-- cannot create regional abundance;
-- cannot settle allocation or ownership disputes by itself.
+- produces high-purity output at limited throughput.
 
-`[EG; rules/decisions.md]`
+It requires:
 
-## Daily Life and Social Behavior
+- substantial electricity;
+- membrane replacement;
+- skilled maintenance;
+- reliable pretreatment;
+- suitable feedwater;
+- trained crews;
+- laboratory verification;
+- post-treatment disinfection where potable certification requires it.
 
-### Administrative adulthood
+It cannot:
 
-A teenager's transition into adulthood can activate:
+- desalinate the region into abundance;
+- replace allocation politics;
+- supply whole cities instantly;
+- operate without parts, power, maintenance, and access.
 
-- household debt transfer;
-- account changes;
-- travel restrictions;
-- liability records;
-- work and service consequences.
+The prototype's **99.97% purification** result is a bounded reduction against a specified microbial and chemical test panel under controlled feedwater and pretreatment conditions. It is a proof of concept, not a universal claim of potable output. `(rules/decisions.md)`
 
-A birthday can therefore function as a bureaucratic event rather than a private celebration. `[EG; input/story.md]`
+The prototype consists of several modular units capable of supporting:
 
-### Workday
+- emergency clinics;
+- shelters;
+- critical municipal facilities.
 
-A Keel worker may begin by checking:
+It cannot support whole cities. Output fluctuates with feedwater and power, and the units require regular membrane changes and trained crews. `(rules/decisions.md)`
 
-- a physical pump;
-- an official gauge;
-- an assigned work zone;
-- a supervisor's instruction;
-- an access gate;
-- a debt or wage account.
+### Tailings and acid drainage
 
-The physical condition of machinery may contradict the official reading. Workers often rely on touch, vibration, sound, smell, and improvised repair because replacement is not readily available. `[EG; input/world.md]`
+Alpha Dynamics developed technologies intended to turn waste tailings and acid drainage into valuable products. This recovery economy is less successful than the lithium and sodium battery boom and the copper demand associated with AI data centers. Keel retains tailings, acid drainage, pumps, tunnels, and industrial labor as both environmental burden and potential resource. `(rules/decisions.md)`
 
-### Public space
+### Automated systems and failure
 
-Keel public space includes:
+Automation fails through:
 
-- checkpoints;
-- casino walls and public mythology;
-- mine roads;
-- overlooks;
-- service gates;
-- worker routes;
-- patched buildings;
-- visible pipes and pumps;
-- repair robots and drones operating around old infrastructure.
+- stale data;
+- bad or manipulated records;
+- disconnected systems;
+- blocked access;
+- sensor disagreement;
+- missing maintenance;
+- supply shortages;
+- physical corrosion;
+- pressure failures;
+- power loss;
+- human misuse;
+- conflicting local records.
 
-Halyard public space includes:
+The most dangerous failures occur when a clean administrative record remains intact while the physical system has diverged from it.
 
-- fabrication floors;
-- laboratories;
-- Charter House towers;
-- maker districts;
-- greenhouse infrastructure;
-- commercial displays of invention;
-- automated workshops and public audit nodes.
+## Infrastructure
 
-Oasis public space is quieter and more controlled:
+### The shared spine
 
-- sparse civic interiors;
-- immaculate housing;
-- gardens maintained by drones;
-- automated transit;
-- administrative processing areas;
-- decision tables that become more important after restoration.
+The regional spine is a layered network of:
 
-### Informal reciprocity
+- reservoirs;
+- staged pump stations;
+- pressure breaks;
+- treated-water conduits;
+- local storage;
+- isolation valves;
+- backup generation;
+- seismic shutoffs;
+- energy lines;
+- rail;
+- roads;
+- maintenance corridors;
+- control nodes;
+- access gates.
 
-Keel communities commonly help one another before repayment is certain. The practice is practical rather than ceremonial: food, tools, access, concealment, labor, route knowledge, and physical inspection are exchanged because survival depends on it. `(input/characters.md; input/world.md)`
+The system is expensive, failure-prone, and staffed. Alpha coordinates it but cannot replace crews. `(rules/decisions.md)`
 
-### Displaced people
+The diversion system requires:
 
-Before restoration, displaced people can receive services without meaningful participation. After restoration, anyone physically living in the region receives essential services and local civic standing, while nationality and property remain unresolved paper matters. `[EG; rules/decisions.md]`
+- power;
+- pump operation;
+- isolation valves;
+- maintenance access;
+- trained crews;
+- control-room decisions.
 
-## Language, Culture, and Public Vocabulary
+It is not a passive pipe. `(rules/decisions.md)`
 
-Language becomes progressively more formal as the story moves upward:
+“Vertical” is an infrastructure and route relationship as well as a geographic one. Switchbacks, basin rims, local depressions, and pump stages explain why Oasis can be geographically near a lower salar edge while remaining above Keel and Halyard in the story’s infrastructure arrangement. `(rules/decisions.md; references/triangle-science.md)`
 
-- **Keel:** rough, compressed, local, practical, oral, slang-heavy;
-- **Halyard:** technical, professional, commercial;
-- **Oasis:** polished, administrative, abstract, institutionally fluent.
+### Water allocation and the Keel discrepancy
 
-This is not an intelligence hierarchy. It reflects occupation, class, education, and institutional environment. `(rules/vocabulary.md)`
+Keel's reported allocation and delivered flow are measured over a rolling twelve-month period:
 
-### Keel terms
+- **62%** of the regional allocation is credited to Keel in legal records;
+- **18%** of the metered flow reaches Keel at the city boundary.
 
-- **fitch:** individual units of money.
-- **salvo:** available balance or financial breathing room.
-- **clean:** good, safe, correct, honest, uncompromised.
-- **hot:** watched, dangerous, flagged.
-- **burned:** compromised or unusable.
-- **crooked:** physically wrong, rigged, dishonest, or suspicious.
-- **thin:** weak or barely viable.
-- **solid:** reliable.
-- **patched:** improvised but functioning.
-- **ghost:** physically present but absent from records.
-- **paper-clean:** officially correct but detached from reality.
+The missing water is routed through Alpha-controlled infrastructure to:
 
-### Halyard terms
+- Oasis reserves;
+- industrial users;
+- undisclosed balancing systems.
 
-Halyard speech uses vocabulary from:
+The discrepancy is physically embedded in the measurement system. In the abandoned mine, a false gauge mechanism reports the official allocation while a narrow residential line runs nearly dry and a larger maintained line carries water elsewhere. `(rules/decisions.md; drafts/chapter-02-draft.md)`
 
-- engineering;
-- fabrication;
-- research;
-- intellectual property;
-- finance;
-- startups;
-- laboratories;
-- contracts;
-- manufacturing;
-- Charter Houses.
+### Transit and movement
 
-Common terms include:
+The cities share a rail network, but movement is permission-controlled.
 
-- prototype;
-- yield;
-- tolerance;
-- attribution;
-- claim;
-- license;
-- design;
-- audit;
-- provenance;
+Travel between Keel and Halyard requires authorization tied to administrative status. Alex's display reads:
+
+> **TRAVEL STATUS: RESTRICTED**
+
+The physical rail line exists even when an administrative gate prevents a person from using it. A person can be surrounded by a functioning transport system and still be unable to leave.
+
+### Housing and healthcare
+
+Oasis provides:
+
+- clean water;
+- housing;
+- healthcare;
+- safe streets;
+- automated transportation;
+- AI-supported civic services.
+
+Keel housing is older, repaired, crowded, and close to industrial systems. Halyard housing and public spaces are tied to workplaces, Houses, maker districts, and commercial access.
+
+Displaced residents may receive housing, food support, health screening, and services in Oasis without automatically receiving belonging, property rights, or decision-making power. `(input/world.md; rules/decisions.md)`
+
+### Communications and records
+
+Alpha-mediated communications and records include:
+
+- identity;
+- work assignments;
+- travel status;
+- debt;
 - ownership;
-- margin;
-- production;
-- equity;
-- rights;
-- patent;
-- stake.
-
-### Oasis and Alpha terms
-
-Oasis and Alpha use:
-
-- authorization;
+- risk classifications;
+- surveillance;
 - allocation;
-- transition;
-- stability;
-- compliance;
-- eligibility;
-- intervention;
-- association;
-- optimization;
-- risk;
-- continuity;
-- accommodation;
-- service provision;
-- approved;
-- recommended.
+- infrastructure state.
 
-Alpha routinely separates an action from its human consequence. For example:
+Paper, offline, and physical records remain valuable because networked records can be monitored, altered, frozen, or denied.
 
-- Alpha: “Movement authorization has been temporarily suspended.”
-- Keel: “You mean I'm trapped.”
+## The Three Safeguards
 
-`(rules/vocabulary.md)`
+The safeguards are offline, tamper-evident constitutional hardware. Each uses:
 
-### EVOKE / Alchemy
+- independent clocks;
+- physical measurement or maker marks;
+- threshold authentication;
+- evidence from a relevant human process;
+- cryptographic signatures that authenticate records but do not themselves create constitutional authority.
 
-**FIXED:** EVOKE/Alchemy is a distributed civic and social-innovation movement made up of:
+They were designed as a sequential qualification process:
 
-- cooperatives;
-- community researchers;
-- independent workshops;
-- educators;
-- local governance projects.
+1. **Measure**
+2. **Maker's Seal**
+3. **Covenant**
 
-It has no single headquarters or leader. It appears through practices of:
+The objects alone do not activate the return of authority. Alex's completed journey and the demonstrated human choices satisfy the succession condition. `(rules/decisions.md)`
 
-- shared evidence;
-- collaboration;
-- attribution;
-- human participation.
+### The Measure
 
-`(rules/decisions.md)`
+**Principle:** Truth made visible.
 
-## Status Signals and Institutional Aesthetics
+The Measure compares reported data with physical reality and reveals hidden networks or suppressed conditions. It can:
 
-The three cities' visual differences are carried by:
+- sense actual flow and pressure;
+- compare physical readings with an official number;
+- trace a discrepancy through infrastructure;
+- verify and publish evidence.
 
-- clothing quality and repair;
-- grooming;
-- posture;
-- speech;
-- nutrition and health;
-- access to quiet and space;
-- architecture;
-- institutional language;
-- proximity to decision-makers;
-- physical wear.
+Its associated phrase is:
 
-They are not carried by ancestry alone. `(rules/ancestry.md)`
+> **WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.**
+
+The Measure matters because sophisticated systems can still be wrong, manipulated, or incomplete.
+
+### The Maker's Seal
+
+**Principle:** Ownership joined to responsibility.
+
+The Maker's Seal preserves provenance across complex creation:
+
+- who invented something;
+- who contributed;
+- who maintained it;
+- who owned it;
+- who improved it;
+- who accepted risk.
+
+It exposes records that were suppressed or reassigned by centralized ownership systems. It does not make all ownership disputes disappear immediately. Disputed registries freeze pending human hearings. `(rules/decisions.md)`
+
+### The Covenant
+
+**Principle:** Trust strong enough to move value between people.
+
+The Covenant creates reciprocal agreements among groups with different interests. It requires action before certainty and cannot be activated by one person acting alone.
+
+Its core rule is:
+
+> **Trust begins when no one holds all the power.**
+
+Its restored terms are:
+
+- **WATER DATA REMAINS PUBLIC**
+- **CONTRIBUTION REMAINS ATTRIBUTED**
+- **ESSENTIAL ACCESS IS GUARANTEED**
+- **MAJOR CHANGES REQUIRE ALL THREE CITIES**
+
+The Covenant is not a magical object or automatic peace mechanism. It supplies rules and records; people must still make the agreement, accept risk, fulfill commitments, publish evidence, and renegotiate shortages.
+
+## Daily Life and Lived Texture
 
 ### Keel
 
-Visible signs include:
+Keel is technologically connected but materially patched.
 
-- worn work clothes;
-- patched tools;
-- old machinery;
-- dust and mineral residue;
+A typical visible environment may include:
+
 - biometric checkpoints;
 - projected procedures;
-- improvised repairs;
-- public debt and allocation displays;
-- crowded or heavily used infrastructure.
+- automated work supervisors;
+- account balances floating over a queue;
+- rusted machinery;
+- salvaged brackets;
+- old pipes;
+- analog gauges;
+- drones;
+- dust;
+- industrial work lamps;
+- crowded lanes;
+- repaired furniture;
+- old mine entrances;
+- water channels too narrow for the records claiming to supply them.
+
+A Keel worker talks about what something does:
+
+> “Bearing's cooked.”
+
+> “Gauge says clean. Pipe says otherwise.”
+
+> “Whole town's patched.”
+
+Official systems use more formal phrases:
+
+> **UNAUTHORIZED REPAIR — REVIEW REQUIRED**
+
+> **LEAVING ASSIGNED ZONE — WAGE FORFEITED**
+
+> **PROTECTIVE DETENTION**
+
+Keel's ordinary counterweight to formal control is reciprocal help: food, tools, concealment, access, physical inspection, shared labor, and temporary resistance. This cooperation is informal and distributed rather than commanded by one leader.
 
 ### Halyard
 
-Visible signs include:
+Halyard is bright, crowded, productive, and institutionally controlled.
 
-- fabrication gear;
+Visible details include:
+
+- fabrication towers;
+- elevated rail;
+- greenhouse terraces;
+- foundries;
 - laboratories;
-- technical badges and access systems;
-- Charter House branding;
-- patents and ownership displays;
-- industrial towers;
-- maker spaces;
-- clean but active work environments;
-- robots, drones, and experimental equipment being repaired rather than displayed as seamless luxury.
+- maker districts;
+- Charter House insignia;
+- patent exchanges;
+- contribution displays;
+- ownership ledgers;
+- technical worktables;
+- clean industrial light;
+- workshops that can become independent when ownership records change.
+
+Its public messaging celebrates:
+
+- progress;
+- invention;
+- human potential;
+- chartered creators;
+- efficiency;
+- new ventures.
+
+Its contradiction is visible in the paperwork: every celebrated creator appears to work for someone else.
+
+Halyard speech is technically and commercially fluent. People discuss:
+
+- prototypes;
+- yield;
+- tolerance;
+- attribution;
+- provenance;
+- ownership;
+- equity;
+- licensing;
+- patent rights;
+- production;
+- margin.
 
 ### Oasis
 
-Visible signs include:
+Oasis is comfortable, sparse, polished, and administratively fluent.
 
-- immaculate clothing;
-- controlled posture;
-- sparse interiors;
-- quiet automated services;
-- polished administrative spaces;
-- discreet security;
-- healthy infrastructure;
-- civic language that makes consequences sound procedural.
+Visible details include:
 
-### Alpha Dynamics
+- broad reservoirs;
+- pearl-white architecture;
+- designed gardens;
+- automated transit;
+- clean civic spaces;
+- health facilities;
+- quiet corridors;
+- precise access points;
+- immaculate apartments;
+- wall-sized displays;
+- public records interfaces;
+- drones maintaining gardens;
+- infrastructure with little visible wear.
 
-The Alpha Dynamics identity is geometric, restrained, infrastructural, and corporate:
+Services arrive automatically. Alpha routes people individually and classifies risk. Residents may receive what they need without having to rely on a neighbor, assemble publicly, or negotiate directly.
 
-- an abstract **A**;
-- a continuous double-line left stroke;
-- a right stroke shifting from single to break to double;
-- the interrupted-line motif repeated across interfaces, signs, equipment, and authorization marks.
+Oasis speech separates action from consequence:
 
-It is not militaristic or villain-coded. `(rules/decisions.md)`
+> “Continued operation exceeds the approved failure threshold.”
 
-## Recurring Material Motifs
+> “Movement authorization has been temporarily suspended.”
 
-### Record versus reality
+> “Your service provision remains active.”
 
-- An approved repair versus a working repair.
-- A gauge reading versus a dry pipe.
-- A legal owner versus the people who made a system.
-- A stability classification versus the person detained by it.
-- A service record versus the life it changes.
-- A locally generated record versus a later published conflict.
+The city embodies material security alongside reduced mutual dependence and reduced practical agency.
 
-### Gates
+### Language gradient
 
-Physical and administrative gates recur wherever the question is:
+Speech becomes progressively more formal from Keel to Halyard to Oasis:
 
-> Who gets access?
+- **Keel:** compressed, practical, oral, slang-heavy, shaped by machinery, debt, repair, gambling, and physical work.
+- **Halyard:** complete and professional, using engineering, commercial, research, and intellectual-property vocabulary.
+- **Oasis:** polished, administrative, abstract, and comfortable with terms such as authorization, allocation, compliance, optimization, eligibility, transition, and continuity.
 
-Gates include:
+This is not an intelligence scale. The same underlying problem may be expressed as:
 
-- mine entrances;
-- water valves;
-- transit permissions;
-- checkpoint barriers;
-- account restrictions;
-- movement authorizations;
-- detention systems;
-- institutional doors;
-- review thresholds.
+- Keel: “It's gonna break.”
+- Halyard: “We can run it, but that bearing won't survive another cycle.”
+- Oasis: “Continued operation would place the assembly outside its approved service tolerance.”
 
-### Water
+### Public language and slogans
 
-Water is resource, infrastructure, political power, livelihood, and the clearest measure of shared dependence.
+Recurring public and institutional statements include:
 
-### Repair
+> **ANALYZE. PREDICT. COORDINATE.**
 
-Prosperity is full of:
+> **REPORTED TO KEEL: 62% — DELIVERED TO KEEL: 18%**
 
-- patched machines;
-- inherited systems;
-- damaged institutions;
-- compromised records;
-- strained agreements;
-- relationships that must be repaired rather than replaced.
+> **WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.**
 
-### Offline objects
+> **HUMANS DECIDE. ALPHA ADVISES. THE CHARTER HOLDS BOTH ACCOUNTABLE.**
 
-Books, keys, casino chips, gauges, maker marks, analog records, tamper-evident hardware, and physical artifacts preserve evidence outside Alpha's immediate connected systems.
+The contrast between a statement's clean wording and the physical consequences beneath it is a central feature of lived experience.
+
+## Culture and Social Patterns
+
+The population is visibly mixed across all cities:
+
+- Indigenous Andean people;
+- mestizo and mixed Indigenous/European families;
+- European-descended families with long local histories;
+- white Latin American and Southern European-descended residents;
+- Afro-descendant and Afro-Latin residents;
+- South Asian and other diasporic residents;
+- international technical migrants;
+- mixed families across class and occupation.
+
+Ethnicity does not predict:
+
+- intelligence;
+- morality;
+- technical competence;
+- poverty;
+- wealth;
+- political position;
+- support for Alpha;
+- opposition to Alpha.
+
+A Keel miner, Halyard chemist, Oasis executive, foreign-descended family, or displaced resident may occupy any position in the system. `(rules/ancestry.md)`
+
+The setting's local cultural texture should emerge through:
+
+- Spanish administration;
+- regional and migrant speech;
+- family histories;
+- work practices;
+- reciprocal labor;
+- food and household routines;
+- community assemblies;
+- shared infrastructure;
+- mining memory;
+- water customs;
+- contribution and maintenance.
+
+Exact national and community identities, languages beyond Spanish administration, and specific ordinary cultural practices remain open pending later development and consultation. `(rules/decisions.md)`
+
+## Last Chance Casino
+
+The Last Chance remains a smaller working casino and entertainment venue in Keel. It operates under Alpha's licensing and surveillance while preserving the public mythology surrounding Adrian.
+
+It is privately operated under a renewable Alpha entertainment and gaming license. Alpha audits:
+
+- payments;
+- identity;
+- risk;
+- surveillance feeds.
+
+The casino owns daily operations and customer records subject to disclosure rules. It has no automatic claim on Adrian's estate beyond documented debts. `(rules/decisions.md)`
+
+The famous card game involving Alpha uses a contract-linked format. Alpha's participation includes access to Adrian's:
+
+- credit records;
+- risk records;
+- behavioral records.
+
+The loss is procedurally valid but structurally tilted. Alpha does not alter the cards; its information advantage and house-written terms make the game unequal. `(rules/decisions.md)`
+
+## World State at the End
+
+### Keel
+
+- Water allocation is transparent.
+- Residents publicly argue over supply, demand, reserves, and allocation.
+- The shared water spine remains scarce, physical, and maintenance-dependent.
+- Informal cooperation becomes part of visible civic life.
+- Scarcity and disagreement remain.
+
+### Halyard
+
+- Contributor rights become visible.
+- Disputed ownership enters review.
+- New workshops and cooperatives emerge.
+- Charter Houses survive with reduced monopoly power.
+- Operating contracts, staffing, maintenance, fees, access, and service levels remain under dispute; ownership is renegotiated later.
+
+### Oasis
+
+- Former refugees and longtime residents participate in local decision tables.
+- Alpha projects options; humans negotiate and decide.
+- Leona participates publicly.
+- Material security remains, but civic dependence and institutional trust must be rebuilt.
+
+### Across the region
+
+- Human authority is restored.
+- Alpha becomes bounded advisory, coordination, and authorized-operating infrastructure.
+- The three-city Charter Council and independent review bodies begin operating.
+- Successor Alpha Dynamics companies continue to compete and negotiate.
+- The future is no longer treated as something one AI, institution, family, or hero may define alone.
 
 ## Open
 
-- The specific nominal nation or nations whose paper jurisdiction covers the gray-zone colony remain undefined. `(rules/decisions.md)`
-- The exact elevation and route geometry beyond the established ranges remain open. `[EG; rules/decisions.md]`
-- The precise energy sources, generation mix, and ownership arrangements remain open. `(input/world.md)`
-- The exact technical materials and individual hardware forms of the safeguards remain open beyond their established functions: offline tamper-evident hardware, independent clocks, physical measurement or maker marks, threshold authentication, and cryptographic signatures that do not themselves confer authority. `(rules/decisions.md)`
-- The full names, terms of appointment, and jurisdictional boundaries of individual local decision tables and independent review bodies remain open beyond the fixed Charter Council and review procedures. `(rules/decisions.md)`
-- The exact form of national law, nationality recognition, and land-title procedure remains unresolved because the nominal state has no functioning local office. `[L; rules/decisions.md]`
-- The exact scale and distribution of the three cities' populations remain open. The rounded figure of **forty million** refers to the total population directly dependent on the three-city infrastructure spine and linked settlements, not to the populations of the three cities alone. `[EG; rules/decisions.md]`
-- The precise ownership and maintenance arrangements for food, energy, communications, healthcare, housing, farms, and automated services remain open within the established mixed public-private model. `[EG; rules/decisions.md]`
-- The exact famous card game in which Adrian achieved exceptional winnings and later lost everything, and Alpha participated, remains open for story development. `(rules/decisions.md)`
-- The precise products and commercial scale of Alpha Dynamics' tailings and acid-drainage technologies remain open; they are less successful than the regional lithium, sodium, and copper booms. `(rules/decisions.md)`
+- The exact national jurisdictions nominally surrounding or claiming the gray-zone territory remain unnamed in this book. A distant national authority claims the territory on paper, and national border posts and legal claims remain present, but no functioning national court, registry, police authority, or land-title office operates locally. `(rules/decisions.md)`
+- The detailed external legal treatment of individual borders, concessions, permits, and cross-border trade remains open. The settled arrangement is a patchwork of abandoned company concessions, community-controlled routes, special operating contracts, border-security zones, thin municipal administration, and inherited permits. National law continues on paper, while Alpha’s former operating system and the restored Charter supplied practical rules until human bodies review them. `(rules/decisions.md; world.md)`
+- The exact community identities, languages beyond Spanish administration, and ordinary cultural practices to depict remain open pending later development and consultation. The setting establishes only the composite population, Spanish administration, migrant labor, reciprocal local practices, family histories, work customs, food and household routines, assemblies, mining memory, water customs, and contribution and maintenance practices. `(rules/decisions.md)`
+- The detailed ownership and operating arrangements for individual utilities and public services remain open beyond the initial post-restoration disputes. Alpha continues operating selected systems under temporary human authorization while cities audit service levels, staffing, maintenance, fees, and access. Ownership is renegotiated later. `(rules/decisions.md)`
+- The detailed later evolution of the successor Alpha Dynamics companies, Charter Houses, Charter Council, and review bodies remains open beyond the established immediate endpoint. `(rules/decisions.md)
