@@ -1,0 +1,473 @@
+{
+  "id": "r07-ai",
+  "kind": "ai",
+  "started": "2026-09-21T19:53:07",
+  "finished": "2026-09-21T19:54:18",
+  "status": "error",
+  "files_written": [],
+  "images": [],
+  "references": {
+    "prosperity/input/alpha-notes.md": "3ed4badcd2e1a7bf",
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/facts.md": "c31f77625b45e686",
+    "prosperity/input/open-items.md": "39db770411a3b032",
+    "prosperity/input/pratul-ch3-draft.md": "dfee4895481ac5ee",
+    "prosperity/input/prosperity-ch3-draft.md": "710baf8e1353abe9",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 9,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.103767,
+      "input_tokens": 327480,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 14598,
+      "reasoning_tokens": 0,
+      "total_tokens": 342078
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 9,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.103767,
+        "input_tokens": 327480,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 14598,
+        "reasoning_tokens": 0,
+        "total_tokens": 342078
+      }
+    }
+  },
+  "run_id": "f291aa46df81",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-3.1-flash-lite",
+      "temperature": 0.2,
+      "max_tokens": 60000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": "synthesizing",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "purpose": "Write characters.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "characters.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "purpose": "Write world.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "world.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "purpose": "Write story.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "story.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "preservation": {
+          "source_chars": 120051,
+          "output_chars": 16784,
+          "mass": 0.14,
+          "terms": 356,
+          "missing": 114,
+          "coverage": 0.68,
+          "dropped": [
+            "0.03",
+            "10",
+            "14",
+            "15",
+            "19",
+            "2.3",
+            "2043",
+            "28.7",
+            "312",
+            "418,607",
+            "47",
+            "71.3",
+            "80",
+            "96.4",
+            "99.97",
+            "ATTRIBUTED",
+            "AUTHORIZED",
+            "Alchemy",
+            "Another",
+            "Astrophage",
+            "CHANGES",
+            "Canon",
+            "Caption",
+            "Chance",
+            "Close-up",
+            "Closing",
+            "Commits",
+            "Companion",
+            "Conditions",
+            "Continued",
+            "Continuity",
+            "Core",
+            "Cross-City",
+            "Curiosity",
+            "DENIED",
+            "DETECTED",
+            "Dialogue",
+            "Different",
+            "Display",
+            "Displayed"
+          ]
+        }
+      },
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "purpose": "Write characters.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "characters.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "purpose": "Write world.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "world.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "purpose": "Write story.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "story.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "preservation": {
+          "source_chars": 120051,
+          "output_chars": 24567,
+          "mass": 0.205,
+          "terms": 356,
+          "missing": 71,
+          "coverage": 0.801,
+          "dropped": [
+            "10",
+            "14",
+            "2.3",
+            "2003",
+            "2043",
+            "ATTRIBUTED",
+            "Activation",
+            "Alchemy",
+            "Alpha-linked",
+            "Astrophage",
+            "CONTRIBUTION",
+            "CREATOR",
+            "Canon",
+            "Caption",
+            "Chance",
+            "Close-up",
+            "Closing",
+            "Companion",
+            "Continue",
+            "Continued",
+            "Core",
+            "Covenant's",
+            "Cross-City",
+            "DENIED",
+            "DETECTED",
+            "Dialogue",
+            "Different",
+            "Dynamics",
+            "Educated",
+            "Ends",
+            "Fourth",
+            "GUARANTEED",
+            "Halyard's",
+            "History",
+            "INVISIBLE",
+            "Important",
+            "Initial",
+            "Knows",
+            "Legal",
+            "License"
+          ]
+        }
+      },
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "purpose": "Write characters.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "characters.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "purpose": "Write world.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "world.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": []
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "purpose": "Write story.md from the showrunner's material. Organize freely; lose nothing; resolve nothing.",
+        "model": "google/gemini-3.1-flash-lite",
+        "outputs": [
+          "story.md"
+        ],
+        "inputs": [
+          "prosperity/input/alpha-notes.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/pratul-ch3-draft.md",
+          "prosperity/input/prosperity-ch3-draft.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "preservation": {
+          "source_chars": 120051,
+          "output_chars": 24506,
+          "mass": 0.204,
+          "terms": 356,
+          "missing": 68,
+          "coverage": 0.809,
+          "dropped": [
+            "0.03",
+            "10",
+            "2.3",
+            "28.7",
+            "96.4",
+            "AUTHORIZATION",
+            "AUTHORIZED",
+            "Activation",
+            "Alchemy",
+            "Alpha-linked",
+            "Astrophage",
+            "Authorization",
+            "Canon",
+            "Caption",
+            "Chance",
+            "Close-up",
+            "Closing",
+            "Covenant's",
+            "Cross-City",
+            "DELIVERED",
+            "DETECTED",
+            "Dialogue",
+            "Different",
+            "Educated",
+            "Established",
+            "Estate",
+            "Fourth",
+            "Graphic",
+            "Halyard's",
+            "He's",
+            "History",
+            "I'm",
+            "I've",
+            "Important",
+            "Initial",
+            "Legal",
+            "License",
+            "Lock's",
+            "Longtime",
+            "MAKERS"
+          ]
+        }
+      }
+    ],
+    "generated_this_run": [],
+    "carried_forward": [
+      "characters.md",
+      "facts.md",
+      "open-items.md",
+      "room-log.md",
+      "story.md",
+      "world.md"
+    ],
+    "human_modified": [],
+    "failed": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md"
+    ]
+  }
+}

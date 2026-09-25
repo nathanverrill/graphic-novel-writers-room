@@ -1,4 +1,4 @@
-"""Search over everything the room can read: the library, the skills, a project's own files.
+"""Search over everything the room can read: the library and a project's own files.
 
 One index in OpenSearch, hybrid by default:
 
@@ -25,7 +25,7 @@ import urllib.request
 from collections import Counter
 
 from . import projects
-from .config import LIBRARY_DIRS, env
+from .config import CAMPAIGNS_DIR, env
 
 INDEX = "writers-room"
 _CORPUS = {"df": Counter(), "docs": 0}   # word counts from the last full pass
@@ -162,29 +162,15 @@ def keywords(chunk_text, headings, doc_terms, corpus_df, docs_total, limit=12):
 def library_files():
     """Everything the room can read: (name, path, scope, kind).
 
-    The scope is where it sits — prosperity/characters, evoke/canon, skills — so a search can
+    The scope is where it sits — prosperity/rules, prosperity/input — so a search can
     ask one campaign, or one kind of material, without knowing the file names."""
-    out = []
-    for f in projects.library():
-        path = None
-        for folder in LIBRARY_DIRS:
-            candidate = folder / f["name"].removeprefix("skills/")
-            if candidate.is_file():
-                path = candidate
-                break
-        if path:
-            out.append((f["name"], path, f["group"], f["kind"]))
-    return out
+    return [(f["name"], CAMPAIGNS_DIR / f["name"], f["group"], f["kind"]) for f in projects.library()]
 
 
 def project_files(slug):
+    """The campaign's desk. Its own material is in the library, under its own scopes."""
     folder = projects.project_dir(slug)
-    out = [(p.name, p, f"project:{slug}", "room") for p in sorted(folder.glob("*.md"))]
-    local = folder / "references"
-    if local.is_dir():
-        out += [(p.name, p, f"project:{slug}", projects.reference_kind(p))
-                for p in sorted(local.glob("*.md"))]
-    return out
+    return [(p.name, p, f"project:{slug}", "room") for p in sorted(folder.glob("*.md"))]
 
 
 # ---- the index -------------------------------------------------------------------------
@@ -193,8 +179,8 @@ MAPPING = {
     "settings": {"index": {"knn": True}, "analysis": {}},
     "mappings": {"properties": {
         "file": {"type": "keyword"},
-        "scope": {"type": "keyword"},      # references · skills · project:<slug>
-        "kind": {"type": "keyword"},       # canon · guide · draft · room
+        "scope": {"type": "keyword"},      # <campaign>/<folder> · project:<slug>
+        "kind": {"type": "keyword"},       # rules · input · drafts · guide · room
         "title": {"type": "text"},
         "headings": {"type": "text"},
         "heading_path": {"type": "keyword"},
@@ -361,14 +347,39 @@ def describe(path):
     return None
 
 
+def indexed_as(path):
+    """(file, scope) exactly as index() wrote them, or None.
+
+    Rebuilt from the path rather than looked up, because forget() runs after the file is gone
+    and describe() can only find a file that still exists. A library file is keyed by its
+    library name and the folder it sat in; a file on a campaign's desk by its bare name and
+    that campaign — so two campaigns' script.md stay apart.
+
+    The desk is checked first: it sits inside campaigns/, so the library branch would otherwise
+    claim it and hand back a key nothing was ever indexed under."""
+    for slug in projects.list_projects():
+        try:
+            if path.parent == projects.project_dir(slug):
+                return path.name, f"project:{slug}"
+        except FileNotFoundError:
+            continue
+    if CAMPAIGNS_DIR in path.parents:
+        rel = path.relative_to(CAMPAIGNS_DIR)
+        return str(rel), str(rel.parent)
+    return None
+
+
 def forget(path):
     """Drop a deleted file's chunks."""
-    for scope in ("references", "skills", *[f"project:{s}" for s in projects.list_projects()]):
-        body = {"query": {"bool": {"filter": [{"term": {"file": path.name}}, {"term": {"scope": scope}}]}}}
-        try:
-            _json(f"{opensearch_url()}/{INDEX}/_delete_by_query", body, timeout=60)
-        except urllib.error.HTTPError:
-            pass
+    key = indexed_as(path)
+    if not key:
+        return
+    name, scope = key
+    body = {"query": {"bool": {"filter": [{"term": {"file": name}}, {"term": {"scope": scope}}]}}}
+    try:
+        _json(f"{opensearch_url()}/{INDEX}/_delete_by_query", body, timeout=60)
+    except urllib.error.HTTPError:
+        pass
 
 
 def watch(interval=0.5, on_change=lambda msg: None):

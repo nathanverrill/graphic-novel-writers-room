@@ -16,18 +16,17 @@ import base64
 import json
 import re
 
-from . import artist, asciitext, config, llm, projects, review, rules, search, thumbnails
+from . import llm, projects, review, rules, search, thumbnails, keypages
 from . import agents as agents_mod
-from .agents import gather_context, random_entry, read_hat
+from .agents import IMAGE_TYPES, gather_context, random_entry
 from .usage import CallLogger
 
-REF_PREFIX = "library/"    # the agents' name for the library: campaigns/ and
-                           # agents/skills/ under one prefix, library/<its path>
+REF_PREFIX = "campaigns/"  # the showrunner's material: intake's to read (app/intake.py), nobody else's
 
-PREVIEW_HOW = artist.PANEL_HOW
 
-IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "write_artifact", "generate_image", "finish")
+IMPLEMENTED = ("list_artifacts", "read_artifact", "search", "provoke", "write_artifact", "generate_image", "finish")
 MINIMAL = ("write_artifact", "finish")     # a cold reader cannot browse the room
+PRIVATE = ("facts.md",)    # the fact-checker's list: only the roles listed as reading it
 
 
 def repair_calls(calls, warn=lambda msg: None):
@@ -76,7 +75,7 @@ def tools_for(role, cfg, emit=None):
         if emit:
             emit("warn", text=f"agents/tools/{name}.json has no implementation; skipped")
     order = [n for n in IMPLEMENTED if n in available]      # a sensible order, not the file order
-    wanted = MINIMAL if role.minimal else (cfg.tools or order)
+    wanted = MINIMAL if role.minimal else (order if cfg.tools is None else cfg.tools)   # [] = no tools: plain chat
     if not cfg.can_generate_images:
         wanted = [n for n in wanted if n != "generate_image"]
     return [available[n] for n in wanted if n in available]
@@ -84,9 +83,9 @@ def tools_for(role, cfg, emit=None):
 
 
 def story_targets(slug):
-    """Headings from the outline and script: the places a random target can point at."""
+    """Headings from the story and script: the places a random target can point at."""
     found = []
-    for name in ("outline.md", "script.md"):
+    for name in ("story.md", "script.md"):
         text = projects.read_artifact(slug, name) or ""
         found += [l.lstrip("#").strip() for l in text.splitlines() if re.match(r"^#{2,3} \S", l)]
     return found
@@ -95,6 +94,21 @@ def story_targets(slug):
 def page_of(message):
     m = re.match(r"page (\d+)", message)
     return int(m.group(1)) if m else None
+
+
+def page_art_images(slug, limit=24):
+    """The showrunner's uploaded page art, as (label, mime, bytes), lowest page first."""
+    out = []
+    for n in range(1, 400):
+        rel = projects.page_art(slug, n)
+        if not rel:
+            continue
+        path = projects.project_dir(slug) / rel
+        mime = IMAGE_TYPES.get(path.suffix.lower(), "image/png")
+        out.append((f"page {n} art (no lettering)", mime, path.read_bytes()))
+        if len(out) >= limit:
+            break
+    return out
 
 
 class Stopped(Exception):
@@ -115,7 +129,7 @@ class Agent:
 
     # ---- prompt building -------------------------------------------------
 
-    def system_prompt(self, guides, figma_text, use_tools, hat=None):
+    def system_prompt(self, guides, use_tools, only=None):
         r = self.role
         parts = [
             f"You are the {r.title} in a graphic novel writers' room.",
@@ -123,13 +137,7 @@ class Agent:
             "# Your guides",
             *[f"## {label}\n\n{text}" for label, text in guides],
         ]
-        if figma_text:
-            parts += ["# Figma references", *figma_text]
-        if hat:
-            parts += ["# Thinking mode for this run — wear this hat", read_hat(hat)]
-        if r.preview:
-            parts.append(PREVIEW_HOW)
-        elif use_tools and self.role.minimal:
+        if use_tools and self.role.minimal:
             parts.append(
                 "# How to work\n"
                 f"Everything you may read is in the message. Write {r.outputs[0]} in full with "
@@ -140,7 +148,7 @@ class Agent:
                 "# How to work\n"
                 "The room shares a folder of markdown files. Use list_artifacts and read_artifact "
                 "to check colleagues' work when you need it. "
-                f"Your deliverables: {', '.join(r.outputs)}. Write each one in full with "
+                + f"Your deliverables: {', '.join(r.outputs)}. Write each one in full with "
                 "write_artifact (it overwrites). When they are done, call finish with a short "
                 "handoff note for the rest of the room: decisions made, open questions."
             )
@@ -153,85 +161,32 @@ class Agent:
         else:
             parts.append(
                 "# How to work\n"
-                f"Reply with the complete markdown content of {r.outputs[0]} and nothing else."
+                f"Reply with the complete markdown content of {only or r.outputs[0]} and nothing else."
             )
         return "\n\n".join(parts)
 
-    def shortlist(self, refs):
-        """The library files this writer reads, if its settings name any. The project's own
-        references/ folder is always read: that material belongs to this book."""
-        if self.cfg.reference_files is None:
-            return refs
-        wanted = set(self.cfg.reference_files)
-        return {n: p for n, p in refs.items()
-                if n in wanted or not any(d in p.parents for d in config.LIBRARY_DIRS)}
-
-    def task_message(self, note, images, sparks=None):
+    def task_message(self, note, images):
         r = self.role
-        pitch = projects.read_artifact(self.slug, "pitch.md") or "(no pitch yet)"
-        text = [f"Project: {self.slug}", "# Pitch", pitch]
-
-        refs = {} if r.minimal else projects.reference_files(self.slug)
-        refs = self.shortlist(refs)
-        kinds = {n: projects.reference_kind(p) for n, p in refs.items()}
-        groups = [
-            ("canon", "# Canon from the showrunner\n"
-                      "This is true in the book. Where it conflicts with the room's files, the "
-                      "canon wins unless the showrunner's note says otherwise."),
-            ("worldbuilding", "# Worldbuilding — invented material to draw on, NOT canon\n"
-                      "A menu of what could plausibly be there. Take what serves the page; it "
-                      "commits the book to nothing and none of it has happened yet."),
-            ("research", "# Real-world material the showrunner collected — NOT story\n"
-                      "Articles, reports, data: true of the actual world, not of the book. Ground "
-                      "details in it and do not contradict it, but nothing here is a story event."),
-            ("guide", "# Craft guides from the showrunner — NOT canon\n"
-                      "How to do the work. They commit the book to nothing and describe no events: "
-                      "take what serves the page and ignore the rest. Where a guide labels material "
-                      "T, EG, S, L or Cut, keep those labels when you use it "
-                      "(agents/skills/hard-sf-rules.md says what they mean)."),
-            ("draft", "# Idea drafts from the showrunner — NOT canon, NOT the script to write\n"
-                      "These were put together to get ideas on paper. Mine them for story beats, "
-                      "intent, moments and lines worth keeping, but write the room's own, better "
-                      "version: don't copy their structure, pacing, dialogue or page breakdown. "
-                      "Where a draft conflicts with the canon, the canon wins."),
-        ]
-        for kind, heading in groups:
-            chosen = {n: p for n, p in refs.items() if kinds[n] == kind}
-            if not chosen:
-                continue
-            if self.cfg.references == "full":
-                text.append(heading)
-                text += [f"## {REF_PREFIX}{n}\n\n{p.read_text()}" for n, p in chosen.items()]
-            else:
-                text.append(heading + "\nRead what you need with read_artifact:\n"
-                            + "\n".join(f"- {REF_PREFIX}{n} ({p.stat().st_size // 1000 or 1} KB)"
-                                        for n, p in chosen.items()))
+        text = [f"Project: {self.slug}"]
 
         for name in r.reads:
             content = projects.read_artifact(self.slug, name)
             if content:
                 text += [f"# {name} (from the room)", content]
-            else:
+            elif name != projects.DRAFT:      # a book with no draft has nothing to say about it
                 text.append(f"# {name}\n(not written yet — work from what you have)")
 
         existing = [] if r.minimal else [(n, projects.read_artifact(self.slug, n)) for n in r.outputs]
-        existing = [(n, c) for n, c in existing if c]
+        existing = [(n, c) for n, c in existing if c and c.strip()]
         if existing:
-            text.append("# Your previous drafts — revise rather than start over")
+            text.append("# The files you write, as they stand — revise rather than start over")
             text += [f"## {n}\n{c}" for n, c in existing]
-
-        if sparks:
-            spark = ["# Random entry (drawn by code for this run)", "Cards:"]
-            spark += [f"- {c}" for c in sparks["cards"]]
-            if sparks["word"]:
-                spark.append(f"Unrelated word: {sparks['word']}")
-            if sparks["target"]:
-                spark.append(f"Target: {sparks['target']}")
-            text.append("\n".join(spark))
 
         if note:
             text += ["# Note from the showrunner — address this first", note]
 
+        if r.page_art and self.cfg.send_images:
+            images = list(images) + page_art_images(self.slug)
         if images:
             text.append("# Reference images attached: " + ", ".join(l for l, _, _ in images))
 
@@ -247,16 +202,20 @@ class Agent:
         if name not in {t["function"]["name"] for t in self.tools}:
             return f"Tool {name!r} is not available to you."
         if name == "list_artifacts":
-            names = [a["name"] for a in projects.list_artifacts(self.slug)]
-            names += [REF_PREFIX + n for n in projects.reference_files(self.slug)]
-            return json.dumps(names)
+            return json.dumps([a["name"] for a in projects.list_artifacts(self.slug)
+                               if self.may_read(a["name"])])
         if name == "read_artifact":
             target = args.get("name", "")
+            if target.startswith("audition-") and not self.may_read(target):
+                return "That is the other writer's audition. It is blind: write your own pages."
+            if target in PRIVATE and not self.may_read(target):
+                return (f"{target} is not yours to read. What the room knows about the material "
+                        "is in characters.md, world.md and story.md.")
+            if target.startswith(REF_PREFIX):
+                return ("The showrunner's material is intake's to read. What it says is in "
+                        "characters.md, world.md and story.md.")
             try:
-                if target.startswith(REF_PREFIX):
-                    content = projects.read_reference(self.slug, target[len(REF_PREFIX):])
-                else:
-                    content = projects.read_artifact(self.slug, target)
+                content = projects.read_artifact(self.slug, target)
             except ValueError as e:
                 return str(e)
             return content if content is not None else f"No file named {args.get('name')!r}."
@@ -271,6 +230,18 @@ class Agent:
                 return f"Search is unavailable ({type(e).__name__}). Use list_artifacts and read_artifact."
             self.emit("tool", name="search", args={"query": args.get("query", "")[:80], "hits": len(hits)})
             return search.as_text(hits)
+        if name == "provoke":
+            sparks = random_entry(story_targets(self.slug), int(args.get("cards") or 3))
+            if not sparks:
+                return "The deck is empty (agents/_shared/deck.txt)."
+            self.emit("random_entry", **sparks)
+            out = ["Cards:"] + [f"- {c}" for c in sparks["cards"]]
+            if sparks["word"]:
+                out.append(f"Unrelated word: {sparks['word']}")
+            if sparks["target"]:
+                out.append(f"Target: {sparks['target']}")
+            out.append("None of this is canon. Use what strengthens the page and say what you used.")
+            return "\n".join(out)
         if name == "write_artifact":
             target = args.get("name", "")
             if target not in self.role.outputs:
@@ -290,6 +261,11 @@ class Agent:
             return f"Saved {path}. Embed it as ![caption]({path})."
         return f"Unknown tool {name!r}."
 
+    def may_read(self, name):
+        """facts.md reaches only the roles listed as reading it (agents.json): it is the
+        Continuity Editor's checklist, not something to write from."""
+        return name not in PRIVATE or name in self.role.reads + self.role.outputs
+
     def save(self, name, content):
         content, restored = review.enforce_locks(self.slug, name, content)
         content, kept_rules = rules.enforce_rules(self.slug, name, content)
@@ -308,7 +284,7 @@ class Agent:
         return result
 
     def render_thumbnails(self, content):
-        """Every save of layouts.md redraws thumbnails.md; problems go back to the Penciller."""
+        """Every save of layouts.md redraws thumbnails.md; problems go back to the Layout Agent."""
         md, specs, feedback = thumbnails.render_layouts(
             content, projects.read_artifact(self.slug, "thumbnails.md"))
         if not specs and not feedback:
@@ -322,7 +298,7 @@ class Agent:
         if not feedback:
             return f" Drew {len(specs)} pages into thumbnails.md with no layout issues."
         return (f" Drew {len(specs)} pages into thumbnails.md. Fix what you can and save again; "
-                "flag copy-length problems for the Scripter/Letterer in your handoff note:\n- "
+                "flag copy-length problems for the Letterer in your handoff note:\n- "
                 + "\n- ".join(feedback))
 
     def save_image(self, label, data):
@@ -342,28 +318,24 @@ class Agent:
 
     # ---- the loop --------------------------------------------------------
 
-    def run(self, note=None, hat=None):
-        guides, figma_text, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
+    def run(self, note=None):
+        guides, images = gather_context(self.role, lambda m: self.emit("warn", text=m))
         if not self.cfg.send_images:
             images = []
-        refs = self.shortlist({} if self.role.minimal else projects.reference_files(self.slug))
-        sparks = random_entry(self.role, story_targets(self.slug))
-        if sparks:
-            self.emit("random_entry", **sparks)
-        self.emit("context", hat=hat, minimal=self.role.minimal, guides=[g for g, _ in guides], images=[i for i, _, _ in images],
-                  references=list(refs), references_mode=self.cfg.references,
-                  reference_chars=sum(p.stat().st_size for p in refs.values()),
-                  figma=len(figma_text), model=self.cfg.model, temperature=self.cfg.temperature,
+        else:
+            images += keypages.images(self.slug)     # the book's locked look
+        self.emit("context", minimal=self.role.minimal, guides=[g for g, _ in guides],
+                  images=[i for i, _, _ in images], model=self.cfg.model, temperature=self.cfg.temperature,
                   image_model=self.cfg.image_model if self.cfg.can_generate_images else None)
         if self.cfg.generate_images and not self.cfg.image_model:
             self.emit("warn", text="generate_images is on but no image_model is set (agent.json or IMAGE_MODEL).")
 
-        if self.role.preview:
-            return self.run_preview(note, hat, guides, figma_text, images)
+        task = self.task_message(note, images)
+        if not self.tools:      # "tools": [] in agent.json — for models that write tool calls as text
+            return self.run_without_tools(guides, task)
+        messages = [{"role": "system", "content": self.system_prompt(guides, True)}, task]
 
-        task = self.task_message(note, images, sparks)
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, True, hat)}, task]
-
+        nudged = asked_for_rest = False
         for step in range(1, self.cfg.max_steps + 1):
             if self.should_stop():
                 raise Stopped()
@@ -373,7 +345,7 @@ class Agent:
             except llm.LLMError as e:
                 if e.status == 400 and step == 1:
                     self.emit("warn", text=f"Endpoint rejected tool calling; retrying as plain chat. ({e})")
-                    return self.run_without_tools(guides, figma_text, task, hat)
+                    return self.run_without_tools(guides, task)
                 raise
 
             self.keep_reply_images(reply)
@@ -389,6 +361,22 @@ class Agent:
                 self.emit("message", text=text)
 
             if not calls:
+                if not self.written and not nudged:     # it talked about the work instead of doing it
+                    nudged = True
+                    self.emit("warn", text="No tool call and nothing written — asking once for the deliverable.")
+                    messages.append({"role": "user", "content":
+                                     f"You have not written {self.role.outputs[0]} yet. Do not describe what you will do "
+                                     "and do not write a tool call as text: call write_artifact now, with the complete "
+                                     "file as its content, then call finish."})
+                    continue
+                missing = [n for n in self.role.outputs if n not in self.written]
+                if missing and not asked_for_rest and len(self.role.outputs) > 1:
+                    asked_for_rest = True       # it stopped with files unwritten: ask once for the rest
+                    self.emit("warn", text=f"Stopped without writing {', '.join(missing)} — asking once for them.")
+                    messages.append({"role": "user", "content":
+                                     f"You have not written {', '.join(missing)}. Write each of them now with "
+                                     "write_artifact, then call finish."})
+                    continue
                 return self.wrap_up(text)
 
             finished = None
@@ -407,14 +395,22 @@ class Agent:
                     result = self.run_tool(fn, args)
                 messages.append({"role": "tool", "tool_call_id": call["id"], "content": result})
 
+            missing = [n for n in self.role.outputs if n not in self.written]
+            if finished is not None and missing and not asked_for_rest and len(self.role.outputs) > 1:
+                asked_for_rest = True       # it finished with files unwritten: ask once for the rest
+                self.emit("warn", text=f"Finished without writing {', '.join(missing)} — asking once for them.")
+                messages.append({"role": "user", "content":
+                                 f"You called finish, but you have not written {', '.join(missing)}. Write each "
+                                 "of them now with write_artifact, then call finish again."})
+                continue
             if finished is not None:
                 return self.wrap_up(finished)
 
         self.emit("warn", text=f"Stopped after {self.cfg.max_steps} steps.")
         return self.wrap_up("(ran out of steps)")
 
-    def run_without_tools(self, guides, figma_text, task, hat=None):
-        messages = [{"role": "system", "content": self.system_prompt(guides, figma_text, False, hat)}, task]
+    def run_without_tools(self, guides, task):
+        messages = [{"role": "system", "content": self.system_prompt(guides, False)}, task]
         reply = llm.chat(self.cfg, messages, log=self.log)
         self.keep_reply_images(reply)
         return self.wrap_up(llm.text_of(reply))
@@ -427,84 +423,3 @@ class Agent:
             text = f"Delivered {primary}."
         self.version.append_log(self.role.title, text or "(no note)")
         return text
-
-    # ---- ASCII page previews ------------------------------------------------
-
-    def run_preview(self, note, hat, guides, figma_text, images):
-        """One page at a time, fresh context per page, written out as each page lands.
-        Hand-edited pages are kept and not redrawn."""
-        target = self.role.outputs[0]
-        specs, errors = thumbnails.parse_layouts(projects.read_artifact(self.slug, "layouts.md"))
-        if not specs:
-            self.emit("warn", text="layouts.md has no ```layout blocks yet — run the Penciller first.")
-            self.version.append_log(self.role.title, "No layouts to preview.")
-            return "No layouts to preview."
-        geo = thumbnails.geometry()
-        script = projects.read_artifact(self.slug, "script.md") or ""
-        bible = projects.read_artifact(self.slug, "bible.md") or ""
-        before = thumbnails.parse_thumbnails(projects.read_artifact(self.slug, target))
-        pages = []
-        for i, spec in enumerate(specs):
-            if self.should_stop():
-                raise Stopped()
-            page = thumbnails.render_page(spec, geo)
-            current = (thumbnails.parse_thumbnails(projects.read_artifact(self.slug, target)).get(page.number)
-                       or before.get(page.number))
-            if current and current["edited"]:
-                self.emit("warn", text=f"page {page.number} is hand-edited or locked — kept, not redrawn")
-                pages.append(thumbnails.keep_edited(current, page.number, spec))
-                continue
-            if current and current["layout"] == thumbnails.layout_hash(spec):
-                pages.append(thumbnails.keep_edited(current, page.number, spec))   # layout unchanged: no redraw
-                continue
-            self.emit("thinking", step=f"page {page.number}")
-            try:
-                mask = None
-                if self.role.preview == "drawn":
-                    art, notes = artist.draw_page(self, page, script, bible, guides, figma_text, note, hat)
-                else:
-                    art, notes = self.image_page(page, bible, note)
-            except llm.LLMError as e:
-                art, notes, mask = None, [f"model call failed, showing the layout render: {e}"], None
-                self.emit("warn", text=f"page {page.number}: {e}")
-            invert = thumbnails.mask_text(thumbnails.compose_invert(page, mask))
-            pages.append(thumbnails.page_markdown(page, thumbnails.compose(page, art), notes, spec, invert))
-            # keep the pages not reached yet, and any the showrunner hand-edited meanwhile
-            later = [thumbnails.keep_edited(before[s["page"]], s["page"]) for s in specs[i + 1:] if s["page"] in before]
-            doc = thumbnails.document(self.role.title, pages + later, errors, geo)
-            self.save(target, thumbnails.merge_edited(doc, projects.read_artifact(self.slug, target)))
-        return self.wrap_up(f"Drew {len(pages)} pages into {target}.")
-
-    def image_page(self, page, bible, note):
-        if not self.cfg.image_model:
-            return None, ["no image model configured (image_model / IMAGE_MODEL) — showing the layout render"]
-        art = [row[:] for row in page.art]
-        notes = []
-        items = thumbnails.labels_by_panel(page)
-        for p in page.panels:
-            desc = (p.spec.get("description") or "").strip()
-            if not desc:
-                notes.append(f"P{p.n}: no description — kept the layout silhouettes")
-                continue
-            if self.should_stop():
-                raise Stopped()
-            shot = " ".join(b for b in (p.spec.get("shot"), p.spec.get("angle") and f"{p.spec['angle']} angle") if b)
-            prompt = ("Rough black-and-white comic thumbnail sketch, bold simple shapes, strong contrast, "
-                      "plain white background, no text, no lettering, no panel border. "
-                      + (f"{shot} shot. " if shot else "") + desc + " "
-                      + thumbnails.looks_for(bible, items.get(p.n, []))
-                      + (f" Note: {note}" if note else ""))
-            size = thumbnails.image_size_for(p, page.geo)
-            self.emit("image_start", name=f"page {page.number} panel {p.n}", prompt=prompt,
-                      model=self.cfg.image_model)
-            try:
-                data = llm.generate_image(self.cfg, prompt, size, log=self.log)
-                self.save_image(f"p{page.number}-panel{p.n}", data)
-                w, h = p.size
-                x0, y0, _, _ = p.inner
-                for j, row in enumerate(thumbnails.image_to_ascii(data, w, h, page.geo)):
-                    art[y0 + j][x0:x0 + w] = row
-            except Exception as e:  # one bad panel shouldn't lose the page
-                notes.append(f"P{p.n}: image failed — {e}")
-                self.emit("warn", text=f"page {page.number} panel {p.n}: {e}")
-        return art, notes

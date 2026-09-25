@@ -12,6 +12,8 @@ What an agent gets:
 - every tool below, unless its `agent.json` names a `tools` list — then only those
 - `write_artifact` refuses any file that is not one of the agent's outputs in `agents.json`
 - `generate_image` only for an agent with `generate_images: true`
+- `provoke` draws from `agents/_shared/deck.txt` and `words.txt`, one line each — edit
+  those to change what the room can be provoked with
 - an agent with `"context": "minimal"` gets `write_artifact` and `finish` and nothing else,
   so a cold reader cannot browse the room
 

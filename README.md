@@ -1,73 +1,125 @@
 # Writers' Room
 
-A web-based, agentic writers' room for graphic novels. Its product is **page prompts**:
+A web-based, agentic writers' room for graphic novels. Its product is **page packets**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
-to draw the finished page. Give it a directional draft script and a page count; the room
-writes until the pages are ready, you review every page as a layout sketch — keep the ones
-that are done, say what you want on the rest — and the room revises from your notes, edits
-and diffs — round after round, each saved in full. Every agent is guided by its own markdown,
-images and Figma files and runs on its own provider, model and settings; every model call is
-logged with its tokens and dollar cost.
+to draw the page with **no text on it**. Drawing the pages is not this application's job;
+lettering them is: you upload the art, and the room draws the words over it.
 
-Everything the room can read — the canon, the worldbuilding, the idea drafts, the craft skills,
+**Produce** is one button (`/production`): it runs development, the audition, the writing and
+the pages back to back, takes every gate itself, and ends with the packets to download. Or
+take the gates yourself. The room works in **six phases**, and you stand at the gate between
+each. Nothing moves on by itself:
+
+| | Phase | Who runs, in order | What you get | Your gate |
+|---|---|---|---|---|
+| 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `open-items.md`, then `facts.md` | **Answer the open items** — approve an option, edit it, defer it, or leave it — add weighted notes if you have any, **Update canon**; read it, answer what is left, **Update canon** again (the room's recommendation settles anything still unanswered), then **Approve for production** (type `evoke`) |
+| 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
+| 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
+| 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
+| 5 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
+| 6 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
+
+Three rules make this work, and they are the whole design:
+
+- **A phase never reruns the ones before it.** A lettering problem reruns the Letterer, not the
+  writer. Not happy with a phase? Add a note and run it again; each agent revises its own last draft.
+- **Agents that don't need each other run side by side.** The two writers in the audition; the
+  Plotter and the Character Designer in development (`"parallel"` in `agents/phases.json`).
+- **The first four gates are your judgment; the last one is measured.** Execution checks itself
+  — right page count, no layout issues, no continuity blockers — and reruns its own agents until
+  it passes (up to **Fix passes**), before it asks you anything.
+- **You can always go back.** Click any phase to take the book there. Nothing is deleted.
+
+The definition is one small file, `agents/phases.json`: who runs in each phase, in what order,
+and what to read before you decide. The code that runs it is `app/phases.py` and `app/room.py`.
+
+## The agents
+
+Ten agents. Each is a folder with a `role.md` (the job and its deliverable), a `craft.md` (how
+to do that job well) and an `agent.json` (its model and settings).
+
+| Agent | Phase | Writes | What it is for |
+|---|---|---|---|
+| Script Coordinator | intake | `characters.md`, `world.md`, `story.md`, `open-items.md`, `facts.md` | the Director's assistant and the only reader of what you put in, whatever you named it: organizes it into the three files the room works from, lists what is still undecided, offers options, carries your decisions back in, and derives the fact list for the Continuity Editor. A five-pass pipeline, not a tool loop (`app/intake.py`) |
+| Director | development | `brief.md`, `world.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction; settles what the world leaves open |
+| Plotter | development | `story.md` | what happens, in what order, on which page — never the dialogue |
+| Character Designer | development | `characters.md` | a visual lock per character, pasted word for word into every page prompt |
+| Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
+| Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
+| First Reader | audition | `first-read.md` | reads both auditions cold — the pages, nothing else — and reports reactions. Never picks |
+| Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page packets, the sketch and the lettering |
+| Letterer | lettering | `lettering.md` | runs last, over the art you upload: checks balloon order, placement and fit against the real page, and moves a balloon off a face with a `moves` block the room applies to `layouts.md` |
+| Continuity Editor | closes 2, 4 and 5 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
+
+**The two writers** are the room's one deliberate act of divergence. They share a job and a
+craft (`agents/_writers/role.md` and `craft.md`) and differ in voice (`agents/writer_a/voice.md`,
+`agents/writer_b/voice.md`) and settings — give them different models if you can. The audition
+is blind: neither can read the other's pages. When you pick, the winner's audition pages become
+the start of `script.md` and that writer writes the rest.
+
+The Director also keeps `taste-writers.md`: what you actually said and changed in your
+reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
+or decision needed (see `agents/_shared/house-style.md`).
+
+Everything the room can read — a campaign's rules, everything in its input, the craft skills,
 each project's own files — is searchable, hybrid, keywords and meaning at once, and reindexed
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
 
-The art room — which will draw pages itself, with its own taste — is a separate, later room.
-Its agents (Image Thumbnailer, Colorist) are marked `"room": "art"` and are hidden here.
+## Two screens
 
-A writing round runs six of them, in this order. The other three are there when you want them,
-and run only if you tick them and press **Run selected roles only**.
+**`/production` is Produce.** One button runs development to the **layouts** and takes every
+gate itself (the First Reader's report picks the writer). It stops with every page's map and its
+panels on the Pages tab, to look at before the long part. **Make the pages** then runs the fix
+rounds (the pages rerun until the readiness check passes, up to **Page rounds**) and ends with
+the packets. **Page 1 first** stops at a proof of page 1 instead. From the command line,
+`scripts/make_packets.py <slug>` does the same from the material with every default accepted
+(`--to final` for the packets zip). The
+**Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
+the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 
-| In a round | Agent | Writes | Notes |
-|---|---|---|---|
-| 1 | Editor-in-Chief | `brief.md` | owns canon, the decision log and the visual direction |
-| 2 | Plotter | `outline.md` | |
-| 3 | Character Designer | `bible.md` | a visual lock per character, pasted into every prompt |
-| 4 | Scripter | `script.md` | |
-| 5 | Penciller | `layouts.md` (+ `thumbnails.md`) | layout blocks: the source of the page prompts and the sketch |
-| 6 | Continuity Editor | `notes.md` | ends with `BLOCKERS:` / `FIX:` lines the gate reads |
-| — | Wild Card | `provocations.md` | proposes, never decides |
-| — | Letterer | `lettering.md` | balloon order and placement, for the text layer |
-| — | First Reader | `first-read.md` | cold read, reactions only, sees nothing but the script and sketch |
+**`/` is the front door**: three buttons, pre-production, production and sheets (the LoRA sheet
+builder, its own container reached as `/sheets`). The one-button phone screen is at `/quick`.
 
-A revision round — the one that runs after your review — is Editor-in-Chief, Scripter,
-Penciller, Continuity Editor.
+**`/quick` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
+then **Run audition**, and so on: a line for each agent in that phase with the one at work
+spinning, and under it the gate — the question, and **Approve** or **Pick Writer A / Pick
+Writer B**. After execution it shows the lettered pages. Built for a phone, nothing to set.
 
-The Editor-in-Chief also keeps `taste-writers.md`: what you actually said and changed in your
-reviews, plus your standing rules, which every writer reads. Everything is labeled canon, observation, proposal, risk
-or decision needed (see `agents/_shared/house-style.md`).
+**`/room` is everything else** — every writer, every file, every round — and the rest of this
+document is about that screen. The two link to each other: the footer on `/`, the title on
+`/room`.
 
-## The screen
+## The room's screen
 
-Projects on the left; the book in the middle; what the room is doing on the right.
+Campaigns on the left; the book in the middle; what the room is doing on the right.
 
 | Where | What |
 |---|---|
 | Middle, **Pages** tab | page 1 building itself as the room writes (panel boxes and numbers, with each panel's description and dialog beside it), the layout sketch to edit, and the page prompts — the deliverable, so it opens here |
 | Middle, **Lettering** tab | the text layer over your uploaded art (only once there are pages) |
-| Middle, **The room** tab | who writes, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
+| Middle, **The room** tab | the agents, on which model, and this round's settings: lettering, chapter, pages, fix passes, references |
 | Middle, under the tabs | **Stats** — what the room has spent, by project, round or agent |
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
-**Write round** sits above the tabs with the showrunner note, so it's there whichever tab you're
-on; when a review is waiting, **Review ↓** appears next to it. Changing the previewed page opens
+**Run *phase*** sits above the tabs with the five phases, the gate and the showrunner note, so
+it's there whichever tab you're on; in execution, when a review is waiting, **Review ↓** appears
+next to it. Changing the previewed page opens
 that page's prompt below it.
 
 ### Watching a page get made
 
-The **Pages** tab opens on one page and watches it being built. Before you press **Write round**
+The **Pages** tab opens on one page and watches it being built. Before you run a phase
 it's an empty frame at trim proportions, with a card waiting for its **Description** and
 **Dialog**. Then the room writes, and the page takes a step each time a writer's file lands —
 not token by token; a file at a time, in step with the live feed:
 
 | When | What appears |
 |---|---|
-| `outline.md` — the Plotter | the page's beat, above the frame |
-| `script.md` — the Scripter | one card per panel, marked *from the script*, with its description and dialog |
-| `layouts.md` — the Penciller | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
+| `story.md` — the Plotter | the page's beat, above the frame |
+| `script.md` — the writer | one card per panel, marked *from the script*, with its description and dialog |
+| `layouts.md` — the Layout Agent | the panel boxes appear in the frame, numbered; the cards become the real panels — shot and angle, where they sit, who stands where and how big, and every balloon, caption and sound effect with its exact position |
 | `notes.md` — the Continuity Editor | that page's flags, under the cards |
 
 The boxes are the tier and panel fractions themselves, nothing else — so any layout the format
@@ -85,13 +137,22 @@ place, which is what you edit and review) and in the page prompts, each with its
 `page-prompts.md` (in the project, and in every round) has one section per page. Each is
 self-contained, so you can paste a single page into an image model:
 
-- **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels.
+Each packet is complete on its own, and the book packet in front of them (`00-book.md` in the
+zip) says how to use them, the rules that hold for every page, a **character sheet** prompt to
+draw first, and a page index. A page packet holds:
+
+- **Format** — trim (`PAGE_TRIM`), portrait, left or right page, how many panels. **No text.**
 - **Style** — the brief's visual direction, the same on every page.
-- **Characters** — the bible's visual lock for everyone on the page, word for word.
+- **Characters** — the visual lock in `characters.md` for everyone on the page, word for word.
 - **Layout** — a box diagram of the page, panels drawn to scale where they sit, then rows
-  and panels with their share of the page, bleeds.
-- **Panels** — shot and angle, the Penciller's scene description, light, who stands where
-  and how big, and every balloon, caption and sound effect in reading order, exactly as lettered.
+  and panels with their share of the page, bleeds; and the **sketch at print scale**, one
+  character cell per letter, with the balloons boxed where they will go.
+- **Panels** — shot and angle, the Layout Agent's scene description, light, who stands where
+  and how big, and the clear space to leave for each balloon, caption and sound effect.
+- **Rules and a checklist** — no text anywhere; then what to look for before you keep the
+  image: the panel count, each panel's one thing, the cast, the clear space, no letters.
+
+Set **Lettering** to *art* and the packet asks the image model to letter the page itself instead.
 - **Rules**, and the page's script for reference.
 
 They're **assembled in code**, not written by a model: free, always in step with the room's
@@ -99,19 +160,20 @@ files, and the character descriptions never get paraphrased. In the app, **Page 
 a **Copy** button per page and **Copy all pages**; the review screen shows the prompt for the
 page you're reviewing. Each round also saves `-pNN-prompt.md` per page, and the final round
 saves `book-prompts.md`. So the prompts are only as good as the brief's visual direction, the
-bible's visual locks and the Penciller's panel descriptions — that's where to push the room.
+visual locks in `characters.md` and the Layout Agent's panel descriptions — that's where to push the room.
 
-## Writing rounds and review
+## Rounds and review
 
-1. **New project** — title, page count (e.g. 7), an optional pitch, and an optional draft
-   script (high level, directional; saved as `references/draft-script.md`).
-2. **Write round** — the room runs Editor → Plotter → Character Designer → Scripter →
-   Penciller → Continuity Editor, then checks the **readiness gate**: exactly the right
-   pages, zero layout issues, zero continuity blockers, and locked pages matched. If it
-   fails, only the roles that can fix it run again (up to **Fix passes**, default 2).
-   Readiness is measured, not the model's opinion. The page prompts are written at the end.
-   **Pause** holds the round between two writers; **Auto rounds** runs the next one without
-   waiting for you.
+1. **New project** — title, page count (e.g. 7), an optional pitch (saved as `input/pitch.md`), and an optional draft
+   script (high level, directional; saved as `drafts/draft-script.md`). It starts in intake.
+2. **Run *phase*** — runs the phase the book is in, then stops for you. Read what the gate lists,
+   and approve, pick, or add a note and run it again. **Pause** holds a round between two agents.
+   In execution the room also checks the **readiness gate**: exactly the right pages, zero
+   layout issues, zero continuity blockers, and locked pages matched. If it fails, only the
+   execution agents that can fix it run again (up to **Fix passes**, default 2). Readiness is
+   measured, not the model's opinion. A blocker that belongs to an earlier phase stops the
+   passes: sending the book back is your call. The page prompts are written at the end.
+   **Auto rounds** reruns execution without waiting for your review.
 3. **Review** — step through the pages (‹ › or the chips). Each page shows its layout sketch
    (editable in place) and its prompt. A page is one of two things:
 
@@ -122,10 +184,9 @@ bible's visual locks and the Penciller's panel descriptions — that's where to 
 
    Nothing has to be decided: keep what's finished, say what you want on the rest. Your
    notes and edits are saved as you go.
-4. **Send to the room** or **Finalize**. Sending saves your review as a human round and starts a
-   revision round that works only from it: the Editor updates the brief and the taste file,
-   the Scripter and Penciller work the open pages, and the gate checks that the pages you
-   redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
+4. **Send to the room** or **Finalize**. Sending saves your review as a human round and runs
+   execution again, working only from it: the Layout Agent and Letterer work the open pages, and
+   the gate checks that the pages you redrew now match yours (`min_text_match` / `min_layout_match` in `round-settings.json`).
 
 Locks are enforced in code: whatever an agent writes, locked pages are put back.
 
@@ -143,7 +204,7 @@ Every round is a complete folder, and every file name carries the project and ro
 file means the same thing wherever it ends up:
 
 ```
-projects/<slug>/rounds/
+campaigns/<slug>/production/previous/
   <slug>-r01-ai/        the room's work
     <slug>-r01-ai-page-prompts.md, -script.md, -layouts.md, -brief.md, -taste-writers.md …
     <slug>-r01-ai-p03-prompt.md      the page's prompt for the image model
@@ -159,9 +220,9 @@ projects/<slug>/rounds/
   <slug>-r04-final/     the approved book: <slug>-r04-final-book-prompts.md, per-page prompts
 ```
 
-Rounds are numbered in one sequence. The working copy (`projects/<slug>/*.md`) is the live
-desk the agents read; `locks.json`, `review-draft.json` and `round-settings.json` sit beside it.
-Projects from before rounds keep their old `versions/` folder, which the app no longer shows.
+Rounds are numbered in one sequence. The desk (`campaigns/<slug>/production/*.md`, or `preproduction/` for intake) is the live copy
+the agents read and write; `locks.json`, `review-draft.json` and `round-settings.json` sit beside
+it, and every finished round is kept under the desk's `previous/`.
 
 ## Run it
 
@@ -196,33 +257,29 @@ docker compose up -d --build      # http://localhost:8000
 and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
 `host.docker.internal:11434`.
 
-**Configuration** — `agents/` (with its skills, tools and hats), `campaigns/` and
+**Configuration** — `agents/` (with its skills and tools), `campaigns/` and
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
 reindexed about a second later.
 
-**The room's data** — `projects/` (every round, page, review and call log), `output/` (the
-latest deliverables) and `logs/` — lives in **SeaweedFS**, an S3-compatible object store whose
-storage is the `seaweedfs-data` Docker volume. None of it is a folder in this one. The app works on a copy inside its container: on start it pulls everything from the
-bucket, then pushes changes (including deletions) every `S3_SYNC_SECONDS` (2 s) and once more
-on shutdown. Recreating or rebuilding the app container loses nothing; so does
-`docker compose down`. **`docker compose down -v` deletes the volumes, and all project data
-with them** — the search index in `opensearch-data` is rebuilt from the files, so losing that
-one costs only the time to re-embed.
+**The work is `campaigns/`, bind-mounted from this folder** — the room reads `rules/` and
+`input/` and writes `preproduction/` (intake) and `production/` (everything after), all as plain files on your disk, so you can open them in an
+editor and git keeps their history. Rebuilding or recreating the container loses nothing,
+because nothing the room made lives inside it.
+
+Only the usage ledger (`logs/usage.jsonl`) goes to **SeaweedFS**, the S3-compatible store whose
+storage is the `seaweedfs-data` volume. `docker compose down -v` deletes that volume and the
+cost history with it; the search index in `opensearch-data` is rebuilt from the files, so losing
+that one costs only the time to re-embed.
 
 ```sh
-# bring an existing project folder in (it syncs up within seconds)
-docker compose cp projects/my-book app:/app/projects/my-book
-# take a copy out
-docker compose cp app:/app/projects ./backup-projects
 # bucket status, from inside the app
 docker compose exec app python -m app.objectstore status
 ```
 
 The S3 API is published on `127.0.0.1:8333` for backup tools (bucket `writers-room`). Change
-the credentials with `S3_ACCESS_KEY` / `S3_SECRET_KEY` in `.env` before the first start —
-both containers read them. Any S3-compatible store works the same way: point `S3_ENDPOINT`
-at it. Without Docker, leave `S3_ENDPOINT` unset and data stays as plain files in `projects/`
-and `logs/`.
+the credentials with `S3_ACCESS_KEY` / `S3_SECRET_KEY` in `.env` before the first start — both
+containers read them. Without Docker, leave `S3_ENDPOINT` unset and the ledger stays a plain
+file in `logs/`.
 
 To use a model server running on your machine (Ollama, LM Studio), use
 `http://host.docker.internal:11434/v1` as the base URL, not `localhost`.
@@ -240,17 +297,17 @@ The sketch is ASCII art at **print scale**: one character cell is one letter of 
 it will be on the page. The UI draws cells at that same 2.18:1 ratio, so pages show in their
 true proportions.
 
-The Penciller writes a ```` ```layout ```` JSON block per page (format:
-`agents/penciller/layout-format.md`). Every save of `layouts.md` — by the Penciller or by you
+The Layout Agent writes a ```` ```layout ```` JSON block per page (format:
+`agents/layout/role.md`). Every save of `layouts.md` — by the Layout Agent or by you
 in the editor — redraws `thumbnails.md`: panel borders, gutters, bleeds, horizon lines,
 balloons/whispers/thoughts/shouts with tails pointing at the speaker, captions, figlet sound
 effects and figure placeholders, in code and for free. The renderer reports overlapping
 lettering, copy that doesn't fit, over-wordy panels, reading-order conflicts, lettering over
-faces, tiny panels and left/right page mistakes back to the Penciller.
+faces, tiny panels and left/right page mistakes back to the Layout Agent.
 
 **Light and dark.** Any cell can be shown inverted (light on dark), for night scenes,
 silhouettes, flashbacks or emphasis. Inversion is a separate mask stored after each page as a
-```` ```invert ```` block (`#` = inverted) and saved as `-pNN-invert.txt`. The Penciller sets
+```` ```invert ```` block (`#` = inverted) and saved as `-pNN-invert.txt`. The Layout Agent sets
 it per panel or item (`"invert": true` — which also tells the image model the panel is dark),
 and you can paint it in the editor with the **invert brush** or **⌘I**. Review diffs report
 inversion changes, and locks keep them.
@@ -282,8 +339,7 @@ Past rounds are read-only.
 
 `campaigns/_morgue/` keeps reviewed documents we don't use but don't want to lose, with a README
 noting what was adopted from each and why the rest wasn't. It is there so a person can find an
-old document again, and nothing in it reaches an agent — the leading underscore is the rule,
-the same one that keeps `drafts/_rough/` and `agents/skills/_sources/` out of the room (see
+old document again, and nothing in it reaches an agent — the leading underscore is the rule (see
 **The library**).
 
 ## Running the room
@@ -295,12 +351,12 @@ finishes and hands off, and the round waits there — same version, same place i
 nothing torn down. While it's held, change any writer's model, temperature or anything else in
 **The room**, and jot notes in the watch pad. **Resume** hands both to the writer about to
 start and everyone after it (every agent reads `agent.json` when it starts, so the change is
-real, and the feed says what changed: `carrying on — Scripter → temperature 0.15 · your notes
+real, and the feed says what changed: `carrying on — Writer B → temperature 0.15 · your notes
 go to the writers still to come`). The notes are marked used by that round and saved with it.
 **Stop** still ends the round outright, and works while it's held.
 
-**Auto rounds.** **Auto rounds** in **The room** tab runs the book without you. After each
-writing round the room hands the round back to itself — every page open, nothing said about any
+**Auto rounds.** **Auto rounds** in **The room** tab runs execution without you. After each
+execution round the room hands the round back to itself — every page open, nothing said about any
 of them — and starts the next one, counting down as it goes. It stops and finalizes the book
 when the readiness gate comes back ready, or when the count runs out. The header shows how many
 rounds are left and **Stop auto** ends it after the current round; **Pause**, **Stop** and
@@ -325,16 +381,18 @@ again to release it.
 
 **Your notes.** The watch pad on the right has a box to jot thoughts while you watch — half-formed
 ones welcome (⌘⏎ adds one). Each note keeps its time and the page you were on. They sit there
-until something takes them: the next **Write round** folds them into the room's brief, and
+until something takes them: the next round folds them into the room's brief, and
 submitting a review adds them to `review.md`; either way they're saved in that round's folder and
-marked used. **Tidy into feedback** is one model call (the Editor's model) that groups the pile
+marked used. **Tidy into feedback** is one model call (the Director's model) that groups the pile
 by theme and drops the text into your note box to edit before sending — it doesn't spend the
 notes. **x** drops a note you've changed your mind about.
 
-**Standing rules.** A jotted note is for the next round only — the room reads it and it's
-spent. A rule holds for good. In the watch pad, say **Always**, **Never** or **Remember** and
-add it; the rule goes into the Editor-in-Chief's `taste-writers.md`, the file every writer
-reads before it starts, in a block the room doesn't own:
+**Standing rules.** These are a different thing from the campaign's `rules/` folder: that holds
+what is true in the book, while these are how you want the room to work. A jotted note is for
+the next round only — the room reads it and it's spent. A rule holds for good. In the watch pad,
+say **Always**, **Never** or **Remember** and add it; the rule goes into the Director's
+`taste-writers.md`, the file every writer reads before it starts, in a block the room doesn't
+own:
 
 ```markdown
 <!-- showrunner rules -->
@@ -344,7 +402,7 @@ reads before it starts, in a block the room doesn't own:
 <!-- end showrunner rules -->
 ```
 
-The Editor rewrites that file every round, so the block is put back on every save and the
+The Director rewrites that file every round, so the block is put back on every save and the
 writer is told the rules are yours, not its. **Make a rule** on a jotted note moves its words
 into the rule box — pick always, never or remember, add it, and the note is spent. **x** drops
 a rule, which also takes it out of the taste file.
@@ -372,163 +430,446 @@ thing. **Upload art**
 attaches the page's art, **Download text layer** saves the SVG, and each round and export writes
 `pNN-letters.svg` next to the prompts. Balloons that would overlap are nudged apart automatically.
 
-**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files. Every finished round, review and finalize also writes them to
-`output/<project>/` (`page-prompts.md`, `pages/pNN-prompt.md`, `story/*.md`; overwritten each
-time — every version stays in the project's rounds). **Save to output folder** does it on
-demand. Under Docker that folder lives in the object store with the rest of the room's data,
-not in this one: `python -m app.objectstore pull` brings it onto your machine.
+**Outputs.** The **Pages** tab has the page prompts (Copy / Copy all) and the main story files.
+Every finished round, review and finalize also writes `page-prompts.md` and
+`pages/pNN-prompt.md` to the campaign's `production/`, beside the script and the layouts that
+produced them — overwritten each time, with every earlier round kept under the desk's `previous/`.
+**Save to output folder** does it on demand. There is nothing to fetch: the files are in
+`campaigns/<slug>/production/` on your disk.
 
 **Page numbers.** Every page prompt asks for the page number in small light-blue lettering in
 the top-left corner (`PAGE 2`). Set **Chapter** in **The room** tab and page 1 reads
 `CHAPTER 4 — PAGE 1`.
 
-How references reach an agent is set by `references` in its `agent.json` (default from `REFERENCES_MODE`):
-
-- `"full"` — pasted into the prompt. Every step of the agent's loop resends them, so big files cost more.
-- `"list"` — only the names are sent, and the agent reads what it needs with `read_artifact("library/<path>")`. Cheaper, but the agent has to choose to read them.
-
-## Character references
-
-Each character has a standalone file in `campaigns/<campaign>/characters/` — `alex-phantum.md`,
-`ada-veyra.md`, `bi11bot.md`, `mera-vale.md`, `adrian-phantum.md`, `leona-veyra.md`,
-`bob-hawkins.md` — so a writer or an artist can read one person without carrying an 83 KB bible.
-
-Each gathers, in this order: an at-a-glance table (want, need, wound, tell, voice, palette), the
-visual lock from the newest project bible exactly as the page prompts paste it, the campaign
-bible's canon sheet verbatim, the bible's relationship sections, every distinct line the scripts
-have given them with the file it was written in, and where all of it came from.
-
-`python scripts/gather_character.py` rebuilds them from every document in the room — the
-library, the skills, the morgue, and every project's files and rounds, deduplicated so a passage repeated
-across twenty round snapshots is written once. The at-a-glance wording lives in
-`scripts/character_glance.json`; everything else is gathered, and a rerun overwrites. New canon
-belongs in the bible.
+Intake always pastes the material in full, so `references` and `max_steps` in the Script
+Coordinator's `agent.json` do not apply to it — it has no tool loop to step through. What it
+does need is `max_tokens` big enough for one whole file per reply; short of that the envelope
+comes back truncated and the call is retried.
 
 ## The library
 
-**`campaigns/` is the material; `projects/` is the work.** Everything true of Prosperity — its
-bible, chapters, characters, worldbuilding, research and drafts — lives in
-`campaigns/prosperity/`, and it is in git. A project is one production drawing on that
-material — the pitch, the files the agents write, the round history — and it is **not a folder
-you browse**: `projects/` and `output/` are the room's data, git-ignored and kept in the object
-store (see **Docker**), so all you would find by opening them is whatever the last run left on
-disk. A project is also not tied to one campaign: by default it can read every campaign's
-material, narrowed by the shortlist in its `round-settings.json`. The projects are chapter-sized
-(`evoke-chapter-1`, `evoke-chapter-4`), so several of them draw on one campaign, and a name that
-appears in both trees is a coincidence, not a parent and a child.
+**A campaign is the project.** There is no separate `projects/` folder and no separate
+`production/` folder: `campaigns/prosperity/` holds the whole of it, and opening that folder is
+opening the work. The Script Coordinator reads `rules/`, `input/`, `drafts/` and `references/`, and the room writes two desks — `preproduction/`, intake's, and `production/`, which starts from a copy of it —
+the agents share — the script, the layouts, the page prompts, the settings, and every finished
+round under the desk's `previous/`.
 
-The two together are what the agents call the **library**, and that is the one place the word
-still means a folder that is not there: a file reaches an agent as `library/<its path>`, whether
-it comes from `campaigns/` or from `agents/skills/`.
+**The room never reads its own desks back as material.** A round that took its own last
+script as input would be working from its own echo, and the drift compounds every round, so
+`never_read` in `app/projects.py` skips both desks the way it skips an underscore folder. The
+desk still reaches an agent — under its own file names, as the project's own work — which is a
+different thing from reference material.
+
+The campaign folders are what the room calls the **library**, and one agent reads it: the
+**Script Coordinator**, the Director's assistant and the whole of the intake phase, who goes
+through every file the round picked — `rules/`, `input/`, `drafts/` and `references/` — and
+sorts it into the three files the room works from:
+
+| File | Holds | Who takes it over in development |
+|---|---|---|
+| `characters.md` | the people: look, voice, wants, relationships | Character Designer |
+| `world.md` | how the world works: places, systems, money, technology | Director |
+| `story.md` | what happens: what you are reaching for, the beats so far, then the structure and the page-by-page plot | Plotter |
+
+Every point is cited and keeps its T / EG / S / L label, and each file ends with an **Open**
+list: what your material leaves undecided or contradicts itself on. You approve the three
+files at the first gate. In development their owners decide what is open and build what is
+missing, in the same files — there is no second copy — and the Director's `brief.md` says what
+the book is and wins wherever it differs. The Script Coordinator organizes; it decides
+nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<file>`.
+
+**The pre-production desk is at `/preproduction`.** Intake stops for you between pass 3 and
+pass 4, and that screen is where the waiting happens: the material going in, the documents the
+room has written, the preservation numbers, and the open items — one at a time, each with its
+evidence, why it matters, where it came from, and its options with their provenance labels.
+Answer it, skip it for now, defer it, or write notes to the room as a whole. Under the answer is
+a second box for anything you want to add to your selection: it is saved with the answer in
+`rules/decisions.md` as "Showrunner's comment", becomes the reason if you defer, or can be saved
+on its own as a note. Skipping saves nothing; the numbered strip above the item takes you back.
+The button then changes from "Run intake" to "Fold my answers in". `/` and `/room` are unchanged.
+
+**With drafts, edit mode: your drafts are the book.** With Draft set to *Edit it to the canon*
+on Produce's Begin tab, Produce runs development and then the **Draft Editor**
+(`app/draftedit.py`), one call per chapter, side by side, in two stages:
+
+1. **The canon pass.** It changes only the scenes and details the canon contradicts, and dialogue
+   that breaks how the canon says people talk (the slang and vocabulary rules in `rules/`, each
+   character's Voice, the tuning from Voices). Everything else comes back word for word. What no
+   longer fits is flagged, never rewritten. A chapter that comes back much shorter is asked for
+   again, then kept as written.
+2. **The expansion**, when *expand it by N pages* is set. The pages go where a chapter falls
+   short of its pages in the page plot, then evenly. Each chapter grows by inserting only - a
+   payoff the canon sets up, a character with no moment, a transition the draft jumps, a
+   breather - steered by your note, every addition marked `[NEW 3.2]`. An expansion that changed
+   your text is refused.
+
+Out come `draft-edited.md` (the canon pass), `draft-final.md` (the book) and `draft-changes.md`:
+every change, every addition, what does not fit, the pages by chapter, and which characters in
+the book still need a sheet. Produce stops there. **Edit the drafts again** takes notes ("cut NEW
+3.2", "more TJ in chapter 4"); **Script them and lay out** makes the script from `draft-final.md`
+by breaking it into pages and panels only - its lines word for word, nothing added. Without
+drafts, or with *Improve it*, the room develops the whole script instead.
+
+**Pages are counted for an image model.** Each page is one generation from the sheets, and a
+page drifts when it carries too much, so the page count comes from drawability limits, not comic
+convention: at most **4 panels a page** and **3 named characters a panel** (Settings), one location
+a page where the story allows, a splash for a big moment. The draft edit counts each chapter
+that way and sets the book's page count to the total; the writer and the Layout Agent are held
+to the same limits.
+
+**Key pages lock the look and the words.** Finished pages go in `campaigns/<slug>/keypages/` as
+`ch01-p01.md` (purpose, description, dialogue, layout, notes) and `ch01-p01.jpg` (the page as drawn
+and lettered). A key page is chapter N's page K; the chapter map puts it in the book. Its art is
+sent to every agent that sees images as the book's style reference, rides in the packet zip, and
+is named in every page packet as the reference to attach. Its words are locked: the Draft Editor
+and the writer are told them, and the gate sends a script that drops or changes one back to the
+writer. Its layout is that page's. The production room shows the key art on its page.
+
+**The Art Department** (`/art`, `art/server.py`, its own container) is the simple way to lock a book's visuals,
+starting fresh. Make a project, upload a reference image or two, and roll the **style plate**:
+each candidate is a whole plate - wide shot, two-shot, lit close-up, detail, a palette strip and
+material swatches, no text. Keep one per model. Then add characters (a name, a description, a
+reference image if you have one) and roll: each candidate is a whole **character sheet** - front,
+three-quarter, side and back at one scale, and four expressions - drawn from that model's plate,
+the reference, the first character kept and the one kept before. Keep one per model, Next.
+Pick a **campaign** and its canon's characters and places are listed to add with one click - a
+character with its Visual lock as the description, a place with its world entry. A place rolls
+as a **location sheet** (establishing, reverse, street level, detail, another light), drawn from
+the plate and the places kept before it; characters follow characters. **Props** (the chip, the
+key, the old book) roll as an object sheet - four views, a hand for scale, a close detail, its
+other state. **Ready to render** lists every character, place and prop the campaign's laid-out book
+draws (`/api/projects/<slug>/needs`), with the pages each is on, against every model with a kept
+plate - kept, missing, or not in the cast yet (add it in one click). Choose the models on every roll. Projects live in `art/data/` (not committed); every roll records
+what each model was shown.
+
+**Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
+Image 2.5 Sunburst - and letter it in the room, so there are four versions: each model's art, and
+that art lettered. Every page is drawn from its packet with reference images: Sheets' style plate
+(the book's look), the page's key art when it has one, and that model's own kept lock of every
+character on the page (Sheets subjects `alex-phantum-gemini`, `alex-phantum-sunburst`). The lettered
+version is the room's lettering layer drawn over the same art on the server (cairo), so the words
+are exactly the script's. Pages are drawn a few at a time per model, both models side by side;
+drawn pages are kept, one page can be drawn again, and each version downloads as a zip.
+Renders live in `campaigns/<slug>/renders/` and are not committed.
+
+**Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
+character, or a stranger in the world - and when in the story: a page of the page plot, or a
+scene of the outline. The character speaks first and never leaves the world; they know the story
+only up to that moment. They talk on the picked writer's model (Writer A until one is picked), so
+the voice you tune is the voice that writes the script. Mark their lines **that's them** or
+**not them** (with how they would really say it, and why), or add a note on the voice as a whole;
+**say it again** redraws a line with the voice as tuned now. The tuning shapes the conversation at
+once and is kept in `campaigns/<slug>/voices/` - `<character>.json`, and `<character>.md` for
+intake - with every conversation under `voices/chats/`. It is a proposal: the next **Update
+canon** carries it into that character's Voice in `characters.md`, and until it has, pre-production
+cannot be approved.
+
+**Update canon** runs intake's revision. The canon is the three files - the premise and outline
+(`story.md`), the characters, the world - and updating it is not a rewrite: only what an answer,
+a note or a rule touches changes, everything else comes back word for word, `facts.md` is
+derived again, and only what is still open stays on the list.
+
+**Two updates, then approve.** The desk shows three steps. First, answer the open items, edit
+the canon, add notes, and Update canon. Second, read what came back, answer what is still open,
+and Update canon again: from the second update on, every item still unanswered and not deferred
+takes the room's recommendation (its suggested option), and the round records which ones it
+took. Third, **Approve for production**. It opens only when every item is answered or
+deferred and the canon carries every answer; it says what approving does and asks you to type
+`evoke`. Approving copies the canon onto the production desk, puts the book in development and
+starts the Produce chain clean, so the production room's log opens on nothing older than the
+approval.
+
+**Intake is five passes, and the room writes the files.** The Script Coordinator has no tools.
+The room builds every prompt, parses the file envelope that comes back, checks it and writes
+the files itself.
+
+| | pass | in | out |
+|---|---|---|---|
+| 1 | **synthesis** | everything in `input/`, `rules/`, `references/` | `characters.md`, `world.md`, `story.md` — **three calls at once** |
+| 2 | **open items** | those three, your own open-items list — **no references** | `open-items.md`, questions only |
+| 3 | **options** | those items, the three files, `references/` | `open-items.md`, every item answered, plus what the research exposes |
+| | *the run stops and waits for you* | | |
+| 4 | **revision** | your decisions and notes, the three files | the three files **in parallel**, then what is still open |
+| 5 | **facts** | the settled three files | `facts.md` |
+
+**Throw your material in under any names.** There is no file you have to create first.
+`input/` is whatever you have — `brainstorm.md`, `rough-chapter-1.md`, `pitch.txt`,
+`notes-to-self.md`, an old outline, a half-finished `characters.md`. Intake reads each one and
+works out what it holds; making the structure is its job, not something you do before calling
+it. Early drafts go in `input/` too — a separate `drafts/` folder still works but is not
+needed. `.md` and `.txt` are both read.
+
+**Every specialist gets the whole room, but only one job.** Pass 1 is three calls running at
+the same time, one per file, each reading all your material; pass 4 is the same, then the
+open-items list. This is measured, not theoretical: asked for several long files in one reply,
+the model wrote the first properly and thinned out, delivering 38–52% of the source with the
+last file half empty. Each call now has its own output budget.
+
+Reading broadly is the other half of it. A character fact turns up in a chapter draft, a world
+rule in a line of dialogue, a story beat in a character note — so nothing is routed by
+filename. Every call sees everything and takes what belongs to it.
+
+The three calls are independent views of one snapshot, and they may read an ambiguity
+differently — `characters.md` saying Leona chose exile while `story.md` says she was forced
+out. That is fine. Pass 2 exists to catch exactly that, and there is no hidden reconciliation
+step in pass 1. Each call validates and retries on its own, so a file that came back fine is
+never thrown away because a sibling failed.
+
+**One artifact per reply, and formatting is the room's job.** Each call returns the plain
+markdown of its file — no envelope, no markers. A code fence, a stray marker or a line of "Here
+is the document" gets stripped. Then the room *repairs* the shape rather than rejecting it: a
+characters file whose names came back at `##` with no `## Characters` wrapper gets the names
+demoted and the wrapper added; bolded field lines in `open-items.md` (`- **file:** x`) are
+rewritten so the screen can read them; unnumbered items get numbered; a missing title is added.
+Every repair is logged in `run.json` and shown in the feed.
+
+**Whatever the model returns is used.** There is exactly one reason to make a call again: the
+reply came back empty. Everything else is written down and carried on with. A short file, an
+items list the parser cannot read, an option with no source label, a file that ran to the token
+ceiling, something that reads more like a refusal than a document — all of it is noted in
+`run.json` and shown in the feed, and all of it is used. A model is a model, not a
+deterministic function; spending another call and throwing away what it wrote is the wrong
+answer to a formatting problem. Shaping the result is the room's job, afterwards.
+
+Each call gets a 64,000-token output budget, near the model's ceiling, so a file that should
+run long runs long instead of coming back cut off.
+
+**`facts.md` comes last, and only after you have decided.** It is a continuity ledger derived
+from the settled project — ages, dates, who is related to whom, how a device works, what is
+locked — for the Continuity Editor to check pages against. It is never an input to synthesis,
+and it is not a mirror of your rules: a rule that shapes how the book is written but settles
+nothing about the world produces no line in it.
+
+Pass 1 organizes and enriches; it does not resolve. Pass 2 finds the gaps and is deliberately
+the one pass with no research in reach — a reader holding a shelf will use it to make a thin
+file look finished, and then what it reports missing is not really missing. Pass 3 is the only
+pass that proposes answers.
+
+**Pass 3 also challenges the book against the research.** It is the first pass to see the
+shelf, so it is the only one that can catch what the project's own documents never could:
+fictional geology that conflicts with real geology, a journey that cannot take that long, a
+legal mechanism implausible in the jurisdiction intended, a technology that breaks the hard-SF
+rules, an economy that does not work the way the book says. Three documents agreeing with each
+other is not evidence they are right about the world. Where research materially challenges
+something the project proposes, Pass 3 raises a new item marked `from: research-check` and
+gives it options on the spot — not because the shelf holds more detail than the book needs,
+but only where ignoring it would cost you plausibility, continuity or credibility.
+
+**The room checks each call:** all the files present, none empty, none truncated, each reading
+like the document its name promises, every option in pass 3 carrying a source label. A call
+that fails is retried — the same call, with every problem seen so far plus the standing bar —
+up to three times, then the run fails. It does not advance and it does not report done.
+
+**The files are working source documents, not summaries.** The room writes the book from them
+and never sees your sources again, so a page-by-page draft stays page-by-page: beats,
+decisions, consequences, reveals, dialogue worth keeping, on-screen text, numbers, objects,
+specific actions and the causal link between one beat and the next. Duplication collapses;
+detail does not. Reducing a detailed chapter to a synopsis is the one failure the synthesis
+guides warn about hardest.
+
+**Preservation is telemetry, not a gate.** Passes 1 and 4 are measured against what they were
+given — what share of the distinctive names, terms and numbers survived, and the rough mass
+ratio — across the whole set rather than file by file, and against your own material and rules,
+never the research shelf. Dropped terms are sorted into numbers, names and terms, on-screen
+text and craft vocabulary, so you can tell a lost measurement from a lost formatting word; a
+second coverage figure ignores the craft vocabulary entirely. Below 85% coverage or 30% mass it
+says so, in the feed and in `run.json`. It never discards a reply and never re-runs a pass, and
+none of the categories is a failure condition. The numbers are there to compare models and
+prompts, and to tell you a synthesis is worth reading closely before you approve it.
+
+**The guard never measures research.** It compares against `input/` and `rules/` only. The
+shelf is there to make the book better and most of it should rightly leave no trace; measuring
+against it would demand the files transcribe your research.
+
+**Research is part of the creative loop.** Have the idea, find the real-world material that
+makes it richer, stranger or more specific, put it in `references/`, and intake uses it twice —
+in pass 1 while it shapes the project, and in pass 3 to ground the options. So
+`use_references_during_synthesis` defaults to **on**. What research may not do is become canon
+by being plausible: a point from the shelf is cited and marked as real-world reporting, and
+anything built on it is written as a proposal and raised as an open item. Set the flag to
+`false` for a consolidation run.
+
+**Open items: the room proposes, you decide.** Passes 2 and 3 write `open-items.md`: every gap
+and contradiction the three files leave, numbered, each with
+
+**Open items are reconciled, never restarted.** Pass 2 works from two independent sources: the
+questions it finds in the new synthesis, and every open item that already existed — the list on
+the desk from the last round, with whatever you edited into it, plus an `input/open-items.md`
+if you keep one. For each prior item it decides: still unresolved (kept, in your words, with
+your proposed solution), resolved by an explicit decision or a binding rule or material that
+now directly settles it (removed), partly resolved (rewritten around what is still uncertain),
+a duplicate (merged, keeping your wording), or contradicted by the synthesis (kept — the
+disagreement is evidence). What comes back is one reconciled list, each item marked `from:`
+showrunner, script coordinator or both.
+
+**A question does not disappear because the synthesis forgot it.** A working document stating
+one version confidently settles nothing — very often it has just carried the problematic
+version forward, which is why you raised the item. Pass 2 is told this explicitly, with a
+worked example.
+
+**Every option says where it comes from.** Pass 3 labels each one **[established]** in your own
+material, **[research]** from the shelf, **[inferred]** from the four files, or **[invented]**,
+with its source — so a plausible suggestion never reads as something the book already settled.
+A pass 3 reply with an unlabelled option is rejected and asked again.
+
+**Three things you can do with an item.** **Answer** it — on either screen, which writes it to
+`rules/decisions.md`, or with a `- decision:` line in `preproduction/open-items.md`. **Defer** it with
+a `- defer: <why>` line, which leaves it open on purpose and holds nothing up; pass 4 must not
+quietly answer it. Or leave it alone.
+
+**Notes carry weight.** Not everything you want to say answers a question: "Adrian should stay
+morally ambiguous", "Oasis should feel more desirable and less sterile", "give Bi11bot slightly
+more humour". Write those in a `## Feedback` block at the end of `open-items.md`, or attach one
+to a single item with `- feedback:`. Mark each with **[HIGH]**, **[MEDIUM]** or **[LOW]** — an
+unmarked note is MEDIUM:
+
+- **[HIGH]** must materially shape all the revision work it touches.
+- **[MEDIUM]** shapes the relevant material unless something with more authority says otherwise.
+- **[LOW]** is a preference: used where it improves the work, never at the cost of an unrelated
+  change.
+
+Pass 4 is given them with the authority of a rule for that run. Where a note and a decision
+pull against each other, the decision says *what is true* and the note says *how it reads*.
+Notes are *not* written into `rules/` — promoting one to a permanent rule is yours to do.
+
+**Pass 4 and 5.** **Run intake again** and the round is a revision: each answer goes into the
+file it belongs to, stated as settled and cited, followed through every other file it touches;
+your notes shape how all of it reads; deferred items stay put; and `open-items.md` comes back
+holding only what is still open. It is a controlled revision, not another synthesis — nothing
+unrelated changes and nothing may fall out. The shelf is absent unless a decision rests on it.
+Then pass 5 derives `facts.md` from the settled project.
+
+The round picks its own mode: revision when the three files exist and anything is waiting — an
+answer *or* a note — and a fresh synthesis otherwise. Post a round with `{"mode": "synthesis"}`
+or `{"mode": "revision"}` to override.
+
+**How a round ends.** Passes 1–3 leave it `awaiting_showrunner_decisions`; a finished pass 5
+leaves it `ready_for_review`. Neither is `done`, and `run.json` also records which files this
+run generated, which were carried forward, and which **you** edited by hand since the last
+round.
+
+**Other mediums.** The pipeline does not care whether the book is a graphic novel, a novel, a
+screenplay, a game or an audio drama. What changes is `craft.md` and the expected shape of
+`story.md`; `characters.md`, `world.md`, `facts.md` and `open-items.md` stay as they are.
+
+**Under the hood.** All three synthesis calls work from one snapshot of the material, recorded
+in `run.json`, so a set of files can never be half from one state and half from another. They
+share an identical system prompt and payload prefix — only the last few lines differ — so a
+provider that caches prefixes can reuse it. Each call gets its own 30,000-token output budget,
+and the room warns if a prompt goes past a soft ceiling well below the model's advertised
+window, since an advertised context is not a good working range.
+
+**Two ways a book starts, one path through the room.** From scratch, `drafts/` is empty and
+`input/` holds raw notes: the three files come out thin with long Open lists, and development
+does most of the building. With chapters already written (Prosperity), they go in `drafts/`:
+`story.md` starts as the beats of what exists and `characters.md` as the people the way the
+drafts play them, and development is mostly deciding what to keep. Drafts are idea drafts
+either way — the room writes its own version.
 
 One folder per campaign, and the same words inside each, so a person opening any folder knows
 what they are looking at:
 
 ```
 campaigns/
-  evoke/
-    canon/          alpha.md · social-innovators-framework.md — true of EVOKE anywhere
   prosperity/
-    bible.md        the campaign's own truth, where you land
-    chapters/       chapter-01.md … chapter-06.md
-    characters/     alex-phantum.md · ada-veyra.md · bi11bot.md · mera-vale.md …
-    worldbuilding/  invented: lithium-triangle-futures.md · triangle-money.md · water-wars …
-    research/       real: articles, reports, data, photographs
-    drafts/         chapter-01.md … chapter-06.md — ideas to mine, never to copy
-      _rough/       the rough whole drafts those chapters were split out of
-  avalanche/        the next campaign: the same folders, empty
+    rules/          what the book must not contradict: hard-sf-rules.md
+    input/          anything you want read, any quality: notes, sketches, plans — empty for now
+    drafts/         pages or chapters already written: the script draft. Empty when a book starts from scratch
+    references/     material to draw on, grouped for your own sake
+    preproduction/  intake's desk: characters, world, story, facts, open items, and its rounds
+    production/     the room's desk from development on: brief, script, layouts, page prompts, previous/
+  avalanche/        the second campaign: the same folders
   _morgue/          clippings kept for people, so an old document is never lost
-agents/skills/            craft, any campaign: layout, emotion, script writing, hard-SF rules
-agents/skills/_sources/   the long skill the per-agent guides are generated from
-projects/<slug>/references/   this project only (a file with the same name wins)
 ```
 
-Two rules, and that is the model: **`campaigns/evoke/` applies to every campaign,
-`campaigns/<campaign>/` to that one**, and **the folder says what the material is**. Canon is
-named only at the evoke level — everything under a campaign is that campaign's truth by sitting
-there. A file is named by its path, so `prosperity/chapters/chapter-04.md` and
-`prosperity/drafts/chapter-04.md` are two different things and are read as what they are. A new
-campaign is `mkdir -p campaigns/avalanche/{chapters,characters,worldbuilding,research,drafts}`.
+**One question decides where a file goes: does it bind the book?** `rules/` binds — the bible,
+each chapter's own truth, who each character is. (Not to be confused with **the showrunner's
+standing rules**, which are how you want the room to work and live in `taste-writers.md`.)
+Nothing else in a campaign binds: `input/` for anything you want read at any quality,
+`drafts/` for what is already written, `references/` for material to draw on, `preproduction/` and `production/` for what the room wrote.
 
-And a third rule that is only a naming convention: **inside the library — `campaigns/` and
-`agents/skills/` — a folder whose name starts with an underscore is not library material.**
+**Only `rules/` binds**, so a folder you invent inside a campaign is non-binding by default —
+group your material however suits you, and you cannot turn a rough note into canon by filing it
+somewhere. `references/` is research about the real world, and part of the creative loop: read in intake's
+first pass to enrich the project and in its third to ground the options, never canon until you
+approve it. It is otherwise a folder for your own sake, read the same way `input/`
+is read.
+
+**The pitch is optional, and it is input.** If you want to say what the book should be, write
+`input/pitch.md`; the Script Coordinator reads it with everything else and carries it into the
+three files. No agent is handed it separately, and nothing on either desk steers intake: the
+desk starts empty.
+
+`input/` is the heap, and it is meant to be one: a reference document, a prompt that worked,
+rough notes, dropped in without deciding anything first. The room reads it, mines it, and is
+never bound by it.
+
+**Nothing in the code decides whether a document is worldbuilding or reporting.** A
+document says what it is in its own words — its title, its frontmatter, its first line — and the
+agent reading it works that out. `triangle-money.md` opens with "Grounded worldbuilding for what
+money is like…"; `hard-sf-rules.md` opens with "How a grounded story invents things without lying to the
+reader." Those sentences
+are the classification, and they are also what a person reads. There is no marker to write:
+if you want the hard SF rules to bind the book, the document goes in `rules/`, which is where
+Prosperity keeps it. The one folder that does say what a file is is `drafts/`: a draft is read for what
+happens in it and how its people talk, and reaches the Script Coordinator under its own heading.
+
+A file is
+named by its path, so `prosperity/rules/chapter-04.md` and
+`prosperity/drafts/chapter-04.md` are two different things and are read as what they are.
+A new campaign is `mkdir -p campaigns/<name>/{rules,input,drafts,references,output}`, which is what **+ New campaign** does.
+
+And a third rule that is only a naming convention: **inside the library — `campaigns/` — a
+folder whose name starts with an underscore is not library material.**
 The room skips it when it lists the library, when a round carries references into a prompt, and
 when an agent asks for a file by name; `never_read` in `app/projects.py` is the whole of it, and
-there is no list of special folder names anywhere. Those folders are for people, and for the
-split scripts, which read their source by path. (An agent's own folder is not library material
+there is no list of special folder names anywhere. Those folders are for people. (An agent's own folder is not library material
 either, so the underscore says nothing there: `agents/_shared/` is given to every role.)
 
-**`drafts/_rough/` is not a separate kind of thing.** It holds the rough whole documents the
-chapters were split out of — a 129 KB script draft, a 93 KB campaign bible — and they are
-drafts like any other, just rougher and superseded. They stay out of prompts because their
-content already reaches an agent as the split (`bible.md` and `chapters/` from one,
-`drafts/chapter-<nn>.md` from the other), not because they are authoritative. Nothing is lost
-by the room not reading them.
+**A campaign reads its own folder and never another campaign's.** That is a folder rule, not
+a setting: the room only ever walks `campaigns/<the campaign that is running>/`. Material two
+books share is copied into each (`hard-sf-rules.md` sits in both campaigns' `rules/`). So Prosperity is not told about emperor penguins because Avalanche exists, a new
+campaign cannot reach into the others, and a file you drop into a campaign's `input/` is read
+the moment you save it, with nothing to add to a list. It holds for a file asked for by name
+too, so an agent cannot read across the boundary either.
 
-**`research/` and `drafts/` are not the same thing.** Research is material someone went and
-found about the real world — a piece on water permits, a production table. A draft is someone's
-own rough go at the story: mine it for beats and intent, write the room's own version.
+**Within that, a campaign picks what it uses** — **References…** in **The room** tab lists both
+folders; default: all of them. The summary beside the picker shows how many KB the Script Coordinator
+will carry. With references in place the pitch is optional. Each round keeps a copy of the references it used, and `run.json` records
+a hash of each.
 
-**A project picks which library files it uses** — **References…** in **The room** tab lists both
-folders; default: all of them. A writer can narrow that further with its own shortlist (below), and the summary
-beside the picker shows how many KB the selection is. With references in place the pitch is
-optional. Each round keeps a copy of the references it used, and `run.json` records a hash of
-each.
+The campaign's files are the campaign's files: edit them in place. The scripts that once
+split a long source document into them were one-off utilities for importing older material,
+and they are retired to `campaigns/_morgue/utilities/`.
 
-Long documents can be split so a project takes only what it needs:
-
-- `python scripts/split_bible.py` — `campaigns/prosperity/drafts/_rough/EVOKE_PROSPERITY_CAMPAIGN_BIBLE.md`
-  into `bible.md` and `chapters/chapter-<nn>.md` (each chapter's canon row, principle,
-  character interaction map and script revision flags).
-- `python scripts/split_script.py` — `campaigns/prosperity/drafts/_rough/SCRIPT_DRAFT_AUG_23.md` into
-  `drafts/chapter-<nn>.md`, each marked as an idea draft.
-
-Rerun them after updating a source.
-
-**What a reference is.** Five kinds, each arriving under its own heading so the room is told
-which it is reading:
+**What a reference is.** Four kinds, each arriving under its own heading so the Script Coordinator is
+told which it is reading:
 
 | Kind | Where it comes from | What the room does with it |
 |---|---|---|
-| canon | `evoke/canon/`, and a campaign's `bible.md`, `chapters/`, `characters/` | must not contradict it; where it conflicts with the room's files, the canon wins |
-| worldbuilding | `worldbuilding/` | invented material to draw on: a menu, commits the book to nothing, none of it has happened |
-| research | `research/` | real material, true of the actual world and not of the story: ground details in it, do not treat it as an event |
-| draft | `drafts/` | ideas on paper: mine them for beats and intent, write the room's own version |
-| guide | `agents/skills/` | how to do the work; never canon |
+| rules | a campaign's `rules/` | must not contradict it; where it conflicts with the room's files, the rules win |
+| drafts | a campaign's `drafts/` | what is written so far: the best evidence of the story and the voices, and still an idea draft — it binds nothing, and the room writes its own version |
+| input | a campaign's `input/`, or anywhere else in it | your own material, under any names: brainstorms, fragments, notes, rough chapters, old outlines, earlier structured files. It binds the book to nothing and none of it has happened. What each document *is* comes from the document, never from its filename. `.md` and `.txt` |
+| references | a campaign's `references/` | research about the real world, gathered to feed the creative work. Pass 1 reads it to enrich the project (unless you turn `use_references_during_synthesis` off) and pass 3 reads it for options labelled **[research]**; passes 2, 4 and 5 never see it. Nothing here becomes canon by being plausible — it becomes canon when you approve it |
 
-A marker wins over the folder, so a skill that carries the book's own canon — a character, a
-place, the story's one license — says `<!-- reference: canon -->` and is read as canon.
-`campaigns/evoke/canon/alpha.md` is the case in point: it arrived as a skill, but it is who Alpha
-is rather than a menu of options — and it sits in `evoke/` because AVALANCHE inherits him.
+`rules/alpha.md` is the case in point for the one question a folder answers: it
+arrived as a craft skill, but it is who Alpha is rather than a menu of options, so it sits in
+`rules/` and binds the book.
 
 The skills label their material with the vocabulary in
-`agents/skills/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
+the campaign's `rules/hard-sf-rules.md` — **T** truth, **EG** educated guess, **S** speculation, **L** license,
 **Cut** — along with the rules for a license, the license log and the Thorne and Tyson tests.
 Writers keep those labels when they use guide material, and the Continuity Editor's
 **plausibility ledger** reports unlicensed inventions, licenses that contradict a truth beside
 them, and a license used to skip work the characters should have done.
 
-**Library files per writer.** The **References…** picker chooses what a *round* uses. A writer
-also carries its own shortlist: in its model settings, **Library files for this writer**, which
-lists the references and the skills together. What each one reads now:
-
-| Writer | Reads in full |
-|---|---|
-| Editor-in-Chief | the bible, Alpha, `hard-sf-rules` |
-| Plotter | chapter canon, Alpha, `hard-sf-rules`, `lithium-triangle-futures`, `triangle-water-wars`, `social-innovators-framework` |
-| Character Designer | the bible, Alpha, `hard-sf-rules` |
-| Scripter | chapter canon, Alpha, `hard-sf-rules`, `actual-script-writing` |
-| Penciller | Alpha, `hard-sf-rules`, `graphic-novel-layout`, `comic-layout-picker`, `near-future-set-design`, `emotion` |
-| Continuity Editor | the bible, Alpha, `hard-sf-rules` |
-| Wild Card, Letterer, First Reader | names only — they read what they want on demand |
-
-That puts every writer between 98 and 118 KB a call, out of a library that is 37 files and
-701 KB — 16 canon files, 9 worldbuilding files, 6 idea drafts, 6 craft skills. Anything left off
-a shortlist is still one `read_artifact` away: a character's own file for the Scripter, everyday
-life and money for the Penciller, the science guide for the Editor.
-
-Selecting none in that list means the writer reads whatever the round picked. The project's own
-`references/` folder is always read, whatever the shortlist says.
+**Only the Script Coordinator reads the library, and the room reads its three files.**
+`characters.md`, `world.md` and `story.md` go to the Director, the Plotter, the Character
+Designer, the writers, the Layout Agent and the Continuity Editor. (The First Reader reads cold
+and the Letterer reads only the pages, so neither gets them.) `facts.md` is the
+fact-checker's list — every checkable statement in the material, one per line, tagged with the
+material's own label and its source — and the Continuity Editor reads it beside the book. An
+agent that asks `read_artifact` for a file under `campaigns/` is refused and pointed at the three files.
 
 ## Guiding the agents
 
@@ -536,43 +877,39 @@ Everything an agent knows comes from its folder:
 
 ```
 agents/
-  agents.json             order, title, mission, reads, outputs
-  skills/                 craft skills, loaded by name in an agent's shortlist
+  agents.json             title, mission, reads, outputs
+  phases.json             the five phases: who runs in each, in order, and each gate
   tools/                  what an agent can call: one json schema per tool
-  _shared/                given to every agent
+  _shared/                given to every agent: house-style.md, craft.md, the provocation deck
+  _writers/               given to both writers: role.md, craft.md, actual-script-writing.md
   <agent>/
-    *.md                  guides — all are read, alphabetically
-    images/               reference images (png, jpg, webp, gif)
-    figma.txt             Figma URLs, one per line (needs FIGMA_TOKEN)
-    figma/*.json          Figma REST API exports, for offline use
+    role.md               the job: what it delivers, in what format
+    craft.md              the craft: how to do that job well
     agent.json            provider, model and tuned defaults (committed; no keys)
+    images/               reference images (png, jpg, webp, gif)
 ```
 
-- **Add a guide:** drop a `.md` file in the agent's folder.
-- **Skills:** the craft skills in `agents/skills/` reach an agent as library files, chosen by its shortlist. A long skill can instead be split into per-agent guides: `scripts/split_skill.py` copies each agent only the parts of the storycraft skill it needs, as `agents/<agent>/storycraft.md` (the shared core goes to `agents/_shared/`). Edit `agents/skills/_sources/story_to_visual_translation_skill.md` or the map in the script, then run `python scripts/split_skill.py`.
+- **Change how an agent works:** edit its `role.md` or `craft.md`. Every `.md` in the folder is
+  sent to the model, `role.md` first, so a new guide is a new file.
+- **Long craft references** are just more `.md` files in the folder that needs them: the
+  Layout Agent carries four (layout, panel picking, set design, emotion), the writers one
+  (`actual-script-writing.md`). They are sent after `role.md` and `craft.md`.
 - **Add references:** drop images in `images/`. They're sent to the model, so use a vision-capable model or set `SEND_IMAGES=false`.
-- **Add Figma:** paste a design file, FigJam board, frame or section URL into `figma.txt` (needs `FIGMA_TOKEN` in `.env`). The agent gets a text summary (frames, sections, text, stickies, palette hex values) plus PNG renders of up to 4 frames or sections.
 - **Change what a tool says:** edit its file in `agents/tools/`. The `description` and
   `parameters` are what the model sees, so the wording steers behaviour; `_why` lines are
   comments for the next person. An agent gets every implemented tool unless its `agent.json`
   names a `tools` list, `write_artifact` refuses any file that is not its own output, and
   `generate_image` needs `generate_images: true`. A cold reader (`"context": "minimal"`) gets
-  `write_artifact` and `finish` only.
-- **Add or change an agent:** edit `agents/agents.json` and create the matching folder.
-  `"selected": false` leaves an agent unticked by default. `"context": "minimal"` gives it
-  only its own folder, the pitch and its `reads` — no shared guides, references or tools to
+  `write_artifact` and `finish` only, so it can neither browse the room nor be provoked.
+- **Add or change an agent:** edit `agents/agents.json`, create the matching folder, and name
+  it in a phase in `agents/phases.json`. `"context": "minimal"` gives it
+  only its own folder and its `reads` — no shared guides, references or tools to
   browse the room (the First Reader uses this).
-- **Random entry:** an agent with `deck.txt` (one prompt per line) gets 3 cards drawn by code
-  each run, plus a word from `words.txt` and a random heading from the outline or script
-  as a target. The draw shows in the live feed.
-
-## Hats
-
-`agents/hats/` holds de Bono's six thinking modes (blue process, white evidence, black risk,
-yellow value, red reaction, green possibility). Pick one in the hat menu next to **Run**
-and it's added to every selected agent for that run; the round records which hat was used.
-Hats are modes, not jobs: e.g. run the Continuity Editor in the yellow hat to find what's
-worth keeping.
+- **Random entry:** the `provoke` tool deals 3 cards from `agents/_shared/deck.txt` (one move
+  per line), a word from `words.txt` and a random heading from the story or script as a
+  target. Drawn by code, so it is not an idea the model talked itself into, and pulled rather
+  than dealt: a writer asks when the obvious version of a beat is the one it keeps writing, and
+  a writer who isn't stuck pays nothing. The draw shows in the live feed.
 
 ## Per-agent settings
 
@@ -595,12 +932,12 @@ view) explains them:
 
 | Agent | Temp | Max tokens | Why |
 |---|---|---|---|
-| Editor-in-Chief | 0.6 | 6,000 | judgment and consistency; sees reference images |
+| Director | 0.6 | 6,000 | judgment and consistency; sees reference images |
 | Plotter | 0.9 | 8,000 | structure with surprises |
-| Wild Card | 1.1 | 4,000 | divergent leaps; references on demand; few steps |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
-| Scripter | 0.85 | 16,000 | voice and dialogue; the longest output, 600 s timeout |
-| Penciller | 0.5 | 16,000 | valid layout JSON for every page |
+| Writer A | 0.7 | 16,000 | the spare, image-led voice; the longest output, 600 s timeout |
+| Writer B | 1.0 | 16,000 | the dialogue-led voice; same budget. Give the two different models if you can |
+| Layout Agent | 0.5 | 16,000 | valid layout JSON for every page |
 | Letterer | 0.2 | 8,000 | literal and careful |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
 | First Reader | 0.7 | 3,000 | natural reactions, minimal context |
@@ -616,8 +953,7 @@ UI changes a setting, the change shows up in `git diff`.
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
 | `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
-| `references` | `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
-| `reference_files` | This writer's own shortlist of library files, set in **Library files for this writer**. Empty means whatever the round picked. |
+| `references` | Script Coordinator only: `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
 A bad `agent.json` is flagged on the card and blocks runs that include that agent.
@@ -630,8 +966,12 @@ A bad `agent.json` is flagged on the card and blocks runs that include that agen
 
 ## Search
 
-Everything the room can read is indexed for hybrid search: the campaign's canon, worldbuilding,
-research and drafts, the craft skills, and each project's own files.
+Everything the room can read is indexed for hybrid search: each campaign's `rules/` and
+`input/`, the craft skills, and each campaign's own desk. A scope is the folder a file sits in
+(`prosperity/rules`, `prosperity/input`, `skills`) or `project:<slug>` for the desk, so a search
+can ask one campaign or one part of it without knowing file names. Deleting a file drops its
+passages: `indexed_as` in `app/search.py` rebuilds the key the file was indexed under, because
+by then the file is gone and cannot be looked up.
 
 - **Keywords** — BM25 in OpenSearch over the passage, its heading path, and the keywords drawn
   from it. A term that is common in one passage and rare everywhere else is a keyword, so a
@@ -664,7 +1004,7 @@ so a writer can reach the whole library without carrying it. MCP clients get `se
 change: **an edit is searchable a second or two after you save it** — 0.16 s for a host save to
 reach the container, up to 0.5 s of poll, then chunking the one file, embedding what changed
 (0.15 s a passage) and a refresh. The same applies to what an agent writes mid-round, so a page
-the Penciller has just written is searchable while the round is still going.
+the Layout Agent has just written is searchable while the round is still going.
 
 One changed file costs one file's work: the passages it lost are dropped, the ones it gained are
 embedded, everything else is left alone. Rewriting one passage of a 22 KB file re-embeds that
@@ -693,9 +1033,9 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 
 | Tool | What it does |
 |---|---|
-| `list_projects` | the room's projects by name |
+| `list_projects` | the campaigns you can run, by name |
 | `list_artifacts` | a project's room files and its reference material |
-| `read_artifact` | one file, e.g. `script.md` or `library/evoke/canon/alpha.md` |
+| `read_artifact` | one file, e.g. `script.md` or `campaigns/prosperity/rules/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
 | `search_room` | hybrid search over the library, the skills and a project's files |
 | `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
@@ -716,7 +1056,7 @@ writer sees, and pausing the round to edit one is a real way to work. The same g
 tools served over MCP: their descriptions are re-read before a client is shown them.
 
 The exceptions are not markdown: code under `app/` is baked into the Docker image and needs
-`docker compose up -d --build app`, Figma pulls are cached per process, and the browser caches
+`docker compose up -d --build app`, and the browser caches
 the app's own JS and CSS (a hard reload picks up a new build).
 
 ## Call logs and costs
@@ -724,9 +1064,9 @@ the app's own JS and CSS (a hard reload picks up a new build).
 Every model call — chat and image, successful or failed — is recorded three ways:
 
 ```
-rounds/<slug>-r03-ai/calls/<slug>-r03-ai-call-0007-scripter-chat.json   full request + response
+rounds/<slug>-r03-ai/calls/<slug>-r03-ai-call-0007-writer-a-chat.json   full request + response
 rounds/<slug>-r03-ai/<slug>-r03-ai-calls.jsonl                           one summary line per call
-logs/usage.jsonl                                               the same lines, across all projects
+logs/usage.jsonl                                               the same lines, across all campaigns
 ```
 
 A summary line has: project, round (`version`), agent, kind (`chat`/`image`), provider host, model,
@@ -743,8 +1083,8 @@ HTTP status, error, and the path to the full log.
 
 `app/agent.py` is a plain loop:
 
-1. The system prompt is the agent's mission plus its guides and Figma summaries.
-2. The first message is the pitch, the upstream files listed in `reads`, any previous draft, your note, and the images.
+1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones).
+2. The first message is the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
 3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 

@@ -1,7 +1,7 @@
 """Logging and costing of every model call.
 
 For each call:
-  projects/<slug>/versions/vNNN/calls/0007-scripter-chat.json   full request + response
+  projects/<slug>/versions/vNNN/calls/0007-writer_a-chat.json   full request + response
   projects/<slug>/versions/vNNN/calls.jsonl                      one summary line
   logs/usage.jsonl                                               same line, every project
 
@@ -163,10 +163,12 @@ class CallLogger:
         self.role_id = role_id
         self.emit = emit
         self.totals = empty_totals()
+        self._lock = threading.Lock()   # parallel calls finish at the same moment
 
     def __call__(self, kind, url, request, response, status, duration, error=None):
         try:
-            return self._record(kind, url, request, response, status, duration, error)
+            with self._lock:
+                return self._record(kind, url, request, response, status, duration, error)
         except Exception as e:  # logging must never break a run
             self.emit("warn", text=f"Couldn't log model call: {e}")
 
@@ -214,7 +216,8 @@ class CallLogger:
 
         self.emit("usage", kind=kind, model=model, provider=summary["provider"],
                   input_tokens=tokens["input_tokens"], output_tokens=tokens["output_tokens"],
-                  cost_usd=cost, cost_source=source, status=status, log=fname)
+                  cost_usd=cost, cost_source=source, status=status, log=fname,
+                  duration_ms=summary["duration_ms"], error=summary["error"])
         return summary
 
 

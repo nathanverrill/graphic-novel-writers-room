@@ -1,0 +1,14 @@
+{
+  "description": "Draw from the room's provocation deck when the obvious version of a beat is the one you keep writing. Returns three cards (a move to try on the story), an unrelated word, and a heading from the outline or script to aim at. The draw is random and made in code, so it is not an idea you talked yourself into. Nothing it returns is canon or an instruction: take what strengthens the page, say in your handoff note what you used, and throw the rest away.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "cards": {
+        "type": "integer",
+        "description": "how many cards, default 3"
+      }
+    },
+    "required": []
+  },
+  "_why": "Random entry, pulled instead of pushed. It used to be dealt to the Wild Card at the start of every run whether it wanted them or not; as a tool, any writer stuck on a beat can ask, and the ones who aren't stuck pay nothing. The deck is agents/_shared/deck.txt and words.txt, one per line."
+}

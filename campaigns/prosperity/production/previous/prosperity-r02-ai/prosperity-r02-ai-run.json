@@ -1,0 +1,97 @@
+{
+  "id": "r02-ai",
+  "kind": "ai",
+  "started": "2026-09-21T15:53:29",
+  "finished": "2026-09-21T15:57:32",
+  "status": "done",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "facts.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/facts.md": "3fdd2591ad6515a2",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/alpha.md": "19d6ef600dfcf1c9",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 4,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.27757337,
+      "input_tokens": 262928,
+      "cached_tokens": 170237,
+      "image_input_tokens": 0,
+      "output_tokens": 14043,
+      "reasoning_tokens": 4063,
+      "total_tokens": 276971
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 4,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.27757337,
+        "input_tokens": 262928,
+        "cached_tokens": 170237,
+        "image_input_tokens": 0,
+        "output_tokens": 14043,
+        "reasoning_tokens": 4063,
+        "total_tokens": 276971
+      }
+    }
+  },
+  "run_id": "7913e7ef3b0a",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and sorts it into the three files the room works from: the people, the world, the story.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-2.5-pro",
+      "temperature": 0.2,
+      "max_tokens": 32000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": null,
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "pages": []
+}

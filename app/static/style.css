@@ -424,3 +424,37 @@ a.button { text-decoration: none; display: inline-block; }
 .hit .where { font-family: ui-monospace, monospace; font-size: .74rem; color: var(--ink); }
 .hit .snippet { font-size: .78rem; color: var(--muted); display: -webkit-box; -webkit-line-clamp: 3;
   -webkit-box-orient: vertical; overflow: hidden; }
+
+/* the phases, and the gate out of the one the book is in */
+.phases { display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; margin: .5rem 0 .25rem; }
+.phases span { color: var(--muted, #888); }
+.phase { background: none; border: 1px solid currentColor; opacity: .55; }
+.phase.on { opacity: 1; font-weight: 600; }
+.gate { border-left: 3px solid currentColor; padding: .4rem .7rem; margin: .25rem 0 .6rem; line-height: 1.7; }
+
+/* ---- open items under the intake gate ---- */
+.open-items { border: 1px solid var(--line); border-radius: 6px; padding: .6rem .8rem; margin: 0 0 .8rem; }
+.open-items h3 { margin: 0 0 .5rem; }
+.open-items h3 .path { font-weight: normal; }
+.open-item { border-top: 1px solid var(--line); padding: .6rem 0; display: grid; gap: .3rem; }
+.open-item.answered { border-left: 3px solid var(--accent); padding-left: .6rem; }
+/* The radio sits beside its option, not stretched across the row: the global
+   `input { width: 100% }` turns a radio into a full-width box with the dot centred
+   in it, which reads as a button belonging to nothing. */
+.open-item label { display: grid; grid-template-columns: auto 1fr; gap: .5rem;
+                   align-items: start; line-height: 1.5; cursor: pointer;
+                   padding: .35rem .45rem; border-radius: 4px; }
+.open-item label:hover { background: var(--bg); }
+.open-item label input[type=radio] { width: auto; margin: .3rem 0 0; padding: 0; }
+.open-item label b { margin-right: .15rem; }
+.open-item textarea { width: 100%; font: inherit; min-height: 5.5rem; line-height: 1.5; }
+.open-item .tag { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em;
+                  padding: .05rem .35rem; border-radius: 3px; border: 1px solid currentColor;
+                  white-space: nowrap; margin-right: .3rem; }
+.open-item .tag.established { color: var(--ok); }
+.open-item .tag.research { color: #1d4ed8; }
+.open-item .tag.inferred { color: var(--work); }
+.open-item .tag.invented { color: var(--accent); }
+.open-item .tag.unlabelled { color: var(--bad); }
+.open-item .src { color: var(--muted); font-family: ui-monospace, monospace; font-size: .72rem; }
+.open-items .to-desk { float: right; font-size: .75rem; }

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voices</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/desk.css">
+<style>
+  .vx { display: grid; grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr) minmax(15rem, 21rem); gap: 1rem; padding: 1rem; align-items: start; }
+  @media (max-width: 70rem) { .vx { grid-template-columns: minmax(15rem, 19rem) minmax(0, 1fr); } .vx .tune { grid-column: 1 / -1; } }
+  @media (max-width: 46rem) { .vx { grid-template-columns: 1fr; padding: .75rem 16px; } }
+  .vx aside, .vx .tune { display: grid; gap: 1rem; }
+  .field { display: grid; gap: .25rem; margin-bottom: .7rem; font-size: .72rem; color: var(--muted); }
+  .field select, .field input, .field textarea, .say textarea, .why textarea, .why input, .addnote input {
+    font: inherit; font-size: .88rem; color: var(--ink); padding: .4rem .5rem; border: 1px solid var(--line);
+    border-radius: 5px; background: var(--bg); width: 100%; }
+  .chats { display: grid; gap: .3rem; font-size: .8rem; }
+  .chats button { text-align: left; font: inherit; background: none; border: 1px solid var(--line); border-radius: 5px;
+                  padding: .35rem .5rem; cursor: pointer; color: var(--ink); }
+  .chats button[aria-current="true"] { border-color: var(--accent); }
+  .chats small { display: block; color: var(--muted); }
+
+  .talk { display: flex; flex-direction: column; min-height: 70vh; }
+  .talk .who { font-size: .8rem; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: .6rem; margin-bottom: .8rem; }
+  .talk .who b { color: var(--ink); font-size: 1rem; }
+  .lines { flex: 1; display: flex; flex-direction: column; gap: .8rem; overflow-y: auto; padding-right: .2rem; }
+  .line { max-width: 85%; }
+  .line .name { font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .2rem; }
+  .line .text { padding: .6rem .8rem; border-radius: 14px; line-height: 1.5; font-size: .95rem; white-space: pre-wrap; }
+  .line.character .text { background: var(--panel); border: 1px solid var(--ink); border-top-left-radius: 4px; }
+  .line.you { align-self: flex-end; text-align: right; }
+  .line.you .text { background: var(--bg); border: 1px solid var(--line); border-top-right-radius: 4px; text-align: left; }
+  .line.character.yes .text { border-color: var(--ok); box-shadow: 0 0 0 1px var(--ok) inset; }
+  .line.character.no .text { border-color: var(--bad); border-style: dashed; }
+  .judge { display: flex; gap: .3rem; margin-top: .3rem; flex-wrap: wrap; }
+  .judge button { font: inherit; font-size: .72rem; padding: .15rem .5rem; border-radius: 99px; border: 1px solid var(--line);
+                  background: var(--panel); color: var(--muted); cursor: pointer; }
+  .judge button:hover:not(:disabled) { color: var(--ink); border-color: var(--ink); }
+  .judge button.yes[aria-pressed="true"] { color: var(--ok); border-color: var(--ok); }
+  .judge button.no[aria-pressed="true"] { color: var(--bad); border-color: var(--bad); }
+  .judge button:disabled { opacity: .5; cursor: default; }
+  .why { display: grid; gap: .4rem; margin-top: .4rem; padding: .6rem; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); }
+  .why label { font-size: .72rem; color: var(--muted); display: grid; gap: .2rem; }
+  .why .row-btns { display: flex; gap: .4rem; justify-content: flex-end; }
+  .say { display: flex; gap: .5rem; margin-top: .8rem; border-top: 1px solid var(--line); padding-top: .8rem; }
+  .say textarea { resize: vertical; min-height: 2.6rem; }
+  .say .go, .why .go, .addnote .go { width: auto; }
+  .thinking { font-size: .8rem; color: var(--muted); font-style: italic; }
+  .empty { color: var(--muted); font-size: .9rem; margin: auto; text-align: center; max-width: 26rem; line-height: 1.5; }
+
+  .tune ul { list-style: none; margin: 0 0 .6rem; padding: 0; display: grid; gap: .35rem; font-size: .8rem; }
+  .tune li { display: grid; grid-template-columns: 1fr auto; gap: .4rem; padding: .35rem .5rem; border: 1px solid var(--line); border-radius: 5px; background: var(--bg); }
+  .tune li small { display: block; color: var(--muted); margin-top: .15rem; }
+  .tune li button { font: inherit; border: 0; background: none; color: var(--muted); cursor: pointer; padding: 0 .2rem; }
+  .tune h4 { margin: .6rem 0 .35rem; font-size: .78rem; }
+  .tune h4.yes { color: var(--ok); } .tune h4.no { color: var(--bad); }
+  .addnote { display: flex; gap: .4rem; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>voices</span></h1>
+  <div class="config"><span id="canon">—</span> · <span id="model">—</span> · <a href="/preproduction">pre-production →</a></div>
+</header>
+
+<div class="vx">
+  <aside>
+    <div class="card">
+      <h3>A conversation</h3>
+      <label class="field">Campaign <select id="camp"></select></label>
+      <label class="field">Talk to <select id="character"></select></label>
+      <label class="field">You are <select id="as"></select></label>
+      <label class="field">When <select id="moment"></select></label>
+      <button class="go" id="start">Start - they speak first</button>
+      <div class="hint" id="start-hint">They stay in the world: no book, no showrunner, no simulator. Your feedback goes beside the conversation, never into it.</div>
+    </div>
+    <div class="card">
+      <h3>Earlier conversations</h3>
+      <div class="chats" id="chats"><div class="hint">None yet.</div></div>
+    </div>
+  </aside>
+
+  <main class="card talk" id="talk">
+    <div class="who" id="who"></div>
+    <div class="lines" id="lines"><div class="empty">Pick who to talk to, who you are, and when in the story. Then start: the character speaks first.</div></div>
+    <form class="say" id="say" hidden>
+      <textarea id="say-text" rows="2" placeholder="Say something, in the world…"></textarea>
+      <button class="go" type="submit" id="say-go">Say</button>
+    </form>
+  </main>
+
+  <section class="tune">
+    <div class="card">
+      <h3 id="tune-title">The voice</h3>
+      <p class="hint" id="tune-hint" style="margin:0 0 .6rem">Mark their lines as you talk: <b>that's them</b>, or <b>not them</b> with how they would really say it. Add notes on the voice as a whole. It shapes the conversation at once, and it is carried into their Voice in <code>characters.md</code> at the next Update canon.</p>
+      <div id="tune"></div>
+      <form class="addnote" id="addnote">
+        <input id="note-text" placeholder="A note on the voice, e.g. less cryptic when Alex is scared" autocomplete="off">
+        <button class="go" type="submit">Add</button>
+      </form>
+    </div>
+  </section>
+</div>
+
+<script src="/static/desk.js"></script>
+<script src="/static/voices.js"></script>
+</body>
+</html>

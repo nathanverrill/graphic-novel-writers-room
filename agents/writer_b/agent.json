@@ -1,0 +1,20 @@
+{
+  "_why": "Writer B on a different model on purpose: the audition compares two voices, and Sonnet's prose is the contrast. Dearer per call (about 8 cents); it writes the whole book only if picked.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "anthropic/claude-sonnet-5",
+  "api_key_env": null,
+  "temperature": 1.0,
+  "max_tokens": 16000,
+  "max_steps": 16,
+  "timeout": 600,
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "tools": []
+}

@@ -1,0 +1,21 @@
+{
+  "_why": "Writer A on the house model: the image-led voice, fast and cheap.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "openai/gpt-5.6-luna",
+  "api_key_env": null,
+  "temperature": 0.7,
+  "max_tokens": 16000,
+  "max_steps": 16,
+  "timeout": 600,
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "tools": [],
+  "thinking_budget": 0
+}

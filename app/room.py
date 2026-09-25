@@ -1,37 +1,46 @@
-"""Runs roles one after another in a background thread and records events
+"""Runs agents one after another in a background thread and records events
 so the browser can follow along (see /api/runs/{id}/events).
-Every run is an AI round (rounds/<slug>-rNN-ai).
+Every run is an AI round (previous/<slug>-rNN-ai).
 
-A *writing round* (start_round) goes further: the room writes the book, then checks
-the readiness gate (page count, layout issues, continuity blockers, how closely
-locked pages are matched) and reruns only the roles that can fix what's wrong, up
-to max_passes times, before handing the pages to the showrunner for review.
+A round (start_round) runs the phase the book is in — see phases.py — and then stops for
+the showrunner. Execution goes one step further, because its gate is measured rather than
+judged: it checks the readiness gate (page count, layout issues, continuity blockers, how
+closely locked pages are matched) and reruns only the agents that can fix what's wrong,
+up to max_passes times, before handing the pages over for review.
 
 Two things can interrupt that: the showrunner can hold the round between two writers
 (hold(), pause/resume) and change settings or leave notes for whoever runs next, and
 auto mode (auto_step) can hand a finished round straight back to the room instead of
-waiting for a review."""
+waiting for a review.
+
+A phase may name groups of agents that run at the same time ("parallel" in phases.json):
+the two writers in the audition, the Plotter and the Character Designer in development.
+run_roles() runs such a group in threads and waits for all of them before the next agent
+starts; everything else about a round is unchanged."""
 import threading
 import time
 import uuid
+from dataclasses import replace
 
-from . import agent as agent_mod
+from . import agent as agent_mod, draftedit as draftedit_mod, intake as intake_mod
 from . import notes as notes_mod
-from . import projects, review, usage
-from .agents import list_hats, load_roles
+from . import lettering, phases, projects, review, usage
+from .agents import load_roles
 
-FIRST_ROUND = ["editor", "plotter", "character_designer", "scripter", "penciller", "continuity"]
-REVISION_ROUND = ["editor", "scripter", "penciller", "continuity"]
+MEASURED = "execution"      # the one phase whose gate the room can check for itself
 
 
 class Run:
-    def __init__(self, slug, roles, note, hat=None, plan=None):
+    def __init__(self, slug, roles, note, plan=None, mode=None):
         self.id = uuid.uuid4().hex[:12]
         self.slug = slug
         self.roles = roles
+        self.mode = mode          # intake: which kind of round this is
+        self.awaiting = False     # a runner stopped for the showrunner (intake passes 1-3)
+        self.run_status = None    # a runner's own word for how the round ended (see intake.py)
         self.note = note
-        self.hat = hat
-        self.plan = plan            # set for writing rounds: {"order", "max_passes", "kind"}
+        self.plan = plan            # set for a phase's round: {"kind": phase id, "max_passes", "all", "parallel"}
+        self.groups = [set(g) for g in (plan or {}).get("parallel") or []]
         self.events = []
         self.done = False
         self.stop_requested = False
@@ -39,8 +48,10 @@ class Run:
         self.paused = False
         self.last_done = None       # the writer who handed off last, for the pause banner
         self.cond = threading.Condition()
+        self.estimate = estimates(roles)
         self.version = projects.Version(
-            slug, run_id=self.id, note=note, hat=hat, roles=[r.id for r in roles],
+            slug, desk=projects.desk_for(plan["kind"]) if plan else projects.PROD,
+            run_id=self.id, note=note, roles=[r.id for r in roles],
             configs={r.id: r.config().public() for r in (plan["all"] if plan else roles)},
             writing_round=plan and plan["kind"],
         )
@@ -89,36 +100,91 @@ class Run:
         self.emit("resumed", changed=changed, notes=bool(jotted))
         return "\n\n".join(p for p in (note, jotted) if p)
 
+    def steps(self, roles):
+        """The roles as they run: one at a time, or a group of them side by side."""
+        out, i = [], 0
+        while i < len(roles):
+            group = next((g for g in self.groups if roles[i].id in g), None)
+            if group:
+                batch = [r for r in roles[i:] if r.id in group]
+                rest = [r for r in roles[i:] if r.id not in group]
+                if len(batch) > 1:
+                    out.append(batch)
+                    roles = roles[:i] + batch + rest
+                    i += len(batch)
+                    continue
+            out.append([roles[i]])
+            i += 1
+        return out
+
     def run_roles(self, roles, note, pass_n=1):
-        for role in roles:
-            note = self.hold(note, role)
-            role = self.reload(role)
-            emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
-            emit("role_start", title=role.title, pass_n=pass_n)
+        for batch in self.steps(list(roles)):
+            note = self.hold(note, batch[0])
+            if len(batch) == 1:
+                self.run_role(batch[0], note, pass_n)
+                continue
+            self.emit("parallel", roles=[r.id for r in batch], titles=[r.title for r in batch])
+            errors = []
+            def one(role):
+                try:
+                    self.run_role(role, note, pass_n)
+                except BaseException as e:       # noqa: BLE001 - carried back to the round's thread
+                    errors.append(e)
+            threads = [threading.Thread(target=one, args=(r,), daemon=True) for r in batch]
+            for t in threads:
+                t.start()
+            for t in threads:
+                t.join()
+            if errors:
+                raise errors[0]
+
+    def run_role(self, role, note, pass_n=1):
+        role = self.reload(role)
+        emit = lambda type, _id=role.id, **d: self.emit(type, role=_id, **d)
+        started = time.time()
+        emit("role_start", title=role.title, pass_n=pass_n, estimate=self.estimate.get(role.id))
+        if role.pipeline == "intake":
+            a = intake_mod.Intake(role, self.version, emit, lambda: self.stop_requested, self.mode)
+        elif role.pipeline == "draftedit":
+            a = draftedit_mod.DraftEdit(role, self.version, emit, lambda: self.stop_requested)
+        else:
             a = agent_mod.Agent(role, self.version, emit, lambda: self.stop_requested)
-            try:
-                done_note = a.run(note, self.hat)
-            finally:
-                emit("role_cost", **a.log.totals)
-            emit("role_done", note=done_note)
-            self.last_done = role
+        try:
+            done_note = a.run(note)
+        finally:
+            emit("role_cost", **a.log.totals)
+        if role.id == "letterer":
+            moved = lettering.apply_moves(self.slug, projects.read_artifact(self.slug, "lettering.md"),
+                                          locked=set(review.kept(self.slug)))
+            if moved:
+                emit("message", text=f"Moved {len(moved)} balloon{'s' if len(moved) > 1 else ''} as the Letterer asked.")
+        emit("role_done", note=done_note, seconds=round(time.time() - started))
+        self.awaiting = self.awaiting or getattr(a, "awaiting", False)
+        self.run_status = getattr(a, "run_status", None) or self.run_status
+        self.last_done = role
 
     def reload(self, role):
-        """The role as it is on disk now — settings can have changed while the round was paused."""
-        return {r.id: r for r in load_roles()}.get(role.id, role)
+        """The role as it is on disk now — settings can have changed while the round was paused.
+        What the phase has it write (an audition file, say) stays as the phase set it."""
+        fresh = {r.id: r for r in load_roles()}.get(role.id, role)
+        return replace(fresh, outputs=role.outputs)
 
     def fix_roles(self, g):
-        wanted = set(g["fix"])
-        wanted.add("continuity")
-        return [r for r in self.plan["all"] if r.id in wanted]
+        """Who reruns: only agents of this phase. A blocker that belongs to an earlier phase is
+        the showrunner's call, so with nobody here to fix it the passes stop."""
+        fixers = {r.id for r in self.plan["all"] if r.id in g["fix"]}
+        return [r for r in self.plan["all"] if r.id in fixers or (fixers and r.id == "continuity")]
 
     def writing_round(self):
         titles = {r.id: r.title for r in self.plan["all"]}
         g = review.gate(self.slug, titles)
         passes = 0
         while not g["ready"] and passes < self.plan["max_passes"]:
-            passes += 1
             fixers = self.fix_roles(g)
+            if not fixers:
+                self.emit("warn", text="What's wrong isn't this phase's to fix — it is yours to send back.")
+                break
+            passes += 1
             self.emit("gate", ready=False, pass_n=passes, reasons=g["reasons"], fix=g["fix"],
                       roles=[r.id for r in fixers])
             note = "\n\n".join(filter(None, [
@@ -136,23 +202,23 @@ class Run:
             self.emit("warn", text=f"Not fully ready after {passes} revision passes — handing it to you anyway.")
 
     def work(self):
-        self.emit("run_start", roles=[r.id for r in self.roles], version=self.version.id, hat=self.hat,
+        measured = bool(self.plan) and self.plan["kind"] == MEASURED
+        times = self.estimate
+        self.emit("run_start", roles=[r.id for r in self.roles], version=self.version.id,
                   writing_round=self.plan and self.plan["kind"],
-                  max_passes=self.plan["max_passes"] if self.plan else 0,
-                  estimates=estimates(self.plan["all"] if self.plan else self.roles),
-                  pass_seconds=sum(estimates([r for r in self.plan["all"] if r.id in REVISION_ROUND]).values())
-                  if self.plan else 0)
+                  max_passes=self.plan["max_passes"] if measured else 0,
+                  estimates=times, pass_seconds=sum(times.values()) if measured else 0)
         status = "error"
         try:
             self.run_roles(self.roles, self.note)
-            if self.plan:
+            if measured:
                 self.writing_round()
             pages = review.export_pages(self.slug, self.version)
             self.version.update(pages=pages)
-            if self.plan:
+            if measured:
                 self.emit("round_ready", version=self.version.id, pages=pages)
-            status = "done"
-            self.emit("run_done", version=self.version.id)
+            status = self.run_status or "done"
+            self.emit("run_done", version=self.version.id, awaiting=self.awaiting)
         except agent_mod.Stopped:
             status = "stopped"
             self.emit("run_stopped", version=self.version.id)
@@ -164,7 +230,7 @@ class Run:
             with self.cond:
                 self.done = True
                 self.cond.notify_all()
-        if status == "done" and self.plan:
+        if status == "done" and measured:
             threading.Thread(target=auto_step, args=(self.slug, self), daemon=True).start()
 
 
@@ -173,7 +239,7 @@ DEFAULT_ROLE_SECONDS = 120
 
 
 def auto_step(slug, run):
-    """Auto mode: when a writing round ends, go again without waiting for a review.
+    """Auto mode, in execution only: when a round ends, go again without waiting for a review.
 
     The round that just finished is handed back with nothing said about any page — every page
     open, no notes — which is what an empty review means, and the next round starts from it.
@@ -191,7 +257,7 @@ def auto_step(slug, run):
             review.save_settings(slug, auto_rounds=0)
             return
         review.submit(slug, "send")
-        start_round(slug, hat=run.hat)
+        start_round(slug)
     except (ValueError, RuntimeError):
         review.save_settings(slug, auto_rounds=0)     # something is wrong: stop rather than spin
 
@@ -222,23 +288,40 @@ def _check_configs(roles):
             raise ValueError(f"{r.id}/{e}") from None
 
 
-def start_round(slug, note=None, hat=None):
-    """The whole room, then fix passes until the pages are ready for review."""
+def magic_chapter_of(slug, n):
+    """", chapter 3's page 1" for book page n, when the chapters are known."""
+    from . import magic
+    for c in magic.chapter_pages(slug):
+        if c["first"] <= n < c["first"] + c["pages"]:
+            return f" (chapter {c['chapter']}, its page {n - c['first'] + 1})"
+    return ""
+
+
+def start_round(slug, note=None, mode=None, phase_id=None, only=None):
+    """Run the phase the book is in - or the one named. It stops for the showrunner when the
+    phase's agents are done. `only` names a subset of the phase's agents to run, with no fix
+    passes: production's layouts stop runs the Layout Agent alone this way."""
     if active_run(slug):
         raise RuntimeError("the room is already working on this project")
-    if hat and hat not in list_hats():
-        raise ValueError(f"no hat named {hat!r}")
     st = review.settings(slug)
-    last = review.latest_round(slug)
-    kind = "revision" if last and last.get("kind") == "human" else "first"
-    by_id = {r.id: r for r in load_roles()}
-    order = [i for i in (REVISION_ROUND if kind == "revision" else FIRST_ROUND) if i in by_id]
-    roles = [by_id[i] for i in order]
+    phase = phases.get(phase_id) if phase_id else phases.current(slug)
+    roles = phases.roles(slug, phase)
+    if only:
+        roles = [r for r in roles if r.id in only]
+        if not roles:
+            raise ValueError(f"none of {', '.join(only)} run in {phase['title'].lower()}")
     _check_configs(roles)
-    parts = []
+    parts = [f"The room is in {phase['title'].lower()}: {phase['does']}", phases.note(slug, phase)]
     if st["pages"]:
         parts.append(f"The book is exactly {st['pages']} pages: pages 1-{st['pages']}, no more, no fewer.")
-    if kind == "revision":
+    if st["scope"] and phase["id"] == "execution":
+        n = review.proof_page(slug)
+        where = magic_chapter_of(slug, n)
+        parts.append(f"THIS PASS IS A PROOF: lay out and letter page {n}{where} only, from the script as it "
+                     f"stands, and no other page. The showrunner will judge the book's look on this page "
+                     f"before the rest is made. layouts.md holds only page {n}, numbered {n}.")
+    last = review.latest_round(slug)
+    if last and last.get("kind") == "human":
         parts += ["Work from the showrunner's review below. Change only what it asks for; "
                   "locked pages are restored automatically if you touch them.",
                   projects.read_artifact(slug, "review.md") or ""]
@@ -247,8 +330,9 @@ def start_round(slug, note=None, hat=None):
     jotted = notes_mod.take(slug, "pending")   # the round id isn't known until the Run is made
     if jotted:
         parts.append(jotted)
-    plan = {"kind": kind, "max_passes": int(st["max_passes"]), "all": roles}
-    run = Run(slug, roles, "\n\n".join(p for p in parts if p), hat, plan)
+    plan = {"kind": phase["id"], "max_passes": 0 if only else int(st["max_passes"]), "all": roles,
+            "parallel": phase.get("parallel") or []}
+    run = Run(slug, roles, "\n\n".join(p for p in parts if p), plan, mode)
     if jotted:
         notes_mod.mark_used(slug, [n["id"] for n in notes_mod._all(slug) if n["used_in"] == "pending"], run.version.id)
         run.version.write_file("showrunner-notes.md", jotted)
@@ -257,7 +341,8 @@ def start_round(slug, note=None, hat=None):
     return run
 
 
-def start(slug, role_ids, note=None, hat=None):
+def start(slug, role_ids, note=None):
+    """Run just these agents, outside the phases — for trying one thing."""
     if active_run(slug):
         raise RuntimeError("the room is already working on this project")
     by_id = {r.id: r for r in load_roles()}
@@ -265,10 +350,8 @@ def start(slug, role_ids, note=None, hat=None):
     if unknown:
         raise KeyError(", ".join(unknown))
     roles = [by_id[r] for r in role_ids]
-    if hat and hat not in list_hats():
-        raise ValueError(f"no hat named {hat!r}")
     _check_configs(roles)
-    run = Run(slug, roles, note, hat)
+    run = Run(slug, roles, note)
     RUNS[run.id] = run
     threading.Thread(target=run.work, daemon=True).start()
     return run

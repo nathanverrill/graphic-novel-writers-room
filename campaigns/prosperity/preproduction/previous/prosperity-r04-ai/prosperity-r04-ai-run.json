@@ -1,0 +1,522 @@
+{
+  "id": "r04-ai",
+  "kind": "ai",
+  "started": "2026-09-24T13:23:26",
+  "finished": "2026-09-24T13:27:59",
+  "status": "awaiting_showrunner_decisions",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "7cf6cb7e2242d0ee",
+    "prosperity/drafts/chapter-02-draft.md": "1adb8d8adba5f7ff",
+    "prosperity/drafts/chapter-03-draft.md": "64ee9627e4178b54",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/drafts/chapter-05-draft.md": "83837db7e7a3a761",
+    "prosperity/drafts/chapter-06-draft.md": "0f4095d1cf7f22f8",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "040afe0d0f082786",
+    "prosperity/rules/decisions.md": "395d600e02a0ad26",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 5,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1254344,
+      "input_tokens": 286383,
+      "cached_tokens": 15140,
+      "image_input_tokens": 0,
+      "output_tokens": 47768,
+      "reasoning_tokens": 592,
+      "total_tokens": 334151
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 5,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.1254344,
+        "input_tokens": 286383,
+        "cached_tokens": 15140,
+        "image_input_tokens": 0,
+        "output_tokens": 47768,
+        "reasoning_tokens": 592,
+        "total_tokens": 334151
+      }
+    }
+  },
+  "run_id": "642c1968aa14",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": "awaiting_showrunner_decisions",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "650cfc9490a6dd10",
+        "input_chars": 183781,
+        "input_tokens_est": 45945,
+        "inputs": [
+          "prosperity/drafts/chapter-01-draft.md",
+          "prosperity/drafts/chapter-02-draft.md",
+          "prosperity/drafts/chapter-03-draft.md",
+          "prosperity/drafts/chapter-04-draft.md",
+          "prosperity/drafts/chapter-05-draft.md",
+          "prosperity/drafts/chapter-06-draft.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 40084,
+        "preservation": {
+          "source_chars": 142605,
+          "output_chars": 150375,
+          "mass": 1.054,
+          "terms": 349,
+          "missing": 24,
+          "coverage": 0.931,
+          "substantive_terms": 338,
+          "substantive_coverage": 0.941,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Speculation",
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "named entities": [
+              "Bearing's",
+              "It's",
+              "She's"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Derived",
+              "Frequently",
+              "Grammar",
+              "However",
+              "Sept",
+              "Signature",
+              "Starting",
+              "Switzerland",
+              "Thinks",
+              "Whole-Story"
+            ],
+            "numbers": [
+              "09",
+              "15",
+              "2026",
+              "21",
+              "22"
+            ],
+            "on-screen text": [
+              "DRC"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 3,
+            "names and terms": 11,
+            "numbers": 5,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "09",
+            "15",
+            "2026",
+            "21",
+            "22",
+            "Astrophage",
+            "Bearing's",
+            "DRC",
+            "Derived",
+            "Frequently",
+            "Grammar",
+            "However",
+            "It's",
+            "Sept",
+            "She's",
+            "Signature",
+            "Speculation",
+            "Starting",
+            "Switzerland",
+            "Thinks",
+            "Thorne",
+            "Thorne's",
+            "Tyson",
+            "Whole-Story"
+          ]
+        }
+      },
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "650cfc9490a6dd10",
+        "input_chars": 183747,
+        "input_tokens_est": 45936,
+        "inputs": [
+          "prosperity/drafts/chapter-01-draft.md",
+          "prosperity/drafts/chapter-02-draft.md",
+          "prosperity/drafts/chapter-03-draft.md",
+          "prosperity/drafts/chapter-04-draft.md",
+          "prosperity/drafts/chapter-05-draft.md",
+          "prosperity/drafts/chapter-06-draft.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 58665,
+        "preservation": {
+          "source_chars": 142605,
+          "output_chars": 150375,
+          "mass": 1.054,
+          "terms": 349,
+          "missing": 24,
+          "coverage": 0.931,
+          "substantive_terms": 338,
+          "substantive_coverage": 0.941,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Speculation",
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "named entities": [
+              "Bearing's",
+              "It's",
+              "She's"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Derived",
+              "Frequently",
+              "Grammar",
+              "However",
+              "Sept",
+              "Signature",
+              "Starting",
+              "Switzerland",
+              "Thinks",
+              "Whole-Story"
+            ],
+            "numbers": [
+              "09",
+              "15",
+              "2026",
+              "21",
+              "22"
+            ],
+            "on-screen text": [
+              "DRC"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 3,
+            "names and terms": 11,
+            "numbers": 5,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "09",
+            "15",
+            "2026",
+            "21",
+            "22",
+            "Astrophage",
+            "Bearing's",
+            "DRC",
+            "Derived",
+            "Frequently",
+            "Grammar",
+            "However",
+            "It's",
+            "Sept",
+            "She's",
+            "Signature",
+            "Speculation",
+            "Starting",
+            "Switzerland",
+            "Thinks",
+            "Thorne",
+            "Thorne's",
+            "Tyson",
+            "Whole-Story"
+          ]
+        }
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "650cfc9490a6dd10",
+        "input_chars": 185294,
+        "input_tokens_est": 46323,
+        "inputs": [
+          "prosperity/drafts/chapter-01-draft.md",
+          "prosperity/drafts/chapter-02-draft.md",
+          "prosperity/drafts/chapter-03-draft.md",
+          "prosperity/drafts/chapter-04-draft.md",
+          "prosperity/drafts/chapter-05-draft.md",
+          "prosperity/drafts/chapter-06-draft.md",
+          "prosperity/input/characters.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 51624,
+        "preservation": {
+          "source_chars": 142605,
+          "output_chars": 150375,
+          "mass": 1.054,
+          "terms": 349,
+          "missing": 24,
+          "coverage": 0.931,
+          "substantive_terms": 338,
+          "substantive_coverage": 0.941,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Speculation",
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "named entities": [
+              "Bearing's",
+              "It's",
+              "She's"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Derived",
+              "Frequently",
+              "Grammar",
+              "However",
+              "Sept",
+              "Signature",
+              "Starting",
+              "Switzerland",
+              "Thinks",
+              "Whole-Story"
+            ],
+            "numbers": [
+              "09",
+              "15",
+              "2026",
+              "21",
+              "22"
+            ],
+            "on-screen text": [
+              "DRC"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 4,
+            "named entities": 3,
+            "names and terms": 11,
+            "numbers": 5,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "09",
+            "15",
+            "2026",
+            "21",
+            "22",
+            "Astrophage",
+            "Bearing's",
+            "DRC",
+            "Derived",
+            "Frequently",
+            "Grammar",
+            "However",
+            "It's",
+            "Sept",
+            "She's",
+            "Signature",
+            "Speculation",
+            "Starting",
+            "Switzerland",
+            "Thinks",
+            "Thorne",
+            "Thorne's",
+            "Tyson",
+            "Whole-Story"
+          ]
+        }
+      },
+      {
+        "call": "2",
+        "pass": "open items",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "650cfc9490a6dd10",
+        "input_chars": 289036,
+        "input_tokens_est": 72259,
+        "inputs": [
+          "characters.md",
+          "prosperity/input/open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 26121
+      },
+      {
+        "call": "3",
+        "pass": "options",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "650cfc9490a6dd10",
+        "input_chars": 514348,
+        "input_tokens_est": 128587,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/references/andean-hard-rock-futures.md",
+          "prosperity/references/lithium-triangle-futures.md",
+          "prosperity/references/social-innovators-framework.md",
+          "prosperity/references/triangle-autonomy.md",
+          "prosperity/references/triangle-enclaves-borders.md",
+          "prosperity/references/triangle-everyday-life.md",
+          "prosperity/references/triangle-foreign-security.md",
+          "prosperity/references/triangle-money.md",
+          "prosperity/references/triangle-science.md",
+          "prosperity/references/triangle-water-wars.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 59004
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md"
+    ],
+    "carried_forward": [
+      "facts.md",
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "650cfc9490a6dd10"
+  },
+  "pages": []
+}

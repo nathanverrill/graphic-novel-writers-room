@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Renders</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/desk.css">
+<style>
+  .rx { padding: 1rem; display: grid; gap: 1rem; }
+  @media (max-width: 46rem) { .rx { padding: .75rem 16px; } }
+  .controls { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; font-size: .84rem; }
+  .controls label { display: inline-flex; gap: .3rem; align-items: center; }
+  .controls input[type=text] { font: inherit; width: 7rem; padding: .3rem .4rem; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+  .controls .go { width: auto; }
+  .models { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: .6rem; }
+  .model { font-size: .8rem; }
+  .model b { font-size: .9rem; }
+  .model a { color: inherit; }
+  .grid { display: grid; gap: .8rem; }
+  .row { display: grid; grid-template-columns: 4.5rem repeat(4, minmax(0, 1fr)); gap: .5rem; align-items: start; }
+  @media (max-width: 60rem) { .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } .row > .num { grid-column: 1 / -1; } }
+  .head { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .num { font-weight: 600; font-size: .9rem; }
+  .num small { display: block; font-weight: 400; color: var(--muted); font-size: .72rem; }
+  .cell { border: 1px solid var(--line); border-radius: 5px; background: var(--panel); min-height: 6rem; display: grid; place-items: center;
+          font-size: .74rem; color: var(--muted); overflow: hidden; position: relative; }
+  .cell img { width: 100%; display: block; cursor: zoom-in; }
+  .cell.failed { color: var(--bad); padding: .4rem; }
+  .cell .redo { position: absolute; top: .3rem; right: .3rem; font: inherit; font-size: .7rem; border: 1px solid var(--line); background: var(--panel);
+                border-radius: 99px; padding: .1rem .45rem; cursor: pointer; opacity: .85; }
+  #view { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; place-items: center; z-index: 20; cursor: zoom-out; }
+  #view img { max-width: 96vw; max-height: 96vh; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>renders</span></h1>
+  <div class="config"><span id="camp-name">—</span> · <a id="to-production" href="/production">production →</a></div>
+</header>
+
+<div class="rx">
+  <div class="card">
+    <div class="controls">
+      <label>Campaign <select id="camp"></select></label>
+      <label><input type="checkbox" class="m" value="gemini" checked> Gemini 3.1 Flash Image</label>
+      <label><input type="checkbox" class="m" value="sunburst" checked> GPT Image 2.5 Sunburst</label>
+      <label>Pages <input type="text" id="pages" placeholder="all, or 1-9, 28"></label>
+      <label><input type="checkbox" id="redo"> draw again if drawn</label>
+      <button class="go" id="go">Render</button>
+      <span class="hint" id="said" style="margin:0"></span>
+    </div>
+    <p class="hint">Each page is drawn from its packet with the style plate, the page's key art if it has one, and each model's own locks of the characters on it (Sheets: <code>alex-phantum-gemini</code>, <code>alex-phantum-sunburst</code>, kept). The lettered version is the room's lettering over the same art.</p>
+  </div>
+  <div class="models" id="models"></div>
+  <div class="grid" id="grid"></div>
+</div>
+<div id="view"><img alt=""></div>
+
+<script src="/static/desk.js"></script>
+<script>
+const state = { slug: null, data: null, poll: null };
+const TAGS = ["gemini", "sunburst"];
+const NAMES = { gemini: "Gemini 3.1 Flash Image", sunburst: "GPT Image 2.5 Sunburst" };
+
+function pagesWanted() {
+  const t = $("#pages").value.trim();
+  if (!t || t === "all") return null;
+  const out = [];
+  for (const part of t.split(/[,\s]+/)) {
+    const m = part.match(/^(\d+)(?:-(\d+))?$/);
+    if (m) for (let n = +m[1]; n <= +(m[2] || m[1]); n++) out.push(n);
+  }
+  return out.length ? out : null;
+}
+
+async function load() {
+  state.data = await api(`/api/projects/${state.slug}/render`);
+  $("#camp-name").textContent = state.slug;
+  $("#to-production").href = `/production?p=${encodeURIComponent(state.slug)}`;
+  render();
+  const running = TAGS.some((t) => state.data.state?.[t]?.state === "running");
+  if (running && !state.poll) state.poll = setInterval(load, 5000);
+  if (!running && state.poll) { clearInterval(state.poll); state.poll = null; }
+}
+
+function render() {
+  const d = state.data, st = d.state || {};
+  $("#models").innerHTML = TAGS.map((t) => {
+    const m = st[t] || { pages: {} }, ps = Object.values(m.pages || {});
+    const done = ps.filter((p) => p.state === "done").length, failed = ps.filter((p) => p.state === "failed").length;
+    const cost = ps.reduce((c, p) => c + (p.cost || 0), 0);
+    return `<div class="card model"><b>${NAMES[t]}</b><div>${m.state || "idle"} · ${done} drawn${failed ? ` · <span style="color:var(--bad)">${failed} failed</span>` : ""}${cost ? ` · $${cost.toFixed(2)}` : ""}</div>
+      <div>${["art", "lettered"].map((k) => `<a href="/api/projects/${state.slug}/render/${t}/${k}.zip">download ${k}</a>`).join(" · ")}</div></div>`;
+  }).join("");
+  const head = `<div class="row head"><div>page</div>${TAGS.flatMap((t) => [`${NAMES[t]} · art`, `${NAMES[t]} · lettered`]).map((h) => `<div>${h}</div>`).join("")}</div>`;
+  $("#grid").innerHTML = (d.pages.length ? head : `<p class="hint">layouts.md has no pages yet - lay the book out in production first.</p>`) + d.pages.map((n) => {
+    const nn = String(n).padStart(2, "0");
+    const cells = TAGS.flatMap((t) => ["art", "lettered"].map((k) => {
+      const p = (st[t]?.pages || {})[n] || {};
+      const redo = k === "art" ? `<button class="redo" data-redo="${t}" data-page="${n}" title="draw this page again">↻</button>` : "";
+      if (p.state === "done") return `<div class="cell">${redo}<img loading="lazy" src="/api/projects/${state.slug}/render/${t}/${k}/p${nn}.png?v=${Math.round(p.started || 0)}" alt="page ${n}, ${t}, ${k}"></div>`;
+      if (p.state === "failed") return `<div class="cell failed">${redo}${k === "art" ? esc(p.error || "failed") : ""}</div>`;
+      return `<div class="cell">${p.state === "drawing" ? "drawing…" : ""}${redo}</div>`;
+    }));
+    return `<div class="row"><div class="num">${n}</div>${cells.join("")}</div>`;
+  }).join("");
+}
+
+async function start(body) {
+  $("#said").textContent = "";
+  try { await api(`/api/projects/${state.slug}/render`, { method: "POST", body }); await load(); if (!state.poll) state.poll = setInterval(load, 5000); }
+  catch (e) { $("#said").textContent = e.message; }
+}
+
+$("#go").addEventListener("click", () => start({
+  models: [...document.querySelectorAll(".m:checked")].map((c) => c.value), pages: pagesWanted(), redo: $("#redo").checked }));
+$("#grid").addEventListener("click", (e) => {
+  const b = e.target.closest("button[data-redo]");
+  if (b) return start({ models: [b.dataset.redo], pages: [+b.dataset.page], redo: true });
+  const img = e.target.closest("img");
+  if (img) { $("#view img").src = img.src; $("#view").style.display = "grid"; }
+});
+$("#view").addEventListener("click", () => { $("#view").style.display = "none"; });
+$("#camp").addEventListener("change", () => { state.slug = $("#camp").value; load(); });
+
+(async () => {
+  const all = await api("/api/projects");
+  const names = (all.projects || all).map((p) => (typeof p === "string" ? p : p.slug));
+  const want = new URLSearchParams(location.search).get("p");
+  state.slug = names.includes(want) ? want : names.includes("prosperity") ? "prosperity" : names[0];
+  $("#camp").innerHTML = names.map((n) => `<option ${n === state.slug ? "selected" : ""}>${esc(n)}</option>`).join("");
+  await load();
+})();
+</script>
+</body>
+</html>

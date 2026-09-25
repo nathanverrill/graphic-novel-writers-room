@@ -46,7 +46,6 @@ async function loadConfig() {
     `defaults: <b>${esc(c.model)}</b> @ ${esc(c.base_url)} · ` +
     (c.api_key_set ? "key set" : `<span class="bad">no API key</span>`) +
     ` · image model ${c.image_model ? `<b>${esc(c.image_model)}</b>` : "none"}` +
-    ` · figma ${c.figma_token_set ? "on" : "off"}` +
     ` · data: ${c.storage ? `<b>${esc(c.storage)}</b>` : "local files"}`;
 }
 
@@ -56,13 +55,11 @@ async function loadRoles() {
   state.shared = data.shared;
   state.tools = data.tools || [];
   renderAgents();
-  $("#hat").innerHTML = `<option value="">No hat</option>` +
-    data.hats.map((h) => `<option value="${h}">${h[0].toUpperCase() + h.slice(1)} hat</option>`).join("");
-  $("#roles").innerHTML = data.roles.filter((r) => r.room !== "art").map((r) => `
+  $("#roles").innerHTML = data.roles.map((r) => `
     <div class="role" id="role-${r.id}">
-      <label><input type="checkbox" value="${r.id}" ${r.selected ? "checked" : ""}> ${esc(r.title)}</label>
+      <label><input type="checkbox" value="${r.id}"> ${esc(r.title)}</label>
       <div class="meta">→ ${r.outputs.map(esc).join(", ")}</div>
-      <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images · ${r.assets.figma.length} figma${r.context === "minimal" ? " · cold read" : ""}</div>
+      <div class="meta">${r.assets.guides.length} guides · ${r.assets.images.length} images${r.context === "minimal" ? " · cold read" : ""}</div>
       <div class="meta">${r.tools.length} tools: ${r.tools.map(esc).join(", ") || "none"}</div>
       ${r.config_error ? `<div class="cfg-error">agent.json: ${esc(r.config_error)}</div>` : `
       <div class="model" title="${esc(r.config.base_url)}">${esc(r.config.model)}${r.config.temperature != null ? ` · t=${r.config.temperature}` : ""}${r.config.api_key_set ? "" : " · no key"}</div>
@@ -89,7 +86,7 @@ function setRoleStatus(id, cls, text) {
 // ---- the roster: who is working, from any tab ----------------------------------------
 
 function renderAgents() {
-  const roles = (state.roles || []).filter((r) => r.room !== "art");
+  const roles = state.roles || [];
   if (!roles.length) return;
   const st = state.status || {};
   $("#agents").innerHTML = roles.map((r) => {
@@ -128,12 +125,10 @@ function assetBlock(folder, a) {
     <details class="guide" data-guide="${folder}/${g}"><summary>${esc(g)}</summary><div class="md">loading…</div></details>`).join("");
   const imgs = a.images.map((i) =>
     `<a href="/api/agents/${folder}/images/${encodeURIComponent(i)}" target="_blank"><img src="/api/agents/${folder}/images/${encodeURIComponent(i)}" alt="${esc(i)}"></a>`).join("");
-  const figma = a.figma.map((f) => `<li class="path">${esc(f)}</li>`).join("");
   return `
     <p class="path">agents/${folder}/</p>
     <h3>Guides</h3>${guides || "<p class='path'>none</p>"}
-    <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>
-    <h3>Figma</h3><ul>${figma || "<li class='path'>none — add links to figma.txt</li>"}</ul>`;
+    <h3>Reference images</h3><div class="thumbs">${imgs || "<p class='path'>none — drop files in images/</p>"}</div>`;
 }
 
 function inspectRole(id) {
@@ -145,7 +140,8 @@ function inspectRole(id) {
     <p><button class="ghost" data-settings="${r.id}">Model settings</button>
       <span class="path">${r.config_error ? esc(r.config_error) : `${esc(r.config.model)} @ ${esc(r.config.base_url)}`}</span></p>
     ${assetBlock(r.id, r.assets)}
-    <h2 style="margin-top:1.5rem">Shared with every role</h2>
+    ${r.shares ? `<h2 style="margin-top:1.5rem">Shared with the other writer</h2>${assetBlock(r.shares, r.shared_assets)}` : ""}
+    <h2 style="margin-top:1.5rem">Shared with every agent</h2>
     ${assetBlock("_shared", state.shared)}`;
   $("#role-dialog").showModal();
 }
@@ -165,8 +161,6 @@ $("#roles").addEventListener("click", (e) => {
 $("#role-detail").addEventListener("click", (e) => {
   if (e.target.dataset.settings) openSettings(e.target.dataset.settings);
 });
-$("#select-defaults") && ($("#select-defaults").onclick = () =>
-  document.querySelectorAll("#roles input").forEach((i) => (i.checked = state.roles.find((r) => r.id === i.value)?.selected)));
 $("#select-all").onclick = () => document.querySelectorAll("#roles input").forEach((i) => (i.checked = true));
 $("#select-none").onclick = () => document.querySelectorAll("#roles input").forEach((i) => (i.checked = false));
 
@@ -233,7 +227,7 @@ async function openProject(slug) {
   const p = await refreshArtifacts();
   refreshPageBuild();
   if (p.active_run) attach(p.active_run, 0);
-  else showArtifact("pitch.md");
+  else showArtifact("brief.md");
   loadReview(false);
 }
 
@@ -255,7 +249,7 @@ async function refreshArtifacts(fresh) {
     state.versionMeta = v;
     const who = v.roles.map((id) => `${esc(title(id))} <span class="path">${esc(v.configs[id]?.model || "")}</span>`).join(", ");
     $("#version-meta").innerHTML =
-      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${v.status}, ${fmtTime(v.started)}${v.hat ? `, ${esc(v.hat)} hat` : ""}` +
+      `<b>${v.id}</b> — ${{ ai: "AI round", human: "your review", final: "final" }[v.kind] || "round"}, ${statusText(v.status)}, ${fmtTime(v.started)}` +
       (v.counts ? `<br>${v.counts.kept} kept · ${v.counts.edited} redrawn by you · ${v.counts.noted} with a note` : "") +
       (v.gate ? `<br>gate: ${v.gate.ready ? "ready" : esc(v.gate.reasons.join("; "))} after ${v.passes ?? 0} fix passes` : "") +
       `<br>${who}` +
@@ -267,6 +261,7 @@ async function refreshArtifacts(fresh) {
         (v.usage.total.unpriced_calls ? ` · <span class="cfg-error">${v.usage.total.unpriced_calls} unpriced</span>` : "") : "");
   }
   $("#version-info").hidden = !state.version;
+  renderPhases(p);
   const s = p.settings || {};
   if (document.activeElement !== $("#set-pages")) $("#set-pages").value = s.pages ?? "";
   if (document.activeElement !== $("#set-chapter")) $("#set-chapter").value = s.chapter ?? "";
@@ -279,16 +274,16 @@ async function refreshArtifacts(fresh) {
   state.refChoice = s.references;   // null = every library file
   const using = state.library.filter((f) => !s.references || s.references.includes(f.name));
   const kb = Math.round(using.reduce((t, f) => t + f.size, 0) / 1000);
-  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB per agent call`;
+  $("#refs-summary").textContent = `${using.length} of ${state.library.length} library files · ${kb} KB to the Script Coordinator`;
   $("#refs-summary").classList.toggle("cfg-error", kb > 120);
 
-  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("library/");
+  $("#edit").disabled = !!state.version || (state.artifact || "").startsWith("campaigns/");
   loadCosts();
   loadPreviews();
   loadPrompts();
   loadNotes();
   loadRules();
-  const key = ["page-prompts.md", "script.md", "layouts.md", "bible.md", "outline.md", "brief.md", "pitch.md"];
+  const key = ["page-prompts.md", "script.md", "layouts.md", "story.md", "characters.md", "world.md", "brief.md"];
   $("#output-files").innerHTML = key.filter((n) => files.some((a) => a.name === n)).map((n) =>
     `<button class="chip" data-name="${n}" type="button">${n}</button>`).join("") || "<span class='path'>nothing written yet</span>";
   $("#output-where").innerHTML = `Each finished round also saves these on your computer in ` +
@@ -299,9 +294,9 @@ async function refreshArtifacts(fresh) {
       <span>${esc(a.name)}</span><small>${ago(a.modified)}</small></li>`).join("");
   $("#ref-count").textContent = `(${refs.length})`;
   $("#references").innerHTML = refs.map((r) => `
-    <li data-name="library/${esc(r.name)}" class="${"library/" + r.name === state.artifact ? "active" : ""}">
-      <span>${esc(r.name)}</span><small><span class="src">${r.kind === "draft" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
-    || `<li class="path">none — add .md files to campaigns/&lt;campaign&gt;/ or projects/${esc(state.project)}/references/</li>`;
+    <li data-name="campaigns/${esc(r.name)}" class="${"campaigns/" + r.name === state.artifact ? "active" : ""}">
+      <span>${esc(r.name)}</span><small><span class="src">${r.kind === "drafts" ? "idea draft · " : ""}${r.source}</span> ${Math.max(1, Math.round(r.size / 1000))} KB</small></li>`).join("")
+    || `<li class="path">none — add .md files to campaigns/${esc(state.project)}/rules/ or /input/</li>`;
   $("#image-count").textContent = `(${images.length})`;
   $("#gallery").innerHTML = images.slice().reverse().map((n) =>
     `<a href="${base()}images/${n}" target="_blank" title="${esc(n)}"><img src="${base()}images/${n}" alt="${esc(n)}" loading="lazy"></a>`).join("")
@@ -331,7 +326,7 @@ async function showArtifact(name) {
   if (!$("#editor").hidden && !confirm("Discard unsaved edits?")) return;
   state.artifact = name;
   let text;
-  const path = name.startsWith("library/") ? `library/${encodeURI(name.slice(8))}` : `artifacts/${name}`;
+  const path = name.startsWith("campaigns/") ? `library/${encodeURI(name.slice(10))}` : `artifacts/${name}`;
   try { text = await api(`${base()}${path}`); }
   catch { $("#viewer").hidden = true; return; }
   $("#viewer").hidden = false;
@@ -339,7 +334,7 @@ async function showArtifact(name) {
   renderInto($("#rendered"), text, base());
   $("#editor").value = text;
   setEditing(false);
-  $("#edit").disabled = !!state.version || name.startsWith("references/");
+  $("#edit").disabled = !!state.version || name.startsWith("campaigns/");
   document.querySelectorAll("#artifacts li, #references li").forEach((li) => li.classList.toggle("active", li.dataset.name === name));
 }
 
@@ -360,7 +355,7 @@ $("#version-select").onchange = async (e) => {
   state.version = e.target.value || null;
   await refreshArtifacts();
   loadReview(false);
-  showArtifact(state.artifact || "pitch.md");
+  showArtifact(state.artifact || "brief.md");
 };
 
 $("#restore").onclick = async () => {
@@ -370,7 +365,7 @@ $("#restore").onclick = async () => {
   } catch (err) { return alert(err.message); }
   state.version = null;
   await refreshArtifacts();
-  showArtifact(state.artifact || "pitch.md");
+  showArtifact(state.artifact || "brief.md");
 };
 
 $("#calls").onclick = async () => {
@@ -461,9 +456,9 @@ async function loadPreviews() {
 // experiment: page 1). Nothing here is streamed token by token — each writer's file
 // lands whole, and the page takes another step:
 //
-//   outline.md   the Plotter's beat for the page
+//   story.md     the Plotter's beat for the page
 //   script.md    panels with their description and dialog, in script form — the cards fill
-//   layouts.md   the Penciller's boxes appear, and the cards become the real panels
+//   layouts.md   the Layout Agent's boxes appear, and the cards become the real panels
 //   notes.md     the Continuity Editor's flags for the page
 
 const BUILD_PAGE = 1;
@@ -474,13 +469,13 @@ async function refreshPageBuild() {
   const text = async (name) => {
     try { return await api(`/api/projects/${state.project}/artifacts/${name}`); } catch { return ""; }
   };
-  const [layout, outline, script, notes] = await Promise.all([
+  const [layout, story, script, notes] = await Promise.all([
     api(`/api/projects/${state.project}/pages/${BUILD_PAGE}`).catch(() => null),
-    text("outline.md"), text("script.md"), text("notes.md"),
+    text("story.md"), text("script.md"), text("notes.md"),
   ]);
   state.build = {
     layout,
-    beat: pageLine(outline, BUILD_PAGE),
+    beat: pageLine(story, BUILD_PAGE),
     panels: scriptPanels(pageSection(script, BUILD_PAGE)),
     flags: (notes || "").split("\n").filter((l) => pageRe(BUILD_PAGE).test(l) && l.trim()).slice(0, 4),
   };
@@ -539,9 +534,9 @@ function renderPageBuild() {
   $("#pv-note").textContent = d
     ? `${d.panels.length} panel${d.panels.length === 1 ? "" : "s"}${d.bleeds ? " · * bleeds off the page edge" : ""}`
     : b.panels?.length ? `${b.panels.length} panels in the script` : "";
-  $("#pv-stage").textContent = d ? "laid out by the Penciller"
-    : b.panels?.length ? "written — waiting for the Penciller's layout"
-    : b.beat ? "plotted — waiting for the Scripter"
+  $("#pv-stage").textContent = d ? "laid out by the Layout Agent"
+    : b.panels?.length ? "written — waiting for the Layout Agent's layout"
+    : b.beat ? "plotted — waiting for the writer"
     : state.runId ? "the room is at work…" : "nothing written for this page yet";
   $("#pv-keep").hidden = !d;
   if (d) {
@@ -783,7 +778,7 @@ function handle(ev, replay = false) {
   const live = !replay;
   switch (ev.type) {
     case "run_start":
-      log(`room convenes (${ev.version || ""}${ev.hat ? `, ${ev.hat} hat` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
+      log(`room convenes (${ev.version || ""}${ev.writing_round ? `, ${esc(ev.writing_round)}` : ""}): ${ev.roles.map(title).join(" → ")}`, "dim");
       break;
     case "gate":
       log(v_gate(ev), "gate");
@@ -803,7 +798,7 @@ function handle(ev, replay = false) {
     case "context":
       log(`${who}${esc(ev.model || "")}${ev.temperature != null ? ` t=${ev.temperature}` : ""}` +
         `${ev.image_model ? ` · images: ${esc(ev.image_model)}` : ""} · read ${ev.guides.length} guides, ` +
-        `${ev.images.length} images, ${ev.figma} figma refs` +
+        `${ev.images.length} images` +
         (ev.references?.length ? `, ${ev.references.length} references (${ev.references_mode}, ${num(ev.reference_chars)} chars)` : ""), "dim");
       break;
     case "thinking": live && setRoleStatus(ev.role, "working", `working… step ${ev.step}`); break;
@@ -819,8 +814,8 @@ function handle(ev, replay = false) {
     case "artifact":
       log(`${who}<span class="art">wrote ${esc(ev.name)}</span>`);
       if (live && ev.name.startsWith("thumbnails")) loadPreviews();
-      if (live && ["layouts.md", "script.md", "bible.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
-      if (live && ["outline.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
+      if (live && ["layouts.md", "script.md", "characters.md", "brief.md", "page-prompts.md"].includes(ev.name)) loadPrompts();
+      if (live && ["story.md", "script.md", "layouts.md", "notes.md"].includes(ev.name)) refreshPageBuild();
       if (live && !state.version) refreshArtifacts(ev.name).then(() => { if (state.artifact === ev.name) showArtifact(ev.name); });
       break;
     case "warn": log(`${who}<span class="warn">${esc(ev.text)}</span>`); break;
@@ -861,7 +856,9 @@ function handle(ev, replay = false) {
       break;
     }
     case "run_done":
-      log(`room adjourned — saved as ${ev.version || "a new version"}`, "dim");
+      log(ev.awaiting
+        ? `intake done — saved as ${ev.version || "a new version"}. Answer the open items below, then run intake again to fold them in.`
+        : `room adjourned — saved as ${ev.version || "a new version"}`, "dim");
       if (live) refreshPageBuild();
       break;
     case "run_stopped": log("stopped by the showrunner", "warn"); break;
@@ -1055,7 +1052,7 @@ $("#search-hits").onclick = (e) => {
   const card = e.target.closest("[data-hit]");
   if (!card) return;
   const hit = state.hits[Number(card.dataset.hit)];
-  showArtifact(hit.scope.startsWith("project:") ? hit.file : `library/${hit.name || hit.file}`);
+  showArtifact(hit.scope.startsWith("project:") ? hit.file : `campaigns/${hit.name || hit.file}`);
 };
 $("#search-reindex").onclick = async () => {
   $("#search-note").textContent = "reindexing…";
@@ -1177,6 +1174,11 @@ function track(ev) {
   if (["run_done", "run_stopped", "error"].includes(ev.type)) p.end = p.end || ev.t;
   renderProgress();
 }
+
+const statusText = (s) => ({
+  awaiting_showrunner_decisions: "waiting on your answers",
+  ready_for_review: "ready for your review",
+}[s] || s);
 
 const dur = (s) => (s < 60 ? `${Math.round(s)}s` : s < 3600 ? `${Math.floor(s / 60)}m ${String(Math.round(s % 60)).padStart(2, "0")}s`
   : `${Math.floor(s / 3600)}h ${Math.floor((s % 3600) / 60)}m`);
@@ -1303,7 +1305,7 @@ $("#run").onclick = async () => {
   if (!roles.length) return alert("Select at least one role.");
   try {
     const { run_id, version } = await api(`/api/projects/${state.project}/runs`, {
-      method: "POST", body: { roles, note: $("#note").value, hat: $("#hat").value },
+      method: "POST", body: { roles, note: $("#note").value },
     });
     $("#note").value = "";
     $("#feed").innerHTML = "";
@@ -1322,6 +1324,9 @@ $("#stop").onclick = () => {
 (async () => {
   await Promise.all([loadConfig(), loadRoles()]);
   await loadProjects();
+  // /room?p=<slug> opens straight onto that campaign: the pre-production desk's Continue lands here
+  const slug = new URLSearchParams(location.search).get("p");
+  if (slug && $(`#projects li[data-slug="${CSS.escape(slug)}"]`)) openProject(slug);
 })();
 
 
@@ -1362,13 +1367,115 @@ $("#auto-stop").onclick = async () => {
   log("auto off — the room stops after this round and waits for your review", "gate");
 };
 
+// ---- phases: where the book is, and the gate out of each one -----------------------------
+
+/** The phases as a strip — click one to take the book there — and, under it, the gate:
+    what to read, the question you are answering, and the button that answers it. */
+function renderPhases(p) {
+  const now = p.phases.find((x) => x.id === p.phase);
+  const writer = (id) => state.roles?.find((r) => r.id === id)?.title || id;
+  $("#write-round").textContent = `Run ${now.title.toLowerCase()}`;
+  $("#write-round").title = now.does;
+  $("#phases").innerHTML = p.phases.map((x, i) =>
+    `<button type="button" class="phase ${x.id === p.phase ? "on" : ""}" data-phase="${x.id}" title="${esc(x.does)}">` +
+    `${i + 1}. ${esc(x.title)}</button>`).join("<span>→</span>") +
+    (p.writer ? `<span class="path">writer: ${esc(writer(p.writer))}</span>` : "");
+  const have = new Set(p.artifacts.map((a) => a.name));
+  const read = now.read.filter((n) => have.has(n));
+  const buttons = now.gate === "approve" ? `<button data-gate="approve">Approve — on to ${esc(p.phases[p.phases.indexOf(now) + 1].title.toLowerCase())}</button>`
+    : now.gate === "pick" ? Object.keys(now.writes).map((id) =>
+        `<button data-gate="pick" data-writer="${id}" ${have.has(now.writes[id]) ? "" : "disabled"}>Pick ${esc(writer(id))}</button>`).join(" ")
+    : "";
+  $("#gate").innerHTML = `<b>${esc(now.title)}</b> — ${esc(now.does)}<br>` +
+    (read.length ? `Read ${read.map((n) => `<a href="#" data-read="${esc(n)}">${esc(n)}</a>`).join(" · ")}, then: ` : "Run it, then: ") +
+    `<i>${esc(now.asks)}</i> ${buttons}` +
+    (now.gate === "review" ? "" : `<br><span class="path">Not there yet? Add a note above and run the phase again.</span>`);
+  loadOpenItems(p.phase);
+}
+
+// ---- open items: what intake could not settle, with proposed answers to approve or edit ----
+
+/** Under the intake gate: each open item, the Script Coordinator's proposals, and your answer.
+    Saving writes rules/decisions.md; the next intake run folds the answers into the files. */
+async function loadOpenItems(phase) {
+  const box = $("#open-items");
+  let data = { items: [] };
+  if (phase === "intake" && !state.version) {
+    try { data = await api(`/api/projects/${state.project}/open-items`); } catch {}
+  }
+  box.hidden = !data.items.length;
+  if (box.hidden) return;
+  const left = data.items.length - data.answered;
+  box.innerHTML = `<h3><a class="to-desk" href="/preproduction?p=${encodeURIComponent(state.project)}">` +
+    `open the pre-production desk →</a>Open items <span class="path">${data.answered} answered · ${left} open — ` +
+    `your answers are saved to ${esc(data.decisions_file)}; run intake again to fold them in, ` +
+    `or leave the rest for the room</span></h3>` +
+    data.items.map((it) => {
+      const start = it.answer ?? (it.options.find((o) => o.id === it.suggested) || it.options[0] || { text: "" }).text;
+      return `<form class="open-item ${it.answer ? "answered" : ""}" data-n="${it.n}">
+        <b>${it.n}. ${esc(it.question)}</b>
+        <div class="path">${it.from ? `<span class="badge">from ${esc(it.from)}</span> ` : ""}${esc(it.file)}${it.why ? ` — ${esc(it.why)}` : ""}</div>
+        ${it.options.map((o) => {
+          // where the proposal came from, so [invented] does not read like [established]
+          const kind = ["established", "research", "inferred", "invented"]
+            .find((l) => o.text.toLowerCase().includes(`[${l}]`));
+          const body = o.text.replace(/\[(established|research|inferred|invented)\]/gi, "").trim();
+          const cite = body.match(/\(([^)]*\.md[^)]*)\)\s*$/);
+          return `<label><input type="radio" name="pick" value="${esc(o.text)}">` +
+            `<span><span class="tag ${kind || "unlabelled"}">${kind || "no label"}</span>` +
+            `<b>${esc(o.id)}.</b>${o.id === it.suggested ? " <span class='badge'>suggested</span>" : ""} ` +
+            `${esc(cite ? body.slice(0, cite.index) : body)}` +
+            `${cite ? ` <span class="src">${esc(cite[1])}</span>` : ""}</span></label>`;
+        }).join("")}
+        <textarea name="answer" rows="4" placeholder="Your answer — pick an option above to start from it">${esc(start)}</textarea>
+        <div class="actions"><button>${it.answer ? "Update answer" : "Approve this answer"}</button>
+          ${it.answer ? `<button type="button" class="ghost" data-reopen>Leave open</button>` : ""}</div>
+      </form>`;
+    }).join("");
+}
+
+async function saveOpenItem(form, answer) {
+  try {
+    await api(`/api/projects/${state.project}/open-items/${form.dataset.n}`, { method: "POST", body: { answer } });
+    loadOpenItems("intake");
+  } catch (err) { alert(err.message); }
+}
+
+$("#open-items").addEventListener("change", (e) => {
+  if (e.target.name === "pick") e.target.form.answer.value = e.target.value;
+});
+$("#open-items").addEventListener("submit", (e) => {
+  e.preventDefault();
+  saveOpenItem(e.target, e.target.answer.value);
+});
+$("#open-items").addEventListener("click", (e) => {
+  if (e.target.dataset.reopen !== undefined) saveOpenItem(e.target.form, "");
+});
+
+async function movePhase(body) {
+  try {
+    await api(`/api/projects/${state.project}/phase`, { method: "POST", body });
+    await refreshArtifacts();
+    loadReview(false);
+  } catch (err) { alert(err.message); }
+}
+
+$("#phases").addEventListener("click", (e) => {
+  const phase = e.target.dataset.phase;
+  if (phase && confirm(`Take the book to ${phase}? Nothing is deleted; the next run is that phase.`)) movePhase({ action: "go", phase });
+});
+$("#gate").addEventListener("click", (e) => {
+  if (e.target.dataset.read) { e.preventDefault(); showArtifact(e.target.dataset.read); }
+  if (e.target.dataset.gate) movePhase({ action: e.target.dataset.gate, writer: e.target.dataset.writer });
+});
+
 $("#write-round").onclick = async () => {
   try {
     const { run_id, kind } = await api(`/api/projects/${state.project}/rounds`, {
-      method: "POST", body: { note: $("#note").value, hat: $("#hat").value } });
+      method: "POST", body: { note: $("#note").value } });
     $("#note").value = "";
     $("#feed").innerHTML = "";
-    log(kind === "revision" ? "revision round — working from your review" : "writing round", "dim");
+    log(`${kind} round`, "dim");
     state.version = null;
     destroyReviewEditor();
     $("#review").hidden = true;
@@ -1635,7 +1742,7 @@ function openSettings(id, message) {
           ${field("Timeout (s)", "timeout", s.timeout, d.timeout, "number", 'min="5"')}
         </div>
         <div class="sf-row">
-          <label class="sf"><span>References</span><select name="references">
+          <label class="sf"><span>Library (Script Coordinator only)</span><select name="references">
             <option value="">Default (${d.references})</option>
             <option value="full" ${s.references === "full" ? "selected" : ""}>Full text in the prompt</option>
             <option value="list" ${s.references === "list" ? "selected" : ""}>Names only, read on demand</option></select></label>
@@ -1649,20 +1756,6 @@ function openSettings(id, message) {
               <code>agents/tools/</code>; write_artifact still refuses any file that is not this
               agent's own output.</small></label>
         </div>
-        <div class="sf-row">
-          <label class="sf sf-wide"><span>Library files for this writer</span>
-            <select name="reference_files" multiple size="8">${(state.library || []).map((f) =>
-              `<option value="${esc(f.name)}" ${s.reference_files?.includes(f.name) ? "selected" : ""}>` +
-              `${esc(f.name)} · ${Math.round(f.size / 1000) || 1} KB</option>`).join("")}</select>
-            <small class="path">Select none to give this writer whatever the round picked. Selecting some
-              means it reads only those, however big the library gets — it can still open any other file
-              with read_artifact.</small></label>
-        </div>
-        ${r.preview === "drawn" ? `<div class="sf-row">
-          ${field("Min ink per panel", "min_density", s.min_density, "0.25", "number", 'step="0.05" min="0" max="0.9"')}
-          ${field("Improve passes", "refine_passes", s.refine_passes, "1", "number", 'min="0" max="3"')}
-          ${field("Panels at once", "parallel", s.parallel, "3", "number", 'min="1" max="8"')}
-        </div>` : ""}
         ${field("Key from env var instead", "api_key_env", s.api_key_env, "e.g. OPENROUTER_API_KEY")}
         <label class="sf"><span>Extra request fields (JSON)</span>
           <input name="extra" value="${json(s.extra)}" placeholder='e.g. {"top_p": 0.9, "reasoning_effort": "low"}'></label>
@@ -1709,9 +1802,6 @@ function openSettings(id, message) {
     put("references", f.references.value);
     const tools = [...f.tools.selectedOptions].map((o) => o.value);
     if (tools.join("|") !== (s.tools || []).join("|")) out.tools = tools;
-    const picked = [...f.reference_files.selectedOptions].map((o) => o.value);
-    const was = s.reference_files || [];
-    if (picked.join("|") !== was.join("|")) out.reference_files = picked;
     for (const k of ["send_images", "generate_images"]) {
       const v = f[k].value === "" ? null : f[k].value === "true";
       if (v !== (s[k] ?? null)) out[k] = v;
@@ -1760,7 +1850,7 @@ function openSettings(id, message) {
   };
   form.querySelector('[data-act="apply"]').onclick = async () => {
     if (!(await save())) return;
-    const others = state.roles.filter((x) => x.id !== id && x.room !== "art").map((x) => x.id);
+    const others = state.roles.filter((x) => x.id !== id).map((x) => x.id);
     if (!confirm(`Give all ${others.length} other writers' room agents this provider and model? (Their tuned advanced settings stay.)`)) return;
     try {
       const out = await api(`/api/agents/${id}/apply-provider`, { method: "POST", body: { roles: others } });
@@ -1836,13 +1926,12 @@ $("#rv-prompt-copy").onclick = (e) => {
 
 $("#pick-refs").onclick = () => {
   const chosen = state.refChoice;
-  const KIND = { draft: "idea draft", guide: "skill", worldbuilding: "invented", research: "real" };
+  const KIND = { input: "input", drafts: "draft", guide: "skill" };
   const NOTE = {
-    canon: "the book must not contradict it",
-    worldbuilding: "invented material to draw on — commits the book to nothing",
-    research: "real material: true of the world, not the story",
-    draft: "ideas to mine, never to copy",
-    guide: "how to do the work, never canon",
+    rules: "the book must not contradict it",
+    input: "read it, mine it — it binds the book to nothing",
+    drafts: "what is written so far — idea drafts, they bind the book to nothing",
+    guide: "how to do the work — it binds the book to nothing",
   };
   const row = (f) => `
     <label class="ref-pick"><input type="checkbox" value="${esc(f.name)}" ${!chosen || chosen.includes(f.name) ? "checked" : ""}>
@@ -1856,11 +1945,13 @@ $("#pick-refs").onclick = () => {
   }).join("");
   $("#role-detail").innerHTML = `
     <h2>References for ${esc(state.project)}</h2>
-    <p class="path">The shared library this project uses: each campaign's canon, characters,
-      worldbuilding, real-world references and drafts under <code>campaigns/</code>, plus the room's craft
-      skills in <code>agents/skills/</code>. An agent gets the chosen files (in full, unless its settings
-      say "names only" or name a shortlist of its own) on every call, so pick only what this book needs.
-      Files in the project's own references/ folder are always used.</p>
+    <p class="path">The library this campaign's Script Coordinator reads: everything in its
+      <code>rules/</code>, <code>input/</code>, <code>drafts/</code> and <code>references/</code>.
+      The Script Coordinator gets the chosen files
+      (in full, unless its settings say "names only") and sorts them into
+      <code>characters.md</code>, <code>world.md</code> and <code>story.md</code>, which is how the
+      rest of the room learns them. A campaign's own <code>output/</code> is never in here: the room
+      does not read its work back as material.</p>
     <div class="ref-list">${rows || "<p class='path'>The library is empty.</p>"}</div>
     <p class="path" id="ref-total"></p>
     <div class="actions">

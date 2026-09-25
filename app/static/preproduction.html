@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pre-production</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/desk.css">
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>pre-production</span></h1>
+  <div class="config">
+    <span id="phase">—</span> · <span id="round">—</span>
+    · <span id="model">—</span> · <a href="/room">full room →</a>
+  </div>
+</header>
+
+<div class="pp">
+  <aside>
+    <div class="card">
+      <h3>Where it stands</h3>
+      <label class="pick"><span>Campaign</span><select id="camp"></select></label>
+      <div class="state" id="state">Loading…</div>
+      <div class="go-row"><button class="go stop" id="stop" hidden>Stop</button></div>
+      <div id="hint" class="hint"></div>
+      <div style="margin-top:.7rem"><button class="go alt" id="rerun" hidden>Start pre-production over</button></div>
+    </div>
+
+    <div class="card">
+      <h3>The material going in</h3>
+      <div class="rows" id="material"></div>
+    </div>
+
+    <div class="card">
+      <h3>What the room has written</h3>
+      <div class="rows" id="docs"></div>
+    </div>
+
+    <div class="card" id="telemetry-card" hidden>
+      <h3>Preservation</h3>
+      <div class="rows" id="telemetry"></div>
+      <div class="hint">Diagnostics, never a gate. The output is kept either way.</div>
+    </div>
+
+  </aside>
+
+  <main>
+    <div class="card desk">
+      <ol class="canon-steps" id="canon-steps" aria-label="Pre-production, in three steps"></ol>
+      <div class="hint" id="acts-hint"></div>
+      <div class="tabs-row">
+        <div class="tabs" id="tabs" role="tablist">
+          <button data-tab="log" aria-selected="true">Activity <span class="pill run" id="feed-pill" hidden>working</span></button>
+          <button data-tab="items">Open items <span class="count" id="items-count"></span></button>
+          <button data-tab="story.md">Premise &amp; outline</button>
+          <button data-tab="characters.md">Characters</button>
+          <button data-tab="world.md">World</button>
+          <button data-tab="notes">Rules &amp; notes</button>
+        </div>
+      </div>
+
+      <section class="tab" data-tab="log">
+        <div class="feed-stats" id="feed-stats"></div>
+        <div class="feed tall" id="feed"></div>
+        <div class="feed-now" id="feed-now"></div>
+      </section>
+
+      <section class="tab" data-tab="items" hidden>
+        <div class="tally" id="tally"></div>
+        <div class="meter" id="meter"><i class="res"></i><i class="def"></i></div>
+        <div class="filters" id="filters" style="margin-top:.75rem">
+          <button data-f="all" aria-pressed="true">All</button>
+          <button data-f="unresolved">Still open</button>
+          <button data-f="resolved">Answered</button>
+          <button data-f="deferred">Deferred</button>
+          <button data-f="research-check">From research</button>
+          <button data-f="showrunner">Yours</button>
+        </div>
+        <div class="items" id="items"></div>
+      </section>
+
+      <section class="tab doc" data-tab="story.md" hidden></section>
+      <section class="tab doc" data-tab="characters.md" hidden></section>
+      <section class="tab doc" data-tab="world.md" hidden></section>
+
+      <section class="tab notes-box" data-tab="notes" hidden>
+        <h4>Rules <i>standing, binding</i></h4>
+        <p class="hint" style="margin:0 0 .5rem">
+          A fact the book must keep, in every file and every run: a name, a prohibition, a
+          constant. Saved to <code>rules/showrunner-rules.md</code> the moment you add it; it
+          binds the next update of the canon, a fresh start, and the writers after intake. It changes what the
+          room writes next, not the files as they stand now.
+        </p>
+        <div class="rules" id="rules"></div>
+        <form class="rule-add" id="rule-add">
+          <select id="rule-kind" title="kind">
+            <option value="always">Always</option>
+            <option value="never">Never</option>
+            <option value="note">Remember</option>
+          </select>
+          <input id="rule-text" placeholder="e.g. Always: the boy is called Bob, never Alex." autocomplete="off">
+          <button type="submit" class="go" style="width:auto">Add rule</button>
+        </form>
+
+        <h4 style="margin-top:1.4rem">Notes <i>for the next revision</i></h4>
+        <p class="hint" style="margin:0 0 .5rem">
+          Not answers to any one question — how the book should read. Carried into the next
+          update of the canon with the authority of a rule for that run, then spent. Never written into
+          <code>rules/</code>.
+        </p>
+        <div class="weights">
+          <button data-w="HIGH">+ [HIGH]</button>
+          <button data-w="MEDIUM">+ [MEDIUM]</button>
+          <button data-w="LOW">+ [LOW]</button>
+        </div>
+        <textarea id="notes" placeholder="[HIGH] Adrian stays morally ambiguous.&#10;&#10;[LOW] Give Bi11bot slightly more humour."></textarea>
+        <div class="hint" id="notes-said">Saved when you update the canon.</div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<dialog id="viewer"><header><b id="viewer-name"></b>
+  <span style="display:flex;gap:.4rem">
+    <button class="go alt" id="viewer-raw" aria-pressed="false"
+            style="width:auto;padding:.2rem .6rem;font-size:.78rem">source</button>
+    <button class="go alt" style="width:auto;padding:.2rem .6rem" onclick="viewer.close()">close</button>
+  </span>
+</header><div class="md" id="viewer-body"></div></dialog>
+
+<dialog id="confirm-rerun" style="width:min(460px,92vw)">
+  <h3 style="margin:0 0 .6rem">Start pre-production over?</h3>
+  <p class="hint" style="margin:0 0 .9rem;font-size:.8rem">
+    The room reads the material again from the start. <code>characters.md</code>,
+    <code>world.md</code> and <code>story.md</code> are written afresh from the source files, not
+    revised from what is here, and the open items are raised again with the current list
+    reconciled into them. The round you have now is kept under <code>previous/</code>.
+  </p>
+  <div style="display:flex;gap:.5rem;justify-content:flex-end">
+    <button class="go alt" style="width:auto" onclick="document.getElementById('confirm-rerun').close()">Keep what I have</button>
+    <button class="go" style="width:auto" id="rerun-go">Start over</button>
+  </div>
+</dialog>
+
+<dialog id="confirm-approve" style="width:min(540px,92vw)">
+  <form method="dialog" id="approve-form" style="padding:1rem 1.1rem">
+  <h3 style="margin:0 0 .6rem">Approve pre-production for production?</h3>
+  <p style="margin:0 0 .5rem;font-size:.84rem">The canon is what the whole book is made from. Approving it:</p>
+  <ul style="margin:0 0 .7rem;padding-left:1.2rem;font-size:.82rem;line-height:1.45">
+    <li>copies <code>characters.md</code>, <code>world.md</code>, <code>story.md</code> and <code>facts.md</code>, and your drafts, onto the production desk</li>
+    <li>ends pre-production: production never reads your source material again, so what is not in these files, it does not know</li>
+    <li>moves the book to development, where Produce starts: the Director's brief, then the story and the people</li>
+    <li id="approve-restart" hidden>replaces what production has on its desk now: its earlier brief, script and layouts are kept under <code>previous/</code>, and it starts again from development</li>
+  </ul>
+  <div class="rows" id="approve-summary" style="margin:0 0 .8rem;font-size:.8rem"></div>
+  <p class="hint" style="margin:0 0 .5rem;font-size:.8rem">Read the canon first: the premise and outline, the characters, the world. You can come back and change them, but production will not see the change until you approve again.</p>
+  <label style="display:block;font-size:.82rem;margin:0 0 .9rem">Type <b>evoke</b> to confirm
+    <input type="text" id="approve-word" autocomplete="off" spellcheck="false" style="display:block;width:100%;margin-top:.3rem">
+  </label>
+  <div style="display:flex;gap:.5rem;justify-content:flex-end">
+    <button type="button" class="go alt" style="width:auto" onclick="document.getElementById('confirm-approve').close()">Not yet</button>
+    <button type="submit" class="go" style="width:auto" id="approve-go" disabled>Approve for production</button>
+  </div>
+  </form>
+</dialog>
+
+<script src="/static/desk.js"></script>
+<script src="/static/preproduction.js"></script>
+</body>
+</html>

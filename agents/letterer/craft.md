@@ -1,0 +1,155 @@
+# Letterer's craft
+
+How to make words sit on a page: balloons, reading order, density, sound.
+
+# PART XII — BALLOON TYPES AND LETTERING ELEMENTS
+
+## 37. Useful source vocabulary
+
+The source distinguishes:
+
+- narration box,
+- speech / talk balloon,
+- thought balloon,
+- shout balloon,
+- telepathic / disembodied speech treatment.
+
+The exact graphic style is flexible.
+
+The functional requirement is that readers can distinguish modes of communication.
+
+Do not add five balloon styles merely because they exist. Use them when the narrative has distinct communication states to encode.
+
+---
+
+# PART XVI — READING ORDER
+
+## 50. Respect the reading convention
+
+For a conventional Western left-to-right comic, the source describes a horizontal-first, then vertical reading flow—often summarized as a Z-like movement.
+
+For manga / right-to-left reading, reverse accordingly.
+
+Never make the reader decode the basic order for novelty.
+
+### Diagnostic
+
+Show a thumbnail to an imagined first-time reader and ask:
+
+```text
+Where does the eye go first?
+What does it read second?
+Could two panels plausibly compete for “next”?
+Could a balloon pull the eye into the wrong panel?
+```
+
+If yes, fix hierarchy.
+
+---
+
+# PART XVII — BALLOONS ARE COMPOSITIONAL OBJECTS
+
+## 51. Word balloons are high-contrast anchors
+
+One source ranks balloons as a major tactical priority because they strongly attract the eye.
+
+Use that attraction deliberately.
+
+Plan:
+
+- balloon position,
+- tail direction,
+- sequence,
+- empty space,
+- interaction with faces,
+- interaction with panel borders,
+- relation to reading flow.
+
+A reader should not have to reread a panel because the dialogue order is unclear.
+
+---
+
+## 52. Text-first thumbnailing as one workflow option
+
+One creator’s workflow:
+
+1. place final or near-final text,
+2. position balloons,
+3. build panels and action around that text,
+4. draw expressions while seeing the actual lines being spoken.
+
+This can work especially well for writer-artists.
+
+Do not force it when:
+
+- an artist receives a locked script from someone else,
+- the sequence is primarily silent,
+- exploratory visuals need to precede dialogue.
+
+---
+
+# PART XXV — SOUND EFFECTS
+
+## 73. SFX are not an afterthought
+
+Sound effects can contribute to:
+
+- force,
+- rhythm,
+- material quality,
+- scale,
+- machinery,
+- environment,
+- comedy,
+- impact,
+- worldbuilding.
+
+Plan their visual character and placement.
+
+A small whispering SFX should not look like an explosion unless the mismatch is intentional.
+
+---
+
+## 33. Numbering captions can help lettering order
+
+If a panel has several captions, numbering them can clarify intended reading sequence.
+
+For example:
+
+```text
+CAPTION 1
+...
+
+CAPTION 2
+...
+
+CAPTION 3
+...
+```
+
+This is especially useful when the letterer is a separate collaborator.
+
+---
+
+## 34. “~25 words” as a practical density warning, not a universal law
+
+One source cites a publisher-style guideline of keeping an individual caption / thought balloon / speech balloon around 25 words or fewer, splitting longer material into additional balloons when necessary.
+
+Preserve the lesson correctly:
+
+- long balloons can visually clog the page,
+- text has physical area,
+- multiple shorter units can improve flow,
+- exact limits depend on format and publisher.
+
+Do **not** enforce 25 words as a global rule.
+
+---
+
+## 106. Balloon afterthought
+
+Symptom: text covers faces or forces awkward order.
+
+Fix: plan lettering at thumbnail stage.
+
+---

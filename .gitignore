@@ -221,13 +221,30 @@ __marimo__/
 .env
 .venv/
 __pycache__/
-projects/*
-!projects/.gitkeep
 .DS_Store
 logs/*
 !logs/.gitkeep
-output/*
-!output/.gitkeep
+
+# A campaign is the work: canon/, input/ and the room's output/ are all committed.
 
 # API keys, saved per provider from the UI
 secrets/
+debug/
+
+# big binary scans in _morgue: nothing in the room reads them
+campaigns/_morgue/prosperity-drafts/*.pdf
+
+# the sheet builder: images and picks stay local
+sheets/characters/*
+!sheets/characters/.gitkeep
+sheets/backup/
+instances/
+
+# rendered pages: large, and remade from the packets and locks (app/render.py)
+campaigns/*/renders/
+
+# the overnight runs: PDFs and PNGs, large (scripts/overnight.py)
+overnight/
+
+# Art Department projects: plates, sheets and every roll (art/server.py)
+art/data/

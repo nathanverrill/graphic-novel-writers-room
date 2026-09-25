@@ -18,22 +18,23 @@ import json
 from mcp.server.mcpserver import MCPServer
 
 from . import projects, prompts, review, rules, search, thumbnails
-from .agents import load_tools
+from .agents import load_tools, random_entry
 
 PROJECT_ARG = "The project to act on, e.g. 'prosperity'. Call list_projects to see them."
 EXTRA = {   # what a client outside a round needs that an agent mid-round does not
     "list_artifacts": "Takes the project to list.",
     "read_artifact": PROJECT_ARG,
+    "provoke": PROJECT_ARG + " The target heading is drawn from its story or script.",
 }
 OWN = {     # tools with no agent equivalent, or whose meaning changes outside a round
     "list_projects": "List the room's projects by name.",
     "write_artifact":
         "Write (overwrite) one of a project's room files with its complete markdown content — "
-        "brief.md, outline.md, bible.md, script.md, layouts.md, notes.md. Pages the showrunner "
+        "brief.md, story.md, characters.md, world.md, script.md, layouts.md, notes.md. Pages the showrunner "
         "has kept are restored, their standing rules are put back, and saving layouts.md redraws "
         "the sketch, exactly as when an agent saves.",
-    "search": ("Search everything the room can read — a campaign's canon and drafts, the craft "
-               "and worldbuilding skills, and a project's own files. Hybrid: words and meaning "
+    "search": ("Search everything the room can read — a campaign's rules and input "
+               "and a project's own files. Hybrid: words and meaning "
                "at once. Returns each passage with the file and heading it came from."),
     "page_prompts":
         "The page prompts for a project: one complete markdown brief per page, ready to paste "
@@ -87,16 +88,24 @@ def build():
     @room.tool(description=described("list_artifacts"))
     def list_artifacts(project: str) -> str:
         names = [a["name"] for a in projects.list_artifacts(project)]
-        names += [f"library/{n}" for n in projects.reference_files(project)]
+        names += [f"campaigns/{n}" for n in projects.reference_files(project)]
         return json.dumps(names)
 
     @room.tool(description=described("read_artifact"))
     def read_artifact(project: str, name: str) -> str:
-        if name.startswith("library/"):
-            content = projects.read_reference(project, name[len("library/"):])
+        if name.startswith("campaigns/"):
+            content = projects.read_reference(project, name[len("campaigns/"):])
         else:
             content = projects.read_artifact(project, name)
         return content if content is not None else f"No file named {name!r} in {project}."
+
+    @room.tool(description=described("provoke"))
+    def provoke(project: str, cards: int = 3) -> str:
+        from .agent import story_targets          # imported here: agent.py pulls in the room
+        sparks = random_entry(story_targets(project), cards)
+        if not sparks:
+            return "The deck is empty (agents/_shared/deck.txt)."
+        return json.dumps(sparks)
 
     @room.tool(description=described("write_artifact"))
     def write_artifact(project: str, name: str, content: str) -> str:
@@ -105,7 +114,7 @@ def build():
     @room.tool(description=described("search"))
     def search_room(query: str, scope: str | None = None, kind: str | None = None,
                     limit: int = 6, mode: str = "hybrid") -> str:
-        """scope: references · skills · project:<slug>. mode: hybrid · keywords · vectors."""
+        """scope: <campaign>/<folder> · project:<slug>. mode: hybrid · keywords · vectors."""
         hits = search.search(query, limit=limit, scope=scope, kind=kind, mode=mode)
         return search.as_text(hits)
 

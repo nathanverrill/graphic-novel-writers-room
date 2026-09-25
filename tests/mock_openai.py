@@ -144,11 +144,10 @@ def reply(body, auth):
     user = text_of(msgs[1])
     spark = user.split("# Random entry")[-1].split("\n\n")[0] if "# Random entry" in user else ""
     cards = re.findall(r"^- (.+)$", spark, re.M)
-    hat = re.search(r"wear this hat\n\n# (\w+ Hat)", system)
     refs = re.findall(r"## references/(\S+)", text_of(msgs[1]))
     refs += re.findall(r"- references/(\S+) \(", text_of(msgs[1]))
     draft = (f"# {title} draft\n\nReferences seen: {refs or 'none'}. Cards: {cards or 'none'}. "
-             f"Hat: {hat.group(1) if hat else 'none'}. Shared guides: {'_shared/' in system}. "
+             f"Shared guides: {'_shared/' in system}. "
              f"Tools: {sorted(t['function']['name'] for t in body.get('tools', []))}.\n\nWritten by mock model `{body['model']}` at temperature "
              f"`{body.get('temperature')}`, max_tokens `{body.get('max_tokens')}`, auth `{auth}`. "
              f"Saw {images} reference image(s).\n")
@@ -182,9 +181,12 @@ def reply(body, auth):
             draft += mock_layouts(pages, flawed=not revising)
         elif target == "script.md":
             draft += mock_script(pages)
+        elif target.startswith("audition-"):        # the audition: the opening pages only
+            m = re.search(r"Write pages 1-(\d+) only", user)
+            draft += mock_script(int(m.group(1)) if m else 3)
         elif target == "notes.md":
             draft += ("\nBLOCKERS: 0\nFIX: none\n" if revising else
-                      "\n### Blockers\n- Page 1: Wren's motive is unclear.\n\nBLOCKERS: 1\nFIX: scripter\n")
+                      "\n### Blockers\n- Page 1: Wren's motive is unclear.\n\nBLOCKERS: 1\nFIX: layout\n")
         msg = call("write_artifact", {"name": target, "content": draft})
         msg["content"] = f"Drafting {target} now."
         # imitate chat models that return an image alongside their text

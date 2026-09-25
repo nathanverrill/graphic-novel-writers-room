@@ -5,7 +5,7 @@ LETTERING_PT points, a cell is about 0.55 x pt wide and 1.2 x pt tall (one line 
 lettering), so a 6.625" x 10.25" page at 7.5 pt is ~116 x 82 cells, and a balloon
 in the preview is the size it will be on the printed page.
 
-The Penciller writes one ```layout JSON block per page in layouts.md:
+The Layout Agent writes one ```layout JSON block per page in layouts.md:
 
     {"page": 3, "side": "right",
      "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "high",
@@ -810,7 +810,7 @@ def replace_page(markdown, number, art=None, edited=None, invert=None):
 
 
 def render_layouts(markdown, previous=None):
-    """layouts.md -> (thumbnails.md content, specs, feedback for the Penciller).
+    """layouts.md -> (thumbnails.md content, specs, feedback for the Layout Agent).
     Hand-edited pages in `previous` are kept."""
     geo = geometry()
     specs, errors = parse_layouts(markdown)
@@ -828,7 +828,7 @@ def render_layouts(markdown, previous=None):
 
 
 def script_for_page(script, number):
-    """The '## Page N' section of the script, if the Scripter used that heading."""
+    """The '## Page N' section of the script, if the writer used that heading."""
     m = re.search(rf"^#+ *Page {number}\b.*?(?=^#+ *Page \d+\b|\Z)", script or "", re.S | re.M | re.I)
     return m.group(0).strip() if m else ""
 
@@ -839,64 +839,3 @@ def labels_by_panel(page):
     for label, pn, _ in page.faces:
         out.setdefault(pn, []).append(label)
     return out
-
-
-def character_entries(bible):
-    """The bible's character headings: "### ALEX PHANTUM" under a PRINCIPAL CHARACTERS section.
-
-    Used to find who is on a page when nobody names them — a panel description says Alex is
-    waist-deep in a maintenance pit, and the artist still needs his visual lock."""
-    names, in_people = [], False
-    for line in (bible or "").split("\n"):
-        m = re.match(r"^(#{1,6})\s+(.*)", line)
-        if not m:
-            continue
-        depth, head = len(m.group(1)), m.group(2).strip().rstrip("*").strip()
-        if depth <= 2:
-            in_people = bool(re.search(r"\bcharacters?\b|\bcast\b|\bensemble\b", head, re.I)) \
-                and not re.search(r"\btest\b", head, re.I)
-        elif in_people and 1 <= len(head.split()) <= 4 and not head.endswith(":"):
-            names.append(head)
-    return names
-
-
-def named_in(bible, text):
-    """Bible characters a passage mentions, by full name or by the name they go by."""
-    found = []
-    for name in character_entries(bible):
-        first = name.split()[0]
-        if re.search(rf"\b{re.escape(first)}\b", text or "", re.I):
-            found.append(first.title() if not first.isupper() or len(first) > 6 else first)
-    return found
-
-
-def looks_for(bible, labels):
-    """The bible's description of each label, verbatim, so image prompts stay on model.
-
-    A character's own entry wins over any other entry that merely mentions them: the bible says
-    "Ada, who challenges his lone-wolf independence" inside Alex's entry, and matching on the
-    name alone handed Ada his description — and every page prompt drew two of him."""
-    entries = []            # (heading, body) for each "### Name" block, in order
-    heading, buf = "", []
-    for line in (bible or "").split("\n"):
-        if re.match(r"^#{1,6}\s", line):
-            if buf:
-                entries.append((heading, "\n".join(buf).strip()))
-            heading, buf = re.sub(r"^#+\s*", "", line).strip(), []
-        else:
-            buf.append(line)
-    if buf:
-        entries.append((heading, "\n".join(buf).strip()))
-
-    found = []
-    for label in dict.fromkeys(labels):
-        word = re.compile(rf"\b{re.escape(label)}\b", re.I)
-        own = [body for head, body in entries if word.search(head) and body]
-        if not own:         # no entry of their own: fall back to whoever describes them
-            paras = [p.strip() for p in re.split(r"\n\s*\n", bible or "") if p.strip()]
-            hits = [p for p in paras if word.search(p)]
-            own = [next((p for p in hits if "visual" in p.lower()), hits[0])] if hits else []
-        if own:
-            best = next((b for b in own if "visual" in b.lower()), own[0])
-            found.append(best[:500])
-    return " ".join(found)

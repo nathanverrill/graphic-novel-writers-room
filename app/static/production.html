@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Production</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/desk.css">
+<style>
+  /* Production: same desk, a different colour, and the stepper always in view. */
+  :root { --prod: #1d4ed8; }
+  .proof-pick { display: inline-flex; align-items: center; gap: .3rem; font-size: .8rem; color: var(--muted); margin-right: .3rem; }
+  .proof-pick select, .proof-pick input { font: inherit; font-size: .8rem; padding: .2rem .3rem; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); }
+  .proof-pick input { width: 3.6rem; }
+  .proof-pick .hint { margin: 0; }
+  body.production header { border-bottom-color: var(--prod); }
+  body.production header h1 span { color: var(--prod); font-weight: 600; }
+  body.production .main-acts .go:not(.alt):not(:disabled) { background: var(--prod); border-color: var(--prod); }
+  body.production .tabs button[aria-selected="true"] { border-bottom-color: var(--prod); }
+  body.production .pill.run { color: var(--prod); }
+
+  .steps { display: grid; gap: .15rem; margin: .6rem 0; font-size: .8rem; }
+  .step { display: grid; grid-template-columns: 1.1rem 1fr auto; gap: .5rem; align-items: baseline; padding: .25rem .4rem; border-radius: 4px; }
+  .step i { display: inline-block; width: .6rem; height: .6rem; border-radius: 50%; border: 1.5px solid var(--line); background: var(--panel); }
+  .step.done i { background: var(--ok); border-color: var(--ok); }
+  .step.now { background: var(--bg); font-weight: 600; }
+  .step.now i { border-color: var(--prod); background: var(--prod); animation: pulse 1.2s ease-in-out infinite; }
+  .step.stop i { border-radius: 2px; }
+  .step small { color: var(--muted); font-family: ui-monospace, monospace; font-size: .68rem; }
+  .step.failed i { background: var(--bad); border-color: var(--bad); }
+  .step.after { color: var(--muted); }
+  .step.after i { border-style: dashed; }
+  .plan-step.after { border-style: dashed; color: var(--muted); }
+
+  .packet-bar { display: flex; gap: .8rem; align-items: center; margin-bottom: .8rem; flex-wrap: wrap; }
+  .packet-bar .go { padding: .45rem .9rem; font-size: .84rem; text-decoration: none; display: inline-block; }
+  .packet { border: 1px solid var(--line); border-radius: 5px; background: var(--panel); }
+  .packet-head { display: flex; justify-content: space-between; align-items: center; padding: .5rem .8rem; border-bottom: 1px solid var(--line); font-size: .84rem; }
+  .packet .copy { font: inherit; font-size: .72rem; padding: .15rem .6rem; border: 1px solid var(--line); border-radius: 3px; background: var(--bg); cursor: pointer; }
+  .packet-text { margin: 0; padding: .8rem; font-size: .76rem; line-height: 1.45; white-space: pre-wrap; max-height: calc(100vh - 20rem); overflow: auto; }
+  .pager button.has-art { border-color: var(--ok); }
+  .letter { display: grid; grid-template-columns: minmax(0, 32rem) minmax(0, 1fr); gap: 1.25rem; }
+  @media (max-width: 70rem) { .letter { grid-template-columns: 1fr; } }
+  .letter-stage { position: relative; width: 100%; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); overflow: hidden; }
+  .letter-stage img, .letter-svg, .letter-svg svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .letter-empty { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: .84rem; }
+  .letter-items { font-size: .84rem; }
+  .letter-items .say { margin-top: .3rem; padding-left: .6rem; }
+  .letter-items .say i { color: var(--muted); font-style: normal; font-size: .74rem; }
+  #acts a.go { text-decoration: none; display: inline-block; }
+
+  .begin { padding: .4rem 0 1rem; }
+  .begin h2 { font-size: 1.25rem; margin: 0 0 .4rem; }
+  .begin p { margin: 0 0 .9rem; font-size: .92rem; line-height: 1.55; max-width: 60ch; }
+  .plan { display: grid; gap: .5rem; margin: 1rem 0; }
+  .plan-step { display: grid; grid-template-columns: 7rem 1fr auto; gap: 1rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 5px; font-size: .82rem; }
+  .plan-step.stop { border-color: var(--prod); background: color-mix(in srgb, var(--prod) 5%, var(--panel)); }
+  .plan-step b { font-size: .88rem; }
+  .plan-step .who { color: var(--muted); font-size: .76rem; margin-top: .2rem; }
+  .plan-step .who code { font-size: .72rem; }
+  .plan-step .est { color: var(--muted); font-family: ui-monospace, monospace; font-size: .72rem; white-space: nowrap; }
+  .begin .go { width: auto; padding: .6rem 1.3rem; font-size: 1rem; }
+  .begin .go.big { background: var(--prod); border-color: var(--prod); }
+
+  .page { display: grid; grid-template-columns: minmax(0, 28rem) minmax(0, 1fr); gap: 1.25rem; }
+  @media (max-width: 70rem) { .page { grid-template-columns: 1fr; } }
+  .page pre.map { font-family: ui-monospace, monospace; font-size: .62rem; line-height: 1.05; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: .6rem; overflow: auto; margin: 0; }
+  .page img { max-width: 100%; border: 1px solid var(--line); border-radius: 4px; }
+  .panel { padding: .5rem .65rem; border-left: 2px solid var(--line); margin-bottom: .5rem; font-size: .84rem; }
+  .panel b { font-family: ui-monospace, monospace; font-size: .72rem; color: var(--muted); }
+  .panel .say { margin-top: .3rem; padding-left: .6rem; }
+  .panel .say i { color: var(--muted); font-style: normal; font-size: .74rem; }
+  .pager { display: flex; gap: .25rem; flex-wrap: wrap; margin-bottom: .8rem; }
+  .pager button { font: inherit; font-size: .72rem; min-width: 1.9rem; padding: .15rem .3rem; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); color: var(--ink); cursor: pointer; font-family: ui-monospace, monospace; }
+  .pager button[aria-current] { background: var(--prod); color: var(--panel); border-color: var(--prod); }
+
+  .choice { padding: .55rem .7rem; border-left: 2px solid var(--prod); background: var(--bg); border-radius: 4px; margin-bottom: .5rem; font-size: .84rem; }
+  .choice b { display: block; }
+  .choice .why { color: var(--muted); margin-top: .15rem; }
+  .choice small { font-family: ui-monospace, monospace; font-size: .68rem; color: var(--muted); }
+  .choice button { font: inherit; font-size: .72rem; margin-top: .3rem; padding: .1rem .5rem; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); cursor: pointer; }
+
+  .pick-file { display: flex; gap: .5rem; align-items: center; margin-bottom: .7rem; font-size: .8rem; color: var(--muted); }
+  .pick-file select { font: inherit; font-size: .84rem; padding: .3rem .5rem; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
+  .settings { display: grid; grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr)); gap: .8rem 1.2rem; font-size: .82rem; }
+  .settings label { display: grid; gap: .25rem; }
+  .settings label span { color: var(--muted); font-size: .72rem; }
+  .settings input, .settings select { font: inherit; font-size: .84rem; padding: .3rem .5rem; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
+  .agents { display: grid; gap: .3rem; font-size: .8rem; margin-top: 1rem; }
+  .agents .row span:last-child { text-transform: none; }
+  .notes-list { display: grid; gap: .3rem; margin-bottom: .6rem; }
+  .jot { display: flex; gap: .6rem; align-items: baseline; font-size: .84rem; padding: .35rem .55rem; background: var(--bg); border-radius: 4px; border-left: 2px solid var(--work); }
+  .jot span { flex: 1; }
+  .jot button { font: inherit; font-size: .7rem; padding: .1rem .45rem; border: 1px solid var(--line); border-radius: 3px; background: var(--panel); color: var(--muted); cursor: pointer; }
+  .from { display: flex; gap: .4rem; align-items: center; }
+  .from select { font: inherit; font-size: .82rem; padding: .35rem .5rem; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
+</style>
+</head>
+<body class="production">
+<header>
+  <h1><a href="/">Writers' room</a> <span>production</span></h1>
+  <div class="config">
+    <span id="phase">—</span> · <span id="round">—</span> · <a href="/preproduction">pre-production</a> · <a href="/room">full room →</a>
+  </div>
+</header>
+
+<div class="pp">
+  <aside>
+    <div class="card">
+      <h3>Where it stands</h3>
+      <label class="pick"><span>Campaign</span><select id="camp"></select></label>
+      <div class="state" id="state">Loading…</div>
+      <div class="steps" id="steps"></div>
+      <div class="go-row"><button class="go stop" id="stop" hidden>Stop</button></div>
+      <div id="hint" class="hint"></div>
+      <div style="margin-top:.7rem"><button class="go alt" id="restart" hidden>Start production over</button></div>
+    </div>
+
+    <div class="card">
+      <h3>What the room has made</h3>
+      <div class="rows" id="made"></div>
+    </div>
+
+    <div class="card" id="spend-card" hidden>
+      <h3>Spent so far</h3>
+      <div class="rows" id="spend"></div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="card desk">
+      <div class="tabs-row">
+        <div class="tabs" id="tabs" role="tablist">
+          <button data-tab="begin" aria-selected="true">Begin</button>
+          <button data-tab="log">Activity <span class="pill run" id="feed-pill" hidden>working</span></button>
+          <button data-tab="page1">Proof</button>
+          <button data-tab="pages">Pages</button>
+          <button data-tab="packets">Packets</button>
+          <button data-tab="lettering">Lettering</button>
+          <button data-tab="files">Files</button>
+          <button data-tab="choices">Choices <span class="count" id="choices-count"></span></button>
+          <button data-tab="notes">Showrunner notes</button>
+          <button data-tab="settings">Settings</button>
+        </div>
+        <div class="acts main-acts" id="acts"></div>
+      </div>
+      <div class="hint" id="acts-hint"></div>
+
+      <section class="tab begin" data-tab="begin"></section>
+
+      <section class="tab" data-tab="log" hidden>
+        <div class="feed-stats" id="feed-stats"></div>
+        <div class="feed tall" id="feed"></div>
+        <div class="feed-now" id="feed-now"></div>
+      </section>
+
+      <section class="tab" data-tab="page1" hidden></section>
+      <section class="tab" data-tab="pages" hidden></section>
+      <section class="tab" data-tab="packets" hidden></section>
+      <section class="tab" data-tab="lettering" hidden></section>
+
+      <section class="tab" data-tab="files" hidden>
+        <div class="pick-file"><span>File</span><select id="file-pick"></select><span id="file-hint"></span></div>
+        <div class="doc" id="file-doc"></div>
+      </section>
+
+      <section class="tab" data-tab="choices" hidden></section>
+
+      <section class="tab notes-box" data-tab="notes" hidden>
+        <h4>Rules <i>standing, binding</i></h4>
+        <p class="hint" style="margin:0 0 .5rem">
+          A fact the book must keep, in every file and every run. Saved the moment you add it;
+          every agent reads the rules before it starts.
+        </p>
+        <div class="rules" id="rules"></div>
+        <form class="rule-add" id="rule-add">
+          <select id="rule-kind" title="kind">
+            <option value="always">Always</option>
+            <option value="never">Never</option>
+            <option value="note">Remember</option>
+          </select>
+          <input id="rule-text" placeholder="e.g. Always: the boy is called Bob, never Alex." autocomplete="off">
+          <button type="submit" class="go" style="width:auto">Add rule</button>
+        </form>
+
+        <h4 style="margin-top:1.4rem">Notes <i>for the next run</i></h4>
+        <p class="hint" style="margin:0 0 .5rem">
+          What you want different. Each note goes to the next round the room runs, and is spent
+          there. Say where it reaches - the pages, the words, the story - when you run them.
+        </p>
+        <div class="notes-list" id="notes-list"></div>
+        <textarea id="note-text" rows="3" placeholder="e.g. Page 1 is too dark; open on the basin in daylight."></textarea>
+        <div class="acts"><button class="primary" id="note-add">Add note</button><span class="hint" id="note-said"></span></div>
+      </section>
+
+      <section class="tab" data-tab="settings" hidden>
+        <div class="settings" id="settings"></div>
+        <div class="acts" style="margin-top:.8rem"><button class="primary" id="settings-save">Save settings</button><span class="hint" id="settings-said"></span></div>
+        <h4 style="margin:1.4rem 0 .3rem;font-size:.9rem">Agents <i style="font-weight:400;color:var(--muted);font-size:.72rem;margin-left:.4rem">who is in the room, and on which model</i></h4>
+        <div class="agents rows" id="agents"></div>
+        <p class="hint">Models and keys are set in the <a href="/room">full room</a>.</p>
+      </section>
+    </div>
+  </main>
+</div>
+
+<dialog id="confirm-restart" style="width:min(460px,92vw)">
+  <h3 style="margin:0 0 .6rem">Start production over?</h3>
+  <p class="hint" style="margin:0 0 .9rem;font-size:.8rem">
+    Development, the audition, the writing and the pages run again from the pre-production files.
+    Every round you have is kept under <code>previous/</code>; the choices list starts afresh.
+  </p>
+  <div style="display:flex;gap:.5rem;justify-content:flex-end">
+    <button class="go alt" style="width:auto" onclick="document.getElementById('confirm-restart').close()">Keep what I have</button>
+    <button class="go" style="width:auto" id="restart-go">Start over</button>
+  </div>
+</dialog>
+
+<script src="/static/desk.js"></script>
+<script src="/static/production.js"></script>
+</body>
+</html>

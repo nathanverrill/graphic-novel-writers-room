@@ -1,0 +1,20 @@
+# One step per line:  name | what to change | parent
+# parent is a step name or "lock"; leave it out to build on the previous pick.
+# Every step keeps the same character, style and colours; only the named thing changes.
+
+three-quarter | turn the character to a three-quarter view, same pose, same plain background | lock
+side          | turn the character to a full side view (profile), same pose, same plain background | lock
+back          | turn the character to a full back view, same pose, same plain background | lock
+face-neutral  | tight close-up of the face and shoulders, neutral expression, looking at the camera | lock
+face-angry    | same close-up, angry | face-neutral
+face-smile    | same close-up, a small tired smile | face-neutral
+face-worried  | same close-up, worried, eyes off to the side | face-neutral
+pose-crouch   | full body, crouching to look at something on the ground, three-quarter view | three-quarter
+pose-reach    | full body, reaching up with one arm, side view | side
+pose-walk     | full body, mid-stride walking toward the camera | lock
+pose-sit      | full body, sitting on a step with elbows on knees | three-quarter
+light-night   | same image, at night, lit from one side by a cold screen glow | three-quarter
+light-back    | same image, backlit by a low sun, face in half shadow | lock
+light-inside  | same image, indoors under a single warm overhead lamp | face-neutral
+wide-outdoors | pull back to a wide shot: the character small in frame, standing in a dusty industrial yard | lock
+wide-inside   | pull back to a wide shot: the character in a cramped machine room, pipes and gauges | three-quarter

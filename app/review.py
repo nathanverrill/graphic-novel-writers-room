@@ -16,15 +16,24 @@ Locks are enforced in code on every write (enforce_locks).
 import json
 import re
 
-from . import asciitext, lettering, notes, projects, prompts, thumbnails
+from . import asciitext, keypages, lettering, notes, projects, prompts, thumbnails
 
 DRAFT = "review-draft.json"
 LOCKS = "locks.json"
 SETTINGS = "round-settings.json"
 KEPT, EDITED = "keep", "edited"        # the two kinds of lock a page can carry
 OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdicts went away
-DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "art", "max_passes": 2, "references": None,
-                    "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0}
+DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_passes": 2, "references": None,
+                    "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
+                    "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
+                    "scope": None,       # set: execution is a proof of one page (magic's proof); None = the book
+                    "proof_page": None,  # the book page the proof lays out; None = page 1 (see magic.chapter_pages)
+                    "use_references_during_synthesis": True,    # see app/intake.py, pass 1
+                    "draft_mode": "improve",   # improve | edit: how the room treats the showrunner's draft (phases.py)
+                    "expand_pages": 0,   # edit mode: pages the edited drafts grow by (app/draftedit.py)
+                    "max_panels": 4,     # drawability: an image model draws a page in one go, and drifts past this
+                    "max_characters": 3,  # drawability: named characters in one panel
+                    "phase": "intake", "writer": None}      # where the book is: see phases.py
 
 
 # ---- small json state files in the working copy ----------------------------------
@@ -76,7 +85,7 @@ def canonical_file(slug):
 
 def canonical(slug):
     """(method, {page: parsed thumbnail}) — the page sketch the showrunner reviews: the
-    ASCII layout render of the Penciller's layout."""
+    ASCII layout render of the Layout Agent's layout."""
     name = canonical_file(slug)
     method = "drawn" if name == FILES["drawn"] else "layout"
     return method, thumbnails.parse_thumbnails(projects.read_artifact(slug, name))
@@ -124,7 +133,8 @@ def state(slug):
                   "notes": p["notes"], "kept": bool(entry.get("kept")), "comment": entry.get("comment", ""),
                   "edited": art != p["art"] or _mask(invert) != _mask(p["invert"]),
                   "locked": lk.get(n, {}).get("kind")}
-    open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages)
+    open_for_review = bool(last and last.get("kind", "ai") == "ai" and last.get("status") == "done" and pages
+                           and settings(slug)["phase"] == "execution")     # pages are reviewed in execution only
     g = thumbnails.geometry()
     return {"method": method, "pages": out, "round": last and last["id"],
             "open": open_for_review, "comment": d.get("comment", ""), "settings": settings(slug),
@@ -401,9 +411,15 @@ def dial_in(slug, n, spec, locked_ascii):
             "diff": asciitext.diff_markdown(asciitext.page_diff(render, locked_ascii, page.panels))}
 
 
+def proof_page(slug):
+    """The book page a proof lays out: the showrunner's pick, or page 1."""
+    return int(settings(slug).get("proof_page") or 1)
+
+
 def gate(slug, role_titles):
     """Is the round ready for the showrunner? Returns reasons and which roles should fix what."""
     st = settings(slug)
+    proof = proof_page(slug) if st["scope"] else None
     want = st["pages"]
     specs, errors = thumbnails.parse_layouts(projects.read_artifact(slug, "layouts.md"))
     lk = locks(slug)
@@ -412,10 +428,19 @@ def gate(slug, role_titles):
     if errors:
         reasons.append(f"{len(errors)} layout blocks don't parse")
         notes += errors
-        fix.add("penciller")
-    if want and sorted(numbers) != list(range(1, want + 1)):
+        fix.add("layout")
+    if proof and sorted(numbers) != [proof]:
+        reasons.append(f"layouts.md has pages {numbers}, this pass is a proof of page {proof} only")
+        fix.add("layout")
+    elif not proof and want and sorted(numbers) != list(range(1, want + 1)):
         reasons.append(f"layouts.md has pages {numbers}, the brief asks for pages 1-{want}")
-        fix.add("penciller")
+        fix.add("layout")
+    if st.get("phase") in ("writing", "execution"):
+        missing = keypages.check(slug, projects.read_artifact(slug, "script.md") or "")
+        if missing:
+            reasons.append(f"{len(missing)} key-page line(s) not word for word in the script")
+            notes += missing
+            fix.update(rid for rid, title in role_titles.items() if rid.startswith("writer"))   # whoever writes this book
     issues = []
     for s in specs:
         if lk.get(s["page"], {}).get("kind") == KEPT:
@@ -424,7 +449,7 @@ def gate(slug, role_titles):
     if issues:
         reasons.append(f"{len(issues)} layout issues")
         notes += issues
-        fix.add("penciller")
+        fix.add("layout")
 
     notes_md = projects.read_artifact(slug, "notes.md") or ""
     m = BLOCKERS_RE.search(notes_md)
@@ -449,11 +474,11 @@ def gate(slug, role_titles):
         d = dial_in(slug, n, spec, l["ascii"])
         dialed[n] = {"text": d["text"], "layout": d["layout"]}
         if d["text"] < st["min_text_match"]:
-            fix.update({"scripter", "penciller"})
+            fix.add("layout")            # the script is locked by now: the layout carries the lettering
             reasons.append(f"page {n} dialogue matches the showrunner's page {d['text']:.0%}")
             notes.append(f"Page {n}: make the layout's lettering match the showrunner's page exactly.\n{d['diff']}")
         elif d["layout"] < st["min_layout_match"]:
-            fix.add("penciller")
+            fix.add("layout")
             reasons.append(f"page {n} panel layout matches the showrunner's page {d['layout']:.0%}")
             notes.append(f"Page {n}: move panels and lettering to where the showrunner drew them.\n{d['diff']}")
     return {"ready": not reasons, "reasons": reasons, "fix": sorted(fix), "notes": notes,
@@ -471,8 +496,11 @@ def text_layers(slug, version=None):
 
 def export_pages(slug, rnd):
     """Write <round>-pNN-{prompt,ascii,script,layout}.* into the round folder, and the
-    page prompts (the room's deliverable) into the working copy and the round."""
+    page prompts (the room's deliverable) into the working copy and the round. Before
+    execution there are no layouts, so there are no pages and nothing is written."""
     page_prompts, book_prompts = prompts.build(slug)
+    if not page_prompts:
+        return []
     rnd.write("page-prompts.md", book_prompts)
     for n, text in page_prompts.items():
         rnd.write_file(f"p{n:02d}-prompt.md", text)

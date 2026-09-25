@@ -1,2 +1,0 @@
-# Figma links shared with every role, one per line.
-# https://www.figma.com/design/FILEKEY/Name?node-id=1-2
