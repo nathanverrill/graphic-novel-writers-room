@@ -239,3 +239,6 @@ sheets/characters/*
 !sheets/characters/.gitkeep
 sheets/backup/
 instances/
+
+# rendered pages: large, and remade from the packets and locks (app/render.py)
+campaigns/*/renders/

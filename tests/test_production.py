@@ -193,6 +193,43 @@ assert keypages.exceptions(kslug) == "Bi11bot is off-model. Take the style, not 
 assert "not his design" in keypages.images(kslug)[0][0] and "not his design" in phases.note(kslug, phases.get("writing"))
 print("4g. key pages: mapped, their words held in the script, their look sent along, the canon winning where noted: ok")
 
+# 4h. the renderer: each model's own locks, the plate, the key art; one bad page never stops the book
+from app import render
+sheets = tmp.parent / "sheets"
+for d, f in (("_style", "plate.png"), ("alex-phantum-gemini", "lock.png"), ("cassian-lock-gemini", "lock.png"),
+             ("alex-phantum-sunburst", "notes.txt"), ("tj-gemini", "description.txt")):
+    (sheets / d).mkdir(parents=True, exist_ok=True); (sheets / d / f).write_bytes(b"\x89PNG")
+render.SHEETS_DIR = sheets
+assert render.lock_for("ALEX PHANTUM", "gemini").parent.name == "alex-phantum-gemini"
+assert render.lock_for("DIRECTOR CASSIAN LOCK", "gemini").parent.name == "cassian-lock-gemini"
+assert render.lock_for("ALEX PHANTUM", "sunburst") is None, "a lock not kept yet is no lock"
+assert render.lock_for("TJ", "gemini") is None
+bible = "## Characters\n\n### Alex Phantum\n\nA boy.\n\n### Tomas\n\nA miner.\n\n### Tomas Reed\n\nAn engineer.\n"
+(sheets / "tomas-reed-gemini").mkdir(); (sheets / "tomas-reed-gemini" / "lock.png").write_bytes(b"x")
+assert render.lock_for("ALEX", "gemini", bible).parent.name == "alex-phantum-gemini"
+assert render.lock_for("TOMAS", "gemini", bible) is None, "Tomas the miner is not Tomas Reed"
+assert render.lock_for("TOMAS REED", "gemini", bible).parent.name == "tomas-reed-gemini"
+spec = {"page": 2, "items": [{"type": "balloon", "speaker": "ALEX", "text": "Hi."}], "tiers": [{"panels": [{"description": "Alex at the pump."}]}]}
+ctx = {**prompts.context(kslug), "slug": kslug, "bible": bible}
+refs = render.references(kslug, "gemini", spec, ctx)
+assert [p.name for _, p in refs] == ["plate.png", "ch01-p02.jpg", "lock.png"], refs
+calls = []
+real_gen, real_letter = render.generate, render.letter
+render.generate = lambda model, prompt, refs, key: calls.append((model, prompt)) or (b"art", 0.04)
+render.letter = lambda art, spec, ctx: art + b"+letters"
+try:
+    render.page(kslug, "gemini", spec, ctx, "key")
+    assert (render.folder(kslug, "gemini", "art") / "p02.png").read_bytes() == b"art"
+    assert (render.folder(kslug, "gemini", "lettered") / "p02.png").read_bytes() == b"art+letters"
+    assert render.status(kslug)["models"]["gemini"]["pages"]["2"]["state"] == "done"
+    assert "The attached images, in order" in calls[0][1] and "not his design" in calls[0][1]
+    render.generate = lambda *a: (_ for _ in ()).throw(RuntimeError("HTTP 500 boom"))
+    render.page(kslug, "sunburst", spec, ctx, "key")
+    assert render.status(kslug)["models"]["sunburst"]["pages"]["2"]["state"] == "failed"
+finally:
+    render.generate, render.letter = real_gen, real_letter
+print("4h. the renderer: each model's locks, the plate and key art, a failed page recorded: ok")
+
 # 5. a chain or a round that died with the process is closed at startup
 review.save_settings(slug, magic={"status": "running", "step": "execution", "log": []})
 assert magic.close_stale(slug) is True and magic.state(slug)["status"] == "failed"

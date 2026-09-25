@@ -21,7 +21,7 @@ from .config import env
 
 MARGIN = 0.05        # page margin, as a fraction of the page
 GUTTER = 0.018       # between panels
-FONT = "'Comic Sans MS', 'Chalkboard', 'Segoe Print', sans-serif"
+FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
 SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023}

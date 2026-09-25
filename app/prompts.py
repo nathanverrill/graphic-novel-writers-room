@@ -357,11 +357,9 @@ def panel_block(n, panel_spec, items, page_spec):
     return "\n".join(lines)
 
 
-def page_prompt(spec, ctx):
-    """One page's prompt. In "layer" mode the art is drawn with no text at all and the
-    lettering is rendered separately (see lettering.py)."""
-    number = spec.get("page", 0)
-    side = spec.get("side") or ("right" if number % 2 else "left")
+def page_cast(spec, ctx):
+    """(names, places, described): who and where a page draws - the people its items name and
+    the ones its panels describe, and the places its panels are set in."""
     items = spec.get("items") or []
     panel_specs = [p for t in spec.get("tiers") or [] for p in (t.get("panels") or [{}])]
     names = []
@@ -375,6 +373,17 @@ def page_prompt(spec, ctx):
     for name in named_in(ctx["bible"], described):
         if name.upper() not in [n.upper() for n in names]:
             names.append(name)
+    return names, places_on(ctx, described), described
+
+
+def page_prompt(spec, ctx):
+    """One page's prompt. In "layer" mode the art is drawn with no text at all and the
+    lettering is rendered separately (see lettering.py)."""
+    number = spec.get("page", 0)
+    side = spec.get("side") or ("right" if number % 2 else "left")
+    panel_specs = [p for t in spec.get("tiers") or [] for p in (t.get("panels") or [{}])]
+    items = spec.get("items") or []
+    names, places, described = page_cast(spec, ctx)
     chapter = ctx.get("chapter")
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     out = [
@@ -398,7 +407,6 @@ def page_prompt(spec, ctx):
         for name in names:
             look = clean_look(looks_for(ctx["bible"], [name]))
             out.append(f"- **{name.upper()}** — {look or '(no description in the bible yet)'}")
-    places = places_on(ctx, described)
     out += ["", reference_line(names, places, ctx)]
     if not layer:
         out += ["", f"**Page number:** in the top-left corner of the page, in small light-blue lettering: \"{label}\"."]

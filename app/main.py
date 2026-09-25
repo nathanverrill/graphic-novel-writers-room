@@ -19,7 +19,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages, render
 from .config import AGENTS_DIR, AgentConfig, env
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -124,6 +124,12 @@ def preproduction():
 def voices_page():
     """The dialog simulator: talk with a character in the world, and tune how they talk."""
     return FileResponse(STATIC / "voices.html")
+
+
+@app.get("/renders")
+def renders_page():
+    """The rendered book, page by page: each model's art and the art lettered, side by side."""
+    return FileResponse(STATIC / "renders.html")
 
 
 @app.get("/production")
@@ -1110,3 +1116,53 @@ def voices_note(slug: str, character: str, body: VoiceNote):
 @app.delete("/api/voices/{slug}/tuning/{character}/{entry}")
 def voices_forget(slug: str, character: str, entry: str):
     return _voices(voices.forget, slug, character, entry)
+
+
+# ---- the renderer: the book drawn by each image model, lettered by the room (app/render.py) --------
+
+class RenderStart(BaseModel):
+    models: list[str] | None = None     # gemini, sunburst; none = both
+    pages: list[int] | None = None      # none = every page in layouts.md
+    redo: bool = False                  # draw pages that are already drawn again
+
+
+@app.get("/api/projects/{slug}/render")
+def render_state(slug: str):
+    not_found(projects.project_dir, slug)
+    return {**render.status(slug), "pages": [s["page"] for s in render.book(slug)], "models": render.MODELS,
+            "state": render.status(slug)["models"]}
+
+
+@app.post("/api/projects/{slug}/render")
+def render_start(slug: str, body: RenderStart):
+    not_found(projects.project_dir, slug)
+    try:
+        return render.start(slug, body.models, body.pages, body.redo)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/api/projects/{slug}/render/{tag}/{kind}/{name}")
+def render_file(slug: str, tag: str, kind: str, name: str):
+    if tag not in render.MODELS or kind not in ("art", "lettered") or not re.fullmatch(r"p\d{2,3}\.png", name):
+        raise HTTPException(404, "not a render")
+    path = render.folder(slug, tag, kind) / name
+    if not path.is_file():
+        raise HTTPException(404, "not drawn yet")
+    return FileResponse(path)
+
+
+@app.get("/api/projects/{slug}/render/{tag}/{kind}.zip")
+def render_zip(slug: str, tag: str, kind: str):
+    if tag not in render.MODELS or kind not in ("art", "lettered"):
+        raise HTTPException(404, "not a render")
+    d = render.folder(slug, tag, kind)
+    files = sorted(d.glob("p*.png")) if d.is_dir() else []
+    if not files:
+        raise HTTPException(404, "nothing drawn yet")
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as z:
+        for f in files:
+            z.write(f, f"{slug}-{tag}-{kind}/{f.name}")
+    return Response(buf.getvalue(), media_type="application/zip",
+                    headers={"Content-Disposition": f'attachment; filename="{slug}-{tag}-{kind}.zip"'})

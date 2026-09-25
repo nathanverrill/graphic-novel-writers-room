@@ -525,6 +525,16 @@ is named in every page packet as the reference to attach. Its words are locked: 
 and the writer are told them, and the gate sends a script that drops or changes one back to the
 writer. Its layout is that page's. The production room shows the key art on its page.
 
+**Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
+Image 2.5 Sunburst - and letter it in the room, so there are four versions: each model's art, and
+that art lettered. Every page is drawn from its packet with reference images: Sheets' style plate
+(the book's look), the page's key art when it has one, and that model's own kept lock of every
+character on the page (Sheets subjects `alex-phantum-gemini`, `alex-phantum-sunburst`). The lettered
+version is the room's lettering layer drawn over the same art on the server (cairo), so the words
+are exactly the script's. Pages are drawn a few at a time per model, both models side by side;
+drawn pages are kept, one page can be drawn again, and each version downloads as a zip.
+Renders live in `campaigns/<slug>/renders/` and are not committed.
+
 **Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
 character, or a stranger in the world - and when in the story: a page of the page plot, or a
 scene of the outline. The character speaks first and never leaves the world; they know the story
