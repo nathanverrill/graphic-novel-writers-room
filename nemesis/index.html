@@ -66,6 +66,7 @@ main{flex:1;overflow-y:auto;padding:28px 40px;display:flex;flex-direction:column
 .irow{display:flex;align-items:center;gap:10px}
 .igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .igrid[hidden]{display:none}
+.ideas[hidden]{display:none}
 .idea{text-align:left;padding:12px 14px;border-radius:10px;line-height:1.4;font-size:.95rem}
 .idea:hover{border-color:var(--accent)}
 .idea.own{color:var(--muted)}
@@ -155,14 +156,17 @@ const Q = [
   {k:"converge", lbl:"The Convergence", map:"CONVERGE", q:"Which characters and storylines must come together — and what does each bring?", h:"The Avengers move: who converges, and the one thing each carries that the others lack."},
   {k:"crack",    lbl:"The Crack",       map:"CRACK",    q:"How can they actually be beaten — and at what cost?",      h:"The seam in the armor, and the price of using it."},
 ];
-let a = {}, cur = 0, line = null;
+let a = {}, cur = 0, line = null, conclusion = "";
 try {
   const d = JSON.parse(localStorage.getItem("nemesis-draft") || "{}");
-  if (d && d.a){ a = d.a; line = d.line || null; }
+  if (d && d.a){ a = d.a; line = d.line || null; conclusion = d.c || ""; }
 } catch {}
-const draft = () => { try { localStorage.setItem("nemesis-draft", JSON.stringify({a, line})); } catch {} };
+const draft = () => { try { localStorage.setItem("nemesis-draft", JSON.stringify({a, line, c: conclusion})); } catch {} };
 const done = k => !!(a[k] || "").trim();
 const count = () => Q.filter(s => done(s.k)).length;
+const CONCL = 7;
+const part = k => (a[k] || "\u2026").trim().replace(/\.$/, "");
+function composeSeed(){ return `The threat is ${part("face")}. In their own story they\u2019re the hero: ${part("why")}. If they win, ${part("threat")}. No one stops them alone \u2014 ${part("power")}. And the clock is running: ${part("clock")}. So the stories converge: ${part("converge")}. The way in: ${part("crack")}.`; }
 
 // the web: the threat at the center, six elements converging on it
 const CX = 180, CY = 180, R = 122;
@@ -206,6 +210,12 @@ function render(){
     d.onclick = () => go(i);
     c.append(d);
   });
+  const d8 = document.createElement("div");
+  d8.className = "check" + (conclusion.trim() ? " done" : "") + (cur === CONCL ? " cur" : "");
+  d8.innerHTML = `<span class="tick"></span><span></span>`;
+  d8.querySelector("span:last-child").textContent = "The conclusion";
+  d8.onclick = () => go(CONCL);
+  c.append(d8);
   [...modsEl.children].forEach((g, idx) => {
     const i = idx < 6 ? idx + 1 : 0;
     g.classList.toggle("done", done(Q[i].k));
@@ -218,13 +228,23 @@ function render(){
   });
   const nm = (a.face || "").trim();
   $("sname").textContent = nm ? (nm.length > 34 ? nm.slice(0, 33) + "…" : nm) : "?";
+  document.querySelector(".ideas").hidden = cur === CONCL;
+  if (cur === CONCL){
+    $("step").textContent = "The conclusion";
+    $("question").textContent = "Say it in one breath.";
+    $("hint").textContent = "Seeded from your answers \u2014 edit it freely, roll the AI, or both.";
+    if (document.activeElement !== $("answer")) $("answer").value = conclusion || composeSeed();
+    $("back").disabled = false;
+    $("next").textContent = "\u26a1 Roll an improvement";
+  } else {
   const s = Q[cur];
   $("step").textContent = `${cur + 1} of 7 · ${s.lbl}`;
   $("question").textContent = s.q;
   $("hint").textContent = s.h;
   if (document.activeElement !== $("answer")) $("answer").value = a[s.k] || "";
   $("back").disabled = cur === 0;
-  $("next").textContent = cur === 6 ? "Done" : "Next";
+  $("next").textContent = cur === 6 ? "Conclusion \u2192" : "Next";
+  }
   const slot = k => done(k) ? `<span class="slot"></span>` : `<span class="slot empty">…</span>`;
   $("story").innerHTML =
     `The threat is ${slot("face")}. In their own story they’re the hero: ${slot("why")}. ` +
@@ -239,14 +259,14 @@ function render(){
 
 // every change becomes a version a moment after typing stops
 let saveTimer = null, lastSaved = "", saving = false;
-const snap = () => JSON.stringify(a) + "|" + line;
+const snap = () => JSON.stringify(a) + "|" + conclusion + "|" + line;
 async function flushSave(){
   clearTimeout(saveTimer);
   if (saving || !(a.face || "").trim() || snap() === lastSaved) return;
   saving = true;
   try {
     const r = await fetch("/api/threat", {method: "POST", headers: {"Content-Type": "application/json"},
-      body: JSON.stringify({line, answers: a})});
+      body: JSON.stringify({line, answers: a, conclusion})});
     const j = await r.json().catch(() => ({}));
     if (r.ok){ line = j.line; lastSaved = snap(); draft();
       $("savestate").textContent = "saved " + new Date().toLocaleTimeString(); roster(); }
@@ -256,16 +276,35 @@ async function flushSave(){
 }
 function queueSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 2500); }
 
-function commit(){ a[Q[cur].k] = $("answer").value; draft(); }
-function go(i){ commit(); cur = Math.max(0, Math.min(6, i)); $("igrid").hidden = true; $("ideastate").textContent = ""; render(); $("answer").focus(); }
-$("answer").addEventListener("input", () => { a[Q[cur].k] = $("answer").value; draft(); render(); queueSave(); });
-$("answer").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("next").click(); } });
-$("back").onclick = () => go(cur - 1);
-$("next").onclick = () => { if (cur < 6) return go(cur + 1); commit(); render(); };
+function commit(){ if (cur === CONCL) conclusion = $("answer").value; else a[Q[cur].k] = $("answer").value; draft(); }
+function go(i){ commit(); cur = Math.max(0, Math.min(CONCL, i)); $("igrid").hidden = true; $("ideastate").textContent = ""; render(); $("answer").focus(); }
+$("answer").addEventListener("input", () => { commit(); render(); queueSave(); });
+$("answer").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && cur !== CONCL){ e.preventDefault(); $("next").click(); } });
+$("back").onclick = () => go(cur === CONCL ? 6 : cur - 1);
+$("next").onclick = () => { if (cur === CONCL) return roll(); if (cur < 6) return go(cur + 1); go(CONCL); };
+async function roll(){
+  if (!configured){ $("settings").showModal(); return; }
+  conclusion = $("answer").value || composeSeed();
+  draft();
+  $("next").disabled = true;
+  $("hint").textContent = "rolling an improvement\u2026";
+  try {
+    const r = await fetch("/api/polish", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({answers: a, conclusion})});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.detail || r.status);
+    conclusion = j.text;
+    $("answer").value = j.text;
+    draft(); queueSave();
+    $("hint").textContent = "rolled \u2014 keep it, edit it, or roll again";
+  } catch (e){ $("hint").textContent = "roll failed: " + (e.message || e); }
+  $("next").disabled = false;
+}
+
 $("newc").onclick = async () => {
   commit();
   await flushSave();
-  a = {}; line = null; cur = 0; lastSaved = ""; draft();
+  a = {}; line = null; conclusion = ""; cur = 0; lastSaved = ""; draft();
   $("savestate").textContent = "auto-saves as you go";
   render(); $("answer").focus();
 };
@@ -310,7 +349,7 @@ $("s-save").onclick = async () => {
 async function pick(id){
   await flushSave();
   const doc = await (await fetch("/api/threat/" + id)).json();
-  a = doc.answers || {}; line = doc.line || id;
+  a = doc.answers || {}; line = doc.line || id; conclusion = doc.conclusion || "";
   cur = 0; lastSaved = snap(); draft();
   $("savestate").textContent = "loaded - edits save as a new version";
   render(); $("answer").focus();

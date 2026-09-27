@@ -113,6 +113,43 @@ def suggest(d: dict = Body(...)):
     return {"ideas": ideas}
 
 
+@app.post("/api/polish")
+def polish(d: dict = Body(...)):
+    key = _key()
+    if not key:
+        raise HTTPException(400, "no API key set yet - use the API key button")
+    draft_text = str(d.get("conclusion") or "").strip()
+    if not draft_text:
+        raise HTTPException(400, "nothing to improve yet")
+    a = d.get("answers") or {}
+    have = "\n".join(f"- {LABELS[f]}: {str(a.get(f)).strip()}" for f in FIELDS
+                     if str(a.get(f) or "").strip()) or "(none)"
+    payload = {"model": CHAT_MODEL, "max_tokens": 400, "temperature": 0.85,
+               "messages": [
+                   {"role": "system", "content":
+                    "You polish the one-breath summary of an antagonist and the existential threat they pose. Rewrite the "
+                    "draft into one tight, vivid paragraph of at most 90 words that keeps every "
+                    "established fact and name, sharpens the prose, and lands on a hook. No "
+                    "preamble, no quotes, no bullets - reply with only the paragraph."},
+                   {"role": "user", "content":
+                    f"The established facts:\n{have}\n\nThe draft:\n{draft_text}\n\nRewrite it."}]}
+    req = urllib.request.Request(
+        f"{OPENROUTER}/chat/completions", data=json.dumps(payload).encode(),
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json",
+                 "HTTP-Referer": "https://github.com/writers-room", "X-Title": "nemesis"})
+    try:
+        with urllib.request.urlopen(req, timeout=120) as r:
+            result = json.loads(r.read())
+    except urllib.error.HTTPError as e:
+        raise HTTPException(502, f"HTTP {e.code} {e.read()[:300].decode(errors='replace')}")
+    except Exception as e:
+        raise HTTPException(502, str(e))
+    text = (((result.get("choices") or [{}])[0].get("message") or {}).get("content") or "").strip().strip('"')
+    if not text:
+        raise HTTPException(502, "no rewrite in the reply")
+    return {"text": text}
+
+
 @app.get("/api/threats")
 def threats():
     groups = {}
@@ -148,7 +185,8 @@ def save(d: dict = Body(...)):
     b = bucket().blob(f"threat/{sid}")
     b.metadata = {"name": answers["face"][:60], "line": line,
                   "done": str(sum(1 for f in FIELDS if answers[f].strip()))}
-    b.upload_from_string(json.dumps({"line": line, "answers": answers}),
+    b.upload_from_string(json.dumps({"line": line, "answers": answers,
+                                     "conclusion": str(d.get("conclusion") or "")[:4000]}),
                          content_type="application/json")
     return {"id": sid, "line": line}
 
@@ -163,4 +201,5 @@ def load(sid: str):
         raise HTTPException(404, "no such threat")
     if "answers" not in doc:
         doc = {"line": sid, "answers": doc}
+    doc.setdefault("conclusion", "")
     return doc
