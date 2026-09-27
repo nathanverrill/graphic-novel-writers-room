@@ -248,3 +248,6 @@ overnight/
 
 # Art Department projects: plates, sheets and every roll (art/server.py)
 art/data/
+
+# hackathon deployment backups: bucket pulls with pasted API keys inside - local only
+backups/
