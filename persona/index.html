@@ -56,6 +56,20 @@ main{flex:1;overflow-y:auto;padding:16px}
 .msg.bot .av img{width:100%;height:100%;object-fit:cover}
 .msg.err .b{color:var(--danger)}
 .wait .b{color:var(--muted);font-style:italic}
+.take{display:flex;align-items:center;gap:10px;color:var(--muted);font-size:.78rem;margin:4px 0}
+.take::before,.take::after{content:"";flex:1;border-top:1px solid var(--line)}
+.take span{max-width:75%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+details.prev{margin-top:6px;font-size:.85rem;color:var(--muted)}
+details.prev summary{cursor:pointer;font-size:.75rem;letter-spacing:.04em}
+details.prev p{margin:4px 0 0;white-space:pre-wrap}
+.dials{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.dials button{font-size:.78rem;padding:3px 10px;border-radius:999px;color:var(--muted)}
+.dials button:hover{color:var(--ink);border-color:var(--accent)}
+.vstrip{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:8px 16px;border-bottom:1px solid var(--line)}
+.vstrip[hidden]{display:none}
+.vstrip .pill{font-size:.78rem;padding:3px 10px;border-radius:999px}
+.vstrip .pill:hover{border-color:var(--accent)}
+.vstrip .pill.cur{background:var(--accent);border-color:var(--accent);color:#0d1319;font-weight:600}
 .hello{color:var(--muted);text-align:center;margin-top:5vh}
 .hello h2{color:var(--ink);font-weight:600}
 .hello ol{display:inline-block;text-align:left;margin:8px 0 0;padding-left:1.4em}
@@ -123,10 +137,13 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
       <textarea id="voice" placeholder="e.g. TJ, a robot dog built for Antarctic fieldwork. Dry, clipped sentences. Warms up around people who fix things. Never explains the same thing twice."></textarea>
       <div class="vrow">
         <button class="primary" id="update">Update character</button>
+        <span class="note" title="Cmd/Ctrl+Enter in the description also updates">&#8984;&#9166;</span>
         <span class="note" id="vstate"></span>
       </div>
+      <div class="dials" id="dials"></div>
     </div>
   </div>
+  <div class="vstrip" id="vstrip" hidden><span class="note">takes:</span></div>
   <main><div class="col" id="chat">
     <div class="hello" id="hello"><h2>Build them in three steps</h2>
       <ol><li>Add knowledge files on the left</li>
@@ -174,8 +191,12 @@ let questions = [];            // this browser's test conversation
 let answers = [];              // parallel to questions, current take's answers
 let running = false;
 
-try { questions = JSON.parse(localStorage.getItem("persona-questions") || "[]"); } catch {}
-const saveQ = () => { try { localStorage.setItem("persona-questions", JSON.stringify(questions)); } catch {} };
+try {
+  const c = JSON.parse(localStorage.getItem("persona-chat") || "null");
+  if (c && c.q){ questions = c.q; answers = c.a || []; }
+  else questions = JSON.parse(localStorage.getItem("persona-questions") || "[]");   // legacy
+} catch {}
+const saveQ = () => { try { localStorage.setItem("persona-chat", JSON.stringify({q: questions, a: answers})); } catch {} };
 
 async function refresh(){
   const b = await (await fetch("/api/bot")).json();
@@ -201,7 +222,16 @@ async function refresh(){
   });
   if (b.face){ faceUrl = "/api/face?t=" + Date.now(); $("face").innerHTML = `<img src="${faceUrl}" alt="face">`; }
 }
-refresh().then(() => { if (questions.length) rerun("picking up where you left off"); });
+refresh().then(() => {
+  // restore the saved transcript from cache - no model calls, no waiting
+  if (questions.length){
+    questions.forEach((q, i) => {
+      add(bubble("user", q));
+      add(bubble("bot", answers[i] || "(not answered yet - hit Update character to run)"));
+    });
+  }
+  loadVersions();
+});
 
 // step 1: knowledge
 $("addf").onclick = () => $("fpick").click();
@@ -242,20 +272,57 @@ $("facepick").onchange = () => {
 };
 
 // step 2: update character -> save description, save a version, rerun the chat
-$("update").onclick = async () => {
+let takeN = 0;
+async function updateCharacter(){
   if (running) return;
   $("vstate").textContent = "saving…";
   const r = await fetch("/api/voice", {method: "POST", headers: {"Content-Type": "application/json"},
     body: JSON.stringify({voice: $("voice").value})});
   if (!r.ok){ $("vstate").textContent = "not saved"; return; }
   $("vstate").textContent = "saved for everyone";
-  await rerun("updated character");
+  await rerun();
   const tr = questions.map((q, i) => ({q, a: answers[i] || ""}));
   const v = await fetch("/api/version", {method: "POST", headers: {"Content-Type": "application/json"},
     body: JSON.stringify({voice: $("voice").value, files: fileNames, transcript: tr})});
   const j = await v.json().catch(() => ({}));
   if (v.ok) $("vstate").textContent = "saved as version " + j.n;
-};
+  loadVersions();
+}
+$("update").onclick = updateCharacter;
+$("voice").addEventListener("keydown", e => {
+  if (e.key === "Enter" && (e.metaKey || e.ctrlKey)){ e.preventDefault(); updateCharacter(); }
+});
+
+// one-tap voice dials: append the adjustment and update immediately
+const DIALS = ["shorter replies", "drier humor", "warmer", "more playful", "more formal", "less exposition"];
+DIALS.forEach(d => {
+  const b = document.createElement("button");
+  b.textContent = d;
+  b.onclick = () => {
+    const v = $("voice").value.trim();
+    $("voice").value = (v ? v + "\n" : "") + "Adjust: " + d + ".";
+    updateCharacter();
+  };
+  $("dials").append(b);
+});
+
+// the take strip: every saved version one tap away
+async function loadVersions(){
+  try {
+    const vs = await (await fetch("/api/versions")).json();
+    const strip = $("vstrip");
+    [...strip.querySelectorAll(".pill")].forEach(p => p.remove());
+    strip.hidden = !vs.length;
+    vs.slice(0, 20).forEach(v => {
+      const p = document.createElement("button");
+      p.className = "pill" + (v.voice === $("voice").value ? " cur" : "");
+      p.textContent = "v" + v.n;
+      p.title = v.voice || "(no description)";
+      p.onclick = () => { $("voice").value = v.voice || ""; updateCharacter(); };
+      strip.append(p);
+    });
+  } catch {}
+}
 
 // chat rendering
 function add(el){ $("hello")?.remove(); chat.append(el); el.scrollIntoView({block: "end"}); return el; }
@@ -281,20 +348,48 @@ async function askOne(i){
   return j.reply;
 }
 
-async function rerun(why){
+async function rerun(label){
   if (!questions.length || running || !configured) return;
   running = true; $("send").disabled = true; $("update").disabled = true;
-  answers = [];
+  const prev = answers.slice();          // last take, for context and comparison
+  answers = new Array(questions.length).fill("");
   chat.textContent = "";
-  const note = document.createElement("div"); note.className = "note"; note.style.textAlign = "center";
-  note.textContent = why; add(note);
-  for (let i = 0; i < questions.length; i++){
-    add(bubble("user", questions[i]));
-    const w = add(bubble("bot wait", "…"));
-    try { answers[i] = await askOne(i); w.querySelector(".b").textContent = answers[i]; w.classList.remove("wait"); }
-    catch (e){ w.classList.remove("wait"); w.classList.add("err"); w.querySelector(".b").textContent = String(e.message || e); answers[i] = ""; }
-    w.scrollIntoView({block: "end"});
-  }
+  takeN += 1;
+  const div = document.createElement("div"); div.className = "take";
+  const v = $("voice").value.trim().replace(/\s+/g, " ");
+  div.innerHTML = "<span></span>";
+  div.querySelector("span").textContent = (label || `take ${takeN}`) + (v ? ` · ${v}` : "");
+  add(div);
+  const cells = questions.map(q => { add(bubble("user", q)); return add(bubble("bot wait", "…")); });
+  // all questions at once - each sees the earlier questions with the previous take's answers
+  await Promise.all(questions.map(async (q, i) => {
+    const msgs = [];
+    for (let k = 0; k < i; k++){
+      msgs.push({role: "user", content: questions[k]});
+      if (prev[k]) msgs.push({role: "assistant", content: prev[k]});
+    }
+    msgs.push({role: "user", content: q});
+    const w = cells[i];
+    try {
+      const r = await fetch("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({messages: msgs})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+      answers[i] = j.reply;
+      w.classList.remove("wait");
+      w.querySelector(".b").textContent = j.reply;
+      if (prev[i] && prev[i] !== j.reply){
+        const det = document.createElement("details"); det.className = "prev";
+        det.innerHTML = "<summary>previous take</summary><p></p>";
+        det.querySelector("p").textContent = prev[i];
+        w.querySelector(".b").append(det);
+      }
+    } catch (e){
+      w.classList.remove("wait"); w.classList.add("err");
+      w.querySelector(".b").textContent = String(e.message || e);
+    }
+  }));
+  saveQ();
   running = false; $("send").disabled = false; $("update").disabled = false;
 }
 
@@ -314,6 +409,7 @@ async function send(){
   const w = add(bubble("bot wait", "…"));
   try { answers[i] = await askOne(i); w.querySelector(".b").textContent = answers[i]; w.classList.remove("wait"); }
   catch (e){ w.classList.remove("wait"); w.classList.add("err"); w.querySelector(".b").textContent = String(e.message || e); answers[i] = ""; }
+  saveQ();
   running = false; $("send").disabled = false; $("update").disabled = false; box.focus();
 }
 $("newchat").onclick = () => {
