@@ -1,0 +1,501 @@
+{
+  "id": "r13-ai",
+  "kind": "ai",
+  "started": "2026-09-25T15:17:33",
+  "finished": "2026-09-25T15:24:22",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "729cb89f10cc988a",
+    "prosperity/drafts/chapter-02-draft.md": "689a4df6ef51395d",
+    "prosperity/drafts/chapter-03-draft.md": "c7c429063cd51dcc",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/notes.md": "e3b0c44298fc1c14",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/keypages/ch03-p01.md": "1718867e83761f2b",
+    "prosperity/keypages/ch03-p02.md": "687b54f5fdb3ec38",
+    "prosperity/keypages/ch03-p03.md": "bbb59555be29b523",
+    "prosperity/keypages/ch03-p04.md": "ef8b7754f9dbff9a",
+    "prosperity/keypages/ch03-p05.md": "a68c2f610995c34c",
+    "prosperity/keypages/ch03-p06.md": "bb3351b97d8c5099",
+    "prosperity/keypages/ch03-p07.md": "9cca70b7c56a7085",
+    "prosperity/keypages/ch03-p08.md": "dfd99143c3f82bf2",
+    "prosperity/keypages/ch03-p09.md": "b8be8319a633425a",
+    "prosperity/keypages/ch03-p10.md": "08f0ce07d72b03da",
+    "prosperity/keypages/ch03-p11.md": "aa64debf9388dbeb",
+    "prosperity/keypages/ch03-p12.md": "e7025c32bd4cf32a",
+    "prosperity/keypages/ch03-p13.md": "ef9614ebd6c4311e",
+    "prosperity/keypages/ch03-p14.md": "bfe84ef74f3e7c5b",
+    "prosperity/keypages/ch03-p15.md": "002e7316bac807ed",
+    "prosperity/keypages/notes.md": "a840b36d1091108a",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/decisions.md": "7a58c19785bb5413",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/showrunner-rules.md": "6083e8daa215fe43",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 7,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.2009205,
+      "input_tokens": 495847,
+      "cached_tokens": 34340,
+      "image_input_tokens": 0,
+      "output_tokens": 70715,
+      "reasoning_tokens": 1267,
+      "total_tokens": 566562
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 7,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.2009205,
+        "input_tokens": 495847,
+        "cached_tokens": 34340,
+        "image_input_tokens": 0,
+        "output_tokens": 70715,
+        "reasoning_tokens": 1267,
+        "total_tokens": 566562
+      }
+    }
+  },
+  "run_id": "7709c6c93e51",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.\n\nThe book is exactly 65 pages: pages 1-65, no more, no fewer.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 329906,
+        "input_tokens_est": 82476,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 43807,
+        "preservation": {
+          "source_chars": 192269,
+          "output_chars": 145251,
+          "mass": 0.755,
+          "terms": 323,
+          "missing": 12,
+          "coverage": 0.963,
+          "substantive_terms": 320,
+          "substantive_coverage": 0.966,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Chapters"
+            ],
+            "named entities": [
+              "He's",
+              "House's",
+              "It's",
+              "Nobody's"
+            ],
+            "names and terms": [
+              "Aymara",
+              "Fellow",
+              "I'll",
+              "Kolla",
+              "Quechua",
+              "Relational",
+              "You've"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 4,
+            "names and terms": 7
+          },
+          "dropped": [
+            "Aymara",
+            "Chapters",
+            "Fellow",
+            "He's",
+            "House's",
+            "I'll",
+            "It's",
+            "Kolla",
+            "Nobody's",
+            "Quechua",
+            "Relational",
+            "You've"
+          ]
+        }
+      },
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 329916,
+        "input_tokens_est": 82479,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 50230,
+        "preservation": {
+          "source_chars": 192269,
+          "output_chars": 145251,
+          "mass": 0.755,
+          "terms": 323,
+          "missing": 12,
+          "coverage": 0.963,
+          "substantive_terms": 320,
+          "substantive_coverage": 0.966,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Chapters"
+            ],
+            "named entities": [
+              "He's",
+              "House's",
+              "It's",
+              "Nobody's"
+            ],
+            "names and terms": [
+              "Aymara",
+              "Fellow",
+              "I'll",
+              "Kolla",
+              "Quechua",
+              "Relational",
+              "You've"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 4,
+            "names and terms": 7
+          },
+          "dropped": [
+            "Aymara",
+            "Chapters",
+            "Fellow",
+            "He's",
+            "House's",
+            "I'll",
+            "It's",
+            "Kolla",
+            "Nobody's",
+            "Quechua",
+            "Relational",
+            "You've"
+          ]
+        }
+      },
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 329906,
+        "input_tokens_est": 82476,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 51212,
+        "preservation": {
+          "source_chars": 192269,
+          "output_chars": 145251,
+          "mass": 0.755,
+          "terms": 323,
+          "missing": 12,
+          "coverage": 0.963,
+          "substantive_terms": 320,
+          "substantive_coverage": 0.966,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Chapters"
+            ],
+            "named entities": [
+              "He's",
+              "House's",
+              "It's",
+              "Nobody's"
+            ],
+            "names and terms": [
+              "Aymara",
+              "Fellow",
+              "I'll",
+              "Kolla",
+              "Quechua",
+              "Relational",
+              "You've"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 4,
+            "names and terms": 7
+          },
+          "dropped": [
+            "Aymara",
+            "Chapters",
+            "Fellow",
+            "He's",
+            "House's",
+            "I'll",
+            "It's",
+            "Kolla",
+            "Nobody's",
+            "Quechua",
+            "Relational",
+            "You've"
+          ]
+        }
+      },
+      {
+        "call": "4A-again",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 330240,
+        "input_tokens_est": 82560,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 72234
+      },
+      {
+        "call": "4C-again",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 330230,
+        "input_tokens_est": 82557,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 58602
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 338248,
+        "input_tokens_est": 84562,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 817
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "44fc6e5f521d1290",
+        "input_chars": 334050,
+        "input_tokens_est": 83512,
+        "inputs": [
+          "characters.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 46175
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "page-prompts.md",
+      "room-log.md"
+    ],
+    "human_modified": [
+      "open-items.md"
+    ],
+    "failed": [],
+    "snapshot": "44fc6e5f521d1290",
+    "kept_previous": [
+      "story.md"
+    ],
+    "decisions_integrated": [],
+    "recommendations_taken": [],
+    "notes_applied": [
+      "[HIGH] Add a `## Key props` section at the end of world.md, before Open: the recurring ",
+      "[HIGH] Add a `## Key scenes` section to story.md, before Ending: the eight to fifteen m"
+    ],
+    "deferred": []
+  },
+  "pages": [
+    46
+  ]
+}

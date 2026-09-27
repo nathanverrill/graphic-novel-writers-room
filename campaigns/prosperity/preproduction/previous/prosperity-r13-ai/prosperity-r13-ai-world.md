@@ -988,6 +988,11 @@ An offline signed event record stored and transmitted by Bi11bot through a physi
 
 The B11 witness record authenticates what occurred and confirms Bi11bot’s maker-authenticated witness role. It does not decide whether Adrian’s transfer is valid, grant Alex power, or replace human authorization. `(rules/decisions.md)`
 
+### TJ
+
+A small salvaged repair robot dog made from mismatched metal, ceramic, and mechanical parts held together by magnets. Its head, legs, body segments, and tail separate and snap back together. It has no voice; its clicks, snaps, servo whines, posture, and movement communicate its choices. It is built by Bi11bot from spare parts and first appears later at Site 6, where it reaches a trapped mechanism that Bi11bot cannot reach himself. `(rules/characters.md; rules/decisions.md)`
+
+TJ means practical ingenuity without central control. He scouts first, leaves his head as a camera, tests gaps with detached limbs, returns a needed part to another character before reassembling, and remains recognizably a dog in every configuration. `(rules/characters.md; rules/decisions.md)`
 
 ## Open
 
