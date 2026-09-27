@@ -1,3 +1,11 @@
-a main character needs to have a back story that includes an avalanche
+the story is set in 2046
 
-alpha the character, alpha the ai, and the company alpha dynamics should only be hinted at in the story
+the settings are Antarctica, the Himalayas, and Colorado
+
+a waste-to-value organization in Antarctica aids conservation in Colorado
+
+the characters include a robot dog named TJ
+
+secret messages are being sent from Antarctica
+
+everything must be hard sci fi (hard-sf-rules.md binds)
