@@ -183,16 +183,30 @@ def chat(camp: str, d: dict = Body(...)):
 
 
 def _material(camp, cap=80000):
-    parts, imgs = [], []
+    """All text files, with refinements.md LAST under a banner: it is the newest canon and
+    beats the drafts wherever they conflict. Buried mid-list, models kept siding with the
+    drafts ('oil tycoon' over the accepted rework)."""
+    parts, imgs, refin = [], [], None
     for b in bucket().list_blobs(prefix=f"{camp}/files/"):
         name = b.name.split("/", 2)[2]
         if ext(name) in IMG_TYPE:
             imgs.append(name)
         else:
             try:
-                parts.append(f"## {name}\n{b.download_as_text()[:cap]}")
+                text = b.download_as_text()[:cap]
             except Exception:
-                pass
+                continue
+            if name == "refinements.md":
+                refin = text
+            else:
+                parts.append(f"## {name} (draft as handed over)\n{text}")
+    if refin is not None:
+        parts.append(
+            "## refinements.md — THE ACCEPTED REFINEMENTS: NEWEST CANON\n"
+            "The team accepted these AFTER the drafts above were written, and the drafts have "
+            "NOT been updated to reflect them. Wherever a draft and a refinement conflict - a "
+            "character's identity, what exists in the world, a plot point - THE REFINEMENT WINS "
+            "and the draft version is obsolete. Apply them fully.\n\n" + refin)
     return parts, imgs
 
 
@@ -315,7 +329,8 @@ def story_beats(camp: str):
     text = _model(key, [
         {"role": "system", "content":
          "From the story material, name the 7 beats of this book as key moments aligned with "
-         "the hero's journey. Treat refinements.md as the newest canon. Reply with ONLY a JSON "
+         "the hero's journey. The refinements section at the end is the newest canon: where it "
+         "contradicts the drafts, the refinements win. Reply with ONLY a JSON "
          "array of 7 objects, in story order: {\"name\": \"2-4 word beat name\", \"stage\": "
          "\"the journey stage\", \"happens\": \"one sentence of what happens\", \"image\": "
          "\"one sentence: the single image the reader must see\"}."},
@@ -358,7 +373,11 @@ def visualize(camp: str, d: dict = Body(...)):
     prompt = _model(key, [
         {"role": "system", "content": PROMPT_WRITER},
         {"role": "user", "content": f"THE MATERIAL:\n{material}\n\nWrite the image prompt for: "
-                                    f"{spec}\n\nStyle line to end with: {style}"}], 2500).strip()
+                                    f"{spec}\n\nThe refinements section at the end of the "
+                                    "material is the newest canon - where it contradicts the "
+                                    "drafts (who a character is, what exists in this world), "
+                                    "the refinements win and the draft version must not appear "
+                                    f"in the image.\n\nStyle line to end with: {style}"}], 2500).strip()
     png = _image(key, prompt)
     ts = int(time.time() * 1000)
     blob = bucket().blob(f"{camp}/viz/{kindkey}/{ts}.png")
