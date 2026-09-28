@@ -342,6 +342,55 @@ def synthesize_finish(camp: str):
     return {"ok": True, "archived": True}
 
 
+# ---- the compiled canon: everything in one .md, to copy out or save as a version ----
+
+def _compiled_text(camp):
+    parts, imgs = _material(camp, cap=120000)
+    head = (f"# {CAMPS[camp]} — compiled canon\n\n"
+            f"Everything the {CAMPS[camp]} workspace holds, in one file. Draft files first; if "
+            "a refinements section closes the file, it is the newest canon and overrides the "
+            "drafts wherever they conflict.\n")
+    if imgs:
+        head += "\nImages in the workspace (not embedded): " + ", ".join(imgs) + "\n"
+    return head + "\n\n" + "\n\n".join(parts) + "\n"
+
+
+@app.get("/api/{camp}/compile")
+def compile_live(camp: str):
+    camp_ok(camp)
+    return {"text": _compiled_text(camp)}
+
+
+@app.post("/api/{camp}/compile/save")
+def compile_save(camp: str):
+    camp_ok(camp)
+    ts = int(time.time() * 1000)
+    bucket().blob(f"{camp}/compiled/{ts}.md").upload_from_string(
+        _compiled_text(camp), content_type="text/markdown")
+    return {"ts": ts}
+
+
+@app.get("/api/{camp}/compiled")
+def compiled_list(camp: str):
+    camp_ok(camp)
+    out = []
+    for b in bucket().list_blobs(prefix=f"{camp}/compiled/"):
+        try:
+            out.append(int(b.name.rsplit("/", 1)[1].split(".")[0]))
+        except ValueError:
+            pass
+    return sorted(out, reverse=True)
+
+
+@app.get("/api/{camp}/compiled/{ts}")
+def compiled_get(camp: str, ts: int):
+    camp_ok(camp)
+    try:
+        return {"ts": ts, "text": bucket().blob(f"{camp}/compiled/{ts}.md").download_as_text()}
+    except Exception:
+        raise HTTPException(404, "no such version")
+
+
 # ---- visualizations: infographics and pages from the material + refinements ----
 
 INFO_STYLE = ("Style: clean editorial infographic, deep slate background, glacial ice-blue and "

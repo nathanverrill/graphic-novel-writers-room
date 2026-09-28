@@ -64,6 +64,9 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .msg.bot th,.msg.bot td{border:1px solid var(--line);padding:4px 9px;text-align:left}
 .msg.bot a{color:var(--accent)}
 .msg.bot hr{border:none;border-top:1px solid var(--line);margin:.8em 0}
+.mdread{max-width:100%;max-height:52vh;overflow-y:auto;border:1px solid var(--line);
+  border-radius:8px;padding:12px 14px;background:var(--bg);font-size:.92rem}
+.compbar{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
 .msg.err{align-self:flex-start;color:var(--danger)}
 .msg.wait{align-self:flex-start;color:var(--muted);font-style:italic}
 .sugg{align-self:flex-start;width:100%;max-width:100%;background:var(--panel);border:1px solid var(--line);
@@ -138,6 +141,7 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <div class="head"><h2>The material</h2>
     <span class="minis">
       <button class="mini" id="addf" title="Add files (.md, images&hellip;)">&#65291;</button>
+      <button class="mini" id="compbtn" title="Compile everything into one .md to copy out, or save a synthesized version">&#10515;</button>
       <button class="mini" id="synthbtn" title="Synthesize: fold the accepted refinements into the drafts, then archive them">&#8635;</button>
     </span></div>
   <div class="list" id="flist"></div>
@@ -487,6 +491,73 @@ $("synth-go").onclick = async () => {
   $("send").disabled = false;
   files(); loadViz();
 };
+
+// the compiled canon: one .md of everything, to copy out or save as a version
+async function foldAll(){
+  const p = await pendingInfo();
+  if (!p.decisions) return {ok: 0, bad: 0};
+  let ok = 0, bad = 0;
+  await Promise.all(p.targets.map(async f => {
+    try {
+      const r = await fetch(`/api/${camp}/synthesize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({file: f})});
+      if (!r.ok) throw 0;
+      ok++;
+    } catch { bad++; }
+  }));
+  if (ok && !bad) await fetch(`/api/${camp}/synthesize-finish`, {method: "POST"});
+  files();
+  return {ok, bad};
+}
+$("compbtn").onclick = () => openCompile(null);
+async function openCompile(ts){
+  $("v-name").textContent = "Compiled canon — " + $("camp").selectedOptions[0].text;
+  $("v-save").hidden = true;
+  const body = $("v-body"); body.textContent = "compiling…";
+  if (!$("viewer").open) $("viewer").showModal();
+  const [versions, doc] = await Promise.all([
+    (await fetch(`/api/${camp}/compiled`)).json(),
+    (await fetch(ts ? `/api/${camp}/compiled/${ts}` : `/api/${camp}/compile`)).json(),
+  ]);
+  body.textContent = "";
+  const bar = document.createElement("div"); bar.className = "compbar";
+  const copy = document.createElement("button"); copy.textContent = "Copy .md";
+  copy.onclick = async () => {
+    try { await navigator.clipboard.writeText(doc.text); copy.textContent = "copied ✓"; }
+    catch { copy.textContent = "copy failed — select below"; }
+    setTimeout(() => copy.textContent = "Copy .md", 2500);
+  };
+  const save = document.createElement("button"); save.className = "primary";
+  save.textContent = "Save version";
+  const st = document.createElement("span"); st.className = "note";
+  save.onclick = async () => {
+    save.disabled = true;
+    st.textContent = "synthesizing…";
+    const r = await foldAll();
+    if (r.bad){ st.textContent = "synthesis failed on " + r.bad + " file(s) — not saved"; save.disabled = false; return; }
+    st.textContent = "saving…";
+    const j = await (await fetch(`/api/${camp}/compile/save`, {method: "POST"})).json();
+    st.textContent = "✓ saved";
+    openCompile(j.ts);
+  };
+  bar.append(copy, save, st);
+  const pills = document.createElement("div"); pills.className = "pills";
+  const lp = document.createElement("button"); lp.textContent = "live";
+  lp.className = ts ? "" : "cur"; lp.onclick = () => openCompile(null);
+  pills.append(lp);
+  versions.forEach((t, i) => {
+    const p = document.createElement("button");
+    p.textContent = "v" + (versions.length - i);
+    p.className = t === ts ? "cur" : "";
+    p.title = new Date(t).toLocaleString();
+    p.onclick = () => openCompile(t);
+    pills.append(p);
+  });
+  const view = document.createElement("div"); view.className = "msg bot mdread";
+  if (window.marked && window.DOMPurify) view.innerHTML = DOMPurify.sanitize(marked.parse(doc.text));
+  else { view.style.whiteSpace = "pre-wrap"; view.textContent = doc.text; }
+  body.append(bar, pills, view);
+}
 
 $("vizbtn").onclick = async () => {
   $("vizstatus").textContent = ""; $("vizdlg").showModal();
