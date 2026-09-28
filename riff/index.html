@@ -291,9 +291,12 @@ function suggCard(sugg, applied){
   btn.onclick = async () => {
     const todo = rows.filter(x => x.cb.checked && !x.cb.disabled);
     if (!todo.length) return;
-    btn.disabled = true;
+    btn.disabled = true; $("send").disabled = true;
+    box.placeholder = "hold on — the material is being updated…";
+    let done = 0, failed = 0;
     for (const x of todo){
-      x.st.textContent = "updating " + x.s.file + "…"; x.st.className = "status";
+      note.textContent = `⏳ updating ${done + failed + 1} of ${todo.length}: ${x.s.file}…`;
+      x.st.textContent = "rewriting " + x.s.file + "…"; x.st.className = "status";
       try {
         const r = await fetch(`/api/${camp}/apply`, {method: "POST",
           headers: {"Content-Type": "application/json"}, body: JSON.stringify(x.s)});
@@ -303,12 +306,17 @@ function suggCard(sugg, applied){
         x.st.textContent = `applied ✓ (${delta >= 0 ? "+" : ""}${delta} chars)`;
         x.st.className = "status ok"; x.cb.disabled = true;
         applied[x.i] = x.st.textContent; saveChat();
+        done++;
       } catch (e){
         x.st.textContent = "failed: " + (e.message || e); x.st.className = "status err";
-        btn.disabled = false;
+        btn.disabled = false; failed++;
       }
     }
-    note.textContent = "material updated — the next message uses it";
+    note.textContent = failed
+      ? `${done} applied, ${failed} failed — fix or retry the red ones`
+      : `✓ all ${done} applied — recorded in refinements.md; the next message uses the updated material`;
+    $("send").disabled = false;
+    box.placeholder = "Brainstorm with the material…";
     files();
   };
   return card;

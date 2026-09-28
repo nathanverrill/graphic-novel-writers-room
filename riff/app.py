@@ -243,6 +243,16 @@ def apply(camp: str, d: dict = Body(...)):
     except Exception:
         log = ""
     logblob.upload_from_string(log + json.dumps(entry) + "\n", content_type="application/json")
+    # the running record of what this team changed, as material the next chat reads
+    ref = bucket().blob(f"{camp}/files/refinements.md")
+    try:
+        text = ref.download_as_text()
+    except Exception:
+        text = ("# Refinements\n\nWhat this team has changed since the writers' room handed over "
+                "pre-production. Newest last; each entry names the file it changed.\n")
+    when = time.strftime("%Y-%m-%d %H:%M", time.localtime(entry["ts"]))
+    text += f"\n## {title or 'Update'} — {name} ({when})\n\n{change}\n"
+    ref.upload_from_string(text, content_type="text/markdown")
     return entry
 
 
