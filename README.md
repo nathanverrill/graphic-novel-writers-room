@@ -289,6 +289,44 @@ To use the fake provider, set `OPENAI_BASE_URL=http://mock:8765/v1` in `.env` an
 
 After changing `.env`, run `docker compose up -d` again to apply it.
 
+Another independent instance of the whole room — its own campaigns, agents and index — is
+`scripts/instance.sh <name> <port>` (see `docker-compose.instance.yml`).
+
+## The sprint tools
+
+Seven standalone web apps grew out of the Avalanche hackathon (September 2026). Each is one
+folder holding one small FastAPI file, one HTML page and a Dockerfile — no code shared with the
+room — deployed to Cloud Run (project `evoke-prosperity`, `us-central1`), with all state in one
+GCS bucket per instance. Each app has an **API key** button: the OpenRouter key is pasted once
+and stored in the bucket, and everyone on the link shares it. Their output feeds the room by
+dropping files into a campaign's `input/` (see `campaigns/avengers/input/` for exports).
+
+| Folder | App | What it is |
+|---|---|---|
+| `easel/` | **Easel** | image chat: every prompt drawn by *both* Gemini 3.1 Flash Image and GPT Image 2.5 Sunburst via OpenRouter, iterate by reference, everything kept in a shared gallery |
+| `forge/` | **Forge** | a character in seven answers — why, incentive, motive, weakness, change, return — on a hero's-journey wheel with a completion checklist |
+| `spine/` | **Spine** | a story on the Seven-Point structure, asked in sprint order (ends first, the choice last), drawn as the wall |
+| `station/` | **Station** | a hard-SF Antarctic facility under the 80/15/5 rule, drawn as a station map of hub and modules |
+| `nemesis/` | **Nemesis** | the antagonist and existential threat — and the convergence: who comes together and what each brings |
+| `persona/` | **Persona** | one character bot built by everyone: `.md` knowledge files, a face, a voice tuned take by take with parallel retakes and a version strip |
+| `canon/` | **Canon** | story files and research files on two shelves, and seven checks a model run marks pass / thin / fail with receipts |
+
+Shared conventions across Forge, Spine, Station and Nemesis: one question at a time with a big
+answer box, a live "how it plays out" line, ✨ AI ideas (three concise options plus your own
+hand), a conclusion stage whose text you edit and can re-roll, and every change auto-saved as an
+immutable version grouped by lineage on a shared roster — nothing is ever lost or overwritten.
+
+Deploy or update an app (same command per team with `-2` / `-3` suffixes on name and bucket):
+
+```sh
+gcloud run deploy <name> --source <folder> --project evoke-prosperity --region us-central1 \
+  --allow-unauthenticated --memory 512Mi --max-instances 2 \
+  --set-env-vars BUCKET=evoke-prosperity-<name>
+```
+
+`backups/` holds timestamped pulls of every app bucket and is git-ignored on purpose: the
+snapshots include each app's `settings.json`, which carries the pasted API key.
+
 ## Layout sketch
 
 The sketch is ASCII art at **print scale**: one character cell is one letter of lettering. At
@@ -778,7 +816,11 @@ campaigns/
     references/     material to draw on, grouped for your own sake
     preproduction/  intake's desk: characters, world, story, facts, open items, and its rounds
     production/     the room's desk from development on: brief, script, layouts, page prompts, previous/
-  avalanche/        the second campaign: the same folders
+  avalanche/        the hackathon: team 1's book (Scott Base — Sitara, Nayah, the Falcon bunker)
+  avalanche-2/      the hackathon: team 2's book (McMurdo — Roman, TJ, Clear Spring Global, Nexus)
+  avengers/         the crossover: both teams' stories true in one world, one TJ, one threat
+                    (rules/avengers.md is the convergence rule; its input/ holds both teams'
+                    docs and the work exported from the sprint tools)
   _morgue/          clippings kept for people, so an old document is never lost
 ```
 
