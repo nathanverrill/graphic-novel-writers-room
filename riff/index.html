@@ -61,8 +61,9 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .logrow .lf{color:var(--accent);font-family:ui-monospace,monospace;font-size:.78rem;flex:none}
 .logrow .lt{flex:1}
 .logrow .ld{color:var(--muted);font-size:.75rem;flex:none}
-.vopt{display:block;padding:6px 4px;font-size:.92rem;cursor:pointer}
-.vopt input{accent-color:var(--accent);margin-right:6px}
+.vopt{display:block;width:100%;text-align:left;padding:9px 12px;font-size:.92rem;cursor:pointer;margin-bottom:6px}
+.vopt:hover{border-color:var(--accent)}
+.vopt.done{border-color:var(--accent)}
 .pills{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
 .pills button{font-size:.78rem;padding:3px 10px;border-radius:999px}
 .pills button.cur{background:var(--accent);border-color:var(--accent);color:#151021;font-weight:600}
@@ -142,14 +143,14 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
 
 <dialog id="vizdlg">
   <h3>Visualize</h3>
-  <p>An infographic from the current material <b>and the refinements</b> &mdash; each run saves a new version.</p>
-  <label class="vopt"><input type="radio" name="vk" value="beats" checked> <b>Story beats</b> &mdash; the key moments on the hero&rsquo;s journey</label>
-  <label class="vopt"><input type="radio" name="vk" value="world"> <b>The world</b> &mdash; settings, sites and institutions</label>
-  <label class="vopt"><input type="radio" name="vk" value="cast"> <b>The cast</b> &mdash; the characters, to their visual locks</label>
-  <label class="vopt"><input type="radio" name="vk" value="settings"> <b>Key settings</b> &mdash; the places the story returns to</label>
-  <label class="vopt"><input type="radio" name="vk" value="pages"> <b>Graphic novel pages</b> &mdash; one rendered page per beat (takes a few minutes)</label>
+  <p>Rendered from the current material <b>and the refinements</b> by the same Sunburst model as Easel &mdash; each run saves a new version, and a copy with its prompt lands in the team&rsquo;s Easel gallery. Hit one, then render the others.</p>
+  <button class="vopt" data-vk="beats"><b>Story beats</b> &mdash; the key moments on the hero&rsquo;s journey</button>
+  <button class="vopt" data-vk="world"><b>The world</b> &mdash; settings, sites and institutions</button>
+  <button class="vopt" data-vk="cast"><b>The cast</b> &mdash; the characters, to their visual locks</button>
+  <button class="vopt" data-vk="settings"><b>Key settings</b> &mdash; the places the story returns to</button>
+  <button class="vopt" data-vk="pages"><b>Graphic novel pages</b> &mdash; one rendered page per beat (takes a few minutes)</button>
   <div id="vizstatus" class="note" style="margin-top:10px;white-space:pre-line"></div>
-  <div class="end"><button id="viz-close">Close</button><button class="primary" id="viz-go">Visualize</button></div>
+  <div class="end"><button id="viz-close">Close</button></div>
 </dialog>
 
 <dialog id="logdlg">
@@ -399,11 +400,11 @@ async function openViz(v, ts){
 }
 $("vizbtn").onclick = () => { $("vizstatus").textContent = ""; $("vizdlg").showModal(); };
 $("viz-close").onclick = () => $("vizdlg").close();
-$("viz-go").onclick = async () => {
+document.querySelectorAll(".vopt").forEach(b => { b.onclick = () => runViz(b.dataset.vk, b); });
+async function runViz(kind, btn){
   if (!configured){ $("settings").showModal(); return; }
-  const kind = document.querySelector('input[name="vk"]:checked').value;
   const st = $("vizstatus");
-  $("viz-go").disabled = true;
+  document.querySelectorAll(".vopt").forEach(b => b.disabled = true);
   try {
     if (kind === "pages"){
       st.textContent = "reading the material and naming the beats…";
@@ -430,12 +431,13 @@ $("viz-go").onclick = async () => {
       clearTimeout(t);
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.detail || r.status);
-      st.textContent = `✓ ${j.title} — saved as a new version, in the list on the left`;
+      st.textContent = `✓ ${j.title} — saved as a new version, in the list on the left. Render another?`;
       loadViz();
     }
+    btn.classList.add("done");
   } catch (e){ st.textContent = "failed: " + (e.message || e); }
-  $("viz-go").disabled = false;
-};
+  document.querySelectorAll(".vopt").forEach(b => b.disabled = false);
+}
 
 $("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
 $("s-cancel").onclick = () => $("settings").close();

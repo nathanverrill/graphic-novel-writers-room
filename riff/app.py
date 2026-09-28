@@ -18,7 +18,9 @@ from store import bucket  # GCS when BUCKET is set, ./data files when not
 
 OPENROUTER = "https://openrouter.ai/api/v1"
 CHAT_MODEL = os.getenv("CHAT_MODEL", "openai/gpt-5.6-luna")
-IMAGE_MODEL = os.getenv("IMAGE_MODEL", "google/gemini-3.1-flash-image")
+IMAGE_MODEL = os.getenv("IMAGE_MODEL", "openai/gpt-image-2.5-sunburst")   # what Easel draws with
+EASEL_BUCKET = {"avalanche": "evoke-prosperity-easel", "avalanche-2": "evoke-prosperity-easel-2",
+                "avengers": "evoke-prosperity-easel-3"}
 CAMPS = {"avalanche": "Avalanche", "avalanche-2": "Avalanche 2", "avengers": "Avengers"}
 TEXT_EXT = (".md", ".txt")
 IMG_TYPE = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
@@ -317,7 +319,7 @@ def story_beats(camp: str):
          "array of 7 objects, in story order: {\"name\": \"2-4 word beat name\", \"stage\": "
          "\"the journey stage\", \"happens\": \"one sentence of what happens\", \"image\": "
          "\"one sentence: the single image the reader must see\"}."},
-        {"role": "user", "content": material}], 1200)
+        {"role": "user", "content": material}], 3000)
     m = re.search(r"\[.*\]", text, re.S)
     if not m:
         raise HTTPException(502, "no beats in the reply")
@@ -356,13 +358,30 @@ def visualize(camp: str, d: dict = Body(...)):
     prompt = _model(key, [
         {"role": "system", "content": PROMPT_WRITER},
         {"role": "user", "content": f"THE MATERIAL:\n{material}\n\nWrite the image prompt for: "
-                                    f"{spec}\n\nStyle line to end with: {style}"}], 700).strip()
+                                    f"{spec}\n\nStyle line to end with: {style}"}], 2500).strip()
     png = _image(key, prompt)
     ts = int(time.time() * 1000)
     blob = bucket().blob(f"{camp}/viz/{kindkey}/{ts}.png")
     blob.metadata = {"title": title, "prompt": prompt[:1500]}
     blob.upload_from_string(png, content_type="image/png")
+    _mirror_to_easel(camp, png, prompt)
     return {"kind": kindkey, "ts": ts, "title": title}
+
+
+def _mirror_to_easel(camp, png, prompt):
+    """A courtesy copy into the campaign's Easel gallery - same image, same prompt - so the
+    team can see and iterate there. Never fails the visualization."""
+    if not os.getenv("BUCKET"):
+        return
+    try:
+        import uuid
+        from google.cloud import storage
+        blob = storage.Client().bucket(EASEL_BUCKET[camp]).blob(
+            f"img/{int(time.time() * 1000)}-{uuid.uuid4().hex[:6]}.png")
+        blob.metadata = {"model": IMAGE_MODEL, "prompt": prompt[:800]}
+        blob.upload_from_string(png, content_type="image/png")
+    except Exception:
+        pass
 
 
 @app.get("/api/{camp}/viz")
