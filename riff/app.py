@@ -251,14 +251,94 @@ def apply(camp: str, d: dict = Body(...)):
     try:
         text = ref.download_as_text()
     except Exception:
-        text = ("# Refinements - the showrunner's notes\n\nThe draft files below this one are "
-                "the current state as handed over by the writers' room, untouched. These are the "
-                "changes the team has accepted since; each names the file it concerns, and they "
-                "override the draft where the two conflict. Newest last.\n")
+        text = REFIN_HEADER
     when = time.strftime("%Y-%m-%d %H:%M", time.localtime(entry["ts"]))
     text += f"\n## {title or 'Update'} — {name} ({when})\n\n{change}\n"
     ref.upload_from_string(text, content_type="text/markdown")
     return entry
+
+
+# ---- synthesis: fold the refinements into the drafts, then archive them ----
+
+def _refinements(camp):
+    try:
+        return bucket().blob(f"{camp}/files/refinements.md").download_as_text()
+    except Exception:
+        return ""
+
+
+REFIN_HEADER = ("# Refinements - the showrunner's notes\n\nThe draft files are the current "
+                "state; earlier refinement passes are folded in and archived. These are the "
+                "changes accepted since the last synthesis; they override the drafts wherever "
+                "the two conflict. Newest last.\n")
+
+
+@app.get("/api/{camp}/pending")
+def pending(camp: str):
+    """How much refinement is waiting, and which files it targets."""
+    camp_ok(camp)
+    text = _refinements(camp)
+    decisions = len(re.findall(r"(?m)^\*\*", text)) + len(re.findall(r"(?m)^## .+ — .+\(", text))
+    targets = set(re.findall(r"(?m)^## ([\w. -]+\.md)\s*$", text))
+    targets |= {m for m in re.findall(r"(?m)^## .+ — ([\w. -]+\.md) \(", text)}
+    have = {f["name"] for f in files(camp) if not f["image"]}
+    targets = sorted((targets & have) - {"refinements.md"})
+    if decisions and not targets:
+        targets = sorted(have - {"refinements.md", "open-items.md"})
+    return {"decisions": decisions, "targets": targets}
+
+
+@app.post("/api/{camp}/synthesize")
+def synthesize(camp: str, d: dict = Body(...)):
+    """Fold the refinements into ONE draft file; the client loops per target for feedback.
+    The prior version of the file is archived first."""
+    camp_ok(camp)
+    key = _key()
+    if not key:
+        raise HTTPException(400, "no API key set yet - use the API key button")
+    name = name_ok(str(d.get("file") or ""))
+    refin = _refinements(camp)
+    if not refin.strip():
+        raise HTTPException(400, "no refinements to fold in")
+    blob = bucket().blob(f"{camp}/files/{name}")
+    try:
+        before = blob.download_as_text()
+    except Exception:
+        raise HTTPException(404, f"no such file: {name}")
+    out = _model(key, [
+        {"role": "system", "content":
+         f"You are updating the canon of {CAMPS[camp]}, a hard-SF graphic novel. The team's "
+         "accepted refinements must be folded into the file so it stands alone as current "
+         "canon. Rewrite the COMPLETE file: weave in every refinement that concerns it; remove "
+         "or rewrite anything a refinement supersedes; keep the file's structure, heading style "
+         "and level of detail; keep everything the refinements do not touch; invent nothing. "
+         "Return only the file content - no preamble, no code fences."},
+        {"role": "user", "content":
+         f"The file `{name}`:\n\n{before[:200000]}\n\nTHE ACCEPTED REFINEMENTS (newest canon; "
+         f"apply the ones that concern this file):\n\n{refin[:120000]}\n\n"
+         "Return the complete updated file."}], 16000)
+    out = re.sub(r"^```[a-z]*\n|\n```$", "", out.strip())
+    if len(out) < len(before) * 0.4:
+        raise HTTPException(502, "the rewrite came back too short - file left untouched")
+    ts = int(time.time() * 1000)
+    bucket().blob(f"{camp}/archive/{ts}-{name}").upload_from_string(before, content_type="text/markdown")
+    blob.upload_from_string(out, content_type="text/markdown")
+    return {"file": name, "chars_before": len(before), "chars_after": len(out)}
+
+
+@app.post("/api/{camp}/synthesize-finish")
+def synthesize_finish(camp: str):
+    """The refinements are folded in: archive them and start a fresh, empty pass."""
+    camp_ok(camp)
+    refin = _refinements(camp)
+    if not refin.strip():
+        return {"ok": True, "archived": False}
+    ts = int(time.time() * 1000)
+    bucket().blob(f"{camp}/archive/{ts}-refinements.md").upload_from_string(
+        refin, content_type="text/markdown")
+    bucket().blob(f"{camp}/files/refinements.md").upload_from_string(
+        REFIN_HEADER, content_type="text/markdown")
+    return {"ok": True, "archived": True}
 
 
 # ---- visualizations: infographics and pages from the material + refinements ----

@@ -114,8 +114,9 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <div class="list" id="flist"></div>
   <div class="addwrap"><button id="addf">+ Add files (.md, images&hellip;)</button>
     <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden></div>
+  <div class="addwrap"><button id="synthbtn" title="Fold the accepted refinements into the draft files, then archive them">&#10227; Synthesize</button></div>
   <div class="head"><h2>Visualizations</h2></div>
-  <div class="list" id="vlist" style="flex:none;max-height:38%"></div>
+  <div class="list" id="vlist" style="flex:none;max-height:34%"></div>
   <div class="addwrap"><button id="vizbtn">&#10024; Visualize</button></div>
 </aside>
 
@@ -141,9 +142,17 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
 </dialog>
 
+<dialog id="synthdlg">
+  <h3>Synthesize</h3>
+  <p id="synthinfo">Folds every accepted refinement into the draft files so the material is one clean current state; the refinements and the prior drafts are archived, and a fresh empty pass begins.</p>
+  <div id="synthstatus" class="note" style="white-space:pre-line"></div>
+  <div class="end"><button id="synth-close">Close</button><button class="primary" id="synth-go">Synthesize</button></div>
+</dialog>
+
 <dialog id="vizdlg">
   <h3>Visualize</h3>
   <p>Rendered from the current material <b>and the refinements</b> by the same Sunburst model as Easel &mdash; each run saves a new version, and a copy with its prompt lands in the team&rsquo;s Easel gallery. Hit one, then render the others.</p>
+  <div id="vizhint" class="note" style="margin-bottom:8px" hidden></div>
   <button class="vopt" data-vk="beats"><b>Story beats</b> &mdash; the key moments on the hero&rsquo;s journey</button>
   <button class="vopt" data-vk="world"><b>The world</b> &mdash; settings, sites and institutions</button>
   <button class="vopt" data-vk="cast"><b>The cast</b> &mdash; the characters, to their visual locks</button>
@@ -398,7 +407,61 @@ async function openViz(v, ts){
   } catch {}
   if (!$("viewer").open) $("viewer").showModal();
 }
-$("vizbtn").onclick = () => { $("vizstatus").textContent = ""; $("vizdlg").showModal(); };
+// synthesize: fold refinements into the drafts, archive them, start fresh
+async function pendingInfo(){
+  try { return await (await fetch(`/api/${camp}/pending`)).json(); }
+  catch { return {decisions: 0, targets: []}; }
+}
+$("synthbtn").onclick = async () => {
+  $("synthstatus").textContent = "checking…";
+  $("synthdlg").showModal();
+  const p = await pendingInfo();
+  $("synthstatus").textContent = p.decisions
+    ? `${p.decisions} accepted refinements pending, targeting: ${p.targets.join(", ")}`
+    : "nothing pending — the drafts are already current";
+  $("synth-go").disabled = !p.decisions;
+};
+$("synth-close").onclick = () => $("synthdlg").close();
+$("synth-go").onclick = async () => {
+  if (!configured){ $("settings").showModal(); return; }
+  const st = $("synthstatus");
+  $("synth-go").disabled = true; $("send").disabled = true;
+  const p = await pendingInfo();
+  let ok = 0, bad = 0, out = [];
+  for (let i = 0; i < p.targets.length; i++){
+    const f = p.targets[i];
+    st.textContent = `⏳ folding refinements into ${f} (${i + 1} of ${p.targets.length})…\n` + out.join("\n");
+    try {
+      const r = await fetch(`/api/${camp}/synthesize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({file: f})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      const d = j.chars_after - j.chars_before;
+      out.unshift(`✓ ${f} (${d >= 0 ? "+" : ""}${d} chars)`); ok++;
+    } catch (e){ out.unshift(`✗ ${f}: ${e.message || e}`); bad++; }
+  }
+  if (ok && !bad){
+    await fetch(`/api/${camp}/synthesize-finish`, {method: "POST"});
+    st.textContent = `✓ ${ok} files updated. Refinements archived — a fresh pass begins.\n` + out.join("\n");
+  } else if (bad){
+    st.textContent = `${ok} updated, ${bad} failed — refinements kept (not archived). Retry.\n` + out.join("\n");
+    $("synth-go").disabled = false;
+  }
+  $("send").disabled = false;
+  files(); loadViz();
+};
+
+$("vizbtn").onclick = async () => {
+  $("vizstatus").textContent = ""; $("vizdlg").showModal();
+  const p = await pendingInfo();
+  $("vizhint").hidden = !p.decisions;
+  if (p.decisions){
+    $("vizhint").innerHTML = "";
+    const b = document.createElement("button"); b.textContent = "↻ Synthesize first";
+    b.onclick = () => { $("vizdlg").close(); $("synthbtn").click(); };
+    $("vizhint").append(document.createTextNode(`${p.decisions} refinements pending — visuals will honor them, but folding them in first cuts the noise. `), b);
+  }
+};
 $("viz-close").onclick = () => $("vizdlg").close();
 document.querySelectorAll(".vopt").forEach(b => { b.onclick = () => runViz(b.dataset.vk, b); });
 async function runViz(kind, btn){
