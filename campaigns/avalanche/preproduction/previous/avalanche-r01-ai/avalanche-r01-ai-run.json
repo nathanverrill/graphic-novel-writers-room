@@ -1,0 +1,345 @@
+{
+  "id": "r01-ai",
+  "kind": "ai",
+  "started": "2026-09-27T17:23:02",
+  "finished": "2026-09-27T17:25:21",
+  "status": "awaiting_showrunner_decisions",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "avalanche/input/art-direction.md": "b39fddb859171624",
+    "avalanche/input/characters.md": "b3c4f7cb04150854",
+    "avalanche/input/minecraft.md": "9800ddadd56c0dd0",
+    "avalanche/input/story.md": "30a391913c1bf8bb",
+    "avalanche/input/tj-ai-agent.md": "d19677673be884e5",
+    "avalanche/input/world.md": "a7236d90b4b4ea30",
+    "avalanche/references/research.md": "7ed5daf5de3bc3b2",
+    "avalanche/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "avalanche/rules/rules.md": "3aa5e3f35ae23526"
+  },
+  "usage": {
+    "total": {
+      "calls": 5,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0616035,
+      "input_tokens": 100501,
+      "cached_tokens": 15140,
+      "image_input_tokens": 0,
+      "output_tokens": 33301,
+      "reasoning_tokens": 435,
+      "total_tokens": 133802
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 5,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.0616035,
+        "input_tokens": 100501,
+        "cached_tokens": 15140,
+        "image_input_tokens": 0,
+        "output_tokens": 33301,
+        "reasoning_tokens": 435,
+        "total_tokens": 133802
+      }
+    }
+  },
+  "run_id": "f3b45ad65589",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": "awaiting_showrunner_decisions",
+    "use_references_during_synthesis": true,
+    "calls": [
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "cc2fe18e4ec36e62",
+        "input_chars": 61585,
+        "input_tokens_est": 15396,
+        "inputs": [
+          "avalanche/input/art-direction.md",
+          "avalanche/input/characters.md",
+          "avalanche/input/minecraft.md",
+          "avalanche/input/story.md",
+          "avalanche/input/tj-ai-agent.md",
+          "avalanche/input/world.md",
+          "avalanche/references/research.md",
+          "avalanche/rules/hard-sf-rules.md",
+          "avalanche/rules/rules.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 27042,
+        "preservation": {
+          "source_chars": 15295,
+          "output_chars": 86229,
+          "mass": 5.638,
+          "terms": 59,
+          "missing": 7,
+          "coverage": 0.881,
+          "substantive_terms": 49,
+          "substantive_coverage": 0.918,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Clothes",
+              "Jewelry",
+              "Outside"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 3,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Astrophage",
+            "Clothes",
+            "Jewelry",
+            "Outside",
+            "Thorne",
+            "Thorne's",
+            "Tyson"
+          ]
+        }
+      },
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "cc2fe18e4ec36e62",
+        "input_chars": 60840,
+        "input_tokens_est": 15210,
+        "inputs": [
+          "avalanche/input/art-direction.md",
+          "avalanche/input/characters.md",
+          "avalanche/input/minecraft.md",
+          "avalanche/input/story.md",
+          "avalanche/input/tj-ai-agent.md",
+          "avalanche/input/world.md",
+          "avalanche/references/research.md",
+          "avalanche/rules/hard-sf-rules.md",
+          "avalanche/rules/rules.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 21722,
+        "preservation": {
+          "source_chars": 15295,
+          "output_chars": 86229,
+          "mass": 5.638,
+          "terms": 59,
+          "missing": 7,
+          "coverage": 0.881,
+          "substantive_terms": 49,
+          "substantive_coverage": 0.918,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Clothes",
+              "Jewelry",
+              "Outside"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 3,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Astrophage",
+            "Clothes",
+            "Jewelry",
+            "Outside",
+            "Thorne",
+            "Thorne's",
+            "Tyson"
+          ]
+        }
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "cc2fe18e4ec36e62",
+        "input_chars": 62934,
+        "input_tokens_est": 15733,
+        "inputs": [
+          "avalanche/input/art-direction.md",
+          "avalanche/input/characters.md",
+          "avalanche/input/minecraft.md",
+          "avalanche/input/story.md",
+          "avalanche/input/tj-ai-agent.md",
+          "avalanche/input/world.md",
+          "avalanche/references/research.md",
+          "avalanche/rules/hard-sf-rules.md",
+          "avalanche/rules/rules.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 37463,
+        "preservation": {
+          "source_chars": 15295,
+          "output_chars": 86229,
+          "mass": 5.638,
+          "terms": 59,
+          "missing": 7,
+          "coverage": 0.881,
+          "substantive_terms": 49,
+          "substantive_coverage": 0.918,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Thorne",
+              "Thorne's",
+              "Tyson"
+            ],
+            "names and terms": [
+              "Astrophage",
+              "Clothes",
+              "Jewelry",
+              "Outside"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 3,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Astrophage",
+            "Clothes",
+            "Jewelry",
+            "Outside",
+            "Thorne",
+            "Thorne's",
+            "Tyson"
+          ]
+        }
+      },
+      {
+        "call": "2",
+        "pass": "open items",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "cc2fe18e4ec36e62",
+        "input_chars": 125616,
+        "input_tokens_est": 31404,
+        "inputs": [
+          "avalanche/input/open-items.md",
+          "avalanche/rules/hard-sf-rules.md",
+          "avalanche/rules/rules.md",
+          "characters.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 21783
+      },
+      {
+        "call": "3",
+        "pass": "options",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "cc2fe18e4ec36e62",
+        "input_chars": 158822,
+        "input_tokens_est": 39705,
+        "inputs": [
+          "avalanche/references/research.md",
+          "avalanche/rules/hard-sf-rules.md",
+          "avalanche/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 49824
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md"
+    ],
+    "carried_forward": [],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "cc2fe18e4ec36e62"
+  },
+  "pages": []
+}
