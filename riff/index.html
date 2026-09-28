@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riff</title>
+<style>
+:root{
+  --bg:#131217; --panel:#1c1a23; --line:#2f2c3a; --ink:#ebe8f0; --muted:#9a93aa;
+  --accent:#9b7fd4; --danger:#e07070; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,sans-serif;
+  height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;margin:0;font-weight:600;letter-spacing:.02em}
+header .spacer{flex:1}
+select,button,textarea{font:inherit;color:inherit}
+select{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:disabled{opacity:.5;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:#151021;font-weight:600}
+.note{color:var(--muted);font-size:.8rem}
+.layout{flex:1;display:flex;min-height:0}
+aside{width:260px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+aside .head{padding:12px 14px 4px}
+aside h2{font-size:.72rem;margin:0;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+aside .list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:3px}
+.fitem{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.fitem:hover{background:var(--panel)}
+.fitem .ic{flex:none;font-size:.8rem;width:16px;text-align:center;color:var(--muted)}
+.fitem .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fitem .x{border:none;background:none;color:var(--muted);padding:0 4px;font-size:1rem}
+.fitem .x:hover{color:var(--danger)}
+aside .addwrap{padding:8px}
+aside .addwrap button{width:100%}
+main{flex:1;display:flex;flex-direction:column;min-height:0}
+.thread{flex:1;overflow-y:auto;padding:16px}
+.col{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:90%}
+.msg.user{align-self:flex-end;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px 12px 4px 12px;padding:9px 13px;white-space:pre-wrap}
+.msg.bot{align-self:flex-start;white-space:pre-wrap}
+.msg.err{align-self:flex-start;color:var(--danger)}
+.msg.wait{align-self:flex-start;color:var(--muted);font-style:italic}
+.hello{color:var(--muted);text-align:center;margin-top:6vh}
+.hello h2{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.inner{max-width:760px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+#box{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;
+  resize:none;min-height:44px;max-height:180px}
+#box:focus{outline:none;border-color:var(--accent)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;
+  padding:20px;max-width:720px;width:94vw}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin:0 0 8px;word-break:break-all}
+dialog p{color:var(--muted);font-size:.88rem;margin:4px 0 12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;font:inherit;color:inherit}
+dialog textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+  min-height:52vh;resize:vertical;font:.85rem/1.5 ui-monospace,monospace}
+dialog img{max-width:100%;max-height:60vh;display:block;margin:0 auto;border-radius:8px}
+dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+@media (max-width:760px){
+  .layout{flex-direction:column;overflow-y:auto}
+  aside{width:auto;border-right:none;border-bottom:1px solid var(--line);max-height:34vh}
+  main{overflow:visible}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Riff</h1>
+  <select id="camp" title="Which book you're riffing on">
+    <option value="avalanche">Avalanche</option>
+    <option value="avalanche-2">Avalanche 2</option>
+    <option value="avengers">Avengers</option>
+  </select>
+  <span class="note">pre-production is the draft &mdash; make it better</span>
+  <span class="spacer"></span>
+  <button id="newchat">New chat</button>
+  <button id="gear" title="API key">API key</button>
+</header>
+
+<div class="layout">
+<aside>
+  <div class="head"><h2>The material</h2></div>
+  <div class="list" id="flist"></div>
+  <div class="addwrap"><button id="addf">+ Add files (.md, images&hellip;)</button>
+    <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden></div>
+</aside>
+
+<main>
+  <div class="thread"><div class="col" id="chat">
+    <div class="hello" id="hello"><h2>What should be better?</h2>
+      <p>The room finished pre-production &mdash; everything in the sidebar is draft.<br>
+      Ask anything: <i>make Croft scarier</i> &middot; <i>what&rsquo;s weak in chapter two?</i> &middot; <i>pitch three better openings</i>.<br>
+      Click a file to read or edit it. Add images and refer to them by name.</p></div>
+  </div></div>
+  <footer><div class="inner">
+    <textarea id="box" rows="1" placeholder="Brainstorm with the material&hellip;"></textarea>
+    <button class="primary" id="send">Send</button>
+  </div></footer>
+</main>
+</div>
+
+<dialog id="settings">
+  <h3>API key</h3>
+  <p>Paste an OpenRouter key once &mdash; it&rsquo;s stored on the server and everyone here shares it.</p>
+  <input id="s-key" type="password" placeholder="sk-or-...">
+  <p class="note" id="s-msg"></p>
+  <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<dialog id="viewer">
+  <h3 id="v-name"></h3>
+  <div id="v-body"></div>
+  <div class="end"><button id="v-cancel">Close</button><button class="primary" id="v-save" hidden>Save changes</button></div>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const chat = $("chat"), box = $("box");
+let configured = false, camp = localStorage.getItem("riff-camp") || "avalanche";
+let history = [];
+$("camp").value = camp;
+
+const chatKey = () => "riff-chat-" + camp;
+function loadChat(){
+  try { history = JSON.parse(localStorage.getItem(chatKey()) || "[]"); } catch { history = []; }
+  chat.innerHTML = "";
+  if (!history.length){
+    chat.innerHTML = `<div class="hello"><h2>What should be better?</h2>
+      <p>The room finished pre-production — everything in the sidebar is draft.<br>
+      Ask anything: <i>make the villain scarier</i> · <i>what’s weak in chapter two?</i> · <i>pitch three better openings</i>.</p></div>`;
+  } else history.forEach(m => add(bubble(m.role === "user" ? "user" : "bot", m.content)));
+}
+const saveChat = () => { try { localStorage.setItem(chatKey(), JSON.stringify(history.slice(-60))) } catch {} };
+
+fetch("/api/config").then(r => r.json()).then(c => {
+  configured = !!c.configured;
+  if (!configured) $("settings").showModal();
+});
+
+$("camp").onchange = () => {
+  camp = $("camp").value;
+  localStorage.setItem("riff-camp", camp);
+  files(); loadChat(); box.focus();
+};
+
+async function files(){
+  const list = await (await fetch(`/api/${camp}/files`)).json();
+  const el = $("flist"); el.textContent = "";
+  if (!list.length){ const e = document.createElement("div"); e.className = "note"; e.style.padding = "4px 8px";
+    e.textContent = "nothing here yet"; el.append(e); }
+  list.forEach(f => {
+    const d = document.createElement("div"); d.className = "fitem";
+    d.innerHTML = `<span class="ic"></span><span class="n"></span><button class="x" title="Remove">×</button>`;
+    d.querySelector(".ic").textContent = f.image ? "▣" : "¶";
+    d.querySelector(".n").textContent = f.name;
+    d.querySelector(".n").onclick = () => open(f);
+    d.querySelector(".ic").onclick = () => open(f);
+    d.querySelector(".x").onclick = async e => {
+      e.stopPropagation();
+      await fetch(`/api/${camp}/file/` + encodeURIComponent(f.name), {method: "DELETE"});
+      files();
+    };
+    el.append(d);
+  });
+}
+
+async function open(f){
+  $("v-name").textContent = f.name;
+  const body = $("v-body"); body.textContent = "";
+  if (f.image){
+    $("v-save").hidden = true;
+    const img = document.createElement("img");
+    img.src = `/api/${camp}/file/` + encodeURIComponent(f.name);
+    body.append(img);
+  } else {
+    const j = await (await fetch(`/api/${camp}/file/` + encodeURIComponent(f.name))).json();
+    const ta = document.createElement("textarea"); ta.value = j.text; ta.spellcheck = false;
+    body.append(ta);
+    $("v-save").hidden = false;
+    $("v-save").onclick = async () => {
+      await fetch(`/api/${camp}/file`, {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name: f.name, text: ta.value})});
+      $("viewer").close(); files();
+    };
+  }
+  $("viewer").showModal();
+}
+$("v-cancel").onclick = () => $("viewer").close();
+
+$("addf").onclick = () => $("fpick").click();
+$("fpick").onchange = async () => {
+  for (const f of $("fpick").files){
+    let body;
+    if (f.type.startsWith("image/")){
+      body = await new Promise(res => { const r = new FileReader();
+        r.onload = () => res({name: f.name, image: r.result}); r.readAsDataURL(f); });
+    } else body = {name: f.name.replace(/\.txt$/, ".md"), text: await f.text()};
+    const r = await fetch(`/api/${camp}/file`, {method: "POST",
+      headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    if (!r.ok) alert(f.name + ": " + ((await r.json().catch(() => ({}))).detail || "failed"));
+  }
+  $("fpick").value = ""; files();
+};
+
+function add(el){ $("hello")?.remove(); chat.append(el); el.scrollIntoView({block: "end"}); return el; }
+function bubble(cls, text){ const d = document.createElement("div"); d.className = "msg " + cls; d.textContent = text; return d; }
+function autosize(){ box.style.height = "auto"; box.style.height = Math.min(box.scrollHeight, 180) + "px"; }
+box.addEventListener("input", autosize);
+box.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
+$("send").onclick = send;
+$("newchat").onclick = () => { history = []; saveChat(); loadChat(); box.focus(); };
+
+async function send(){
+  const text = box.value.trim(); if (!text) return;
+  if (!configured){ $("settings").showModal(); return; }
+  box.value = ""; autosize();
+  add(bubble("user", text));
+  history.push({role: "user", content: text}); saveChat();
+  const wait = add(bubble("wait", "thinking with the material…"));
+  $("send").disabled = true;
+  try {
+    const r = await fetch(`/api/${camp}/chat`, {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({messages: history})});
+    const j = await r.json().catch(() => ({}));
+    wait.remove();
+    if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+    history.push({role: "assistant", content: j.reply}); saveChat();
+    add(bubble("bot", j.reply));
+  } catch (e){ wait.remove(); history.pop(); saveChat(); add(bubble("err", String(e.message || e))); }
+  $("send").disabled = false; box.focus();
+}
+
+$("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
+$("s-cancel").onclick = () => $("settings").close();
+$("s-save").onclick = async () => {
+  const r = await fetch("/api/key", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key: $("s-key").value.trim()})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok){ $("s-msg").textContent = j.detail || "failed"; return; }
+  configured = true; $("s-key").value = "";
+  $("settings").close(); box.focus();
+};
+
+files(); loadChat(); box.focus();
+</script>
+</body>
+</html>
