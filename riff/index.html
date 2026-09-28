@@ -24,8 +24,13 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#151021
 .note{color:var(--muted);font-size:.8rem}
 .layout{flex:1;display:flex;min-height:0}
 aside{width:260px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
-aside .head{padding:12px 14px 4px}
+aside .head{padding:12px 14px 4px;display:flex;align-items:center;justify-content:space-between}
 aside h2{font-size:.72rem;margin:0;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.mini{padding:2px 9px;font-size:.9rem;border-radius:7px;line-height:1.4}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.addlink{background:none;border:none;color:var(--muted);font-size:.8rem;text-align:left;
+  padding:2px 16px 10px;cursor:pointer}
+.addlink:hover{color:var(--accent);border:none}
 aside .list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:3px}
 .fitem{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.9rem}
 .fitem:hover{background:var(--panel)}
@@ -111,14 +116,14 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
 
 <div class="layout">
 <aside>
-  <div class="head"><h2>The material</h2></div>
+  <div class="head"><h2>The material</h2>
+    <button class="mini" id="synthbtn" title="Synthesize: fold the accepted refinements into the drafts, then archive them">&#8635;</button></div>
   <div class="list" id="flist"></div>
-  <div class="addwrap"><button id="addf">+ Add files (.md, images&hellip;)</button>
-    <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden></div>
-  <div class="addwrap"><button id="synthbtn" title="Fold the accepted refinements into the draft files, then archive them">&#10227; Synthesize</button></div>
-  <div class="head"><h2>Visualizations</h2></div>
+  <button class="addlink" id="addf">+ add files (.md, images&hellip;)</button>
+  <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden>
+  <div class="head"><h2>Visualizations</h2>
+    <button class="mini" id="vizbtn" title="Visualize: infographics and pages from the material and refinements">&#10024;</button></div>
   <div class="list" id="vlist" style="flex:none;max-height:34%"></div>
-  <div class="addwrap"><button id="vizbtn">&#10024; Visualize</button></div>
 </aside>
 
 <main>
