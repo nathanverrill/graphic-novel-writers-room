@@ -461,19 +461,22 @@ $("synth-go").onclick = async () => {
   const st = $("synthstatus");
   $("synth-go").disabled = true; $("send").disabled = true;
   const p = await pendingInfo();
-  let ok = 0, bad = 0, out = [];
-  for (let i = 0; i < p.targets.length; i++){
-    const f = p.targets[i];
-    st.textContent = `⏳ folding refinements into ${f} (${i + 1} of ${p.targets.length})…\n` + out.join("\n");
+  let ok = 0, bad = 0;
+  const state = Object.fromEntries(p.targets.map(f => [f, "⏳ rewriting…"]));
+  const draw = () => { st.textContent = p.targets.map(f => `${f}: ${state[f]}`).join("\n"); };
+  draw();
+  await Promise.all(p.targets.map(async f => {     // each rewrites only its own file
     try {
       const r = await fetch(`/api/${camp}/synthesize`, {method: "POST",
         headers: {"Content-Type": "application/json"}, body: JSON.stringify({file: f})});
       const j = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(j.detail || r.status);
       const d = j.chars_after - j.chars_before;
-      out.unshift(`✓ ${f} (${d >= 0 ? "+" : ""}${d} chars)`); ok++;
-    } catch (e){ out.unshift(`✗ ${f}: ${e.message || e}`); bad++; }
-  }
+      state[f] = `✓ done (${d >= 0 ? "+" : ""}${d} chars)`; ok++;
+    } catch (e){ state[f] = "✗ " + (e.message || e); bad++; }
+    draw();
+  }));
+  const out = p.targets.map(f => `${f}: ${state[f]}`);
   if (ok && !bad){
     await fetch(`/api/${camp}/synthesize-finish`, {method: "POST"});
     st.textContent = `✓ ${ok} files updated. Refinements archived — a fresh pass begins.\n` + out.join("\n");
