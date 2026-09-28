@@ -47,7 +47,23 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .msg{max-width:90%}
 .msg.user{align-self:flex-end;background:var(--panel);border:1px solid var(--line);
   border-radius:12px 12px 4px 12px;padding:9px 13px;white-space:pre-wrap}
-.msg.bot{align-self:flex-start;white-space:pre-wrap}
+.msg.bot{align-self:flex-start}
+.msg.bot > *:first-child{margin-top:0}
+.msg.bot > *:last-child{margin-bottom:0}
+.msg.bot p{margin:.45em 0}
+.msg.bot ul,.msg.bot ol{margin:.45em 0;padding-left:1.35em}
+.msg.bot li{margin:.15em 0}
+.msg.bot h1,.msg.bot h2,.msg.bot h3,.msg.bot h4{font-size:1.02em;margin:.8em 0 .3em}
+.msg.bot code{font-family:ui-monospace,monospace;font-size:.87em;background:var(--panel);
+  padding:.08em .35em;border-radius:4px}
+.msg.bot pre{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;overflow-x:auto}
+.msg.bot pre code{background:none;padding:0}
+.msg.bot blockquote{margin:.5em 0;padding-left:12px;border-left:3px solid var(--line);color:var(--muted)}
+.msg.bot table{border-collapse:collapse;font-size:.9em;margin:.5em 0}
+.msg.bot th,.msg.bot td{border:1px solid var(--line);padding:4px 9px;text-align:left}
+.msg.bot a{color:var(--accent)}
+.msg.bot hr{border:none;border-top:1px solid var(--line);margin:.8em 0}
 .msg.err{align-self:flex-start;color:var(--danger)}
 .msg.wait{align-self:flex-start;color:var(--muted);font-style:italic}
 .sugg{align-self:flex-start;width:100%;max-width:100%;background:var(--panel);border:1px solid var(--line);
@@ -98,6 +114,8 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   main{overflow:visible}
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
 </head>
 <body>
 <header>
@@ -278,7 +296,13 @@ $("fpick").onchange = async () => {
 };
 
 function add(el){ $("hello")?.remove(); chat.append(el); el.scrollIntoView({block: "end"}); return el; }
-function bubble(cls, text){ const d = document.createElement("div"); d.className = "msg " + cls; d.textContent = text; return d; }
+function bubble(cls, text){
+  const d = document.createElement("div"); d.className = "msg " + cls;
+  if (cls === "bot" && window.marked && window.DOMPurify){
+    d.innerHTML = DOMPurify.sanitize(marked.parse(text));
+  } else d.textContent = text;
+  return d;
+}
 function autosize(){ box.style.height = "auto"; box.style.height = Math.min(box.scrollHeight, 180) + "px"; }
 box.addEventListener("input", autosize);
 box.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
