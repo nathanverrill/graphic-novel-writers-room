@@ -251,3 +251,12 @@ art/data/
 
 # hackathon deployment backups: bucket pulls with pasted API keys inside - local only
 backups/
+
+# sprint tools running locally: their state (includes the pasted key in settings.json)
+easel/data/
+persona/data/
+forge/data/
+spine/data/
+station/data/
+nemesis/data/
+canon/data/

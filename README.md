@@ -316,7 +316,30 @@ answer box, a live "how it plays out" line, ✨ AI ideas (three concise options 
 hand), a conclusion stage whose text you edit and can re-roll, and every change auto-saved as an
 immutable version grouped by lineage on a shared roster — nothing is ever lost or overwritten.
 
-Deploy or update an app (same command per team with `-2` / `-3` suffixes on name and bucket):
+### Run one locally — the place to start
+
+Each app runs on its own with two pip packages and no cloud account:
+
+```sh
+cd forge     # or easel, persona, spine, station, nemesis, canon
+python3 -m venv .venv && .venv/bin/pip install fastapi uvicorn
+.venv/bin/uvicorn app:app --port 8080     # open http://localhost:8080
+```
+
+With no `BUCKET` set, state is plain files under the app's `data/` folder (git-ignored — it
+holds the pasted key in `settings.json`); set `DATA_DIR` to put it elsewhere. Everything works
+the same as deployed except the audience: the page is only as shared as your machine's port.
+The AI features (drawing, chat, ideas, the canon check) still call OpenRouter over the
+internet with the key you paste into the app's own API key button — that part has no local mode.
+
+Storage is the only thing that changes between modes, and it is isolated in each app's
+`store.py`: five operations (read text/bytes, write with metadata, exists, list by prefix).
+`BUCKET` unset → local files; `BUCKET` set → that GCS bucket.
+
+### On Cloud Run (how the hackathon runs)
+
+Deploy or update an app (same command per team with `-2` / `-3` suffixes on name and bucket;
+`google-cloud-storage` is already in the Dockerfile):
 
 ```sh
 gcloud run deploy <name> --source <folder> --project evoke-prosperity --region us-central1 \
@@ -324,8 +347,22 @@ gcloud run deploy <name> --source <folder> --project evoke-prosperity --region u
   --set-env-vars BUCKET=evoke-prosperity-<name>
 ```
 
-`backups/` holds timestamped pulls of every app bucket and is git-ignored on purpose: the
-snapshots include each app's `settings.json`, which carries the pasted API key.
+The service account needs read/write on the bucket, and each instance's whole state — gallery,
+rosters, versions, the shared key — is that one bucket, so backing an app up is copying the
+bucket. `backups/` holds timestamped pulls of every app bucket and is git-ignored on purpose:
+the snapshots include each app's `settings.json`, which carries the pasted API key. You can also
+run locally *against* the live bucket (`gcloud auth application-default login`, then
+`pip install google-cloud-storage` and `BUCKET=evoke-prosperity-<name> uvicorn app:app`).
+
+### On S3, directionally
+
+Not built, but the shape is set: `store.py`'s five operations map one-to-one onto boto3 —
+`get_object` / `put_object` (metadata rides in `Metadata=`) / `head_object` /
+`list_objects_v2(Prefix=...)` — so an S3 backend is a third ~40-line class in `store.py`
+selected by an `S3_BUCKET` + `S3_ENDPOINT` pair, credentials from the usual AWS env vars.
+`endpoint_url` makes the same class work against MinIO or SeaweedFS — the room's own compose
+stack already publishes SeaweedFS's S3 API on `127.0.0.1:8333`, so a fully self-hosted setup
+would point the apps there.
 
 ## Layout sketch
 

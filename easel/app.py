@@ -13,19 +13,10 @@ from pathlib import Path
 from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 
-BUCKET = os.getenv("BUCKET", "evoke-prosperity-easel")
 OPENROUTER = "https://openrouter.ai/api/v1"
 app = FastAPI()
 INDEX = (Path(__file__).parent / "index.html").read_text()
-_bucket = None
-
-
-def bucket():
-    global _bucket
-    if _bucket is None:
-        from google.cloud import storage
-        _bucket = storage.Client().bucket(BUCKET)
-    return _bucket
+from store import bucket  # noqa: E402 - GCS when BUCKET is set, ./data files when not
 
 
 @app.get("/")

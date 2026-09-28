@@ -14,7 +14,6 @@ from pathlib import Path
 from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 
-BUCKET = os.getenv("BUCKET", "evoke-prosperity-nemesis")
 OPENROUTER = "https://openrouter.ai/api/v1"
 CHAT_MODEL = os.getenv("CHAT_MODEL", "openai/gpt-5.6-luna")
 FIELDS = ["face", "why", "threat", "power", "clock", "converge", "crack"]
@@ -28,15 +27,7 @@ LABELS = {"face": "the face - who or what the antagonist is",
 
 app = FastAPI()
 INDEX = (Path(__file__).parent / "index.html").read_text()
-_bucket = None
-
-
-def bucket():
-    global _bucket
-    if _bucket is None:
-        from google.cloud import storage
-        _bucket = storage.Client().bucket(BUCKET)
-    return _bucket
+from store import bucket  # noqa: E402 - GCS when BUCKET is set, ./data files when not
 
 
 @app.get("/")
