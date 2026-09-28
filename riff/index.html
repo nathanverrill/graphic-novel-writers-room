@@ -61,6 +61,13 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .logrow .lf{color:var(--accent);font-family:ui-monospace,monospace;font-size:.78rem;flex:none}
 .logrow .lt{flex:1}
 .logrow .ld{color:var(--muted);font-size:.75rem;flex:none}
+.vopt{display:block;padding:6px 4px;font-size:.92rem;cursor:pointer}
+.vopt input{accent-color:var(--accent);margin-right:6px}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.pills button{font-size:.78rem;padding:3px 10px;border-radius:999px}
+.pills button.cur{background:var(--accent);border-color:var(--accent);color:#151021;font-weight:600}
+#v-body details{margin-top:8px;color:var(--muted);font-size:.85rem}
+#v-body details p{white-space:pre-wrap;margin:6px 0 0}
 .hello{color:var(--muted);text-align:center;margin-top:6vh}
 .hello h2{color:var(--ink);font-weight:600}
 footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
@@ -106,6 +113,9 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <div class="list" id="flist"></div>
   <div class="addwrap"><button id="addf">+ Add files (.md, images&hellip;)</button>
     <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden></div>
+  <div class="head"><h2>Visualizations</h2></div>
+  <div class="list" id="vlist" style="flex:none;max-height:38%"></div>
+  <div class="addwrap"><button id="vizbtn">&#10024; Visualize</button></div>
 </aside>
 
 <main>
@@ -128,6 +138,18 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <input id="s-key" type="password" placeholder="sk-or-...">
   <p class="note" id="s-msg"></p>
   <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<dialog id="vizdlg">
+  <h3>Visualize</h3>
+  <p>An infographic from the current material <b>and the refinements</b> &mdash; each run saves a new version.</p>
+  <label class="vopt"><input type="radio" name="vk" value="beats" checked> <b>Story beats</b> &mdash; the key moments on the hero&rsquo;s journey</label>
+  <label class="vopt"><input type="radio" name="vk" value="world"> <b>The world</b> &mdash; settings, sites and institutions</label>
+  <label class="vopt"><input type="radio" name="vk" value="cast"> <b>The cast</b> &mdash; the characters, to their visual locks</label>
+  <label class="vopt"><input type="radio" name="vk" value="settings"> <b>Key settings</b> &mdash; the places the story returns to</label>
+  <label class="vopt"><input type="radio" name="vk" value="pages"> <b>Graphic novel pages</b> &mdash; one rendered page per beat (takes a few minutes)</label>
+  <div id="vizstatus" class="note" style="margin-top:10px;white-space:pre-line"></div>
+  <div class="end"><button id="viz-close">Close</button><button class="primary" id="viz-go">Visualize</button></div>
 </dialog>
 
 <dialog id="logdlg">
@@ -173,7 +195,7 @@ fetch("/api/config").then(r => r.json()).then(c => {
 $("camp").onchange = () => {
   camp = $("camp").value;
   localStorage.setItem("riff-camp", camp);
-  files(); loadChat(); box.focus();
+  files(); loadViz(); loadChat(); box.focus();
 };
 
 async function files(){
@@ -334,6 +356,87 @@ $("logbtn").onclick = async () => {
 };
 $("log-close").onclick = () => $("logdlg").close();
 
+// visualizations: versioned infographics from material + refinements
+async function loadViz(){
+  const list = await (await fetch(`/api/${camp}/viz`)).json();
+  const el = $("vlist"); el.textContent = "";
+  if (!list.length){ const e = document.createElement("div"); e.className = "note"; e.style.padding = "4px 8px";
+    e.textContent = "none yet — hit Visualize"; el.append(e); }
+  list.forEach(v => {
+    const d = document.createElement("div"); d.className = "fitem";
+    d.innerHTML = `<span class="ic">◈</span><span class="n"></span><span class="note"></span>`;
+    d.querySelector(".n").textContent = v.title;
+    d.querySelector(".note").textContent = "v" + v.versions.length;
+    d.onclick = () => openViz(v, v.versions[0]);
+    el.append(d);
+  });
+}
+async function openViz(v, ts){
+  $("v-name").textContent = v.title;
+  const body = $("v-body"); body.textContent = "";
+  $("v-save").hidden = true;
+  const pills = document.createElement("div"); pills.className = "pills";
+  v.versions.forEach((t, i) => {
+    const p = document.createElement("button");
+    p.textContent = "v" + (v.versions.length - i);
+    p.className = t === ts ? "cur" : "";
+    p.onclick = () => openViz(v, t);
+    pills.append(p);
+  });
+  const img = document.createElement("img");
+  img.src = `/api/${camp}/viz/${v.kind}/${ts}`;
+  body.append(pills, img);
+  try {
+    const meta = await (await fetch(`/api/${camp}/viz/${v.kind}/${ts}/meta`)).json();
+    if (meta.prompt){
+      const det = document.createElement("details");
+      det.innerHTML = "<summary>the prompt behind it</summary><p></p>";
+      det.querySelector("p").textContent = meta.prompt;
+      body.append(det);
+    }
+  } catch {}
+  if (!$("viewer").open) $("viewer").showModal();
+}
+$("vizbtn").onclick = () => { $("vizstatus").textContent = ""; $("vizdlg").showModal(); };
+$("viz-close").onclick = () => $("vizdlg").close();
+$("viz-go").onclick = async () => {
+  if (!configured){ $("settings").showModal(); return; }
+  const kind = document.querySelector('input[name="vk"]:checked').value;
+  const st = $("vizstatus");
+  $("viz-go").disabled = true;
+  try {
+    if (kind === "pages"){
+      st.textContent = "reading the material and naming the beats…";
+      const r = await fetch(`/api/${camp}/beats`, {method: "POST"});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      st.textContent = j.beats.map(b => `• ${b.name} (${b.stage})`).join("\n");
+      for (let i = 0; i < j.beats.length; i++){
+        const b = j.beats[i];
+        st.textContent = `rendering page ${i + 1} of ${j.beats.length}: ${b.name}…\n` + st.textContent;
+        const rr = await fetch(`/api/${camp}/visualize`, {method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({kind: "page", n: i + 1, beat: b})});
+        const jj = await rr.json().catch(() => ({}));
+        if (!rr.ok){ st.textContent = `page ${i + 1} failed: ${jj.detail || rr.status}\n` + st.textContent; continue; }
+        loadViz();
+      }
+      st.textContent = "✓ pages done — in the list on the left\n" + st.textContent;
+    } else {
+      st.textContent = "writing the prompt from material + refinements…";
+      const t = setTimeout(() => { st.textContent += "\nrendering…"; }, 6000);
+      const r = await fetch(`/api/${camp}/visualize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({kind})});
+      clearTimeout(t);
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      st.textContent = `✓ ${j.title} — saved as a new version, in the list on the left`;
+      loadViz();
+    }
+  } catch (e){ st.textContent = "failed: " + (e.message || e); }
+  $("viz-go").disabled = false;
+};
+
 $("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
 $("s-cancel").onclick = () => $("settings").close();
 $("s-save").onclick = async () => {
@@ -345,7 +448,7 @@ $("s-save").onclick = async () => {
   $("settings").close(); box.focus();
 };
 
-files(); loadChat(); box.focus();
+files(); loadViz(); loadChat(); box.focus();
 </script>
 </body>
 </html>
