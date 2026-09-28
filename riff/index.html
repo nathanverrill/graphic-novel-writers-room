@@ -44,6 +44,23 @@ main{flex:1;display:flex;flex-direction:column;min-height:0}
 .msg.bot{align-self:flex-start;white-space:pre-wrap}
 .msg.err{align-self:flex-start;color:var(--danger)}
 .msg.wait{align-self:flex-start;color:var(--muted);font-style:italic}
+.sugg{align-self:flex-start;width:100%;max-width:100%;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sugg .t{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.srow{display:flex;gap:9px;align-items:flex-start;font-size:.92rem}
+.srow input{margin-top:3px;accent-color:var(--accent)}
+.srow .body{flex:1}
+.srow .st{font-weight:600}
+.srow .sf{color:var(--accent);font-size:.78rem;font-family:ui-monospace,monospace;margin-left:6px}
+.srow .sc{color:var(--muted);font-size:.86rem}
+.srow .status{font-size:.8rem;margin-top:2px}
+.srow .status.ok{color:#6fb56d}
+.srow .status.err{color:var(--danger)}
+.sugg .actions{display:flex;gap:10px;align-items:center}
+.logrow{display:flex;gap:10px;align-items:baseline;padding:7px 2px;border-bottom:1px solid var(--line);font-size:.9rem}
+.logrow .lf{color:var(--accent);font-family:ui-monospace,monospace;font-size:.78rem;flex:none}
+.logrow .lt{flex:1}
+.logrow .ld{color:var(--muted);font-size:.75rem;flex:none}
 .hello{color:var(--muted);text-align:center;margin-top:6vh}
 .hello h2{color:var(--ink);font-weight:600}
 footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
@@ -78,6 +95,7 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   </select>
   <span class="note">pre-production is the draft &mdash; make it better</span>
   <span class="spacer"></span>
+  <button id="logbtn" title="Every change applied to the material">Change log</button>
   <button id="newchat">New chat</button>
   <button id="gear" title="API key">API key</button>
 </header>
@@ -112,6 +130,13 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
 </dialog>
 
+<dialog id="logdlg">
+  <h3>Change log</h3>
+  <p>Every suggestion applied to this campaign&rsquo;s material, newest first.</p>
+  <div id="logbody"></div>
+  <div class="end"><button id="log-close">Close</button></div>
+</dialog>
+
 <dialog id="viewer">
   <h3 id="v-name"></h3>
   <div id="v-body"></div>
@@ -133,7 +158,10 @@ function loadChat(){
     chat.innerHTML = `<div class="hello"><h2>What should be better?</h2>
       <p>The room finished pre-production — everything in the sidebar is draft.<br>
       Ask anything: <i>make the villain scarier</i> · <i>what’s weak in chapter two?</i> · <i>pitch three better openings</i>.</p></div>`;
-  } else history.forEach(m => add(bubble(m.role === "user" ? "user" : "bot", m.content)));
+  } else history.forEach(m => {
+    add(bubble(m.role === "user" ? "user" : "bot", m.content));
+    if (m.sugg?.length) add(suggCard(m.sugg, m.applied || {}));
+  });
 }
 const saveChat = () => { try { localStorage.setItem(chatKey(), JSON.stringify(history.slice(-60))) } catch {} };
 
@@ -229,11 +257,80 @@ async function send(){
     const j = await r.json().catch(() => ({}));
     wait.remove();
     if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
-    history.push({role: "assistant", content: j.reply}); saveChat();
+    const m = {role: "assistant", content: j.reply, sugg: j.suggestions || [], applied: {}};
+    history.push(m); saveChat();
     add(bubble("bot", j.reply));
+    if (m.sugg.length) add(suggCard(m.sugg, m.applied));
   } catch (e){ wait.remove(); history.pop(); saveChat(); add(bubble("err", String(e.message || e))); }
   $("send").disabled = false; box.focus();
 }
+
+// suggestions: check what you want, apply, watch each file update
+function suggCard(sugg, applied){
+  const card = document.createElement("div"); card.className = "sugg";
+  card.innerHTML = `<span class="t">Suggested updates</span>`;
+  const rows = sugg.map((s, i) => {
+    const r = document.createElement("div"); r.className = "srow";
+    r.innerHTML = `<input type="checkbox"><div class="body"><span class="st"></span>` +
+      `<span class="sf"></span><div class="sc"></div><div class="status"></div></div>`;
+    r.querySelector(".st").textContent = s.title || "Update";
+    r.querySelector(".sf").textContent = s.file;
+    r.querySelector(".sc").textContent = s.change;
+    const st = r.querySelector(".status"), cb = r.querySelector("input");
+    if (applied[i]){ st.textContent = applied[i]; st.className = "status ok"; cb.checked = true; cb.disabled = true; }
+    else cb.checked = true;
+    card.append(r);
+    return {row: r, cb, st, s, i};
+  });
+  const act = document.createElement("div"); act.className = "actions";
+  const btn = document.createElement("button"); btn.className = "primary";
+  btn.textContent = "Apply selected";
+  const note = document.createElement("span"); note.className = "note";
+  act.append(btn, note); card.append(act);
+  if (rows.every(x => x.cb.disabled)) btn.disabled = true;
+  btn.onclick = async () => {
+    const todo = rows.filter(x => x.cb.checked && !x.cb.disabled);
+    if (!todo.length) return;
+    btn.disabled = true;
+    for (const x of todo){
+      x.st.textContent = "updating " + x.s.file + "…"; x.st.className = "status";
+      try {
+        const r = await fetch(`/api/${camp}/apply`, {method: "POST",
+          headers: {"Content-Type": "application/json"}, body: JSON.stringify(x.s)});
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(j.detail || r.status);
+        const delta = j.chars_after - j.chars_before;
+        x.st.textContent = `applied ✓ (${delta >= 0 ? "+" : ""}${delta} chars)`;
+        x.st.className = "status ok"; x.cb.disabled = true;
+        applied[x.i] = x.st.textContent; saveChat();
+      } catch (e){
+        x.st.textContent = "failed: " + (e.message || e); x.st.className = "status err";
+        btn.disabled = false;
+      }
+    }
+    note.textContent = "material updated — the next message uses it";
+    files();
+  };
+  return card;
+}
+
+$("logbtn").onclick = async () => {
+  const body = $("logbody"); body.textContent = "loading…";
+  $("logdlg").showModal();
+  const log = await (await fetch(`/api/${camp}/log`)).json();
+  body.textContent = "";
+  if (!log.length) body.textContent = "Nothing applied yet.";
+  log.forEach(e => {
+    const d = document.createElement("div"); d.className = "logrow";
+    d.innerHTML = `<span class="lf"></span><span class="lt"></span><span class="ld"></span>`;
+    d.querySelector(".lf").textContent = e.file;
+    d.querySelector(".lt").textContent = e.title || e.change.slice(0, 80);
+    d.querySelector(".lt").title = e.change;
+    d.querySelector(".ld").textContent = new Date(e.ts * 1000).toLocaleString([], {month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+    body.append(d);
+  });
+};
+$("log-close").onclick = () => $("logdlg").close();
 
 $("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
 $("s-cancel").onclick = () => $("settings").close();
