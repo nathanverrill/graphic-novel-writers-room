@@ -95,7 +95,7 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
   </select>
   <span class="note">pre-production is the draft &mdash; make it better</span>
   <span class="spacer"></span>
-  <button id="logbtn" title="Every change applied to the material">Change log</button>
+  <button id="logbtn" title="Every refinement the team has accepted">Refinements log</button>
   <button id="newchat">New chat</button>
   <button id="gear" title="API key">API key</button>
 </header>
@@ -131,8 +131,8 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
 </dialog>
 
 <dialog id="logdlg">
-  <h3>Change log</h3>
-  <p>Every suggestion applied to this campaign&rsquo;s material, newest first.</p>
+  <h3>Refinements log</h3>
+  <p>Every refinement this team has accepted, newest first. The draft files stay untouched as the current state.</p>
   <div id="logbody"></div>
   <div class="end"><button id="log-close">Close</button></div>
 </dialog>
@@ -284,27 +284,23 @@ function suggCard(sugg, applied){
   });
   const act = document.createElement("div"); act.className = "actions";
   const btn = document.createElement("button"); btn.className = "primary";
-  btn.textContent = "Apply selected";
+  btn.textContent = "Accept selected";
   const note = document.createElement("span"); note.className = "note";
   act.append(btn, note); card.append(act);
   if (rows.every(x => x.cb.disabled)) btn.disabled = true;
   btn.onclick = async () => {
     const todo = rows.filter(x => x.cb.checked && !x.cb.disabled);
     if (!todo.length) return;
-    btn.disabled = true; $("send").disabled = true;
-    box.placeholder = "hold on — the material is being updated…";
+    btn.disabled = true;
     let done = 0, failed = 0;
     for (const x of todo){
-      note.textContent = `⏳ updating ${done + failed + 1} of ${todo.length}: ${x.s.file}…`;
-      x.st.textContent = "rewriting " + x.s.file + "…"; x.st.className = "status";
+      note.textContent = `saving ${done + failed + 1} of ${todo.length} to refinements…`;
       try {
         const r = await fetch(`/api/${camp}/apply`, {method: "POST",
           headers: {"Content-Type": "application/json"}, body: JSON.stringify(x.s)});
         const j = await r.json().catch(() => ({}));
         if (!r.ok) throw new Error(j.detail || r.status);
-        const delta = j.chars_after - j.chars_before;
-        x.st.textContent = `applied ✓ (${delta >= 0 ? "+" : ""}${delta} chars)`;
-        x.st.className = "status ok"; x.cb.disabled = true;
+        x.st.textContent = "accepted ✓"; x.st.className = "status ok"; x.cb.disabled = true;
         applied[x.i] = x.st.textContent; saveChat();
         done++;
       } catch (e){
@@ -313,10 +309,8 @@ function suggCard(sugg, applied){
       }
     }
     note.textContent = failed
-      ? `${done} applied, ${failed} failed — fix or retry the red ones`
-      : `✓ all ${done} applied — recorded in refinements.md; the next message uses the updated material`;
-    $("send").disabled = false;
-    box.placeholder = "Brainstorm with the material…";
+      ? `${done} accepted, ${failed} failed — retry the red ones`
+      : `✓ ${done} saved to refinements.md — the drafts stay as-is, and the chat builds on these from here`;
     files();
   };
   return card;

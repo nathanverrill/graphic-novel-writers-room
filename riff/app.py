@@ -148,7 +148,9 @@ def chat(camp: str, d: dict = Body(...)):
              "specific to this material, offer options with trade-offs, keep replies tight, and "
              "when you propose a change say exactly which file and section it would change. "
              "Images in the workspace are listed by name; you cannot see them, so ask what is in "
-             "one if it matters.\n\n"
+             "one if it matters. If the material includes refinements.md, those are the changes "
+             "the team has ALREADY accepted: treat them as the newest layer of canon, overriding "
+             "the draft files where they conflict, and never re-suggest what is already there.\n\n"
              "When your reply proposes anything actionable, END it with a fenced block of the "
              "concrete edits, so the team can apply them with one click:\n"
              "```suggestions\n"
@@ -206,50 +208,30 @@ def _model(key, messages, max_tokens):
 
 @app.post("/api/{camp}/apply")
 def apply(camp: str, d: dict = Body(...)):
-    """Apply ONE accepted suggestion to its file; the client loops for feedback per item."""
+    """Accept ONE suggestion: the draft files stay as they are (the current state), the
+    accepted change is recorded in refinements.md, and future chats build on it."""
     camp_ok(camp)
-    key = _key()
-    if not key:
-        raise HTTPException(400, "no API key set yet - use the API key button")
     name = name_ok(str(d.get("file") or ""))
     title = str(d.get("title") or "")[:120]
     change = str(d.get("change") or "").strip()[:1200]
-    if ext(name) not in TEXT_EXT or not change:
-        raise HTTPException(400, "a change and a text file to change")
-    blob = bucket().blob(f"{camp}/files/{name}")
-    try:
-        before = blob.download_as_text()
-    except Exception:
-        raise HTTPException(404, f"no such file: {name}")
-    out = _model(key, [
-        {"role": "system", "content":
-         f"You are the keeper of the draft files of {CAMPS[camp]}, a hard-SF graphic novel. "
-         "Apply exactly one requested change to one file. Return the COMPLETE updated file and "
-         "nothing else - no preamble, no code fences. Preserve everything the change does not "
-         "touch; keep the file's format and heading structure; weave the change in cleanly "
-         "wherever the file addresses that topic (it may touch several sections)."},
-        {"role": "user", "content":
-         f"The file `{name}`:\n\n{before[:200000]}\n\nThe change to apply:\n{title}: {change}\n\n"
-         "Return the complete updated file."}], 16000)
-    out = re.sub(r"^```[a-z]*\n|\n```$", "", out.strip())
-    if len(out) < len(before) * 0.4:
-        raise HTTPException(502, "the rewrite came back too short - file left untouched")
-    blob.upload_from_string(out, content_type="text/markdown")
-    entry = {"ts": int(time.time()), "file": name, "title": title, "change": change,
-             "chars_before": len(before), "chars_after": len(out)}
+    if not change:
+        raise HTTPException(400, "nothing to accept")
+    entry = {"ts": int(time.time()), "file": name, "title": title, "change": change}
     logblob = bucket().blob(f"{camp}/log.jsonl")
     try:
         log = logblob.download_as_text()
     except Exception:
         log = ""
     logblob.upload_from_string(log + json.dumps(entry) + "\n", content_type="application/json")
-    # the running record of what this team changed, as material the next chat reads
+    # the showrunner's notes: accepted direction on top of the untouched draft
     ref = bucket().blob(f"{camp}/files/refinements.md")
     try:
         text = ref.download_as_text()
     except Exception:
-        text = ("# Refinements\n\nWhat this team has changed since the writers' room handed over "
-                "pre-production. Newest last; each entry names the file it changed.\n")
+        text = ("# Refinements - the showrunner's notes\n\nThe draft files below this one are "
+                "the current state as handed over by the writers' room, untouched. These are the "
+                "changes the team has accepted since; each names the file it concerns, and they "
+                "override the draft where the two conflict. Newest last.\n")
     when = time.strftime("%Y-%m-%d %H:%M", time.localtime(entry["ts"]))
     text += f"\n## {title or 'Update'} — {name} ({when})\n\n{change}\n"
     ref.upload_from_string(text, content_type="text/markdown")
