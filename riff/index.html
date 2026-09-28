@@ -26,6 +26,7 @@ button.primary{background:var(--accent);border-color:var(--accent);color:#151021
 aside{width:260px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
 aside .head{padding:12px 14px 4px;display:flex;align-items:center;justify-content:space-between}
 aside h2{font-size:.72rem;margin:0;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.minis{display:flex;gap:5px}
 .mini{padding:2px 9px;font-size:.9rem;border-radius:7px;line-height:1.4}
 .mini:hover{border-color:var(--accent);color:var(--accent)}
 .addlink{background:none;border:none;color:var(--muted);font-size:.8rem;text-align:left;
@@ -117,9 +118,11 @@ dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
 <div class="layout">
 <aside>
   <div class="head"><h2>The material</h2>
-    <button class="mini" id="synthbtn" title="Synthesize: fold the accepted refinements into the drafts, then archive them">&#8635;</button></div>
+    <span class="minis">
+      <button class="mini" id="addf" title="Add files (.md, images&hellip;)">&#65291;</button>
+      <button class="mini" id="synthbtn" title="Synthesize: fold the accepted refinements into the drafts, then archive them">&#8635;</button>
+    </span></div>
   <div class="list" id="flist"></div>
-  <button class="addlink" id="addf">+ add files (.md, images&hellip;)</button>
   <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden>
   <div class="head"><h2>Visualizations</h2>
     <button class="mini" id="vizbtn" title="Visualize: infographics and pages from the material and refinements">&#10024;</button></div>
