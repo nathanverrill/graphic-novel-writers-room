@@ -21,7 +21,8 @@ CHAT_MODEL = os.getenv("CHAT_MODEL", "openai/gpt-5.6-luna")
 IMAGE_MODEL = os.getenv("IMAGE_MODEL", "openai/gpt-image-2.5-sunburst")   # what Easel draws with
 EASEL_BUCKET = {"avalanche": "evoke-prosperity-easel", "avalanche-2": "evoke-prosperity-easel-2",
                 "avengers": "evoke-prosperity-easel-3"}
-CAMPS = {"avalanche": "Avalanche", "avalanche-2": "Avalanche 2", "avengers": "Avengers"}
+CAMPS = {"avalanche": "Avalanche", "avalanche-2": "Avalanche 2", "avengers": "Avengers",
+         "prosperity": "Prosperity"}
 TEXT_EXT = (".md", ".txt")
 IMG_TYPE = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
             ".webp": "image/webp", ".gif": "image/gif"}
@@ -357,6 +358,12 @@ PROMPT_WRITER = (
     "treat refinements.md as the newest canon, overriding the drafts; at most 220 words; end "
     "with the style line given.")
 VIZ = {
+    "info": ("The book at a glance", "A single poster-style infographic that captures the whole "
+             "book at a glance: the title large at the top; a one-line premise beneath it; the "
+             "hero and the antagonist facing each other with their names; the central threat "
+             "between or behind them; the settings as small labeled vignettes; and a miniature "
+             "story arc along the bottom with the key beats named. A reader should grok the "
+             "entire story from this one image."),
     "beats": ("Story beats", "A story-beats infographic titled with the book's title: the hero's "
               "journey drawn as one rising-then-falling arc from left to right with 7 named beat "
               "nodes. Each node is a key moment of THIS story (a 2-4 word name in quotes) placed "
