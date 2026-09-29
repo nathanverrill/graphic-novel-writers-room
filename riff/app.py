@@ -22,7 +22,7 @@ IMAGE_MODEL = os.getenv("IMAGE_MODEL", "openai/gpt-image-2.5-sunburst")   # what
 EASEL_BUCKET = {"avalanche": "evoke-prosperity-easel", "avalanche-2": "evoke-prosperity-easel-2",
                 "avengers": "evoke-prosperity-easel-3"}
 CAMPS = {"avalanche": "Avalanche", "avalanche-2": "Avalanche 2", "avengers": "Avengers",
-         "prosperity": "Prosperity"}
+         "prosperity": "Prosperity", "worldbuilding": "Worldbuilding"}
 TEXT_EXT = (".md", ".txt")
 IMG_TYPE = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
             ".webp": "image/webp", ".gif": "image/gif"}
