@@ -19,7 +19,3 @@ Intake: 4 files from 3 passes (5 model requests). 30 open items, each with optio
 ## Script Coordinator — r05-ai, 2026-09-29 22:13
 
 Revised 5 files from 2 passes (6 model requests): 30 decision(s) and 0 note(s) carried in, facts.md derived. 3 item(s) still open, 0 deferred.
-
-## Script Coordinator — r06-ai, 2026-09-29 22:15
-
-Revised 5 files from 2 passes (5 model requests): 6 decision(s) and 0 note(s) carried in, facts.md derived. 5 item(s) still open, 0 deferred.

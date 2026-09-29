@@ -112,7 +112,9 @@ TJ identifies a snow-covered “submarine” hatch exposed beneath the fracture.
 
 TJ is the only member of the immediate team able to answer the bunker’s machine challenge. Bi11bot, a living but off-page scavenger-engineer, rebuilt TJ for autonomous exploration from parts salvaged from a decommissioned Nexus support unit and released TJ into the world. Roman later encountered TJ during his expeditions. Bi11bot does not appear directly in the book. `(characters.md; rules/decisions.md)`
 
-When TJ opens the Falcon hatch, the authentication hardware remains mostly concealed. The on-page reveal is limited to a worn institutional plate and connector bundle exposed behind TJ’s rib panel, with enough faded marking to establish inherited Nexus/Falcon provenance. The module answers the bunker’s machine challenge but does not grant access to every system inside. Its internal construction, dimensions, and casing remain reserved for later production design. `(rules/decisions.md)`
+The salvaged components include TJ’s core processor, actuator controllers, power-management board, sensor bus, and authentication module. The Falcon module is sealed behind TJ’s rib panel. Original Nexus parts retain faded institutional markings; Bi11bot’s repairs are visibly mismatched and hand-fabricated. `(rules/decisions.md)`
+
+TJ’s access is inherited hardware, not unlimited hacking. It can answer the Falcon machine challenge, but the module does not grant access to every system inside. `(rules/decisions.md)`
 
 TJ opens the hatch. The team enters a dusty, partly unused bunker containing maps, charts, computers, rolling chairs, pens, Falcon logos, and evidence of a covert drilling operation. The scene makes the facility legible through objects rather than exposition.
 
@@ -127,9 +129,7 @@ The team finds evidence that:
 - The drilling is intended to claim data, access, and future rights.
 - Someone has been sending secret compressed messages from Antarctica.
 
-The first warning fragment is recovered inside Falcon from damaged local storage. The visual presentation is deliberately austere and partially unreadable: fragmented coordinate packets, broken timing marks, and incomplete data blocks survive without a clean sender label or reliable full transmission. The bursts contain drilling coordinates, ice-movement data, and warnings that the extraction program is accelerating Larsen-system instability. The warning schedule becomes legible only later, when compared against Orien’s notes. `(rules/decisions.md)`
-
-The sender remains unidentified at this point. Orien’s authorship is established later, when his notes reproduce the warning schedule. The warnings are automated and triggered by new drilling or ice-movement data. `(rules/decisions.md)`
+The first warning fragment is recovered inside Falcon from a damaged local storage unit. The sender remains unidentified in the initial messages. The bursts contain drilling coordinates, ice-movement data, and warnings that the extraction program is accelerating Larsen-system instability. Orien’s authorship is not established at this point. It is established later, when his notes reproduce the warning schedule. `(rules/decisions.md)`
 
 The immediate discovery changes the team’s objective from “investigate an exposed bunker” to “determine what Falcon is doing, who is suppressing the evidence, and whether the local danger is part of a wider system.”
 
@@ -141,19 +141,19 @@ Falcon’s incomplete or redacted records point toward Nexus. The first chapter 
 
 #### Page 9: Colorado and Roman’s chronology
 
-Roman works for Clear Spring Global in Colorado as a chemical engineer. Orien Keel, a Nexus chemist, mentors him. Roman’s Colorado history is fixed: he was born in 2024, attended CU Boulder from 2042 to 2046, met Sitara at a 2044 seminar where she explained ice records and water loss, graduated in spring 2046, and began CSG employment shortly afterward. `(rules/decisions.md)`
+Roman works for Clear Spring Global in Colorado as a chemical engineer. Orien Keel, a Nexus chemist, mentors him. Roman’s Colorado history is now fixed: he was born in 2024, attended CU Boulder from 2042 to 2046, met Sitara at a 2044 seminar where she explained ice records and water loss, graduated in spring 2046, and began CSG employment shortly afterward. `(rules/decisions.md)`
 
-Orien researches dried rivers and lakes, connecting Colorado’s water stress to climate warming and to the company’s drilling and energy interests. Orien’s age and appearance remain open for the Character Designer. No fixed voice or signature line is established. His warnings are automated and triggered by new drilling or ice-movement data. The exact warning schedule, transmission mechanics, and chronology from firing through death remain unspecified. `(rules/decisions.md)`
+Orien researches dried rivers and lakes, connecting Colorado’s water stress to climate warming and to the company’s drilling and energy interests. Orien’s age, appearance, voice, and exact chronology remain open for the Character Designer. The warnings are automated, triggered by new drilling or ice-movement data. `(rules/decisions.md)`
 
 Benedict Croft controls CSG. He believes that controlled suppression is necessary to preserve CSG’s power and the energy system. He tells himself that continued corporate dominance will allow him to fund beneficial work later. His motive is not simple hatred of science: he wants to control the pace, ownership, and political consequences of information. `(rules/decisions.md)`
 
 #### Page 10: Orien is fired and dies
 
-When Croft learns that Orien is connecting the company’s activities to worsening environmental conditions, Orien is fired. Orien begins or continues automated warnings triggered by new drilling or ice-movement data. The exact timing of the firing, warnings, and death remains unspecified.
+When Croft learns that Orien is connecting the company’s activities to worsening environmental conditions, Orien is fired. Orien begins or continues automated warnings triggered by new drilling or ice-movement data. He later dies. The chronology of firing, death, and each warning remains deliberately unspecified.
 
 Orien’s death is investigated as neglect and corporate retaliation. The evidence establishes Croft’s causal and ethical responsibility, but not that Croft directly ordered a killing. `(rules/decisions.md)`
 
-After Orien’s death, Roman, as Orien’s next of kin in the detailed draft, sorts through Orien’s belongings. He finds paper files from CSG’s Antarctic work. One file names Nexus and Project 863, but CSG servers contain no corresponding record. This discovery shifts Roman’s motivation from completing an older scientist’s work to investigating whether Orien was silenced and whether the company erased a program that could affect climate and resource policy. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
+Roman, as Orien’s next of kin in the detailed draft, goes through Orien’s belongings after Orien’s death. He finds paper files from CSG’s Antarctic work. One file names Nexus and Project 863, but CSG servers contain no corresponding record. This discovery shifts Roman’s motivation from completing an older scientist’s work to investigating whether Orien was silenced and whether the company erased a program that could affect climate and resource policy. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
 
 #### Page 11: Roman enters the Antarctic program
 
@@ -176,13 +176,13 @@ Roman and TJ travel approximately two hours over ice to Nexus, using a weather-d
 
 Sitara, Nayah, and TJ follow Falcon coordinates toward Nexus. The facility is a decommissioned cave laboratory with an entry shaft, archive, ecological tank, damaged corridors, and lower access routes. Exact dimensions remain open. The production anchors are the Falcon hatch/control room/drill zone, the Nexus entry shaft/archive/ecological tank, and a separate heated community shelter used for evacuation. `(rules/decisions.md)`
 
-Teams may rappel through damaged shafts toward sealed lower sections, using the single familiar canine TJ body to identify routes and hazards. Alternate forms and swarm architecture exist in TJ’s wider history but remain off-page reference material in this book. “TJ units” refers to remote sensors or equipment in the reference material, not additional embodied TJs. `(rules/decisions.md)`
+Teams may rappel through damaged shafts toward sealed lower sections, using TJ only in its familiar canine field body to identify routes and hazards. Alternate forms and swarm architecture exist in TJ’s wider history but remain off-page reference material in this book. “TJ units” refers to remote sensors or equipment in the reference material, not additional embodied TJs. `(rules/decisions.md)`
 
 The emergency begins as a moving ice fracture shifts the cave structure. A corridor collapses, a lower access route floods, and a storm closes the return route. The teams must stabilize a passage and evacuate together. `(rules/decisions.md)`
 
 #### Page 14: The teams meet
 
-Sitara, Nayah, and TJ find Roman and TJ’s remote equipment in Nexus during the emergency. The narrative does not present two dogs or separate embodied TJs. One familiar canine body—silver paneling, green-and-black screen, and red booties—stands between the human teams. `(rules/decisions.md)`
+Sitara, Nayah, and TJ find Roman and the single TJ in Nexus during the emergency. The narrative does not present two dogs or separate embodied TJs. One familiar canine body—silver paneling, green-and-black screen, and red booties—stands between the human teams. `(rules/decisions.md)`
 
 The emergency forces cooperation before the characters can settle trust or ownership questions. The immediate objective is evacuation, stabilization, and preservation of the Nexus evidence—not argument over who discovered it first.
 
@@ -282,7 +282,7 @@ The package includes:
 
 - Falcon drilling coordinates and operational records.
 - Ice-movement data.
-- The unidentified compressed warning bursts, preserved as fragmented coordinate packets and timing marks.
+- The unidentified compressed warning bursts.
 - Nexus climate, krill, and sediment data.
 - The dead-tank sensor record.
 - The Project 863 technical record and its limitations.
@@ -379,8 +379,8 @@ The escalation changes the problem at each stage:
 
 - **When:** Pages 6–7, when TJ opens the hatch.
 - **To whom:** Sitara and Nayah; Roman later learns the full history.
-- **Reveal:** TJ carries a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction. On page, the reveal is limited to a worn institutional plate and connector bundle behind TJ’s rib panel.
-- **Change:** TJ’s two apparently contradictory histories become one. Access is narrow and does not make TJ an all-powerful hacker. The module’s internal construction remains unspecified for later production design. `(rules/decisions.md)`
+- **Reveal:** TJ carries a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction.
+- **Change:** TJ’s two apparently contradictory histories become one. Access is narrow and does not make TJ an all-powerful hacker. `(rules/decisions.md)`
 
 ### Falcon’s true purpose
 
@@ -393,15 +393,15 @@ The escalation changes the problem at each stage:
 
 - **When:** Page 8, then again through later records.
 - **To whom:** The team first; the public later.
-- **Reveal:** Damaged local storage contains austere, partially unreadable compressed bursts with fragmented drilling coordinates, ice-movement data, timing marks, and warnings that extraction is accelerating Larsen-system instability. The sender is initially unidentified.
-- **Change:** The team gains both a route and an internal witness, but not yet the witness’s name. Orien’s authorship is established only when his notes reproduce the warning schedule. The warnings are automated and triggered by new drilling or ice-movement data. `(rules/decisions.md)`
+- **Reveal:** Damaged local storage contains compressed bursts with drilling coordinates, ice-movement data, and warnings that extraction is accelerating Larsen-system instability. The sender is initially unidentified.
+- **Change:** The team gains both a route and an internal witness, but not yet the witness’s name. Orien’s authorship is established only when his notes reproduce the warning schedule. `(rules/decisions.md)`
 
 ### Orien’s connection to Nexus
 
 - **When:** Page 10, through Orien’s belongings.
 - **To whom:** Roman first.
-- **Reveal:** Orien was a Nexus chemist who advanced Project 863, discovered Falcon, hid corroborating records, and was fired by Croft. Roman discovers the belongings after Orien’s death.
-- **Change:** Roman’s search becomes an investigation into retaliation and erased institutional history. Orien’s age, appearance, voice, and exact chronology remain open for the Character Designer and later production decisions. `(rules/decisions.md)`
+- **Reveal:** Orien was a Nexus chemist who advanced Project 863, discovered Falcon, hid corroborating records, and was fired by Croft.
+- **Change:** Roman’s search becomes an investigation into retaliation and erased institutional history. `(rules/decisions.md)`
 
 ### Falcon and Nexus are one program
 
@@ -510,8 +510,8 @@ The escalation changes the problem at each stage:
 - **Where it falls:** Pages 6–7.
 - **Where it happens:** Exposed Antarctic bunker entrance.
 - **Who is in it:** Sitara, Nayah, and TJ.
-- **What happens:** TJ identifies the buried hatch and answers its machine challenge using inherited Falcon authentication hardware. Only a worn institutional plate and connector bundle are visibly revealed behind TJ’s rib panel.
-- **The one image the reader must see:** The Falcon symbol engraved in the hatch, reflected in TJ’s green-and-black screen, with the worn plate and connector bundle just visible as the hatch accepts the challenge. `(input/amelia.md; rules/decisions.md)`
+- **What happens:** TJ identifies the buried hatch and answers its machine challenge using inherited Falcon authentication hardware.
+- **The one image the reader must see:** The Falcon symbol engraved in the hatch, reflected in TJ’s green-and-black screen. `(input/amelia.md; rules/decisions.md)`
 
 ### The bunker evidence
 
@@ -526,7 +526,7 @@ The escalation changes the problem at each stage:
 - **Where it falls:** Page 10.
 - **Where it happens:** Orien Keel’s belongings or office archive.
 - **Who is in it:** Roman and the absent presence of Orien.
-- **What happens:** After Orien’s death, Roman finds the Nexus and Project 863 references. The digital record is empty or redacted.
+- **What happens:** Roman finds the Nexus and Project 863 references after Orien has been fired and dies. The digital record is empty or redacted.
 - **The one image the reader must see:** Roman holding a physical file whose Nexus label remains legible while a search screen returns no matching record. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
 
 ### TJ searches the Antarctic paper archive
@@ -617,9 +617,10 @@ The final emotional change is collective rather than triumphant. Sitara stops tr
 
 ## Open
 
-- **Orien’s age and appearance remain open for the Character Designer.** No fixed voice, signature line, warning schedule, transmission mechanics, or exact chronology from firing through death has been established. The warnings are automated and triggered by new drilling or ice-movement data, and Roman discovers Orien’s belongings after Orien’s death. `(rules/decisions.md)`
+- **Exact visual and production details of the Falcon authentication module remain open.** Its components, sealed rib-panel placement, inherited markings, and limited function are settled, but exact dimensions, casing, and wear remain available for production design. `(rules/decisions.md)`
+- **Orien’s age, appearance, voice, and exact chronology remain open for the Character Designer.** The warnings are automated and triggered by new drilling or ice-movement data; Roman discovers Orien’s belongings after Orien’s death. `(rules/decisions.md)`
 - **The exact dimensions and floor plans of Falcon, Nexus, and the Antarctic community remain open.** The production anchors are fixed: Falcon hatch/control room/drill zone; Nexus entry shaft/archive/ecological tank; and a separate heated community shelter used for evacuation. `(rules/decisions.md)`
 - **The exact legal name and scale of the nonprofit public-benefit organization remain open until the Director approves the institution.** Development materials should use a temporary descriptive label. `(rules/decisions.md)`
 - **Ownership, financing, patents, recovered-material title, benefit distribution, and long-term governance of the Colorado pilot remain open at the ending.** The conflict is among CSG licensing control, university open publication, conservation watershed reinvestment, and affected-community voting authority. `(rules/decisions.md)`
 - **The specific geological resource Falcon hopes eventually to claim remains open and must remain unnamed in the book.** Show boreholes, seismic data, pumps, access claims, and future-rights language without naming a recoverable commodity. `(rules/decisions.md)`
-- **The internal construction and exact physical design of TJ’s inherited authentication module remain open for production design.** On page, reveal only a worn institutional plate and connector bundle behind TJ’s rib panel when TJ opens the Falcon hatch. `(rules/decisions.md)`
+- **The precise visual language of the unidentified warning bursts remains open within the settled constraints.** The messages are recovered from damaged local storage; their sender is initially unidentified; Orien’s authorship is established later through the reproduced warning schedule. `(rules/decisions.md)`

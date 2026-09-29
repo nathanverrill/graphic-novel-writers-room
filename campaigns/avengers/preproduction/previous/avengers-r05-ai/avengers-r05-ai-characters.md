@@ -173,7 +173,7 @@ TJ's protective instinct can become controlling. Its established arc requires it
 - **Bi11bot:** Bi11bot is a living but off-page scavenger-engineer who rebuilt TJ for autonomous exploration and released TJ into the world. Roman later encountered TJ during his expeditions. Bi11bot does not appear directly in the book. `(rules/decisions.md)`
 - **Falcon/Nexus systems:** TJ's inherited hardware includes a salvaged Falcon authentication module. It can answer the bunker’s machine challenge, but this access does not grant TJ access to every system inside. `(rules/decisions.md)`
 
-**Hardware provenance:** Bi11bot salvaged TJ's core processor, actuator controllers, power-management board, sensor bus, and authentication module from a decommissioned Nexus support unit. The authentication module remains mostly concealed behind TJ's rib panel. When TJ opens the Falcon hatch, the visible evidence is limited to a worn institutional plate and connector bundle. Original Nexus parts retain faded institutional markings, while Bi11bot's repairs are visibly mismatched and hand-fabricated. The module's internal construction, exact dimensions, casing, and wear remain open for later production design. `(rules/decisions.md)`
+**Hardware provenance:** Bi11bot salvaged TJ's core processor, actuator controllers, power-management board, sensor bus, and authentication module from a decommissioned Nexus support unit. The authentication module is sealed behind TJ's rib panel. Original Nexus parts retain faded institutional markings, while Bi11bot's repairs are visibly mismatched and hand-fabricated. `(rules/decisions.md)`
 
 **History:** Bi11bot rebuilt TJ for autonomous exploration from salvaged Nexus support hardware and released TJ into the world. Roman later encountered TJ during his expeditions. TJ's Falcon access comes from the inherited authentication module. This history reconciles TJ's scavenger-built fabricator, Roman bond, and earlier Nexus-support hardware. `(rules/decisions.md)`
 
@@ -217,21 +217,21 @@ He is commercially sophisticated and capable of producing genuine public benefit
 
 **Age and appearance:** Open for the Character Designer. No settled age, physical appearance, clothing, or recurring visual anchor is established. `(rules/decisions.md)`
 
-**Voice:** No settled speech pattern or signature line is established. His dialogue, if shown, remains available for later characterization.
+**Voice:** No settled speech pattern or signature line is established.
 
 **Who he is:** Orien advanced Project 863, a bounded catalytic chemical-recycling process, and investigated the ecological consequences of CSG's extraction program. He discovered Falcon's illegal exploratory drilling and concealed corroborating records before Croft fired him. `(rules/decisions.md)`
 
 Orien is described as solitary. He researches dried rivers and lakes in Colorado and connects severe warming to fossil-fuel extraction and use. His work gives Roman both a scientific mentor and the first human link between CSG's public research and its concealed operations. `(input/seb.md; input/team2-mcmurdo-background.md)`
 
-**Warnings:** Orien's warnings are automated. They are triggered by new drilling or ice-movement data. The exact schedule, timing, and transmission mechanics remain unspecified. `(rules/decisions.md)`
+**Warnings:** Orien's warnings are automated. They are triggered by new drilling or ice-movement data. The exact schedule and transmission mechanics remain unspecified. `(rules/decisions.md)`
 
 **Relationships:**
 
-- **Roman:** Orien mentors Roman at CSG. After Orien is fired and dies, Roman becomes his next of kin and sorts through his belongings. Roman discovers Orien's belongings after Orien's death. This discovery turns Roman's professional curiosity into a personal investigation. `(input/seb.md; rules/decisions.md)`
+- **Roman:** Orien mentors Roman at CSG. After Orien is fired and dies, Roman becomes his next of kin and sorts through his belongings. This discovery turns Roman's professional curiosity into a personal investigation. `(input/seb.md)`
 - **Croft:** Croft sees Orien's research as a threat to CSG's power and fires him. Orien's hidden records preserve evidence Croft attempted to suppress. `(rules/decisions.md)`
 - **Sitara and Nayah:** They do not personally know Orien in the established material, but his records become part of the evidence they must corroborate with ice and ecological data.
 
-**History:** Orien worked at Nexus, advanced Project 863, discovered the relationship between Falcon's extraction program and environmental damage, and hid records before being dismissed. After his dismissal he dies in circumstances investigated as neglect and corporate retaliation. The evidence establishes Croft's causal and ethical responsibility but not a direct order to kill him. Roman discovers Orien's belongings after Orien's death. The precise chronology from firing through the automated warnings, death, and Roman's discovery remains open. `(rules/decisions.md)`
+**History:** Orien worked at Nexus, advanced Project 863, discovered the relationship between Falcon's extraction program and environmental damage, and hid records before being dismissed. After his dismissal he dies in circumstances investigated as neglect and corporate retaliation. The evidence establishes Croft's causal and ethical responsibility but not a direct order to kill him. Roman discovers Orien's belongings after Orien's death. `(rules/decisions.md)`
 
 **In existing drafts:** Roman finds Orien's files after his death, including references to Nexus and Project 863. At Nexus, Roman finds Orien's former office and less-redacted research records. `(input/seb.md; drafts/outline.md)`
 

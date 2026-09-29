@@ -4,7 +4,7 @@
 
 - **FIXED —** The story is set in **2046**. Its settings are **Antarctica, the Himalayas, and Colorado**. `(rules/rules.md)`
 - **FIXED —** Both crossover storylines are true in the same world: the Sitara–Nayah–Falcon–illegal-extraction story and the Roman–Croft–Orien–Nexus story must be reconciled rather than discarded. `(rules/avengers.md)`
-- **FIXED —** The single existential threat is the combined ecological cascade caused by **Antarctic sea-ice loss and Larsen-system instability**. Illegal extraction and information suppression are the human mechanisms preventing an adequate response. `(rules/decisions.md)`
+- **FIXED —** The single existential threat is the combined ecological cascade caused by **Antarctic sea-ice loss and Larsen-system instability**. Illegal extraction and suppression of information are the human mechanisms preventing an adequate response. `(rules/decisions.md)`
 - **FIXED —** Falcon was the operational and extraction-monitoring site. Nexus was the research site belonging to the same CSG-linked program. Falcon documented the damage; Nexus studied its ecological consequences and possible waste-to-value responses. `(rules/decisions.md)`
 - **FIXED —** Project 863 is the sole major **L** element. It uses catalytic chemical recycling to depolymerize selected waste plastics into hydrocarbon feedstock. `(rules/decisions.md; rules/hard-sf-rules.md)`
 - **FIXED —** Everything around Project 863 remains hard science fiction: sorting, heat, energy, clean feedstock, residual waste, emissions, incomplete plastic compatibility, and limited scale all matter. `(rules/decisions.md; rules/hard-sf-rules.md)`
@@ -14,17 +14,6 @@
 - **FIXED —** Its ending status is limited to a public release and a pilot in Colorado. Ownership, financing, and long-term governance remain contested. `(rules/decisions.md)`
 - **FIXED —** Larsen C fractures during the climax but does not fully collapse. The characters can stop the drilling that worsens local instability, preserve and transmit evidence, and evacuate endangered personnel; they cannot reverse climate change or restore the ice shelf. `(rules/decisions.md)`
 - **FIXED —** The final institutional response is hearings and an inspection request, not immediate arrests. The realistic victory is making suppression impossible and creating a public record. `(rules/decisions.md)`
-- **FIXED —** The nonprofit public-benefit organization’s legal name, exact headquarters, and operational scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
-- **FIXED —** The Colorado governance conflict is among CSG seeking control through licensing, university scientists seeking open publication, conservation representatives seeking watershed reinvestment, and affected Colorado communities seeking voting authority over deployment. `(rules/decisions.md)`
-- **FIXED —** The public release triggers a U.S. congressional or executive hearing, a national environmental and permitting investigation, and a formal Antarctic Treaty inspection request. The book names no single global police authority and leaves penalties unresolved. `(rules/decisions.md)`
-- **FIXED —** Merritt Station is a separate Alpha Dynamics facility in Wilkes Land, East Antarctica, outside the Larsen action. It does not appear physically in this book and has no established ownership or operational connection to CSG, Falcon, or Nexus. `(rules/worldbuilding/alpha_dynamics_merritt_station_reference.md; rules/decisions.md)`
-- **FIXED —** Falcon’s surveyed resource remains unnamed. The book shows boreholes, seismic data, pumps, access claims, and future-rights language without naming a recoverable commodity. `(rules/decisions.md)`
-- **FIXED —** The two-hour over-ice journey between the Larsen-region sites is a best-case route. The route is intermittently relocated, surveyed, or abandoned as crevasses and ice movement change; the emergency closes the route rather than treating it as dependable infrastructure. `(references/team1-scott-base-research.md; rules/decisions.md)`
-- **FIXED —** The surviving systems inside Nexus are deliberately partial: air is breathable near open access points, heat exists only in one archive chamber, water comes from melted ice and must be treated, and data survives on insulated offline media rather than a functioning network. `(rules/decisions.md)`
-- **FIXED —** Active Antarctic bases receive seasonal ship or aircraft resupply supplemented by tracked over-ice convoys. Water is produced from treated snow or ice, medical supplies are limited, and evacuation requires a route/weather window plus authorization from the base operations lead. `(references/team1-scott-base-research.md; rules/decisions.md)`
-- **FIXED —** The Colorado pilot shows a small batch reactor processing clean PET and a visibly separate contaminated reject stream. Recovered heat preheats the next batch; emissions monitoring and residual disposal remain visible parts of the process. `(references/team1-scott-base-research.md; references/team2-mcmurdo-research.md; rules/decisions.md)`
-- **FIXED —** Ownership remains deliberately contested at the ending. The public release establishes access to the research, but contracts, patents, recovered-material title, and benefit distribution remain under negotiation. `(rules/decisions.md)`
-- **FIXED —** The Antarctic community uses three production anchors: Falcon’s hatch, control room, and drill zone; Nexus’s entry shaft, archive, and ecological tank; and a separate heated community shelter used for evacuation. Exact dimensions remain open. `(rules/decisions.md)`
 
 ## Overview
 
@@ -67,19 +56,9 @@ The Antarctic setting is the **Larsen region**, especially the area around Larse
 - weather-dependent over-ice travel;
 - intermittent or delayed satellite communication. `(input/amelia.md; input/team1-scott-base-background.md; input/team2-mcmurdo-background.md; rules/decisions.md)`
 
-Falcon and Nexus are close enough to be connected by a roughly **two-hour over-ice journey under best-case conditions**, but the route is intermittently relocated, surveyed, or abandoned as crevasses and ice movement change. `(rules/decisions.md; references/team1-scott-base-research.md)`
-
-The route is not dependable infrastructure. During the emergency, ice movement and weather close it, making return by the usual route impossible. `(rules/decisions.md)`
+Falcon and Nexus are close enough to be connected by a roughly **two-hour over-ice journey**, but the route is dependent on weather and ice conditions. `(rules/decisions.md; references/team1-scott-base-research.md)`
 
 Human habitation is concentrated in accessible coastal research zones. Falcon is inland and operationally isolated. Nexus occupies a nearby coastal cave system. Wildlife appears only where habitat and season permit it; the material emphasizes that little wildlife remains visible around the human community. `(rules/decisions.md; input/team2-mcmurdo-background.md)`
-
-The production anchors for the central Antarctic community are:
-
-- the Falcon hatch, control room, and drill zone;
-- the Nexus entry shaft, archive, and ecological tank;
-- a separate heated community shelter used for evacuation.
-
-Exact dimensions and floor plans remain open. `(rules/decisions.md)`
 
 ### Larsen system
 
@@ -97,7 +76,7 @@ Sea-ice decline, krill decline, and Larsen C failure are related but not identic
 - Larsen C is an ice-shelf hazard intensified by atmospheric and oceanic warming;
 - local drilling can worsen local instability but does not single-handedly cause global ice-shelf collapse. `(rules/decisions.md)`
 
-The setting uses real operational responses to unstable ice: camps may be relocated, airborne surveys may replace some ground surveys, crews avoid crevasse zones, and ice movement is monitored in real time. Routes are surveyed and may be shifted or abandoned as conditions change. `(references/team1-scott-base-research.md; rules/decisions.md)`
+The setting uses real operational responses to unstable ice: camps may be relocated, airborne surveys may replace some ground surveys, crews avoid crevasse zones, and ice movement is monitored in real time. `(references/team1-scott-base-research.md)`
 
 ### Colorado
 
@@ -122,15 +101,6 @@ The Colorado–Antarctica parallel is ecological rather than identical:
 
 The waste-to-value organization applies bounded recycling research in Colorado, while Antarctic ecological records demonstrate why conservation investment is urgent. `(rules/decisions.md)`
 
-The exact legal name, headquarters, funding structure beyond initial CSG funding, and operational scale of the organization remain open. Development materials use a temporary descriptive label. `(rules/decisions.md)`
-
-The ending leaves a concrete governance conflict in place:
-
-- CSG seeks control through licensing;
-- university scientists seek open publication;
-- conservation representatives seek watershed reinvestment;
-- affected Colorado communities seek voting authority over deployment. `(rules/decisions.md)`
-
 ### Himalayas
 
 The Himalayas are both a backstory setting and a continuing emotional and scientific reference point. The project material places Sitara’s family history in a fictional Thakali settlement in the Kali Gandaki region and uses Nepal as the location of Roman’s 2042 accident. `(rules/decisions.md; input/amelia.md; input/team2-mcmurdo-background.md)`
@@ -152,8 +122,6 @@ The Antarctic sites were originally framed as legitimate climate, ice-core, ecol
 
 Nexus was eventually decommissioned after its researchers documented connections among extraction, sea-ice loss, and krill decline. Its power is off, but insulated archives and limited emergency systems remain. `(rules/decisions.md)`
 
-Inside Nexus, the surviving systems are deliberately partial. Air is breathable near open access points. Heat exists only in one archive chamber. Water comes from melted ice and must be treated. Data survives on insulated offline media rather than a functioning network. `(rules/decisions.md)`
-
 Nexus’s ecological program included a krill ecosystem tank. The tank is dead in 2046, but its sensor data and sediment samples preserve evidence that krill reproduction failed as sea-ice conditions changed. `(rules/decisions.md)`
 
 The station’s older paper records matter because portions of the research were never fully digitized or were later redacted. Paper archives survive in filing rooms, offices, and insulated storage. `(input/team2-mcmurdo-background.md; input/seb.md)`
@@ -171,7 +139,7 @@ The research developed alongside ecological work rather than replacing it:
 
 ### Illegal exploratory extraction
 
-The Antarctic operation is not yet commercially extracting a named resource. It is conducting illegal exploratory drilling to claim data, access, and future rights before a resource becomes legally exploitable. The resource remains deliberately agnostic in the book. `(rules/decisions.md)`
+The Antarctic operation is not yet commercially extracting a resource. It is conducting illegal exploratory drilling to claim data, access, and future rights before the resource becomes legally exploitable. `(rules/decisions.md)`
 
 Falcon is therefore a covert exploration and monitoring installation rather than a conventional mine. Its systems include:
 
@@ -187,11 +155,13 @@ CSG operates under a legitimate scientific-drilling permit and disguises resourc
 
 ### Suppression and secret messages
 
-The initial messages have an unidentified sender. They are recovered from a damaged local storage unit rather than received as a fully reliable live transmission. The messages contain compressed bursts with drilling coordinates, ice-movement data, and warnings that extraction is accelerating Larsen-system instability. `(rules/decisions.md)`
+A Falcon scientist secretly transmits compressed bursts containing:
 
-The visual presentation is deliberately austere and partially unreadable. Damaged local storage yields fragmented coordinate packets and timing marks. The warning schedule becomes clear only when compared against Orien’s notes. `(rules/decisions.md)`
+- drilling coordinates;
+- ice-movement data;
+- warnings that extraction is accelerating Larsen-system instability. `(rules/decisions.md)`
 
-Orien Keel’s authorship is established only when his notes reproduce the warning schedule. The warnings are automated and triggered by new drilling or ice-movement data. `(rules/decisions.md)`
+These messages are automated warnings created by Orien Keel after he discovered Falcon’s extraction program and hid corroborating records. `(rules/decisions.md)`
 
 ## Institutions and Corporate Power
 
@@ -224,8 +194,6 @@ The company is not required to behave like a cartoonishly evil organization. Its
 
 Benedict Croft is the sole principal human antagonist. “Greed” and “bob” are discarded placeholder names for the antagonist function, not separate characters or organizations. `(rules/decisions.md)`
 
-Croft is a man in his early sixties with white hair. He wears a weathered but expensive field coat over formal clothing. His calm institutional voice repeatedly uses “responsibility,” “stability,” and “timing.” `(rules/decisions.md)`
-
 Croft believes controlled suppression is necessary to preserve CSG’s power and the existing energy system. He tells himself that continued corporate dominance will allow him to fund future beneficial work. `(rules/decisions.md)`
 
 Croft’s power derives from:
@@ -235,11 +203,9 @@ Croft’s power derives from:
 - relationships and institutional dependencies;
 - influence over research employment;
 - control of publication channels and corporate records;
-- the ability to discredit or isolate researchers. `(input/nemesis-threats.md; input/team2-mcmurdo-background.md; rules/decisions.md)`
+- the ability to discredit inconvenient findings. `(input/nemesis-threats.md; input/team2-mcmurdo-background.md; rules/decisions.md)`
 
 The corporate system can punish researchers through firing, isolation, loss of access, and reputational attack. Orien’s death is investigated as neglect and corporate retaliation. Evidence establishes Croft’s causal and ethical responsibility, but not that he directly ordered a killing. `(rules/decisions.md)`
-
-Croft’s first public response to Roman’s publication concedes that Project 863 exists while claiming that Roman conflated an experimental recycling process with unrelated drilling data and violated confidentiality. This makes the release appear both ethically and technically compromised. `(rules/decisions.md)`
 
 ### The nonprofit public-benefit organization
 
@@ -249,11 +215,9 @@ The waste-to-value organization began as a CSG research division and later exist
 - conservation representatives;
 - affected communities. `(rules/decisions.md)`
 
-Its authority extends to conservation deployments, but not private extraction. It may operate between Antarctic evidence and Colorado pilot programs, but its ownership, financing, and long-term governance remain contested at the end. `(rules/decisions.md)`
+Its authority extends to conservation deployments, but not private extraction. The organization may operate between Antarctic evidence and Colorado pilot programs, but its ownership, financing, and long-term governance remain contested at the end. `(rules/decisions.md)`
 
-The organization’s legal name, exact headquarters, and exact operational scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
-
-The ending’s governance conflict is specifically among CSG licensing interests, university open-publication interests, conservation representatives seeking watershed reinvestment, and affected Colorado communities seeking voting authority over deployment. `(rules/decisions.md)`
+This institution embodies a structural tension: research can become public infrastructure without immediately becoming publicly owned. `(rules/decisions.md)`
 
 ### Alpha Dynamics and Merritt Station reference
 
@@ -269,7 +233,7 @@ These documents are worldbuilding reference material rather than a binding repla
 - off-continent commercialization;
 - legal and regulatory compliance combined with private advantage. `(rules/worldbuilding/alpha_dynamics_corporate_reference.md; rules/worldbuilding/alpha_dynamics_merritt_station_reference.md)`
 
-Merritt Station is separate from the Larsen action. It does not appear physically in this book and has no established ownership or operational connection to CSG, Falcon, or Nexus. `(rules/decisions.md)`
+No settled story material identifies Alpha Dynamics or Merritt Station as the owner of Falcon or Nexus. `(rules/decisions.md; input/team2-mcmurdo-background.md)`
 
 ## Governance and Law
 
@@ -288,14 +252,6 @@ CSG’s illegal operation depends on disguising exploration as permitted scienti
 
 Formal inspection and enforcement are difficult because of remoteness, weather, communications delays, and the company’s ability to present compliant paperwork. `(rules/decisions.md; references/team1-scott-base-research.md)`
 
-The public release triggers:
-
-- a U.S. congressional or executive hearing;
-- a national environmental and permitting investigation;
-- a formal Antarctic Treaty inspection request.
-
-The book names no single global police authority and does not settle penalties. The ending shows investigation and inspection rather than immediate arrest. `(rules/decisions.md)`
-
 ### Authority at the field sites
 
 Field authority is divided:
@@ -305,13 +261,13 @@ Field authority is divided:
 - Roman leads chemical and corporate evidence.
 - TJ handles technical operations under human direction. `(rules/decisions.md)`
 
-During the Larsen fracture, Nayah orders an evacuation and vetoes further human entry. She authorizes Sitara to interpret the final ice data, Roman to transmit the evidence, and TJ to preserve the records remotely. This is the concrete expression of her acceptance that shared expertise, rather than personal supervision, is the only safe command decision. `(rules/decisions.md)`
+The division reflects the limits of expertise. No one person can interpret ice, command field operations, reconstruct corporate chemistry, and operate all machinery alone. `(rules/decisions.md)`
 
 ### Access and credentials
 
-Falcon uses machine-authentication systems. TJ can answer the bunker’s machine challenge because it contains a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction. The module is mostly concealed behind TJ’s rib panel; when TJ opens the Falcon hatch, only a worn institutional plate and connector bundle are revealed. The module’s internal construction is reserved for later production design. `(rules/decisions.md)`
+Falcon uses machine-authentication systems. TJ can answer the bunker’s machine challenge because it contains a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction. This credential does not grant access to every system inside. `(rules/decisions.md)`
 
-Original Nexus parts retain faded institutional markings, while Bi11bot’s repairs are visibly mismatched and hand-fabricated. TJ’s inherited credential does not grant access to every system inside. `(rules/decisions.md)`
+TJ’s Falcon access is classified as **EG or S**, depending on the exact credential mechanism. `(rules/decisions.md)`
 
 The bunker’s physical access system includes:
 
@@ -331,7 +287,7 @@ CSG’s most important controls are informational:
 - secret messages;
 - compartmentalized sites;
 - delayed communications;
-- deliberate suppression. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
+- control over publication and public credibility. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
 
 Exposure becomes effective only when Falcon’s operational records, Nexus research, ice evidence, ecological data, and corporate records corroborate one another. A single scientist’s account can be discredited; a distributed evidence chain is harder to suppress. `(rules/decisions.md)`
 
@@ -365,11 +321,11 @@ The underlying scientific observations may be public or independently reproducib
 - research infrastructure;
 - publication timing. `(rules/worldbuilding/alpha_dynamics_merritt_station_reference.md)`
 
-Project 863’s public release and Colorado pilot do not settle who owns the process, who finances scale-up, or who governs future deployments. Contracts, patents, recovered-material title, and benefit distribution remain under negotiation. `(rules/decisions.md)`
+Project 863’s public release and Colorado pilot do not settle who owns the process, who finances scale-up, or who governs future deployments. `(rules/decisions.md)`
 
 ### Commercial incentives
 
-The illegal Antarctic drilling is motivated by future access and rights rather than immediate extraction. Data can be valuable before physical resources become legally exploitable. The specific resource remains unnamed. `(rules/decisions.md)`
+The illegal Antarctic drilling is motivated by future access and rights rather than immediate extraction. Data can be valuable before physical resources become legally exploitable. `(rules/decisions.md)`
 
 The waste-to-value system creates a different commercial incentive: selected waste streams may become feedstock, but the process is not a universal replacement for fossil fuels. `(rules/decisions.md)`
 
@@ -405,13 +361,9 @@ The interface is therefore useful for urgent coordination and shared awareness, 
 
 ### TJ’s unified architecture
 
-TJ is one familiar canine robot dog in this book. Alternate forms and swarm architecture exist in TJ’s wider history but remain off-page reference material. “TJ units” in reference material refers to remote sensors or equipment, not additional embodied TJs in this book. `(rules/decisions.md)`
+TJ is one robot dog whose history incorporates both team descriptions. Bi11bot built TJ from parts salvaged from a decommissioned Nexus support unit. TJ’s inherited hardware includes the Falcon authentication module. `(rules/decisions.md)`
 
-Bi11bot built TJ from parts salvaged from a decommissioned Nexus support unit. Bi11bot is living but off-page: a scavenger-engineer who rebuilt TJ for autonomous exploration and released TJ into the world. Roman later encountered TJ during his expeditions. Bi11bot does not appear directly. `(rules/decisions.md)`
-
-TJ’s inherited hardware includes the Falcon authentication module. `(rules/decisions.md)`
-
-The familiar field body retains:
+TJ’s earlier physical identity is associated with:
 
 - Himalayan sheep-dog proportions;
 - seamless silver paneling;
@@ -420,13 +372,13 @@ The familiar field body retains:
 - expressive electronic eyes;
 - red insulated booties made from jacket material. `(input/amelia.md; input/team1-scott-base-background.md)`
 
-The 249-gram figure belongs to a minimal swarm unit, not the fully equipped canine field body. The familiar canine body is heavier and carries the battery, protection, screen, tools, and inherited authentication hardware required in this book. `(rules/worldbuilding/tj_terrain_jumper_reference.md; rules/worldbuilding/tj_bio_inspired_form_factors_reference.md; rules/decisions.md)`
+The broader TJ reference material describes a distributed, multi-form platform with canine, feline/climber, insect, avian, aquatic, sensor-pod, tool, and swarm configurations. These forms share intelligence, mapping, communications, mission context, and identity. `(rules/worldbuilding/tj_bio_inspired_form_factors_reference.md; rules/worldbuilding/tj_terrain_jumper_reference.md)`
+
+For the crossover’s settled physical continuity, TJ’s field-operational body is the salvaged, reconstructed robot dog. Multi-form or swarm capabilities remain reference-level material unless specifically used by the Director. `(rules/decisions.md; rules/worldbuilding/tj_bio_inspired_form_factors_reference.md)`
 
 ### TJ’s fabrication and sorting
 
 TJ’s fabrication and AI sorting are **EG**, not unlimited capabilities. `(rules/decisions.md)`
-
-In this book, TJ has hours of ordinary operation. Fabrication consumes a visible portion of its reserve. It can make only hand-sized parts from clean, sorted feedstock and must cool before another sustained fabrication cycle. `(rules/decisions.md)`
 
 TJ can:
 
@@ -445,21 +397,13 @@ TJ cannot:
 - work indefinitely without power;
 - avoid material contamination and sorting problems. `(rules/decisions.md)`
 
-Its failure modes include:
-
-- overheating;
-- contaminated feedstock;
-- damaged locomotion;
-- signal loss;
-- depleted power. `(rules/decisions.md)`
-
 Fixed limitations include:
 
 - small tools and replacement parts only;
 - sorted feedstock required;
 - time required for fabrication;
 - power required;
-- cooling required after sustained fabrication;
+- overheating under sustained use;
 - no unlimited network access;
 - communication through screen, speakers, or Roman’s limited neural channel. `(rules/decisions.md)`
 
@@ -477,8 +421,6 @@ Project 863 is **L**. Its rules are fixed:
 - it produces emissions;
 - it is useful mainly for localized waste streams;
 - it cannot replace fossil fuels at global scale. `(rules/decisions.md)`
-
-The process shown in the Colorado pilot is a small batch reactor processing clean PET. A visibly separate contaminated mixed-plastic sample is rejected. Recovered heat preheats the next batch. Emissions monitoring and residual disposal remain visible. `(rules/decisions.md)`
 
 The nearest honest real-world basis includes catalytic or enzymatic plastic recycling, PET depolymerization, AI sorting, industrial heat, and waste-to-value processing. `(references/team1-scott-base-research.md; references/antarctic_extremophiles_reference.md; rules/hard-sf-rules.md)`
 
@@ -509,13 +451,33 @@ Robotics are needed because Antarctic sites combine:
 - contamination risk;
 - environmental restrictions. `(rules/worldbuilding/merritt_station_hidden_knowledge_reference.md; rules/worldbuilding/tj_bio_inspired_form_factors_reference.md)`
 
-In this book, these capabilities are represented by the single familiar canine TJ body. Multi-form and swarm capabilities remain off-page reference material. `(rules/decisions.md)`
+Possible field systems include:
+
+- ground robots;
+- climbing units;
+- aerial scouts;
+- aquatic units;
+- sensor pods;
+- lidar and ground-penetrating radar;
+- local mesh networks;
+- structural monitors;
+- environmental samplers. `(rules/worldbuilding/merritt_station_hidden_knowledge_reference.md; rules/worldbuilding/tj_two_way_sensing_swarm_reference.md)`
+
+Target TJ specifications in the reference material include:
+
+- approximately 249 grams for a base unit;
+- approximately 30–40 centimetres shoulder height;
+- approximately 40–55 centimetres body length;
+- hours to days of operation depending on mission;
+- local mesh communications;
+- onboard AI;
+- target operating range approximately **−40°C to 50°C**. `(rules/worldbuilding/tj_terrain_jumper_reference.md; rules/worldbuilding/tj_two_way_sensing_swarm_reference.md)`
+
+These are concept targets, not necessarily production-certified specifications. `(rules/worldbuilding/tj_terrain_jumper_reference.md)`
 
 ## Infrastructure and Logistics
 
 ### Antarctic travel
-
-Active Antarctic bases receive seasonal ship or aircraft resupply supplemented by tracked over-ice convoys. Water is produced from treated snow or ice. Medical supplies are limited. Evacuation requires a route/weather window and authorization from the base operations lead. `(references/team1-scott-base-research.md; rules/decisions.md)`
 
 The Antarctic bases are connected by:
 
@@ -524,7 +486,7 @@ The Antarctic bases are connected by:
 - weather-dependent over-ice routes;
 - intermittent or delayed satellite communications. `(rules/decisions.md)`
 
-A journey that takes approximately two hours under acceptable conditions is a best-case route. Crevasses and ice movement can force relocation, surveying, abandonment, or closure of the route. `(rules/decisions.md)`
+A journey that takes approximately two hours under acceptable conditions can become dangerous or impossible when weather, ice movement, or visibility changes. `(rules/decisions.md)`
 
 The environment requires:
 
@@ -550,21 +512,20 @@ Falcon is an operational drilling and monitoring site. Its concealed infrastruct
 - secure communications;
 - machine-authenticated bunker access. `(rules/decisions.md)`
 
-Its public-facing scientific appearance is supported by climate and ice-core equipment. Its hidden purpose is exploratory extraction and data capture. The surveyed resource remains unnamed. `(rules/decisions.md)`
+Its public-facing scientific appearance is supported by climate and ice-core equipment. Its hidden purpose is exploratory extraction and data capture. `(rules/decisions.md)`
 
 ### Nexus facility
 
 Nexus is a decommissioned research laboratory built into a cave system. In 2046:
 
 - its main power is off;
-- air is breathable near open access points;
-- heat exists only in one archive chamber;
-- water comes from melted ice and must be treated;
-- insulated offline media preserve data;
+- emergency systems remain in limited form;
+- archives are insulated;
+- some records remain in paper form;
 - the krill tank is dead;
 - sensor data and sediment samples survive;
 - access routes are hazardous;
-- lower areas may be sealed by ice, collapse, or flooding. `(rules/decisions.md)`
+- lower areas may be sealed by ice, collapse, or flooding. `(rules/decisions.md; rules/worldbuilding/merritt_station_hidden_knowledge_reference.md)`
 
 The facility contains the material history of parallel programs:
 
@@ -589,9 +550,9 @@ The Antarctic subsurface is not a clean underground building. It includes:
 - flooded passages;
 - refrozen surfaces;
 - misaligned tunnels;
-- sealed shafts. `(rules/worldbuilding/refinements.md; rules/decisions.md)`
+- sealed shafts. `(rules/worldbuilding/refinements.md; rules/worldbuilding/merritt_station_hidden_knowledge_reference.md)`
 
-Teams may rappel through damaged shafts toward sealed lower sections. In this book, TJ’s single canine body identifies routes and hazards; no additional embodied TJ units appear. `(rules/worldbuilding/refinements.md; rules/decisions.md)`
+Teams may rappel through damaged shafts toward sealed lower sections. TJ units can identify narrow routes around collapsed bulkheads and ice-blocked access points. `(rules/worldbuilding/refinements.md)`
 
 ### Communications
 
@@ -605,7 +566,7 @@ Communications are constrained by:
 - corporate restrictions;
 - deliberate suppression. `(rules/decisions.md; rules/worldbuilding/tj_two_way_sensing_swarm_reference.md)`
 
-TJ can use local processing rather than requiring constant cloud access. The Roman–TJ neural handshake is more limited than a general network and cannot replace all field communication. `(rules/decisions.md; rules/worldbuilding/tj_neural_interface_reference.md)`
+TJ can use local mesh networking and onboard processing rather than requiring constant cloud access. The Roman–TJ neural handshake is more limited than a general network and cannot replace all field communication. `(rules/decisions.md; rules/worldbuilding/tj_neural_interface_reference.md)`
 
 ### Colorado infrastructure
 
@@ -619,7 +580,7 @@ Colorado’s conservation and recycling systems depend on:
 - public and nonprofit pilot infrastructure;
 - university and community partnerships. `(input/seb.md; references/team1-scott-base-research.md; rules/decisions.md)`
 
-The eventual Project 863 pilot is localized rather than national or global. It processes clean PET in small batches, rejects contaminated mixed plastic, recovers heat for the next batch, and visibly measures emissions and residual waste. `(rules/decisions.md)`
+The eventual Project 863 pilot is localized rather than national or global. `(rules/decisions.md)`
 
 ## Environment and Ecological Pressure
 
@@ -706,8 +667,6 @@ The Antarctic community includes research bases and homes rather than a seamless
 - fuel and maintenance systems;
 - corporate logos and access screens. `(input/amelia.md; input/team1-scott-base-background.md)`
 
-The separate heated community shelter is the designated evacuation anchor for the central action. `(rules/decisions.md)`
-
 The contrast between an active base and a decommissioned laboratory is important: the active base is maintained and monitored, while the older site contains obsolete technology, frozen cables, dead displays, and records that survived because nobody could reach them. `(rules/worldbuilding/refinements.md; rules/decisions.md)`
 
 ### Public and corporate messaging
@@ -740,11 +699,11 @@ The source material associates Sitara’s heritage with a fictional Thakali sett
 
 The research identifies “Lhakpa” as a Tibetan name used across parts of the Himalayan region and associated with Wednesday, strength, courage, and resilience. This is real-world cultural reporting and should not be generalized into a complete account of Sitara’s community. `(references/team1-scott-base-research.md)`
 
-## Key Props
+## Key props
 
 ### Falcon authentication module
 
-- **Appearance:** Mostly concealed behind TJ’s rib panel. When TJ opens the Falcon hatch, the visible evidence is a worn institutional plate and connector bundle. Exact internal construction, dimensions, casing, and wear remain open for later production design. `(rules/decisions.md)`
+- **Appearance:** A salvaged machine-authentication component inherited from a decommissioned Nexus support unit; exact casing, dimensions, markings, and wear are not specified in the material. **Proposal:** depict it as a compact, weather-sealed module integrated into TJ’s internal hardware, with a worn Falcon identifier visible only when the chassis is opened.
 - **Who has it / where it appears:** It is inside TJ after Bi11bot’s reconstruction and enables TJ to answer Falcon’s machine challenge. `(rules/decisions.md)`
 - **Meaning:** It physically joins the Falcon and Nexus histories and explains why one TJ can open the Falcon bunker without possessing unrestricted access. `(rules/decisions.md)`
 
@@ -774,7 +733,7 @@ The research identifies “Lhakpa” as a Tibetan name used across parts of the 
 
 ### Nexus paper archive
 
-- **Appearance:** Physical files, maps, charts, and records stored in offices and filing areas; some are old, partially redacted, or buried behind equipment. Exact paper color and folder design are not specified in the material.
+- **Appearance:** Physical files, maps, charts, and records stored in offices and filing areas; some are old, partially redacted, or buried behind equipment. Exact paper color and folder design are not specified. **Proposal:** maintain a consistent archive system of weathered folders with CSG identifiers and handwritten corrections.
 - **Who has it / where it appears:** The archive survives inside the decommissioned Nexus laboratory and related Falcon file rooms. `(input/team2-mcmurdo-background.md; rules/decisions.md)`
 - **Meaning:** It represents knowledge that corporate databases can suppress but physical infrastructure can preserve.
 
@@ -784,12 +743,6 @@ The research identifies “Lhakpa” as a Tibetan name used across parts of the 
 - **Who has it / where it appears:** Originally held by the CSG research division and Nexus; later carried into the public release and Colorado pilot.
 - **Meaning:** The records are both a bounded scientific opportunity and evidence of how useful research can be controlled.
 
-### Project 863 pilot reactor
-
-- **Appearance:** A small batch reactor processing clean PET. A visibly separate contaminated mixed-plastic stream is rejected. Recovered heat preheats the next batch; emissions monitoring and residual disposal are visible. `(rules/decisions.md)`
-- **Who has it / where it appears:** The Colorado pilot.
-- **Meaning:** It demonstrates that Project 863 is useful, bounded, and materially accountable rather than a universal climate solution.
-
 ### Krill tank data and sediment samples
 
 - **Appearance:** The physical tank is dead. Surviving evidence consists of sensor data and sediment samples associated with failed krill reproduction as sea-ice conditions changed. `(rules/decisions.md)`
@@ -798,8 +751,8 @@ The research identifies “Lhakpa” as a Tibetan name used across parts of the 
 
 ### Secret-message transmission bursts
 
-- **Appearance:** Austere, fragmented coordinate packets and timing marks recovered from damaged local storage. The data is partially unreadable rather than a clean live transmission. `(rules/decisions.md)`
-- **Who has it / where it appears:** They originate in the Falcon warning system. The sender is initially unidentified. Orien’s authorship is established when his notes reproduce the warning schedule.
+- **Appearance:** Compressed electronic bursts rather than ordinary prose messages; they contain drilling coordinates, ice-movement data, and warnings about accelerating Larsen-system instability. `(rules/decisions.md)`
+- **Who has it / where it appears:** They originate from a Falcon scientist’s automated warning system and travel through Antarctic communications infrastructure.
 - **Meaning:** The bursts are a fragile counter-network operating against corporate information control.
 
 ### Ice and drilling maps
@@ -810,7 +763,10 @@ The research identifies “Lhakpa” as a Tibetan name used across parts of the 
 
 ## Open
 
+- The exact geological resource that CSG hopes eventually to claim through exploratory drilling remains unspecified. The operation is fixed as illegal exploratory drilling for future rights, but the resource itself is not settled. `(rules/decisions.md)`
 - The exact legal name, headquarters, funding structure beyond initial CSG funding, and operational scale of the nonprofit public-benefit waste-to-value organization remain unspecified. `(rules/decisions.md)`
-- The exact visual layout and dimensions of the Falcon bunker, Nexus cave laboratory, and Antarctic community remain open beyond the established production anchors: Falcon hatch/control room/drill zone; Nexus entry shaft/archive/ecological tank; and separate heated community shelter. `(rules/decisions.md)`
+- The exact visual design and engineering mechanism of TJ’s salvaged Falcon authentication module remain unspecified. Its function and limits are fixed. `(rules/decisions.md)`
+- The precise physical scope of TJ’s multi-form or swarm architecture in the crossover remains unresolved. The settled crossover requires one unified robot dog; the broader multi-form references provide possible capabilities but do not by themselves establish every form in the book. `(rules/decisions.md; rules/worldbuilding/tj_bio_inspired_form_factors_reference.md)`
+- The exact visual layout and dimensions of the Falcon bunker, Nexus cave laboratory, and Antarctic community are not fully specified beyond the established locations, hazards, equipment, and access relationships. `(input/amelia.md; rules/decisions.md)`
 - The exact public structure of the Colorado pilot—facility ownership, participating communities, financing, and regulatory authority—remains contested and unresolved at the ending. `(rules/decisions.md)`
-- The relationship, if any, between the Alpha Dynamics/Merritt Station reference material and CSG, Falcon, or Nexus is not established. Merritt Station is separate, outside the Larsen action, absent physically from this book, and has no established operational connection to the CSG program. `(rules/worldbuilding/alpha_dynamics_corporate_reference.md; rules/worldbuilding/alpha_dynamics_merritt_station_reference.md; rules/decisions.md)`
+- The relationship, if any, between the Alpha Dynamics/Merritt Station reference material and CSG, Falcon, or Nexus is not established. `(rules/worldbuilding/alpha_dynamics_corporate_reference.md; rules/worldbuilding/alpha_dynamics_merritt_station_reference.md; rules/decisions.md)`

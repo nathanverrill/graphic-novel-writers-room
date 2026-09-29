@@ -14,8 +14,7 @@
 - **FIXED —** Its ending status is limited to a public release and a pilot in Colorado. Ownership, financing, and long-term governance remain contested. `(rules/decisions.md)`
 - **FIXED —** Larsen C fractures during the climax but does not fully collapse. The characters can stop the drilling that worsens local instability, preserve and transmit evidence, and evacuate endangered personnel; they cannot reverse climate change or restore the ice shelf. `(rules/decisions.md)`
 - **FIXED —** The final institutional response is hearings and an inspection request, not immediate arrests. The realistic victory is making suppression impossible and creating a public record. `(rules/decisions.md)`
-- **FIXED —** The nonprofit public-benefit organization’s legal name, exact headquarters, and operational scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
-- **FIXED —** The Colorado governance conflict is among CSG seeking control through licensing, university scientists seeking open publication, conservation representatives seeking watershed reinvestment, and affected Colorado communities seeking voting authority over deployment. `(rules/decisions.md)`
+- **FIXED —** The nonprofit public-benefit organization’s legal name and exact operational scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
 - **FIXED —** The public release triggers a U.S. congressional or executive hearing, a national environmental and permitting investigation, and a formal Antarctic Treaty inspection request. The book names no single global police authority and leaves penalties unresolved. `(rules/decisions.md)`
 - **FIXED —** Merritt Station is a separate Alpha Dynamics facility in Wilkes Land, East Antarctica, outside the Larsen action. It does not appear physically in this book and has no established ownership or operational connection to CSG, Falcon, or Nexus. `(rules/worldbuilding/alpha_dynamics_merritt_station_reference.md; rules/decisions.md)`
 - **FIXED —** Falcon’s surveyed resource remains unnamed. The book shows boreholes, seismic data, pumps, access claims, and future-rights language without naming a recoverable commodity. `(rules/decisions.md)`
@@ -24,6 +23,7 @@
 - **FIXED —** Active Antarctic bases receive seasonal ship or aircraft resupply supplemented by tracked over-ice convoys. Water is produced from treated snow or ice, medical supplies are limited, and evacuation requires a route/weather window plus authorization from the base operations lead. `(references/team1-scott-base-research.md; rules/decisions.md)`
 - **FIXED —** The Colorado pilot shows a small batch reactor processing clean PET and a visibly separate contaminated reject stream. Recovered heat preheats the next batch; emissions monitoring and residual disposal remain visible parts of the process. `(references/team1-scott-base-research.md; references/team2-mcmurdo-research.md; rules/decisions.md)`
 - **FIXED —** Ownership remains deliberately contested at the ending. The public release establishes access to the research, but contracts, patents, recovered-material title, and benefit distribution remain under negotiation. `(rules/decisions.md)`
+- **FIXED —** The Colorado governance conflict is among CSG seeking control through licensing, university scientists seeking open publication, conservation representatives seeking watershed reinvestment, and affected Colorado communities seeking voting authority over deployment. `(rules/decisions.md)`
 - **FIXED —** The Antarctic community uses three production anchors: Falcon’s hatch, control room, and drill zone; Nexus’s entry shaft, archive, and ecological tank; and a separate heated community shelter used for evacuation. Exact dimensions remain open. `(rules/decisions.md)`
 
 ## Overview
@@ -189,8 +189,6 @@ CSG operates under a legitimate scientific-drilling permit and disguises resourc
 
 The initial messages have an unidentified sender. They are recovered from a damaged local storage unit rather than received as a fully reliable live transmission. The messages contain compressed bursts with drilling coordinates, ice-movement data, and warnings that extraction is accelerating Larsen-system instability. `(rules/decisions.md)`
 
-The visual presentation is deliberately austere and partially unreadable. Damaged local storage yields fragmented coordinate packets and timing marks. The warning schedule becomes clear only when compared against Orien’s notes. `(rules/decisions.md)`
-
 Orien Keel’s authorship is established only when his notes reproduce the warning schedule. The warnings are automated and triggered by new drilling or ice-movement data. `(rules/decisions.md)`
 
 ## Institutions and Corporate Power
@@ -251,7 +249,7 @@ The waste-to-value organization began as a CSG research division and later exist
 
 Its authority extends to conservation deployments, but not private extraction. It may operate between Antarctic evidence and Colorado pilot programs, but its ownership, financing, and long-term governance remain contested at the end. `(rules/decisions.md)`
 
-The organization’s legal name, exact headquarters, and exact operational scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
+The organization’s legal name and exact scale remain open until the Director approves the institution. Development materials use a temporary descriptive label. `(rules/decisions.md)`
 
 The ending’s governance conflict is specifically among CSG licensing interests, university open-publication interests, conservation representatives seeking watershed reinvestment, and affected Colorado communities seeking voting authority over deployment. `(rules/decisions.md)`
 
@@ -309,9 +307,9 @@ During the Larsen fracture, Nayah orders an evacuation and vetoes further human 
 
 ### Access and credentials
 
-Falcon uses machine-authentication systems. TJ can answer the bunker’s machine challenge because it contains a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction. The module is mostly concealed behind TJ’s rib panel; when TJ opens the Falcon hatch, only a worn institutional plate and connector bundle are revealed. The module’s internal construction is reserved for later production design. `(rules/decisions.md)`
+Falcon uses machine-authentication systems. TJ can answer the bunker’s machine challenge because it contains a salvaged Falcon authentication module inherited through Bi11bot’s reconstruction. The module is sealed behind TJ’s rib panel. Original Nexus parts retain faded institutional markings, while Bi11bot’s repairs are visibly mismatched and hand-fabricated. `(rules/decisions.md)`
 
-Original Nexus parts retain faded institutional markings, while Bi11bot’s repairs are visibly mismatched and hand-fabricated. TJ’s inherited credential does not grant access to every system inside. `(rules/decisions.md)`
+This credential does not grant access to every system inside. `(rules/decisions.md)`
 
 The bunker’s physical access system includes:
 
@@ -589,7 +587,7 @@ The Antarctic subsurface is not a clean underground building. It includes:
 - flooded passages;
 - refrozen surfaces;
 - misaligned tunnels;
-- sealed shafts. `(rules/worldbuilding/refinements.md; rules/decisions.md)`
+- sealed shafts. `(rules/worldbuilding/refinements.md; rules/worldbuilding/merritt_station_hidden_knowledge_reference.md)`
 
 Teams may rappel through damaged shafts toward sealed lower sections. In this book, TJ’s single canine body identifies routes and hazards; no additional embodied TJ units appear. `(rules/worldbuilding/refinements.md; rules/decisions.md)`
 
@@ -740,11 +738,11 @@ The source material associates Sitara’s heritage with a fictional Thakali sett
 
 The research identifies “Lhakpa” as a Tibetan name used across parts of the Himalayan region and associated with Wednesday, strength, courage, and resilience. This is real-world cultural reporting and should not be generalized into a complete account of Sitara’s community. `(references/team1-scott-base-research.md)`
 
-## Key Props
+## Key props
 
 ### Falcon authentication module
 
-- **Appearance:** Mostly concealed behind TJ’s rib panel. When TJ opens the Falcon hatch, the visible evidence is a worn institutional plate and connector bundle. Exact internal construction, dimensions, casing, and wear remain open for later production design. `(rules/decisions.md)`
+- **Appearance:** A salvaged machine-authentication component from a decommissioned Nexus support unit, sealed behind TJ’s rib panel. Original institutional parts retain faded markings; Bi11bot’s surrounding repairs are visibly mismatched and hand-fabricated. `(rules/decisions.md)`
 - **Who has it / where it appears:** It is inside TJ after Bi11bot’s reconstruction and enables TJ to answer Falcon’s machine challenge. `(rules/decisions.md)`
 - **Meaning:** It physically joins the Falcon and Nexus histories and explains why one TJ can open the Falcon bunker without possessing unrestricted access. `(rules/decisions.md)`
 
@@ -798,7 +796,7 @@ The research identifies “Lhakpa” as a Tibetan name used across parts of the 
 
 ### Secret-message transmission bursts
 
-- **Appearance:** Austere, fragmented coordinate packets and timing marks recovered from damaged local storage. The data is partially unreadable rather than a clean live transmission. `(rules/decisions.md)`
+- **Appearance:** Compressed electronic bursts recovered from a damaged local storage unit rather than a reliable live feed. They contain drilling coordinates, ice-movement data, and warnings about accelerating Larsen-system instability. `(rules/decisions.md)`
 - **Who has it / where it appears:** They originate in the Falcon warning system. The sender is initially unidentified. Orien’s authorship is established when his notes reproduce the warning schedule.
 - **Meaning:** The bursts are a fragile counter-network operating against corporate information control.
 
