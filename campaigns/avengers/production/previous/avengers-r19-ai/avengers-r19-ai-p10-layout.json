@@ -1,0 +1,81 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 25,
+          "description": "Nexus support corridor buckles; blue ice splits the wall while Roman\u2019s bonded TJ pivots toward the falling section. Leave upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Roman receives a selective directional warning shown through a sharp posture change, not glowing telepathy; he grabs Sitara\u2019s shoulder and pulls her clear as a brace crashes down. Leave upper-right and lower-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Nayah redirects the group along the marked route while meltwater spreads across the floor. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Emergency lights flicker on in a lower laboratory. Through a fractured window, an empty krill tank and dead sensor display wait in blue darkness. Leave upper-right clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROOOAN",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLANG\u2014",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Left. Move!",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "No retrieval. Keep moving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BEEP\u2026 BEEP\u2026",
+      "size": "medium",
+      "at": "top-right"
+    }
+  ]
+}

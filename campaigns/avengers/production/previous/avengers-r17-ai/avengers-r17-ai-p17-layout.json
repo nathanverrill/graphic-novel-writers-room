@@ -1,0 +1,81 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara and Roman stand beside records while Nayah works route line; phone beside Orien rings. Leave upper-right for sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara answers; Roman watches with treatment file in hand. Leave upper-left for question."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Orien appears only on cracked phone screen, weak and breath-interrupted. Leave upper area for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman lowers treatment file as call ends; Sitara holds dark phone. Leave upper-left for final line and lower-right for sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "RING\u2014RING\u2014",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Orien?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Croft threatened me. The warnings were scheduled\u2026 in case I disappeared.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Second timestamp. Do not release everything. Release what can be checked.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "bottom-right"
+    }
+  ]
+}

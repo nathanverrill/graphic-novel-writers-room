@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 14</text>
+<rect x="35" y="182" width="242" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="206" font-size="18" fill="#111">COLORADO PILOT — DAY</text>
+<rect x="46" y="618" width="220" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="643" font-size="18" fill="#111">SELECTED FEEDSTOCK</text>
+<rect x="309" y="119" width="209" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="413" y="143" font-size="18" fill="#111">REJECTED MATERIAL</text>
+<rect x="-19" y="881" width="350" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="905" font-size="18" fill="#111">RECOVERED FEEDSTOCK / RESIDUAL</text>
+<text x="156" y="927" font-size="18" fill="#111">SOLIDS / EMISSIONS MONITOR</text>
+<rect x="429" y="870" width="372" height="80" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="895" font-size="18" fill="#111">WATER USE — ACTIVE / GRID DEMAND</text>
+<text x="615" y="916" font-size="18" fill="#111">— ACTIVE / EMISSIONS — MONITORED</text>
+<text x="615" y="938" font-size="18" fill="#111">/ THROUGHPUT — LIMITED</text>
+<polygon points="828,1067 860,1081 787,1210" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="844" cy="1074" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="844" y="1057" font-size="19" fill="#111">IT WORKS.</text>
+<text x="844" y="1080" font-size="19" fill="#111">THAT</text>
+<text x="844" y="1104" font-size="19" fill="#111">MATTERS.</text>
+</g>
+</svg>

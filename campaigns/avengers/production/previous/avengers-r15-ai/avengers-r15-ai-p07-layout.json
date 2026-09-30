@@ -1,0 +1,78 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 40,
+          "description": "Roman opens a paper archive drawer marked NEXUS / CALIBRATION. Inside are chemical sheets, a denied transport request, and a handwritten timestamp matching Falcon\u2019s fragment. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A monitor reads ORIEN KEEL \u2014 CREDENTIALS REVOKED. A clipped message beneath reads MAKE THE PROBLEM GO AWAY. Roman reads it while his bonded TJ remains foregrounded with a dark screen. Leave upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman asks his bonded TJ for the route. The small robot faces him, display bright against the dim facility. Leave upper-left clear for Roman\u2019s balloon and upper-right for the response."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman folds the Nexus sheet into his jacket. Behind him the treatment file remains open on the table, creating a visual split between obligation and investigation. Leave upper-left clear for his final balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-left",
+      "text": "ORIEN KEEL \u2014 CREDENTIALS REVOKED"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "MAKE THE PROBLEM GO AWAY."
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Do you have the route?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-right",
+      "text": "ROUTE REFERENCE PRESERVED. SIGNIFICANCE UNRESOLVED."
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Then I\u2019ll find the significance.",
+      "at": "top-left"
+    }
+  ]
+}

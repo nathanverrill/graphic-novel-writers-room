@@ -1,0 +1,78 @@
+{
+  "page": 23,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Croft appears on a recorded board-and-contract call. His medical-alert bracelet and his son\u2019s treatment schedule are visible beside the screen. A board message offers the choice to assert proprietary control and suspend public operation. Leave upper-left clear for the board caption."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Croft reads the clause while his hand closes around the medical-alert bracelet. Keep his expression composed and exhausted. Leave upper third clear for his balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 40,
+          "description": "Croft signs a narrow authorization document. The signature area is clean and large enough for the later lettering; do not depict an apology or confession. Leave upper-left clear for the document caption."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The board screen goes dark. Croft remains beside the unsigned treatment schedule, isolated in the corporate room. Leave upper-left clear for his final balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "ASSERT PROPRIETARY CONTROL. SUSPEND PUBLIC OPERATION."
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "If I block this, the water stops improving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CSG WILL NOT BLOCK THE INTERIM PUBLIC CONTRACT"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CSG WITHDRAWS EXCLUSIVE OPERATING FRAME"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "Keep the pilot running.",
+      "at": "top-left"
+    }
+  ]
+}

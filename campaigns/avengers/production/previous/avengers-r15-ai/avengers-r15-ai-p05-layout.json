@@ -1,0 +1,93 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara holds a field tablet over the maintenance record while her TJ scans selected pages. Nayah watches the ceiling as frost shakes loose. Leave upper-right clear for the sound effect and lower-left for Nayah\u2019s balloon."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara overlays the drilling trace and ice-motion plot. A narrow red line connects them, showing local acceleration without implying Falcon caused the entire Antarctic crisis. Leave the upper-left clear for Sitara\u2019s balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A warning light flashes and meltwater beads along the threshold. Nayah pulls the emergency line taut toward the exit while Sitara closes the tablet. Leave the upper third clear for Nayah\u2019s command."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "The copied record displays NEXUS \u2014 ROUTE 2 \u2014 SECOND TIMESTAMP and PAIR BEFORE DISCLOSURE. Keep the document sharply legible and leave the lower area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THRUM\u2014THRUM\u2014THRUM",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We have four minutes.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Then the copy has to be complete.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Local acceleration. Not the whole system.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Out. Now.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "middle",
+      "text": "NEXUS \u2014 ROUTE 2 \u2014 SECOND TIMESTAMP"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom",
+      "text": "PAIR BEFORE DISCLOSURE"
+    }
+  ]
+}

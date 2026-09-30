@@ -1,0 +1,96 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Sitara holds a field tablet over selected physical records while her TJ scans the pages. Frost shakes loose; Nayah watches the exit. Keep upper-left clear for the machinery sound and upper-right clear for Nayah."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "The tablet overlays drilling trace and ice-motion plot. A narrow red line shows local acceleration without implying Falcon caused the entire Antarctic crisis. Keep lower area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Meltwater beads along the threshold as Nayah pulls the emergency line taut. Sitara closes the tablet. Leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "The copied record displays the Nexus route and paired-timestamp instruction. Keep the tablet legible and free of clutter."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THRUM\u2014THRUM\u2014THRUM",
+      "size": "medium",
+      "x": 18,
+      "y": 18,
+      "breakout": true
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We have four minutes.",
+      "x": 80,
+      "y": 18
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Then the copy has to be complete.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Local acceleration. Not the whole system.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Out. Now.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "middle",
+      "text": "NEXUS \u2014 ROUTE 2 \u2014 SECOND TIMESTAMP"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom",
+      "text": "PAIR BEFORE DISCLOSURE."
+    }
+  ]
+}

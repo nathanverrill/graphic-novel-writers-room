@@ -1,0 +1,95 @@
+{
+  "page": 19,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The Nexus lower corridor floods around the archive case. Meltwater freezes at the edges while blue ice shears overhead. Keep the escape route visible. Reserve upper-left for the structural sound and upper-right for Nayah's balloon, with separate space near the shearing ice for the SFX."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Nayah pulls Orien along the safety line. Roman carries only the selected physical evidence package, visibly marked essential; Sitara follows with her separate TJ. No one turns back. Keep silent."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 25,
+          "description": "Roman's field tablet shows a clearly labeled remote operational record feed from the separate FALCON site receiving the authenticated evidence package. Show data only, never Falcon physically visible from Nexus. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Falcon's local safety console shows an authenticated inspection interlock and drilling hold pending local safety response. Include a small local operator or automatic safety acknowledgment. Reserve separate upper-left for the hold status, lower-right for the acknowledgment, and lower-left for the structural SFX."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "ROAR\u2014CRACK\u2014",
+      "size": "huge",
+      "x": 18,
+      "y": 12,
+      "breakout": true
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Evacuate. Leave anything you cannot carry.",
+      "x": 80,
+      "y": 18
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "FALCON \u2014 AUTHENTICATED REMOTE RECORD FEED"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "AUTHENTICATED INSPECTION INTERLOCK / LOCAL CONTROL FLAGGED"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top",
+      "text": "DRILLING HOLD PENDING LOCAL SAFETY RESPONSE"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "LOCAL ACKNOWLEDGMENT RECEIVED"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAAAM",
+      "size": "large",
+      "x": 18,
+      "y": 78
+    }
+  ]
+}

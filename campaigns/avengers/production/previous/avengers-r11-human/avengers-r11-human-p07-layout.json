@@ -1,0 +1,84 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman opens a paper archive drawer marked NEXUS / CALIBRATION. Chemical sheets, a denied transport request, and a matching timestamp fill the drawer. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "A monitor shows Orien's credentials revoked. Beneath it, an administrative notice shows transport support cancelled and access suspended; do not depict a direct murder order. Leave top clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman turns toward his bonded TJ and asks it directly. The display is dark for a beat. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman folds the Nexus sheet into his jacket. The restricted treatment file remains open behind him. Leave upper-right clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "NEXUS / CALIBRATION"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top",
+      "text": "ORIEN KEEL \u2014 CREDENTIALS REVOKED"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "bottom",
+      "text": "TRANSPORT SUPPORT CANCELLED / ACCESS SUSPENDED"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Do you have the route?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "middle",
+      "text": "ROUTE REFERENCE PRESERVED. SIGNIFICANCE UNRESOLVED."
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Then I\u2019ll find the significance.",
+      "at": "top-right"
+    }
+  ]
+}

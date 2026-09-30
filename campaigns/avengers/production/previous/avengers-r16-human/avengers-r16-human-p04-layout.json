@@ -1,0 +1,80 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Inside Falcon\u2019s cramped maintenance room, Sitara and Nayah stand beside a projected directional borehole map labeled SCIENTIFIC DRILLING / ENVIRONMENTAL MONITORING. Unauthorized branches descend toward colored resource markers. Leave upper-left clear for no lettering; reserve wall space for the projected labels."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 40,
+          "description": "A physical manifest lies beside a concealed waste chute. ICE CORE STORAGE has been overwritten on entries that originally read DRILL FLUID / RESIDUALS. Nayah photographs the page while Sitara studies vibration traces. Leave upper third clear for two balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Two synchronized displays show drilling vibration below and ice-motion plots above. A red timestamp-and-coordinate fragment is handwritten across a maintenance sheet. Leave upper-left clear for Sitara\u2019s balloon."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "The TJ\u2019s sensor turns toward a sealed archive slot containing paper records, a dead data wafer, and a warning fragment marked 07:14 / \u2014\u2014\u2014. Leave lower-left clear for the TJ balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "That is not an ice-core manifest.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It is pretending to be one.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "The vibration is local. The instability is not.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Local record. Access restricted.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-right",
+      "text": "07:14 / \u2014\u2014\u2014"
+    }
+  ]
+}

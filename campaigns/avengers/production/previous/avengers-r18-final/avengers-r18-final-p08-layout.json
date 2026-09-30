@@ -1,0 +1,71 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Colorado logistics terminal: Roman submits an Antarctic transport request. Display identifies FALCON \u2014 FIELD SITE and NEXUS \u2014 COASTAL CAVE LABORATORY, TWO HOURS, WEATHER DEPENDENT. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman signs beneath CSG ANTARCTIC LOGISTICS / NEXUS ACCESS. Leave upper third for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Colorado logistics handoff: Roman transfers into the Antarctic transport chain, with bonded TJ secured in a padded case. Show cargo pallets and aircraft or sealed transfer bay; do not imply a tracked vehicle drives from Colorado to Antarctica. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "high",
+          "angle": "top",
+          "horizon": 20,
+          "description": "Split route map shows Sitara and Nayah leaving Falcon and Roman\u2019s Antarctic route entering separately; lines converge only at NEXUS. Keep labels unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "FALCON \u2014 FIELD SITE"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-right",
+      "text": "NEXUS \u2014 COASTAL CAVE LABORATORY"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "TWO HOURS, WEATHER DEPENDENT"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019m going south.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara and Roman stand beside the records while Nayah works at the route line behind them. The phone beside Orien begins to ring. Leave upper-right clear for the sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara answers the phone. Roman watches her with the treatment file in hand. Leave upper-left clear for her question."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Orien\u2019s face appears only on the cracked phone screen, weak and interrupted by breath. Keep him frost-stiffened and not fully recovered. Leave upper area clear for his dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman lowers the treatment file as the call ends. Sitara holds the dark phone. Leave upper-left clear for Orien\u2019s final line and lower-right for the click."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "RING\u2014RING\u2014",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Orien?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Croft threatened me. The warnings were scheduled\u2026 in case I disappeared.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Second timestamp. Do not release everything. Release what can be checked.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "bottom-right"
+    }
+  ]
+}

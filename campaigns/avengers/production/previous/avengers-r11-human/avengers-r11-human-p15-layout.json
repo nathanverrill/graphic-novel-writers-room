@@ -1,0 +1,78 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "COLORADO constructed wetland and downstream channel. Water is visibly clearer, but the inlet gate is nearly closed and the system looks finite. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "A survey tray holds aquatic invertebrates beside a monitor showing a dated pilot survey and increased count without invented numerical values. A separate warning reads WETLAND FLOW CAPACITY: FINITE. Leave top-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A wall screen shows Croft beside his son's treatment schedule. The son appears only as a pale hand beneath hospital bedding behind a privacy partition. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Back in Nexus, Sitara and Roman watch the recording, divided by the archive case. Leave upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO DOWNSTREAM STATION"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "CLARITY INDEX: PILOT IMPROVEMENT / FLOW CAPACITY LIMITED"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-right",
+      "text": "DOWNSTREAM INVERTEBRATE SURVEY / WETLAND FLOW CAPACITY: FINITE"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You want to stop the work that made this possible.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You knew it was useful. You knew it was controlled. Why is it wrong only now?",
+      "at": "top-left"
+    }
+  ]
+}

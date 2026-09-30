@@ -1,0 +1,67 @@
+{
+  "id": "r11-human",
+  "kind": "human",
+  "started": "2026-09-30T13:23:49",
+  "finished": "2026-09-30T13:23:49",
+  "status": "done",
+  "files_written": [
+    "review.md",
+    "thumbnails.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "avengers/drafts/avalanche-draft-with-questions.md": "cf92ef44aaea777f",
+    "avengers/input/amelia.md": "17a719c740583a43",
+    "avengers/input/antagonist-benedict-croft.md": "55759d218ef4776c",
+    "avengers/input/forge-characters.md": "1e008b4e021d39f2",
+    "avengers/input/nemesis-threats.md": "0a7f3e52470ddce7",
+    "avengers/input/open-items.md": "d456c38b548d5272",
+    "avengers/input/prahul-notes.md": "47d85a9361370145",
+    "avengers/input/seb.md": "b8d9664a260d4be8",
+    "avengers/input/spine-stories.md": "4a6dd4baa4956bbc",
+    "avengers/input/team1-scott-base-background.md": "e78d763ecba34815",
+    "avengers/input/team2-mcmurdo-background.md": "7012e567ad36562d",
+    "avengers/references/team1-scott-base-research.md": "7ed5daf5de3bc3b2",
+    "avengers/references/team2-mcmurdo-research.md": "ca76cedb79809346",
+    "avengers/rules/avengers.md": "afbe771a5c74aefb",
+    "avengers/rules/decisions.md": "d27707ca0abc14e3",
+    "avengers/rules/extremophiles-colorado.md": "1a341bab1d6df980",
+    "avengers/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "avengers/rules/protagonists.md": "c9845c798ad7965c",
+    "avengers/rules/rules.md": "3aa5e3f35ae23526",
+    "avengers/rules/story-arc.md": "5e761c628255e285",
+    "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md": "457134f952b7fe7b",
+    "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md": "4fdaa4ffbe2e41b0",
+    "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md": "5d467628b30724cf",
+    "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md": "aaf4780dcbffa847",
+    "avengers/rules/worldbuilding/refinements.md": "ef8eadffa0a39541",
+    "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md": "89d25e26cab0caa1",
+    "avengers/rules/worldbuilding/tj_neural_interface_reference.md": "ab0dd819fbf6d801",
+    "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md": "a6154f4615d01953",
+    "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md": "f22a4b3acd5bdec1"
+  },
+  "usage": {
+    "total": {
+      "calls": 0,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {}
+  },
+  "reviewed_round": "r10-ai",
+  "action": "send",
+  "method": "layout",
+  "counts": {
+    "kept": 0,
+    "edited": 0,
+    "noted": 0
+  }
+}

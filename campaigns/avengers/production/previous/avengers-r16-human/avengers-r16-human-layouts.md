@@ -1,0 +1,246 @@
+# layouts.md
+
+## Base grid and sequence plan
+
+**Format:** 24-page, 6.625" × 10.25" full-color single issue. Western reading direction. Odd pages are right-hand pages; even pages are left-hand pages.
+
+**Base grid:** Three variable tiers, maximum four panels per page. Page 24 is a full-page splash. Falcon and Nexus remain geographically distinct. Roman’s bonded TJ and Sitara’s TJ remain separate physical units.
+
+## Page 1 (right) — 4 panels, histories and warning
+
+Reading path: Roman’s origin → Sitara’s loss → Antarctic approach → Sitara’s choice.  
+Dominant beat/image: Sitara’s boot stops before the flagged unstable zone.  
+Page-turn hook: She is about to cross the line.
+
+```layout
+{"page":1,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":30,"description":"HIMALAYAS, 2042 at night: Roman Ashford hangs half-buried in a narrow blue-white crevasse, one gloved hand locked around a climbing line. His small silver Terrain Jumper descends toward him as lightning forks through the glacier and the machine’s sensor housing. Leave the upper area clear; no lettering."},{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"HIMALAYAS, 2026 in daylight: floodwater tears across the foreground carrying a cooking pot and a child’s red sweater. Six-year-old Sitara is seen from behind on a high stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific. Leave the upper area clear; no lettering."}]},{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"eye","horizon":42,"description":"ANTARCTICA, 2046: vast blue-white ice beneath a hard sky. Sitara Lhakpa in her puffy red jacket stands beside Nayah in her puffy yellow jacket. Warning flags mark a dark unstable zone between them and a half-buried sensor tripod; Sitara’s separate small silver TJ crouches beside the route marker. Leave the upper third clear for Nayah’s balloon."},{"w":1,"shot":"close","angle":"low","horizon":25,"description":"Sitara’s boot hovers just short of the flagged line. Beyond it, the sensor’s red status light blinks while a geometric tremor advances beneath the ice. Leave the upper-left clear for the sound effect and lower area clear for Sitara’s balloon."}]}],"items":[{"panel":3,"type":"balloon","speaker":"NAYAH","text":"Sitara. Stop there.","at":"top-left"},{"panel":4,"type":"sfx","text":"KRRRNNN","size":"large","at":"top-left"},{"panel":4,"type":"balloon","speaker":"SITARA","text":"It’s still recording.","at":"bottom-left"}]}
+```
+
+## Page 2 (left) — 4 panels, Falcon exposed
+
+Reading path: warning crossed → sensor retrieved → slab failure → exposed hatch.  
+Dominant beat/image: The large Falcon reveal.  
+Page-turn hook: Falcon is active beneath the ice.
+
+```layout
+{"page":2,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":40,"description":"Continuous Antarctica scene: Nayah plants an emergency route marker and clips a safety line into place while Sitara steps over the warning flags. Sitara’s separate TJ follows low across the snow. Leave the upper third clear for two balloons."},{"w":1,"shot":"medium","angle":"high","horizon":35,"description":"Sitara kneels beside the tripod, fastening a retrieval line to the sensor case while her TJ scans the surface. A dark blue seam widens beneath the tripod unnoticed. Leave the upper area clear for two short balloons and the lower-right clear for sound effects."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"low","horizon":28,"description":"The ice slab drops. Sitara falls to one knee, catching the sensor case as the retrieval line jerks tight. Nayah braces against the route marker, unable to reach her without entering the unstable section. Leave the upper area clear for the impact sound and Nayah’s cry."},{"w":1,"shot":"wide","angle":"high","horizon":25,"bleed":true,"description":"Large reveal: blue ice falls into darkness beneath Sitara, exposing a black metal hatch stamped FALCON and a buried drill housing shuddering below. Sitara grips the sensor and ice edge; her tiny TJ stands against the machinery. Leave the upper third clear for the large sound effect."}]}],"items":[{"panel":1,"type":"balloon","speaker":"NAYAH","text":"Mark the withdrawal route.","at":"top-left"},{"panel":1,"type":"balloon","speaker":"SITARA","text":"I have it.","at":"top-right"},{"panel":2,"type":"sfx","text":"TIK. TIK. TIK.","size":"medium","at":"bottom-right"},{"panel":2,"type":"balloon","speaker":"TJ","text":"Vibration increasing.","at":"bottom-left"},{"panel":3,"type":"sfx","text":"KRAK—","size":"large","at":"top-left"},{"panel":3,"type":"balloon","speaker":"NAYAH","text":"Sitara!","at":"top-right"},{"panel":4,"type":"sfx","text":"THRUMM—THRUMM—THRUMM","size":"huge","at":"top-left"},{"panel":4,"type":"object","label":"FALCON hatch","at":"middle","w":42,"h":28}]}
+```
+
+## Page 3 (right) — 4 panels, controlled entry
+
+Reading path: Hatch challenge → TJ credential → limited opening → safety limit.  
+Dominant beat/image: The hatch opens only far enough to expose Falcon’s hidden machinery.  
+Page-turn hook: Sitara chooses to enter and record.
+
+```layout
+{"page":3,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"Frosted Falcon hatch with a rotating machine challenge. Sitara reaches from the ice edge while Nayah catches her sleeve from above, holding the safety line. Leave the upper third clear for two balloons."},{"w":1,"shot":"medium","angle":"high","horizon":35,"description":"Sitara lowers her small silver TJ on the retrieval line toward the hatch maintenance plate. The sealed challenge-response module is visible beside the communications core. Leave the upper half clear for two short interface captions."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"The TJ’s green-black display reproduces the challenge as abstract bars and dots while its red Antarctic booties steady against the metal. The hatch indicator changes state. Leave upper-right clear for a sound effect and lower-left for TJ dialogue."},{"w":1,"shot":"medium wide","angle":"eye","horizon":38,"description":"The hatch opens only a handspan, showing black cable, a yellow maintenance lamp, and the edge of a directional drilling map. Sitara looks down; Nayah remains above with the route line. Leave the upper corners clear for two balloons."}]}],"items":[{"panel":1,"type":"balloon","speaker":"NAYAH","text":"Nobody opens an unknown door from a hole in the ice.","at":"top-left"},{"panel":1,"type":"balloon","speaker":"SITARA","text":"Then we learn what it asks.","at":"top-right"},{"panel":2,"type":"caption","at":"x":20,"y":16,"text":"FALCON — LOCAL MAINTENANCE ACCESS"},{"panel":2,"type":"caption","at":"x":20,"y":48,"text":"ROTATING CREDENTIAL — RESPONSE REQUIRED"},{"panel":3,"type":"sfx","text":"CHIP—CHIP—CHIP","size":"medium","at":"top-right"},{"panel":3,"type":"balloon","speaker":"TJ","text":"Local maintenance interface available.","at":"bottom-left"},{"panel":4,"type":"balloon","speaker":"NAYAH","text":"Five minutes. Then out.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"SITARA","text":"We record first.","at":"top-right"}]}
+```
+
+## Page 4 (left) — 4 panels, permit violation
+
+Reading path: Borehole map → falsified manifest → synchronized records → sealed archive.  
+Dominant beat/image: The concealed drilling branches.  
+Page-turn hook: A second timestamp points toward Nexus.
+
+```layout
+{"page":4,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Inside Falcon’s cramped maintenance room, Sitara and Nayah stand beside a projected directional borehole map labeled SCIENTIFIC DRILLING / ENVIRONMENTAL MONITORING. Unauthorized branches descend toward colored resource markers. Leave upper-left clear for no lettering; reserve wall space for the projected labels."},{"w":1,"shot":"medium","angle":"high","horizon":40,"description":"A physical manifest lies beside a concealed waste chute. ICE CORE STORAGE has been overwritten on entries that originally read DRILL FLUID / RESIDUALS. Nayah photographs the page while Sitara studies vibration traces. Leave upper third clear for two balloons."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Two synchronized displays show drilling vibration below and ice-motion plots above. A red timestamp-and-coordinate fragment is handwritten across a maintenance sheet. Leave upper-left clear for Sitara’s balloon."},{"w":1,"shot":"medium","angle":"eye","horizon":40,"description":"The TJ’s sensor turns toward a sealed archive slot containing paper records, a dead data wafer, and a warning fragment marked 07:14 / ———. Leave lower-left clear for the TJ balloon."}]}],"items":[{"panel":2,"type":"balloon","speaker":"NAYAH","text":"That is not an ice-core manifest.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"It is pretending to be one.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"SITARA","text":"The vibration is local. The instability is not.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"TJ","text":"Local record. Access restricted.","at":"bottom-left"},{"panel":4,"type":"caption","at":"top-right","text":"07:14 / ———"}]}
+```
+
+## Page 5 (right) — 4 panels, Nexus coordinate
+
+Reading path: Copying → local acceleration → evacuation → paired coordinate.  
+Dominant beat/image: The Nexus route appears in the copied record.  
+Page-turn hook: The investigation must leave Falcon.
+
+```layout
+{"page":5,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Sitara holds a field tablet over the maintenance record while her TJ scans selected pages. Nayah watches the ceiling as frost shakes loose. Leave upper-right clear for the sound effect and lower-left for Nayah’s balloon."},{"w":1,"shot":"close","angle":"high","horizon":35,"description":"Sitara overlays the drilling trace and ice-motion plot. A narrow red line connects them, showing local acceleration without implying Falcon caused the entire Antarctic crisis. Leave the upper-left clear for Sitara’s balloon."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"A warning light flashes and meltwater beads along the threshold. Nayah pulls the emergency line taut toward the exit while Sitara closes the tablet. Leave the upper third clear for Nayah’s command."},{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"The copied record displays NEXUS — ROUTE 2 — SECOND TIMESTAMP and PAIR BEFORE DISCLOSURE. Keep the document sharply legible and leave the lower area clear."}]}],"items":[{"panel":1,"type":"sfx","text":"THRUM—THRUM—THRUM","size":"medium","at":"top-right"},{"panel":1,"type":"balloon","speaker":"NAYAH","text":"We have four minutes.","at":"bottom-left"},{"panel":1,"type":"balloon","speaker":"SITARA","text":"Then the copy has to be complete.","at":"bottom-right"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"Local acceleration. Not the whole system.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"NAYAH","text":"Out. Now.","at":"top-left"},{"panel":4,"type":"caption","at":"middle","text":"NEXUS — ROUTE 2 — SECOND TIMESTAMP"},{"panel":4,"type":"caption","at":"bottom","text":"PAIR BEFORE DISCLOSURE"}]}
+```
+
+## Page 6 (left) — 4 panels, Roman’s bargain
+
+Reading path: Treatment file → Croft’s pressure → deadline → Roman signs.  
+Dominant beat/image: Roman signs while keeping the records.  
+Page-turn hook: His private search begins.
+
+```layout
+{"page":6,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Colorado CSG facility: Roman sits at a worktable with a hospital treatment schedule, an unapproved T-ALL chemistry file, and a months-scale deterioration marker. His bonded TJ stands beside the papers. Leave upper area clear."},{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Croft places his medical-alert bracelet beside the file without touching Roman. Keep his expression controlled and exhausted. Leave upper third clear for two balloons."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":40,"description":"Croft turns the treatment schedule so Roman can see the date. Roman remains seated and tense. Leave upper third clear for Croft’s balloon."},{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Roman signs a restricted-access form. His bonded TJ’s green-black display reads LOCAL PARTITION: STATUS PULSE. Roman’s hand remains on the pen after signing. Leave lower-right clear for his balloon."}]}],"items":[{"panel":2,"type":"balloon","speaker":"CROFT","text":"The approved route is too slow.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"That is not approval.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"CROFT","text":"By the time it is approved, there may be no patient left to approve it for.","at":"top-left"},{"panel":4,"type":"caption","at":"top-right","text":"LOCAL PARTITION: STATUS PULSE"},{"panel":4,"type":"balloon","speaker":"ROMAN","text":"I’ll run the chemistry. I keep the records.","at":"bottom-right"}]}
+```
+
+## Page 7 (right) — 4 panels, paper route
+
+Reading path: Nexus archive → revoked credential → TJ route → Roman chooses investigation.  
+Dominant beat/image: The paper trail survives beside the treatment file.  
+Page-turn hook: Roman will travel south.
+
+```layout
+{"page":7,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":40,"description":"Roman opens a paper archive drawer marked NEXUS / CALIBRATION. Inside are chemical sheets, a denied transport request, and a handwritten timestamp matching Falcon’s fragment. Leave upper area clear."},{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"A monitor reads ORIEN KEEL — CREDENTIALS REVOKED. A clipped message beneath reads MAKE THE PROBLEM GO AWAY. Roman reads it while his bonded TJ remains foregrounded with a dark screen. Leave upper area clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Roman asks his bonded TJ for the route. The small robot faces him, display bright against the dim facility. Leave upper-left clear for Roman’s balloon and upper-right for the response."},{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Roman folds the Nexus sheet into his jacket. Behind him the treatment file remains open on the table, creating a visual split between obligation and investigation. Leave upper-left clear for his final balloon."}]}],"items":[{"panel":2,"type":"caption","at":"top-left","text":"ORIEN KEEL — CREDENTIALS REVOKED"},{"panel":2,"type":"caption","at":"bottom-left","text":"MAKE THE PROBLEM GO AWAY."},{"panel":3,"type":"balloon","speaker":"ROMAN","text":"Do you have the route?","at":"top-left"},{"panel":3,"type":"caption","at":"top-right","text":"ROUTE REFERENCE PRESERVED. SIGNIFICANCE UNRESOLVED."},{"panel":4,"type":"balloon","speaker":"ROMAN","text":"Then I’ll find the significance.","at":"top-left"}]}
+```
+
+## Page 8 (left) — 4 panels, Roman chooses Antarctica
+
+Reading path: Separate logistics sites → signed request → departure → converging routes.  
+Dominant beat/image: Roman submits the Antarctic travel request.  
+Page-turn hook: The routes converge only at Nexus.
+
+```layout
+{"page":8,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Colorado logistics terminal: Roman submits an Antarctic transport request. The route display clearly identifies FALCON — FIELD SITE and NEXUS — COASTAL CAVE LABORATORY, with TWO HOURS, WEATHER DEPENDENT. His bonded TJ waits beside the terminal. Leave upper area clear."},{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Roman signs the request beneath CSG ANTARCTIC LOGISTICS / NEXUS ACCESS. Leave the upper third clear for his speech balloon."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"rear","horizon":40,"description":"A tracked transport leaves the Colorado terminal. Roman sits behind the windshield; his bonded TJ is secured in a padded case beside him, its screen visible. Leave upper area clear."},{"w":1,"shot":"high","angle":"top","horizon":20,"description":"Split route map: Sitara and Nayah depart Falcon on one line while Roman’s Antarctic logistics route enters from another. The lines converge only at NEXUS; Falcon and Nexus are visibly separate locations. Leave map labels unobstructed."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"FALCON — FIELD SITE"},{"panel":1,"type":"caption","at":"top-right","text":"NEXUS — COASTAL CAVE LABORATORY"},{"panel":1,"type":"caption","at":"bottom-left","text":"TWO HOURS, WEATHER DEPENDENT"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"I’m going south.","at":"top-left"}]}
+```
+
+## Page 9 (right) — 4 panels, convergence at Nexus
+
+Reading path: Two access points → meeting → paired evidence → safety rule.  
+Dominant beat/image: Sitara and Roman place their records together.  
+Page-turn hook: The cave begins to fail.
+
+```layout
+{"page":9,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"eye","horizon":42,"description":"NEXUS, later: a tracked vehicle route marker stands far behind the separate coastal cave entrance. Roman arrives at one access point while Sitara and Nayah arrive at another. Do not depict Falcon nearby. Leave upper area clear."},{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Inside the cave laboratory, Sitara, Roman, and Nayah meet beneath warped metal and blue ice. Their separate TJs face each other across a frozen threshold. Leave upper third clear for dialogue."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":35,"description":"Roman holds Orien’s chemical calibration sheet and Sitara holds the Falcon fragment. They study the documents rather than each other. Leave upper third clear for two balloons."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Nayah plants a route marker at the corridor entrance. A chalked arrow points toward the exit. Leave upper-left clear for her command."}]}],"items":[{"panel":2,"type":"balloon","speaker":"ROMAN","text":"Sitara.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"You came from Colorado.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"ROMAN","text":"This code is in your record.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"SITARA","text":"Your record is the second half.","at":"top-right"},{"panel":4,"type":"balloon","speaker":"NAYAH","text":"We work inside the route. We leave when I say.","at":"top-left"}]}
+```
+
+## Page 10 (left) — 4 panels, Nexus fracture
+
+Reading path: Buckling corridor → selective warning → evacuation route → dead tank.  
+Dominant beat/image: The fracture forces cooperation.  
+Page-turn hook: The ecological evidence waits below.
+
+```layout
+{"page":10,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"dutch","horizon":35,"description":"The Nexus support corridor buckles as blue ice splits the wall. Roman’s bonded TJ pivots toward a falling section. Leave upper-right clear for the structural sound."},{"w":1,"shot":"medium","angle":"low","horizon":30,"description":"Roman receives a selective directional warning, shown through a hard shift in posture rather than glowing telepathy. He grabs Sitara’s shoulder and pulls her clear as a metal brace crashes down. Leave upper area clear for the impact and command."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":40,"description":"Nayah redirects Roman and Sitara along the marked route while meltwater spreads across the floor. The separate TJs follow. Leave upper-left clear for Nayah’s command."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Emergency lights flicker in a lower laboratory. Through a fractured window, an empty krill tank and dead sensor display are visible. Leave upper area clear for the alarm sound."}]}],"items":[{"panel":1,"type":"sfx","text":"GROOOAN","size":"large","at":"top-right"},{"panel":2,"type":"sfx","text":"KLANG—","size":"large","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"Left. Move!","at":"top-right"},{"panel":3,"type":"balloon","speaker":"NAYAH","text":"No retrieval. Keep moving.","at":"top-left"},{"panel":4,"type":"sfx","text":"BEEP… BEEP…","size":"medium","at":"top-right"}]}
+```
+
+## Page 11 (right) — 4 panels, dead krill tank
+
+Reading path: Empty tank → sensor graph → costly repair → measurable failure.  
+Dominant beat/image: The ecological collapse becomes data.  
+Page-turn hook: The paired records can now align.
+
+```layout
+{"page":11,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Nexus ecological lab: an empty krill tank under emergency light, pale sediment layered at the bottom and ice pressing through the rear wall. Leave upper area clear; no lettering."},{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"Sitara wipes frost from the surviving sensor display. A graph shows sea-ice duration falling beside failed krill reproduction. Leave upper-left clear for her balloon."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":35,"description":"Sitara’s TJ opens a sealed connector and fabricates a small conductive bridge through its tool port. The battery indicator visibly drops. Leave upper-right clear for the fabrication sound and lower-left for TJ dialogue."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"The sensor archive returns KRILL REPRODUCTION: FAILED and CAUSE CORRELATION: SEA-ICE LOSS. Roman looks through the glass at the empty tank. Leave upper area clear for Roman’s line."}]}],"items":[{"panel":2,"type":"balloon","speaker":"SITARA","text":"The tank failed when the ice season shortened.","at":"top-left"},{"panel":3,"type":"sfx","text":"TIK—WHIRR","size":"medium","at":"top-right"},{"panel":3,"type":"balloon","speaker":"TJ","text":"Fabrication consumes reserve power.","at":"bottom-left"},{"panel":4,"type":"caption","at":"top-left","text":"KRILL REPRODUCTION: FAILED"},{"panel":4,"type":"caption","at":"top-left","text":"CAUSE CORRELATION: SEA-ICE LOSS"},{"panel":4,"type":"balloon","speaker":"ROMAN","text":"Not a resource. A food web.","at":"bottom-left"}]}
+```
+
+## Page 12 (left) — 4 panels, paired records
+
+Reading path: Chemical records → Falcon fragment → combined overlay → selected synchronization.  
+Dominant beat/image: The divided evidence joins without merging the archives.  
+Page-turn hook: Both protagonists must disclose their own complicity.
+
+```layout
+{"page":12,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":35,"description":"Roman spreads Nexus chemical and waste records on a dry section of floor. One bears the second half of Orien’s code: 07:14 / COORDINATE—. Leave upper area clear."},{"w":1,"shot":"medium","angle":"high","horizon":35,"description":"Sitara places Falcon’s vibration record beside the chemical sheet. The incomplete codes join across the papers, not across the physical panel gutter. Leave upper third clear for their exchange."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"top","horizon":20,"description":"Nayah holds the route tablet while an overlay connects Falcon drilling, ice motion, Nexus process waste, and dead krill data. Keep the sites represented as data layers, not one shared landscape. Leave upper area clear."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Sitara and Roman exchange selected archives through a local deliberate transfer. Two physically separate TJ screens read SELECTED SYNC ONLY / FULL PARTITIONS UNAVAILABLE. Leave upper area clear for interface captions."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"07:14 / COORDINATE—"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"Same minute.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"Same coordinate.","at":"top-right"},{"panel":4,"type":"caption","at":"top-left","text":"SELECTED SYNC ONLY"},{"panel":4,"type":"caption","at":"top-right","text":"FULL PARTITIONS UNAVAILABLE"}]}
+```
+
+## Page 13 (right) — 4 panels, compromised hands
+
+Reading path: Sitara’s admission → Roman’s admission → mirrored accusation → separate partitions.  
+Dominant beat/image: Neither protagonist can claim clean hands.  
+Page-turn hook: Their archives are distinct, but their compromises rhyme.
+
+```layout
+{"page":13,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Sitara faces Roman beside the aligned records. Her copied Merritt files lie between them. Leave upper-left clear for her admission."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Roman’s hand rests near the treatment file without covering it. Leave upper-right clear for his admission."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Sitara looks directly at Roman, controlled but accusatory. Leave upper-left clear for her short line."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"The two separate TJs remain physically apart. Their displays show different local partitions and different record counts. Leave the lower area clear; no dialogue."}]}],"items":[{"panel":1,"type":"balloon","speaker":"SITARA","text":"I took the safeguards and provenance records from Merritt.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"Croft asked me to continue unauthorized T-ALL chemistry.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"SITARA","text":"You stayed.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"ROMAN","text":"So did you.","at":"top-right"},{"panel":4,"type":"caption","at":"bottom-left","text":"LOCAL PARTITION"},{"panel":4,"type":"caption","at":"bottom-right","text":"LOCAL PARTITION"}]}
+```
+
+## Page 14 (left) — 4 panels, Colorado benefit
+
+Reading path: Sorted and rejected material → enzyme reactor → recovered feedstock and waste → monitoring wall.  
+Dominant beat/image: Project 863 works, but visibly consumes resources.  
+Page-turn hook: Croft’s moral argument follows.
+
+```layout
+{"page":14,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Colorado pilot material belt: selected PET and polyolefin move toward Project 863 while mixed material diverts into a clearly marked rejected bin. Leave upper area clear; no lettering."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"A compact reactor receives sorted feedstock beside a cold-active enzyme bioreactor with insulated, labeled pipes. A technician checks temperature and flow. Leave upper area clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Recovered hydrocarbon feedstock exits into a sealed container. Residual solids sit in a separate drum beside an active emissions monitor. Leave upper area clear."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"A monitoring wall lists water use, grid demand, emissions, and limited throughput while the facility operates. Leave the upper-left clear for Croft’s recorded balloon."}]}],"items":[{"panel":4,"type":"caption","at":"top-left","text":"WATER USE — ACTIVE"},{"panel":4,"type":"caption","at":"top-left","text":"GRID DEMAND — ACTIVE"},{"panel":4,"type":"caption","at":"top-left","text":"EMISSIONS — MONITORED"},{"panel":4,"type":"caption","at":"top-left","text":"THROUGHPUT — LIMITED"},{"panel":4,"type":"balloon","speaker":"CROFT","text":"It works. That matters.","at":"top-right"}]}
+```
+
+## Page 15 (right) — 4 panels, benefit with limits
+
+Reading path: Clearer water → invertebrate survey → Croft’s son → Croft’s accusation.  
+Dominant beat/image: The benefit is real and morally difficult.  
+Page-turn hook: Orien’s location remains unresolved.
+
+```layout
+{"page":15,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Colorado downstream constructed wetland: visibly clearer water exits a nearly closed inlet gate. A monitor shows a dated pilot interval. Leave upper-right clear for the metric caption."},{"w":1,"shot":"medium","angle":"high","horizon":38,"description":"A technician’s survey tray holds aquatic invertebrates beside a monitor showing a finite wetland flow capacity. Leave upper area clear for two metric captions."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"On a wall screen Croft appears beside his son’s treatment schedule; the son is visible only as a pale hand beneath hospital bedding. Leave upper-left clear for Croft’s recorded balloon."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Back in Nexus, Sitara watches the recording while Roman stands beside her, unable to answer quickly. Keep the cave and ice visible. Leave upper area clear for Croft’s final recorded line."}]}],"items":[{"panel":1,"type":"caption","at":"top-right","text":"CLARITY INDEX: 41 → 68"},{"panel":1,"type":"caption","at":"bottom-right","text":"PILOT INTERVAL: DATED"},{"panel":2,"type":"caption","at":"top-left","text":"DOWNSTREAM TAXA: 3 → 11"},{"panel":2,"type":"caption","at":"top-right","text":"WETLAND FLOW CAPACITY: FINITE"},{"panel":3,"type":"balloon","speaker":"CROFT","text":"You want to stop the work that made this possible.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"CROFT","text":"You knew it was useful. You knew it was controlled. Why is it wrong only now?","at":"top-left"}]}
+```
+
+## Page 16 (left) — 4 panels, Orien found
+
+Reading path: Heat map → route cleared → survivor found → phone activated.  
+Dominant beat/image: Orien is alive but near hypothermia.  
+Page-turn hook: He may be able to call.
+
+```layout
+{"page":16,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"high","horizon":28,"description":"Nexus lower route: Sitara’s TJ projects a heat map onto blue ice. One small human-shaped heat signature flickers beyond a collapsed passage. Leave upper-left clear for TJ dialogue."},{"w":1,"shot":"medium","angle":"low","horizon":30,"description":"Nayah braces a safety line while Roman clears loose ice by hand. Sitara crawls toward the opening. Leave upper-right clear for Nayah’s warning."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":30,"description":"Sitara reaches Orien Keel, frost-stiffened and near hypothermia, curled beside a dead heater. His battered analog watch is visible. Leave upper area clear; no dialogue."},{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Sitara places a phone on the ice beside Orien and activates it. His eyes open slightly. Leave upper-left clear for Sitara’s balloon."}]}],"items":[{"panel":1,"type":"balloon","speaker":"TJ","text":"Heat source ahead. Human-sized. Motion intermittent.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"NAYAH","text":"Three minutes. Then we pull you out.","at":"top-right"},{"panel":4,"type":"balloon","speaker":"SITARA","text":"If you can call, call this.","at":"top-left"}]}
+```
+
+## Page 17 (right) — 4 panels, Orien confirms retaliation
+
+Reading path: Phone rings → answer → weak witness → dropped call.  
+Dominant beat/image: Orien’s warning is concrete but incomplete.  
+Page-turn hook: TJ authorization becomes urgent.
+
+```layout
+{"page":17,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Sitara and Roman stand beside the records while Nayah works at the route line behind them. The phone beside Orien begins to ring. Leave upper-right clear for the sound effect."},{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Sitara answers the phone. Roman watches her with the treatment file in hand. Leave upper-left clear for her question."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Orien’s face appears only on the cracked phone screen, weak and interrupted by breath. Keep him frost-stiffened and not fully recovered. Leave upper area clear for his dialogue."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Roman lowers the treatment file as the call ends. Sitara holds the dark phone. Leave upper-left clear for Orien’s final line and lower-right for the click."}]}],"items":[{"panel":1,"type":"sfx","text":"RING—RING—","size":"medium","at":"top-right"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"Orien?","at":"top-left"},{"panel":3,"type":"balloon","speaker":"ORIEN","text":"Croft threatened me. The warnings were scheduled… in case I disappeared.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"ORIEN","text":"Second timestamp. Do not release everything. Release what can be checked.","at":"top-left"},{"panel":4,"type":"sfx","text":"CLICK","size":"small","at":"bottom-right"}]}
+```
+
+## Page 18 (left) — 4 panels, witnessed TJ consent
+
+Reading path: Deletion threat → refusal → ethical question → two separately authorized disclosures.  
+Dominant beat/image: The bonded TJ’s explicit consent, witnessed by Sitara and Nayah.  
+Page-turn hook: The team must evacuate while Falcon’s status changes remotely.
+
+```layout
+{"page":18,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Roman’s bonded TJ stands beside the archive case. Its green-black display shows a network-side corporate request for local archive deletion and shutdown review. Roman reacts with a grip and turn only; do not depict glowing telepathy or remote control. Reserve a dedicated upper-left caption zone separate from the robot and Roman."},{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"The bonded TJ’s screen and speaker are visible together as it rejects the network request locally. Keep the robot at small-dog scale and its neural-interface housing distinct. Reserve the upper-right for one balloon."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Roman kneels beside the bonded TJ while Sitara and Nayah witness from the same frame. Keep all three named people readable and the archive case between them. Leave the upper-left clear for Roman’s question."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Roman’s bonded TJ and Sitara’s separate TJ occupy distinct halves of the panel with a visible gap. The bonded unit’s neural housing is on the left; Sitara’s unit has the bright thermal sensor band on the right. Reserve two non-overlapping display zones: Roman’s selected disclosure on the left and Sitara’s separate authorization on the right."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"CORPORATE ACCESS EVENT / LOCAL ARCHIVE: DELETION / SHUTDOWN REVIEW"},{"panel":2,"type":"balloon","speaker":"TJ","text":"I will not authorize deletion.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"ROMAN","text":"Refusal is not permission. What do you authorize?","at":"top-left"},{"panel":4,"type":"caption","at":"x":18,"y":16,"text":"ROMAN’S TJ — SELECTED DISCLOSURE"},{"panel":4,"type":"caption","at":"x":18,"y":32,"text":"FALCON ENVIRONMENTAL RECORDS"},{"panel":4,"type":"caption","at":"x":18,"y":46,"text":"MERRITT PROVENANCE RECORDS"},{"panel":4,"type":"caption","at":"x":18,"y":60,"text":"CORROBORATING ROUTE / SENSOR DATA"},{"panel":4,"type":"caption","at":"x":18,"y":76,"text":"CONSENT: YES"},{"panel":4,"type":"caption","at":"x":76,"y":16,"text":"SITARA’S TJ — SEPARATE AUTHORIZATION"},{"panel":4,"type":"caption","at":"x":76,"y":36,"text":"SELECTED ROUTE / SENSOR / FALCON-SEARCH RECORDS"},{"panel":4,"type":"caption","at":"x":76,"y":62,"text":"AUTHORIZED"}]}
+```
+
+## Page 19 (right) — 4 panels, evacuation and authenticated hold
+
+Reading path: Flooding corridor → physical evacuation → authenticated Falcon feed → local drilling hold.  
+Dominant beat/image: Nexus evacuation continues while Falcon becomes inspectable through a remote record.  
+Page-turn hook: The operation is interrupted, but the evidence must still be released.
+
+```layout
+{"page":19,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"low","horizon":30,"description":"The Nexus lower corridor floods around the archive case. Meltwater freezes at the edges while blue ice shears overhead. Keep the escape route visible. Leave upper-left clear for the structural sound and upper-right for Nayah’s command."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Nayah pulls Orien along the safety line. Roman carries only the selected physical evidence package; Sitara follows with her separate TJ. No one turns back. Keep the route clear and leave the upper area empty."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":25,"description":"Roman’s field tablet, held inside Nexus, shows a clearly labeled remote operational record feed from the separate Falcon site receiving the authenticated evidence package. Show data only; Falcon is not physically visible from Nexus. Reserve the upper-left for the feed caption."},{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"Within the same authenticated remote record interface, Falcon’s local control record changes to a drilling hold and inspection flag. Do not introduce an operator or a live exterior view. Reserve the left side for three stacked status captions."}]}],"items":[{"panel":1,"type":"sfx","text":"ROAR—CRACK—","size":"large","at":"top-left"},{"panel":1,"type":"balloon","speaker":"NAYAH","text":"Evacuate. Leave anything you cannot carry.","at":"top-right"},{"panel":3,"type":"caption","at":"top-left","text":"FALCON — AUTHENTICATED REMOTE RECORD FEED"},{"panel":4,"type":"caption","at":"x":20,"y":18,"text":"DRILL CONTROL: SAFE HOLD"},{"panel":4,"type":"caption","at":"x":20,"y":38,"text":"LOCAL RECORD: FLAGGED"},{"panel":4,"type":"caption","at":"x":20,"y":58,"text":"INSPECTION REQUIRED"},{"panel":4,"type":"sfx","text":"KRAAAM","size":"large","at":"bottom-right"}]}
+```
+
+## Page 20 (left) — 4 panels, witnessed disclosure
+
+Reading path: Attributable source packages → human signatures → Roman’s consequence → inspection receipt.  
+Dominant beat/image: The limited disclosure leaves their hands without erasing provenance.  
+Page-turn hook: Colorado inspection determines whether useful work can continue.
+
+```layout
+{"page":20,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"A visibly institutional custody interface receives four separate source-package cards in a clean two-by-two grid with generous gaps. Each card has its own blank display area for a short header and source list. Do not add an institution name. Keep the cards visibly separate; do not depict a full archive synchronization."},{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Sitara signs the human provenance statement and Roman signs his own disclosure. Their separate TJs remain outside the transfer case, each showing its own authorization. Leave the upper third clear for two balloons."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":42,"description":"Roman’s employment screen changes to revoked access and termination. His face is reflected in the glass. Do not show arrest, charges, or a formal investigation. Leave upper-right clear for the status caption."},{"w":1,"shot":"wide","angle":"high","horizon":30,"description":"Three distinct institutional windows show, in reading order, an inspection request, an Antarctic route log, and a public custody receipt. Use separate headers and visible arrows or timestamps to make the causal sequence clear. Leave lower-right clear for the closing caption."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"SELECTED PUBLIC DISCLOSURE"},{"panel":1,"type":"caption","at":"x":25,"y":27,"text":"ROMAN’S TJ / SELECTED FALCON ENVIRONMENTAL / MERRITT PROVENANCE / CORROBORATING ROUTE-SENSOR DATA"},{"panel":1,"type":"caption","at":"x":75,"y":27,"text":"SITARA’S TJ / SELECTED ROUTE-SENSOR-FALCON-SEARCH RECORDS"},{"panel":1,"type":"caption","at":"x":25,"y":70,"text":"SITARA / MERRITT COPIES"},{"panel":1,"type":"caption","at":"x":75,"y":70,"text":"HUMAN RECORDS / CHEMICAL RECORDS / ORIEN WARNING"},{"panel":2,"type":"balloon","speaker":"SITARA","text":"No exclusive author line.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"No private archive.","at":"top-right"},{"panel":3,"type":"caption","at":"top-right","text":"CSG ACCESS REVOKED / EMPLOYMENT TERMINATED"},{"panel":4,"type":"caption","at":"x":18,"y":18,"text":"INSPECTION REQUEST"},{"panel":4,"type":"caption","at":"x":50,"y":18,"text":"ANTARCTIC ROUTE LOG"},{"panel":4,"type":"caption","at":"x":78,"y":18,"text":"PUBLIC CUSTODY RECEIPT"},{"panel":4,"type":"caption","at":"bottom-right","text":"The record leaves their hands."}]}
+```
+
+## Page 21 (right) — 4 panels, inspection before continuation
+
+Reading path: Inspectors test costs and rejects → verify finite flow → read metrics → bounded operation.  
+Dominant beat/image: Colorado continues because benefits and limits are visible.  
+Page-turn hook: The public meeting will decide who controls the pilot.
+
+```layout
+{"page":21,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Colorado pilot, day: inspectors examine rejected feedstock, residual solids, and an active emissions monitor before permitting restart. Keep machinery, wet floor, service labels, and power conduits visible. Leave upper-left clear for the inspection caption."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"An inspector checks the constructed-wetland inlet gauge while a technician records flow. The gauge is below but near its finite limit. Leave the upper third clear for the capacity exchange."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":35,"description":"The monitoring wall clearly shows the dated clarity result, invertebrate result, active grid demand, and limited throughput. Reserve a clean upper-right display area for the compact metric block."},{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Selected feedstock moves through the process while rejected material remains separate. The facility continues under inspection conditions. Keep the panel silent and leave the lower edge clear."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"COLORADO PILOT — INSPECTION"},{"panel":2,"type":"balloon","speaker":"INSPECTOR","text":"Capacity?","at":"top-left"},{"panel":2,"type":"balloon","speaker":"TECHNICIAN","text":"Finite. We stay below the line.","at":"top-right"},{"panel":3,"type":"caption","at":"x":72,"y":20,"text":"CLARITY: 41 → 68"},{"panel":3,"type":"caption","at":"x":72,"y":40,"text":"INVERTEBRATE TAXA: 3 → 11"},{"panel":3,"type":"caption","at":"x":72,"y":62,"text":"GRID DEMAND: ACTIVE / THROUGHPUT: LIMITED"}]}
+```
+
+## Page 22 (left) — 4 panels, interim partnership
+
+Reading path: Contract wall → financing argument → ecological limits → unresolved terms.  
+Dominant beat/image: The pilot operates without solved ownership.  
+Page-turn hook: Croft must decide whether to block it.
+
+```layout
+{"page":22,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Colorado public meeting: a projected interim contract fills the wall with UNINCORPORATED INTERIM PARTNERSHIP / PUBLIC CONTRACTS / INSPECTION REQUIRED. Sitara and Roman stand at the back, not at a podium. Keep the gathering non-identifiable. Leave upper area clear."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"A scientist points to the access clause while a conservation representative points to ecological limits. Keep both figures readable without making a recognizable crowd. Leave upper third clear for two balloons."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"An affected-community participant points toward the throughput and water-use terms on the projected contract. Keep the participant nonspecific and the document legible. Leave upper-left clear for the balloon."},{"w":1,"shot":"wide","angle":"high","horizon":30,"description":"The unsigned contract lies on a table with separate pages marked ownership, financing, and long-term governance as open. Leave the upper area clear; no extra dialogue."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"UNINCORPORATED INTERIM PARTNERSHIP"},{"panel":1,"type":"caption","at":"top-left","text":"PUBLIC CONTRACTS / INSPECTION REQUIRED"},{"panel":2,"type":"balloon","speaker":"SCIENTIST","text":"The process needs stable financing.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"CONSERVATION REPRESENTATIVE","text":"Stable financing is not private ownership.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"PARTICIPANT","text":"Who decides when the wetland is full?","at":"top-left"},{"panel":4,"type":"caption","at":"x":25,"y":55,"text":"OWNERSHIP — OPEN"},{"panel":4,"type":"caption","at":"x":50,"y":55,"text":"FINANCING — OPEN"},{"panel":4,"type":"caption","at":"x":75,"y":55,"text":"LONG-TERM GOVERNANCE — OPEN"}]}
+```
+
+## Page 23 (right) — 4 panels, Croft’s active concession
+
+Reading path: Block-or-preserve choice → consequence → signature → pilot continues.  
+Dominant beat/image: Croft refuses to block the interim contract.  
+Page-turn hook: The final page returns to shared stewardship.
+
+```layout
+{"page":23,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Croft appears on a recorded board-and-contract call. His medical-alert bracelet and his son’s treatment schedule are visible beside the screen. A board message offers the choice to assert proprietary control and suspend public operation. Leave upper-left clear for the board caption."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Croft reads the clause while his hand closes around the medical-alert bracelet. Keep his expression composed and exhausted. Leave upper third clear for his balloon."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":40,"description":"Croft signs a narrow authorization document. The signature area is clean and large enough for the later lettering; do not depict an apology or confession. Leave upper-left clear for the document caption."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"The board screen goes dark. Croft remains beside the unsigned treatment schedule, isolated in the corporate room. Leave upper-left clear for his final balloon."}]}],"items":[{"panel":1,"type":"caption","at":"top-left","text":"ASSERT PROPRIETARY CONTROL. SUSPEND PUBLIC OPERATION."},{"panel":2,"type":"balloon","speaker":"CROFT","text":"If I block this, the water stops improving.","at":"top-left"},{"panel":3,"type":"caption","at":"top-left","text":"CSG WILL NOT BLOCK THE INTERIM PUBLIC CONTRACT"},{"panel":3,"type":"caption","at":"top-left","text":"CSG WITHDRAWS EXCLUSIVE OPERATING FRAME"},{"panel":4,"type":"balloon","speaker":"CROFT","text":"Keep the pilot running.","at":"top-left"}]}
+```
+
+## Page 24 (left) — 1 panel, resolution splash
+
+Reading path: Shared provenance at lower left → Roman and bonded TJ at lower center → pilot status at lower right; the public meeting remains visible behind them.  
+Dominant beat/image: Useful knowledge is public and inspectable, but stewardship remains unfinished.
+
+```layout
+{"page":24,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"eye","horizon":48,"bleed":true,"description":"Full-page Colorado monitoring station at evening. Warm facility light spills across stressed green-brown water and the constructed wetland channel. Sitara and Roman stand outside with their two physically separate small TJs several feet apart; each has its own local status display. Through the windows, a small public meeting continues in disagreement over ownership and financing. In the foreground, Sitara’s signed provenance tablet sits at lower left. Roman kneels at lower center beside his bonded TJ, whose screen and neural-interface housing are clearly visible. A monitoring station occupies lower right. Leave the upper half free of lettering. Reserve separate non-overlapping lower lettering zones: provenance status directly on the tablet; Roman’s question above and left of the bonded TJ; the bonded-TJ response beside its display; pilot status attached to the monitoring station."}]}],"items":[{"panel":1,"type":"caption","at":"x":17,"y":76,"text":"SHARED / NO EXCLUSIVE CLAIM"},{"panel":1,"type":"balloon","speaker":"ROMAN","text":"Do you want the selected records retained in the public archive?","at":"x":43,"y":60},{"panel":1,"type":"caption","at":"x":58,"y":78,"text":"LOCAL MEMORY RETAINED / SHARED RECORD AUTHORIZED"},{"panel":1,"type":"caption","at":"x":86,"y":82,"text":"PILOT IMPROVEMENT / THROUGHPUT LIMITED"}]}
+```

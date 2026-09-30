@@ -1,0 +1,73 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "NEXUS LOWER ROUTE. Sitara's separate TJ projects a restrained local heat map onto the ice. One intermittent human-sized signature lies beyond a collapsed passage. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Nayah braces a safety line while Roman clears loose ice by hand and Sitara crawls through the opening. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Orien lies curled beside a dead heater, frost-stiffened and near hypothermia. His battered analog watch is visible. Keep silent."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Sitara places a compact satellite-capable emergency field handset with physical antenna beside Orien and activates it. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "NEXUS LOWER ROUTE"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Heat source ahead. Human-sized. Motion intermittent.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Three minutes. Then we pull you out.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "If you can call, call this.",
+      "at": "top-left"
+    }
+  ]
+}

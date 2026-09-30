@@ -1,0 +1,86 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Nexus ecological lab. An empty krill tank sits under emergency light. Pale sediment layers the bottom and blue ice presses through the rear wall. Leave upper-left for a location caption."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 35,
+          "description": "Sitara wipes frost from the sensor display. A graph shows sea-ice duration shortening beside failed krill reproduction; preserve correlation language only. Leave the top for Sitara's dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Sitara's TJ fabricates a small conductive bridge from sorted feedstock. Its reserve indicator visibly drops. Leave upper-right for a sound effect and upper-left for TJ dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The sensor archive returns a concise result while Roman looks through the glass at the empty tank. Keep the tank dominant behind him. Leave top-left for the result caption and bottom-right for Roman's dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "NEXUS ECOLOGICAL LAB"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "The tank failed when the ice season shortened.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "TIK\u2014WHIRR",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Fabrication consumes reserve power.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "KRILL REPRODUCTION: FAILED / CORRELATION: CHANGED SEA-ICE CONDITIONS"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Not a resource. A food web.",
+      "at": "bottom-right"
+    }
+  ]
+}

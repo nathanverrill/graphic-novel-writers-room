@@ -1,0 +1,81 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "dutch",
+          "horizon": 35,
+          "description": "The Nexus support corridor buckles as blue ice splits the wall. Roman\u2019s bonded TJ pivots toward a falling section. Leave upper-right clear for the structural sound."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Roman receives a selective directional warning, shown through a hard shift in posture rather than glowing telepathy. He grabs Sitara\u2019s shoulder and pulls her clear as a metal brace crashes down. Leave upper area clear for the impact and command."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Nayah redirects Roman and Sitara along the marked route while meltwater spreads across the floor. The separate TJs follow. Leave upper-left clear for Nayah\u2019s command."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Emergency lights flicker in a lower laboratory. Through a fractured window, an empty krill tank and dead sensor display are visible. Leave upper area clear for the alarm sound."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROOOAN",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLANG\u2014",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Left. Move!",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "No retrieval. Keep moving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BEEP\u2026 BEEP\u2026",
+      "size": "medium",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 19</text>
+<text x="129" y="159" font-size="90" font-weight="bold" fill="#fff" stroke="#111" stroke-width="10.8" paint-order="stroke" transform="rotate(-6 129 159)">ROAR—CRACK—</text>
+<polygon points="386,195 419,205 337,418" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="403" cy="200" rx="93" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="403" y="160" font-size="19" fill="#111">EVACUATE.</text>
+<text x="403" y="183" font-size="19" fill="#111">LEAVE</text>
+<text x="403" y="207" font-size="19" fill="#111">ANYTHING YOU</text>
+<text x="403" y="230" font-size="19" fill="#111">CANNOT</text>
+<text x="403" y="253" font-size="19" fill="#111">CARRY.</text>
+<rect x="-14" y="881" width="339" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="905" font-size="18" fill="#111">FALCON — AUTHENTICATED REMOTE</text>
+<text x="156" y="927" font-size="18" fill="#111">RECORD FEED</text>
+<rect x="467" y="870" width="296" height="80" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="895" font-size="18" fill="#111">AUTHENTICATED INSPECTION</text>
+<text x="615" y="916" font-size="18" fill="#111">INTERLOCK / LOCAL CONTROL</text>
+<text x="615" y="938" font-size="18" fill="#111">FLAGGED</text>
+<rect x="571" y="1050" width="317" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="730" y="1075" font-size="18" fill="#111">DRILLING HOLD PENDING LOCAL</text>
+<text x="730" y="1096" font-size="18" fill="#111">SAFETY RESPONSE</text>
+<rect x="675" y="1328" width="339" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="844" y="1353" font-size="18" fill="#111">LOCAL ACKNOWLEDGMENT RECEIVED</text>
+<text x="588" y="1320" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 588 1320)">KRAAAM</text>
+</g>
+</svg>

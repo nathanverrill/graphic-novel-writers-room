@@ -1,0 +1,71 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Colorado logistics terminal: Roman submits an Antarctic transport request. The route display clearly identifies FALCON \u2014 FIELD SITE and NEXUS \u2014 COASTAL CAVE LABORATORY, with TWO HOURS, WEATHER DEPENDENT. His bonded TJ waits beside the terminal. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman signs the request beneath CSG ANTARCTIC LOGISTICS / NEXUS ACCESS. Leave the upper third clear for his speech balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "rear",
+          "horizon": 40,
+          "description": "A tracked transport leaves the Colorado terminal. Roman sits behind the windshield; his bonded TJ is secured in a padded case beside him, its screen visible. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "high",
+          "angle": "top",
+          "horizon": 20,
+          "description": "Split route map: Sitara and Nayah depart Falcon on one line while Roman\u2019s Antarctic logistics route enters from another. The lines converge only at NEXUS; Falcon and Nexus are visibly separate locations. Leave map labels unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "FALCON \u2014 FIELD SITE"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-right",
+      "text": "NEXUS \u2014 COASTAL CAVE LABORATORY"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "TWO HOURS, WEATHER DEPENDENT"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019m going south.",
+      "at": "top-left"
+    }
+  ]
+}

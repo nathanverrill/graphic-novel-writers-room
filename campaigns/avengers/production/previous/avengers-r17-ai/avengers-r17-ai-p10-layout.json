@@ -1,0 +1,81 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "dutch",
+          "horizon": 35,
+          "description": "Nexus corridor buckles as blue ice splits the wall; Roman\u2019s bonded TJ pivots toward falling structure. Leave upper-right for sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Roman receives a selective directional warning shown through posture, not glowing telepathy; he pulls Sitara clear of falling brace. Leave upper area for sound effect and command."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Nayah redirects the team along the marked route while meltwater spreads; both separate TJs follow. Leave upper-left for command."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Emergency lights reveal empty krill tank and dead sensor through a fractured laboratory window. Leave upper area for alarm sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROOOAN",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLANG\u2014",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Left. Move!",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "No retrieval. Keep moving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BEEP\u2026 BEEP\u2026",
+      "size": "medium",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Roman spreads Nexus chemical and waste records on a dry section of floor. One bears the second half of Orien\u2019s code: 07:14 / COORDINATE\u2014. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara places Falcon\u2019s vibration record beside the chemical sheet. The incomplete codes join across the papers, not across the physical panel gutter. Leave upper third clear for their exchange."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "top",
+          "horizon": 20,
+          "description": "Nayah holds the route tablet while an overlay connects Falcon drilling, ice motion, Nexus process waste, and dead krill data. Keep the sites represented as data layers, not one shared landscape. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara and Roman exchange selected archives through a local deliberate transfer. Two physically separate TJ screens read SELECTED SYNC ONLY / FULL PARTITIONS UNAVAILABLE. Leave upper area clear for interface captions."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "07:14 / COORDINATE\u2014"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Same minute.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Same coordinate.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "SELECTED SYNC ONLY"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-right",
+      "text": "FULL PARTITIONS UNAVAILABLE"
+    }
+  ]
+}

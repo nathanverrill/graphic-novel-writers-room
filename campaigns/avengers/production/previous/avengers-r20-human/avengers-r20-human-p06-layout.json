@@ -1,0 +1,74 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Colorado CSG facility: Roman sits at a worktable with a hospital treatment schedule, an unapproved T-ALL chemistry file, and a months-scale deterioration marker. His separate bonded TJ stands beside the papers. Keep silent."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Croft places his narrow silver medical-alert bracelet beside the file without touching Roman. Leave the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Croft turns the treatment schedule toward Roman, controlled but exhausted; the schedule date dominates the foreground. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Roman signs a restricted-access form. His bonded TJ\u2019s green-black display reads LOCAL PARTITION: STATUS PULSE. Roman\u2019s hand remains on the pen after signing. Leave upper-right clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "The approved route is too slow.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "That is not approval.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "By the time it is approved, there may be no patient left to approve it for.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019ll run the chemistry. I keep the records.",
+      "at": "top-right"
+    }
+  ]
+}

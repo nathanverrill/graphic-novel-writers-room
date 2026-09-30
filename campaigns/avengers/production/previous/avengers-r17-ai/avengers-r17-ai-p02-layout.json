@@ -1,0 +1,104 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Nayah clips a safety line into place as Sitara steps over the flags and her separate TJ follows. Leave upper third for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara fastens a retrieval line to the sensor while her TJ scans; a dark seam widens beneath the tripod. Leave upper area for the TJ balloon and lower-right for sound effects."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 28,
+          "description": "The slab drops; Sitara catches the sensor while Nayah braces against the marker. Leave upper area for sound effect and cry."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 25,
+          "bleed": true,
+          "description": "Large reveal: blue ice falls into darkness around a black hatch stamped FALCON and shuddering drill housing. Sitara grips the ice edge; her tiny TJ stands against the machinery. Leave upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Mark the withdrawal route.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I have it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Vibration increasing.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK. TIK. TIK.",
+      "size": "medium",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK\u2014",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara!",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THRUMM\u2014THRUMM\u2014THRUMM",
+      "size": "huge",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "FALCON hatch",
+      "at": "middle",
+      "w": 42,
+      "h": 28
+    }
+  ]
+}

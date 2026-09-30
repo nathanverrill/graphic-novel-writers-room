@@ -1,0 +1,86 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Colorado CSG facility, day. Roman sits at a worktable with a hospital treatment schedule, unapproved T-ALL chemistry file, and restricted-access form. His bonded TJ stands beside the papers. Leave upper-left for a location caption."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Croft places his silver medical-alert bracelet beside the restricted file without touching Roman. Leave the top third for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Croft turns the treatment schedule toward Roman. His controlled expression shows exhaustion. Leave upper-left for Croft's dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Roman signs the restricted-access form. His bonded TJ displays a status pulse. Roman's hand remains on the pen. Leave upper-right for Roman's dialogue and center for the status caption."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO CSG FACILITY \u2014 DAY."
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "The approved route is too slow.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "That is not approval.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "By the time it is approved, there may be no patient left to approve it for.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "middle",
+      "text": "LOCAL PARTITION: STATUS PULSE"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019ll run the chemistry. I keep the records.",
+      "at": "top-right"
+    }
+  ]
+}

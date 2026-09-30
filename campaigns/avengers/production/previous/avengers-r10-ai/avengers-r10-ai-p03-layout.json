@@ -1,0 +1,100 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Frosted Falcon hatch with a rotating machine challenge. Sitara reaches from the ice edge while Nayah catches her sleeve from above, holding the safety line. Leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara lowers her small silver TJ on the retrieval line toward the hatch maintenance plate. The sealed challenge-response module is visible. Leave top clear for interface lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "The TJ's green-black display reproduces the bars and dots as its red Antarctic booties steady against metal. The hatch indicator changes red to amber. Leave upper-right and lower-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 38,
+          "description": "The hatch opens only a handspan, showing black cable, a yellow maintenance lamp, and the edge of a directional drilling map. Sitara looks down; Nayah remains above with the route line. Leave upper corners clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Nobody opens an unknown door from a hole in the ice.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Then we learn what it asks.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-left",
+      "text": "FALCON \u2014 LOCAL MAINTENANCE ACCESS"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top",
+      "text": "ROTATING CREDENTIAL \u2014 RESPONSE REQUIRED"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "CHIP\u2014CHIP\u2014CHIP",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Local maintenance interface available.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Five minutes. Then out.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "We record first.",
+      "at": "top-right"
+    }
+  ]
+}

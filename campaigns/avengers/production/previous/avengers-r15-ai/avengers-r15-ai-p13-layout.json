@@ -1,0 +1,86 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara faces Roman beside the aligned records. Her copied Merritt files lie between them. Leave upper-left clear for her admission."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman\u2019s hand rests near the treatment file without covering it. Leave upper-right clear for his admission."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara looks directly at Roman, controlled but accusatory. Leave upper-left clear for her short line."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The two separate TJs remain physically apart. Their displays show different local partitions and different record counts. Leave the lower area clear; no dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I took the safeguards and provenance records from Merritt.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Croft asked me to continue unauthorized T-ALL chemistry.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "You stayed.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "So did you.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "LOCAL PARTITION"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "LOCAL PARTITION"
+    }
+  ]
+}
