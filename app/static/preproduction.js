@@ -599,3 +599,20 @@ $("#viewer-raw").addEventListener("click", (e) => {
   const tab = new URLSearchParams(location.search).get("tab");
   if (tab && !project.active_run && $(`#tabs button[data-tab="${CSS.escape(tab)}"]`)) showTab(tab);
 })();
+
+// The left column as a drawer: hidden by default so the open items read wide,
+// toggled from the header, remembered per browser. The cards keep loading
+// underneath either way - hiding is display only, never data.
+(() => {
+  const pp = document.querySelector(".pp"), btn = document.getElementById("aside-toggle");
+  if (!pp || !btn) return;
+  let shown = false;
+  try { shown = localStorage.getItem("pp-aside") === "shown"; } catch {}
+  const apply = () => { pp.classList.toggle("no-aside", !shown); btn.setAttribute("aria-pressed", String(shown)); };
+  btn.addEventListener("click", () => {
+    shown = !shown;
+    try { localStorage.setItem("pp-aside", shown ? "shown" : "hidden"); } catch {}
+    apply();
+  });
+  apply();
+})();

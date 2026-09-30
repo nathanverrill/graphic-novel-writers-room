@@ -6,6 +6,13 @@
 .item, .card { overflow-wrap: anywhere; }
 @media (max-width: 62rem) { .pp { grid-template-columns: 1fr; } }
 .pp aside { position: sticky; top: 1.25rem; display: grid; gap: 1rem; }
+/* the left column as a drawer: hidden by default, toggled from the header, remembered per browser */
+.pp.no-aside { grid-template-columns: minmax(0, 1fr); }
+.pp.no-aside aside { display: none; }
+.aside-toggle { font: inherit; font-size: .74rem; padding: .2rem .6rem; border: 1px solid var(--line);
+                border-radius: 999px; background: var(--panel); color: var(--muted); cursor: pointer; }
+.aside-toggle:hover { color: var(--ink); }
+.aside-toggle[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
 .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .85rem 1rem; }
 .card h3 { margin-bottom: .55rem; }
 .rows { display: grid; gap: .3rem; font-size: .8rem; }
@@ -78,39 +85,41 @@ button.go.stop { background: var(--panel); color: var(--bad); border-color: var(
         display: grid; gap: .2rem; }
 .feed div.warn { color: var(--bad); } .feed div.dim { color: var(--muted); }
 
-/* items */
-.items { display: grid; gap: .75rem; }
+/* items — the reading surface of the desk, so the type runs larger than the chrome,
+   and the column keeps a readable measure when the aside drawer is closed */
+.items { display: grid; gap: .75rem; max-width: 62rem; }
 .item { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--line);
-        border-radius: 6px; padding: .85rem 1rem; }
+        border-radius: 6px; padding: .95rem 1.15rem; }
 .item.resolved { border-left-color: var(--ok); }
 .item.deferred { border-left-color: var(--work); }
-.item > h4 { margin: 0 0 .4rem; font-size: .95rem; font-weight: 600; display: flex; gap: .5rem; align-items: baseline; }
-.item > h4 em { font-style: normal; color: var(--muted); font-family: ui-monospace, monospace; font-size: .8rem; }
-.meta { font-size: .76rem; color: var(--muted); display: grid; gap: .25rem; margin-bottom: .6rem; }
+.item > h4 { margin: 0 0 .45rem; font-size: 1.12rem; font-weight: 600; line-height: 1.35;
+             display: flex; gap: .5rem; align-items: baseline; }
+.item > h4 em { font-style: normal; color: var(--muted); font-family: ui-monospace, monospace; font-size: .85rem; }
+.meta { font-size: .87rem; color: var(--muted); display: grid; gap: .3rem; margin-bottom: .6rem; line-height: 1.5; }
 .meta b { color: var(--ink); font-weight: 600; }
-.opts { display: grid; gap: .3rem; margin: .5rem 0; }
-.opts label { display: grid; grid-template-columns: auto 1fr; gap: .45rem; align-items: start;
-              font-size: .82rem; padding: .3rem .4rem; border-radius: 4px; cursor: pointer; line-height: 1.45; }
+.opts { display: grid; gap: .35rem; margin: .5rem 0; }
+.opts label { display: grid; grid-template-columns: auto 1fr; gap: .5rem; align-items: start;
+              font-size: .95rem; padding: .35rem .45rem; border-radius: 4px; cursor: pointer; line-height: 1.5; }
 .opts label:hover { background: var(--bg); }
-.tag { font-size: .64rem; text-transform: uppercase; letter-spacing: .04em; padding: .05rem .35rem;
+.tag { font-size: .68rem; text-transform: uppercase; letter-spacing: .04em; padding: .05rem .35rem;
        border-radius: 3px; border: 1px solid currentColor; white-space: nowrap; margin-right: .3rem; }
 .tag.established { color: var(--ok); } .tag.research { color: #1d4ed8; }
 .tag.inferred { color: var(--work); }  .tag.invented { color: var(--accent); }
 .tag.unlabelled { color: var(--bad); }
-.src { color: var(--muted); font-family: ui-monospace, monospace; font-size: .7rem; }
+.src { color: var(--muted); font-family: ui-monospace, monospace; font-size: .76rem; }
 .acts { display: flex; gap: .4rem; flex-wrap: wrap; align-items: center; margin-top: .5rem; }
-.acts textarea { flex: 1 1 18rem; font: inherit; font-size: .82rem; padding: .35rem .5rem;
+.acts textarea { flex: 1 1 18rem; font: inherit; font-size: .92rem; padding: .4rem .55rem;
                  border: 1px solid var(--line); border-radius: 4px; resize: vertical; min-height: 2.1rem; }
-.acts button { font: inherit; font-weight: 500; font-size: .78rem; padding: .3rem .6rem;
+.acts button { font: inherit; font-weight: 500; font-size: .85rem; padding: .3rem .65rem;
                border-radius: 4px; border: 1px solid var(--line);
                background: var(--panel); color: var(--ink); cursor: pointer; }
 .acts button:hover { border-color: var(--ink); }
 .acts button.primary { background: var(--ink); color: var(--panel); border-color: var(--ink); }
-.said { font-size: .78rem; margin-top: .45rem; padding: .4rem .55rem; border-radius: 4px; background: var(--bg); }
+.said { font-size: .88rem; margin-top: .45rem; padding: .45rem .6rem; border-radius: 4px; background: var(--bg); line-height: 1.5; }
 .said.answer { border-left: 2px solid var(--ok); } .said.defer { border-left: 2px solid var(--work); }
 .said.note { border-left: 2px solid var(--line); }
 .walk { display: flex; justify-content: space-between; align-items: center; gap: .75rem;
-        font-size: .8rem; color: var(--muted); }
+        font-size: .88rem; color: var(--muted); }
 .walk b { color: var(--ink); }
 .walk button, .dots button { font: inherit; font-weight: 500; font-size: .76rem; padding: .25rem .6rem;
         border-radius: 4px; border: 1px solid var(--line); background: var(--panel);
@@ -122,10 +131,10 @@ button.go.stop { background: var(--panel); color: var(--bad); border-color: var(
 .dots button.deferred { border-color: var(--work); color: var(--work); }
 .dots button.skipped { border-style: dashed; color: var(--muted); }
 .dots button[aria-current] { background: var(--ink); color: var(--panel); border-color: var(--ink); }
-.field { display: grid; gap: .2rem; margin-top: .7rem; font-size: .82rem; }
-.field b i { font-weight: 400; font-style: normal; color: var(--muted); font-size: .72rem; }
-.field span { font-size: .72rem; color: var(--muted); line-height: 1.45; }
-.field textarea { font: inherit; font-size: .82rem; padding: .4rem .55rem; border: 1px solid var(--line);
+.field { display: grid; gap: .2rem; margin-top: .7rem; font-size: .92rem; }
+.field b i { font-weight: 400; font-style: normal; color: var(--muted); font-size: .78rem; }
+.field span { font-size: .8rem; color: var(--muted); line-height: 1.5; }
+.field textarea { font: inherit; font-size: .92rem; padding: .45rem .6rem; border: 1px solid var(--line);
                   border-radius: 4px; resize: vertical; width: 100%; }
 .filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: .75rem; align-items: center; }
 .filters button { font: inherit; font-weight: 500; font-size: .76rem; padding: .25rem .6rem;
