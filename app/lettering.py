@@ -19,8 +19,10 @@ import re
 from . import projects, thumbnails
 from .config import env
 
-MARGIN = 0.05        # page margin, as a fraction of the page
-GUTTER = 0.018       # between panels
+MARGIN = 0.012       # page margin, as a fraction of the page: rendered art is near full-bleed,
+                     # so the layer's grid must match the drawn page, not a print trim - a 5%
+                     # margin put every panel 5% inside the art and skewed all the lettering
+GUTTER = 0.01        # between panels: the models draw thin gutters
 FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
@@ -123,17 +125,18 @@ def nudge(box, placed, bounds):
     return x0, y0, x1, y1
 
 
-def svg(spec, ctx=None):
+def svg(spec, ctx=None, rects=None):
     """The page's text layer: transparent SVG, balloons and captions over the art."""
-    return layer(spec, ctx)[0]
+    return layer(spec, ctx, rects)[0]
 
 
-def layer(spec, ctx=None):
+def layer(spec, ctx=None, rects=None):
     """(svg, boxes, tails): the drawn layer, each item's drawn box in page fractions
-    (x0, y0, x1, y1) for hit areas, and each tailed balloon's tail target (x, y)."""
+    (x0, y0, x1, y1) for hit areas, and each tailed balloon's tail target (x, y).
+    `rects` overrides the panel grid - detect_rects measures it from the drawn art."""
     ctx = ctx or {}
     W, H = page_size()
-    rects = panel_rects(spec)
+    rects = rects or panel_rects(spec)
     number = spec.get("page", 0)
     chapter = ctx.get("chapter")
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
@@ -460,3 +463,132 @@ def replace_block(markdown, page, spec):
             body = json.dumps(spec, indent=1)
             return markdown[:m.start(1)] + body + "\n" + markdown[m.end(1):]
     raise ValueError(f"no layout block for page {page}")
+
+
+# ---- the drawn grid: detected from the art, because the model's page is the real page ----
+
+def detect_rects(spec, art_bytes):
+    """{panel: (x, y, w, h)} measured from the drawn art, or None when there is no art.
+
+    The models draw their own margins and gutters - asymmetric ones, since the prompt names
+    the page's side of the book - so the grid the lettering can trust is the one in the
+    pixels. The content box is measured outright; each expected cut (from the spec's tier
+    and panel proportions) snaps to the nearest thin uniform band when one is visible and
+    stays proportional when not. Downscaled analysis, PIL only."""
+    import io
+    from PIL import Image
+    tiers = spec.get("tiers") or []
+    if not tiers:
+        return None
+    try:
+        im = Image.open(io.BytesIO(art_bytes)).convert("L").resize((240, 360))
+    except Exception:
+        return None
+    W, H = im.size
+    px = list(im.getdata())
+
+    def spread(vals):
+        m = sorted(vals)[len(vals) // 2]
+        return sum(abs(v - m) for v in vals) / len(vals)
+
+    def profile(along, lo_c, hi_c, horizontal):
+        """Uniformity score per row (or column), over the central span of the other axis."""
+        out = []
+        for i in range(along):
+            vals = (px[i * W + lo_c:i * W + hi_c] if horizontal
+                    else [px[y * W + i] for y in range(lo_c, hi_c)])
+            out.append(spread(vals))
+        return out
+
+    def content(profile_, thr):
+        """Trim the thin outer margin only: a dark, uniform stretch of drawing is content,
+        not margin, so the trim is capped at a tenth of the span each side."""
+        span = len(profile_)
+        lo = next((i for i in range(span - 2) if all(v > thr for v in profile_[i:i + 3])), 0)
+        hi = next((i for i in range(span - 1, 1, -1) if all(v > thr for v in profile_[i - 2:i + 1])), span)
+        return min(lo, round(span * 0.1)), max(hi + 1, round(span * 0.9))
+
+    def thin_runs(profile_, thr, span):
+        """Midpoints of thin uniform bands - the drawn gutters."""
+        runs, s = [], None
+        for i in range(len(profile_) + 1):
+            inlow = i < len(profile_) and profile_[i] < thr
+            if inlow and s is None:
+                s = i
+            if not inlow and s is not None:
+                if i - s <= max(3, span * 0.05):
+                    runs.append((s + i) / 2)
+                s = None
+        return runs
+
+    def edge_peaks(horizontal, lo_c, hi_c, span):
+        """Rows (or columns) where a panel border crosses: strong, locally maximal gradient
+        across the central band. A thin gutter blurs away when downscaled; its border edge
+        does not."""
+        grad = [0.0]
+        for i in range(1, span - 1):
+            if horizontal:
+                vals = [abs(px[(i + 1) * W + x] - px[(i - 1) * W + x]) for x in range(lo_c, hi_c)]
+            else:
+                vals = [abs(px[y * W + i + 1] - px[y * W + i - 1]) for y in range(lo_c, hi_c)]
+            grad.append(sum(vals) / len(vals))
+        grad.append(0.0)
+        floor = sorted(grad)[round(len(grad) * 0.88)]
+        peaks = []
+        for i in range(2, span - 2):
+            if grad[i] > floor and grad[i] == max(grad[i - 2:i + 3]):
+                if peaks and i - peaks[-1][0] < span * 0.03:
+                    if grad[i] > peaks[-1][1]:
+                        peaks[-1] = (i, grad[i])
+                else:
+                    peaks.append((i, grad[i]))
+        return peaks
+
+    def edges_for(weights, lo, hi, profile_, thr, span, peaks):
+        """Cut positions between lo and hi: the drawn cuts outright when exactly the expected
+        number is visible (gutters first, border edges second), else proportional cuts
+        snapped to the nearest candidate."""
+        total = sum(weights)
+        margin = span * 0.04
+        runs = [r for r in thin_runs(profile_, thr, span) if lo + margin < r < hi - margin]
+        strong = [float(i) for i, _ in peaks if lo + margin < i < hi - margin]
+        for exact in (runs, strong):
+            if len(exact) == len(weights) - 1:
+                return [float(lo)] + exact + [float(hi)]
+        candidates = sorted(set(runs + strong))
+        out, acc = [float(lo)], 0.0
+        for w_ in weights[:-1]:
+            acc += w_
+            expected = lo + (hi - lo) * acc / total
+            near = [r for r in candidates if abs(r - expected) <= span * 0.12]
+            out.append(min(near, key=lambda r: abs(r - expected)) if near else expected)
+        return out + [float(hi)]
+
+    rows = profile(H, round(W * 0.12), round(W * 0.88), True)
+    thr = max(8.0, sorted(rows)[H // 2] * 0.45)
+    top, bottom = content(rows, thr)
+    if bottom - top < H * 0.6:
+        return None
+    heights = [float(t_.get("h", t_.get("height", 1))) or 1 for t_ in tiers]
+    edges = edges_for(heights, top, bottom, rows, thr, H, edge_peaks(True, round(W * 0.12), round(W * 0.88), H))
+    rects, n = {}, 0
+    for t_i, tier in enumerate(tiers):
+        y0, y1 = edges[t_i], edges[t_i + 1]
+        if y1 - y0 < H * 0.03:
+            return None
+        panels = tier.get("panels") or [{}]
+        cols = profile(W, round(y0 + (y1 - y0) * 0.12), round(y0 + (y1 - y0) * 0.88), False)
+        cthr = max(8.0, sorted(cols)[W // 2] * 0.45)
+        left, right = content(cols, cthr)
+        if right - left < W * 0.5:
+            left, right = 0, W
+        widths = [float(p_.get("w", 1)) or 1 for p_ in panels]
+        xs = edges_for(widths, left, right, cols, cthr, W,
+                       edge_peaks(False, round(y0 + (y1 - y0) * 0.12), round(y0 + (y1 - y0) * 0.88), W) if len(panels) > 1 else [])
+        for p_i in range(len(panels)):
+            n += 1
+            x0, x1 = xs[p_i], xs[p_i + 1]
+            if x1 - x0 < W * 0.03:
+                return None
+            rects[n] = (x0 / W, y0 / H, (x1 - x0) / W, (y1 - y0) / H)
+    return rects

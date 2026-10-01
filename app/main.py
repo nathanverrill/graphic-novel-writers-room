@@ -640,6 +640,11 @@ def _lettering(slug, page, version=None):
         raise HTTPException(404, f"no layout for page {page}")
     ctx = prompts.context(slug, version)
     rects = lettering.panel_rects(spec)
+    art_rel = projects.page_art(slug, page)
+    if art_rel:    # the drawn grid, measured from the page's art, wins over the math
+        measured = lettering.detect_rects(spec, (projects.project_dir(slug) / art_rel).read_bytes())
+        if measured:
+            rects = measured
     placed = []
     for item in lettering.items(spec):
         rect = rects.get(item.get("panel"), (lettering.MARGIN, lettering.MARGIN,
@@ -648,7 +653,7 @@ def _lettering(slug, page, version=None):
         placed.append({**item, "cx": round(cx, 4), "cy": round(cy, 4)})
     script = projects.read_artifact(slug, "script.md", version) or ""
     m = re.search(rf"^##\s*Page\s+{page}\b.*?(?=^##\s*Page\s+\d+|\Z)", script, re.M | re.S | re.I)
-    svg, boxes, tails = lettering.layer(spec, ctx)
+    svg, boxes, tails = lettering.layer(spec, ctx, rects)
     return {"page": page, "items": placed, "svg": svg, "boxes": boxes, "tails": tails,
             "spots": list(lettering.ANCHORS), "kinds": list(lettering.KINDS),
             "sfx_sizes": list(lettering.SFX_SIZES), "sfx_styles": list(lettering.SFX_STYLES),

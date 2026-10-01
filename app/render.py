@@ -172,7 +172,8 @@ def letter(art_bytes, spec, ctx):
     import cairosvg
     from PIL import Image
     art = Image.open(io.BytesIO(art_bytes)).convert("RGBA")
-    layer = cairosvg.svg2png(bytestring=lettering.svg(spec, ctx).encode(), output_width=art.width, output_height=art.height)
+    rects = lettering.detect_rects(spec, art_bytes)   # the drawn grid, not the assumed one
+    layer = cairosvg.svg2png(bytestring=lettering.svg(spec, ctx, rects).encode(), output_width=art.width, output_height=art.height)
     out = Image.alpha_composite(art, Image.open(io.BytesIO(layer)).convert("RGBA").resize(art.size))
     buf = io.BytesIO()
     out.convert("RGB").save(buf, "PNG")
