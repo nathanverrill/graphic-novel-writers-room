@@ -3,12 +3,13 @@
 ![Example art from a book produced in the room](examples/example-novel-art.png)
 
 *From a 24-page book produced end to end in the room — written, laid out, rendered and
-lettered. **[Download the full example as a PDF](examples/example-novel-art.pdf)** (24 pages).*
+lettered. **[Download the full example as a PDF](examples/example-novel-art.pdf)** (24 pages).
+The example art is inspired by and generated based on characters created by students at the
+CU Boulder creative hackathon.*
 
 > **Prototype, not a product.** This is proof-of-concept code, developed at speed with
-> assistance from Claude Code. It is unhardened and unreviewed: no auth, no multi-user story,
-> secrets in plain files. Run it on your own machine for your own work. It is not intended
-> for production use.
+> assistance from Claude Code. Elements have been user tested. It is not yet intended for
+> production use.
 
 A web-based, agentic writers' room for graphic novels. Its product is **page packets**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
