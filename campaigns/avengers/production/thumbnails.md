@@ -1,22 +1,7 @@
 # Thumbnails — layout render
 
 <!-- generated; 116x82 cells, one cell = one letter at 7.5 pt lettering -->
-
-**Layout errors**
-
-- layout block 3: Extra data: line 1 column 1459 (char 1458)
-- layout block 11: Extra data: line 1 column 1330 (char 1329)
-- layout block 12: Extra data: line 1 column 1215 (char 1214)
-- layout block 14: Extra data: line 1 column 1092 (char 1091)
-- layout block 15: Extra data: line 1 column 1100 (char 1099)
-- layout block 18: Extra data: line 1 column 1380 (char 1379)
-- layout block 19: Extra data: line 1 column 1360 (char 1359)
-- layout block 20: Extra data: line 1 column 1227 (char 1226)
-- layout block 21: Extra data: line 1 column 1312 (char 1311)
-- layout block 22: Extra data: line 1 column 993 (char 992)
-- layout block 23: Extra data: line 1 column 1406 (char 1405)
-- layout block 24: Extra data: line 1 column 772 (char 771)
-## Page 1 (right) <!-- layout 5604927615 -->
+## Page 1 (right) <!-- layout 6df7c38aa7 -->
 
 ```text
                                                                                                                     
@@ -24,12 +9,12 @@
                                                                                                                     
         ________________________________________________    ________________________________________________        
        |                                                |  |                                                |       
-       |                                                |  |                                                |       
-       |                                                |  |                                                |       
-       |                                                |  |                                                |       
-       |                                                |  |                                                |       
-       |                                                |  |                                                |       
-       |                                                |  |                                                |       
+       |                              _____________     |  |                                                |       
+       |                             /   SITARA.   \    |  |                                                |       
+       |                             \ STOP THERE! /    |  |                                                |       
+       |                              ~~~~~~~~~~~~~     |  |                                                |       
+       |                                    |           |  |                                                |       
+       |                                    |           |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
@@ -63,12 +48,12 @@
                                                                                                                     
         ________________________________________________    ________________________________________________        
        |                                                |  |                                                |       
-       |  _____________                                 |  |  ____________                                  |       
-       | /   SITARA.   \                                |  | / IT’S STILL \                                 |       
-       | \ STOP THERE. /                                |  | \ RECORDING. /                                 |       
-       |  ~~~~~~~~~~~~~                                 |  |  ~~~~~~~~~~~~                                  |       
-       |        |                                       |  |        |                                       |       
-       |        |                                       |  |        |                                       |       
+       |                                                |  |  ____________                                  |       
+       |                                                |  | / IT’S STILL \                                 |       
+       |                                                |  | \ RECORDING. /                                 |       
+       |                                                |  |  ~~~~~~~~~~~~                                  |       
+       |                                                |  |        |                                       |       
+       |                                                |  |        |                                       |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
@@ -85,6 +70,7 @@
        |                                                |  |________________________________________________|       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
+       |                                                |  |                    \\ K R R R N N N //         |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
@@ -95,7 +81,6 @@
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
-       |                                                |  |                            \\ K R R R N N N // |       
        |                                                |  |                                                |       
        |________________________________________________|  |________________________________________________|       
                                                                                                                     
@@ -199,6 +184,98 @@
 - P2 CLOSE / HIGH: Sitara fastens a retrieval line to the sensor while her TJ scans; a dark seam widens beneath the tripod. Leave upper-left for dialogue and upper-right for sound effect.
 - P3 MEDIUM / LOW: The slab drops; Sitara catches the sensor case while Nayah braces against the route marker. Leave upper-left for dialogue and the fracture edge for sound effect. — SFX KRAK—
 - P4 WIDE / LOW: Large reveal: blue ice breaks into darkness, exposing a black hatch stamped FALCON and a buried drill housing. Sitara grips sensor and ice edge; her small TJ stands at the hatch. Keep hatch label clear and leave lower-right for sound effect. — SFX THRUMM—THRUMM—THRUMM
+
+## Page 3 (right) <!-- layout 9cfbd63a58 -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |  ____________________         _______________  |  |                                                |       
+       | /  NOBODY OPENS AN   \       / THEN WE LEARN \ |  |                                                |       
+       | | UNKNOWN DOOR FROM  |       \ WHAT IT ASKS. / |  |                                                |       
+       | \ A HOLE IN THE ICE. /        ~~~~~~~~~~~~~~~  |  |+================+                              |       
+       |  ~~~~~~~~~~~~~~~~~~~~                |         |  || FALCON — LOCAL |                              |       
+       |            |                         |         |  || MAINTENANCE    |                              |       
+       |            |                                   |  || ACCESS         |                              |       
+       |                                                |  |+================+                              |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |________________________________________________|  | +==============+                               |       
+       |                                                |  | | ROTATING     |                               |       
+       |                                                |  | | CREDENTIAL — |                               |       
+       |                                                |  | | RESPONSE     |                               |       
+       |                                                |  | | REQUIRED     |                               |       
+       |                                                |  | +==============+                               |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |              \\ C H I P — C H I P — C H I P // |  |  ___________                      ___________  |       
+       |                                                |  | /    FIVE   \                    / WE RECORD \ |       
+       |                                                |  | |  MINUTES. |                    \   FIRST.  / |       
+       |                                                |  | \ THEN OUT. /                     ~~~~~~~~~~~  |       
+       |                                                |  |  ~~~~~~~~~~~                           |       |       
+       |                                                |  |       |                                |       |       
+       |                                                |  |       |                                        |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |  _____________                                 |  |                                                |       
+       | /    LOCAL    \                                |  |                                                |       
+       | | MAINTENANCE |                                |  |                                                |       
+       | |  INTERFACE  |                                |  |                                                |       
+       | \  AVAILABLE. /                                |  |                                                |       
+       |  ~~~~~~~~~~~~~                                 |  |                                                |       
+       |        |                                       |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 CLOSE / EYE: Frosted Falcon hatch displays a rotating machine challenge as Sitara reaches from the ice edge and Nayah holds her sleeve and safety line. Leave upper third clear for dialogue.
+- P2 MEDIUM / HIGH: Sitara lowers her separate small silver TJ toward the hatch plate; its sealed challenge-response module is visible beside ordinary communications hardware. Leave upper half clear for interface lettering.
+- P3 CLOSE / EYE: Sitara’s TJ, with bright thermal sensor band and red Antarctic booties, steadies against metal as its green-black display reproduces bars and dots; the indicator changes red to amber. Leave upper-right for sound effect and lower-left for dialogue.
+- P4 MEDIUM / EYE: The hatch opens only a handspan, revealing black cable, a yellow maintenance lamp, and part of a directional drilling map. Sitara looks down; Nayah remains above with the route line. Leave upper corners clear for dialogue.
 
 ## Page 4 (left) <!-- layout 3d0ce667a1 -->
 
@@ -844,7 +921,7 @@
 - P3 WIDE / EYE: Nayah redirects them along the marked route as meltwater spreads; keep route arrow visible and leave upper-left clear for dialogue.
 - P4 MEDIUM / EYE: Emergency lights flicker in a lower lab; through a fractured window are an empty krill tank and dead sensor display. Leave upper-left clear for sound effect.
 
-## Page 13 (right) <!-- layout 83207fece5 -->
+## Page 11 (right) <!-- layout b449781ef7 -->
 
 ```text
                                                                                                                     
@@ -852,14 +929,198 @@
                                                                                                                     
         ________________________________________________    ________________________________________________        
        |                                                |  |                                                |       
-       |  ____________________                          |  |                          ____________________  |       
-       | /     I TOOK THE     \                         |  |                         / CROFT ASKED ME TO  \ |       
-       | |   SAFEGUARDS AND   |                         |  |                         |      CONTINUE      | |       
-       | | PROVENANCE RECORDS |                         |  |                         | UNAUTHORIZED T-ALL | |       
-       | \   FROM MERRITT.    /                         |  |                         \     CHEMISTRY.     / |       
-       |  ~~~~~~~~~~~~~~~~~~~~                          |  |                          ~~~~~~~~~~~~~~~~~~~~  |       
-       |            |                                   |  |                                    |           |       
-       |            |                                   |  |                                    |           |       
+       |                                                |  |  ___________________                           |       
+       |                                                |  | /  THE TANK FAILED  \                          |       
+       |                                                |  | |    WHEN THE ICE   |                          |       
+       |                                                |  | \ SEASON SHORTENED. /                          |       
+       |                                                |  |  ~~~~~~~~~~~~~~~~~~~                           |       
+       |                                                |  |           |                                    |       
+       |                                                |  |           |                                    |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                        \\ T I K — W H I R R // |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  | +==============+                               |       
+       |                                                |  | | KRILL REPROD |                               |       
+       |                                                |  | | UCTION:      |                               |       
+       |                                                |  | | FAILED       |                               |       
+       |                                                |  | +==============+                               |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |_+==============+_______________________________|       
+       |                                                |  | | CAUSE        |                               |       
+       |                                                |  | | CORRELATION: |                               |       
+       |                                                |  | | SEA-ICE LOSS |                               |       
+       |                                                |  | +==============+                               |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |  ________________                              |  |  _____________                                 |       
+       | /  FABRICATION   \                             |  | /    NOT A    \                                |       
+       | |    CONSUMES    |                             |  | | RESOURCE. A |                                |       
+       | \ RESERVE POWER. /                             |  | \  FOOD WEB.  /                                |       
+       |  ~~~~~~~~~~~~~~~~                              |  |  ~~~~~~~~~~~~~                                 |       
+       |          |                                     |  |        |                                       |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Empty krill tank under emergency light with pale sediment layers; blue ice presses through the rear wall. Leave upper area clear.
+- P2 CLOSE / EYE: Sitara clears frost from a sensor showing shortened sea-ice duration beside failed krill reproduction. Leave upper-left clear for dialogue.
+- P3 CLOSE / HIGH: Sitara’s separate TJ fabricates only a small conductive bridge; its battery indicator drops. Leave upper-right for sound effect and lower-left for dialogue.
+- P4 MEDIUM / EYE: Restored display reads KRILL REPRODUCTION: FAILED and CAUSE CORRELATION: SEA-ICE LOSS; Roman looks through the glass. Keep the correlation qualified by the surrounding sensor evidence and leave lower-left for dialogue.
+
+## Page 12 (left) <!-- layout 132faaefb6 -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +=============+                                |  |  _________                       ____________  |       
+       | | 07:14 /     |                                |  | /   SAME  \                     / SAME COORD \ |       
+       | | COORDINATE— |                                |  | \ MINUTE. /                     \   INATE.   / |       
+       | +=============+                                |  |  ~~~~~~~~~                       ~~~~~~~~~~~~  |       
+       |                                                |  |      |                                 |       |       
+       |                                                |  |      |                                 |       |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |   +===========+                                |       
+       |                                                |  |   | SELECTED  |                                |       
+       |________________________________________________|  |   | SYNC ONLY |                                |       
+       |                                                |  |   +===========+                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |  +=============+                               |       
+       |                                                |  |  | FULL        |                               |       
+       |                                                |  |  | PARTITIONS  |                               |       
+       |                                                |  |  | UNAVAILABLE |                               |       
+       |                                                |  |  +=============+                               |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 CLOSE / HIGH: Roman spreads Nexus chemical and waste records; one bears 07:14 / COORDINATE—. Leave upper-left clear.
+- P2 CLOSE / HIGH: Sitara places Falcon vibration record beside the Nexus sheet; incomplete codes align across separate documents. Leave upper third clear for dialogue.
+- P3 WIDE / HIGH: Nayah holds the route tablet as an overlay connects Falcon drilling, ice motion, Nexus waste, and dead krill data. Keep chain legible and top clear.
+- P4 MEDIUM / EYE: Sitara and Roman exchange selected archives through deliberate local transfer. Their separate TJ screens read SELECTED SYNC ONLY and FULL PARTITIONS UNAVAILABLE; keep units distinct.
+
+## Page 13 (right) <!-- layout c702364238 -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                          ____________________  |       
+       |                                                |  |                         / CROFT ASKED ME TO  \ |       
+       |                                                |  |                         |      CONTINUE      | |       
+       |                                                |  |                         | UNAUTHORIZED T-ALL | |       
+       |                                                |  |                         \     CHEMISTRY.     / |       
+       |                                                |  |                          ~~~~~~~~~~~~~~~~~~~~  |       
+       |                                                |  |                                    |           |       
+       |                                                |  |                                    |           |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
@@ -935,6 +1196,194 @@
 - P2 MEDIUM / EYE: Roman’s hand rests near the treatment file without covering it; Sitara remains opposite. Leave upper-right clear for dialogue.
 - P3 CLOSE / EYE: Sitara looks directly at Roman, controlled but wounded; records remain visible below. Leave upper-left clear.
 - P4 WIDE / EYE: Their separate TJs remain physically apart; displays show different local partitions and record counts. Leave displays clear.
+
+**Issues**
+
+- panel 1, location 1: unknown item type
+
+## Page 14 (left) <!-- layout bb0e7627df -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                                   ___________  |       
+       |                                                |  |                                  / IT WORKS. \ |       
+       |                                                |  |                                  |    THAT   | |       
+       |                                                |  |                                  \  MATTERS. / |       
+       |                                                |  |                                   ~~~~~~~~~~~  |       
+       |                                                |  |  +===========+                         |       |       
+       |                                                |  |  | WATER USE |                         |       |       
+       |                                                |  |  | — ACTIVE  |                                 |       
+       |                                                |  |  +===========+                                 |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  | +=============+                                |       
+       |                                                |  | | GRID DEMAND |                                |       
+       |________________________________________________|  |_| — ACTIVE    |________________________________|       
+       |                                                |  | +=============+                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  | +=============+                                |       
+       |                                                |  | | EMISSIONS — |                                |       
+       |                                                |  | | MONITORED   |                                |       
+       |                                                |  | +=============+                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  | +============+                                 |       
+       |                                                |  | | THROUGHPUT |                                 |       
+       |                                                |  | | — LIMITED  |                                 |       
+       |                                                |  | +============+                                 |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Colorado pilot belt sends selected PET and polyolefin toward Project 863 while mixed material diverts into a marked rejected bin. Keep streams separate and upper area clear.
+- P2 MEDIUM / EYE: Compact reactor and insulated cold-active enzyme bioreactor receive sorted feedstock; technician checks temperature and flow. Show pipes, conduits, and service labels; leave upper area clear.
+- P3 MEDIUM / EYE: Recovered hydrocarbon feedstock enters a sealed container; residual solids sit in a separate drum beside an emissions monitor. Keep objects distinct and upper area clear.
+- P4 WIDE / EYE: Monitoring wall presents four separated readable blocks for water, grid demand, emissions, and limited throughput. Keep display uncluttered and reserve upper-right for dialogue.
+
+## Page 15 (right) <!-- layout c558fc241b -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                        +=============+         |  |                                                |       
+       |                        | CLARITY     |         |  |                   +==============+             |       
+       |                        | INDEX: 41 → |         |  |                   | DOWNSTREAM   |             |       
+       |                        | 68          |         |  |                   | TAXA: 3 → 11 |             |       
+       |                        +=============+         |  |                   +==============+             |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                         +===========+          |  |                                                |       
+       |_________________________| PILOT     |__________|  |                                                |       
+       |                         | INTERVAL: |          |  |                   +==============+             |       
+       |                         | DATED     |          |  |                   | WETLAND FLOW |             |       
+       |                         +===========+          |  |                   | CAPACITY:    |             |       
+       |                                                |  |                   | FINITE       |             |       
+       |                                                |  |                   +==============+             |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |  __________________________                    |  |  _______________________                       |       
+       | /   YOU WANT TO STOP THE   \                   |  | / YOU KNEW THE WORK WAS \                      |       
+       | |  RESEARCH PIPELINE THAT  |                   |  | |  USEFUL. YOU KNEW THE |                      |       
+       | |   GAVE THIS PILOT ITS    |                   |  | | PILOT WAS CONTROLLED. |                      |       
+       | | CHANCE—AND THE TREATMENT |                   |  | |  WHY IS IT WRONG ONLY |                      |       
+       | \  PATH MY SON HAS LEFT.   /                   |  | \          NOW?         /                      |       
+       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~                    |  |  ~~~~~~~~~~~~~~~~~~~~~~~                       |       
+       |               |                                |  |             |                                  |       
+       |               |                                |  |             |                                  |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Colorado constructed wetland shows clearer water passing a nearly closed inlet gate; monitor shows clarity change and dated pilot interval. Leave upper area clear.
+- P2 CLOSE / HIGH: Survey tray holds aquatic invertebrates beside increased taxa and finite-flow warning. Keep tray and warning distinct; leave upper-left clear.
+- P3 MEDIUM / EYE: Croft appears on a wall screen beside his son’s treatment schedule; only a pale hand beneath hospital bedding is visible. The screen’s secondary file references the broader restricted research and access pipeline, not the Colorado treatment process. Leave upper-left clear for dialogue.
+- P4 MEDIUM / EYE: In Nexus, Sitara watches the recording while Roman stands beside her, unable to answer. Leave upper third clear for dialogue.
 
 ## Page 16 (left) <!-- layout 6c0cd23ad0 -->
 
@@ -1119,3 +1568,674 @@
 - P2 CLOSE / EYE: Sitara answers while Roman watches with treatment file in hand. Leave upper-left clear for dialogue.
 - P3 CLOSE / EYE: Orien appears only on the cracked phone screen, frost-stiffened and weak, breath interrupting speech. Leave upper third clear for dialogue.
 - P4 MEDIUM / EYE: Roman lowers the treatment file as the call drops; phone screen goes dark. Leave upper-right clear for sound effect.
+
+## Page 18 (left) <!-- layout 15b9d4c03e -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +=====================+                        |  |                                  ____________  |       
+       | | CORPORATE ACCESS    |                        |  |                                 / I WILL NOT \ |       
+       | | EVENT / LOCAL       |                        |  |                                 | AUTHORIZE  | |       
+       | | ARCHIVE: DELETION / |                        |  |                                 \ DELETION.  / |       
+       | | SHUTDOWN REVIEW     |                        |  |                                  ~~~~~~~~~~~~  |       
+       | +=====================+                        |  |                                        |       |       
+       |                                                |  |                                        |       |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |  ___________________                           |  |                                                |       
+       | /   REFUSAL IS NOT  \                          |  |+==============+            +===============+   |       
+       | |  PERMISSION. WHAT |                          |  || ROMAN’S TJ — |            | SITARA’S TJ — |   |       
+       | \ DO YOU AUTHORIZE? /                          |  || SELECTED     |            | SEPARATE      |   |       
+       |  ~~~~~~~~~~~~~~~~~~~                           |  || DISCLOSURE   |            | AUTHORIZATION |   |       
+       |           |                                    |  |+==============+            +===============+   |       
+       |           |                                    |  |                                                |       
+       |                                                |  |+===============+                               |       
+       |                                                |  || FALCON        |                               |       
+       |                                                |  || ENVIRONMENTAL |                               |       
+       |                                                |  || RECORDS       |         +==================+  |       
+       |                                                |  |++============+=+         | SELECTED ROUTE / |  |       
+       |                                                |  | | MERRITT    |           | SENSOR / FALCON- |  |       
+       |                                                |  |_| PROVENANCE |___________| SEARCH RECORDS   |__|       
+       |________________________________________________|  | | RECORDS    |           +==================+  |       
+       |                                                |  | +============+                                 |       
+       |                                                |  |================+                               |       
+       |                                                |  | CORROBORATING  |                               |       
+       |                                                |  | ROUTE / SENSOR |                               |       
+       |                                                |  | DATA           |                               |       
+       |                                                |  |================+                               |       
+       |                                                |  |  +==========+                +==========+      |       
+       |                                                |  |  | CONSENT: |                | AUTHORIZ |      |       
+       |                                                |  |  | YES      |                | ED       |      |       
+       |                                                |  |  +==========+                +==========+      |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 MEDIUM / EYE: Roman’s bonded TJ beside the archive case displays a network request for local archive deletion and shutdown review. Roman reacts through grip and head turn, not glowing telepathy. Reserve isolated caption zone.
+- P2 CLOSE / EYE: Bonded TJ screen and speaker reject the request locally; keep unit small-dog scale with distinct neural housing. Reserve upper-right for dialogue.
+- P3 MEDIUM / EYE: Roman kneels beside the bonded TJ while Sitara and Nayah witness; archive case between them. Leave upper-left clear for dialogue.
+- P4 WIDE / EYE: Roman’s bonded TJ occupies left and Sitara’s separate TJ right with a physical gap; neural housing and thermal sensor band are distinct. Reserve separate display zones.
+
+**Issues**
+
+- panel 4: caption 'MERRITT PROVENAN' overlaps caption 'FALCON ENVIRONME'
+- panel 4, caption "CORROBORATING ROUTE / SE": runs past the panel border (set "breakout": true if intended)
+- panel 4: 31 words — over ~25, likely crowded
+
+## Page 19 (right) <!-- layout 4a4fa4810a -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |  ___  ___   _   ___  ___ ____________________  |  |                                                |       
+       | | _ \/ _ \ /_\ | _ \/ __| _/ EVACUATE. LEAVE \ |  |                                                |       
+       | |   / (_) / _ \|   / (__|  |   ANYTHING YOU  | |  |                                                |       
+       | |_|_\\___/_/ \_\_|_\\___|_|\  CANNOT CARRY.  / |  |                                                |       
+       |                             ~~~~~~~~~~~~~~~~~  |  |                                                |       
+       |                                     |          |  |                                                |       
+       |                                     |          |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +===============+                              |  |                                                |       
+       | | FALCON —      |                              |  |                                                |       
+       | | AUTHENTICATED |                              |  |                                                |       
+       | | REMOTE RECORD |                              |  |   +===========+                                |       
+       | | FEED          |                              |  |   | DRILL     |                                |       
+       | +===============+                              |  |   | CONTROL:  |                                |       
+       |                                                |  |   | SAFE HOLD |                                |       
+       |________________________________________________|  |   +===========+                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |    +=========+                                 |       
+       |                                                |  |    | LOCAL   |                                 |       
+       |                                                |  |    | RECORD: |                                 |       
+       |                                                |  |____| FLAGGED |_________________________________|       
+       |                                                |  |    +=========+                                 |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |  +============+                                |       
+       |                                                |  |  | INSPECTION |                                |       
+       |                                                |  |  | REQUIRED   |                                |       
+       |                                                |  |  +============+                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / LOW: Nexus lower corridor floods around the archive case; meltwater freezes at the edges as blue ice shears overhead. Keep escape route visible and upper corners clear for sound effect and dialogue. — SFX ROAR—CRACK—
+- P2 WIDE / EYE: Nayah pulls Orien along the safety line; Roman carries selected physical evidence and Sitara follows with her TJ. Leave upper area clear.
+- P3 CLOSE / HIGH: Roman’s tablet inside Nexus shows a labeled authenticated remote record feed from separate Falcon receiving the evidence package; show only interface, never Falcon exterior. Reserve upper-left for caption.
+- P4 CLOSE / EYE: Remote interface shows Falcon control changing to drilling safe hold and inspection flag; no operator or exterior view. Reserve left side for status lines.
+
+**Issues**
+
+- panel 1: balloon 'NAYAH' overlaps sfx 'ROAR—CRACK—'
+
+## Page 20 (left) <!-- layout 4adacedc82 -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +============+                                 |  |  ______________                  ____________  |       
+       | | SELECTED   |                                 |  | / NO EXCLUSIVE \                / NO PRIVATE \ |       
+       | | PUBLIC     |                                 |  | \ AUTHOR LINE. /                \  ARCHIVE.  / |       
+       | | DISCLOSURE |                                 |  |  ~~~~~~~~~~~~~~                  ~~~~~~~~~~~~  |       
+       | +============+                                 |  |         |                              |       |       
+       |=======================+   +=================+  |  |         |                              |       |       
+       |ROMAN’S TJ / SELECTED  |   | SITARA’S TJ /   |  |  |                                                |       
+       |FALCON ENVIRONMENTAL / |   | SELECTED ROUTE- |  |  |                                                |       
+       |MERRITT PROVENANCE /   |   | SENSOR-FALCON-  |  |  |                                                |       
+       |CORROBORATING ROUTE-   |   | SEARCH RECORDS  |  |  |                                                |       
+       |SENSOR DATA            |   +=================+  |  |                                                |       
+       |=======================+                        |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |     +==========+         +==================+  |  |                                                |       
+       |     | SITARA / |         | HUMAN RECORDS /  |  |  |                                                |       
+       |     | MERRITT  |         | CHEMICAL RECORDS |  |  |                                                |       
+       |     | COPIES   |         | / ORIEN WARNING  |  |  |                                                |       
+       |     +==========+         +==================+  |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                 +============+ |  |                                                |       
+       |                                 | CSG ACCESS | |  |                                                |       
+       |                                 | REVOKED /  | |  |                                                |       
+       |                                 | EMPLOYMENT | |  | +============+   +===========+ +=========+     |       
+       |                                 | TERMINATED | |  | | INSPECTION |   | ANTARCTIC | | PUBLIC  |     |       
+       |                                 +============+ |  | | REQUEST    |   | ROUTE LOG | | CUSTODY |     |       
+       |                                                |  | +============+   +===========+ | RECEIPT |     |       
+       |                                                |  |                                +=========+     |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                               +==============+ |       
+       |                                                |  |                               | THE RECORD   | |       
+       |                                                |  |                               | LEAVES THEIR | |       
+       |                                                |  |                               | HANDS.       | |       
+       |                                                |  |                               +==============+ |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Institutional custody interface receives four separate source-package cards: Roman’s TJ, Sitara’s TJ, Sitara’s Merritt copies, and human chemical/Orien records. Do not depict full synchronization; reserve distinct display areas.
+- P2 MEDIUM / EYE: Sitara signs the human provenance statement and Roman signs his disclosure; their separate TJs remain outside the transfer case showing individual authorization. Leave upper third clear for dialogue.
+- P3 CLOSE / EYE: Roman’s employment screen changes to revoked access and termination; his face reflects in glass. Do not show arrest or charges. Reserve upper-right for caption.
+- P4 WIDE / HIGH: Three distinct windows show inspection request, Antarctic route log, and public custody receipt in causal order. Use separate headers and arrows; reserve lower-right for caption.
+
+**Issues**
+
+- panel 1, caption "ROMAN’S TJ / SELECTED FA": runs past the panel border (set "breakout": true if intended)
+- panel 1: 34 words — over ~25, likely crowded
+
+## Page 21 (right) <!-- layout bc54a7574f -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +============+                                 |  |  __________                  ________________  |       
+       | | COLORADO   |                                 |  | / CAPACITY \                /   FINITE. WE   \ |       
+       | | PILOT —    |                                 |  | \    ?     /                | STAY BELOW THE | |       
+       | | INSPECTION |                                 |  |  ~~~~~~~~~~                 \     LINE.      / |       
+       | +============+                                 |  |       |                      ~~~~~~~~~~~~~~~~  |       
+       |                                                |  |       |                              |         |       
+       |                                                |  |                                      |         |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                            +==========+        |  |                                                |       
+       |                            | CLARITY: |        |  |                                                |       
+       |                            | 41 → 68  |        |  |                                                |       
+       |                            +==========+        |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                          +==============+      |  |                                                |       
+       |__________________________| INVERTEBRATE |______|  |                                                |       
+       |                          | TAXA: 3 → 11 |      |  |                                                |       
+       |                          +==============+      |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                             +=========+        |  |                                                |       
+       |                             | GRID    |        |  |                                                |       
+       |                             | DEMAND: |        |  |                                                |       
+       |                             | ACTIVE  |        |  |                                                |       
+       |                             +=========+        |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                           +=============+      |  |                                                |       
+       |                           | THROUGHPUT: |      |  |                                                |       
+       |                           | LIMITED     |      |  |                                                |       
+       |                           +=============+      |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Colorado inspectors examine rejected feedstock, residual solids, and emissions monitor before restart; show machinery, wet floor, labels, and power conduits. Leave upper-left clear.
+- P2 MEDIUM / EYE: Inspector checks constructed-wetland inlet gauge while technician records flow; gauge is below but near finite limit. Leave upper third clear for dialogue.
+- P3 CLOSE / EYE: Monitoring wall clearly shows clarity, invertebrate result, active grid demand, and limited throughput in one clean display. Reserve upper-right for captions.
+- P4 WIDE / EYE: Selected feedstock moves through the process while rejected material remains separate; facility continues under inspection. Keep silent and reserve lower edge.
+
+## Page 22 (left) <!-- layout b2ea3030ba -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |  ______________            __________________  |       
+       |                                                |  | / THE PROCESS  \          / STABLE FINANCING \ |       
+       |                                                |  | | NEEDS STABLE |          |  IS NOT PRIVATE  | |       
+       |                                                |  | \  FINANCING.  /          \    OWNERSHIP.    / |       
+       |================+                               |  |  ~~~~~~~~~~~~~~            ~~~~~~~~~~~~~~~~~~  |       
+       | UNINCORPORATED |                               |  |         |                           |          |       
+       | INTERIM        |                               |  |         |                           |          |       
+       | PARTNERSHIP    |                               |  |                                                |       
+       |================+                               |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       | +=============+                                |  |                                                |       
+       | | PUBLIC      |                                |  |________________________________________________|       
+       |_| CONTRACTS / |________________________________|  |                                                |       
+       | | INSPECTION  |                                |  |                                                |       
+       | | REQUIRED    |                                |  |                                                |       
+       | +=============+                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |  _____________                                 |  |                                                |       
+       | / WHO DECIDES \                                |  |                                                |       
+       | |   WHEN THE  |                                |  |                                                |       
+       | |  WETLAND IS |                                |  |                                                |       
+       | \    FULL?    /                                |  |                                                |       
+       |  ~~~~~~~~~~~~~                                 |  |                                                |       
+       |        |                                       |  |                                                |       
+       |        |                                       |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |      +===========+========+==============+     |       
+       |                                                |  |      | OWNERSHIP | FINANCI| LONG-TERM    |     |       
+       |                                                |  |      | — OPEN    | — OPEN | GOVERNANCE — |     |       
+       |                                                |  |      +===========+========| OPEN         |     |       
+       |                                                |  |                           +==============+     |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Colorado public meeting: projected contract fills wall with two separate heading zones; Sitara and Roman stand at back, not podium. Leave upper area clear for captions.
+- P2 MEDIUM / EYE: Scientist points to access clause while conservation representative points to ecological limits; keep figures nonspecific and upper third clear for dialogue.
+- P3 MEDIUM / EYE: Nonspecific participant points to throughput and water-use terms on the projected contract. Leave upper-left clear for dialogue.
+- P4 WIDE / HIGH: Unsigned contract on a table with separate pages marked ownership, financing, and long-term governance as open. Reserve three caption zones across lower half.
+
+**Issues**
+
+- panel 1, caption "UNINCORPORATED INTERIM P": runs past the panel border (set "breakout": true if intended)
+- panel 4: caption 'FINANCING — OPEN' overlaps caption 'OWNERSHIP — OPEN'
+- panel 4: caption 'LONG-TERM GOVERN' overlaps caption 'FINANCING — OPEN'
+
+## Page 23 (right) <!-- layout 57d2180437 -->
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       | +====================+                         |  |  __________________                            |       
+       | | ASSERT PROPRIETARY |                         |  | / IF I BLOCK THIS, \                           |       
+       | | CONTROL. SUSPEND   |                         |  | | THE WATER STOPS  |                           |       
+       | | PUBLIC OPERATION.  |                         |  | \    IMPROVING.    /                           |       
+       | +====================+                         |  |  ~~~~~~~~~~~~~~~~~~                            |       
+       |                                                |  |           |                                    |       
+       |                                                |  |           |                                    |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |________________________________________________|       
+       |________________________________________________|  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+        ________________________________________________    ________________________________________________        
+       |                                                |  |                                                |       
+       |                                                |  |  __________                                    |       
+       |                                                |  | / KEEP THE \                                   |       
+       |                                                |  | |  PILOT   |                                   |       
+       |                                                |  | \ RUNNING. /                                   |       
+       |==================+                             |  |  ~~~~~~~~~~                                    |       
+       |CSG WILL NOT      |                             |  |       |                                        |       
+       |BLOCK THE INTERIM |                             |  |       |                                        |       
+       |PUBLIC CONTRACT   |                             |  |+===============+                               |       
+       |==================+                             |  || CSG EXCLUSIVE |                               |       
+       |                                                |  || CONTROL:      |                               |       
+       |                                                |  || SURRENDERED   |                               |       
+       |                                                |  |+===============+                               |       
+       |                                                |  |                                                |       
+       |=================+______________________________|  |________________________________________________|       
+       | CSG WITHDRAWS   |                              |  |                                                |       
+       | EXCLUSIVE       |                              |  |                                                |       
+       | OPERATING FRAME |                              |  |                                                |       
+       |=================+                              |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       | +============+                                 |  |                                                |       
+       | | CROFT’S    |                                 |  |                                                |       
+       | | EXECUTIVE  |                                 |  |                                                |       
+       | | AUTHORITY: |                                 |  |                                                |       
+       | | REVOKED    |                                 |  |                                                |       
+       | +============+                                 |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |                                                |  |                                                |       
+       |________________________________________________|  |________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+- P1 WIDE / EYE: Croft appears on a recorded board-and-contract call; medical-alert bracelet and son’s treatment schedule beside the screen. Board message offers proprietary control and suspension. Leave upper-left clear for caption.
+- P2 MEDIUM / EYE: Croft reads the clause, hand closing around bracelet; expression composed and exhausted. Leave upper third clear for dialogue.
+- P3 CLOSE / HIGH: Croft signs a narrow authorization; beside the signature, a status panel visibly records CSG’s exclusive operating claim surrendered and Croft’s executive authority revoked. Reserve upper-left for captions.
+- P4 MEDIUM / EYE: The board screen goes dark. Croft remains alone beside the unsigned treatment schedule while a final status document reads CSG EXCLUSIVE CONTROL: SURRENDERED and CROFT EXECUTIVE AUTHORITY: REVOKED. Leave upper-left for dialogue and lower-right clear.
+
+**Issues**
+
+- panel 3, caption "CSG WILL NOT BLOCK THE I": runs past the panel border (set "breakout": true if intended)
+- panel 3, caption "CSG WITHDRAWS EXCLUSIVE ": runs past the panel border (set "breakout": true if intended)
+
+## Page 24 (left) <!-- layout 359d1093bf -->
+
+```text
+ __________________________________________________________________________________________________________________ 
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|__________________________________________________________________________________________________________________|
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                        __________________                                                        |
+|                                       / DO YOU WANT THE  \                                                       |
+|                                       | SELECTED RECORDS |                                                       |
+|                                       | RETAINED IN THE  |                                                       |
+|                                       \ PUBLIC ARCHIVE?  /                                                       |
+|                                        ~~~~~~~~~~~~~~~~~~                                                        |
+|                                                 |                                                                |
+|                                                 |                                                                |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|            +=============+                                                                                       |
+|            | SHARED / NO |                                                                                       |
+|            | EXCLUSIVE   |                             +===================+                                     |
+|            | CLAIM       |                             | LOCAL MEMORY      |                                     |
+|            +=============+                             | RETAINED / SHARED |                                     |
+|                                                        | RECORD AUTHORIZED |            +===============+        |
+|                                                        +===================+            | PILOT         |        |
+|                                                                                         | IMPROVEMENT / |        |
+|                                                                                         | THROUGHPUT    |        |
+|                                                                                         | LIMITED       |        |
+|                                                                                         +===============+        |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|                                                                                                                  |
+|__________________________________________________________________________________________________________________|
+```
+
+- P1 ESTABLISHING / EYE: Full-page Colorado monitoring station at evening: warm facility light crosses stressed green-brown water and constructed wetland. Sitara and Roman stand outside with two physically separate small TJs several feet apart, each with its own display. Through windows, a nonspecific public meeting continues over ownership and financing. Sitara’s signed provenance tablet sits lower-left; Roman kneels lower-center beside his bonded TJ with neural housing visible; monitoring station occupies lower-right. Keep upper half free of lettering and reserve separate non-overlapping zones for all text.
+
+**Issues**
+
+- panel 1: 28 words — over ~25, likely crowded

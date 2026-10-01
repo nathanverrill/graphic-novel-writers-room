@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lettering</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="stylesheet" href="/static/desk.css">
+<style>
+.lt { display: grid; grid-template-columns: minmax(0, 1fr) 24rem; gap: 1.25rem; padding: 1.25rem; align-items: start; }
+@media (max-width: 70rem) { .lt { grid-template-columns: 1fr; } }
+.stage { position: relative; background: #fff; border: 1px solid var(--line); border-radius: 4px;
+         overflow: hidden; user-select: none; touch-action: none; }
+.stage img, .stage .layer { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.stage img { object-fit: fill; }
+.stage .layer svg { width: 100%; height: 100%; display: block; }
+.stage .noart { position: absolute; inset: 0; display: grid; place-items: center; pointer-events: none;
+                color: var(--muted); font-size: .85rem; background: repeating-linear-gradient(45deg, #fafafa, #fafafa 12px, #f1f1f1 12px, #f1f1f1 24px); }
+.stage.droppable { outline: 3px solid var(--accent); outline-offset: -3px; }
+.hit { position: absolute; cursor: grab; border-radius: 6px; }
+.hit:hover { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 55%, transparent); }
+.hit.sel { box-shadow: 0 0 0 2px var(--accent); }
+.hit:active { cursor: grabbing; }
+.tail-handle { position: absolute; width: 1rem; height: 1rem; border-radius: 50%; transform: translate(-50%, -50%);
+               background: var(--accent); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.4); cursor: grab; }
+.tail-handle::after { content: "tail"; position: absolute; top: 1.1rem; left: 50%; transform: translateX(-50%);
+                      font-size: .6rem; color: var(--accent); background: #fff; padding: 0 .25rem; border-radius: 3px; }
+.editbox { position: absolute; transform: translate(-50%, -50%); min-width: 8rem; max-width: 60%;
+           background: #fff; border: 2px solid var(--accent); border-radius: 6px; padding: .35rem .5rem;
+           font-family: 'Comic Sans MS', 'Comic Neue', sans-serif; text-align: center; line-height: 1.25;
+           text-transform: uppercase; outline: none; box-shadow: 0 2px 10px rgba(0,0,0,.3); }
+.ghost { position: fixed; z-index: 50; pointer-events: none; transform: translate(-50%, -50%);
+         background: #fff; border: 2px solid var(--accent); border-radius: 999px; padding: .3rem .8rem;
+         font-size: .8rem; font-weight: 600; box-shadow: 0 2px 10px rgba(0,0,0,.3); max-width: 16rem;
+         overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pagestrip { display: flex; flex-wrap: wrap; gap: .25rem; margin: .6rem 0; }
+.toolrow { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; margin-bottom: .6rem; }
+.toolrow select { font: inherit; font-size: .85rem; padding: .3rem .45rem; border: 1px solid var(--line); border-radius: 4px; background: var(--panel); }
+.rail { display: grid; gap: .8rem; }
+.it { border: 1px solid var(--line); border-left: 3px solid var(--line); border-radius: 6px;
+      background: var(--panel); padding: .6rem .7rem; display: grid; gap: .4rem; cursor: grab; }
+.it.sel { border-color: var(--accent); border-left-color: var(--accent); }
+.it .row1 { display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; }
+.it .row1 i { font-style: normal; font-family: ui-monospace, monospace; font-size: .68rem; color: var(--muted); }
+.it select, .it input[type=text] { font: inherit; font-size: .8rem; padding: .2rem .35rem; border: 1px solid var(--line); border-radius: 4px; background: var(--bg); }
+.it textarea { font: inherit; font-size: .9rem; line-height: 1.4; padding: .35rem .45rem;
+               border: 1px solid var(--line); border-radius: 4px; resize: vertical; min-height: 2.2rem; width: 100%; }
+.it .x { margin-left: auto; font-size: .8rem; color: var(--muted); border: 1px solid var(--line);
+         border-radius: 3px; background: var(--panel); padding: .05rem .4rem; cursor: pointer; }
+.it .x:hover { color: var(--bad); border-color: var(--bad); }
+.addbar { display: grid; gap: .45rem; }
+.addbar .kinds { display: flex; flex-wrap: wrap; gap: .3rem; }
+.addbar .kinds button { font: inherit; font-size: .76rem; padding: .25rem .55rem; border-radius: 999px;
+                        border: 1px solid var(--line); background: var(--panel); cursor: grab; }
+.addbar .kinds button:hover { border-color: var(--accent); color: var(--accent); }
+.addbar input { font: inherit; font-size: .88rem; padding: .4rem .5rem; border: 1px solid var(--line); border-radius: 4px; width: 100%; }
+.scriptbox { font-size: .84rem; line-height: 1.55; white-space: pre-wrap; max-height: 22rem;
+             overflow: auto; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: .6rem .7rem; }
+.scriptbox span { display: block; border-radius: 3px; padding: 0 .2rem; cursor: grab; }
+.scriptbox span:hover { background: color-mix(in srgb, var(--accent) 14%, transparent); }
+.note { font-size: .74rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>lettering</span></h1>
+  <div class="config"><a href="/renders">renders →</a></div>
+</header>
+
+<div class="lt">
+  <main>
+    <div class="toolrow">
+      <select id="camp" title="campaign"></select>
+      <select id="tag" title="whose art to letter over"></select>
+      <span class="spacer" style="flex:1"></span>
+      <button class="go alt" id="letter-one" style="width:auto">Letter this page</button>
+      <button class="go" id="letter-all" style="width:auto">Letter all pages</button>
+    </div>
+    <div class="pagestrip dots" id="pages"></div>
+    <div class="stage" id="stage">
+      <div class="noart" id="noart" hidden>no rendered art for this page yet — the layer is shown on white</div>
+      <img id="art" alt="" draggable="false">
+      <div class="layer" id="layer"></div>
+      <div id="hits"></div>
+    </div>
+    <p class="note">Drag a balloon by its outline to move it — anywhere, across panels.
+    <b>Double-click</b> one to edit its words in place. A selected balloon shows its
+    <b>tail</b> handle: drag it to the speaker. Drag a kind or a script line from the right
+    straight onto the page. Delete removes the selection. <span id="said"></span></p>
+  </main>
+
+  <aside class="rail">
+    <div class="card addbar">
+      <h3>Add to this page</h3>
+      <input id="add-text" placeholder="the words — or drag a script line onto the page">
+      <div class="kinds" id="add-kinds"></div>
+      <div class="note"><b>Drag a kind onto the page</b> to place it there with the words
+      above — or click it to drop mid-page. <b>location</b> is a place-and-time header;
+      <b>sfx</b> is display lettering.</div>
+    </div>
+    <div class="card">
+      <h3>On the page</h3>
+      <div class="rail" id="items"></div>
+    </div>
+    <div class="card">
+      <h3>The script for this page</h3>
+      <div class="note" style="margin-bottom:.4rem">Drag a line onto the page: <code>NAME: words</code>
+      becomes that speaker's balloon, anything else a caption.</div>
+      <div class="scriptbox" id="script"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const $ = (s, el=document) => el.querySelector(s);
+const api = async (method, path, body) => {
+  const r = await fetch(path, {method, headers: {"content-type": "application/json"},
+                               body: body === undefined ? undefined : JSON.stringify(body)});
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.statusText);
+  return r.json();
+};
+
+let slug = localStorage.getItem("letter-camp") || "", tag = localStorage.getItem("letter-tag") || "sunburst";
+let pages = [], page = null, d = null, sel = null, editing = false;
+
+// ---- loading ---------------------------------------------------------------
+
+async function boot() {
+  const projects = (await api("GET", "/api/projects")).projects || [];
+  $("#camp").innerHTML = projects.map(p => `<option>${p}</option>`).join("");
+  if (!projects.includes(slug)) slug = projects[0] || "";
+  $("#camp").value = slug;
+  $("#camp").onchange = () => { slug = $("#camp").value; localStorage.setItem("letter-camp", slug); loadBook(); };
+  $("#tag").onchange = () => { tag = $("#tag").value; localStorage.setItem("letter-tag", tag); loadPage(); };
+  $("#letter-one").onclick = () => letterPages([page]);
+  $("#letter-all").onclick = () => letterPages(null);
+  $("#add-text").onkeydown = e => {    // Enter sends the words to the selected balloon
+    if (e.key === "Enter" && sel != null && $("#add-text").value.trim()) {
+      e.preventDefault();
+      const t = $("#add-text").value.trim();
+      $("#add-text").value = "";
+      save(sel, {text: t});
+    }
+  };
+  await loadBook();
+}
+
+async function loadBook() {
+  const r = await api("GET", `/api/projects/${slug}/render`);
+  pages = r.pages || [];
+  const all = [...new Set(["sunburst", "gemini", ...Object.keys(r.state || {})])];
+  $("#tag").innerHTML = all.map(t => `<option value="${t}">${t} art</option>`).join("");
+  if (!all.includes(tag)) tag = all[0];
+  $("#tag").value = tag;
+  $("#pages").innerHTML = pages.map(n => `<button data-p="${n}">${n}</button>`).join("");
+  $("#pages").onclick = e => { const b = e.target.closest("button"); if (b) { page = +b.dataset.p; sel = null; loadPage(); } };
+  page = pages[0] ?? null;
+  await loadPage();
+}
+
+async function loadPage() {
+  if (page == null) { $("#items").innerHTML = "<p class='note'>no laid-out pages yet</p>"; return; }
+  for (const b of $("#pages").children) b.toggleAttribute("aria-current", +b.dataset.p === page);
+  d = await api("GET", `/api/projects/${slug}/lettering/${page}`);
+  const [W, H] = d.size;
+  $("#stage").style.aspectRatio = `${W} / ${H}`;
+  const art = $("#art");
+  art.hidden = false; $("#noart").hidden = true;
+  art.onerror = () => { art.hidden = true; $("#noart").hidden = false; };
+  art.src = `/api/projects/${slug}/render/${tag}/art/p${String(page).padStart(2, "0")}.png?${Date.now()}`;
+  $("#layer").innerHTML = d.svg;
+  drawHits();
+  drawRail();
+  drawScript();
+}
+
+// ---- the page: hit areas, drag, in-place edit, the tail --------------------
+
+function frac(ev) {
+  const r = $("#stage").getBoundingClientRect();
+  return [Math.min(1, Math.max(0, (ev.clientX - r.left) / r.width)),
+          Math.min(1, Math.max(0, (ev.clientY - r.top) / r.height))];
+}
+
+function panelAt(fx, fy, fallback) {
+  for (const [n, [x, y, w, h]] of Object.entries(d.panels))
+    if (fx >= x && fx <= x + w && fy >= y && fy <= y + h) return +n;
+  return fallback || 1;
+}
+
+function inPanel(fx, fy, panel) {
+  const [x, y, w, h] = d.panels[panel] || [0.05, 0.05, 0.9, 0.9];
+  return [Math.min(100, Math.max(0, (fx - x) / w * 100)), Math.min(100, Math.max(0, (fy - y) / h * 100))];
+}
+
+function drawHits() {
+  const host = $("#hits");
+  host.innerHTML = "";
+  for (const it of d.items) {
+    const b = d.boxes[it.i];
+    if (!b) continue;
+    const hit = document.createElement("div");
+    hit.className = "hit" + (sel === it.i ? " sel" : "");
+    hit.style.left = (b[0] * 100) + "%";
+    hit.style.top = (b[1] * 100) + "%";
+    hit.style.width = ((b[2] - b[0]) * 100) + "%";
+    hit.style.height = ((b[3] - b[1]) * 100) + "%";
+    hit.title = `${it.type}${it.speaker ? " · " + it.speaker : ""}`;
+    hit.onpointerdown = e => dragItem(e, it, hit);
+    hit.ondblclick = e => { e.stopPropagation(); editInPlace(it, b); };
+    host.append(hit);
+    if (sel === it.i && d.tails[it.i]) {
+      const t = document.createElement("div");
+      t.className = "tail-handle";
+      t.style.left = (d.tails[it.i][0] * 100) + "%";
+      t.style.top = (d.tails[it.i][1] * 100) + "%";
+      t.onpointerdown = e => dragTail(e, it, t);
+      host.append(t);
+    }
+  }
+  $("#stage").onpointerdown = e => { if (e.target === $("#stage") || e.target === $("#hits")) select(null); };
+}
+
+function dragItem(e, it, hit) {
+  e.preventDefault(); e.stopPropagation();
+  select(it.i);
+  const b = d.boxes[it.i], [sx, sy] = frac(e);
+  const off = [sx - (b[0] + b[2]) / 2, sy - (b[1] + b[3]) / 2];
+  const svg = $("#layer svg");
+  const grp = svg ? svg.querySelector(`[data-item="${it.i}"]`) : null;
+  const vb = svg ? svg.viewBox.baseVal : {width: 1000, height: 1547};
+  let fx, fy, moved = false;
+  const move = ev => {
+    [fx, fy] = frac(ev);
+    moved = true;
+    const dx = fx - sx, dy = fy - sy;
+    hit.style.left = ((b[0] + dx) * 100) + "%";
+    hit.style.top = ((b[1] + dy) * 100) + "%";
+    // the balloon itself - words and all - rides along, not an empty box
+    if (grp) grp.setAttribute("transform", `translate(${dx * vb.width} ${dy * vb.height})`);
+  };
+  const up = async () => {
+    window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up);
+    if (!moved) return;
+    const cx = fx - off[0], cy = fy - off[1];
+    const panel = panelAt(cx, cy, it.panel);
+    const [x, y] = inPanel(cx, cy, panel);
+    await save(it.i, {x, y, panel});
+  };
+  window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
+}
+
+function dragTail(e, it, handle) {
+  e.preventDefault(); e.stopPropagation();
+  let fx, fy, moved = false;
+  const move = ev => {
+    [fx, fy] = frac(ev); moved = true;
+    handle.style.left = (fx * 100) + "%"; handle.style.top = (fy * 100) + "%";
+  };
+  const up = async () => {
+    window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up);
+    if (!moved) return;
+    const [x, y] = inPanel(fx, fy, it.panel || 1);    // the tail may aim a little outside too
+    await save(it.i, {tail_x: x, tail_y: y});
+  };
+  window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
+}
+
+function editInPlace(it, b) {
+  editing = true;
+  const stage = $("#stage").getBoundingClientRect();
+  const box = document.createElement("div");
+  box.className = "editbox";
+  box.contentEditable = "plaintext-only";
+  box.textContent = it.text || "";
+  box.style.left = ((b[0] + b[2]) / 2 * 100) + "%";
+  box.style.top = ((b[1] + b[3]) / 2 * 100) + "%";
+  box.style.fontSize = Math.max(11, stage.width * (it.type === "sfx" ? 0.032 : 0.017)) + "px";
+  $("#stage").append(box);
+  box.focus();
+  document.getSelection().selectAllChildren(box);
+  const done = async commit => {
+    editing = false;
+    const text = box.textContent.trim();
+    box.remove();
+    if (commit && text && text !== it.text) await save(it.i, {text});
+  };
+  box.onblur = () => done(true);
+  box.onkeydown = e => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); box.blur(); }
+    if (e.key === "Escape") { e.stopPropagation(); box.onblur = null; done(false); }
+  };
+}
+
+// ---- creating: ghost-drag from the rail and the script ---------------------
+
+function ghostDrag(e, label, drop, clickInstead) {
+  e.preventDefault();
+  const start = [e.clientX, e.clientY];
+  let ghost = null;
+  const move = ev => {
+    if (!ghost && Math.hypot(ev.clientX - start[0], ev.clientY - start[1]) < 5) return;
+    if (!ghost) {
+      ghost = document.createElement("div");
+      ghost.className = "ghost";
+      ghost.textContent = label;
+      document.body.append(ghost);
+      $("#stage").classList.add("droppable");
+    }
+    ghost.style.left = ev.clientX + "px";
+    ghost.style.top = ev.clientY + "px";
+  };
+  const up = async ev => {
+    window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up);
+    $("#stage").classList.remove("droppable");
+    if (!ghost) { if (clickInstead) clickInstead(); return; }
+    ghost.remove();
+    const r = $("#stage").getBoundingClientRect();
+    if (ev.clientX < r.left || ev.clientX > r.right || ev.clientY < r.top || ev.clientY > r.bottom) return;
+    const [fx, fy] = frac(ev);
+    await drop(fx, fy);
+  };
+  window.addEventListener("pointermove", move); window.addEventListener("pointerup", up);
+}
+
+async function create(kind, text, speaker, fx, fy) {
+  const panel = panelAt(fx, fy);
+  const [x, y] = inPanel(fx, fy, panel);
+  const r = await api("POST", `/api/projects/${slug}/lettering/${page}/items`,
+                      {type: kind, text: text || "...", speaker: speaker || null, panel, x, y});
+  sel = r.added;
+  await loadPage();
+}
+
+function drawAddBar() {
+  $("#add-kinds").innerHTML = (d ? d.kinds : ["balloon", "thought", "shout", "whisper", "caption", "location", "sfx"])
+    .map(k => `<button data-k="${k}">+ ${k}</button>`).join("");
+  for (const b of $("#add-kinds").children) {
+    b.onpointerdown = e => ghostDrag(e, b.dataset.k + ": " + ($("#add-text").value || "…"),
+      (fx, fy) => { const t = $("#add-text").value; $("#add-text").value = ""; return create(b.dataset.k, t, null, fx, fy); },
+      () => { const t = $("#add-text").value; $("#add-text").value = ""; create(b.dataset.k, t, null, 0.5, 0.5); });
+  }
+}
+
+const LINE_RE = /^([A-Z][A-Z0-9 .''-]{0,24}?)\s*(?:\((?:CAPTION|V\.?O\.?|OFF)\))?:\s*(.+)$/;
+
+function drawScript() {
+  const lines = (d.script || "").split("\n").filter(l => l.trim());
+  $("#script").innerHTML = lines.length
+    ? lines.map(l => `<span>${l.replace(/</g, "&lt;")}</span>`).join("")
+    : "<span class='note'>no script section found for this page</span>";
+  for (const s of $("#script").children) {
+    s.onpointerdown = e => {
+      const raw = s.textContent.replace(/^[-*#>\s]+/, "").replace(/\*\*/g, "").trim();
+      const m = raw.match(LINE_RE);
+      const kind = m ? (/^SFX/i.test(m[1]) ? "sfx" : "balloon") : "caption";
+      const text = m ? m[2].trim() : raw;
+      const speaker = m && kind === "balloon" ? m[1].trim() : null;
+      ghostDrag(e, raw, (fx, fy) => create(kind, text, speaker, fx, fy),
+                () => { $("#add-text").value = text; });
+    };
+  }
+}
+
+// ---- the rail --------------------------------------------------------------
+
+function drawRail() {
+  const kindopts = k => d.kinds.map(x => `<option ${x === k ? "selected" : ""}>${x}</option>`).join("");
+  $("#items").innerHTML = d.items.map(it => `
+    <div class="it ${sel === it.i ? "sel" : ""}" data-i="${it.i}">
+      <div class="row1"><i>${it.i + 1} · panel ${it.panel || 1}</i>
+        <select data-f="type">${kindopts(it.type)}</select>
+        ${it.type === "sfx" ? `<select data-f="size">${d.sfx_sizes.map(s => `<option ${s === (it.size || "medium") ? "selected" : ""}>${s}</option>`).join("")}</select>
+        <select data-f="style" title="how dramatic">${d.sfx_styles.map(s => `<option ${s === (it.style || "classic") ? "selected" : ""}>${s}</option>`).join("")}</select>` : ""}
+        <label style="font-size:.72rem"><input type="checkbox" data-f="invert" ${it.invert ? "checked" : ""}> dark</label>
+        <button class="x" data-f="del" title="remove">×</button></div>
+      ${["balloon", "whisper", "thought", "shout"].includes(it.type)
+        ? `<input type="text" data-f="speaker" placeholder="speaker" value="${(it.speaker || "").replace(/"/g, "&quot;")}">` : ""}
+      <textarea data-f="text">${(it.text || "").replace(/</g, "&lt;")}</textarea>
+    </div>`).join("") || "<p class='note'>nothing on this page yet — drag a kind or a script line onto the page</p>";
+  for (const card of $("#items").children) {
+    const i = +card.dataset.i;
+    if (isNaN(i)) continue;
+    const it = d.items.find(x => x.i === i);
+    card.onpointerdown = e => {
+      if (e.target.dataset.f || e.target.tagName === "TEXTAREA") return;
+      ghostDrag(e, `${it.type}: ${it.text || ""}`,
+        async (fx, fy) => { const panel = panelAt(fx, fy, it.panel); const [x, y] = inPanel(fx, fy, panel); await save(i, {x, y, panel}); },
+        () => select(i));
+    };
+    for (const el of card.querySelectorAll("[data-f]")) {
+      const f = el.dataset.f;
+      if (f === "del") el.onclick = async e => { e.stopPropagation(); await api("DELETE", `/api/projects/${slug}/lettering/${page}/items/${i}`); sel = null; await loadPage(); };
+      else if (f === "invert") el.onchange = () => save(i, {invert: el.checked});
+      else el.onchange = () => save(i, {[f]: el.value});
+      if (el.tagName === "TEXTAREA")     // Enter commits the words right away
+        el.onkeydown = e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); el.blur(); } };
+    }
+  }
+}
+
+// ---- shared ----------------------------------------------------------------
+
+function select(i) { sel = i; drawHits(); drawRail(); }
+
+async function save(i, change) {
+  d = await api("PUT", `/api/projects/${slug}/lettering/${page}`, {changes: {[i]: change}});
+  await loadPage();
+}
+
+async function letterPages(which) {
+  $("#said").textContent = "lettering…";
+  try {
+    const r = await api("POST", `/api/projects/${slug}/render/${tag}/letter`, {pages: which});
+    const skipped = Object.keys(r.skipped || {}).length;
+    $("#said").innerHTML = `lettered ${r.lettered.length} page${r.lettered.length === 1 ? "" : "s"}` +
+      (skipped ? `, skipped ${skipped}` : "") +
+      ` — <a href="/api/projects/${slug}/render/${tag}/lettered.pdf">PDF</a> · <a href="/renders">renders</a>`;
+  } catch (e) { $("#said").textContent = e.message; }
+}
+
+window.addEventListener("keydown", async e => {
+  if (editing || ["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+  if ((e.key === "Delete" || e.key === "Backspace") && sel != null) {
+    e.preventDefault();
+    await api("DELETE", `/api/projects/${slug}/lettering/${page}/items/${sel}`);
+    sel = null;
+    await loadPage();
+  }
+  if (e.key === "Escape") select(null);
+});
+
+boot().then(drawAddBar);
+</script>
+</body>
+</html>

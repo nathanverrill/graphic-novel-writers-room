@@ -11,7 +11,78 @@
 Reading path: Roman’s origin → Sitara’s loss → Antarctic geography → Sitara’s choice. Dominant beat: Sitara’s boot stops at the flagged line while the sensor continues recording.
 
 ```layout
-{"page":1,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":35,"description":"Himalayas, 2042 night: eighteen-year-old Roman hangs half-buried in a blue-white crevasse as his small silver Terrain Jumper descends toward him; lightning strikes the sensor housing. No red booties. Leave upper-right clear for no lettering."},{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Himalayas, 2026 day: floodwater carries a cooking pot and child’s red sweater past six-year-old Sitara seen from behind on a stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific. Leave upper area clear."}]},{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"eye","horizon":48,"description":"Antarctica, 2046: Sitara in her puffy red jacket stands beside Nayah in her puffy yellow jacket near warning flags, a buried sensor tripod, and Sitara’s separate silver TJ. Leave upper-left clear for dialogue."},{"w":1,"shot":"close","angle":"low","horizon":60,"description":"Sitara’s boot hovers just short of the flagged line; the sensor’s red light blinks while a geometric tremor advances beneath the ice. Leave upper-left for dialogue and lower-right for sound effect."}]}],"items":[{"panel":3,"type":"balloon","speaker":"NAYAH","text":"Sitara. Stop there.","at":"top-left"},{"panel":4,"type":"sfx","text":"KRRRNNN","size":"medium","at":"bottom-right"},{"panel":4,"type":"balloon","speaker":"SITARA","text":"It’s still recording.","at":"top-left"}]}
+{
+ "page": 1,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "high",
+     "horizon": 35,
+     "description": "Himalayas, 2042 night: eighteen-year-old Roman hangs half-buried in a blue-white crevasse as his small silver Terrain Jumper descends toward him; lightning strikes the sensor housing. No red booties. Leave upper-right clear for no lettering."
+    },
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Himalayas, 2026 day: floodwater carries a cooking pot and child\u2019s red sweater past six-year-old Sitara seen from behind on a stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific. Leave upper area clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "establishing",
+     "angle": "eye",
+     "horizon": 48,
+     "description": "Antarctica, 2046: Sitara in her puffy red jacket stands beside Nayah in her puffy yellow jacket near warning flags, a buried sensor tripod, and Sitara\u2019s separate silver TJ. Leave upper-left clear for dialogue."
+    },
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "low",
+     "horizon": 60,
+     "description": "Sitara\u2019s boot hovers just short of the flagged line; the sensor\u2019s red light blinks while a geometric tremor advances beneath the ice. Leave upper-left for dialogue and lower-right for sound effect."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "NAYAH",
+   "text": "Sitara. Stop there!",
+   "x": 75.71244268316646,
+   "y": 8.004535147392291,
+   "tail_x": 81.68433143866865,
+   "tail_y": 61.599803946596055
+  },
+  {
+   "panel": 4,
+   "type": "sfx",
+   "text": "KRRRNNN",
+   "size": "medium",
+   "style": "boom",
+   "x": 62.64577157027686,
+   "y": 67.06003654546936
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "SITARA",
+   "text": "It\u2019s still recording.",
+   "at": "top-left"
+  }
+ ]
+}
 ```
 
 ## Page 2 (left) — 4 panels, build to reveal
@@ -107,7 +178,82 @@ Reading path: chemical record → Falcon record → overlay → selected synchro
 Reading path: Sitara’s admission → Roman’s admission → mirrored accusation → separate partitions. Dominant beat: neither protagonist has clean hands.
 
 ```layout
-{"page":13,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Sitara faces Roman beside aligned records; copied Merritt files lie between them. Leave upper-left clear for dialogue."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Roman’s hand rests near the treatment file without covering it; Sitara remains opposite. Leave upper-right clear for dialogue."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":40,"description":"Sitara looks directly at Roman, controlled but wounded; records remain visible below. Leave upper-left clear."},{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"Their separate TJs remain physically apart; displays show different local partitions and record counts. Leave displays clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"SITARA","text":"I took the safeguards and provenance records from Merritt.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ROMAN","text":"Croft asked me to continue unauthorized T-ALL chemistry.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"SITARA","text":"You stayed.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"ROMAN","text":"So did you.","at":"top-right"}]}
+{
+ "page": 13,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Sitara faces Roman beside aligned records; copied Merritt files lie between them. Leave upper-left clear for dialogue."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Roman\u2019s hand rests near the treatment file without covering it; Sitara remains opposite. Leave upper-right clear for dialogue."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 40,
+     "description": "Sitara looks directly at Roman, controlled but wounded; records remain visible below. Leave upper-left clear."
+    },
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Their separate TJs remain physically apart; displays show different local partitions and record counts. Leave displays clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "location",
+   "speaker": "SITARA",
+   "text": "I took the safeguards and provenance records from Merritt.",
+   "size": "small",
+   "x": 52.08916003677457,
+   "y": 1.0313606205611157
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "ROMAN",
+   "text": "Croft asked me to continue unauthorized T-ALL chemistry.",
+   "at": "top-right"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "SITARA",
+   "text": "You stayed.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "ROMAN",
+   "text": "So did you.",
+   "at": "top-right"
+  }
+ ]
+}
 ```
 
 ## Page 14 (left) — 4 panels, Colorado benefit

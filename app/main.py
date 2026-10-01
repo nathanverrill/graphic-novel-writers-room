@@ -144,6 +144,13 @@ def renders_page():
     return FileResponse(STATIC / "renders.html")
 
 
+@app.get("/letter")
+def letter_page():
+    """The lettering desk: the page on the left, its text on the right. Move, add and edit
+    balloons, captions, location headers and sound effects, then letter the rendered art."""
+    return FileResponse(STATIC / "letter.html")
+
+
 @app.get("/production")
 def production():
     """The production room: what will happen, one button, the log, then the finished work.
@@ -632,8 +639,21 @@ def _lettering(slug, page, version=None):
     if not spec:
         raise HTTPException(404, f"no layout for page {page}")
     ctx = prompts.context(slug, version)
-    return {"page": page, "items": lettering.items(spec), "svg": lettering.svg(spec, ctx),
-            "spots": list(lettering.ANCHORS),
+    rects = lettering.panel_rects(spec)
+    placed = []
+    for item in lettering.items(spec):
+        rect = rects.get(item.get("panel"), (lettering.MARGIN, lettering.MARGIN,
+                                             1 - 2 * lettering.MARGIN, 1 - 2 * lettering.MARGIN))
+        cx, cy = lettering.spot(item, rect)
+        placed.append({**item, "cx": round(cx, 4), "cy": round(cy, 4)})
+    script = projects.read_artifact(slug, "script.md", version) or ""
+    m = re.search(rf"^##\s*Page\s+{page}\b.*?(?=^##\s*Page\s+\d+|\Z)", script, re.M | re.S | re.I)
+    svg, boxes, tails = lettering.layer(spec, ctx)
+    return {"page": page, "items": placed, "svg": svg, "boxes": boxes, "tails": tails,
+            "spots": list(lettering.ANCHORS), "kinds": list(lettering.KINDS),
+            "sfx_sizes": list(lettering.SFX_SIZES), "sfx_styles": list(lettering.SFX_STYLES),
+            "panels": {n: [round(v, 4) for v in r] for n, r in rects.items()},
+            "script": (m.group(0).strip() if m else ""),
             "art": projects.page_art(slug, page), "lettered": projects.lettered_page(slug, page), "mode": ctx.get("lettering", "layer"),
             "size": lettering.page_size()}
 
@@ -660,6 +680,43 @@ def delete_lettering_item(slug: str, page: int, index: int):
     except ValueError as e:
         raise HTTPException(400, str(e))
     return _lettering(slug, page)
+
+
+class NewLetteringItem(BaseModel):
+    type: str
+    text: str = ""
+    panel: int | None = None
+    x: float | None = None
+    y: float | None = None
+    speaker: str | None = None
+    size: str | None = None
+    style: str | None = None
+    invert: bool = False
+
+
+@app.post("/api/projects/{slug}/lettering/{page}/items")
+def add_lettering_item(slug: str, page: int, item: NewLetteringItem):
+    """A new balloon, caption, location header or sound effect, placed to be dragged."""
+    try:
+        index = lettering.add_item(slug, page, item.model_dump())
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    return {**_lettering(slug, page), "added": index}
+
+
+class LetterPages(BaseModel):
+    pages: list[int] | None = None
+
+
+@app.post("/api/projects/{slug}/render/{tag}/letter")
+def letter_rendered(slug: str, tag: str, body: LetterPages):
+    """The second step after rendering: composite the current text layer over the drawn art."""
+    not_found(projects.project_dir, slug)
+    if tag not in render.MODELS:
+        raise HTTPException(404, "no such model")
+    results = render.letter_pages(slug, tag, body.pages)
+    ok = sorted(n for n, r in results.items() if r == "ok")
+    return {"lettered": ok, "skipped": {n: r for n, r in results.items() if r != "ok"}}
 
 
 @app.post("/api/projects/{slug}/lettering/{page}/art")

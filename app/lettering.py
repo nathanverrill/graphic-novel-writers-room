@@ -24,14 +24,16 @@ GUTTER = 0.018       # between panels
 FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
-SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023}
+SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023,
+         "location": 0.02}
 SFX_SIZES = {"small": 0.03, "medium": 0.045, "large": 0.065, "huge": 0.09}
+SFX_STYLES = ("classic", "impact", "quake", "boom")   # how dramatic the display lettering is
 ANCHORS = {   # keyword -> (x, y) inside the panel
     "top-left": (0.24, 0.18), "top": (0.5, 0.16), "top-right": (0.76, 0.18),
     "left": (0.22, 0.5), "middle": (0.5, 0.5), "center": (0.5, 0.5), "right": (0.78, 0.5),
     "bottom-left": (0.24, 0.82), "bottom": (0.5, 0.84), "bottom-right": (0.76, 0.82),
 }
-KINDS = ("balloon", "whisper", "thought", "shout", "caption", "sfx")
+KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "sfx")
 
 
 def page_size():
@@ -123,6 +125,12 @@ def nudge(box, placed, bounds):
 
 def svg(spec, ctx=None):
     """The page's text layer: transparent SVG, balloons and captions over the art."""
+    return layer(spec, ctx)[0]
+
+
+def layer(spec, ctx=None):
+    """(svg, boxes, tails): the drawn layer, each item's drawn box in page fractions
+    (x0, y0, x1, y1) for hit areas, and each tailed balloon's tail target (x, y)."""
     ctx = ctx or {}
     W, H = page_size()
     rects = panel_rects(spec)
@@ -131,11 +139,12 @@ def svg(spec, ctx=None):
     out = [f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}">',
            f'<g font-family="{FONT}" text-anchor="middle">']
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
-    placed = []
+    placed, boxes, tails = [], {}, {}
     out.append(f'<text x="{round(W * MARGIN)}" y="{round(H * MARGIN * 0.6)}" text-anchor="start" '
                f'font-size="{round(W * 0.016)}" fill="#7ec8ff">{html.escape(label)}</text>')
     for item in items(spec):
         kind = item["type"]
+        start = len(out)      # everything this item draws is wrapped in <g data-item> below
         rect = rects.get(item.get("panel"), (MARGIN, MARGIN, 1 - 2 * MARGIN, 1 - 2 * MARGIN))
         cx, cy = (v for v in spot(item, rect))
         px, py = cx * W, cy * H
@@ -145,14 +154,41 @@ def svg(spec, ctx=None):
             text = text[len(speaker) + 1:].strip()
         if kind == "sfx":
             size = SFX_SIZES.get(item.get("size", "medium"), 0.045) * W
-            out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size:.0f}" font-weight="bold" '
-                       f'fill="#fff" stroke="#111" stroke-width="{size * 0.12:.1f}" paint-order="stroke" '
-                       f'transform="rotate(-6 {px:.0f} {py:.0f})">{html.escape(text)}</text>')
+            style = item.get("style") if item.get("style") in SFX_STYLES else "classic"
+            if style == "impact":
+                out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size * 1.1:.0f}" '
+                           f'font-family="\'Arial Black\', \'Impact\', sans-serif" font-weight="900" '
+                           f'fill="#fff" stroke="#111" stroke-width="{size * 0.17:.1f}" paint-order="stroke" '
+                           f'letter-spacing="-1" transform="rotate(-4 {px:.0f} {py:.0f}) '
+                           f'skewX(-8)">{html.escape(text)}</text>')
+            elif style == "quake":
+                tspans = "".join(
+                    f'<tspan dy="{(size * 0.14) * (1 if j % 2 else -1):.0f}" '
+                    f'rotate="{(7 if j % 2 else -7)}">{html.escape(c)}</tspan>'
+                    for j, c in enumerate(text))
+                out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size:.0f}" font-weight="900" '
+                           f'fill="#fff" stroke="#111" stroke-width="{size * 0.16:.1f}" paint-order="stroke" '
+                           f'transform="rotate(-3 {px:.0f} {py:.0f})">{tspans}</text>')
+            elif style == "boom":
+                common = (f'x="{px:.0f}" y="{py:.0f}" font-size="{size * 1.2:.0f}" font-weight="900" '
+                          f'transform="rotate(-6 {px:.0f} {py:.0f})"')
+                out.append(f'<text {common} fill="none" stroke="#111" '
+                           f'stroke-width="{size * 0.3:.1f}" stroke-linejoin="round">{html.escape(text)}</text>')
+                out.append(f'<text {common} fill="#ffd21f" stroke="#b1261b" '
+                           f'stroke-width="{size * 0.07:.1f}" paint-order="stroke">{html.escape(text)}</text>')
+            else:
+                out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size:.0f}" font-weight="bold" '
+                           f'fill="#fff" stroke="#111" stroke-width="{size * 0.12:.1f}" paint-order="stroke" '
+                           f'transform="rotate(-6 {px:.0f} {py:.0f})">{html.escape(text)}</text>')
+            w = max(len(text), 2) * size * CHAR * (1.2 if style == "boom" else 1)
+            boxes[item["i"]] = (max(0, (px - w / 2) / W), max(0, (py - size * 1.3) / H),
+                                min(1, (px + w / 2) / W), min(1, (py + size * 0.5) / H))
+            out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
         size = SIZES.get(kind, 0.019) * W
         width = min(rect[2] * 0.8, 0.38) * W
         limit = max(8, int(width / (size * CHAR)))
-        lines = wrap(text, limit) if kind == "caption" else balloon_wrap(text, limit)
+        lines = wrap(text, limit) if kind in ("caption", "location") else balloon_wrap(text, limit)
         box_w = max(len(l) for l in lines) * size * CHAR
         box_h = len(lines) * size * LINE
         rx = box_w / 2 + size * 1.2
@@ -161,10 +197,22 @@ def svg(spec, ctx=None):
         bounds = (rect[0] * W, rect[1] * H, (rect[0] + rect[2]) * W, (rect[1] + rect[3]) * H)
         x0, y0, x1, y1 = nudge((px - rx - pad, py - ry - pad, px + rx + pad, py + ry + pad), placed, bounds)
         placed.append((x0, y0, x1, y1))
+        boxes[item["i"]] = (x0 / W, y0 / H, x1 / W, y1 / H)
         px, py = (x0 + x1) / 2, (y0 + y1) / 2
-        dark = item.get("invert")
+        dark = item.get("invert", kind == "location")   # location headers run dark by default
         fill, ink = ("#111", "#fff") if dark else ("#fff", "#111")
         dash = ' stroke-dasharray="6 5"' if kind == "whisper" else ""
+        if kind == "location":
+            cw, ch = box_w + size * 2.0, box_h + size * 1.1
+            out.append(f'<rect x="{px - cw / 2:.0f}" y="{py - ch / 2:.0f}" width="{cw:.0f}" '
+                       f'height="{ch:.0f}" fill="{fill}" stroke="{ink}" stroke-width="2.5"/>')
+            y = py - box_h / 2 + size * 0.95
+            for line in lines:
+                out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}" '
+                           f'font-weight="bold" letter-spacing="1.5">{html.escape(line)}</text>')
+                y += size * LINE
+            out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
+            continue
         if kind == "caption":
             cw, ch = box_w + size * 1.4, box_h + size * 0.9
             out.append(f'<rect x="{px - cw / 2:.0f}" y="{py - ch / 2:.0f}" width="{cw:.0f}" '
@@ -184,7 +232,12 @@ def svg(spec, ctx=None):
             out.append(f'<polygon points="{" ".join(pts)}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
         else:
             if speaker and item.get("tail", "auto") != "none":   # tail first: the balloon covers its base
-                tx, ty = rect[0] * W + rect[2] * W / 2, (rect[1] + rect[3] * 0.82) * H
+                if item.get("tail_x") is not None and item.get("tail_y") is not None:
+                    tx = (rect[0] + rect[2] * float(item["tail_x"]) / 100) * W
+                    ty = (rect[1] + rect[3] * float(item["tail_y"]) / 100) * H
+                else:
+                    tx, ty = rect[0] * W + rect[2] * W / 2, (rect[1] + rect[3] * 0.82) * H
+                tails[item["i"]] = (round(tx / W, 4), round(ty / H, 4))
                 dx, dy = (tx - px), (ty - py)
                 norm = max((dx ** 2 + dy ** 2) ** 0.5, 1)
                 ox, oy = -dy / norm * size * 0.9, dx / norm * size * 0.9
@@ -198,8 +251,9 @@ def svg(spec, ctx=None):
             out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}">'
                        f'{html.escape(line)}</text>')
             y += size * LINE
+        out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
     out += ["</g>", "</svg>"]
-    return "\n".join(out)
+    return "\n".join(out), {i: [round(v, 4) for v in b] for i, b in boxes.items()}, tails
 
 
 # ---- reading and writing the layout's text ---------------------------------------------
@@ -215,7 +269,8 @@ def page_items(slug, page, version=None):
 
 
 def set_items(slug, page, changes):
-    """changes: {item index: {"text": ..., "at": ...}}. Rewrites that page's block in layouts.md."""
+    """changes: {item index: {"text" | "at" | "x","y" | "type" | "speaker" | "size" | "invert"}}.
+    Rewrites that page's block in layouts.md."""
     spec = page_spec(slug, page)
     if not spec:
         raise ValueError(f"no layout for page {page}")
@@ -226,16 +281,91 @@ def set_items(slug, page, changes):
             raise ValueError(f"no item {i} on page {page}")
         if isinstance(change, str):
             change = {"text": change}
+        item = all_items[i]
         if "text" in change:
-            all_items[i]["text"] = " ".join(str(change["text"]).split())
+            item["text"] = " ".join(str(change["text"]).split())
         if change.get("at"):
             if change["at"] not in ANCHORS:
                 raise ValueError(f"{change['at']!r} isn't one of {', '.join(ANCHORS)}")
-            all_items[i]["at"] = change["at"]
-            all_items[i].pop("x", None)
-            all_items[i].pop("y", None)
+            item["at"] = change["at"]
+            item.pop("x", None)
+            item.pop("y", None)
+        if change.get("x") is not None and change.get("y") is not None:
+            item["x"] = max(0, min(100, float(change["x"])))
+            item["y"] = max(0, min(100, float(change["y"])))
+            item.pop("at", None)
+        if change.get("panel") is not None:
+            panel = int(change["panel"])
+            if panel not in panel_rects(spec):
+                raise ValueError(f"no panel {panel} on page {page}")
+            item["panel"] = panel
+        if change.get("tail_x") is not None and change.get("tail_y") is not None:
+            item["tail_x"] = max(-20, min(120, float(change["tail_x"])))
+            item["tail_y"] = max(-20, min(120, float(change["tail_y"])))
+        if change.get("tail") in ("auto", "none"):
+            if change["tail"] == "none":
+                item["tail"] = "none"
+            else:
+                item.pop("tail", None)
+        if change.get("type"):
+            if change["type"] not in KINDS:
+                raise ValueError(f"{change['type']!r} isn't one of {', '.join(KINDS)}")
+            item["type"] = change["type"]
+        if change.get("speaker") is not None:
+            item["speaker"] = str(change["speaker"]).strip()
+            if not item["speaker"]:
+                item.pop("speaker", None)
+        if change.get("size"):
+            if change["size"] not in SFX_SIZES:
+                raise ValueError(f"{change['size']!r} isn't one of {', '.join(SFX_SIZES)}")
+            item["size"] = change["size"]
+        if change.get("style"):
+            if change["style"] not in SFX_STYLES:
+                raise ValueError(f"{change['style']!r} isn't one of {', '.join(SFX_STYLES)}")
+            item["style"] = change["style"]
+        if "invert" in change:
+            if change["invert"]:
+                item["invert"] = True
+            else:
+                item.pop("invert", None)
     write_spec(slug, page, spec)
     return spec
+
+
+def add_item(slug, page, item):
+    """A new balloon, caption, location header or sound effect on the page. Returns its index."""
+    kind = item.get("type")
+    if kind not in KINDS:
+        raise ValueError(f"type must be one of {', '.join(KINDS)}")
+    spec = page_spec(slug, page)
+    if not spec:
+        raise ValueError(f"no layout for page {page}")
+    panels = panel_rects(spec)
+    new = {"type": kind, "text": " ".join(str(item.get("text", "")).split()) or "..."}
+    try:
+        new["panel"] = int(item.get("panel") or 1)
+    except (TypeError, ValueError):
+        new["panel"] = 1
+    if new["panel"] not in panels:
+        new["panel"] = 1
+    try:
+        new["x"] = max(0, min(100, float(item.get("x", 50))))
+        new["y"] = max(0, min(100, float(item.get("y", 50))))
+    except (TypeError, ValueError):
+        new["x"], new["y"] = 50, 50
+    if item.get("speaker"):
+        new["speaker"] = str(item["speaker"]).strip()
+    if kind == "sfx":
+        new["size"] = item.get("size") if item.get("size") in SFX_SIZES else "medium"
+        if item.get("style") in SFX_STYLES:
+            new["style"] = item["style"]
+    if item.get("invert"):
+        new["invert"] = True
+    all_items = spec.get("items") or []
+    all_items.append(new)
+    spec["items"] = all_items
+    write_spec(slug, page, spec)
+    return len(all_items) - 1
 
 
 MOVES_RE = re.compile(r"```moves\s*\n(.*?)\n```", re.S)

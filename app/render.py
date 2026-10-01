@@ -1,12 +1,13 @@
-"""The renderer: every page of the book drawn by each image model, then lettered by the room.
+"""The renderer: every page of the book drawn by each image model; lettering is a second step.
 
 For each model and each page of layouts.md:
 
     art        the page packet's prompt (no text on the page), sent with reference images:
                the style plate (the book's look), the model's own lock of every character on
                the page, and - for a key page - the key page's art, to be close to it
-    lettered   the room's lettering layer (lettering.py) drawn over that same art, so the words
-               are exactly the script's and art and lettered are the same drawing
+    lettered   written only when asked (letter_pages, from /letter or the renders screen):
+               the room's lettering layer (lettering.py) composited over that same art, so
+               the words are exactly what the showrunner placed and art never changes
 
     campaigns/<slug>/renders/<model>/art/p01.png
     campaigns/<slug>/renders/<model>/lettered/p01.png
@@ -172,18 +173,43 @@ def letter(art_bytes, spec, ctx):
 
 
 def page(slug, tag, spec, ctx, key):
+    """Draw the art alone. Lettering is a second step: place and edit the text layer at
+    /letter, then letter_pages() composites it over this art on demand."""
     n = spec["page"]
     refs = references(slug, tag, spec, ctx)
     _update(slug, tag, n, state="drawing", refs=[str(p.name) for _, p in refs], started=time.time())
     try:
         art, cost = generate(MODELS[tag], prompt_for(spec, ctx, refs), refs, key)
-        for kind, data in (("art", art), ("lettered", letter(art, spec, ctx))):
-            d = folder(slug, tag, kind)
-            d.mkdir(parents=True, exist_ok=True)
-            (d / f"p{n:02d}.png").write_bytes(data)
+        d = folder(slug, tag, "art")
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"p{n:02d}.png").write_bytes(art)
         _update(slug, tag, n, state="done", cost=cost, seconds=round(time.time() - _page_started(slug, tag, n)), error=None)
     except Exception as e:      # noqa: BLE001 - one page failing never stops the book
         _update(slug, tag, n, state="failed", error=str(e)[:400])
+
+
+def letter_pages(slug, tag, pages=None):
+    """The second step: the current text layer composited over the drawn art, one lettered PNG
+    per page. Only pages whose art exists are lettered; returns {page: "ok" | why not}."""
+    ctx = prompts.context(slug)
+    specs = {s["page"]: s for s in book(slug)}
+    art_dir = folder(slug, tag, "art")
+    out_dir = folder(slug, tag, "lettered")
+    results = {}
+    for n in sorted(int(p) for p in (pages or specs)):
+        src = art_dir / f"p{n:02d}.png"
+        if n not in specs:
+            results[n] = "no layout"
+        elif not src.is_file():
+            results[n] = "art not drawn yet"
+        else:
+            try:
+                out_dir.mkdir(parents=True, exist_ok=True)
+                (out_dir / f"p{n:02d}.png").write_bytes(letter(src.read_bytes(), specs[n], ctx))
+                results[n] = "ok"
+            except Exception as e:      # noqa: BLE001
+                results[n] = str(e)[:200]
+    return results
 
 
 def _page_started(slug, tag, n):

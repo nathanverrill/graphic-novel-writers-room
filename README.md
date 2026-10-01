@@ -679,14 +679,22 @@ plate - kept, missing, or not in the cast yet (add it in one click). Choose the 
 what each model was shown.
 
 **Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
-Image 2.5 Sunburst - and letter it in the room, so there are four versions: each model's art, and
-that art lettered. Every page is drawn from its packet with reference images: Sheets' style plate
-(the book's look), the page's key art when it has one, and that model's own kept lock of every
-character on the page (Sheets subjects `alex-phantum-gemini`, `alex-phantum-sunburst`). The lettered
-version is the room's lettering layer drawn over the same art on the server (cairo), so the words
-are exactly the script's. Pages are drawn a few at a time per model, both models side by side;
-drawn pages are kept, one page can be drawn again, and each version downloads as a zip of
-PNGs or as a single multi-page PDF.
+Image 2.5 Sunburst - art only, with no lettering on it. Every page is drawn from its packet with
+reference images: Sheets' style plate (the book's look), the page's key art when it has one, and
+that model's own kept lock of every character on the page (Sheets subjects `alex-phantum-gemini`,
+`alex-phantum-sunburst`). Pages are drawn a few at a time per model, both models side by side;
+drawn pages are kept, and one page can be drawn again.
+
+**Lettering is the second step, at `/letter`** - the page on the left, its text on the right.
+The rendered art sits under the live text layer; every balloon, caption and sound effect has a
+drag handle, and moving one works anywhere on the page, across panels. The rail lists each
+item - edit its words, speaker and style (speech, whisper, thought, shout, caption, a
+**location header**, or display **sfx** in four sizes, light or dark), or remove it - plus an
+add bar and the page's script: click a script line to take its words, pick a kind, and the new
+item lands mid-page, selected, ready to drag. Every change writes back to the page's block in
+`layouts.md`, so production, the packets and the sketch all say the same thing. **Letter this
+page** / **Letter all pages** composite the layer over the drawn art on the server (cairo),
+and each version downloads from `/renders` as a zip of PNGs or as a single multi-page PDF.
 Renders live in `campaigns/<slug>/renders/` and are not committed.
 
 **Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another
