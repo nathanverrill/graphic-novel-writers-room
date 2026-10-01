@@ -681,8 +681,10 @@ what each model was shown.
 **Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
 Image 2.5 Sunburst - art only, with no lettering on it. Every page is drawn from its packet with
 reference images: Sheets' style plate (the book's look), the page's key art when it has one, and
-that model's own kept lock of every character on the page (Sheets subjects `alex-phantum-gemini`,
-`alex-phantum-sunburst`). Pages are drawn a few at a time per model, both models side by side;
+that model's own kept lock of every character on the page - built in Sheets, kept with the
+campaign under `campaigns/<slug>/style/locks/<name>-<model>/`, like the style plate at
+`campaigns/<slug>/style/plate.*`; a plate or lock is one book's look and is never shared
+across campaigns. Pages are drawn a few at a time per model, both models side by side;
 drawn pages are kept, and one page can be drawn again.
 
 **Lettering is the second step, at `/letter`** - the page on the left, its text on the right.

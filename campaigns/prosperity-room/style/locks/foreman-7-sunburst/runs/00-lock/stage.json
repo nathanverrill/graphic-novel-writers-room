@@ -1,0 +1,76 @@
+{
+ "rounds": [
+  {
+   "round": "r1",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": false,
+   "pick_before": null,
+   "parent": null,
+   "candidates": [],
+   "errors": [],
+   "models": [
+    "openai/gpt-image-2.5-sunburst"
+   ],
+   "each": 2,
+   "variants": [
+    "styled"
+   ],
+   "started": 1790315650.59848,
+   "seconds": 104.4,
+   "batch": false,
+   "stopped": true,
+   "kept_from": false
+  },
+  {
+   "round": "r2",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": false,
+   "pick_before": null,
+   "parent": null,
+   "candidates": [
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-1-styled.png",
+     "seconds": 124.1,
+     "variant": "styled"
+    },
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-2-styled.png",
+     "seconds": 138.3,
+     "variant": "styled"
+    },
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-1-styled.png",
+     "seconds": 46.7,
+     "variant": "styled"
+    },
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-2-styled.png",
+     "seconds": 74.5,
+     "variant": "styled"
+    }
+   ],
+   "errors": [],
+   "models": [
+    "openai/gpt-image-2.5-sunburst"
+   ],
+   "each": 2,
+   "variants": [
+    "styled"
+   ],
+   "started": 1790315755.021899,
+   "seconds": 74.5,
+   "batch": false,
+   "kept_from": true
+  }
+ ],
+ "pick": {
+  "round": "r2",
+  "file": "cand-gpt-image-2-5-sunburst-2-styled.png"
+ }
+}

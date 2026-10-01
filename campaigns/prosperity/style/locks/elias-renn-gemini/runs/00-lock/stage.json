@@ -1,0 +1,42 @@
+{
+ "rounds": [
+  {
+   "round": "r1",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": false,
+   "pick_before": null,
+   "parent": null,
+   "candidates": [
+    {
+     "model": "google/gemini-3.1-flash-image",
+     "file": "cand-gemini-3-1-flash-image-1-styled.png",
+     "seconds": 104.8,
+     "variant": "styled"
+    },
+    {
+     "model": "google/gemini-3.1-flash-image",
+     "file": "cand-gemini-3-1-flash-image-2-styled.png",
+     "seconds": 105.2,
+     "variant": "styled"
+    }
+   ],
+   "errors": [],
+   "models": [
+    "google/gemini-3.1-flash-image"
+   ],
+   "each": 2,
+   "variants": [
+    "styled"
+   ],
+   "started": 1790315650.9608195,
+   "seconds": 105.2,
+   "batch": false,
+   "kept_from": true
+  }
+ ],
+ "pick": {
+  "round": "r1",
+  "file": "cand-gemini-3-1-flash-image-2-styled.png"
+ }
+}

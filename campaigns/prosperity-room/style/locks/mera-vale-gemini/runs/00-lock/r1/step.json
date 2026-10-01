@@ -1,0 +1,19 @@
+{
+ "step": "lock",
+ "n": 0,
+ "instruction": "the approved starting view: full-length front, neutral, plain background",
+ "parent": "plate.png",
+ "candidates": [
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "file": "cand-gemini-3-1-flash-image-1-styled.png",
+   "variant": "styled"
+  },
+  {
+   "model": "google/gemini-3.1-flash-image",
+   "file": "cand-gemini-3-1-flash-image-2-styled.png",
+   "variant": "styled"
+  }
+ ],
+ "errors": []
+}

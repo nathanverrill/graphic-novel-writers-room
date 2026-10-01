@@ -1,0 +1,42 @@
+{
+ "rounds": [
+  {
+   "round": "r1",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": false,
+   "pick_before": null,
+   "parent": null,
+   "candidates": [
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-2-styled.png",
+     "seconds": 126.2,
+     "variant": "styled"
+    },
+    {
+     "model": "openai/gpt-image-2.5-sunburst",
+     "file": "cand-gpt-image-2-5-sunburst-1-styled.png",
+     "seconds": 153.5,
+     "variant": "styled"
+    }
+   ],
+   "errors": [],
+   "models": [
+    "openai/gpt-image-2.5-sunburst"
+   ],
+   "each": 2,
+   "variants": [
+    "styled"
+   ],
+   "started": 1790315650.2514176,
+   "seconds": 153.5,
+   "batch": false,
+   "kept_from": true
+  }
+ ],
+ "pick": {
+  "round": "r1",
+  "file": "cand-gpt-image-2-5-sunburst-2-styled.png"
+ }
+}

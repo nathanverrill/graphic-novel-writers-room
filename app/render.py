@@ -13,8 +13,9 @@ For each model and each page of layouts.md:
     campaigns/<slug>/renders/<model>/lettered/p01.png
     campaigns/<slug>/renders/status.json      page by page: done, failed, how long, what it cost
 
-A character's lock for a model is its Sheets subject "<name>-<model>" (alex-phantum-gemini),
-kept there by the showrunner; the plate is Sheets' style plate. A page is drawn once; drawing
+A character's lock for a model is the campaign's own "<name>-<model>" folder under
+campaigns/<slug>/style/locks/ (built in Sheets, then kept with the campaign); the plate is
+campaigns/<slug>/style/plate.* - both are one book's look, never shared across campaigns. A page is drawn once; drawing
 it again is asked for by name. Runs in a thread per model, a few pages at a time, and picks up
 where it stopped.
 """
@@ -30,7 +31,6 @@ import urllib.error
 import urllib.request
 
 from . import keypages, keys, lettering, projects, prompts, thumbnails
-from .draftedit import SHEETS_DIR
 
 MODELS = {"gemini": "google/gemini-3.1-flash-image", "sunburst": "openai/gpt-image-2.5-sunburst"}
 OPENROUTER = "https://openrouter.ai/api/v1"
@@ -90,12 +90,16 @@ def full_name(name, bible):
     return starts[0] if len(starts) == 1 else name
 
 
-def lock_for(name, tag, bible=""):
-    """The model's kept lock of a character: the Sheets subject whose name, less "-<model>",
-    is in the character's full name (cassian-lock-gemini for DIRECTOR CASSIAN LOCK)."""
+def lock_for(slug, name, tag, bible=""):
+    """The model's kept lock of a character: the subject folder whose name, less "-<model>",
+    is in the character's full name (cassian-lock-gemini for DIRECTOR CASSIAN LOCK).
+
+    Locks are the campaign's own, under campaigns/<slug>/style/locks/ - a cast belongs to one
+    book, so another campaign's lock is never matched, whatever the names share."""
+    base = projects.campaign_dir(slug) / "style" / "locks"
     words = set(re.findall(r"[a-z0-9]+", full_name(name, bible).lower()))
     best = None
-    for d in SHEETS_DIR.glob(f"*-{tag}") if SHEETS_DIR.is_dir() else []:
+    for d in base.glob(f"*-{tag}") if base.is_dir() else []:
         stem = set(re.findall(r"[a-z0-9]+", d.name[:-len(tag) - 1]))
         locks = [p for p in d.glob("lock.*") if p.suffix.lower() in MIME]
         if stem and stem <= words and locks and (best is None or len(stem) > best[0]):
@@ -113,7 +117,7 @@ def references(slug, tag, spec, ctx):
         out.append((f"this page as drawn before - stay close to its composition", key["art"]))
     names, _, _ = prompts.page_cast(spec, ctx)
     for n in names:
-        lock = lock_for(n, tag, ctx.get("bible"))
+        lock = lock_for(slug, n, tag, ctx.get("bible"))
         if lock and all(p != lock for _, p in out):
             out.append((f"{n}: draw this character exactly as this lock", lock))
     return out[:MAX_REFS]

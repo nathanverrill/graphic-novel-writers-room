@@ -1,0 +1,62 @@
+{
+ "rounds": [
+  {
+   "round": "r1",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": true,
+   "pick_before": null,
+   "parent": "reference.png",
+   "candidates": [],
+   "errors": [],
+   "models": [
+    "google/gemini-3.1-flash-image"
+   ],
+   "each": 2,
+   "variants": null,
+   "started": 1790314571.3774314,
+   "seconds": 14.6,
+   "batch": false,
+   "stopped": true,
+   "kept_from": false
+  },
+  {
+   "round": "r2",
+   "notes": "",
+   "from_pick": false,
+   "from_reference": true,
+   "pick_before": null,
+   "parent": "reference.png",
+   "candidates": [
+    {
+     "model": "google/gemini-3.1-flash-image",
+     "file": "cand-gemini-3-1-flash-image-2-styled.png",
+     "seconds": 158.1,
+     "variant": "styled"
+    },
+    {
+     "model": "google/gemini-3.1-flash-image",
+     "file": "cand-gemini-3-1-flash-image-1-styled.png",
+     "seconds": 159.2,
+     "variant": "styled"
+    }
+   ],
+   "errors": [],
+   "models": [
+    "google/gemini-3.1-flash-image"
+   ],
+   "each": 2,
+   "variants": [
+    "styled"
+   ],
+   "started": 1790314600.8456151,
+   "seconds": 159.2,
+   "batch": false,
+   "kept_from": true
+  }
+ ],
+ "pick": {
+  "round": "r2",
+  "file": "cand-gemini-3-1-flash-image-2-styled.png"
+ }
+}
