@@ -1186,3 +1186,24 @@ def render_zip(slug: str, tag: str, kind: str):
             z.write(f, f"{slug}-{tag}-{kind}/{f.name}")
     return Response(buf.getvalue(), media_type="application/zip",
                     headers={"Content-Disposition": f'attachment; filename="{slug}-{tag}-{kind}.zip"'})
+
+
+@app.get("/api/projects/{slug}/render/{tag}/{kind}.pdf")
+def render_pdf(slug: str, tag: str, kind: str):
+    """The drawn book as one PDF, a page per PNG, in page order."""
+    if tag not in render.MODELS or kind not in ("art", "lettered"):
+        raise HTTPException(404, "not a render")
+    d = render.folder(slug, tag, kind)
+    files = sorted(d.glob("p*.png")) if d.is_dir() else []
+    if not files:
+        raise HTTPException(404, "nothing drawn yet")
+    from PIL import Image
+    pages = []
+    for f in files:
+        im = Image.open(f).convert("RGB")
+        im.thumbnail((1400, 2100))
+        pages.append(im)
+    buf = io.BytesIO()
+    pages[0].save(buf, format="PDF", save_all=True, append_images=pages[1:], resolution=150)
+    return Response(buf.getvalue(), media_type="application/pdf",
+                    headers={"Content-Disposition": f'attachment; filename="{slug}-{tag}-{kind}.pdf"'})

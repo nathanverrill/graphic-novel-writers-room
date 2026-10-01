@@ -91,7 +91,7 @@ function render() {
     const done = ps.filter((p) => p.state === "done").length, failed = ps.filter((p) => p.state === "failed").length;
     const cost = ps.reduce((c, p) => c + (p.cost || 0), 0);
     return `<div class="card model"><b>${NAMES[t]}</b><div>${m.state || "idle"} · ${done} drawn${failed ? ` · <span style="color:var(--bad)">${failed} failed</span>` : ""}${cost ? ` · $${cost.toFixed(2)}` : ""}</div>
-      <div>${["art", "lettered"].map((k) => `<a href="/api/projects/${state.slug}/render/${t}/${k}.zip">download ${k}</a>`).join(" · ")}</div></div>`;
+      <div>${["art", "lettered"].flatMap((k) => [`<a href="/api/projects/${state.slug}/render/${t}/${k}.zip">download ${k}</a>`, `<a href="/api/projects/${state.slug}/render/${t}/${k}.pdf">${k} PDF</a>`]).join(" · ")}</div></div>`;
   }).join("");
   const head = `<div class="row head"><div>page</div>${TAGS.flatMap((t) => [`${NAMES[t]} · art`, `${NAMES[t]} · lettered`]).map((h) => `<div>${h}</div>`).join("")}</div>`;
   $("#grid").innerHTML = (d.pages.length ? head : `<p class="hint">layouts.md has no pages yet - lay the book out in production first.</p>`) + d.pages.map((n) => {
