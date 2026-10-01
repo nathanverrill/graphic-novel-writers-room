@@ -1,5 +1,8 @@
 # Tests
 
+> Prototype / proof-of-concept code, developed with assistance from Claude Code. Not intended
+> for production use.
+
 No framework and no network: everything here runs with plain `python3` from the repo root,
 with `PYTHONPATH=.` so `app` imports.
 

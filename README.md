@@ -1,9 +1,43 @@
 # Writers' Room
 
+> **Prototype, not a product.** This is proof-of-concept code, developed at speed with
+> assistance from Claude Code. It is unhardened and unreviewed: no auth, no multi-user story,
+> secrets in plain files. Run it on your own machine for your own work. It is not intended
+> for production use.
+
 A web-based, agentic writers' room for graphic novels. Its product is **page packets**:
 for every page, a complete markdown brief you paste into an image model (outside the room)
 to draw the page with **no text on it**. Drawing the pages is not this application's job;
 lettering them is: you upload the art, and the room draws the words over it.
+
+## Quick start
+
+The fastest path, with Docker:
+
+```sh
+git clone https://github.com/nathanverrill/graphic-novel-writers-room
+cd graphic-novel-writers-room
+cp .env.example .env      # set OPENAI_BASE_URL, OPENAI_API_KEY, OPENAI_MODEL - any OpenAI-compatible provider
+docker compose up -d --build
+```
+
+Open http://localhost:8000 and:
+
+1. **Create a campaign** on the front page — a title and a one-line pitch.
+2. **Add your material**: drop `.md` files into `campaigns/<slug>/input/` (anything to read),
+   `rules/` (what the book must not contradict), `drafts/` (chapters already written) and
+   `references/` (research to draw on). They are plain files on your disk — no upload step,
+   and git keeps their history.
+3. **Pre-production** (`/preproduction`): press **Run intake**, answer the open items it
+   raises, **Update canon**, answer what is left, **Update canon** again (the room's
+   recommendation settles anything still unanswered), then approve by typing `evoke`.
+4. **Produce** (`/production`): one button runs development, the audition, the writing and
+   the pages, and ends with a packet per page. `/renders` draws every page with the image
+   models and downloads each version as a zip of PNGs or as a single PDF.
+
+No Docker, no API key, or port 8000 already taken? **Run it** below has the plain-python path
+and a mock provider that fakes every call for free; **Docker** has running beside another
+stack on a different port.
 
 **Produce** is one button (`/production`): it runs development, the audition, the writing and
 the pages back to back, takes every gate itself, and ends with the packets to download. Or
@@ -289,12 +323,30 @@ To use the fake provider, set `OPENAI_BASE_URL=http://mock:8765/v1` in `.env` an
 
 After changing `.env`, run `docker compose up -d` again to apply it.
 
+If another stack on your machine already holds a port (8000 for the app, 8333 for SeaweedFS,
+9200 for OpenSearch), start the room with a compose override instead of editing
+`docker-compose.yml` — for example, the app alone on 8010 with the object store off:
+
+```yaml
+# override.yml
+services:
+  app:
+    ports: !override
+      - "127.0.0.1:8010:8000"
+    environment:
+      S3_ENDPOINT: ""
+```
+
+```sh
+docker compose -f docker-compose.yml -f override.yml up -d --no-deps app
+```
+
 Another independent instance of the whole room — its own campaigns, agents and index — is
 `scripts/instance.sh <name> <port>` (see `docker-compose.instance.yml`).
 
 ## The sprint tools
 
-Seven standalone web apps grew out of the Avalanche hackathon (September 2026). Each is one
+Eight standalone web apps grew out of the Avalanche hackathon (September 2026). Each is one
 folder holding one small FastAPI file, one HTML page and a Dockerfile — no code shared with the
 room — deployed to Cloud Run (project `evoke-prosperity`, `us-central1`), with all state in one
 GCS bucket per instance. Each app has an **API key** button: the OpenRouter key is pasted once
@@ -310,6 +362,7 @@ dropping files into a campaign's `input/` (see `campaigns/avengers/input/` for e
 | `nemesis/` | **Nemesis** | the antagonist and existential threat — and the convergence: who comes together and what each brings |
 | `persona/` | **Persona** | one character bot built by everyone: `.md` knowledge files, a face, a voice tuned take by take with parallel retakes and a version strip |
 | `canon/` | **Canon** | story files and research files on two shelves, and seven checks a model run marks pass / thin / fail with receipts |
+| `riff/` | **Riff** | the brainstorming room after the writers' room: chat with a campaign's material as draft, accept suggestions into a refinements layer (the newest canon), fold them back into the drafts with one synthesis click, compile everything to one canon file, and visualize it — infographics, story beats, wordless pages |
 
 Shared conventions across Forge, Spine, Station and Nemesis: one question at a time with a big
 answer box, a live "how it plays out" line, ✨ AI ideas (three concise options plus your own
@@ -557,6 +610,8 @@ nothing. A file reaches it under its real path, `campaigns/<campaign>/<folder>/<
 pass 4, and that screen is where the waiting happens: the material going in, the documents the
 room has written, the preservation numbers, and the open items — one at a time, each with its
 evidence, why it matters, where it came from, and its options with their provenance labels.
+The status-and-material column is a drawer: hidden by default so the open items read wide, shown
+with the **status & material** button in the header, and the choice is remembered per browser.
 Answer it, skip it for now, defer it, or write notes to the room as a whole. Under the answer is
 a second box for anything you want to add to your selection: it is saved with the answer in
 `rules/decisions.md` as "Showrunner's comment", becomes the reason if you defer, or can be saved
@@ -624,7 +679,8 @@ that art lettered. Every page is drawn from its packet with reference images: Sh
 character on the page (Sheets subjects `alex-phantum-gemini`, `alex-phantum-sunburst`). The lettered
 version is the room's lettering layer drawn over the same art on the server (cairo), so the words
 are exactly the script's. Pages are drawn a few at a time per model, both models side by side;
-drawn pages are kept, one page can be drawn again, and each version downloads as a zip.
+drawn pages are kept, one page can be drawn again, and each version downloads as a zip of
+PNGs or as a single multi-page PDF.
 Renders live in `campaigns/<slug>/renders/` and are not committed.
 
 **Voices** (`/voices`) is a dialog simulator. Pick who to talk to, who you are - another

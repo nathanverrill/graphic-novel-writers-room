@@ -1,5 +1,8 @@
 # Sheets: a LoRA training set, one character or one place at a time
 
+> Prototype / proof-of-concept code, developed with assistance from Claude Code. Not intended
+> for production use.
+
 Standalone. Nothing here touches the room; it reads a folder you fill by hand and writes
 images and captions beside it. Two ways in: a page, or the command line.
 
