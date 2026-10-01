@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 17</text>
+<g data-item="0">
+<polygon points="249,332 283,324 383,774" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="328" rx="88" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="288" font-size="19" fill="#111">THE PIN IS</text>
+<text x="266" y="311" font-size="19" fill="#111">NOT</text>
+<text x="266" y="334" font-size="19" fill="#111">DECORATIVE.</text>
+<text x="266" y="358" font-size="19" fill="#111">IT IS</text>
+<text x="266" y="381" font-size="19" fill="#111">ASCENDING.</text>
+</g>
+<g data-item="1">
+<polygon points="266,1236 266,1202 383,1219" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="1219" rx="99" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="1202" font-size="19" fill="#111">IT IS…</text>
+<text x="266" y="1225" font-size="19" fill="#111">INTERNATIONAL</text>
+<text x="266" y="1249" font-size="19" fill="#111">STANDARD.</text>
+</g>
+</g>
+</svg>

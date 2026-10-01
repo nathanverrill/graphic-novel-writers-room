@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 11</text>
+<g data-item="0">
+<polygon points="255,504 277,479 383,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="491" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="475" font-size="19" fill="#111">WE ARE</text>
+<text x="266" y="498" font-size="19" fill="#111">FOLLOWING</text>
+<text x="266" y="521" font-size="19" fill="#111">DOGS.</text>
+</g>
+<g data-item="1">
+<polygon points="723,479 745,504 617,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="491" rx="105" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="475" font-size="19" fill="#111">INTERNATIONAL</text>
+<text x="734" y="498" font-size="19" fill="#111">INVESTIGATION,</text>
+<text x="734" y="521" font-size="19" fill="#111">SAAB.</text>
+</g>
+</g>
+</svg>

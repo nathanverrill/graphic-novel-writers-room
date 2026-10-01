@@ -1,0 +1,91 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Outside GODARAZ, the contractor loads the distinct temporary service meter and generator box into his vehicle. The crude tractor jumper remains attached nearby but inadequate. Guddu stands at the threshold. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Inside, Guddu finds the empty service point while Pinty examines disconnected cables. The tractor cable is visibly insufficient for ordinary operation. Keep the top third open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The apologetic goons drive away with the removed service meter and generator box visibly loaded in the vehicle, heading toward Saand\u2019s marriage-hall site. Keep the oversized z and warehouse wall in frame."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Inside GODARAZ, festoon lights go dark one row at a time. Guddu stands beneath them with his permit folder held tight. Keep upper-left darkness clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "You said until opening.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "CONTRACTOR",
+      "text": "I said many things before breakfast.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "Tractor power is a test. Not a business.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "GRIND",
+      "size": "medium",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TIK\u2026 TIK\u2026 TIK\u2026",
+      "size": "medium",
+      "at": "top-left"
+    }
+  ]
+}

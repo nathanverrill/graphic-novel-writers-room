@@ -719,6 +719,25 @@ def letter_rendered(slug: str, tag: str, body: LetterPages):
     return {"lettered": ok, "skipped": {n: r for n, r in results.items() if r != "ok"}}
 
 
+@app.post("/api/projects/{slug}/render/{tag}/adopt")
+def adopt_rendered_art(slug: str, tag: str):
+    """Adopt the rendered art as the book's page art, so the Letterer judges against the
+    real pages. Pages with art the showrunner uploaded by hand are left alone."""
+    not_found(projects.project_dir, slug)
+    if tag not in render.MODELS:
+        raise HTTPException(404, "no such model")
+    d = render.folder(slug, tag, "art")
+    adopted, kept = [], []
+    for f in sorted(d.glob("p*.png")) if d.is_dir() else []:
+        n = int(f.stem[1:])
+        if projects.page_art(slug, n):
+            kept.append(n)
+        else:
+            projects.save_page_art(slug, n, f.read_bytes(), "png")
+            adopted.append(n)
+    return {"adopted": adopted, "already_uploaded": kept}
+
+
 @app.post("/api/projects/{slug}/lettering/{page}/art")
 def put_page_art(slug: str, page: int, art: PageArt):
     """The page's art with no lettering on it, as a data: URL from the file picker."""

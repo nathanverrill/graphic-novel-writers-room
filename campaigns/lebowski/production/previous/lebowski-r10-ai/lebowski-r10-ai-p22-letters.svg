@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 22</text>
+<g data-item="0">
+<rect x="624" y="118" width="220" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="142" font-size="18" fill="#111">THE STAMP WAS DRY.</text>
+</g>
+<g data-item="1">
+<rect x="64" y="451" width="404" height="80" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="476" font-size="18" fill="#111">THE LANE WAS CROOKED. THE MACHINE</text>
+<text x="266" y="497" font-size="18" fill="#111">WAS DOUBTFUL. THE PARROT WAS NOT AN</text>
+<text x="266" y="519" font-size="18" fill="#111">UMPIRE.</text>
+</g>
+<g data-item="2">
+<rect x="511" y="500" width="328" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="675" y="525" font-size="18" fill="#111">THE PARROT IS NOT AN UMPIRE.</text>
+</g>
+<g data-item="3">
+<rect x="303" y="689" width="393" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="500" y="713" font-size="18" fill="#111">THE PARROT IS SOMETIMES AN UMPIRE.</text>
+</g>
+<g data-item="4">
+<rect x="91" y="877" width="350" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="901" font-size="18" fill="#111">BUT A PLACE MAY BE CROOKED AND</text>
+<text x="266" y="922" font-size="18" fill="#111">STILL BE A PLACE FOR ITS TIME.</text>
+</g>
+<g data-item="5">
+<polygon points="255,1214 277,1189 383,1306" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="1201" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="1185" font-size="19" fill="#111">DUDE JI</text>
+<text x="266" y="1208" font-size="19" fill="#111">ABIDE KARTE</text>
+<text x="266" y="1231" font-size="19" fill="#111">HAIN.</text>
+</g>
+</g>
+</svg>

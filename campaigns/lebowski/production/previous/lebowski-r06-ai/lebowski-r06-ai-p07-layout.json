@@ -1,0 +1,90 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "At night inside and outside GODARAZ, indistinct local testers stand behind the lanes. Pinty connects a tractor jumper to the alley wiring while separate temporary service equipment remains at the threshold. Keep upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The power cuts mid-frame. Tractor light enters the dark alley. The Dude holds a finished buffalo-milk White Russian at the counter. Keep upper-left counter space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A small video screen shows Walter\u2019s intense face and laminated rulebook, surrounded by the dark alley. Keep the screen\u2019s top edge clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At the GODARAZ threshold beneath the oversized z, two apologetic goons speak with the worried power contractor beside the temporary service equipment. Keep the wall clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CHUG-CHUG-CHUG",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "Far out, man.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "WALTER",
+      "text": "A power cut is not a philosophy. It is a ruling.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GOON",
+      "text": "Your larger job is waiting.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "GODARAZ",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At the GODARAZ exterior, two apologetic goons roll the hand-woven dhurrie toward a small vehicle. Duda\u2019s lane-3 ball-return silhouette is visible high in the background, with no power equipment shown. Keep upper-right road space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Duda watches from the lane-3 ball return as the dhurrie disappears into the vehicle. He does not see the power equipment or full plan. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu and Bua-ji listen while Duda repeats the distinctive phrase. Keep only these three named figures and reserve the upper third."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Moti lowers his nose to the empty entrance, one ear upright and the other tilted outward. The other four dogs rise from shade circles and face the road. Keep lower-right clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GOON",
+      "text": "Keep it for the big hall.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "\u201cBig hall.\u201d Bada hall. Same words. Very suspicious. Also, I was not an umpire.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "SNIFF",
+      "size": "medium",
+      "at": "bottom-right"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu pulls the hand-woven dhurrie partly from behind cement bags. Saand stands nearby with his two goons behind him. Keep the upper third open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 55,
+          "description": "The dhurrie lies unrolled in dust with worn GODARAZ entrance marks visible. Keep the top third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Saand gestures toward the half-built fountain shaped like himself. Keep upper-left space open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Billi is visible beneath the cement-bag stack, pale green eyes fixed outward. Nobody notices her. Keep upper-left negative space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "This is my entrance.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "Many entrances resemble one another.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "A marriage hall requires warmth.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "It requires permission.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "A self-made man must build something that can see itself.",
+      "at": "top-left"
+    }
+  ]
+}

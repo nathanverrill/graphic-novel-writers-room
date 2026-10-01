@@ -1,0 +1,76 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "In Bua-ji\u2019s courtyard office, Bua-ji faces Saand while Duda perches above the desk. The recovered dhurrie and marked equipment fragment dominate the foreground tabletop. Guddu is absent. Keep the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Duda perches above the evidence and repeats the goon\u2019s phrase while Saand\u2019s partial shoulder remains at the edge. Keep separate balloon spaces."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At the office doorway, Guddu begins to speak, then closes his mouth and lets Bua-ji judge. Frame him outside with Bua-ji and Saand deeper inside. Leave the top third open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 60,
+          "description": "Bua-ji removes the folded GODARAZ flyer from the cash box and tears the pending sale tab from the mustard ledger. Keep flyer, tab and ledger unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "A piece of metal proves a piece of metal.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "\u201cBig hall.\u201d Bada hall. Same mouth. Different language.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "RRRIP",
+      "size": "large",
+      "at": "bottom-right"
+    }
+  ]
+}

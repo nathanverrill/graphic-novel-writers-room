@@ -1,0 +1,70 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Moti leads through a mandi lane with nose low. The other four dogs mark the route behind him. Guddu follows with his permit folder and Duda rides on his shoulder. Keep the route open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The scent trail crosses cotton bales, kinnow crates and mustard sacks. Guddu nearly walks into a tractor-trolley. Keep the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The pack reaches Saand\u2019s half-built marriage-hall site. Scaffolding and the self-shaped fountain rise behind the dogs. Keep the sky clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Moti stops before cement bags, one ear upright. Behind the bags, a rolled corner of the stolen dhurrie is plainly visible. Keep the cement-bag area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "We are following dogs.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "International investigation, saab.",
+      "at": "top-right"
+    }
+  ]
+}

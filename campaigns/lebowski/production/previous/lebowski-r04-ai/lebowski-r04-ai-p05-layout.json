@@ -1,0 +1,97 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At the GODARAZ entrance, Guddu lays a hand-woven bazaar dhurrie across the threshold. A stray dog immediately pees on it. Moti\u2019s five-dog pack sleeps in exact circles of shade nearby. Keep upper-left wall clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Inside a municipal office, Inspector Chaudhary sits perfectly still behind one queue bench and a deliberately dry stamp pad while Guddu faces him. Leave the top third open for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Guddu holds up an unsmiling photograph of himself beside the warehouse. Keep the photograph visible but leave space for the exchange."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Back inside GODARAZ, the Mandarin-labelled pin-setter jams above lane 3; one pin hangs crookedly. Pinty stands beside the machine with tools ready. Keep machine space open for the sound effect and upper-left for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "This is not international standard.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CHAUDHARY",
+      "text": "Applicant and premises must both be smiling.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "The premises is smiling internally.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CHAUDHARY",
+      "text": "Seniority is not delay. It is sequence.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRR\u2014CHUNK",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "The machine is not haunted. It is emotionally overloading.",
+      "at": "top-left"
+    }
+  ]
+}

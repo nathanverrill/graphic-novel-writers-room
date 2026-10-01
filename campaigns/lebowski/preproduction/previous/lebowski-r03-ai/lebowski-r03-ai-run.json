@@ -1,0 +1,300 @@
+{
+  "id": "r03-ai",
+  "kind": "ai",
+  "started": "2026-10-01T17:45:14",
+  "finished": "2026-10-01T17:47:48",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "lebowski/input/characters.md": "cd8cf6128d9a1b82",
+    "lebowski/input/godaraz-and-town.md": "9b4cef4d1060e498",
+    "lebowski/input/humor-beats.md": "fd477625970fe603",
+    "lebowski/input/pitch.md": "f4dd3c125f446035",
+    "lebowski/input/story-beats.md": "caee9d8e6570462a",
+    "lebowski/references/big-lebowski.md": "9287b5e9a6799dd2",
+    "lebowski/references/hanumangarh.md": "dd72007a2cd248e7",
+    "lebowski/rules/decisions.md": "713987612231a72f",
+    "lebowski/rules/tone-and-style.md": "998b2502db6cdab6"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.08765643,
+      "input_tokens": 206666,
+      "cached_tokens": 40819,
+      "image_input_tokens": 0,
+      "output_tokens": 37816,
+      "reasoning_tokens": 768,
+      "total_tokens": 244482
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 6,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.08765643,
+        "input_tokens": 206666,
+        "cached_tokens": 40819,
+        "image_input_tokens": 0,
+        "output_tokens": 37816,
+        "reasoning_tokens": 768,
+        "total_tokens": 244482
+      }
+    }
+  },
+  "run_id": "9098f56f55b4",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": true,
+    "calls": [
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 155140,
+        "input_tokens_est": 38785,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 32601,
+        "preservation": {
+          "source_chars": 110289,
+          "output_chars": 102962,
+          "mass": 0.934,
+          "terms": 130,
+          "missing": 0,
+          "coverage": 1.0,
+          "substantive_terms": 128,
+          "substantive_coverage": 1.0,
+          "dropped_by_kind": {},
+          "dropped_counts": {},
+          "dropped": []
+        }
+      },
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 155150,
+        "input_tokens_est": 38787,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 27951,
+        "preservation": {
+          "source_chars": 110289,
+          "output_chars": 102962,
+          "mass": 0.934,
+          "terms": 130,
+          "missing": 0,
+          "coverage": 1.0,
+          "substantive_terms": 128,
+          "substantive_coverage": 1.0,
+          "dropped_by_kind": {},
+          "dropped_counts": {},
+          "dropped": []
+        }
+      },
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 155140,
+        "input_tokens_est": 38785,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 42408,
+        "preservation": {
+          "source_chars": 110289,
+          "output_chars": 102962,
+          "mass": 0.934,
+          "terms": 130,
+          "missing": 0,
+          "coverage": 1.0,
+          "substantive_terms": 128,
+          "substantive_coverage": 1.0,
+          "dropped_by_kind": {},
+          "dropped_counts": {},
+          "dropped": []
+        }
+      },
+      {
+        "call": "4A-again",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 155474,
+        "input_tokens_est": 38868,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 35399
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 155246,
+        "input_tokens_est": 38811,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 411
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "1ed23d1e9101736e",
+        "input_chars": 151842,
+        "input_tokens_est": 37960,
+        "inputs": [
+          "characters.md",
+          "lebowski/rules/decisions.md",
+          "lebowski/rules/tone-and-style.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 23085
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "1ed23d1e9101736e",
+    "kept_previous": [],
+    "decisions_integrated": [],
+    "recommendations_taken": [],
+    "notes_applied": [
+      "[HIGH] Keep the canonical gags on the page: the cotton-bale opening, the bathrobe marke"
+    ],
+    "deferred": []
+  },
+  "pages": []
+}

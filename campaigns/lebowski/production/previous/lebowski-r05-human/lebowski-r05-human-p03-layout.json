@@ -1,0 +1,111 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At a mandi-side street stall, buffalo milk, kinnow pyramids and vegetables frame The Dude in a worn bathrobe, sunglasses and bazaar chappals. He holds one milk pouch while the stallkeeper studies a post-dated \u20b969 cheque. Keep the upper stall area clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Close on the \u20b969 cheque, milk pouch and the stallkeeper\u2019s doubtful hand. Keep the top third uncluttered for two balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu enters with his permit folder held tight against his chest. He looks from the cheque to The Dude, already deciding something. Keep space above both figures."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu points toward the GODARAZ warehouse while The Dude looks toward the railway road toward Rishikesh. Keep upper-left and upper-right air open for their balloons."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "STALLKEEPER",
+      "text": "Post-dated?",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "It\u2019s, like, a very near date.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "STALLKEEPER",
+      "text": "The buffalo is not post-dated.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "Far out.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "You are American?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "Among other things.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "Bowling. International standard, saab.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "I was headed to Rishikesh.",
+      "at": "top-right"
+    }
+  ]
+}

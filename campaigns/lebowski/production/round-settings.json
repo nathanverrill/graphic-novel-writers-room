@@ -1,0 +1,109 @@
+{
+  "phase": "execution",
+  "approved": {
+    "at": "2026-10-01T17:47:54",
+    "t": 1790876874.4455895,
+    "round": "r03-ai"
+  },
+  "magic": {
+    "status": "done",
+    "choices": [
+      {
+        "t": 1790877042.1569622,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r01-ai"
+      },
+      {
+        "t": 1790877132.9603865,
+        "step": "audition",
+        "what": "Picked Writer A.",
+        "why": "**Version A.** The moment that decided it was **Page 2, Panel 4**. Version A lets the environment and the action speak first, introducing Baba Tau *at his chai stall* on Page 2 watching the bale arrive, rather than turning him into an omnis",
+        "round": "r02-ai"
+      },
+      {
+        "t": 1790877233.988885,
+        "step": "writing",
+        "what": "Approved the script as written.",
+        "why": "The whole book, in the picked writer's voice.",
+        "round": "r03-ai"
+      },
+      {
+        "t": 1790877975.3344648,
+        "step": "execution",
+        "what": "Took the pages after 2 rounds, not fully ready.",
+        "why": "1 layout blocks don't parse; 2 layout issues; 3 continuity blockers",
+        "round": "r06-ai"
+      },
+      {
+        "t": 1790877975.767826,
+        "step": "final",
+        "what": "Finalized the book.",
+        "why": "Every page as the last round left it.",
+        "round": "r07-final"
+      }
+    ],
+    "log": [
+      {
+        "t": 1790876874.454182,
+        "text": "Production starts at Development, running to final."
+      },
+      {
+        "t": 1790876874.463575,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md."
+      },
+      {
+        "t": 1790876874.5083542,
+        "text": "Round r01-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1790877042.198366,
+        "text": "Round r02-ai: audition, Writer A, Writer B, First Reader."
+      },
+      {
+        "t": 1790877132.9610217,
+        "text": "Audition: picked Writer A - **Version A.** The moment that decided it was **Page 2, Panel 4**. Version A lets the environment and the action speak first, introducing Baba Tau *at his chai stall* on Page 2 watching the bale arrive, rather than turning him into an omnis"
+      },
+      {
+        "t": 1790877132.9953103,
+        "text": "Round r03-ai: writing, Writer A, Continuity Editor."
+      },
+      {
+        "t": 1790877234.0627513,
+        "text": "Round r04-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790877639.7302525,
+        "text": "Pages: round 1 not ready (2 continuity blockers); sending it back for another."
+      },
+      {
+        "t": 1790877640.1367874,
+        "text": "Round r06-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790877975.336259,
+        "text": "Pages: not fully ready after 2 rounds - taking them as they are (1 layout blocks don't parse; 2 layout issues; 3 continuity blockers)."
+      },
+      {
+        "t": 1790877975.768985,
+        "text": "Finalized as r07-final."
+      },
+      {
+        "t": 1790877975.7710114,
+        "text": "The book is done. The page packets are ready to paste into an image model; upload the art it draws and run the lettering."
+      }
+    ],
+    "step": "final",
+    "until": "final",
+    "error": null,
+    "stop": false,
+    "started": "2026-10-01T17:47:54",
+    "finished": "2026-10-01T18:06:15",
+    "written_for_page1": false,
+    "run": "9cdcd9f1b9f4",
+    "round": "r06-ai"
+  },
+  "scope": 0,
+  "writer": "writer_a"
+}

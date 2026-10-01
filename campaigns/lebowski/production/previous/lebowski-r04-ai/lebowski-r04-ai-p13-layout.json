@@ -1,0 +1,84 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Workers tug the dhurrie while Billi remains beneath the cement bags. Guddu crouches beside the stack, frustrated. Keep upper-left space for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The Dude stands several paces away, relaxed and waiting. Guddu gestures impatiently toward him. Preserve broad empty floor around The Dude."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Bua-ji raises one hand. The workers stop tugging and begin shifting cement bags one at a time. Keep upper-left clear for her instruction."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Billi slips through the widening gap. Beneath her is a metal fragment from the removed service equipment with the contractor\u2019s distinctive service number visibly matching the equipment removed from GODARAZ. Keep lower-right ground clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "Come out, Billi.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "Do something.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THE DUDE",
+      "text": "I\u2019m doing it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLINK",
+      "size": "medium",
+      "at": "bottom-right"
+    }
+  ]
+}

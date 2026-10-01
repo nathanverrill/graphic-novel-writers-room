@@ -1,0 +1,83 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Near GODARAZ, an indistinct customer holds open the same Mandarin-labelled manual while another points to an unreadable diagram. The pin-setter clanks in darkness behind them. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Duda sits on the lane-3 ball return above the crowned lane, framed by the dark machine. Keep the upper third clear for bilingual balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu holds the Mandarin manual upside down while Pinty studies it beside him. Keep the space above the manual clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The GODARAZ entrance stands bare. Dust has collected in the rectangular footprint where the hand-woven dhurrie lay. Keep the doorway clear; no recognizable people."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "CUSTOMER",
+      "text": "It says the lane remembers.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "Haunted. Bhoot. Haunted bhoot.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "This is a wiring diagram.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "It is emotionally a wiring diagram.",
+      "at": "top-right"
+    }
+  ]
+}

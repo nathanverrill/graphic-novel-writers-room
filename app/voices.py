@@ -84,7 +84,7 @@ PAGE_LINE = re.compile(r"^\s*\**Page\s+(\d+)\s*[:.]\**:?\**\s*(.+)$", re.I | re.
 
 def moments(slug):
     """[{id, label}] - where in the story the conversation happens, in story order. The
-    Plotter's page plot gives one per page ("**Page 12:** The key activates Bi11bot"); the
+    Plotter's page plot gives one per page ("**Page 12:** The key opens the vault"); the
     Script Coordinator's outline gives one per scene ("### 1. Alex tests the pump" under
     "## Chapter 1 - ...")."""
     text = read(slug, "story.md")

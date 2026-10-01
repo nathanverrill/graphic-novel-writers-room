@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 9</text>
+<g data-item="0">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="120" font-size="19" fill="#111">IT SAYS THE</text>
+<text x="266" y="143" font-size="19" fill="#111">LANE</text>
+<text x="266" y="166" font-size="19" fill="#111">REMEMBERS.</text>
+</g>
+<g data-item="1">
+<polygon points="255,504 277,479 383,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="491" rx="70" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="463" font-size="19" fill="#111">HAUNTED.</text>
+<text x="266" y="486" font-size="19" fill="#111">BHOOT.</text>
+<text x="266" y="509" font-size="19" fill="#111">HAUNTED</text>
+<text x="266" y="533" font-size="19" fill="#111">BHOOT.</text>
+</g>
+<g data-item="2">
+<polygon points="255,859 277,834 383,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="846" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="830" font-size="19" fill="#111">THIS IS A</text>
+<text x="266" y="853" font-size="19" fill="#111">WIRING</text>
+<text x="266" y="876" font-size="19" fill="#111">DIAGRAM.</text>
+</g>
+<g data-item="3">
+<polygon points="723,834 745,859 617,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="846" rx="88" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="818" font-size="19" fill="#111">IT IS</text>
+<text x="734" y="841" font-size="19" fill="#111">EMOTIONALLY</text>
+<text x="734" y="864" font-size="19" fill="#111">A WIRING</text>
+<text x="734" y="888" font-size="19" fill="#111">DIAGRAM.</text>
+</g>
+</g>
+</svg>

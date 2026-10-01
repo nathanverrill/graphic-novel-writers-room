@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 6</text>
+<g data-item="0">
+<text x="500" y="241" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 500 241)">THUP</text>
+</g>
+<g data-item="1">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="76" ry="34" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="143" font-size="19" fill="#111">APPROVED.</text>
+</g>
+<g data-item="2">
+<polygon points="255,504 277,479 383,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="491" rx="93" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="463" font-size="19" fill="#111">GIVE ME ONE</text>
+<text x="266" y="486" font-size="19" fill="#111">CHAIN, ONE</text>
+<text x="266" y="509" font-size="19" fill="#111">TRACTOR AND</text>
+<text x="266" y="533" font-size="19" fill="#111">NO SPEECHES.</text>
+</g>
+<g data-item="3">
+<text x="500" y="1062" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 500 1062)">KRAK-KRAK-KRAK</text>
+</g>
+<g data-item="4">
+<rect x="336" y="1288" width="328" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="500" y="1312" font-size="18" fill="#111">THE PARROT IS NOT AN UMPIRE.</text>
+</g>
+<g data-item="5">
+<rect x="707" y="1225" width="393" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="904" y="1250" font-size="18" fill="#111">THE PARROT IS SOMETIMES AN UMPIRE.</text>
+</g>
+<g data-item="6">
+<polygon points="1218,1187 1228,1220 862,1307" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="1223" cy="1204" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="1223" y="1187" font-size="19" fill="#111">MAIN UMPIRE</text>
+<text x="1223" y="1210" font-size="19" fill="#111">HOON. ALSO,</text>
+<text x="1223" y="1233" font-size="19" fill="#111">I AM NOT.</text>
+</g>
+</g>
+</svg>

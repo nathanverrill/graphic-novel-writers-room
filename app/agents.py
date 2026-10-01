@@ -51,6 +51,7 @@ class Role:
     library: bool = False    # reads the showrunner's material (the Script Coordinator)
     pipeline: str = None     # run by a named pipeline instead of the tool loop, e.g. "intake"
     page_art: bool = False   # is sent the showrunner's uploaded page art (the Letterer)
+    lettered_art: bool = False   # is sent the lettered renders, as composited (the Press Check)
 
     @property
     def minimal(self):

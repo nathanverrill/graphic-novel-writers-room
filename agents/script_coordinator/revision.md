@@ -17,8 +17,8 @@ given, and material that falls out fails the pass.
 
 **Decisions** answer an item. Each is settled and the book must not contradict it.
 
-**Notes** are about how the book should read: "Adrian should remain morally ambiguous", "Oasis
-should feel more desirable and less sterile", "give Bi11bot slightly more humour". They answer
+**Notes** are about how the book should read: "the rival should remain morally ambiguous", "the city
+should feel more desirable and less sterile", "give the sidekick slightly more humour". They answer
 nothing, and they govern everything you write in this pass. Each carries a weight:
 
 - **[HIGH]** must materially shape all the revision work it touches. If a HIGH note and the

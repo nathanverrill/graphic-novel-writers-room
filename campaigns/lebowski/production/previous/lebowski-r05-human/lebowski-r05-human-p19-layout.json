@@ -1,0 +1,84 @@
+{
+  "page": 19,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Jesus releases his ball beneath the oversized GODARAZ z. One pin remains standing on lane 3. Keep upper-right lane space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The power cuts and the machine stops. Walter, physically present, points at the standing pin while gripping his laminated rulebook. Keep the upper third open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Pinty works on the noisy bicycle-chain linkage in the foreground while the standing pin remains visible in the lane beyond. Through the open doors, a small subordinate rectangle of tournament projection flickers on Bhatner\u2019s whitewashed fort wall; it has no independent readable action. Keep the repair as the sharp focal point."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The machine lurches back to life. The standing pin remains under the lane light and a compact scoreboard clearly reads GODARAZ 48 \u2014 SAAND\u2019S TEAM 48. Keep lower machine space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "WALTER",
+      "text": "The frame was live. The pin stands. That is the score.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "Give me ten seconds.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK-KRAK",
+      "size": "medium",
+      "at": "bottom"
+    }
+  ]
+}

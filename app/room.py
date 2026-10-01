@@ -153,11 +153,12 @@ class Run:
             done_note = a.run(note)
         finally:
             emit("role_cost", **a.log.totals)
-        if role.id == "letterer":
-            moved = lettering.apply_moves(self.slug, projects.read_artifact(self.slug, "lettering.md"),
+        if role.id in ("letterer", "presscheck"):
+            source = "lettering.md" if role.id == "letterer" else "presscheck.md"
+            moved = lettering.apply_moves(self.slug, projects.read_artifact(self.slug, source),
                                           locked=set(review.kept(self.slug)))
             if moved:
-                emit("message", text=f"Moved {len(moved)} balloon{'s' if len(moved) > 1 else ''} as the Letterer asked.")
+                emit("message", text=f"Moved {len(moved)} balloon{'s' if len(moved) > 1 else ''} as {role.title} asked.")
         emit("role_done", note=done_note, seconds=round(time.time() - started))
         self.awaiting = self.awaiting or getattr(a, "awaiting", False)
         self.run_status = getattr(a, "run_status", None) or self.run_status

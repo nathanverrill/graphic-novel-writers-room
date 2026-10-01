@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 16</text>
+<g data-item="0">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="93" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="108" font-size="19" fill="#111">A LOAN IS A</text>
+<text x="266" y="131" font-size="19" fill="#111">LOAN.</text>
+<text x="266" y="154" font-size="19" fill="#111">SABOTAGE IS</text>
+<text x="266" y="177" font-size="19" fill="#111">NOT FAILURE.</text>
+</g>
+<g data-item="1">
+<polygon points="255,504 277,479 383,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="491" rx="93" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="463" font-size="19" fill="#111">THE</text>
+<text x="266" y="486" font-size="19" fill="#111">WAREHOUSE IS</text>
+<text x="266" y="509" font-size="19" fill="#111">NOT FOR</text>
+<text x="266" y="533" font-size="19" fill="#111">SALE.</text>
+</g>
+<g data-item="2">
+<polygon points="723,479 745,504 617,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="491" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="475" font-size="19" fill="#111">THIS DEFEAT</text>
+<text x="734" y="498" font-size="19" fill="#111">IS</text>
+<text x="734" y="521" font-size="19" fill="#111">TEMPORARY.</text>
+</g>
+<g data-item="3">
+<polygon points="255,859 277,834 383,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="846" rx="93" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="830" font-size="19" fill="#111">THIS ONE HAS</text>
+<text x="266" y="853" font-size="19" fill="#111">AN EARTH</text>
+<text x="266" y="876" font-size="19" fill="#111">CONNECTION.</text>
+</g>
+<g data-item="4">
+<text x="734" y="1201" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 734 1201)">HONK</text>
+</g>
+</g>
+</svg>

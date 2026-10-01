@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 10</text>
+<g data-item="0">
+<polygon points="723,124 745,149 617,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="136" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="120" font-size="19" fill="#111">KEEP IT FOR</text>
+<text x="734" y="143" font-size="19" fill="#111">THE BIG</text>
+<text x="734" y="166" font-size="19" fill="#111">HALL.</text>
+</g>
+<g data-item="1">
+<polygon points="255,859 277,834 383,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="846" rx="88" ry="110" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="772" font-size="19" fill="#111">“BIG HALL.”</text>
+<text x="266" y="795" font-size="19" fill="#111">BADA HALL.</text>
+<text x="266" y="818" font-size="19" fill="#111">SAME WORDS.</text>
+<text x="266" y="841" font-size="19" fill="#111">VERY</text>
+<text x="266" y="864" font-size="19" fill="#111">SUSPICIOUS.</text>
+<text x="266" y="888" font-size="19" fill="#111">ALSO, I WAS</text>
+<text x="266" y="911" font-size="19" fill="#111">NOT AN</text>
+<text x="266" y="934" font-size="19" fill="#111">UMPIRE.</text>
+</g>
+<g data-item="2">
+<text x="734" y="1411" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 734 1411)">SNIFF</text>
+</g>
+</g>
+</svg>

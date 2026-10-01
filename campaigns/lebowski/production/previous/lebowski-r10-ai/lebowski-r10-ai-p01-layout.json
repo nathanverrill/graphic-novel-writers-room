@@ -1,0 +1,90 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Dawn at Hanumangarh Junction: a runaway cotton bale rolls across railway tracks from a broken tractor-trolley. Show low buildings, first green fields, sleeping stray dogs and the pale line of Bhatner\u2019s brick walls. Keep upper-left sky clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The cotton bale rolls past a kinnow stall being opened for the day. A steel ladle hangs above a buffalo-milk urn while the stallkeeper watches too late. Keep open air above the urn for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The bale passes beneath Bhatner fort between a camel cart and a new SUV stopped nose-to-nose. Keep dusty road space beside the bale for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 35,
+          "description": "The bale rolls toward a whitewashed former cotton-press warehouse beside the mandi. Old cotton-bale stencils show through the paint, with tin roof and an unfinished bilingual GODARAZ sign. Leave lower-right road space for lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRRR\u2014THUMP",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "THUMP",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRRR",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THUMP",
+      "size": "large",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "GODARAZ",
+      "at": "top-right"
+    }
+  ]
+}

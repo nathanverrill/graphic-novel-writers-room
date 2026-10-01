@@ -96,7 +96,7 @@ Reply in exactly four parts, with these markers on lines of their own:
 <<<CHAPTER>>>
 the whole chapter, edited
 <<<CHANGES>>>
-- **Where** (section or scene): was "..." -> now "..." - why, citing the canon file or rule (e.g. characters.md, Bi11bot; rules/vocabulary.md, Keel slang)
+- **Where** (section or scene): was "..." -> now "..." - why, citing the canon file or rule (e.g. characters.md, the sidekick; rules/vocabulary.md, Keel slang)
 (or "- none" if nothing needed changing)
 <<<DOES NOT FIT>>>
 - **Where**: what does not fit, which canon it conflicts with, and the choices the showrunner has

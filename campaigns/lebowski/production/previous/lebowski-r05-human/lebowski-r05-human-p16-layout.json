@@ -1,0 +1,91 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "In the courtyard-office doorway, Bua-ji stands squarely with the torn sale tab while Saand and his two apologetic goons face her. A wall calendar still shows several days before the pre-Diwali opening deadline, making clear the deadline is ahead and sabotage\u2014not ordinary lateness\u2014caused the interruption. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Bua-ji hands the torn sale tab to Saand. His self-assured posture remains fixed. Keep the top third open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At GODARAZ, Bua-ji directs a new power contractor while Pinty studies the service plan. Guddu reaches toward the plan, then lets Pinty take it. Keep the plan and upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A truck arrives outside GODARAZ carrying a tall covered rectangular mural object. Guddu and Bua-ji look toward it; the recovered dhurrie lies at the entrance. Keep upper-right sky clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "A loan is a loan. Sabotage is not failure.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "The warehouse is not for sale.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "This defeat is temporary.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "This one has an earth connection.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "HONK",
+      "size": "medium",
+      "at": "top-right"
+    }
+  ]
+}

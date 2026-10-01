@@ -1,0 +1,90 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "At the municipal counter, Guddu presents a new smiling-premises photograph, ordinary fees and a replacement stamp pad. Chaudhary stamps the papers without changing expression. Keep upper-left counter space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "At the GODARAZ machinery bench, Pinty removes the cracked drive belt and fits a bicycle chain with pliers. Keep the top-left clear for his balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The bicycle chain turns and four pins reset slowly and noisily. Guddu watches, trying not to correct the repair. Keep lower machine space clear for the sound effect."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Duda grips the lane-3 ball return above the slightly crowned lane. Billi occupies the other ball return. Behind them, the bilingual rule board has two blank separated strips reserved for the exact lettering. Keep upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THUP",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "CHAUDHARY",
+      "text": "Approved.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "Give me one chain, one tractor and no speeches.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK-KRAK-KRAK",
+      "size": "medium",
+      "at": "bottom"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "Main umpire hoon. Also, I am not.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "page": 21,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "After the contest, unnamed townspeople use GODARAZ as a third place: simplified figures at the counter with chai and kachori, children and workers at lanes. No face is recognizable. Moti\u2019s five-dog pack rests in shade outside. Keep upper-left interior space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Billi sits in the other ball return while Duda grips lane 3. The mural, crooked lane and working chain share the frame. Keep the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Guddu reaches toward a worker adjusting the counter, then stops and leaves the adjustment in place. Keep space above his hand and face open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Outside, Saand passes beneath his unfinished self-shaped fountain and looks back toward GODARAZ. Through the open entrance, Guddu looks at the lane. Keep exterior and interior balloon areas separated."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "The machine is still haunted.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "The machine is still working.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SAAND",
+      "text": "This defeat is temporary.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "International standard.",
+      "at": "top-right"
+    }
+  ]
+}

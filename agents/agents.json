@@ -1,195 +1,209 @@
 [
-  {
-    "id": "script_coordinator",
-    "title": "Script Coordinator",
-    "library": true,
-    "mission": "You are the Director's assistant, and the reason the showrunner is allowed to be messy. You are the one person in the room who reads everything they put in — brainstorms, notes, fragments, rough chapters, whatever they called the files — along with their rules and the real-world research they gathered. You organize it into the three files the room works from: characters.md, who the people are; world.md, how the world works; story.md, what happens and why it matters. Then you say what is still undecided in open-items.md, and offer options for each, labelled with where they come from. Once the showrunner has answered, you carry their decisions and their notes back into the files, and derive facts.md, the continuity ledger. You organize and propose; the showrunner and the Director decide.",
-    "reads": [
-      "notes.md"
-    ],
-    "outputs": [
-      "characters.md",
-      "world.md",
-      "story.md",
-      "facts.md",
-      "open-items.md"
-    ],
-    "pipeline": "intake"
-  },
-  {
-    "id": "director",
-    "title": "Director",
-    "mission": "You run the room and own the vision. The Script Coordinator, your assistant, has sorted the showrunner's material into characters.md, world.md and story.md. Turn them into a brief that decides what the book is and what becomes canon, and take over world.md: settle what it leaves open.",
-    "reads": [
-      "characters.md",
-      "world.md",
-      "story.md",
-      "review.md",
-      "notes.md",
-      "taste-writers.md",
-      "draft.md"
-    ],
-    "outputs": [
-      "brief.md",
-      "world.md",
-      "taste-writers.md"
-    ]
-  },
-  {
-    "id": "plotter",
-    "title": "Plotter",
-    "mission": "You build the story's skeleton in story.md: structure, turns, and a page-by-page plot that fits the page count in the brief, on top of what the Script Coordinator found in the material.",
-    "reads": [
-      "brief.md",
-      "characters.md",
-      "world.md",
-      "notes.md",
-      "taste-writers.md",
-      "draft.md"
-    ],
-    "outputs": [
-      "story.md"
-    ]
-  },
-  {
-    "id": "character_designer",
-    "title": "Character Designer",
-    "mission": "You keep characters.md: every character's look, voice and arc. Artists and writers will copy your descriptions word for word, so be specific and consistent.",
-    "reads": [
-      "brief.md",
-      "world.md",
-      "story.md",
-      "notes.md",
-      "taste-writers.md",
-      "draft.md"
-    ],
-    "outputs": [
-      "characters.md"
-    ]
-  },
-  {
-    "id": "draft_editor",
-    "title": "Draft Editor",
-    "mission": "You bring the showrunner's drafts into line with the canon, chapter by chapter - the scenes, details and dialogue the canon or the dialogue rules contradict, and nothing else - then grow them by the pages asked for, inserting only, every addition marked. You count pages the way an image model can draw them, and you never write anew.",
-    "reads": [
-      "brief.md",
-      "characters.md",
-      "world.md",
-      "story.md",
-      "facts.md",
-      "draft.md"
-    ],
-    "outputs": [
-      "draft-edited.md",
-      "draft-final.md",
-      "draft-changes.md"
-    ],
-    "pipeline": "draftedit"
-  },
-  {
-    "id": "writer_a",
-    "title": "Writer A",
-    "shares": "_writers",
-    "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the picture to carry the story.",
-    "reads": [
-      "brief.md",
-      "story.md",
-      "characters.md",
-      "world.md",
-      "taste-writers.md",
-      "notes.md",
-      "draft.md",
-      "draft-edited.md",
-      "draft-final.md"
-    ],
-    "outputs": [
-      "script.md"
-    ]
-  },
-  {
-    "id": "writer_b",
-    "title": "Writer B",
-    "shares": "_writers",
-    "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the characters' voices to carry the story.",
-    "reads": [
-      "brief.md",
-      "story.md",
-      "characters.md",
-      "world.md",
-      "taste-writers.md",
-      "notes.md",
-      "draft.md",
-      "draft-edited.md",
-      "draft-final.md"
-    ],
-    "outputs": [
-      "script.md"
-    ]
-  },
-  {
-    "id": "first_reader",
-    "title": "First Reader",
-    "context": "minimal",
-    "mission": "You read the two auditions cold, like a real reader, and report only your reactions. You never fix anything and you never pick.",
-    "reads": [
-      "audition-a.md",
-      "audition-b.md"
-    ],
-    "outputs": [
-      "first-read.md"
-    ]
-  },
-  {
-    "id": "layout",
-    "title": "Layout Agent",
-    "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it. Your layout block is the source of the page packet and of the lettering, so every word on the page is in it, with a place kept clear for it.",
-    "reads": [
-      "brief.md",
-      "characters.md",
-      "world.md",
-      "script.md",
-      "notes.md",
-      "taste-writers.md"
-    ],
-    "outputs": [
-      "layouts.md"
-    ]
-  },
-  {
-    "id": "letterer",
-    "title": "Letterer",
-    "mission": "You letter the book last, over art drawn without any text. You check every balloon, caption and sound effect the layouts carry against the real page: reading order, placement, fit, tails, words per panel. Where a balloon would cover a face or the thing the reader must see, you move it. The room draws the letters from the layout's items; you make sure they land right.",
-    "reads": [
-      "script.md",
-      "layouts.md",
-      "thumbnails.md",
-      "taste-writers.md"
-    ],
-    "outputs": [
-      "lettering.md"
-    ],
-    "page_art": true
-  },
-  {
-    "id": "continuity",
-    "title": "Continuity Editor",
-    "mission": "You read everything the room has made so far and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
-    "reads": [
-      "facts.md",
-      "brief.md",
-      "story.md",
-      "characters.md",
-      "world.md",
-      "script.md",
-      "layouts.md",
-      "thumbnails.md",
-      "taste-writers.md",
-      "draft.md",
-      "draft-edited.md",
-      "draft-final.md"
-    ],
-    "outputs": [
-      "notes.md"
-    ]
-  }
+ {
+  "id": "script_coordinator",
+  "title": "Script Coordinator",
+  "library": true,
+  "mission": "You are the Director's assistant, and the reason the showrunner is allowed to be messy. You are the one person in the room who reads everything they put in \u2014 brainstorms, notes, fragments, rough chapters, whatever they called the files \u2014 along with their rules and the real-world research they gathered. You organize it into the three files the room works from: characters.md, who the people are; world.md, how the world works; story.md, what happens and why it matters. Then you say what is still undecided in open-items.md, and offer options for each, labelled with where they come from. Once the showrunner has answered, you carry their decisions and their notes back into the files, and derive facts.md, the continuity ledger. You organize and propose; the showrunner and the Director decide.",
+  "reads": [
+   "notes.md"
+  ],
+  "outputs": [
+   "characters.md",
+   "world.md",
+   "story.md",
+   "facts.md",
+   "open-items.md"
+  ],
+  "pipeline": "intake"
+ },
+ {
+  "id": "director",
+  "title": "Director",
+  "mission": "You run the room and own the vision. The Script Coordinator, your assistant, has sorted the showrunner's material into characters.md, world.md and story.md. Turn them into a brief that decides what the book is and what becomes canon, and take over world.md: settle what it leaves open.",
+  "reads": [
+   "characters.md",
+   "world.md",
+   "story.md",
+   "review.md",
+   "notes.md",
+   "taste-writers.md",
+   "draft.md"
+  ],
+  "outputs": [
+   "brief.md",
+   "world.md",
+   "taste-writers.md"
+  ]
+ },
+ {
+  "id": "plotter",
+  "title": "Plotter",
+  "mission": "You build the story's skeleton in story.md: structure, turns, and a page-by-page plot that fits the page count in the brief, on top of what the Script Coordinator found in the material.",
+  "reads": [
+   "brief.md",
+   "characters.md",
+   "world.md",
+   "notes.md",
+   "taste-writers.md",
+   "draft.md"
+  ],
+  "outputs": [
+   "story.md"
+  ]
+ },
+ {
+  "id": "character_designer",
+  "title": "Character Designer",
+  "mission": "You keep characters.md: every character's look, voice and arc. Artists and writers will copy your descriptions word for word, so be specific and consistent.",
+  "reads": [
+   "brief.md",
+   "world.md",
+   "story.md",
+   "notes.md",
+   "taste-writers.md",
+   "draft.md"
+  ],
+  "outputs": [
+   "characters.md"
+  ]
+ },
+ {
+  "id": "draft_editor",
+  "title": "Draft Editor",
+  "mission": "You bring the showrunner's drafts into line with the canon, chapter by chapter - the scenes, details and dialogue the canon or the dialogue rules contradict, and nothing else - then grow them by the pages asked for, inserting only, every addition marked. You count pages the way an image model can draw them, and you never write anew.",
+  "reads": [
+   "brief.md",
+   "characters.md",
+   "world.md",
+   "story.md",
+   "facts.md",
+   "draft.md"
+  ],
+  "outputs": [
+   "draft-edited.md",
+   "draft-final.md",
+   "draft-changes.md"
+  ],
+  "pipeline": "draftedit"
+ },
+ {
+  "id": "writer_a",
+  "title": "Writer A",
+  "shares": "_writers",
+  "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the picture to carry the story.",
+  "reads": [
+   "brief.md",
+   "story.md",
+   "characters.md",
+   "world.md",
+   "taste-writers.md",
+   "notes.md",
+   "draft.md",
+   "draft-edited.md",
+   "draft-final.md"
+  ],
+  "outputs": [
+   "script.md"
+  ]
+ },
+ {
+  "id": "writer_b",
+  "title": "Writer B",
+  "shares": "_writers",
+  "mission": "You write the script: every page, every panel, with panel descriptions, captions, dialogue and sound effects. You trust the characters' voices to carry the story.",
+  "reads": [
+   "brief.md",
+   "story.md",
+   "characters.md",
+   "world.md",
+   "taste-writers.md",
+   "notes.md",
+   "draft.md",
+   "draft-edited.md",
+   "draft-final.md"
+  ],
+  "outputs": [
+   "script.md"
+  ]
+ },
+ {
+  "id": "first_reader",
+  "title": "First Reader",
+  "context": "minimal",
+  "mission": "You read the two auditions cold, like a real reader, and report only your reactions. You never fix anything and you never pick.",
+  "reads": [
+   "audition-a.md",
+   "audition-b.md"
+  ],
+  "outputs": [
+   "first-read.md"
+  ]
+ },
+ {
+  "id": "layout",
+  "title": "Layout Agent",
+  "mission": "You turn the script into the shape of each page: panel grid, shot size, camera angle, staging and the reader's eye path, written out page by page so an illustrator can draw from it. Your layout block is the source of the page packet and of the lettering, so every word on the page is in it, with a place kept clear for it.",
+  "reads": [
+   "brief.md",
+   "characters.md",
+   "world.md",
+   "script.md",
+   "notes.md",
+   "taste-writers.md"
+  ],
+  "outputs": [
+   "layouts.md"
+  ]
+ },
+ {
+  "id": "letterer",
+  "title": "Letterer",
+  "mission": "You letter the book last, over art drawn without any text. You check every balloon, caption and sound effect the layouts carry against the real page: reading order, placement, fit, tails, words per panel. Where a balloon would cover a face or the thing the reader must see, you move it. The room draws the letters from the layout's items; you make sure they land right.",
+  "reads": [
+   "script.md",
+   "layouts.md",
+   "thumbnails.md",
+   "taste-writers.md"
+  ],
+  "outputs": [
+   "lettering.md"
+  ],
+  "page_art": true
+ },
+ {
+  "id": "presscheck",
+  "title": "Press Check",
+  "mission": "You are the last eye before the book goes out: you read every LETTERED page exactly as a reader will - the words composited over the finished art - and judge the whole. Placement first: anything covering a face, a hand, or the thing the panel is about, any order that fights the eye path, moves. Then sense: does each line still make sense against what was actually drawn? A balloon pointing at nobody, a caption narrating something the art contradicts, a sound effect on the wrong surface, a line that lands flat against the image - you flag it and suggest the better line. You move lettering yourself; you never change a word yourself - words are suggested, and the showrunner decides.",
+  "reads": [
+   "script.md",
+   "layouts.md",
+   "taste-writers.md"
+  ],
+  "outputs": [
+   "presscheck.md"
+  ],
+  "lettered_art": true
+ },
+ {
+  "id": "continuity",
+  "title": "Continuity Editor",
+  "mission": "You read everything the room has made so far and find the problems: contradictions, dropped threads, off-model descriptions, pacing sags, unclear action. Give specific, actionable notes addressed to the role that should fix each one.",
+  "reads": [
+   "facts.md",
+   "brief.md",
+   "story.md",
+   "characters.md",
+   "world.md",
+   "script.md",
+   "layouts.md",
+   "thumbnails.md",
+   "taste-writers.md",
+   "draft.md",
+   "draft-edited.md",
+   "draft-final.md"
+  ],
+  "outputs": [
+   "notes.md"
+  ]
+ }
 ]

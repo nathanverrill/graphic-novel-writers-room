@@ -96,6 +96,18 @@ def page_of(message):
     return int(m.group(1)) if m else None
 
 
+def _review_size(data):
+    """A page image at review size: the model judges placement and sense, not pixels, and a
+    book of full-resolution PNGs in one request breaks the pipe."""
+    import io
+    from PIL import Image
+    im = Image.open(io.BytesIO(data)).convert("RGB")
+    im.thumbnail((1100, 1700))
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=80)
+    return buf.getvalue()
+
+
 def page_art_images(slug, limit=24):
     """The showrunner's uploaded page art, as (label, mime, bytes), lowest page first."""
     out = []
@@ -104,10 +116,24 @@ def page_art_images(slug, limit=24):
         if not rel:
             continue
         path = projects.project_dir(slug) / rel
-        mime = IMAGE_TYPES.get(path.suffix.lower(), "image/png")
-        out.append((f"page {n} art (no lettering)", mime, path.read_bytes()))
+        out.append((f"page {n} art (no lettering)", "image/jpeg", _review_size(path.read_bytes())))
         if len(out) >= limit:
             break
+    return out
+
+
+def lettered_images(slug, limit=24):
+    """The lettered renders - the words composited over the art - as (label, mime, bytes).
+    Prefers the model tag with the most lettered pages (sunburst breaks ties)."""
+    base = projects.campaign_dir(slug) / "renders"
+    tags = sorted((d.name for d in base.iterdir() if (d / "lettered").is_dir()),
+                  key=lambda tag: (-len(list((base / tag / "lettered").glob("p*.png"))), tag != "sunburst")) \
+        if base.is_dir() else []
+    if not tags:
+        return []
+    out = []
+    for f in sorted((base / tags[0] / "lettered").glob("p*.png"))[:limit]:
+        out.append((f"page {int(f.stem[1:])} lettered ({tags[0]})", "image/jpeg", _review_size(f.read_bytes())))
     return out
 
 
@@ -187,6 +213,8 @@ class Agent:
 
         if r.page_art and self.cfg.send_images:
             images = list(images) + page_art_images(self.slug)
+        if getattr(r, "lettered_art", False) and self.cfg.send_images:
+            images = list(images) + lettered_images(self.slug)
         if images:
             text.append("# Reference images attached: " + ", ".join(l for l, _, _ in images))
 

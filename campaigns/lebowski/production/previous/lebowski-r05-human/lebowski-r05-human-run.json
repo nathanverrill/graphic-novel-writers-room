@@ -1,0 +1,47 @@
+{
+  "id": "r05-human",
+  "kind": "human",
+  "started": "2026-10-01T18:00:39",
+  "finished": "2026-10-01T18:00:40",
+  "status": "done",
+  "files_written": [
+    "review.md",
+    "thumbnails.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "lebowski/input/characters.md": "cd8cf6128d9a1b82",
+    "lebowski/input/godaraz-and-town.md": "9b4cef4d1060e498",
+    "lebowski/input/humor-beats.md": "fd477625970fe603",
+    "lebowski/input/pitch.md": "f4dd3c125f446035",
+    "lebowski/input/story-beats.md": "caee9d8e6570462a",
+    "lebowski/references/big-lebowski.md": "9287b5e9a6799dd2",
+    "lebowski/references/hanumangarh.md": "dd72007a2cd248e7",
+    "lebowski/rules/decisions.md": "713987612231a72f",
+    "lebowski/rules/tone-and-style.md": "998b2502db6cdab6"
+  },
+  "usage": {
+    "total": {
+      "calls": 0,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {}
+  },
+  "reviewed_round": "r04-ai",
+  "action": "send",
+  "method": "layout",
+  "counts": {
+    "kept": 0,
+    "edited": 0,
+    "noted": 0
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "page": 18,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "GODARAZ opening night: Diwali lights glow over indistinct crowd silhouettes. Jesus is the only recognizable named figure, in purple beside his velvet cricket bag. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A dust wall blasts through the entrance. Lights and faces vanish into brown air; only the oversized GODARAZ z remains visible as an orientation anchor. Keep upper-right dust space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Inside the darkened alley, simplified silhouettes shelter beneath lanes and counter. The mural is veiled by dust. The Dude calmly holds his drink in the foreground. Keep upper-left dark space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The same opening-night view after the dust clears. Diwali lights reappear and indistinct people return through the recovered dhurrie. Keep lower-right entrance space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "JESUS",
+      "text": "Purple is not a color, saab. It is a lane condition.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "GODARAZ",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "WHUMM",
+      "size": "huge",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "FSSSHHH",
+      "size": "large",
+      "at": "bottom-right"
+    }
+  ]
+}

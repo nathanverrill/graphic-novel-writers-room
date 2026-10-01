@@ -69,8 +69,11 @@ def _update(slug, tag, page=None, **changes):
 
 # ---- references ------------------------------------------------------------------------------
 
-def plate():
-    found = sorted((SHEETS_DIR / "_style").glob("plate.*")) if (SHEETS_DIR / "_style").is_dir() else []
+def plate(slug):
+    """The campaign's own style plate (campaigns/<slug>/style/plate.*). A plate is one book's
+    look, so a campaign without one gets none - never another campaign's."""
+    d = projects.campaign_dir(slug) / "style"
+    found = sorted(d.glob("plate.*")) if d.is_dir() else []
     return found[0] if found else None
 
 
@@ -103,8 +106,8 @@ def lock_for(name, tag, bible=""):
 def references(slug, tag, spec, ctx):
     """[(label, path)]: what this page is drawn from, most important first."""
     out = []
-    if plate():
-        out.append(("the style plate - draw in exactly this style", plate()))
+    if plate(slug):
+        out.append(("the style plate - draw in exactly this style", plate(slug)))
     key = keypages.of(slug, spec.get("page"))
     if key and key["art"]:
         out.append((f"this page as drawn before - stay close to its composition", key["art"]))

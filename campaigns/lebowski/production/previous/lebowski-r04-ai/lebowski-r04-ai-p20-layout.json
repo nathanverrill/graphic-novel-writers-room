@@ -1,0 +1,77 @@
+{
+  "page": 20,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The Dude steps onto lane 3 in his worn bathrobe, sunglasses and bazaar chappals. The crowned lane, standing pin, recovered dhurrie and oversized GODARAZ z align in one clean perspective. Duda watches from the ball return. Keep upper-left lane space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Behind The Dude, the contradictory bilingual rule board is visible as two separate strips reserved for lettering. Walter grips his laminated rulebook while Guddu, Pinty and Bua-ji watch from the side. Keep the upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The Dude releases the ball without hurry down lane 3. Use the long lane as the dominant shape and keep upper-right travel space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The ball knocks down the final pin. Naturalistic hands, faces and bodies break into motion rather than a posed cheer. Include a compact scoreboard clearly reading 49\u201348 without competing with the impact. Keep lower-right lane space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "The parrot is not an umpire.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "rrrrrrrr",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "bottom-right"
+    }
+  ]
+}

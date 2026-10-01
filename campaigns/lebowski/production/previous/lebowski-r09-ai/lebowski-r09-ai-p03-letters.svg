@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 3</text>
+<g data-item="0">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="88" ry="39" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="143" font-size="19" fill="#111">POST-DATED?</text>
+</g>
+<g data-item="1">
+<polygon points="723,124 745,149 617,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="136" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="120" font-size="19" fill="#111">IT’S, LIKE,</text>
+<text x="734" y="143" font-size="19" fill="#111">A VERY NEAR</text>
+<text x="734" y="166" font-size="19" fill="#111">DATE.</text>
+</g>
+<g data-item="2">
+<polygon points="255,504 277,479 383,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="491" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="475" font-size="19" fill="#111">THE BUFFALO</text>
+<text x="266" y="498" font-size="19" fill="#111">IS NOT</text>
+<text x="266" y="521" font-size="19" fill="#111">POST-DATED.</text>
+</g>
+<g data-item="3">
+<polygon points="723,479 745,504 617,596" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="491" rx="70" ry="31" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="498" font-size="19" fill="#111">FAR OUT.</text>
+</g>
+<g data-item="4">
+<polygon points="255,859 277,834 383,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="846" rx="76" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="841" font-size="19" fill="#111">YOU ARE</text>
+<text x="266" y="864" font-size="19" fill="#111">AMERICAN?</text>
+</g>
+<g data-item="5">
+<polygon points="723,834 745,859 617,951" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="846" rx="88" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="841" font-size="19" fill="#111">AMONG OTHER</text>
+<text x="734" y="864" font-size="19" fill="#111">THINGS.</text>
+</g>
+<g data-item="6">
+<polygon points="255,1214 277,1189 383,1306" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="1201" rx="99" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="1173" font-size="19" fill="#111">BOWLING.</text>
+<text x="266" y="1196" font-size="19" fill="#111">INTERNATIONAL</text>
+<text x="266" y="1219" font-size="19" fill="#111">STANDARD,</text>
+<text x="266" y="1243" font-size="19" fill="#111">SAAB.</text>
+</g>
+<g data-item="7">
+<polygon points="723,1189 745,1214 617,1306" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="734" cy="1201" rx="93" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="1185" font-size="19" fill="#111">I WAS HEADED</text>
+<text x="734" y="1208" font-size="19" fill="#111">TO</text>
+<text x="734" y="1231" font-size="19" fill="#111">RISHIKESH.</text>
+</g>
+</g>
+</svg>

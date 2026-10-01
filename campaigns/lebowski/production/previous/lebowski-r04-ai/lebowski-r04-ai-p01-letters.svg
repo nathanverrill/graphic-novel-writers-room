@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 1</text>
+<g data-item="0">
+<text x="500" y="241" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 500 241)">KRRR—THUMP</text>
+</g>
+<g data-item="1">
+<text x="752" y="596" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 752 596)">THUMP</text>
+</g>
+<g data-item="2">
+<text x="752" y="951" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 752 951)">KRRR</text>
+</g>
+<g data-item="3">
+<text x="734" y="1411" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 734 1411)">THUMP</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,79 @@
+{
+  "page": 22,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "At dawn or dusk, Baba Tau sits at the mandi-gate chai stall holding his chipped glass. The opened GODARAZ is visible in the distance beside the old cotton-press wall, its oversized z catching the light. Keep upper-left sky clear for narration."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A distant but readable view of GODARAZ shows lane 3 still slightly crowned, the pin-setter leaning into its bicycle-chain repair and the bilingual rule board still contradictory. Keep upper-left air clear for narration."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Baba Tau lifts his chipped glass. Behind him, Bhatner\u2019s brick walls and canal-fed green hold the town in frame. Keep upper-left sky clear for the final caption."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Cut clearly inside GODARAZ. Duda sits on the lane-3 ball return and cocks his head toward the open alley and the town beyond. Keep upper-left interior space clear for the final balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "The stamp was dry.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "The lane was crooked. The machine was doubtful. The parrot was not an umpire.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "But a place may be crooked and still be a place for its time.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "Dude ji abide karte hain.",
+      "at": "top-left"
+    }
+  ]
+}

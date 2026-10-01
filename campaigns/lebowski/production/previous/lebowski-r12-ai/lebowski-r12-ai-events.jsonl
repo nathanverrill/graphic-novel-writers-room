@@ -1,0 +1,10 @@
+{"i": 0, "type": "run_start", "t": 1790880177.7411175, "roles": ["presscheck"], "version": "r12-ai", "writing_round": "presscheck", "max_passes": 0, "estimates": {"presscheck": 120}, "pass_seconds": 0}
+{"i": 1, "type": "role_start", "t": 1790880177.7432952, "role": "presscheck", "title": "Press Check", "pass_n": 1, "estimate": 120}
+{"i": 2, "type": "context", "t": 1790880177.7544909, "role": "presscheck", "minimal": false, "guides": ["_shared/craft.md", "_shared/house-style.md", "presscheck/role.md"], "images": [], "model": "openai/gpt-5.6-luna", "temperature": 0.2, "image_model": null}
+{"i": 3, "type": "usage", "t": 1790880202.8439465, "role": "presscheck", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 62464, "output_tokens": 1176, "cost_usd": 0.01606404, "cost_source": "provider", "status": 200, "log": "lebowski-r12-ai-call-0001-presscheck-chat.json", "duration_ms": 23926, "error": null}
+{"i": 4, "type": "artifact", "t": 1790880202.845689, "role": "presscheck", "name": "presscheck.md"}
+{"i": 5, "type": "role_cost", "t": 1790880202.8506958, "role": "presscheck", "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.01606404, "input_tokens": 62464, "cached_tokens": 4187, "image_input_tokens": 0, "output_tokens": 1176, "reasoning_tokens": 404, "total_tokens": 63640}
+{"i": 6, "type": "message", "t": 1790880202.9905963, "role": "presscheck", "text": "Moved 7 balloons as Press Check asked."}
+{"i": 7, "type": "role_done", "t": 1790880202.9907963, "role": "presscheck", "note": "Delivered presscheck.md.", "seconds": 25}
+{"i": 8, "type": "run_done", "t": 1790880203.073629, "version": "r12-ai", "awaiting": false}
+{"i": 9, "type": "run_cost", "t": 1790880203.0739992, "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.01606404, "input_tokens": 62464, "cached_tokens": 4187, "image_input_tokens": 0, "output_tokens": 1176, "reasoning_tokens": 404, "total_tokens": 63640}

@@ -1,0 +1,96 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Bua-ji sits behind ledgers and mustard sacks while Guddu stands opposite with his permit folder. Leave upper-left desk space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "A loan ledger lies beside Saand\u2019s unsigned bid papers awaiting approval. Keep the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 55,
+          "description": "Guddu leans over a rough GODARAZ plan and points at four lanes. Keep the upper-left plan margin clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Bua-ji closes the ledger. An open cash box behind it visibly contains a folded GODARAZ flyer. Keep upper-left space open."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "One month. Before Diwali.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "The warehouse is collateral. Miss the opening, it goes to Saand.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "First we open, then we become stable. This is the normal sequence.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "Four lanes. Imported pine. International standard, saab.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "It is a cotton warehouse.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BUA-JI",
+      "text": "One month.",
+      "at": "top-left"
+    }
+  ]
+}

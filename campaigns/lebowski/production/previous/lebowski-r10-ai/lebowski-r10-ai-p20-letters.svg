@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 20</text>
+<g data-item="0">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="82" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="120" font-size="19" fill="#111">THE PARROT</text>
+<text x="266" y="143" font-size="19" fill="#111">IS NOT AN</text>
+<text x="266" y="166" font-size="19" fill="#111">UMPIRE.</text>
+</g>
+<g data-item="1">
+<rect x="102" y="473" width="328" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="497" font-size="18" fill="#111">THE PARROT IS NOT AN UMPIRE.</text>
+</g>
+<g data-item="2">
+<rect x="69" y="682" width="393" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="707" font-size="18" fill="#111">THE PARROT IS SOMETIMES AN UMPIRE.</text>
+</g>
+<g data-item="3">
+<text x="734" y="846" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 734 846)">RRRRRRRR</text>
+</g>
+<g data-item="4">
+<text x="734" y="1411" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 734 1411)">KRAK</text>
+</g>
+<g data-item="5">
+<rect x="695" y="1183" width="79" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="1207" font-size="18" fill="#111">49–48</text>
+</g>
+</g>
+</svg>

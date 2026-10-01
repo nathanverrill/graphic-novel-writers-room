@@ -1,0 +1,88 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 50,
+          "description": "The cotton bale bumps against the closed warehouse shutter. Dust settles; only the lower edge of the unfinished sign is visible. Keep lower-right metal clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Baba Tau sits at the mandi-gate chai stall holding his chipped glass. The warehouse is small but centered behind him. Keep the top-left open for a caption."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Baba Tau looks toward the warehouse as a railway horn sounds and the mandi stirs. Keep upper-left negative space for narration."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The shutter lifts slightly. In the dark warehouse, the oversized English z of GODARAZ appears first, twice the height of every other letter, with four lane silhouettes and festoon lights behind it. Keep upper-right darkness clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TOK",
+      "size": "medium",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "In Hanumangarh, every story begins with a thing that has already been moving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "This one concerns a man for his time and place.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNNK",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "GODARAZ",
+      "at": "middle"
+    }
+  ]
+}
