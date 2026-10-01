@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canon</title>
+<style>
+:root{
+  --bg:#141110; --panel:#201b18; --line:#37302a; --ink:#efe9e3; --muted:#a3968a;
+  --accent:#d97b5a; --pass:#5fae72; --thin:#d0a648; --fail:#d96a5a; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,sans-serif;
+  height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;margin:0;font-weight:600;letter-spacing:.02em}
+header .spacer{flex:1}
+button,textarea,input{font:inherit;color:inherit}
+button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:#1a0e08;font-weight:600}
+.note{color:var(--muted);font-size:.8rem}
+.layout{flex:1;display:flex;min-height:0}
+aside{width:290px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;padding:16px 20px;gap:6px;overflow-y:auto}
+aside h2{font-size:.72rem;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+aside h2:first-child{margin-top:0}
+.fitem{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.fitem:hover{background:var(--panel)}
+.fitem .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fitem .sz{color:var(--muted);font-size:.72rem}
+.fitem .x{border:none;background:none;color:var(--muted);padding:0 4px;font-size:1rem}
+.fitem .x:hover{color:var(--fail)}
+.addbtn{width:100%;margin-top:2px}
+.runrow{display:flex;align-items:baseline;gap:8px;padding:5px 8px;border-radius:8px;cursor:pointer;font-size:.85rem}
+.runrow:hover{background:var(--panel)}
+.runrow .score{font-weight:600;color:var(--accent)}
+.runrow .d{color:var(--muted);font-size:.72rem;flex:1}
+main{flex:1;overflow-y:auto;padding:28px 40px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.top{width:min(94vw,680px);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.top .score{font-size:2rem;font-weight:700;color:var(--accent)}
+.top .when{color:var(--muted);font-size:.85rem;flex:1}
+.checks{width:min(94vw,680px);display:flex;flex-direction:column;gap:10px}
+.chk{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;
+  display:flex;gap:12px;align-items:flex-start}
+.chk .mark{width:26px;height:26px;flex:none;border-radius:50%;border:2px solid var(--muted);
+  display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#1a0e08;margin-top:2px}
+.chk.pass .mark{background:var(--pass);border-color:var(--pass)}
+.chk.thin .mark{background:var(--thin);border-color:var(--thin)}
+.chk.fail .mark{background:var(--fail);border-color:var(--fail)}
+.chk .body{flex:1}
+.chk .t{font-weight:600}
+.chk .note2{color:var(--muted);font-size:.88rem;margin-top:2px}
+.chk.pass .note2{color:var(--ink)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:20px;max-width:560px;width:92vw}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin:0 0 4px;word-break:break-all}
+dialog p{color:var(--muted);font-size:.88rem;margin:4px 0 12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px}
+dialog textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+  min-height:40vh;resize:vertical;font:.85rem/1.5 ui-monospace,monospace}
+dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+@media (max-width:900px){
+  .layout{flex-direction:column;overflow-y:auto}
+  aside{width:auto;border-right:none;border-bottom:1px solid var(--line);max-height:40vh}
+  main{overflow:visible}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Canon</h1>
+  <span class="note">the story and the research, and the checks that make it canon</span>
+  <span class="spacer"></span>
+  <button id="gear" title="OpenRouter key for the check">API key</button>
+</header>
+
+<div class="layout">
+<aside>
+  <h2>Story files</h2>
+  <div id="storylist"></div>
+  <button class="addbtn" id="addstory">+ Add story .md</button>
+  <h2>Research files</h2>
+  <div id="researchlist"></div>
+  <button class="addbtn" id="addresearch">+ Add research .md</button>
+  <input type="file" id="fpick" accept=".md,.txt,text/markdown,text/plain" multiple hidden>
+  <h2>Check history</h2>
+  <div id="runs" class="note">no runs yet</div>
+</aside>
+
+<main>
+  <div class="top">
+    <button class="primary" id="run">Run the canon check</button>
+    <span class="score" id="score">&ndash;/7</span>
+    <span class="when" id="when">not checked yet &mdash; add files on the left, then run</span>
+  </div>
+  <div class="checks" id="checks"></div>
+</main>
+</div>
+
+<dialog id="settings">
+  <h3>API key</h3>
+  <p>The canon check reads every file through an OpenRouter key. Paste it once &mdash; it&rsquo;s stored on the server and everyone here shares it.</p>
+  <input id="s-key" type="password" placeholder="sk-or-...">
+  <p class="note" id="s-msg"></p>
+  <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<dialog id="viewer">
+  <h3 id="v-name"></h3>
+  <textarea id="v-text" spellcheck="false"></textarea>
+  <div class="end"><button id="v-cancel">Close</button><button class="primary" id="v-save">Save changes</button></div>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+let configured = false, checks = [], pickCat = "story";
+const MARK = {pass: "✓", thin: "~", fail: "✗"};
+
+function drawChecks(results){
+  const el = $("checks"); el.textContent = "";
+  checks.forEach(c => {
+    const r = results?.find(x => x.id === c.id);
+    const d = document.createElement("div");
+    d.className = "chk" + (r ? " " + r.verdict : "");
+    d.innerHTML = `<span class="mark"></span><div class="body"><div class="t"></div><div class="note2"></div></div>`;
+    d.querySelector(".mark").textContent = r ? MARK[r.verdict] : "";
+    d.querySelector(".t").textContent = c.text;
+    d.querySelector(".note2").textContent = r ? r.note : "not checked yet";
+    el.append(d);
+  });
+}
+
+function showRun(run){
+  $("score").textContent = run.passes + "/7";
+  $("when").textContent = new Date(run.ts * 1000).toLocaleString() + " · checked " + run.files.length + " files";
+  drawChecks(run.results);
+}
+
+async function refresh(){
+  const c = await (await fetch("/api/canon")).json();
+  configured = !!c.configured;
+  checks = c.checks;
+  if (!configured) $("settings").showModal();
+  for (const cat of ["story", "research"]){
+    const el = $(cat + "list"); el.textContent = "";
+    if (!c[cat].length){ const e = document.createElement("div"); e.className = "note"; e.style.padding = "2px 8px";
+      e.textContent = cat === "story" ? "the seven points, scripts, character sheets…" : "the real Antarctica, waste streams, wildlife…"; el.append(e); }
+    c[cat].forEach(f => {
+      const d = document.createElement("div"); d.className = "fitem";
+      d.innerHTML = `<span class="n"></span><span class="sz"></span><button class="x" title="Remove">×</button>`;
+      d.querySelector(".n").textContent = f.name;
+      d.querySelector(".sz").textContent = (f.chars / 1000).toFixed(1) + "k";
+      d.querySelector(".n").onclick = () => openFile(cat, f.name);
+      d.querySelector(".x").onclick = async e => {
+        e.stopPropagation();
+        await fetch(`/api/file/${cat}/` + encodeURIComponent(f.name), {method: "DELETE"});
+        refresh();
+      };
+      el.append(d);
+    });
+  }
+  const rel = $("runs"); rel.textContent = "";
+  if (!c.runs.length) rel.textContent = "no runs yet";
+  c.runs.forEach(r => {
+    const d = document.createElement("div"); d.className = "runrow";
+    d.innerHTML = `<span class="score"></span><span class="d"></span>`;
+    d.querySelector(".score").textContent = r.passes + "/7";
+    d.querySelector(".d").textContent = new Date(r.ts * 1000).toLocaleString([], {month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+    d.onclick = () => showRun(r);
+    rel.append(d);
+  });
+  if (c.runs.length) showRun(c.runs[0]); else drawChecks(null);
+}
+refresh();
+
+$("addstory").onclick = () => { pickCat = "story"; $("fpick").click(); };
+$("addresearch").onclick = () => { pickCat = "research"; $("fpick").click(); };
+$("fpick").onchange = async () => {
+  for (const f of $("fpick").files){
+    const text = await f.text();
+    const r = await fetch("/api/file", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({cat: pickCat, name: f.name.replace(/\.txt$/, ".md"), text})});
+    if (!r.ok) alert(f.name + ": " + ((await r.json().catch(() => ({}))).detail || "failed"));
+  }
+  $("fpick").value = ""; refresh();
+};
+async function openFile(cat, name){
+  const j = await (await fetch(`/api/file/${cat}/` + encodeURIComponent(name))).json();
+  $("v-name").textContent = `${cat} / ${j.name}`;
+  $("v-text").value = j.text;
+  $("viewer").showModal();
+  $("v-save").onclick = async () => {
+    await fetch("/api/file", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({cat, name: j.name, text: $("v-text").value})});
+    $("viewer").close(); refresh();
+  };
+}
+$("v-cancel").onclick = () => $("viewer").close();
+
+$("run").onclick = async () => {
+  if (!configured){ $("settings").showModal(); return; }
+  $("run").disabled = true;
+  $("when").textContent = "reading every file and checking the canon…";
+  try {
+    const r = await fetch("/api/check", {method: "POST"});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.detail || r.status);
+    showRun(j); refresh();
+  } catch (e){ $("when").textContent = "check failed: " + (e.message || e); }
+  $("run").disabled = false;
+};
+
+$("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
+$("s-cancel").onclick = () => $("settings").close();
+$("s-save").onclick = async () => {
+  const r = await fetch("/api/key", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key: $("s-key").value.trim()})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok){ $("s-msg").textContent = j.detail || "failed"; return; }
+  configured = true; $("s-key").value = "";
+  $("settings").close();
+};
+</script>
+</body>
+</html>

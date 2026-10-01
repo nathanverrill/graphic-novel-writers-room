@@ -1,0 +1,86 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Nexus ecological lab: an empty krill tank under emergency light, pale sediment layered at the bottom and ice pressing through the rear wall. Leave upper area clear; no lettering."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Sitara wipes frost from the surviving sensor display. A graph shows sea-ice duration falling beside failed krill reproduction. Leave upper-left clear for her balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara\u2019s TJ opens a sealed connector and fabricates a small conductive bridge through its tool port. The battery indicator visibly drops. Leave upper-right clear for the fabrication sound and lower-left for TJ dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The sensor archive returns KRILL REPRODUCTION: FAILED and CAUSE CORRELATION: SEA-ICE LOSS. Roman looks through the glass at the empty tank. Leave upper area clear for Roman\u2019s line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "The tank failed when the ice season shortened.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "TIK\u2014WHIRR",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Fabrication consumes reserve power.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "KRILL REPRODUCTION: FAILED"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CAUSE CORRELATION: SEA-ICE LOSS"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Not a resource. A food web.",
+      "at": "bottom-left"
+    }
+  ]
+}

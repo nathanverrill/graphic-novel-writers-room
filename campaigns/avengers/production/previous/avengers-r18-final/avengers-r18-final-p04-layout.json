@@ -1,0 +1,80 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Falcon maintenance room: projected map labeled SCIENTIFIC DRILLING / ENVIRONMENTAL MONITORING shows unauthorized branches descending toward resource markers. Leave wall space for labels."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 40,
+          "description": "Manifest beside concealed waste chute shows ICE CORE STORAGE overwritten over DRILL FLUID / RESIDUALS. Nayah photographs it; Sitara studies vibration traces. Leave upper third for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Synchronized drilling-vibration and ice-motion displays share a red timestamp fragment handwritten across a maintenance sheet. Leave upper-left for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "TJ turns toward sealed archive slot holding paper records, dead data wafer, and warning fragment 07:14 / \u2014\u2014\u2014. Leave lower-left for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "That is not an ice-core manifest.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It is pretending to be one.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "The vibration is local. The instability is not.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Local record. Access restricted.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-right",
+      "text": "07:14 / \u2014\u2014\u2014"
+    }
+  ]
+}

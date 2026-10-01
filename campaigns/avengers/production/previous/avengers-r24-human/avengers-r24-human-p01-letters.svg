@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 1</text>
+<polygon points="139,915 172,906 213,1129" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="156" cy="910" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="905" font-size="19" fill="#111">SITARA. STOP</text>
+<text x="156" y="928" font-size="19" fill="#111">THERE.</text>
+<text x="844" y="1347" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 844 1347)">KRRRNNN</text>
+<polygon points="598,915 631,906 672,1129" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="615" cy="910" rx="82" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="905" font-size="19" fill="#111">IT’S STILL</text>
+<text x="615" y="928" font-size="19" fill="#111">RECORDING.</text>
+</g>
+</svg>

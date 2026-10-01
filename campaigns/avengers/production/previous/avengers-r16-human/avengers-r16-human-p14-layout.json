@@ -1,0 +1,77 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Colorado pilot material belt: selected PET and polyolefin move toward Project 863 while mixed material diverts into a clearly marked rejected bin. Leave upper area clear; no lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A compact reactor receives sorted feedstock beside a cold-active enzyme bioreactor with insulated, labeled pipes. A technician checks temperature and flow. Leave upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Recovered hydrocarbon feedstock exits into a sealed container. Residual solids sit in a separate drum beside an active emissions monitor. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A monitoring wall lists water use, grid demand, emissions, and limited throughput while the facility operates. Leave the upper-left clear for Croft\u2019s recorded balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "WATER USE \u2014 ACTIVE"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "GRID DEMAND \u2014 ACTIVE"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "EMISSIONS \u2014 MONITORED"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "THROUGHPUT \u2014 LIMITED"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "It works. That matters.",
+      "at": "top-right"
+    }
+  ]
+}

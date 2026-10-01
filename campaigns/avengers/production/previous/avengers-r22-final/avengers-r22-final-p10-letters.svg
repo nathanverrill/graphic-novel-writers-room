@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 10</text>
+<text x="385" y="200" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 385 200)">GROOOAN</text>
+<text x="844" y="200" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 844 200)">KLANG—</text>
+<polygon points="615,654 615,620 672,637" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="615" cy="637" rx="88" ry="39" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="643" font-size="19" fill="#111">LEFT. MOVE!</text>
+<polygon points="139,915 172,906 213,1129" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="156" cy="910" rx="93" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="894" font-size="19" fill="#111">NO</text>
+<text x="156" y="917" font-size="19" fill="#111">RETRIEVAL.</text>
+<text x="156" y="940" font-size="19" fill="#111">KEEP MOVING.</text>
+<text x="844" y="910" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 844 910)">BEEP… BEEP…</text>
+</g>
+</svg>

@@ -1,0 +1,93 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara scans selected maintenance pages while Nayah watches shaking frost overhead. Leave upper-right for sound effect and lower area for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara overlays drilling and ice-motion plots; a red line shows local acceleration without implying global causation. Leave upper-left for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Warning light flashes and meltwater beads at the threshold as Nayah pulls the emergency line toward the exit. Leave upper third for command."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Copied record clearly displays NEXUS \u2014 ROUTE 2 \u2014 SECOND TIMESTAMP and PAIR BEFORE DISCLOSURE. Leave lower area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THRUM\u2014THRUM\u2014THRUM",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We have four minutes.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Then the copy has to be complete.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Local acceleration. Not the whole system.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Out. Now.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "middle",
+      "text": "NEXUS \u2014 ROUTE 2 \u2014 SECOND TIMESTAMP"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom",
+      "text": "PAIR BEFORE DISCLOSURE"
+    }
+  ]
+}

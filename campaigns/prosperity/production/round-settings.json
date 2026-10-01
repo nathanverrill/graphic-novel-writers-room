@@ -1,0 +1,58 @@
+{
+  "use_references_during_synthesis": false,
+  "phase": "drafts",
+  "draft_mode": "edit",
+  "approved": {
+    "at": "2026-09-25T06:06:54",
+    "t": 1790316414.402662,
+    "round": "r12-ai"
+  },
+  "magic": {
+    "status": "failed",
+    "choices": [
+      {
+        "t": 1790316826.165379,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r39-ai"
+      }
+    ],
+    "log": [
+      {
+        "t": 1790316414.450324,
+        "text": "Production starts at Development, running to draft edit."
+      },
+      {
+        "t": 1790316414.4736154,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
+      },
+      {
+        "t": 1790316414.828853,
+        "text": "Round r39-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1790316826.442503,
+        "text": "Round r40-ai: draft edit, Draft Editor."
+      },
+      {
+        "t": 1790317947.8366444,
+        "text": "Failed at draft edit: RuntimeError: round r40-ai ended with status 'error'"
+      }
+    ],
+    "step": "drafts",
+    "until": "drafts",
+    "error": "RuntimeError: round r40-ai ended with status 'error'",
+    "stop": false,
+    "started": "2026-09-25T06:06:54",
+    "finished": "2026-09-25T06:32:27",
+    "written_for_page1": false,
+    "run": "9707b57a2f0e",
+    "round": "r40-ai"
+  },
+  "scope": 0,
+  "writer": "writer_a",
+  "proof_page": 46,
+  "pages": 65,
+  "expand_pages": 0
+}

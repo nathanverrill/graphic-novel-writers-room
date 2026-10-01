@@ -1,0 +1,104 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Continuous Antarctica scene: Nayah plants an emergency route marker and clips a safety line into place while Sitara steps over the warning flags. Sitara\u2019s separate TJ follows low across the snow. Leave the upper third clear for two balloons."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara kneels beside the tripod, fastening a retrieval line to the sensor case while her TJ scans the surface. A dark blue seam widens beneath the tripod unnoticed. Leave the upper area clear for two short balloons and the lower-right clear for sound effects."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 28,
+          "description": "The ice slab drops. Sitara falls to one knee, catching the sensor case as the retrieval line jerks tight. Nayah braces against the route marker, unable to reach her without entering the unstable section. Leave the upper area clear for the impact sound and Nayah\u2019s cry."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 25,
+          "bleed": true,
+          "description": "Large reveal: blue ice falls into darkness beneath Sitara, exposing a black metal hatch stamped FALCON and a buried drill housing shuddering below. Sitara grips the sensor and ice edge; her tiny TJ stands against the machinery. Leave the upper third clear for the large sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Mark the withdrawal route.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I have it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK. TIK. TIK.",
+      "size": "medium",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Vibration increasing.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK\u2014",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara!",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THRUMM\u2014THRUMM\u2014THRUMM",
+      "size": "huge",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "FALCON hatch",
+      "at": "middle",
+      "w": 42,
+      "h": 28
+    }
+  ]
+}

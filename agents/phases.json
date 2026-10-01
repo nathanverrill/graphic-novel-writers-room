@@ -1,0 +1,132 @@
+[
+  {
+    "id": "intake",
+    "title": "Intake",
+    "does": "The Script Coordinator, the Director's assistant, goes through everything you put in — notes, references, any drafts — and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+    "agents": [
+      "script_coordinator"
+    ],
+    "gate": "approve",
+    "asks": "Is this what your material says? Then answer the open items: approve an option, edit it, or leave it for the room. Run intake again and it folds your answers into the files and leaves only what is still open.",
+    "read": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "facts.md",
+      "open-items.md"
+    ]
+  },
+  {
+    "id": "development",
+    "title": "Development",
+    "does": "Decide what the book is: the Director writes the brief and settles the world, then the Plotter and the Character Designer work at the same time on the plot and the people, and the Continuity Editor checks the four files agree.",
+    "agents": [
+      "director",
+      "plotter",
+      "character_designer",
+      "continuity"
+    ],
+    "gate": "approve",
+    "asks": "Is this the right story, told by these people?",
+    "read": [
+      "brief.md",
+      "world.md",
+      "story.md",
+      "characters.md",
+      "notes.md"
+    ],
+    "parallel": [
+      [
+        "plotter",
+        "character_designer"
+      ]
+    ]
+  },
+  {
+    "id": "drafts",
+    "title": "Draft edit",
+    "does": "Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.",
+    "agents": [
+      "draft_editor"
+    ],
+    "gate": "approve",
+    "asks": "Are these your drafts, brought into line with the canon? Answer what does not fit, then script them - or stop here.",
+    "read": [
+      "draft-changes.md",
+      "draft-final.md",
+      "draft-edited.md"
+    ]
+  },
+  {
+    "id": "audition",
+    "title": "Audition",
+    "does": "Two writers write the same opening pages at the same time, blind to each other. You pick the voice.",
+    "agents": [
+      "writer_a",
+      "writer_b",
+      "first_reader"
+    ],
+    "writes": {
+      "writer_a": "audition-a.md",
+      "writer_b": "audition-b.md"
+    },
+    "pages": 3,
+    "gate": "pick",
+    "asks": "Whose book do you want to read?",
+    "read": [
+      "audition-a.md",
+      "audition-b.md",
+      "first-read.md"
+    ],
+    "parallel": [
+      [
+        "writer_a",
+        "writer_b"
+      ]
+    ]
+  },
+  {
+    "id": "writing",
+    "title": "Writing",
+    "does": "The writer you picked writes the whole script.",
+    "agents": [
+      "writer",
+      "continuity"
+    ],
+    "gate": "approve",
+    "asks": "Are these the words?",
+    "read": [
+      "script.md",
+      "notes.md"
+    ]
+  },
+  {
+    "id": "execution",
+    "title": "Execution",
+    "does": "Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.",
+    "agents": [
+      "layout",
+      "continuity"
+    ],
+    "gate": "review",
+    "asks": "Review the pages: keep them, note them, send them back, or finalize. Then draw them, and come back to letter.",
+    "read": [
+      "layouts.md",
+      "notes.md"
+    ]
+  },
+  {
+    "id": "lettering",
+    "title": "Lettering",
+    "does": "Over the art you drew from the packets: the Letterer checks every balloon and caption against the real page - order, placement, fit - and moves a balloon in layouts.md when it would cover a face. The room draws the letters itself, as a layer over your art.",
+    "agents": [
+      "letterer"
+    ],
+    "gate": "approve",
+    "asks": "Are the words where they belong on every page? Download the lettered pages, or note and run again.",
+    "read": [
+      "lettering.md",
+      "layouts.md"
+    ]
+  }
+]

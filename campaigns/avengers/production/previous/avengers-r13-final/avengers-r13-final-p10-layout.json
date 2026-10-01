@@ -1,0 +1,61 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "dutch",
+          "horizon": 30,
+          "bleed": true,
+          "description": "Full-page Nexus fracture. The support corridor buckles as blue ice splits the wall and a metal brace crashes down. Roman receives one selective directional warning from his bonded TJ and pulls Sitara clear; Nayah redirects them along the marked route while meltwater spreads. Through a fractured window, emergency light reveals an empty krill tank and dead sensor display. Leave a clear upper-left zone for the structural sound, left-center for Roman's command, lower-left for Nayah's command, and right-center for impact sound."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROOOAN",
+      "size": "large",
+      "x": 18,
+      "y": 12
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Left. Move!",
+      "x": 18,
+      "y": 36
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KLANG\u2014",
+      "size": "large",
+      "x": 78,
+      "y": 38
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "No retrieval. Keep moving.",
+      "x": 20,
+      "y": 75
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "BEEP\u2026 BEEP\u2026",
+      "size": "medium",
+      "x": 82,
+      "y": 82
+    }
+  ]
+}

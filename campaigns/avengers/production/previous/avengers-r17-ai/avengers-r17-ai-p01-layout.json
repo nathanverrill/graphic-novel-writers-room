@@ -1,0 +1,67 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "HIMALAYAS, 2042 at night: Roman hangs half-buried in a blue-white crevasse as his small silver TJ descends and lightning strikes the glacier and sensor housing. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "HIMALAYAS, 2026: floodwater carries a cooking pot and child\u2019s red sweater past six-year-old Sitara seen from behind on a stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific; leave upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "ANTARCTICA, 2046: Sitara in her red jacket stands beside Nayah in yellow; warning flags divide them from a buried sensor tripod. Sitara\u2019s separate TJ crouches by the route marker. Leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 25,
+          "description": "Sitara\u2019s boot hovers before the flagged line; the sensor\u2019s red light blinks while a geometric tremor advances beneath the ice. Leave upper-left for the sound effect and lower-left for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara. Stop there.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It\u2019s still recording.",
+      "at": "bottom-left"
+    }
+  ]
+}

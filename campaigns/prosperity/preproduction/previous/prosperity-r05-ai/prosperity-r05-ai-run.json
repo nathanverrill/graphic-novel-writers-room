@@ -1,0 +1,408 @@
+{
+  "id": "r05-ai",
+  "kind": "ai",
+  "started": "2026-09-24T15:04:13",
+  "finished": "2026-09-24T15:09:02",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "7cf6cb7e2242d0ee",
+    "prosperity/drafts/chapter-02-draft.md": "1adb8d8adba5f7ff",
+    "prosperity/drafts/chapter-03-draft.md": "64ee9627e4178b54",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/drafts/chapter-05-draft.md": "83837db7e7a3a761",
+    "prosperity/drafts/chapter-06-draft.md": "0f4095d1cf7f22f8",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "040afe0d0f082786",
+    "prosperity/rules/decisions.md": "62f1859168c04b88",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 5,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.19096448,
+      "input_tokens": 560927,
+      "cached_tokens": 20604,
+      "image_input_tokens": 0,
+      "output_tokens": 46227,
+      "reasoning_tokens": 947,
+      "total_tokens": 607154
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 5,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.19096448,
+        "input_tokens": 560927,
+        "cached_tokens": 20604,
+        "image_input_tokens": 0,
+        "output_tokens": 46227,
+        "reasoning_tokens": 947,
+        "total_tokens": 607154
+      }
+    }
+  },
+  "run_id": "fd006f6e634f",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "7befb1c3a8a308c6",
+        "input_chars": 582444,
+        "input_tokens_est": 145611,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/references/andean-hard-rock-futures.md",
+          "prosperity/references/lithium-triangle-futures.md",
+          "prosperity/references/social-innovators-framework.md",
+          "prosperity/references/triangle-autonomy.md",
+          "prosperity/references/triangle-enclaves-borders.md",
+          "prosperity/references/triangle-everyday-life.md",
+          "prosperity/references/triangle-foreign-security.md",
+          "prosperity/references/triangle-money.md",
+          "prosperity/references/triangle-science.md",
+          "prosperity/references/triangle-water-wars.md",
+          "prosperity/references/water-wars.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 63377,
+        "preservation": {
+          "source_chars": 150378,
+          "output_chars": 176544,
+          "mass": 1.174,
+          "terms": 228,
+          "missing": 1,
+          "coverage": 0.996,
+          "substantive_terms": 227,
+          "substantive_coverage": 0.996,
+          "dropped_by_kind": {
+            "names and terms": [
+              "Alpha-created"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 1
+          },
+          "dropped": [
+            "Alpha-created"
+          ]
+        }
+      },
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "7befb1c3a8a308c6",
+        "input_chars": 582434,
+        "input_tokens_est": 145608,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/references/andean-hard-rock-futures.md",
+          "prosperity/references/lithium-triangle-futures.md",
+          "prosperity/references/social-innovators-framework.md",
+          "prosperity/references/triangle-autonomy.md",
+          "prosperity/references/triangle-enclaves-borders.md",
+          "prosperity/references/triangle-everyday-life.md",
+          "prosperity/references/triangle-foreign-security.md",
+          "prosperity/references/triangle-money.md",
+          "prosperity/references/triangle-science.md",
+          "prosperity/references/triangle-water-wars.md",
+          "prosperity/references/water-wars.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 50876,
+        "preservation": {
+          "source_chars": 150378,
+          "output_chars": 176544,
+          "mass": 1.174,
+          "terms": 228,
+          "missing": 1,
+          "coverage": 0.996,
+          "substantive_terms": 227,
+          "substantive_coverage": 0.996,
+          "dropped_by_kind": {
+            "names and terms": [
+              "Alpha-created"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 1
+          },
+          "dropped": [
+            "Alpha-created"
+          ]
+        }
+      },
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "7befb1c3a8a308c6",
+        "input_chars": 582434,
+        "input_tokens_est": 145608,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/references/andean-hard-rock-futures.md",
+          "prosperity/references/lithium-triangle-futures.md",
+          "prosperity/references/social-innovators-framework.md",
+          "prosperity/references/triangle-autonomy.md",
+          "prosperity/references/triangle-enclaves-borders.md",
+          "prosperity/references/triangle-everyday-life.md",
+          "prosperity/references/triangle-foreign-security.md",
+          "prosperity/references/triangle-money.md",
+          "prosperity/references/triangle-science.md",
+          "prosperity/references/triangle-water-wars.md",
+          "prosperity/references/water-wars.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 62289,
+        "preservation": {
+          "source_chars": 150378,
+          "output_chars": 176544,
+          "mass": 1.174,
+          "terms": 228,
+          "missing": 1,
+          "coverage": 0.996,
+          "substantive_terms": 227,
+          "substantive_coverage": 0.996,
+          "dropped_by_kind": {
+            "names and terms": [
+              "Alpha-created"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 1
+          },
+          "dropped": [
+            "Alpha-created"
+          ]
+        }
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "7befb1c3a8a308c6",
+        "input_chars": 608585,
+        "input_tokens_est": 152146,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/references/andean-hard-rock-futures.md",
+          "prosperity/references/lithium-triangle-futures.md",
+          "prosperity/references/social-innovators-framework.md",
+          "prosperity/references/triangle-autonomy.md",
+          "prosperity/references/triangle-enclaves-borders.md",
+          "prosperity/references/triangle-everyday-life.md",
+          "prosperity/references/triangle-foreign-security.md",
+          "prosperity/references/triangle-money.md",
+          "prosperity/references/triangle-science.md",
+          "prosperity/references/triangle-water-wars.md",
+          "prosperity/references/water-wars.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [
+          "rewrote bolded field lines as '- field: value'"
+        ],
+        "notes": [],
+        "output_chars": 1748
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "7befb1c3a8a308c6",
+        "input_chars": 287936,
+        "input_tokens_est": 71984,
+        "inputs": [
+          "characters.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 41783
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "7befb1c3a8a308c6",
+    "decisions_integrated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34
+    ],
+    "notes_applied": [],
+    "deferred": []
+  },
+  "pages": []
+}

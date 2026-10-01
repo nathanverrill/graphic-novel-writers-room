@@ -1,0 +1,159 @@
+{
+  "id": "r38-ai",
+  "kind": "ai",
+  "started": "2026-09-25T03:54:14",
+  "finished": "2026-09-25T03:55:47",
+  "status": "done",
+  "files_written": [
+    "layouts.md",
+    "thumbnails.md",
+    "room-log.md",
+    "notes.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "729cb89f10cc988a",
+    "prosperity/drafts/chapter-02-draft.md": "689a4df6ef51395d",
+    "prosperity/drafts/chapter-03-draft.md": "c7c429063cd51dcc",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/notes.md": "e3b0c44298fc1c14",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/decisions.md": "a921b94c1cb35e9a",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/showrunner-rules.md": "6083e8daa215fe43",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.15155075,
+      "input_tokens": 650471,
+      "cached_tokens": 95310,
+      "image_input_tokens": 0,
+      "output_tokens": 9046,
+      "reasoning_tokens": 882,
+      "total_tokens": 659517
+    },
+    "by_role": {
+      "layout": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.0372821,
+        "input_tokens": 194036,
+        "cached_tokens": 78315,
+        "image_input_tokens": 0,
+        "output_tokens": 5655,
+        "reasoning_tokens": 353,
+        "total_tokens": 199691
+      },
+      "continuity": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.11426865,
+        "input_tokens": 456435,
+        "cached_tokens": 16995,
+        "image_input_tokens": 0,
+        "output_tokens": 3391,
+        "reasoning_tokens": 529,
+        "total_tokens": 459826
+      }
+    }
+  },
+  "run_id": "c0b2ed15de62",
+  "note": "The room is in execution: Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.\n\nDrawability: Pages are drawn by an image model, one page per generation, from each character's and location's sheet, and a page drifts when it carries too much. So: at most 4 panels a page; at most 3 named characters in one panel; one location a page where the story allows (every new location needs its own sheet); no crowd that must be recognisable; a big moment gets a splash (one panel, the whole page). Count pages this way, not by comic convention. Every page you make keeps to it.\n\nThe pages are drawn from your layouts by an image model, with NO text on them: the lettering is added afterwards as a layer, from the items in each layout block. So every balloon, caption and sound effect must be in the layout block with the exact words, and each panel's description must say where the clear space for them is.\n\nThe book is exactly 65 pages: pages 1-65, no more, no fewer.\n\nTHIS PASS IS A PROOF: lay out and letter page 46 (chapter 3, its page 1) only, from the script as it stands, and no other page. The showrunner will judge the book's look on this page before the rest is made. layouts.md holds only page 46, numbered 46.",
+  "roles": [
+    "layout",
+    "continuity"
+  ],
+  "configs": {
+    "layout": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.5,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 8,
+      "timeout": 1200,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    },
+    "continuity": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.1,
+      "max_tokens": 10000,
+      "thinking_budget": 0,
+      "max_steps": 12,
+      "timeout": 300,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "execution",
+  "gate": {
+    "ready": true,
+    "reasons": [],
+    "blockers": 0,
+    "layout_issues": 0,
+    "pages": [
+      46
+    ],
+    "dialed_in": {}
+  },
+  "passes": 2,
+  "pages": [
+    46
+  ]
+}

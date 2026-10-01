@@ -1,0 +1,153 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 48,
+          "bleed": true,
+          "description": "A wind-scoured Keel pump station built into a mineral-stained legacy copper and polymetallic hard-rock mine wall. Exposed pipes, patched conduit, dust, worn safety placards, and a dry collection channel show a laboring city whose infrastructure has been repeatedly repaired. Alex Phantum is a small figure crouched beside an open pump housing at lower-right; leave the upper-left sky and dark mine-wall area clear for a caption, with no lettering over Alex."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 42,
+          "description": "Alex Phantum kneels beside the open pump, one sleeve rolled higher, his weathered tool bag hanging at his hip. He presses two fingers against the casing to read its vibration while holding a hand tool ready in the other hand; the worn casino chip etched with a looping equation is just visible at the edge of his pocket. Leave the top third and left edge clear for his speech balloon; keep his face, hands, and chip unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 50,
+          "description": "Close insert of the damaged pump coupling and a crooked pressure gauge. Alex's grease-marked thumb braces the coupling from the lower edge as a thin thread of mineral-stained water leaks past the seal. Leave the upper third open for the sound effect; keep the gauge and coupling visually clear, with no readable environmental signage."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 58,
+          "description": "Alex Phantum works crouched over the exposed machinery, tightening an improvised replacement fitting from his tool bag. His posture is guarded and concentrated; the empty collection channel recedes behind him. Leave the top-left open for his speech balloon and keep the tool hand visible."
+        },
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "The repaired pump jolts into operation, sending a forceful stream into the collection channel. Alex Phantum is half-risen from the repair, knees still bent and torso lifted, one hand still near the pump housing; his attention is divided between the water flow and Foreman-7, with startled satisfaction turning into concern. The worn casino chip remains visible at his pocket as he turns. Foreman-7 stands in the background: a chest-high tracked industrial inspection unit approximately 145 cm tall, with a rectangular graphite-black body, pale ceramic sensor housing, a single horizontal amber status band, articulated tool arms, hazard striping, and a small paper maintenance docket clipped beneath its sensor plate as its signature detail; it has no human face. Reserve the upper-right exclusively for Foreman-7's balloon and the lower-left mechanical negative space for the large sound effect. Keep the two lettering areas separate and do not cover Alex's face, the water stream, Foreman-7's amber status band, or its paper maintenance docket."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "KEEL \u2014 BEFORE THE RECORD CATCHES UP."
+    },
+    {
+      "panel": 1,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "at": "bottom-right",
+      "size": 28,
+      "pose": "crouched",
+      "facing": "left"
+    },
+    {
+      "panel": 2,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "at": "bottom-right",
+      "size": 78,
+      "pose": "kneeling",
+      "facing": "left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Hear that? It's lying.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "object",
+      "label": "crooked pressure gauge",
+      "w": 38,
+      "h": 42,
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "tik",
+      "size": "small",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "at": "bottom-right",
+      "size": 74,
+      "pose": "crouched",
+      "facing": "left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Come on. Hold.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "at": "left",
+      "size": 70,
+      "pose": "crouched",
+      "facing": "right"
+    },
+    {
+      "panel": 5,
+      "type": "figure",
+      "label": "Foreman-7",
+      "at": "bottom-right",
+      "size": 38,
+      "pose": "standing",
+      "facing": "left"
+    },
+    {
+      "panel": 5,
+      "type": "sfx",
+      "text": "KRAK\u2014WHUMM",
+      "size": "large",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Unauthorized repair detected. Remain at the worksite.",
+      "at": "top-right"
+    }
+  ]
+}

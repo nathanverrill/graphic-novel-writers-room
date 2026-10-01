@@ -1,0 +1,72 @@
+{
+  "page": 21,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "COLORADO PILOT \u2014 DAY. Inspectors examine rejected feedstock, residual solids, and an active emissions monitor before permitting restart. Keep machinery and wet floor visible. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "An inspector checks the constructed-wetland inlet gauge while a technician records flow. The gauge is below but near its finite limit. Leave upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 35,
+          "description": "The monitoring wall shows a dated measurable pilot result, active grid demand, and limited throughput. Use a concrete gauge or survey readout without unapproved numerical values. Leave upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Selected feedstock moves through the process while rejected material remains separate. The facility continues under inspection conditions. Keep silent."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO PILOT \u2014 INSPECTION"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "INSPECTOR",
+      "text": "Capacity?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TECHNICIAN",
+      "text": "Finite. We stay below the line.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-right",
+      "text": "CLARITY: DATED PILOT RESULT / INVERTEBRATE SURVEY: DATED PILOT RESULT / GRID DEMAND: ACTIVE / THROUGHPUT: LIMITED"
+    }
+  ]
+}

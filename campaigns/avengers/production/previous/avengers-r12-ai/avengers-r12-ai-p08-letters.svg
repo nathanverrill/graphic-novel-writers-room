@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 8</text>
+<rect x="-3" y="182" width="317" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="206" font-size="18" fill="#111">COLORADO LOGISTICS TERMINAL</text>
+<rect x="101" y="379" width="339" height="80" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="270" y="403" font-size="18" fill="#111">FALCON — FIELD SITE / NEXUS —</text>
+<text x="270" y="424" font-size="18" fill="#111">COASTAL CAVE LABORATORY / TWO</text>
+<text x="270" y="446" font-size="18" fill="#111">HOURS, WEATHER DEPENDENT</text>
+<rect x="434" y="171" width="361" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="195" font-size="18" fill="#111">CSG ANTARCTIC LOGISTICS / NEXUS</text>
+<text x="615" y="217" font-size="18" fill="#111">ACCESS</text>
+<polygon points="828,343 860,356 787,493" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="844" cy="350" rx="76" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="844" y="345" font-size="19" fill="#111">I’M GOING</text>
+<text x="844" y="368" font-size="19" fill="#111">SOUTH.</text>
+<rect x="-25" y="892" width="361" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="916" font-size="18" fill="#111">TRANSFER TO ANTARCTIC LOGISTICS</text>
+<rect x="440" y="881" width="350" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="905" font-size="18" fill="#111">COLORADO → ANTARCTIC LOGISTICS</text>
+<text x="615" y="927" font-size="18" fill="#111">HUB → FALCON / NEXUS</text>
+</g>
+</svg>

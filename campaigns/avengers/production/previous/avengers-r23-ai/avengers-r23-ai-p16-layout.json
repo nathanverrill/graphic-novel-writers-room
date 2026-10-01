@@ -1,0 +1,67 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 32,
+          "description": "Nexus lower route: Sitara\u2019s TJ projects a heat map with one human-sized intermittent signature beyond a collapsed passage. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 55,
+          "description": "Nayah braces a safety line while Roman clears loose ice and Sitara crawls through; keep exit route visible and upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara reaches Orien, frost-stiffened and near hypothermia beside a dead heater; battered analog watch visible. Keep face tired and understated; leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara places and activates a phone on the ice beside Orien; his eyes open slightly. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Heat source ahead. Human-sized. Motion intermittent.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Three minutes. Then we pull you out.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "If you can call, call this.",
+      "at": "top-left"
+    }
+  ]
+}

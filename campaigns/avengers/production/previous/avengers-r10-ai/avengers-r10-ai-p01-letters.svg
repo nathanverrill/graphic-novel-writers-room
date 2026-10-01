@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 1</text>
+<rect x="13" y="141" width="285" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="165" font-size="18" fill="#111">HIMALAYAS, 2042 — NIGHT.</text>
+<rect x="713" y="141" width="263" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="844" y="165" font-size="18" fill="#111">HIMALAYAS, 2026 — DAY.</text>
+<rect x="54" y="705" width="274" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="191" y="730" font-size="18" fill="#111">ANTARCTICA, 2046 — DAY.</text>
+<polygon points="480,719 513,728 420,1015" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="497" cy="724" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="497" y="719" font-size="19" fill="#111">SITARA. STOP</text>
+<text x="497" y="742" font-size="19" fill="#111">THERE.</text>
+<polygon points="710,726 744,722 765,1015" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="727" cy="724" rx="82" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="727" y="719" font-size="19" fill="#111">IT’S STILL</text>
+<text x="727" y="742" font-size="19" fill="#111">RECORDING.</text>
+<text x="897" y="906" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 897 906)">KRRRNNN</text>
+</g>
+</svg>

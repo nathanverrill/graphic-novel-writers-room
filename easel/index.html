@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easel</title>
+<style>
+:root{
+  --bg:#101418; --panel:#1a2027; --line:#2b333d; --ink:#e8edf2; --muted:#8b98a5;
+  --accent:#4f9cd9; --danger:#e07070; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,sans-serif;
+  height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;margin:0;font-weight:600;letter-spacing:.02em}
+header .spacer{flex:1}
+select,button,textarea,input{font:inherit;color:inherit}
+select{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#0d1319;font-weight:600}
+main{flex:1;overflow-y:auto;padding:20px 16px}
+.col{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.msg{max-width:85%}
+.msg.user{align-self:flex-end;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px 12px 4px 12px;padding:10px 14px;white-space:pre-wrap}
+.msg.bot{align-self:flex-start;width:100%}
+.msg.bot img{max-width:100%;border-radius:10px;display:block;border:1px solid var(--line);cursor:zoom-in}
+#zoom{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;
+  justify-content:center;z-index:10;cursor:zoom-out;padding:16px}
+#zoom[hidden]{display:none}
+#zoom img{max-width:100%;max-height:100%;border-radius:6px}
+#gallery{position:fixed;inset:0;background:var(--bg);z-index:9;display:flex;flex-direction:column}
+#gallery[hidden]{display:none}
+#gallery .bar{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+#gallery .bar h2{font-size:1rem;margin:0}
+#gallery .grid{flex:1;overflow-y:auto;display:grid;gap:12px;padding:16px;
+  grid-template-columns:repeat(auto-fill,minmax(180px,1fr));align-content:start}
+#gallery .tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;
+  display:flex;flex-direction:column}
+#gallery .tile img{width:100%;aspect-ratio:1;object-fit:cover;display:block;cursor:zoom-in}
+#gallery .tile .info{padding:8px 10px;display:flex;flex-direction:column;gap:6px}
+#gallery .tile .who{color:var(--muted);font-size:.72rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#gallery .tile .acts{display:flex;gap:6px;align-items:center}
+#gallery .tile button,#gallery .tile a{font-size:.78rem;padding:3px 8px}
+.saved-err{color:var(--danger);font-size:.78rem}
+.msg .meta{color:var(--muted);font-size:.8rem;margin:6px 0 4px}
+.msg .acts{display:flex;gap:8px;margin-top:8px;align-items:center}
+.msg.err{align-self:flex-start;color:var(--danger);border:1px solid var(--danger);
+  border-radius:10px;padding:10px 14px;font-size:.9rem}
+.wait{align-self:flex-start;color:var(--muted);font-style:italic}
+.hello{color:var(--muted);text-align:center;margin-top:8vh}
+.hello h2{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.inner{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:8px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{font-size:.8rem;padding:4px 10px;border-radius:999px;color:var(--muted)}
+.chips button:hover{color:var(--ink)}
+.refbar{display:flex;gap:8px;align-items:center}
+.refbar[hidden]{display:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:560px){.duo{grid-template-columns:1fr}}
+.refbar img{height:44px;border-radius:6px;border:1px solid var(--line)}
+.refbar .x{padding:2px 8px;font-size:.8rem}
+.row{display:flex;gap:8px;align-items:flex-end}
+textarea{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+  padding:10px 12px;resize:none;min-height:44px;max-height:180px}
+textarea:focus{outline:none;border-color:var(--accent)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;
+  padding:20px;max-width:420px;width:92vw}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin:0 0 4px}
+dialog p{color:var(--muted);font-size:.88rem;margin:4px 0 12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;
+  padding:8px 10px;margin-bottom:10px}
+dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+.note{color:var(--muted);font-size:.8rem}
+a.dl{color:var(--accent);font-size:.85rem;text-decoration:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>Easel</h1>
+  <span class="note">every prompt draws both models</span>
+  <span class="spacer"></span>
+  <button id="new" title="Clear this thread and start fresh">New easel</button>
+  <button id="galbtn" title="Every image ever made here">Gallery</button>
+  <button id="gear" title="API key">API key</button>
+</header>
+
+<main><div class="col" id="chat">
+  <div class="hello" id="hello">
+    <h2>What are we drawing?</h2>
+    <p>Tap a starter below or just describe it &mdash; you get one image from each model.<br>
+    Like one? Hit its <b>Use as reference</b> button and describe the change &mdash; that&rsquo;s how you iterate.</p>
+  </div>
+</div></main>
+
+<footer><div class="inner">
+  <div class="chips" id="chips"></div>
+  <div class="refbar" id="refbar" hidden>
+    <img id="refimg" alt="reference"><span class="note">reference for the next image</span>
+    <button class="x" id="refx">remove</button>
+  </div>
+  <div class="row">
+    <button id="upload" title="Attach a reference image">+</button>
+    <input type="file" id="file" accept="image/*" hidden>
+    <textarea id="box" rows="1" placeholder="Describe the image&hellip;"></textarea>
+    <button class="primary" id="send">Send</button>
+  </div>
+</div></footer>
+
+<div id="zoom" hidden><img alt="full size"></div>
+
+<div id="gallery" hidden>
+  <div class="bar">
+    <h2>Gallery</h2>
+    <span class="note" id="gal-count"></span>
+    <span class="spacer"></span>
+    <button id="gal-close">Back to easel</button>
+  </div>
+  <div class="grid" id="gal-grid"></div>
+</div>
+
+<dialog id="settings">
+  <h3>API key</h3>
+  <p>Paste an OpenRouter key once &mdash; it&rsquo;s stored on the server, runs both models, and everyone who opens this page draws with it.</p>
+  <input id="s-key" type="password" placeholder="sk-or-...">
+  <p class="note" id="s-msg"></p>
+  <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<script>
+const MODELS = [
+  ["google/gemini-3.1-flash-image", "Gemini 3.1 Flash Image"],
+  ["openai/gpt-image-2.5-sunburst", "GPT Image 2.5 Sunburst"],
+];
+const PRESETS = [
+  ["Page", "A graphic novel page of 4–6 panels with clear gutters, cinematic staging, characters consistent panel to panel. Wordless: no balloons, no captions, no lettering anywhere. The page shows: "],
+  ["Character sheet", "A character model sheet on a plain light background: full-body front, three-quarter and back views of the same character in the same costume, plus a head close-up. Consistent proportions, no text or labels. The character: "],
+  ["Style plate", "A single style reference plate: one dramatic image that locks a book's look — line weight, palette, light, rendering. No text. The look: "],
+  ["Key scene", "A full-page splash of one key moment — the single image the reader must see. Graphic novel style, no text. The moment: "],
+  ["Place", "A wide establishing shot of a place, graphic novel style, strong mood and light, no text. The place: "],
+  ["Prop", "A key prop study on a neutral background: one object from three angles plus a detail inset, worn and specific, no text or labels. The object: "],
+];
+const $ = id => document.getElementById(id);
+const chat = $("chat"), box = $("box");
+let ref = null;
+
+let configured = false;
+fetch("/api/config").then(r => r.json()).then(c => {
+  configured = !!c.configured;
+  if (!configured) $("settings").showModal();
+}).catch(() => {});
+$("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
+$("s-cancel").onclick = () => $("settings").close();
+$("s-save").onclick = async () => {
+  const r = await fetch("/api/key", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key: $("s-key").value.trim()})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) { $("s-msg").textContent = j.detail || "failed"; return; }
+  configured = true; $("s-key").value = "";
+  $("settings").close(); box.focus();
+};
+
+PRESETS.forEach(([name, text]) => {
+  const b = document.createElement("button");
+  b.textContent = name;
+  b.onclick = () => { box.value = text; box.focus(); box.setSelectionRange(box.value.length, box.value.length); autosize(); };
+  $("chips").append(b);
+});
+
+function autosize(){ box.style.height = "auto"; box.style.height = Math.min(box.scrollHeight, 180) + "px"; }
+box.addEventListener("input", autosize);
+box.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } });
+$("send").onclick = send;
+
+$("upload").onclick = () => $("file").click();
+$("file").onchange = () => {
+  const f = $("file").files[0]; if (!f) return;
+  const rd = new FileReader();
+  rd.onload = () => setRef(rd.result);
+  rd.readAsDataURL(f);
+  $("file").value = "";
+};
+function setRef(dataurl){ ref = dataurl; $("refimg").src = dataurl; $("refbar").hidden = false; }
+
+$("zoom").onclick = () => { $("zoom").hidden = true; };
+document.addEventListener("keydown", e => { if (e.key === "Escape") { $("zoom").hidden = true; closeGallery(); } });
+function openZoom(src){ $("zoom").querySelector("img").src = src; $("zoom").hidden = false; }
+
+$("new").onclick = () => {
+  chat.innerHTML = `<div class="hello"><h2>Fresh easel</h2><p>The thread is cleared — every image is still in the Gallery.</p></div>`;
+  ref = null; $("refbar").hidden = true; box.focus();
+};
+
+async function keep(src, model, prompt, holder){
+  try {
+    const r = await fetch("/api/save", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({image: src, model, prompt})});
+    if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || r.status);
+  } catch (e) {
+    const n = document.createElement("span"); n.className = "saved-err";
+    n.textContent = "not saved to gallery: " + (e.message || e);
+    holder.append(n);
+  }
+}
+
+async function refFromUrl(url){
+  const blob = await (await fetch(url)).blob();
+  const rd = new FileReader();
+  rd.onload = () => setRef(rd.result);
+  rd.readAsDataURL(blob);
+}
+
+let galTimer = null, galNewest = null;
+$("galbtn").onclick = () => {
+  $("gallery").hidden = false;
+  galNewest = null;
+  $("gal-grid").textContent = "loading…";
+  loadGallery();
+  clearInterval(galTimer);
+  galTimer = setInterval(loadGallery, 15000);   // new images roll in while open
+};
+function closeGallery(){ $("gallery").hidden = true; clearInterval(galTimer); }
+$("gal-close").onclick = closeGallery;
+async function loadGallery(){
+  const grid = $("gal-grid");
+  try {
+    const items = await (await fetch("/api/gallery")).json();
+    if (!Array.isArray(items)) throw new Error(items.detail || "failed");
+    if (items.length && items[0].id === galNewest) return;   // nothing new
+    galNewest = items[0]?.id || null;
+    $("gal-count").textContent = items.length + (items.length === 1 ? " image" : " images") + ", everyone's, newest first";
+    grid.textContent = "";
+    if (!items.length) grid.textContent = "Nothing here yet — the first image lands as soon as anyone draws one.";
+    items.forEach(it => {
+      const url = "/api/img/" + it.id;
+      const t = document.createElement("div"); t.className = "tile";
+      t.innerHTML = `<img loading="lazy" title="Click to see full size"><div class="info"><div class="who"></div><div class="acts"></div></div>`;
+      t.querySelector("img").src = url;
+      t.querySelector("img").onclick = () => openZoom(url);
+      t.querySelector(".who").textContent = (it.model || "").replace(/^.*\//, "") + (it.prompt ? " · " + it.prompt : "");
+      t.querySelector(".who").title = it.prompt || "";
+      const acts = t.querySelector(".acts");
+      const rb = document.createElement("button"); rb.textContent = "Reference";
+      rb.onclick = async () => { await refFromUrl(url); closeGallery(); box.focus(); };
+      acts.append(rb);
+      const a = document.createElement("a"); a.className = "dl"; a.textContent = "Download";
+      a.href = url; a.download = "easel-" + it.id; acts.append(a);
+      grid.append(t);
+    });
+  } catch (e) {
+    grid.textContent = "Could not load the gallery: " + (e.message || e);
+  }
+}
+$("refx").onclick = () => { ref = null; $("refbar").hidden = true; };
+
+function add(el){ $("hello")?.remove(); chat.append(el); el.scrollIntoView({block: "end"}); return el; }
+function bubble(cls, text){ const d = document.createElement("div"); d.className = "msg " + cls; if (text) d.textContent = text; return d; }
+
+async function draw(model, prompt, refUrl){
+  const r = await fetch("/api/generate", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({model, prompt, refs: refUrl ? [refUrl] : []})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+  return j.image;
+}
+
+function cell(name){
+  const c = document.createElement("div");
+  c.innerHTML = `<div class="meta"></div><div class="body wait">drawing…</div>`;
+  c.querySelector(".meta").textContent = name;
+  return c;
+}
+
+async function send(){
+  const prompt = box.value.trim(); if (!prompt) return;
+  if (!configured) { $("settings").showModal(); return; }
+  const refUrl = ref;                       // consumed by this send only
+  ref = null; $("refbar").hidden = true;
+  box.value = ""; autosize();
+  add(bubble("user", prompt + (refUrl ? "  📎" : "")));
+  const d = bubble("bot");
+  const duo = document.createElement("div"); duo.className = "duo"; d.append(duo);
+  const cells = MODELS.map(([, name]) => { const c = cell(name); duo.append(c); return c; });
+  add(d);
+  $("send").disabled = true;
+  await Promise.all(MODELS.map(async ([model, name], i) => {
+    const body = cells[i].querySelector(".body");
+    try {
+      const src = await draw(model, prompt, refUrl);
+      body.className = "body";
+      body.innerHTML = `<img title="Click to see full size"><div class="acts"></div>`;
+      const img = body.querySelector("img");
+      img.src = src;
+      img.onclick = () => openZoom(src);
+      const acts = body.querySelector(".acts");
+      const it = document.createElement("button"); it.textContent = "Use as reference";
+      it.onclick = () => setRef(src); acts.append(it);
+      const a = document.createElement("a"); a.className = "dl"; a.textContent = "Download";
+      a.href = src; a.download = "easel-" + name.split(" ")[0].toLowerCase() + ".png"; acts.append(a);
+      keep(src, model, prompt, acts);
+    } catch (e) {
+      body.className = "body";
+      body.innerHTML = `<div class="msg err"></div>`;
+      body.querySelector(".err").textContent = String(e.message || e);
+    }
+    d.scrollIntoView({block: "end"});
+  }));
+  $("send").disabled = false; box.focus();
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,191 @@
+{
+  "id": "r05-ai",
+  "kind": "ai",
+  "started": "2026-09-21T18:22:15",
+  "finished": "2026-09-21T18:28:31",
+  "status": "error",
+  "files_written": [],
+  "images": [],
+  "references": {
+    "prosperity/input/characters.md": "e90e47769a8c28c6",
+    "prosperity/input/facts.md": "c31f77625b45e686",
+    "prosperity/input/open-items.md": "39db770411a3b032",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/rules/alpha.md": "19d6ef600dfcf1c9",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b"
+  },
+  "usage": {
+    "total": {
+      "calls": 3,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.52520125,
+      "input_tokens": 97345,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 40352,
+      "reasoning_tokens": 8909,
+      "total_tokens": 137697
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.52520125,
+        "input_tokens": 97345,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 40352,
+        "reasoning_tokens": 8909,
+        "total_tokens": 137697
+      }
+    }
+  },
+  "run_id": "7e1d505c0710",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-2.5-pro",
+      "temperature": 0.2,
+      "max_tokens": 60000,
+      "thinking_budget": null,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": null,
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": 1,
+        "pass": "synthesis",
+        "purpose": "Organize the material into four files, using the research where it is allowed in. Lose nothing; resolve nothing.",
+        "model": "google/gemini-2.5-pro",
+        "outputs": [
+          "characters.md",
+          "world.md",
+          "story.md",
+          "facts.md"
+        ],
+        "inputs": [
+          "prosperity/input/characters.md",
+          "prosperity/input/facts.md",
+          "prosperity/input/story.md",
+          "prosperity/input/world.md",
+          "prosperity/rules/alpha.md",
+          "prosperity/rules/hard-sf-rules.md"
+        ],
+        "references_included": false,
+        "attempts": 3,
+        "status": "failed",
+        "problems": [
+          "what you wrote is 44,853 characters against 102,653 of source (44%, at least 55% expected). This is a summary, not a synthesis. Carry the specifics - names, numbers, procedures, the exact phrases - not the gist."
+        ],
+        "preservation": {
+          "source_chars": 102653,
+          "output_chars": 44853,
+          "mass": 0.437,
+          "terms": 322,
+          "missing": 41,
+          "coverage": 0.873,
+          "dropped": [
+            "10",
+            "Alchemy",
+            "Another",
+            "Astrophage",
+            "Canon",
+            "Chance",
+            "Communities",
+            "Continue",
+            "Continued",
+            "Cross-City",
+            "DELIVERED",
+            "Delegation",
+            "EVOKE's",
+            "Eventually",
+            "Expertise",
+            "Frequently",
+            "Grandmother's",
+            "Graphic",
+            "Known",
+            "Leona's",
+            "Mera's",
+            "Money",
+            "Never",
+            "Novel",
+            "Oasis's",
+            "Participated",
+            "Possession",
+            "Production",
+            "Recurring",
+            "Remained",
+            "Residents",
+            "Sept",
+            "Shared",
+            "Signature",
+            "Starting",
+            "Therefore",
+            "Thorne",
+            "Thorne's",
+            "Traits",
+            "Tyson"
+          ]
+        }
+      }
+    ],
+    "generated_this_run": [],
+    "carried_forward": [
+      "characters.md",
+      "facts.md",
+      "open-items.md",
+      "room-log.md",
+      "story.md",
+      "world.md"
+    ],
+    "human_modified": [],
+    "failed": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "facts.md",
+      "open-items.md"
+    ]
+  }
+}

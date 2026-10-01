@@ -9,28 +9,28 @@
 </head>
 <body>
 <header>
-  <h1><a href="/" title="the one-button start">Writers' Room</a> <span>graphic novel</span></h1>
+  <h1><a href="/" title="home">Writers' Room</a> <span>graphic novel</span></h1>
   <div id="config" class="config"></div>
 </header>
 
 <div class="layout">
   <aside class="sidebar">
-    <h2>Projects</h2>
+    <h2>Campaigns</h2>
     <ul id="projects"></ul>
     <details id="new-project">
-      <summary>+ New project</summary>
+      <summary>+ New campaign</summary>
       <form id="new-project-form">
         <input name="title" placeholder="Title" required>
         <label class="path">Pages <input name="pages" type="number" min="1" max="200" value="7"></label>
-        <textarea name="pitch" rows="4" placeholder="The pitch: premise, characters, tone (optional)."></textarea>
-        <textarea name="draft" rows="8" placeholder="Draft script — high level, directional only (optional). Saved as references/draft-script.md."></textarea>
+        <textarea name="pitch" rows="4" placeholder="The pitch: premise, characters, tone (optional). Saved as input/pitch.md."></textarea>
+        <textarea name="draft" rows="8" placeholder="Draft script — high level, directional only (optional). Saved as drafts/draft-script.md."></textarea>
         <button>Create</button>
       </form>
     </details>
   </aside>
 
   <main>
-    <div id="empty" class="empty">Pick a project or start a new one.</div>
+    <div id="empty" class="empty">Pick a campaign or start a new one.</div>
     <div id="workspace" hidden>
       <div class="work-head">
         <h2 id="project-title"></h2>
@@ -38,12 +38,15 @@
           <span class="path" id="auto-state" hidden></span>
           <button id="auto-stop" class="ghost" hidden title="Stop after this round and wait for your review">Stop auto</button>
           <button id="go-review" class="ghost" hidden title="Your review is waiting below">Review ↓</button>
-          <button id="write-round" title="The room writes until the pages are ready for your review">Write round</button>
+          <button id="write-round">Run phase</button>
           <button id="pause" class="ghost" hidden title="Hold the round as soon as the writer at work finishes">Pause</button>
           <button id="resume" hidden title="Carry on with the settings and notes you changed">Resume</button>
           <button id="stop" class="danger" hidden>Stop</button>
         </div>
       </div>
+      <div id="phases" class="phases"></div>
+      <div id="gate" class="gate"></div>
+      <div id="open-items" class="open-items" hidden></div>
       <textarea id="note" rows="2" placeholder="Showrunner note (optional) — e.g. 'Make the midpoint twist land on page 12.'"></textarea>
 
       <nav class="tabs" id="tabs">
@@ -127,9 +130,8 @@
       <div class="tab-panel" data-panel="room" hidden>
         <section>
           <div class="section-head">
-            <h3>Writers <span class="path">— who runs, and on which model</span></h3>
+            <h3>Agents <span class="path">— who is in the room, and on which model</span></h3>
             <div class="actions">
-              <button id="select-defaults" class="ghost">Defaults</button>
               <button id="select-all" class="ghost">Select all</button>
               <button id="select-none" class="ghost">None</button>
             </div>
@@ -155,10 +157,7 @@ the count runs out. 0 stops after the next round.">Auto rounds
             <span class="path" id="refs-summary"></span>
           </div>
           <div class="actions">
-            <select id="hat" title="Optional thinking mode added to every selected role for this run">
-              <option value="">No hat</option>
-            </select>
-            <button id="run" class="ghost">Run selected roles only</button>
+            <button id="run" class="ghost" title="Outside the phases: run just the agents you ticked">Run selected agents only</button>
           </div>
         </section>
       </div>
@@ -167,9 +166,9 @@ the count runs out. 0 stops after the next round.">Auto rounds
         <div class="section-head">
           <h3>Stats <span class="path">— what the room has spent</span></h3>
           <select id="cost-scope">
-            <option value="project">This project</option>
+            <option value="project">This campaign</option>
             <option value="version">Selected version</option>
-            <option value="all">All projects</option>
+            <option value="all">All campaigns</option>
           </select>
         </div>
         <div id="costs"></div>
@@ -206,7 +205,7 @@ the count runs out. 0 stops after the next round.">Auto rounds
 
     <div class="rules">
       <label class="path" for="rule-text">Standing rules — what the room must always or never do.
-        They go into the Editor-in-Chief's taste file, which every writer reads, and stay there
+        They go into the Director's taste file, which every writer reads, and stay there
         round after round.</label>
       <div class="rule-row">
         <select id="rule-kind">

@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Art Department</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  .cx { display: grid; grid-template-columns: minmax(14rem, 17rem) minmax(0, 1fr); gap: 1rem; padding: 1rem; align-items: start; }
+  @media (max-width: 50rem) { .cx { grid-template-columns: 1fr; padding: .75rem 16px; } }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: .85rem 1rem; }
+  .field { display: grid; gap: .25rem; font-size: .72rem; color: var(--muted); margin-bottom: .6rem; }
+  input[type=text], textarea, select { font: inherit; font-size: .88rem; color: var(--ink); padding: .4rem .5rem; border: 1px solid var(--line);
+    border-radius: 5px; background: var(--bg); width: 100%; }
+  button.go { font: inherit; padding: .45rem .9rem; border-radius: 5px; border: 1px solid var(--ink); background: var(--ink); color: var(--panel); cursor: pointer; }
+  button.go.alt { background: var(--panel); color: var(--ink); }
+  button.go:disabled { opacity: .45; cursor: default; }
+  .steps { display: grid; gap: .35rem; }
+  .step { display: grid; grid-template-columns: 2.4rem 1fr; gap: .5rem; align-items: center; padding: .35rem; border: 1px solid var(--line);
+          border-radius: 5px; cursor: pointer; background: var(--bg); text-align: left; font: inherit; color: var(--ink); }
+  .step[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; background: var(--panel); }
+  .step img, .step .none { width: 2.4rem; height: 2.4rem; object-fit: cover; border-radius: 3px; background: var(--line); }
+  .step small { display: block; color: var(--muted); font-size: .7rem; }
+  .models { display: flex; flex-wrap: wrap; gap: .3rem .9rem; font-size: .8rem; margin: .4rem 0 .6rem; }
+  .row { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  .refs { display: flex; gap: .4rem; flex-wrap: wrap; margin: .3rem 0 .6rem; }
+  .refs figure { margin: 0; position: relative; }
+  .refs img { height: 5.5rem; border-radius: 4px; border: 1px solid var(--line); }
+  .refs button { position: absolute; top: 2px; right: 2px; font: inherit; font-size: .7rem; border: 0; background: rgba(0,0,0,.6); color: #fff; border-radius: 3px; cursor: pointer; }
+  .kept { display: flex; gap: .6rem; flex-wrap: wrap; margin: .2rem 0 .8rem; }
+  .kept figure { margin: 0; font-size: .72rem; color: var(--muted); }
+  .kept img { height: 9rem; border-radius: 4px; border: 2px solid var(--ok); display: block; cursor: zoom-in; }
+  .round { border-top: 1px solid var(--line); padding-top: .6rem; margin-top: .6rem; }
+  .round h4 { margin: 0 0 .4rem; font-size: .8rem; color: var(--muted); font-weight: 500; }
+  .cands { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .6rem; }
+  .cand { border: 1px solid var(--line); border-radius: 5px; overflow: hidden; background: var(--bg); }
+  .cand img { width: 100%; display: block; cursor: zoom-in; }
+  .cand .bar { display: flex; justify-content: space-between; align-items: center; gap: .4rem; padding: .35rem .5rem; font-size: .74rem; }
+  .cand.is-kept { border-color: var(--ok); box-shadow: 0 0 0 1px var(--ok) inset; }
+  .hint { font-size: .74rem; color: var(--muted); line-height: 1.45; margin: .3rem 0; }
+  .canon h4 { margin: .8rem 0 .3rem; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .canon button { display: block; width: 100%; text-align: left; font: inherit; font-size: .8rem; padding: .25rem .4rem; margin-bottom: .2rem;
+                  border: 1px dashed var(--line); border-radius: 4px; background: none; color: var(--ink); cursor: pointer; }
+  .canon button:disabled { border-style: solid; color: var(--muted); cursor: default; }
+  .kind { font-size: .65rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  table.ready { border-collapse: collapse; width: 100%; font-size: .82rem; margin: .4rem 0 1rem; }
+  table.ready th, table.ready td { border-bottom: 1px solid var(--line); padding: .3rem .4rem; text-align: left; }
+  table.ready th { font-size: .7rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 500; }
+  table.ready td.ok { color: var(--ok); font-weight: 600; } table.ready td.no { color: var(--bad); }
+  table.ready button { font: inherit; font-size: .75rem; border: 1px solid var(--line); background: var(--panel); border-radius: 4px; cursor: pointer; padding: .1rem .45rem; }
+  .ready-sum { font-size: .9rem; margin: .2rem 0 .6rem; }
+  .err { color: var(--bad); font-size: .76rem; }
+  #view { position: fixed; inset: 0; background: rgba(0,0,0,.9); display: none; place-items: center; z-index: 20; cursor: zoom-out; }
+  #view img { max-width: 96vw; max-height: 96vh; }
+</style>
+</head>
+<body>
+<header>
+  <h1><a href="/">Writers' room</a> <span>art department</span></h1>
+  <div class="config">the book's look · one full sheet per roll · keep one per model · picked from the canon</div>
+</header>
+<div class="cx">
+  <aside class="card">
+    <label class="field">Project <select id="project"></select></label>
+    <div class="row" style="margin-bottom:.8rem"><input type="text" id="new-project" placeholder="new project name"><button class="go alt" id="make-project">New</button></div>
+    <label class="field">Campaign <select id="campaign"></select></label>
+    <div class="steps" id="steps"></div>
+    <div id="canon"></div>
+    <form id="add-char" style="margin-top:.8rem">
+      <label class="field">Add your own <input type="text" id="char-name" placeholder="name"></label>
+      <div class="row" style="font-size:.8rem;margin-bottom:.4rem"><label><input type="radio" name="kind" value="character" checked> character</label><label><input type="radio" name="kind" value="place"> place</label><label><input type="radio" name="kind" value="prop"> prop</label><label><input type="radio" name="kind" value="scene"> key scene</label></div>
+      <textarea id="char-desc" rows="3" placeholder="what they look like (optional if you give a reference image)"></textarea>
+      <button class="go alt" style="margin-top:.4rem" type="submit">Add</button>
+    </form>
+  </aside>
+  <main class="card" id="work"><p class="hint">Make a project to start.</p></main>
+</div>
+<div id="view"><img alt=""></div>
+<script>
+const P = "%PREFIX%";
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const state = { project: null, data: null, at: "style", models: [], chosen: null, poll: null, campaigns: [], canon: {}, needs: null };
+const short = (m) => m.split("/").pop();
+const file = (rel) => `${P}/files/${state.project}/${rel}`;
+
+async function api(path, opts = {}) {
+  const r = await fetch(P + path, { method: opts.method || "GET", headers: { "content-type": "application/json" },
+    body: opts.body ? JSON.stringify(opts.body) : undefined });
+  const j = await r.json();
+  if (!r.ok || j.error) throw new Error(j.error || r.status);
+  return j;
+}
+const toDataUrl = (f) => new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(f); });
+function pref(k, v) { try { if (v === undefined) return JSON.parse(localStorage.getItem("art-" + k)); localStorage.setItem("art-" + k, JSON.stringify(v)); } catch { return null; } }
+
+async function loadModels() {
+  try {
+    const m = await (await fetch("/sheets/api/models")).json();
+    state.models = m.models || [];
+    state.chosen = new Set(pref("models") || (m.default || []).filter((x) => /gemini-3\.1-flash-image$|sunburst$/.test(x)));
+    if (!state.chosen.size) state.chosen = new Set((m.default || state.models).slice(0, 2));
+  } catch { state.models = ["google/gemini-3.1-flash-image", "openai/gpt-image-2.5-sunburst"]; state.chosen = new Set(state.models); }
+}
+
+async function loadProjects(pick) {
+  const { projects } = await api("/api/projects");
+  state.project = pick || (projects.includes(pref("project")) ? pref("project") : projects[0]) || null;
+  $("#project").innerHTML = projects.map((p) => `<option ${p === state.project ? "selected" : ""}>${esc(p)}</option>`).join("") || `<option value="">(none yet)</option>`;
+  if (state.project) await load();
+}
+
+async function load() {
+  state.data = await api(`/api/projects/${state.project}`);
+  pref("project", state.project);
+  await loadCanon();
+  render();
+  const rolling = [state.data.style, ...state.data.characters].some((t) => (t.rolls[0] || {}).status === "rolling");
+  if (rolling && !state.poll) state.poll = setInterval(load, 4000);
+  if (!rolling && state.poll) { clearInterval(state.poll); state.poll = null; }
+}
+
+/* ---- the campaign: its canon's characters and places, to pick from ---- */
+async function loadCampaigns() {
+  try { state.campaigns = (await (await fetch("/sheets/api/campaigns")).json()).campaigns || []; } catch { state.campaigns = []; }
+}
+async function loadCanon() {
+  const c = state.data?.campaign;
+  if (c && !state.canon[c]) {
+    try { state.canon[c] = await (await fetch(`/sheets/api/campaigns/${encodeURIComponent(c)}`)).json(); } catch { state.canon[c] = null; }
+  }
+}
+const pretty = (n) => (n === n.toUpperCase() ? n.toLowerCase().replace(/(^|[\s-])([a-z])/g, (m, a, b) => a + b.toUpperCase()).replace(/\bBi11bot\b/i, "Bi11bot") : n);
+function lookOf(text, kind) {
+  const lock = kind === "character" && String(text).match(/(?:\*\*)?Visual lock(?:\*\*)?\s*[—:-]\s*([\s\S]+?)(?:\n\n|$)/i);
+  return (lock ? lock[1] : String(text)).replace(/`\([^)]*\)`/g, "").replace(/\*\*/g, "").replace(/\s+/g, " ").trim().slice(0, 1400);
+}
+function renderCanon() {
+  const d = state.data, canon = state.canon[d?.campaign];
+  $("#campaign").innerHTML = `<option value="">(none)</option>` + state.campaigns.map((c) => `<option ${c === d?.campaign ? "selected" : ""}>${esc(c)}</option>`).join("");
+  if (!canon) { $("#canon").innerHTML = d?.campaign ? `<p class="hint">Couldn't read ${esc(d.campaign)}.</p>` : ""; return; }
+  const have = new Set(d.characters.map((c) => c.name.toLowerCase()));
+  const list = (items, kind) => items.map((it) => {
+    const name = pretty(it.name), added = have.has(name.toLowerCase());
+    return `<button data-canon="${esc(kind)}" data-name="${esc(name)}" data-i="${items.indexOf(it)}" ${added ? "disabled" : ""}>${added ? "✓" : "+"} ${esc(name)}</button>`;
+  }).join("");
+  const missing = (what) => `<p class="hint">No ${what} in the canon yet: an Update canon in pre-production writes them.</p>`;
+  $("#canon").innerHTML = `<div class="canon"><h4>Characters in ${esc(d.campaign)}</h4>${list(canon.characters || [], "character")}
+    <h4>Places</h4>${list(canon.places || [], "place")}
+    <h4>Key props</h4>${(canon.props || []).length ? list(canon.props, "prop") : missing("Key props")}
+    <h4>Key scenes</h4>${(canon.key_scenes || []).length ? list(canon.key_scenes, "scene") : missing("Key scenes")}</div>`;
+}
+
+/* ---- ready to render: what the laid-out book draws, against what is kept, model by model ---- */
+async function loadNeeds() {
+  const c = state.data?.campaign;
+  if (!c) { state.needs = null; return; }
+  const canon = state.canon[c] || {};
+  const props = [...new Set([...(canon.props || []).map((x) => x.name), ...state.data.characters.filter((x) => x.kind === "prop").map((x) => x.name)])].join("|");
+  try { state.needs = await (await fetch(`/api/projects/${encodeURIComponent(c)}/needs?props=${encodeURIComponent(props)}`)).json(); }
+  catch { state.needs = null; }
+}
+const byName = (name) => state.data.characters.find((x) => x.name.toLowerCase() === pretty(name).toLowerCase() || x.name.toLowerCase() === name.toLowerCase());
+function renderReady() {
+  const d = state.data, n = state.needs, models = Object.keys(d.style.kept);
+  if (!d.campaign) { $("#work").innerHTML = `<h2 style="margin:0 0 .3rem">Ready to render</h2><p class="hint">Pick the campaign this cast is for (left), and this shows every character, place and prop its book draws, and which have a kept sheet for each model.</p>`; return; }
+  if (!n) { $("#work").innerHTML = `<h2 style="margin:0 0 .3rem">Ready to render</h2><p class="hint">Reading what ${esc(d.campaign)} needs…</p>`; loadNeeds().then(() => state.at === "ready" && renderReady()); return; }
+  const scenes = (state.canon[d.campaign]?.key_scenes || []).map((x) => ({ name: x.name, pages: [] }));
+  const rows = [["character", n.characters], ["place", n.places], ["prop", n.props], ["scene", scenes]].flatMap(([kind, list]) => list.map((it) => ({ kind, ...it, have: byName(it.name) })));
+  const cells = (r) => models.map((m) => r.have?.kept[m] ? `<td class="ok">✓</td>` : `<td class="no">${r.have ? "missing" : "—"}</td>`).join("");
+  const total = rows.length * models.length, done = rows.reduce((t, r) => t + models.filter((m) => r.have?.kept[m]).length, 0);
+  const table = (kind, title) => {
+    const list = rows.filter((r) => r.kind === kind);
+    if (!list.length) return kind === "prop" || kind === "scene" ? `<h3>${title}</h3><p class="hint">None in the canon yet: an Update canon in pre-production writes the ${kind === "prop" ? "Key props" : "Key scenes"}.</p>` : "";
+    return `<h3>${title}</h3><table class="ready"><tr><th>${kind}</th><th>pages</th>${models.map((m) => `<th>${esc(short(m))}</th>`).join("")}<th></th></tr>
+      ${list.map((r) => `<tr><td>${esc(pretty(r.name))}</td><td>${kind === "scene" ? "—" : r.pages.length || (n.source === "canon" ? "?" : "0")}</td>${cells(r)}
+        <td>${r.have ? `<button data-at="${esc(r.have.key)}">open</button>` : `<button data-add="${esc(kind)}" data-name="${esc(pretty(r.name))}">add</button>`}</td></tr>`).join("")}</table>`;
+  };
+  $("#work").innerHTML = `<h2 style="margin:0 0 .3rem">Ready to render</h2>
+    ${!models.length ? `<p class="err">No style plate kept yet: keep one for each model you will render with.</p>` : ""}
+    <p class="ready-sum">${done} of ${total} references kept${models.length ? ` across ${models.map(short).join(" and ")}` : ""}.${done === total && total ? " <b>Ready.</b>" : ""}</p>
+    <p class="hint">${n.source === "layouts" ? `From ${esc(d.campaign)}'s layouts: ${n.pages} page${n.pages === 1 ? "" : "s"} laid out.` : `${esc(d.campaign)} has no layouts yet, so this is every character in its canon; places and props show once the book is laid out.`} <button class="go alt" id="recheck" style="padding:.15rem .5rem;font-size:.75rem">Check again</button></p>
+    ${table("character", "Characters")}${table("place", "Places")}${table("prop", "Key props")}${table("scene", "Key scenes")}`;
+}
+
+function target() { return state.at === "style" ? state.data.style : state.data.characters.find((c) => c.key === state.at) || state.data.style; }
+
+function render() {
+  renderCanon();
+  const d = state.data, keptThumb = (t) => Object.values(t.kept)[0];
+  $("#steps").innerHTML = `<button class="step" data-at="ready" ${state.at === "ready" ? 'aria-current="true"' : ""}><span class="none" style="display:grid;place-items:center">✓</span><span>Ready to render<small>what the book needs, per model</small></span></button>` +
+    [["style", "Style plate", d.style], ...d.characters.map((c) => [c.key, c.name, c])].map(([key, label, t], i) => `
+    <button class="step" data-at="${esc(key)}" ${state.at === key ? 'aria-current="true"' : ""}>
+      ${keptThumb(t) ? `<img src="${file(keptThumb(t))}" alt="">` : `<span class="none"></span>`}
+      <span>${i ? `${i}. ` : ""}${esc(label)} ${t.kind && t.kind !== "character" ? `<span class="kind">${esc(t.kind)}</span>` : ""}<small>${Object.keys(t.kept).map(short).join(", ") || "nothing kept"}</small></span>
+    </button>`).join("");
+  if (state.at === "ready") return renderReady();
+  const t = target(), isStyle = state.at === "style";
+  const models = state.models.map((m) => `<label><input type="checkbox" class="m" value="${esc(m)}" ${state.chosen.has(m) ? "checked" : ""}> ${esc(short(m))}${t.kept[m] ? " ✓" : ""}</label>`).join("");
+  const refs = isStyle
+    ? `<div class="refs">${t.refs.map((r) => `<figure><img src="${file(r)}" alt=""><button data-del="${esc(r.split("/").pop())}">×</button></figure>`).join("")}</div>
+       <label class="go alt" style="display:inline-block;cursor:pointer;padding:.35rem .7rem;border:1px solid var(--ink);border-radius:5px;font-size:.85rem">Add reference images<input type="file" id="refs-in" accept="image/*" multiple hidden></label>`
+    : `<label class="field">Name <input type="text" id="c-name" value="${esc(t.name)}"></label>
+       <label class="field">Description <textarea id="c-desc" rows="3">${esc(t.desc)}</textarea></label>
+       <div class="row" style="margin-bottom:.4rem">${t.ref ? `<img src="${file(t.ref)}" style="height:4.5rem;border-radius:4px" alt="">` : ""}
+         <label class="go alt" style="display:inline-block;cursor:pointer;padding:.35rem .7rem;border:1px solid var(--ink);border-radius:5px;font-size:.85rem">${t.ref ? "Replace" : "Add"} reference image (optional)<input type="file" id="ref-in" accept="image/*" hidden></label></div>`;
+  const noPlate = !isStyle && ![...state.chosen].every((m) => d.style.kept[m]);
+  $("#work").innerHTML = `
+    <h2 style="margin:0 0 .3rem">${isStyle ? "Style plate" : esc(t.name)}</h2>
+    <p class="hint">${isStyle
+      ? "Upload one or more images of the look you want, then roll. Each candidate is a whole style plate: wide shot, two-shot, close-up, detail, a palette strip and material swatches. Keep one for each model."
+      : t.kind === "scene"
+        ? "Each candidate is a key frame: this scene's one moment, drawn from that model's style plate and the kept sheets of every character, place and prop it names. Keep one for each model."
+      : t.kind === "prop"
+        ? "Each candidate is a whole prop sheet - four views, a hand for scale, a close detail of its markings and wear, and its other state - drawn from that model's style plate, the reference image, and the props kept before. Keep one for each model, then go on to the next."
+      : t.kind === "place"
+        ? "Each candidate is a whole location sheet - establishing view, reverse angle, street level, a detail, another light - drawn from that model's style plate, the reference image, and the places kept before. Keep one for each model, then go on to the next."
+        : "Each candidate is a whole character sheet - four views and four expressions - drawn from that model's style plate, the reference image, and the cast kept before this character. Keep one for each model, then go on to the next."}</p>
+    ${refs}
+    ${Object.keys(t.kept).length ? `<div class="kept">${Object.entries(t.kept).map(([m, f]) => `<figure><img src="${file(f)}?k=${Date.now() % 1e6}" alt=""><figcaption>kept · ${esc(short(m))}</figcaption></figure>`).join("")}</div>` : ""}
+    <div class="models">${models}</div>
+    <div class="row">
+      <label class="hint" style="margin:0">each <input type="number" id="each" min="1" max="4" value="${pref("each") || 2}" style="width:3.5rem"></label>
+      <input type="text" id="notes" placeholder="a note for this roll (optional): older, no jacket, warmer light…" style="flex:1;min-width:12rem">
+      <button class="go" id="roll" ${noPlate || (isStyle && !t.refs.length) ? "disabled" : ""}>Roll</button>
+      ${!isStyle ? `<button class="go alt" id="next">Next →</button>` : d.characters.length ? `<button class="go alt" id="next">Characters →</button>` : ""}
+    </div>
+    ${noPlate ? `<p class="err">Keep a style plate for ${[...state.chosen].filter((m) => !d.style.kept[m]).map(short).join(", ")} first, or untick it.</p>` : ""}
+    ${isStyle && !t.refs.length ? `<p class="hint">Add a reference image to roll the plate from.</p>` : ""}
+    <div id="said" class="err"></div>
+    ${t.rolls.map((r) => `
+      <div class="round"><h4>${esc(r.round)} · ${r.models.map(short).join(", ")} × ${r.each}${r.notes ? ` · “${esc(r.notes)}”` : ""} · ${r.status === "rolling" ? "rolling…" : `${r.seconds || 0}s`}</h4>
+        <div class="cands">${r.candidates.map((c) => {
+          const isKept = keptFrom(t, c, r);
+          return `<div class="cand ${isKept ? "is-kept" : ""}"><img src="${file(`${relDir(t)}/rolls/${r.round}/${c.file}`)}" alt=""><div class="bar">
+            <span>${esc(short(c.model))} · ${c.seconds}s</span><button class="go ${isKept ? "alt" : ""}" data-keep="${esc(r.round)}|${esc(c.file)}">${isKept ? "kept" : "Keep"}</button></div></div>`;
+        }).join("")}${r.status === "rolling" ? `<div class="cand" style="display:grid;place-items:center;min-height:8rem"><span class="hint">drawing…</span></div>` : ""}</div>
+        ${r.errors.map((e) => `<p class="err">${esc(e)}</p>`).join("")}
+      </div>`).join("")}`;
+}
+
+const relDir = (t) => (t === state.data.style ? "style" : `characters/${t.key}`);
+const keptFrom = (t, c, r) => (t.kept_from || {})[c.model] === `${r.round}/${c.file}`;
+
+document.addEventListener("click", async (e) => {
+  const pick = e.target.closest("[data-canon]");
+  if (pick && !pick.disabled) {
+    const canon = state.canon[state.data.campaign], kind = pick.dataset.canon;
+    const it = ({ place: canon.places, prop: canon.props, scene: canon.key_scenes }[kind] || canon.characters)[+pick.dataset.i];
+    try {
+      state.data = await api(`/api/projects/${state.project}/characters`, { method: "POST",
+        body: { name: pick.dataset.name, desc: lookOf(it.look, kind), kind } });
+      state.at = state.data.characters[state.data.characters.length - 1].key; render();
+    } catch (err) { alert(err.message); }
+    return;
+  }
+  const step = e.target.closest("[data-at]");
+  if (step) { state.at = step.dataset.at; if (state.at === "ready") state.needs = null; return render(); }
+  if (e.target.id === "recheck") { state.needs = null; return renderReady(); }
+  const add = e.target.closest("[data-add]");
+  if (add) {
+    const kind = add.dataset.add, canon = state.canon[state.data.campaign] || {};
+    const it = ({ place: canon.places, character: canon.characters, prop: canon.props, scene: canon.key_scenes }[kind] || [])?.find((x) => pretty(x.name).toLowerCase() === add.dataset.name.toLowerCase());
+    state.data = await api(`/api/projects/${state.project}/characters`, { method: "POST", body: { name: add.dataset.name, desc: it ? lookOf(it.look, kind) : "", kind } });
+    state.at = state.data.characters[state.data.characters.length - 1].key; return render();
+  }
+  const img = e.target.closest(".cand img, .kept img");
+  if (img) { $("#view img").src = img.src; $("#view").style.display = "grid"; return; }
+  if (e.target.closest("#view")) { $("#view").style.display = "none"; return; }
+  const del = e.target.closest("[data-del]");
+  if (del) { state.data = await api(`/api/projects/${state.project}/style/refs/${del.dataset.del}`, { method: "DELETE" }); return render(); }
+  const k = e.target.closest("[data-keep]");
+  if (k) {
+    const [round, f] = k.dataset.keep.split("|");
+    try {
+      const r = await api(`/api/projects/${state.project}/keep`, { method: "POST", body: { target: state.at, round, file: f } });
+      state.data = r; render();
+    } catch (err) { $("#said").textContent = err.message; }
+    return;
+  }
+  if (e.target.id === "roll") {
+    const body = { models: [...state.chosen], each: +$("#each").value || 2, notes: $("#notes").value };
+    pref("each", body.each);
+    if (state.at !== "style") await saveChar();
+    try {
+      state.data = await api(state.at === "style" ? `/api/projects/${state.project}/style/roll` : `/api/projects/${state.project}/characters/${state.at}/roll`, { method: "POST", body });
+      render(); if (!state.poll) state.poll = setInterval(load, 4000);
+    } catch (err) { $("#said").textContent = err.message; }
+  }
+  if (e.target.id === "next") {
+    const keys = ["style", ...state.data.characters.map((c) => c.key)], i = keys.indexOf(state.at);
+    state.at = keys[Math.min(i + 1, keys.length - 1)]; render();
+  }
+});
+document.addEventListener("change", async (e) => {
+  if (e.target.classList.contains("m")) { e.target.checked ? state.chosen.add(e.target.value) : state.chosen.delete(e.target.value); pref("models", [...state.chosen]); return render(); }
+  if (e.target.id === "refs-in") {
+    for (const f of e.target.files) state.data = await api(`/api/projects/${state.project}/style/refs`, { method: "POST", body: { data_url: await toDataUrl(f) } });
+    return render();
+  }
+  if (e.target.id === "ref-in" && e.target.files[0]) {
+    state.data = await api(`/api/projects/${state.project}/characters/${state.at}/ref`, { method: "POST", body: { data_url: await toDataUrl(e.target.files[0]) } });
+    return render();
+  }
+  if (e.target.id === "c-name" || e.target.id === "c-desc") await saveChar();
+  if (e.target.id === "project") { state.project = e.target.value; state.at = "style"; load(); }
+  if (e.target.id === "campaign" && state.project) {
+    state.data = await api(`/api/projects/${state.project}`, { method: "PUT", body: { campaign: e.target.value } });
+    await loadCanon(); state.needs = null; render();
+  }
+});
+async function saveChar() {
+  if (state.at === "style" || !$("#c-name")) return;
+  state.data = await api(`/api/projects/${state.project}/characters/${state.at}`, { method: "PUT", body: { name: $("#c-name").value, desc: $("#c-desc").value } });
+}
+$("#make-project").addEventListener("click", async () => {
+  const name = $("#new-project").value.trim(); if (!name) return;
+  const s = await api("/api/projects", { method: "POST", body: { name } });
+  $("#new-project").value = ""; state.at = "style"; await loadProjects(s.name);
+});
+$("#add-char").addEventListener("submit", async (e) => {
+  e.preventDefault(); if (!state.project) return;
+  const name = $("#char-name").value.trim(); if (!name) return;
+  try {
+    const kind = document.querySelector('input[name="kind"]:checked')?.value || "character";
+    state.data = await api(`/api/projects/${state.project}/characters`, { method: "POST", body: { name, desc: $("#char-desc").value, kind } });
+    state.at = state.data.characters[state.data.characters.length - 1].key;
+    $("#char-name").value = ""; $("#char-desc").value = ""; render();
+  } catch (err) { alert(err.message); }
+});
+(async () => { await loadModels(); await loadCampaigns(); await loadProjects(); })();
+</script>
+</body>
+</html>

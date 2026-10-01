@@ -1,0 +1,156 @@
+# Evoke Prosperity — Chapter 6: The Fourth Choice
+
+Chapter-specific canon. The general canon (world, characters, voices, rules) is in EVOKE_PROSPERITY_BIBLE.md.
+
+## At a glance
+
+- **Story question:** Who should shape the future?
+- **Principle:** Agency
+- **Alex's test:** Rule or relinquish exclusive power
+- **Learner bridge:** What will you build?
+
+## Prosperity Principle — AGENCY
+
+> **Prosperity grows when people have the power to shape the decisions that shape their lives.**
+
+There is an intentional circle:
+
+> **CHOICE → TRUTH → OWNERSHIP → TRUST → ACCOUNTABLE POWER → AGENCY**
+
+Alex begins by wanting the freedom to make **his own choice**.
+
+He ends by recognizing that prosperity requires extending that same agency to **everyone else**.
+
+## Character interaction map
+
+### **Emotional Driver**
+
+**Alex**
+
+### **Primary Relationship**
+
+**Alex ↔ Power**
+
+### **Principal Human Challenge**
+
+**Alex ↔ Mera**
+
+### **Moral Counterweight**
+
+**Alex ↔ Ada**
+
+### **Mentor Culmination**
+
+**Alex ↔ Bi11bot**
+
+### **Core Character Question**
+
+> **Can Alex achieve the freedom he always wanted without controlling everyone else's?**
+
+### **Alex**
+
+Receives everything Chapter 1 said he lacked:
+
+authority;
+
+mobility;
+
+recognition;
+
+power to erase debt;
+
+ability to change the system.
+
+His final flaw emerges in its most dangerous form:
+
+> **benevolent unilateralism.**
+
+“I can handle it myself” becomes:
+
+> **I could fix everything myself.**
+
+### **Ada**
+
+Refuses to become the benevolent authority Alex might defer to.
+
+Her:
+
+> **“Then don't give me that much power.”**
+
+is the mature expression of trust.
+
+### **Mera**
+
+Offers Alex authority.
+
+This proves she has changed **who** she trusts before changing **how authority should work**.
+
+Alex exposes that remaining flaw.
+
+### **Bi11bot**
+
+Sees Alex invent an answer Adrian did not design.
+
+His surprise is the payoff.
+
+The wager worked because Alex did **not** simply obey Adrian.
+
+### **Leona**
+
+Final visual proof of her recovery:
+
+participating in messy civic governance.
+
+### **Mera**
+
+Final visual proof of her evolution:
+
+no longer isolated above humanity.
+
+She becomes one participant among others.
+
+There should be subtle relief in this.
+
+### **Character Cost**
+
+Alex gives up:
+
+> **the power to guarantee his preferred future.**
+
+That may be the greatest sacrifice in the novel.
+
+### **Final Alex/Ada Payoff**
+
+Chapter 1:
+
+Alex believes leaving proves freedom.
+
+Ada believes staying proves commitment.
+
+Chapter 6:
+
+Alex can leave.
+
+Ada no longer needs him to stay.
+
+> **“I just want it to be my choice.”**
+
+Both have changed.
+
+### **Revision Test**
+
+Does Alex's fourth choice visibly emerge from what **all the other characters have taught him**, rather than appearing as an isolated stroke of genius?
+
+## Script revision flags
+
+Establish clearly that the **Prosperity Charter is the combined constitutional framework of the three artifacts**, not a fourth object.
+
+Make Alex derive the fourth choice from what each artifact taught him:
+
+> **The Measure reveals without deciding.**  
+> **The Seal recognizes without controlling.**  
+> **The Covenant coordinates without ruling.**
+
+Therefore:
+
+> **Alpha doesn't have to decide either.**

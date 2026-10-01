@@ -1,0 +1,162 @@
+{
+  "id": "r29-ai",
+  "kind": "ai",
+  "started": "2026-09-24T17:32:49",
+  "finished": "2026-09-24T17:34:25",
+  "status": "done",
+  "files_written": [
+    "layouts.md",
+    "thumbnails.md",
+    "room-log.md",
+    "notes.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "7cf6cb7e2242d0ee",
+    "prosperity/drafts/chapter-02-draft.md": "1adb8d8adba5f7ff",
+    "prosperity/drafts/chapter-03-draft.md": "64ee9627e4178b54",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/drafts/chapter-05-draft.md": "83837db7e7a3a761",
+    "prosperity/drafts/chapter-06-draft.md": "0f4095d1cf7f22f8",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "040afe0d0f082786",
+    "prosperity/rules/decisions.md": "62f1859168c04b88",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/showrunner-rules.md": "6083e8daa215fe43",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0708602,
+      "input_tokens": 315056,
+      "cached_tokens": 95310,
+      "image_input_tokens": 0,
+      "output_tokens": 11682,
+      "reasoning_tokens": 1226,
+      "total_tokens": 326738
+    },
+    "by_role": {
+      "layout": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.02781555,
+        "input_tokens": 153213,
+        "cached_tokens": 78315,
+        "image_input_tokens": 0,
+        "output_tokens": 6271,
+        "reasoning_tokens": 456,
+        "total_tokens": 159484
+      },
+      "continuity": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.04304465,
+        "input_tokens": 161843,
+        "cached_tokens": 16995,
+        "image_input_tokens": 0,
+        "output_tokens": 5411,
+        "reasoning_tokens": 770,
+        "total_tokens": 167254
+      }
+    }
+  },
+  "run_id": "9c9b85f5afdb",
+  "note": "The room is in execution: Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.\n\nThe pages are drawn from your layouts by an image model, with NO text on them: the lettering is added afterwards as a layer, from the items in each layout block. So every balloon, caption and sound effect must be in the layout block with the exact words, and each panel's description must say where the clear space for them is.\n\nTHIS PASS IS A PROOF: lay out and letter page 1 only, from the script as it stands, and nothing past that. The showrunner will judge the book's look on this page before the rest is made. layouts.md holds only this page.",
+  "roles": [
+    "layout",
+    "continuity"
+  ],
+  "configs": {
+    "layout": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.5,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 8,
+      "timeout": 1200,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    },
+    "continuity": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.1,
+      "max_tokens": 10000,
+      "thinking_budget": 0,
+      "max_steps": 12,
+      "timeout": 300,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "execution",
+  "gate": {
+    "ready": false,
+    "reasons": [
+      "1 continuity blockers"
+    ],
+    "blockers": 1,
+    "layout_issues": 0,
+    "pages": [
+      1
+    ],
+    "dialed_in": {}
+  },
+  "passes": 2,
+  "pages": [
+    1
+  ]
+}

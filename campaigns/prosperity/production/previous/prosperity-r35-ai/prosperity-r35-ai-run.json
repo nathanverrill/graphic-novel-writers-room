@@ -1,0 +1,108 @@
+{
+  "id": "r35-ai",
+  "kind": "ai",
+  "started": "2026-09-25T03:38:07",
+  "finished": "2026-09-25T03:39:32",
+  "status": "done",
+  "files_written": [
+    "draft-edited.md",
+    "draft-final.md",
+    "draft-changes.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "729cb89f10cc988a",
+    "prosperity/drafts/chapter-02-draft.md": "689a4df6ef51395d",
+    "prosperity/drafts/chapter-03-draft.md": "c7c429063cd51dcc",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/notes.md": "e3b0c44298fc1c14",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/decisions.md": "a921b94c1cb35e9a",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/showrunner-rules.md": "6083e8daa215fe43",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 5,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1156415,
+      "input_tokens": 321113,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 29470,
+      "reasoning_tokens": 2813,
+      "total_tokens": 350583
+    },
+    "by_role": {
+      "draft_editor": {
+        "calls": 5,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.1156415,
+        "input_tokens": 321113,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 29470,
+        "reasoning_tokens": 2813,
+        "total_tokens": 350583
+      }
+    }
+  },
+  "run_id": "d99f122052ac",
+  "note": "The room is in draft edit: Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.\n\ndraft.md is the showrunner's own draft. Edit it to the canon, chapter by chapter: change only what the canon contradicts, keep everything else word for word, and flag what no longer fits rather than rewriting it.",
+  "roles": [
+    "draft_editor"
+  ],
+  "configs": {
+    "draft_editor": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 1,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "drafts",
+  "pages": [
+    1
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Nexus, two access points, later. A coastal Antarctic cave laboratory has two visibly separate access routes and separate arrival vehicles. Falcon is not visible. Leave upper-left for the location caption."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Inside the shared Nexus corridor. Sitara, Roman, and Nayah meet beneath warped metal and blue ice; their two separate TJs face one another across a frozen threshold. Leave the top third for two balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman holds Orien's chemical calibration sheet while Sitara holds the Falcon fragment. Their eyes stay on the documents. Leave upper-left and upper-right for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Nayah plants a route marker at the corridor entrance. A clear arrow points back toward the exit. Leave upper-left for her dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "NEXUS \u2014 TWO ACCESS POINTS, LATER."
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Sitara.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "You came from Colorado.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "This code is in your record.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Your record is the second half.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We work inside the route. We leave when I say.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Colorado pilot, day. A recovery belt splits selected PET and polyolefin toward Project 863 while rejected mixed material diverts into a marked bin. Include wet concrete, drains, and maintenance clutter. Leave upper-left for the location caption and lower corners for two labels."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A compact Project 863 reactor stands beside an insulated cold-active enzyme bioreactor. Pipes, temperature controls, flow meters, and service labels make the process physical. Leave the top for a caption."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Recovered hydrocarbon feedstock exits into a sealed container. Residual solids sit in a separate drum beside an active emissions monitor. Leave upper-left for a caption."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A monitoring wall shows water use, grid demand, emissions, and finite throughput beside working machinery. Leave upper-right for Croft's recorded dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO PILOT \u2014 DAY"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "SELECTED FEEDSTOCK"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "REJECTED MATERIAL"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "RECOVERED FEEDSTOCK / RESIDUAL SOLIDS / EMISSIONS MONITOR"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "WATER USE \u2014 ACTIVE / GRID DEMAND \u2014 ACTIVE / EMISSIONS \u2014 MONITORED / THROUGHPUT \u2014 LIMITED"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "It works. That matters.",
+      "at": "top-right"
+    }
+  ]
+}

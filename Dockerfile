@@ -1,5 +1,8 @@
 FROM python:3.12-slim
 WORKDIR /app
+# cairo and a comic font: the renderer draws the lettering layer over the art (app/render.py)
+RUN apt-get update && apt-get install -y --no-install-recommends libcairo2 fonts-comic-neue \
+    && rm -rf /var/lib/apt/lists/*
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .

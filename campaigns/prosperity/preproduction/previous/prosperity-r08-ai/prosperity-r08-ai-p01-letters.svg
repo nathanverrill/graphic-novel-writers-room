@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 1</text>
+<rect x="69" y="212" width="393" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="236" font-size="18" fill="#111">IN KEEL, THE MACHINES USUALLY TELL</text>
+<text x="266" y="258" font-size="18" fill="#111">THE TRUTH FIRST.</text>
+<polygon points="103,1101 136,1092 157,1242" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="119" cy="1097" rx="70" ry="31" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="119" y="1103" font-size="19" fill="#111">CROOKED.</text>
+<text x="425" y="1097" font-size="30" font-weight="bold" fill="#fff" stroke="#111" stroke-width="3.6" paint-order="stroke" transform="rotate(-6 425 1097)">KLIK—KLIK</text>
+<polygon points="558,1092 591,1101 537,1242" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="575" cy="1097" rx="93" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="575" y="1080" font-size="19" fill="#111">UNAUTHORIZED</text>
+<text x="575" y="1103" font-size="19" fill="#111">REPAIR</text>
+<text x="575" y="1126" font-size="19" fill="#111">DETECTED.</text>
+<text x="731" y="1388" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 731 1388)">WHUMM</text>
+</g>
+</svg>

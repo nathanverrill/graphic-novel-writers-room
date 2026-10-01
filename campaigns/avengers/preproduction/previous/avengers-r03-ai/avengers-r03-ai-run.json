@@ -1,0 +1,422 @@
+{
+  "id": "r03-ai",
+  "kind": "ai",
+  "started": "2026-09-28T16:02:48",
+  "finished": "2026-09-28T16:05:37",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "avengers/drafts/outline.md": "8fc6016a87e65bd7",
+    "avengers/input/amelia.md": "17a719c740583a43",
+    "avengers/input/forge-characters.md": "1e008b4e021d39f2",
+    "avengers/input/nemesis-threats.md": "0a7f3e52470ddce7",
+    "avengers/input/seb.md": "b8d9664a260d4be8",
+    "avengers/input/spine-stories.md": "4a6dd4baa4956bbc",
+    "avengers/input/team1-scott-base-background.md": "e78d763ecba34815",
+    "avengers/input/team2-mcmurdo-background.md": "7012e567ad36562d",
+    "avengers/references/team1-scott-base-research.md": "7ed5daf5de3bc3b2",
+    "avengers/references/team2-mcmurdo-research.md": "ca76cedb79809346",
+    "avengers/rules/avengers.md": "afbe771a5c74aefb",
+    "avengers/rules/decisions.md": "e9964d51c967c75d",
+    "avengers/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "avengers/rules/rules.md": "3aa5e3f35ae23526"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.11279653,
+      "input_tokens": 297636,
+      "cached_tokens": 40819,
+      "image_input_tokens": 0,
+      "output_tokens": 39814,
+      "reasoning_tokens": 619,
+      "total_tokens": 337450
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 6,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.11279653,
+        "input_tokens": 297636,
+        "cached_tokens": 40819,
+        "image_input_tokens": 0,
+        "output_tokens": 39814,
+        "reasoning_tokens": 619,
+        "total_tokens": 337450
+      }
+    }
+  },
+  "run_id": "dcfe581652d6",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": true,
+    "calls": [
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 245230,
+        "input_tokens_est": 61307,
+        "inputs": [
+          "avengers/references/team1-scott-base-research.md",
+          "avengers/references/team2-mcmurdo-research.md",
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 31194,
+        "preservation": {
+          "source_chars": 115709,
+          "output_chars": 99841,
+          "mass": 0.863,
+          "terms": 111,
+          "missing": 4,
+          "coverage": 0.964,
+          "substantive_terms": 111,
+          "substantive_coverage": 0.964,
+          "dropped_by_kind": {
+            "names and terms": [
+              "AI-powered",
+              "Nemesis",
+              "Roman-TJ"
+            ],
+            "numbers": [
+              "72"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 3,
+            "numbers": 1
+          },
+          "dropped": [
+            "72",
+            "AI-powered",
+            "Nemesis",
+            "Roman-TJ"
+          ]
+        }
+      },
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 245220,
+        "input_tokens_est": 61305,
+        "inputs": [
+          "avengers/references/team1-scott-base-research.md",
+          "avengers/references/team2-mcmurdo-research.md",
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 28267,
+        "preservation": {
+          "source_chars": 115709,
+          "output_chars": 99841,
+          "mass": 0.863,
+          "terms": 111,
+          "missing": 4,
+          "coverage": 0.964,
+          "substantive_terms": 111,
+          "substantive_coverage": 0.964,
+          "dropped_by_kind": {
+            "names and terms": [
+              "AI-powered",
+              "Nemesis",
+              "Roman-TJ"
+            ],
+            "numbers": [
+              "72"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 3,
+            "numbers": 1
+          },
+          "dropped": [
+            "72",
+            "AI-powered",
+            "Nemesis",
+            "Roman-TJ"
+          ]
+        }
+      },
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 245220,
+        "input_tokens_est": 61305,
+        "inputs": [
+          "avengers/references/team1-scott-base-research.md",
+          "avengers/references/team2-mcmurdo-research.md",
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 40378,
+        "preservation": {
+          "source_chars": 115709,
+          "output_chars": 99841,
+          "mass": 0.863,
+          "terms": 111,
+          "missing": 4,
+          "coverage": 0.964,
+          "substantive_terms": 111,
+          "substantive_coverage": 0.964,
+          "dropped_by_kind": {
+            "names and terms": [
+              "AI-powered",
+              "Nemesis",
+              "Roman-TJ"
+            ],
+            "numbers": [
+              "72"
+            ]
+          },
+          "dropped_counts": {
+            "names and terms": 3,
+            "numbers": 1
+          },
+          "dropped": [
+            "72",
+            "AI-powered",
+            "Nemesis",
+            "Roman-TJ"
+          ]
+        }
+      },
+      {
+        "call": "4C-again",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 245544,
+        "input_tokens_est": 61386,
+        "inputs": [
+          "avengers/references/team1-scott-base-research.md",
+          "avengers/references/team2-mcmurdo-research.md",
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 51382
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 240341,
+        "input_tokens_est": 60085,
+        "inputs": [
+          "avengers/references/team1-scott-base-research.md",
+          "avengers/references/team2-mcmurdo-research.md",
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": true,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [
+          "rewrote bolded field lines as '- field: value'"
+        ],
+        "notes": [],
+        "output_chars": 10483
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b5237ff2c3c30ade",
+        "input_chars": 163786,
+        "input_tokens_est": 40946,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/rules.md",
+          "characters.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 23708
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "b5237ff2c3c30ade",
+    "kept_previous": [],
+    "decisions_integrated": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "recommendations_taken": [],
+    "notes_applied": [],
+    "deferred": []
+  },
+  "pages": []
+}

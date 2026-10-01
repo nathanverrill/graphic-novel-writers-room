@@ -1,0 +1,67 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Himalayas, 2042 night: Roman hangs half-buried in a narrow blue-white crevasse, one gloved hand locked around a climbing line as his small silver Terrain Jumper descends toward him. Lightning forks through the glacier and the machine\u2019s sensor housing. Keep the upper half clear for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Himalayas, 2026 day: floodwater tears across the foreground carrying a cooking pot and a child\u2019s red sweater. Six-year-old Sitara is seen only from behind on a high stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific; keep the upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Antarctica, 2046 day: vast blue-white ice under a hard sky. Sitara in her puffy red jacket stands beside Nayah in her puffy yellow jacket; warning flags mark a dark unstable zone between them and a half-buried sensor tripod. Sitara\u2019s separate silver TJ crouches beside the route marker. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Sitara\u2019s boot hovers just short of the flagged line; beyond it the sensor\u2019s red status light blinks while a geometric tremor advances beneath the ice. Leave the upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara. Stop there.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "large",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It\u2019s still recording.",
+      "at": "bottom-left"
+    }
+  ]
+}

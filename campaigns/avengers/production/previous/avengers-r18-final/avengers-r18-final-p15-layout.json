@@ -1,0 +1,84 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Colorado constructed wetland shows clearer water exiting a nearly closed inlet gate; dated pilot monitor visible. Reserve upper-right for metric and lower-right for second metric."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 38,
+          "description": "Survey tray holds aquatic invertebrates beside monitor showing finite wetland capacity. Reserve two separate caption zones."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Croft appears on wall screen beside treatment schedule; his son is only a pale hand beneath hospital bedding. Reserve upper-left for recorded dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "In Nexus, Sitara watches recording while Roman stands beside her in silence. Keep cave and ice visible; reserve upper area for Croft\u2019s line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-right",
+      "text": "CLARITY INDEX: 41 \u2192 68"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "PILOT INTERVAL: DATED"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-left",
+      "text": "DOWNSTREAM TAXA: 3 \u2192 11"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-right",
+      "text": "WETLAND FLOW CAPACITY: FINITE"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You want to stop the work that made this possible.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You knew it was useful. You knew it was controlled. Why is it wrong only now?",
+      "at": "top-left"
+    }
+  ]
+}

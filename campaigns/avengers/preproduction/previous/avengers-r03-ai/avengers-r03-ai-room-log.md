@@ -1,0 +1,13 @@
+# Room log
+
+## Script Coordinator — r01-ai, 2026-09-27 18:23
+
+Intake: 4 files from 3 passes (5 model requests). 33 open items, each with options. Waiting on you: answer, defer or leave each one, add any notes, then run intake again. facts.md is derived after that.
+
+## Script Coordinator — r02-ai, 2026-09-27 23:45
+
+Intake: 4 files from 3 passes (5 model requests). 43 open items, each with options. Waiting on you: answer, defer or leave each one, add any notes, then run intake again. facts.md is derived after that.
+
+## Script Coordinator — r03-ai, 2026-09-28 16:05
+
+Revised 5 files from 2 passes (6 model requests): 43 decision(s) and 0 note(s) carried in, facts.md derived. 14 item(s) still open, 1 deferred.

@@ -1,0 +1,91 @@
+{
+  "page": 22,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "COLORADO PUBLIC MEETING. A projected interim contract fills the wall. Include a small inspection status stamp reading completed / monitored continuation; Sitara and Roman stand at the back. Use a small non-recognizable gathering. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A scientist points to the access clause while a conservation representative points to ecological limits. Keep roles distinct and leave top third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "An affected-community participant points toward throughput and water-use terms on the projected contract. Keep participant nonspecific. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 25,
+          "description": "The contract remains unsigned on the table. Three marked pages identify open ownership, financing, and long-term governance. Leave lower-right clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO PUBLIC MEETING"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "middle",
+      "text": "UNINCORPORATED INTERIM PARTNERSHIP / PUBLIC CONTRACTS / INSPECTION REQUIRED"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "INSPECTION COMPLETE / MONITORED CONTINUATION"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SCIENTIST",
+      "text": "The process needs stable financing.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CONSERVATION REPRESENTATIVE",
+      "text": "Stable financing is not private ownership.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "AFFECTED-COMMUNITY PARTICIPANT",
+      "text": "Who decides when the wetland is full?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "OWNERSHIP \u2014 OPEN / FINANCING \u2014 OPEN / LONG-TERM GOVERNANCE \u2014 OPEN"
+    }
+  ]
+}

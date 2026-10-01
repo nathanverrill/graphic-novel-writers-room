@@ -1,0 +1,1614 @@
+> **Idea draft, not the script.** This was put together to get the ideas for chapter 1 on paper. Use it for beats, intent and moments worth keeping; the room writes the real script.
+
+**Draft Script for Writers Room**
+
+&nbsp;
+
+---
+
+**EVOKE PROSPERITY**
+
+**Graphic Novel Story Draft**
+
+**Chapter One – *The Inheritance***
+
+**Writers' Room Review – Draft v0.2**
+
+---
+
+**Purpose of this Review**
+
+This document presents the first complete draft of Chapter One.
+
+The objectives of this review are to:
+
+* Validate the overall narrative structure.
+
+* Assess the emotional arc of Alex and Ada.
+
+* Evaluate whether the chapter effectively launches the larger mystery.
+
+* Review pacing across the four pages.
+
+* Discuss outstanding creative decisions before scripting Chapter Two.
+
+* Identify opportunities to strengthen dialogue, visual storytelling, and transmedia integration.
+
+This is intentionally an early story draft. The goal is to agree on the chapter's narrative architecture before refining dialogue, artwork, and production details.
+
+---
+
+**Chapter Overview**
+
+**Chapter Title:  The Inheritance**
+
+**Chapter Function**
+
+* Introduce the world of Prosperity.  
+* Establish the relationship between Keel, Halyard, and Oasis.  
+* Introduce Alex, Ada, and Alex's grandmother.  
+* Reveal Alex's inherited debt.  
+* Introduce Adrian's hidden workshop.  
+* Awaken Bi11bot.  
+* Launch Alex's journey toward Oasis.  
+* Quietly introduce the unseen antagonist.
+
+---
+
+**Central Question**
+
+**Did Adrian abandon Alex... or spend years preparing him for a purpose no one else yet understands?**
+
+---
+
+**Four-Beat Chapter Arc**
+
+**Beat One**
+
+Alex inherits his father's debt and public shame.
+
+---
+
+**Beat Two**
+
+Alex and Ada reveal their competing dreams for the future.
+
+---
+
+**Beat Three**
+
+Alex discovers Adrian's hidden workshop.
+
+---
+
+**Beat Four**
+
+Bi11bot awakens.
+
+Adrian leaves one final message.
+
+Alex's journey begins.
+
+---
+
+**Themes Introduced**
+
+* Inheritance
+
+* Debt
+
+* Reputation
+
+* Hope
+
+* Human judgment
+
+* Systems versus people
+
+* Escape versus rebuilding
+
+* Curiosity
+
+* Trust
+
+---
+
+**Character Movement**
+
+**Alex**
+
+Begins believing:  "My father left me nothing."
+
+Ends believing:  "My father left me something I don't yet understand."
+
+---
+
+**Ada**
+
+Introduced as the emotional counterweight.
+
+She believes prosperity begins by improving Keel rather than escaping it.
+
+---
+
+**Grandmother**
+
+Introduced as memory fading...
+
+while quietly remembering the one truth everyone else has forgotten.
+
+---
+
+**Adrian**
+
+Introduced only through memory.
+
+Readers begin questioning whether history judged him correctly.
+
+---
+
+**Bi11bot**
+
+Introduced as a mentor.
+
+Funny.
+
+Observant.
+
+Warm.
+
+Clearly hiding far more knowledge than he initially shares.
+
+---
+
+**CHAPTER ONE — THE INHERITANCE**
+
+**PAGE 1 — THE WORLD ALEX INHERITS**
+
+---
+
+### **Page Function**
+
+Introduce the vertically stratified world of Keel, Halyard and Oasis and establish visually that extraordinary technological advancement coexists with unequal access, opportunity and agency.
+
+**Image Prompt**
+
+A full-page cinematic establishing image of the three-tier civilization in the year 2037, viewed from a distant elevated angle so that all three cities can be understood in a single composition.
+
+At the bottom of a vast mountain basin lies **KEEL**, built into and around an exhausted open-pit lithium mine. Dense stacked housing, repaired industrial equipment, rusted mining structures, crowded pedestrian lanes and aging factories fill the basin. Dust hangs in the air. Workers pass through small digital checkpoints. Water runs through narrow industrial channels and old pipes. The dominant visual palette is rust, charcoal and oxidized orange.
+
+Midway up the mountain lies **HALYARD**, visibly more prosperous and active. Workshops, fabrication towers, greenhouse terraces, elevated trains and advanced industrial facilities line the slope. Freight moves upward and downward. Its palette combines warm metallic bronze and gold with engineered green spaces.
+
+Above both cities, partly beyond the cloud layer, lies **OASIS**: clean white architecture, carefully designed gardens, reservoirs, broad civic spaces, automated transit and advanced infrastructure. A spacecraft rises toward orbit from a distant launch structure. The palette is pearl white, silver, cool blue and controlled green.
+
+Critically, the three cities are visibly connected by the **same infrastructure**: a massive water conduit, energy lines, transit rails and data/control nodes run vertically through the mountain. Access gates become more visible toward Keel.
+
+The composition should make the viewer's eye travel naturally **upward** from Keel toward Oasis. The technological achievement should inspire awe, while the geography and infrastructure make inequality impossible to miss.
+
+No principal characters are prominent. Humanity appears small inside the system it has built.
+
+---
+
+**Caption**
+
+**Year 2043\.**
+
+City Captions:
+
+Oasis
+
+Halyard
+
+Keel&nbsp;
+
+Caption at top
+
+Humanity reached the stars...
+
+Caption at bottom
+
+...but never escaped the gravity of inequality.
+
+---
+
+**Notes**
+
+The last caption deliberately echoes the visual metaphor of the mountain.
+
+---
+
+**Page 2 – DEBT TRANSFER DAY**
+
+### **Page function**
+
+Introduce Alex through work rather than exposition; establish his competence, sarcasm, and independence; reveal that Adrian's debt has transferred to him at seventeen; and make the chapter's abstract theme—**an inherited future**—personally concrete.
+
+Most importantly, the page should end with Alex losing something he assumed belonged to him:
+
+> **the freedom to leave Keel.**
+
+That is the page's cost.
+
+# **PANEL 1 — ALEX AT WORK**
+
+### **Scene function**
+
+Introduce Alex doing something active and skilled before we tell the reader anything about him.
+
+This matters for his character arc. We should meet him as **capable**, not as a victim.
+
+### **Suggested image prompt**
+
+Interior of a working industrial facility in Keel, consistent with the rust, charcoal and oxidized-orange visual language established on Page 1\. Alex Phantum, seventeen, lean and mechanically capable, is finishing a shift maintaining an aging water or mineral-processing pump. He has improvised a repair rather than simply following the automated maintenance instructions projected beside him.
+
+Other workers move through the background. Old industrial machinery has been repeatedly repaired rather than replaced. An Alpha-controlled work terminal quietly tracks productivity, time and equipment status.
+
+Alex's clothes are practical and worn. His body language should communicate intelligence and self-reliance rather than exhaustion or defeat.
+
+A coworker or supervisor looks skeptically at Alex's improvised repair.
+
+### **Dialogue**
+
+**Supervisor:**
+
+> “That's not the approved repair.”
+
+**Alex:**
+
+> “Then don't approve it.”
+
+Beat.
+
+**Alex:**
+
+> “Just notice it works.”
+
+&nbsp;
+
+---
+
+**Image Prompt**
+
+TBD – One screen flashes:
+
+**Today: Debt Transfer Day**
+
+---
+
+**Caption**
+
+Today was supposed to be Alex's birthday.
+
+Second caption
+
+Instead...
+
+Third caption
+
+...it became Inheritance Day.
+
+---
+
+**Dialogue**
+
+Worker (quietly)
+
+Happy birthday.  Looks like your father’s debt officially belongs to you now.&nbsp;
+
+Alex
+
+I've had better surprises.
+
+---
+
+**PANEL 2**
+
+**Purpose**
+
+* Public humiliation.
+
+&nbsp;
+
+---
+
+**Image Prompt**
+
+*Alex Phantum, 17 years old, athletic but lean from hard labor, close view of Alex places hand the digital checkpoint scanner.  He is wearing worn mining clothes and carrying a weathered tool bag. He looks tired and dirty.  Other workers queue silently. Massive digital displays debt balances above each worker.*
+
+A giant public display activates.
+
+Everyone nearby can see it.
+
+The surrounding workers glance upward.
+
+Nobody says anything.
+
+That silence hurts more than laughter.
+
+**ALEX PHANTUM**
+
+AGE VERIFIED**:** **SEVENTEEN**
+
+**PARENTALHOUSEHOLD LIABILITY TRANSFER COMPLETE**
+
+CURRENT DEBT BALANCE:  418,607 CREDITS
+
+TRAVEL STATUS: RESTRICTED
+
+---
+
+**Sound Effect**
+
+BEEP
+
+---
+
+**Caption**
+
+&nbsp;
+
+**4,000 Credits Earned Today**
+
+**Guard**
+
+Happy birthday.
+
+Looks like your father's debt officially belongs to you now.
+
+---
+
+Alex says nothing.
+
+&nbsp;
+
+TODAY: DEBT TRANSFER DAY
+
+&nbsp;
+
+**PANEL 3**
+
+**Purpose**
+
+Introduces Adrian's reputation.
+
+The gambling story.
+
+---
+
+Alex walks past an old casino.
+
+Its faded lights still flicker.
+
+Above the entrance:
+
+**THE LAST CHANCE**
+
+---
+
+The bouncer recognizes him.
+
+---
+
+**Dialogue**
+
+Bouncer&nbsp;
+
+Seventeen?
+
+Alex nods.
+
+Bouncer
+
+Care to see if luck runs in the family?&nbsp;
+
+Alex
+
+I've also got his debt.&nbsp;&nbsp;
+
+The bouncer sighs.
+
+Bouncer
+
+Your father always believed the next hand would change everything.
+
+Alex
+
+It did.  Just not for him.
+
+---
+
+**Panel 4**
+
+As Alex continues walking—
+
+Guard (calling after him)
+
+Leaving seems to run in your family.
+
+Alex never turns around.
+
+Alex
+
+Leaving bills.
+
+That was his specialty.
+
+---
+
+**PANEL 5**
+
+**Purpose**
+
+End on emotion.
+
+Transition to Ada.
+
+---
+
+**Image Prompt**
+
+Alex reaches a ridge overlooking the mountain.
+
+Below:
+
+Keel.
+
+Above:
+
+Halyard.
+
+Far beyond:
+
+Oasis glowing in sunlight.
+
+His fists remain clenched.
+
+The debt notification still glows faintly on his wrist.
+
+---
+
+**Caption**
+
+Everyone in Keel knew where they had been born.
+
+Few believed they could choose where they belonged.
+
+---
+
+Alex (small speech bubble)
+
+One day...I'm leaving.
+
+---
+
+&nbsp;
+
+&nbsp;
+
+---
+
+**CHAPTER ONE — THE INHERITANCE**
+
+**PAGE 3 — TWO DIFFERENT DREAMS**
+
+---
+
+**Writers' Room Overview**
+
+**Page Function**
+
+* Introduce Ada.  
+* Reveal the emotional heart of the story.  
+* Establish the philosophical tension between leaving and rebuilding.  
+* Introduce Alex's grandmother as someone whose declining memory weighs heavily on him.  
+* Plant the first seeds that Adrian may not be the man everyone believes he was.  
+* Show that Alex and Ada make each other better—but see different futures.
+
+---
+
+**Characters**
+
+* Alex
+
+* Ada
+
+* Keel residents in background
+
+---
+
+**Central Conflict**
+
+* Alex believes the only future lies outside Keel.  
+* Ada believes prosperity begins by changing Keel itself.  
+* Neither is entirely right.  
+* Neither is entirely wrong.
+
+---
+
+**Decision**
+
+* Alex chooses not to tell Ada how desperate he truly feels.  
+* Ada chooses not to tell Alex how much she fears losing him.  
+* Both protect the other with silence.
+
+---
+
+**Price**
+
+* Their friendship remains slightly out of sync.  
+* Alex leaves believing Ada doesn't understand him.  
+* Ada leaves believing Alex doesn't understand what he's running from.
+
+---
+
+**Audience Questions**
+
+* Is Ada right?
+
+* Is Alex right?
+
+* Why does Ada defend Adrian?
+
+* What happened to Alex's grandmother?
+
+* Could Adrian's story be more complicated?
+
+---
+
+**Continuity / Set-Up**
+
+Introduces:
+
+✓ Ada
+
+✓ Romance (subtle)
+
+✓ Grandmother
+
+✓ Escape vs rebuilding
+
+✓ Seeds of doubt about Adrian
+
+✓ Emotional stakes
+
+---
+
+**Draft Script**
+
+**PANEL 1**
+
+**Purpose**
+
+Slow the pace after Page One.
+
+Give readers a quiet emotional breath.
+
+---
+
+**Image Prompt**
+
+*A peaceful overlook on the edge of Keel, overlooking the mountain. The polluted industrial settlement stretches below, Halyard rises above on green terraces, and Oasis glows in the far distance. Alex sits on a rusted railing eating a simple packed lunch. Ada arrives carrying two cups of tea in battered metal mugs. Despite the harsh environment, the scene feels warm because of their friendship.*
+
+---
+
+**Caption**
+
+Later that afternoon...
+
+---
+
+Ada:  Thought you might need this.
+
+She offers him the tea.
+
+Alex smiles for the first time.
+
+Alex:  The birthday special?  Not sure I can afford it.
+
+Ada:  It’s on me.  You don’t owe anybody anything today.&nbsp;&nbsp;
+
+Alex: Everything has a price, Ada.
+
+Ada: Not Everything.&nbsp;&nbsp;
+
+---
+
+**PANEL 2**
+
+**Purpose**
+
+Establish chemistry.
+
+The dialogue should feel effortless.
+
+Readers should immediately understand these two have known each other forever.
+
+---
+
+**Image Prompt**
+
+Medium shot of Alex and Ada sitting together overlooking the city.
+
+---
+
+Ada
+
+Seventeen.
+
+Congratulations.
+
+You're officially old.
+
+Alex
+
+I'm officially broke.
+
+---
+
+Ada laughs.
+
+Alex finally laughs too.
+
+---
+
+Ada
+
+I heard about this morning.
+
+Alex shrugs.
+
+Alex
+
+Everyone did.
+
+---
+
+**PANEL 3**
+
+**Purpose**
+
+Reveal the philosophical disagreement.
+
+---
+
+**Image Prompt**
+
+The city below them.
+
+Keel in shadow.
+
+Halyard glowing.
+
+Oasis in sunlight.
+
+---
+
+Alex
+
+Every birthday... I look up there... and wonder what it feels like to wake up somewhere you get to choose your own future."
+
+---
+
+Ada
+
+I look down here...and wonder why everyone gave up trying to change it.
+
+---
+
+Alex
+
+Because nobody leaves.
+
+Ada
+
+Nobody stays either.
+
+Not really.
+
+---
+
+**PANEL 4**
+
+**Purpose**
+
+Introduce Grandmother.
+
+Reveal Alex's deeper motivation.
+
+---
+
+**Image Prompt**
+
+Alex looks down at a worn photograph tucked inside his pocket.
+
+The audience only catches a glimpse.
+
+His grandmother is smiling.
+
+Adrian's face is partially folded over.
+
+---
+
+Ada notices.
+
+---
+
+Ada
+
+How’s your grandma?
+
+Alex
+
+Some days, She knows me.
+
+Others, she calls me Adrian...
+
+---
+
+Ada
+
+That must be hard.
+
+---
+
+Alex
+
+The hardest part isn’t that she forgets. Is that she makes up crazy stories about him.&nbsp;&nbsp;
+
+---
+
+**PANEL 5**
+
+**Purpose**
+
+Plant doubt about Adrian.
+
+---
+
+**Image Prompt**
+
+Alex and Ada stand.
+
+The sun begins to set.
+
+Oasis glows brighter.
+
+---
+
+Ada
+
+What if everyone was wrong?
+
+About your father.
+
+---
+
+Alex immediately stiffens.
+
+---
+
+Ada
+
+Sometimes...
+
+history belongs to whoever tells it first.
+
+---
+
+Alex
+
+Or maybe...history is what people leave behind…untold.
+
+---
+
+A long silence.
+
+---
+
+Finally...
+
+Alex
+
+Or maybe he is exactly who they said he was.  Either way...he's gone.
+
+---
+
+**Final Page-Turn Hook**
+
+As they begin walking home—
+
+Ada quietly looks back toward Oasis.
+
+Very small speech bubble.
+
+Almost to herself.
+
+He wouldn’t just leave.&nbsp;&nbsp;
+
+The reader isn't certain whether she means Adrian...or Alex.
+
+Turn the page.
+
+&nbsp;
+
+**CHAPTER ONE — THE INHERITANCE**
+
+**PAGE 4 — THE HIDDEN WORKSHOP**
+
+---
+
+**Writers' Room Overview**
+
+**Page Function**
+
+* Bring Alex home and introduce his grandmother.  
+* Reveal the first cracks in Alex's understanding of Adrian.  
+* Discover the hidden workshop.  
+* Find the mysterious key bearing Bi11bot's symbol.  
+* End with the audience desperate to know what the key unlocks.
+
+---
+
+**Characters**
+
+* Alex
+
+* Grandmother Evelyn *(working name)*
+
+* (Bi11bot remains unseen)
+
+---
+
+**Central Conflict**
+
+* Alex believes his father left behind nothing but debt.  
+* His grandmother quietly insists that Adrian left something far more valuable.  
+* Alex must decide whether to dismiss her confused memories—or trust them.
+
+---
+
+**Decision**
+
+* Alex chooses to follow his grandmother's seemingly nonsensical instructions.  
+* For the first time, he acts on curiosity instead of anger.
+
+---
+
+**Price**
+
+* By opening the hidden room, Alex unknowingly sets Adrian's long-prepared plan in motion.  
+* Neither he nor the reader realizes that someone else has just become aware of this choice.
+
+---
+
+**Audience Questions**
+
+* Was Adrian hiding something?
+
+* Why did he prepare this room?
+
+* How long has it been waiting?
+
+* What does the strange key open?
+
+* Why did he trust Alex to find it?
+
+---
+
+**Continuity / Set-Up**
+
+Introduces:
+
+✓ Grandmother's memory lapses
+
+✓ Adrian's hidden life
+
+✓ The workshop
+
+✓ The key
+
+✓ Bi11bot symbol
+
+✓ First major mystery
+
+---
+
+**Draft Script**
+
+**PANEL 1**
+
+**Purpose**
+
+Bring the story home.
+
+After the vast mountain landscapes, the reader enters one small apartment filled with history.
+
+---
+
+**Image Prompt**
+
+*A modest apartment in Keel, worn but lovingly maintained. Handmade quilts, repaired furniture, shelves of old books, faded family photographs, potted plants growing in recycled containers. Evening light filters through dusty windows. Despite poverty, the home radiates warmth and dignity.*
+
+---
+
+**Caption**
+
+Home
+
+---
+
+Grandmother (off panel):  Adrian?
+
+---
+
+Alex stops.
+
+He closes his eyes for just a moment.
+
+---
+
+Alex:  Not today, Grandma.  It's Alex.
+
+---
+
+**PANEL 2**
+
+**Purpose**
+
+Show the complexity of her memory.
+
+---
+
+**Image Prompt**
+
+Grandmother sits comfortably in a worn chair with a favorite old book in her lap. Her eyes are bright, but there is uncertainty in them. Alex kneels beside her.
+
+---
+
+Grandmother:  Of course.  Alex.  I knew that.
+
+...
+
+Did your father come home yet?
+
+---
+
+Alex gently smiles.
+
+---
+
+Alex:  Not yet.
+
+---
+
+Grandmother studies him carefully.
+
+Almost too carefully.
+
+---
+
+Grandmother:  He's closer than you think.
+
+---
+
+**Notes**
+
+The line should feel comforting rather than mystical.
+
+Readers assume she is confused.
+
+Only later do they realize she is telling the truth.
+
+---
+
+**PANEL 3**
+
+**Purpose**
+
+The hidden clue.
+
+---
+
+**Image Prompt**
+
+Grandmother hands Alex her favorite old book.
+
+Its cover is worn from decades of use.
+
+---
+
+Grandmother:  Would you put this away for me?  Your father never liked seeing it left out.
+
+---
+
+Alex:  He had opinions about everything.
+
+---
+
+Grandmother smiles.
+
+---
+
+Grandmother: Especially the things worth protecting.
+
+---
+
+Alex walks toward the bookshelf.
+
+---
+
+**Notes**
+
+This should feel completely ordinary.
+
+---
+
+**PANELS 4 and 5**
+
+**Purpose**
+
+Reveal the hidden room.
+
+---
+
+**Image Prompt**
+
+As Alex slides the book into its place, the shelf shifts almost imperceptibly.
+
+A soft mechanical click.
+
+Dust drifts into the air.
+
+The bookshelf slowly swings open.
+
+Behind it...
+
+darkness.
+
+A hidden room.
+
+---
+
+**Panel 4**
+
+**Sound Effect**
+
+CLICK
+
+...
+
+RUMBLE
+
+---
+
+**Panel 5**
+
+Alex
+
+...
+
+Grandma?
+
+---
+
+Grandmother doesn't seem surprised.
+
+She simply smiles.
+
+---
+
+Grandmother
+
+He said you'd know when you were ready.
+
+---
+
+Alex
+
+Ready for what?
+
+---
+
+Grandmother
+
+To stop questioning the pastlooking for your father...
+
+...
+
+and start creatinglooking your destiny.
+
+---
+
+**PANEL 6**
+
+**Purpose**
+
+The first artifact.
+
+---
+
+**Image Prompt**
+
+Alex steps cautiously into the workshop.
+
+The room is frozen in time.
+
+Blueprints.
+
+Mechanical models.
+
+Water system diagrams.
+
+Mathematical equations.
+
+Old photographs.
+
+Prototype devices.
+
+One workbench remains perfectly organized.
+
+Resting in the center...
+
+a beautifully crafted metallic key.
+
+Its circular head bears an unfamiliar symbol.
+
+Readers recognize it later as Bi11bot's emblem.
+
+The room glows faintly in warm amber light.
+
+---
+
+Alex slowly reaches toward it.
+
+---
+
+No dialogue.
+
+---
+
+**Caption**
+
+Waiting.
+
+---
+
+**Final Page-Turn Hook**
+
+Tiny inset panel.
+
+Close-up of the key.
+
+The symbol catches the light.
+
+The reader still has absolutely no idea what it opens.
+
+Turn the page.
+
+---
+
+**Emotional Arc**
+
+This page deliberately shifts genres.
+
+The story moves from:
+
+**social dystopia**
+
+to
+
+**family mystery**
+
+without losing emotional grounding.
+
+The discovery is not exciting because of technology.
+
+It is exciting because Alex realizes that perhaps the greatest inheritance his father left him was not debt—it was a question.
+
+---
+
+&nbsp;
+
+**CHAPTER ONE — THE INHERITANCE**
+
+**PAGE 5 — THE LAST MESSAGE**
+
+---
+
+**Writers' Room Overview**
+
+**Page Function**
+
+* Introduce Bi11bot.  
+* Reveal that Adrian intentionally prepared this moment.  
+* Launch Alex's quest.  
+* Reveal that Adrian expected Alex—not simply any successor—to find the workshop.  
+* End Chapter One with the final destination:  **Oasis.**
+
+---
+
+**Characters**
+
+* Alex
+
+* Grandmother (briefly)
+
+* Bi11bot
+
+* Adrian (recorded message)
+
+* Unknown observer (silent final panel)
+
+---
+
+**Central Conflict**
+
+* Alex wants answers about his father.  
+* Bi11bot refuses to give them.  
+* Instead, Alex is offered something much harder:  A journey.
+
+---
+
+**Decision**
+
+Alex must decide whether to dismiss the workshop as one final puzzle left by an irresponsible father—
+
+or take the first step toward discovering the truth.
+
+He doesn't fully decide yet.
+
+But curiosity wins.
+
+---
+
+**Price**
+
+By activating Bi11bot,
+
+Alex unknowingly alerts someone in Oasis.
+
+The game has begun.
+
+---
+
+**Audience Questions**
+
+* Who—or what—is Bi11bot?
+
+* Why did Adrian trust Alex?
+
+* Why Oasis?
+
+* Why couldn't Adrian simply explain everything?
+
+* Who just detected the activation?
+
+---
+
+**Continuity / Set-Up**
+
+Introduces:
+
+✓ Bi11bot
+
+✓ Adrian's recorded message
+
+✓ The first quest
+
+✓ Oasis destination
+
+✓ Mera's surveillance
+
+✓ Adventure begins
+
+---
+
+**Draft Script**
+
+**PANEL 1**
+
+**Purpose**
+
+Alex discovers what the key opens.
+
+Not a door.
+
+A machine.
+
+---
+
+**Image Prompt**
+
+*Inside Adrian's hidden workshop. Alex stands before an old workbench. In its center is a beautifully crafted mechanical figure about the size of a seated child, dormant for years. It has brass, titanium, and ceramic components, expressive but inactive eyes, and an open key socket in its chest. Alex slowly inserts the mysterious key. Warm amber workshop lighting, dust motes suspended in the air, cinematic anticipation.*
+
+---
+
+No dialogue.
+
+---
+
+**Caption**
+
+A soft hum begins…and Bi11bot slowly comes to life.
+
+**Sound Effect**
+
+CLICK
+
+...
+
+WHIRRR...
+
+---
+
+**PANEL 2**
+
+**Purpose**
+
+The awakening.
+
+The audience should smile.
+
+---
+
+**Image Prompt**
+
+Bi11bot slowly comes to life. Its eyes illuminate a warm blue—not cold artificial light. It stretches stiff mechanical arms as though waking from a very long sleep.
+
+---
+
+Bi11bot
+
+...
+
+Well...
+
+That took longer than expected.
+
+---
+
+Alex jumps backwards.
+
+---
+
+Bi11bot looks directly at Alex.
+
+Long pause.
+
+---
+
+Bi11bot
+
+You are considerably taller than your father predicted, Seeker.
+
+---
+
+Alex
+
+...Whoa.  What?
+
+---
+
+**Notes**
+
+The humor immediately makes Bi11bot feel alive.
+
+---
+
+**PANEL 3**
+
+**Purpose**
+
+Introduce Adrian.
+
+---
+
+**Image Prompt**
+
+A small projector activates from Bi11bot.
+
+A softly flickering holographic recording of Adrian appears—not life-sized, but intimate, like an old home movie.
+
+Adrian looks tired but kind.
+
+This is the first time readers see him.
+
+---
+
+Adrian
+
+Hello, Alex.  If you're seeing this...then you found the workshop.
+
+---
+
+Alex is frozen.
+
+---
+
+Adrian
+
+Which means your grandmother still refuses to throw anything away.
+
+---
+
+Off-panel, Grandma laughs from the other room.
+
+Grandmother
+
+I heard that.
+
+---
+
+**Notes**
+
+This small joke immediately humanizes Adrian and confirms the warmth of the family before everything fell apart.
+
+---
+
+Adrian
+
+You deserve answers.
+
+...But they must be earned.  I spent years preparing this for you.
+
+---
+
+Adrian
+
+If I've done my job well...you'll become a better man than I ever was.
+
+---
+
+Adrian
+
+Your journey to the Oasis begins now.
+
+Trust Bi11bot.
+
+… But question everything.
+
+...Especially me.
+
+---
+
+The hologram disappears.
+
+---
+
+**PANEL 5 and 6**
+
+**Purpose**
+
+Close Chapter One.
+
+Launch the adventure.
+
+Reveal the unseen antagonist.
+
+---
+
+**Image Prompt**
+
+Large horizontal closing panel split cinematically into two connected moments.
+
+On the left:
+
+Alex stands in the workshop next to Bi11bot.
+
+Both look toward a large illuminated map of the mountain.
+
+A route from Keel to Oasis slowly lights up.
+
+The first waypoint glows:
+
+**THE MEASURE**
+
+Deep beneath the Keel mines.
+
+Bi11bot quietly studies the map.
+
+---
+
+Bi11bot
+
+Well...
+
+Alex...shall we find out whether your father was brilliant...
+
+...or completely mad?
+
+---
+
+---
+
+Alex
+
+**I**'m not convinced any of this is real.
+
+Bi11bot
+
+Good.”
+
+“Your father always said certainty was where mistakes began.”
+
+&nbsp;
+
+**Panel 6**
+
+Inside a minimalist control room in Oasis—
+
+Only a hand is visible.
+
+A woman watches a single monitor.
+
+The screen reads:
+
+**B1 NODE ACTIVE**
+
+Below it:
+
+**AUTHORIZED LEGACY DETECTED**
+
+The woman says only one line.
+
+---
+
+Unknown Woman
+
+So, you finally found him.
+
+---
+
+She presses one button.
+
+Caption:
+
+Track
+
+---
+
+**Final Caption**
+
+**END OF CHAPTER ONE**
+
+---
+
+**Emotional Arc**
+
+This page transforms the story.
+
+Alex begins the chapter believing he inherited only debt.
+
+He ends the chapter having inherited:
+
+* a mentor
+
+* a mystery
+
+* a mission
+
+* and perhaps the truth about his father.
+
+The reader closes the chapter believing they are about to read a story about uncovering the past.
+
+In reality, they are about to witness a story about earning the right to shape the future.
+
+---
+
+**Writers' Room Discussion Points**
+
+**The Chapter Structure**
+
+Stepping back, I think Chapter One now has a satisfying narrative progression:
+
+* **Page 1:** The world and the wound.
+
+* **Page 2:** The heart and the hope.
+
+* **Page 3:** The hidden past.
+
+* **Page 4:** The call to adventure.
+
+---
+
+I also have one recommendation for the long-term development process. As the story evolves, we should maintain a separate **"Story Bible"** alongside the script. It would capture the canonical details of the world, timeline, characters, artifacts, themes, recurring symbols, Easter eggs, and transmedia links. Every time we finalize a chapter, we update the Story Bible before moving to the next. By the time we finish all six chapters, we'll have both a polished graphic novel and a comprehensive reference that will keep the Minecraft experience, AI mentor, missions, and future campaigns narratively consistent. I think that discipline will pay enormous dividends as the Evoke universe continues to grow.

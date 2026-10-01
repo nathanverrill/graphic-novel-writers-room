@@ -1,0 +1,84 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Colorado constructed wetland and downstream channel. Water is visibly clearer, but the inlet gate is nearly closed and the system looks finite. Leave upper-left for a location caption and lower-left for the clarity metric."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "A survey tray holds aquatic invertebrates beside a monitor showing a dated pilot survey and increased count. A separate warning marks finite wetland capacity. Leave upper-right for the survey metric and lower-right for the warning."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A wall screen shows Croft beside his son's treatment schedule. The son appears only as a pale hand beneath hospital bedding behind a privacy partition. Leave upper-left for Croft's dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Back in Nexus, Sitara and Roman watch the recording, divided by the archive case. Leave upper-left for Croft's final dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO DOWNSTREAM STATION"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "CLARITY INDEX: 41 \u2192 68"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-right",
+      "text": "DOWNSTREAM TAXA: 3 \u2192 11"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "WETLAND FLOW CAPACITY: FINITE"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You want to stop the work that made this possible.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You knew it was useful. You knew it was controlled. Why is it wrong only now?",
+      "at": "top-left"
+    }
+  ]
+}

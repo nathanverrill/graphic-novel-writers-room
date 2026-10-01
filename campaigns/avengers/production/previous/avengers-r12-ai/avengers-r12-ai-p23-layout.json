@@ -1,0 +1,78 @@
+{
+  "page": 23,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Croft appears on a recorded board-and-contract call. His medical-alert bracelet and his son's continuing treatment schedule sit beside the screen. A board message offers CSG the choice to block the interim contract. Leave upper-left for the board caption."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Croft reads the clause. His face remains composed but exhausted; one hand closes around the bracelet. Leave the top third for his dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Croft signs a narrow authorization allowing the interim public contract to continue while surrendering CSG's exclusive operating frame. Leave upper-left and lower-left for two captions."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The board screen goes dark. Croft remains alone beside the unsigned treatment schedule, indicating continuing critical illness and uncertainty, never death or cure. Leave lower-left for his final dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "BOARD MESSAGE: ASSERT PROPRIETARY CONTROL / SUSPEND PUBLIC OPERATION"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "If I block this, the water stops improving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CSG WILL NOT BLOCK THE INTERIM PUBLIC CONTRACT"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "CSG WITHDRAWS EXCLUSIVE OPERATING FRAME"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "Keep the pilot running.",
+      "at": "bottom-left"
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme wide",
+          "angle": "high",
+          "horizon": 25,
+          "description": "HIMALAYAS, 2042 \u2014 NIGHT. Roman hangs half-buried in a blue-white crevasse while his small silver Terrain Jumper descends on articulated legs. Lightning disrupts the machine's sensor housing. No glowing neural connection. Leave upper-left sky clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 55,
+          "description": "HIMALAYAS, 2026 \u2014 DAY. Seen from behind six-year-old Sitara on a high stone step, floodwater carries a cooking pot and a child's red sweater past her while an indistinct adult hand pulls her away. Keep faces and cultural details nonspecific. Leave upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "establishing wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "ANTARCTICA, 2046 \u2014 DAY. Vast blue-white ice, distant ridges, warning flags, a dark unstable zone, and a half-buried sensor tripod. Sitara stands lower right beside her separate small silver field TJ; Nayah stands behind and left holding the route line. Leave upper-left snowfield clear."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "low",
+          "horizon": 18,
+          "description": "Sitara's insulated boot hovers just short of the flagged line. The sensor's red status light blinks beyond it while a geometric tremor advances beneath translucent blue ice. Leave upper-left for dialogue and upper-right for the sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "HIMALAYAS, 2042 \u2014 NIGHT."
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-right",
+      "text": "HIMALAYAS, 2026 \u2014 DAY."
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "ANTARCTICA, 2046 \u2014 DAY."
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara. Stop there.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It\u2019s still recording.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "large",
+      "x": 82,
+      "y": 38,
+      "breakout": true
+    }
+  ]
+}

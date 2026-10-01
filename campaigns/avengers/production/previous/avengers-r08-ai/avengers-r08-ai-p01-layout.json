@@ -1,0 +1,114 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "high",
+          "horizon": 25,
+          "description": "HIMALAYAS, 2042 \u2014 NIGHT. A narrow blue-white crevasse under a black sky. Roman Ashford hangs half-buried in snow against the ice, one gloved hand locked around a climbing line, while his small silver Terrain Jumper descends toward him on articulated legs. Lightning forks above the glacier. Keep the upper-left sky empty for the location caption and leave the rest of the panel free of lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 55,
+          "description": "HIMALAYAS, 2026 \u2014 DAY. Seen from behind six-year-old Sitara on a high stone step, floodwater tears across the lower edge carrying a cooking pot and a child\u2019s red sweater. An indistinct adult hand pulls her back from the water. Keep faces, architecture, and cultural details nonspecific and tactile. Leave the upper-right area clear for the location caption."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 42,
+          "bleed": true,
+          "description": "ANTARCTICA, 2046 \u2014 DAY. Vast blue-white ice and distant snow ridges surround a dark unstable zone marked by warning flags. Sitara Lhakpa is a 26-year-old Nepali woman of average height with a lean, capable field-scientist\u2019s build, a narrow oval face, dark brown eyes, and dark brown hair (`#483c32`) worn in a ponytail or two braids, smooth and straight with messy strands framing her face; skin tone `#a67b5b`. She wears a dark brown mala-bead necklace, mostly covered by her jacket. In Antarctica, her repeated field silhouette is a puffy red jacket, usually hood down, waterproof pants, beanie, warm waterproof boots and thermal snow goggles. Her signature detail is the partly concealed dark brown mala-bead necklace. She has no physical consequences from the 2026 disaster and must always be drawn as a physically uninjured 26-year-old adult. Nayah is a 30-year-old conservation scientist of average-to-tall height with a strong, steady field-command build, a composed face, dark brown eyes, dark brown hair (`#321414`) worn in two long, smooth braids, and skin tone `#785134`. She wears cyan circular earrings partly hidden by her braids. Her repeated Antarctic silhouette is a puffy yellow jacket, usually hood down, waterproof black pants, beanie, warm waterproof boots and thermal snow goggles. Her signature detail is the pair of cyan circular earrings visible beside her braids. Her nation, community, homeland, cultural practices, spiritual identity and family history remain unspecified. Sitara\u2019s TJ unit is a distinct approximately 249-gram Terrain Jumper search-and-rescue and heat-mapping scout at small-dog scale, with seamless silver panels, a compact sensor body, four articulated legs, a green-black display with buttons on the right side of its ribs, small electronic eyes, and recurring red Antarctic booties made from jacket material. It is never drawn as a large stereotypical robot dog. Its signature detail is the thermal-sensing aperture beneath its faceplate, which glows only as a restrained amber reflection on nearby ice and never as a magical aura. Stage Sitara and her TJ in the lower-right foreground, Nayah just behind and left of her, and the half-buried sensor tripod beyond the flagged zone. A hairline fracture cuts across the snow toward the sensor. Leave the upper-left sky clear for the location caption and leave the upper air immediately above and slightly left of Nayah open for her balloon."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "low",
+          "horizon": 18,
+          "description": "Ground-level detail in the Antarctic field. Sitara\u2019s insulated boot hovers just short of the flagged line. Beyond it, the sensor\u2019s red status light blinks. Beneath translucent blue ice, a faint geometric tremor travels toward the boot. Crop out faces; make the boot, warning line, sensor light, and advancing fracture the only necessary information. Leave the upper-right snowfield clear for the sound effect and the upper-left edge clear for Sitara\u2019s speech balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "HIMALAYAS, 2042 \u2014 NIGHT."
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-right",
+      "text": "HIMALAYAS, 2026 \u2014 DAY."
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "ANTARCTICA, 2046 \u2014 DAY."
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Sitara",
+      "at": "bottom-right",
+      "size": 78,
+      "pose": "standing",
+      "facing": "left"
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Nayah",
+      "at": "bottom-left",
+      "size": 74,
+      "pose": "standing",
+      "facing": "right"
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Sitara\u2019s TJ",
+      "at": "bottom-right",
+      "size": 20,
+      "pose": "standing",
+      "facing": "left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara. Stop there.",
+      "x": 35,
+      "y": 22
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It\u2019s still recording.",
+      "at": "top-left"
+    }
+  ]
+}

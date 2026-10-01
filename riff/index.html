@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riff</title>
+<style>
+:root{
+  --bg:#131217; --panel:#1c1a23; --line:#2f2c3a; --ink:#ebe8f0; --muted:#9a93aa;
+  --accent:#9b7fd4; --danger:#e07070; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,sans-serif;
+  height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;margin:0;font-weight:600;letter-spacing:.02em}
+header .spacer{flex:1}
+select,button,textarea{font:inherit;color:inherit}
+select{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:disabled{opacity:.5;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:#151021;font-weight:600}
+.note{color:var(--muted);font-size:.8rem}
+.layout{flex:1;display:flex;min-height:0}
+aside{width:260px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0}
+aside .head{padding:12px 14px 4px;display:flex;align-items:center;justify-content:space-between}
+aside h2{font-size:.72rem;margin:0;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.minis{display:flex;gap:5px}
+.mini{padding:2px 9px;font-size:.9rem;border-radius:7px;line-height:1.4}
+.mini:hover{border-color:var(--accent);color:var(--accent)}
+.addlink{background:none;border:none;color:var(--muted);font-size:.8rem;text-align:left;
+  padding:2px 16px 10px;cursor:pointer}
+.addlink:hover{color:var(--accent);border:none}
+aside .list{flex:1;overflow-y:auto;padding:6px 8px;display:flex;flex-direction:column;gap:3px}
+.fitem{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.fitem:hover{background:var(--panel)}
+.fitem .ic{flex:none;font-size:.8rem;width:16px;text-align:center;color:var(--muted)}
+.fitem .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fitem .x{border:none;background:none;color:var(--muted);padding:0 4px;font-size:1rem}
+.fitem .x:hover{color:var(--danger)}
+aside .addwrap{padding:8px}
+aside .addwrap button{width:100%}
+main{flex:1;display:flex;flex-direction:column;min-height:0}
+.thread{flex:1;overflow-y:auto;padding:16px}
+.col{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+.msg{max-width:90%}
+.msg.user{align-self:flex-end;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px 12px 4px 12px;padding:9px 13px;white-space:pre-wrap}
+.msg.bot{align-self:flex-start}
+.msg.bot > *:first-child{margin-top:0}
+.msg.bot > *:last-child{margin-bottom:0}
+.msg.bot p{margin:.45em 0}
+.msg.bot ul,.msg.bot ol{margin:.45em 0;padding-left:1.35em}
+.msg.bot li{margin:.15em 0}
+.msg.bot h1,.msg.bot h2,.msg.bot h3,.msg.bot h4{font-size:1.02em;margin:.8em 0 .3em}
+.msg.bot code{font-family:ui-monospace,monospace;font-size:.87em;background:var(--panel);
+  padding:.08em .35em;border-radius:4px}
+.msg.bot pre{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+  padding:10px 12px;overflow-x:auto}
+.msg.bot pre code{background:none;padding:0}
+.msg.bot blockquote{margin:.5em 0;padding-left:12px;border-left:3px solid var(--line);color:var(--muted)}
+.msg.bot table{border-collapse:collapse;font-size:.9em;margin:.5em 0}
+.msg.bot th,.msg.bot td{border:1px solid var(--line);padding:4px 9px;text-align:left}
+.msg.bot a{color:var(--accent)}
+.msg.bot hr{border:none;border-top:1px solid var(--line);margin:.8em 0}
+.mdread{max-width:100%;max-height:52vh;overflow-y:auto;border:1px solid var(--line);
+  border-radius:8px;padding:12px 14px;background:var(--bg);font-size:.92rem}
+.compbar{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.msg.err{align-self:flex-start;color:var(--danger)}
+.msg.wait{align-self:flex-start;color:var(--muted);font-style:italic}
+.sugg{align-self:flex-start;width:100%;max-width:100%;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.sugg .t{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.srow{display:flex;gap:9px;align-items:flex-start;font-size:.92rem}
+.srow input{margin-top:3px;accent-color:var(--accent)}
+.srow .body{flex:1}
+.srow .st{font-weight:600}
+.srow .sf{color:var(--accent);font-size:.78rem;font-family:ui-monospace,monospace;margin-left:6px}
+.srow .sc{color:var(--muted);font-size:.86rem}
+.srow .status{font-size:.8rem;margin-top:2px}
+.srow .status.ok{color:#6fb56d}
+.srow .status.err{color:var(--danger)}
+.sugg .actions{display:flex;gap:10px;align-items:center}
+.logrow{display:flex;gap:10px;align-items:baseline;padding:7px 2px;border-bottom:1px solid var(--line);font-size:.9rem}
+.logrow .lf{color:var(--accent);font-family:ui-monospace,monospace;font-size:.78rem;flex:none}
+.logrow .lt{flex:1}
+.logrow .ld{color:var(--muted);font-size:.75rem;flex:none}
+.vopt{display:block;width:100%;text-align:left;padding:9px 12px;font-size:.92rem;cursor:pointer;margin-bottom:6px}
+.vopt:hover{border-color:var(--accent)}
+.vopt.done{border-color:var(--accent)}
+.pills{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.pills button{font-size:.78rem;padding:3px 10px;border-radius:999px}
+.pills button.cur{background:var(--accent);border-color:var(--accent);color:#151021;font-weight:600}
+#v-body details{margin-top:8px;color:var(--muted);font-size:.85rem}
+#v-body details p{white-space:pre-wrap;margin:6px 0 0}
+.hello{color:var(--muted);text-align:center;margin-top:6vh}
+.hello h2{color:var(--ink);font-weight:600}
+footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-area-inset-bottom,0px))}
+.inner{max-width:760px;margin:0 auto;display:flex;gap:8px;align-items:flex-end}
+#box{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;
+  resize:none;min-height:44px;max-height:180px}
+#box:focus{outline:none;border-color:var(--accent)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;
+  padding:20px;max-width:720px;width:94vw}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin:0 0 8px;word-break:break-all}
+dialog p{color:var(--muted);font-size:.88rem;margin:4px 0 12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;font:inherit;color:inherit}
+dialog textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;
+  min-height:52vh;resize:vertical;font:.85rem/1.5 ui-monospace,monospace}
+dialog img{max-width:100%;max-height:60vh;display:block;margin:0 auto;border-radius:8px}
+dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:10px}
+@media (max-width:760px){
+  .layout{flex-direction:column;overflow-y:auto}
+  aside{width:auto;border-right:none;border-bottom:1px solid var(--line);max-height:34vh}
+  main{overflow:visible}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.0/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.8/purify.min.js"></script>
+</head>
+<body>
+<header>
+  <h1>Riff</h1>
+  <select id="camp" title="Which book you're riffing on">
+    <option value="avalanche">Avalanche</option>
+    <option value="avalanche-2">Avalanche 2</option>
+    <option value="avengers">Avengers</option>
+    <option value="prosperity">Prosperity</option>
+    <option value="worldbuilding">Worldbuilding</option>
+  </select>
+  <span class="note">pre-production is the draft &mdash; make it better</span>
+  <span class="spacer"></span>
+  <button id="logbtn" title="Every refinement the team has accepted">Refinements log</button>
+  <button id="newchat">New chat</button>
+  <button id="gear" title="API key">API key</button>
+</header>
+
+<div class="layout">
+<aside>
+  <div class="head"><h2>The material</h2>
+    <span class="minis">
+      <button class="mini" id="addf" title="Add files (.md, images&hellip;)">&#65291;</button>
+      <button class="mini" id="compbtn" title="Compile everything into one .md to copy out, or save a synthesized version">&#10515;</button>
+      <button class="mini" id="synthbtn" title="Synthesize: fold the accepted refinements into the drafts, then archive them">&#9889;</button>
+    </span></div>
+  <div class="list" id="flist"></div>
+  <input type="file" id="fpick" accept=".md,.txt,image/*" multiple hidden>
+  <div class="head"><h2>Visualizations</h2>
+    <button class="mini" id="vizbtn" title="Visualize: infographics and pages from the material and refinements">&#10024;</button></div>
+  <div class="list" id="vlist" style="flex:none;max-height:34%"></div>
+</aside>
+
+<main>
+  <div class="thread"><div class="col" id="chat">
+    <div class="hello" id="hello"><h2>What should be better?</h2>
+      <p>The room finished pre-production &mdash; everything in the sidebar is draft.<br>
+      Ask anything: <i>make Croft scarier</i> &middot; <i>what&rsquo;s weak in chapter two?</i> &middot; <i>pitch three better openings</i>.<br>
+      Click a file to read or edit it. Add images and refer to them by name.</p></div>
+  </div></div>
+  <footer><div class="inner">
+    <textarea id="box" rows="1" placeholder="Brainstorm with the material&hellip;"></textarea>
+    <button class="primary" id="send">Send</button>
+  </div></footer>
+</main>
+</div>
+
+<dialog id="settings">
+  <h3>API key</h3>
+  <p>Paste an OpenRouter key once &mdash; it&rsquo;s stored on the server and everyone here shares it.</p>
+  <input id="s-key" type="password" placeholder="sk-or-...">
+  <p class="note" id="s-msg"></p>
+  <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<dialog id="synthdlg">
+  <h3>Synthesize</h3>
+  <p id="synthinfo">Folds every accepted refinement into the draft files so the material is one clean current state; the refinements and the prior drafts are archived, and a fresh empty pass begins.</p>
+  <div id="synthstatus" class="note" style="white-space:pre-line"></div>
+  <div class="end"><button id="synth-close">Close</button><button class="primary" id="synth-go">Synthesize</button></div>
+</dialog>
+
+<dialog id="vizdlg">
+  <h3>Visualize</h3>
+  <p>Rendered from the current material <b>and the refinements</b> by the same Sunburst model as Easel &mdash; each run saves a new version, and a copy with its prompt lands in the team&rsquo;s Easel gallery. Hit one, then render the others.</p>
+  <div id="vizhint" class="note" style="margin-bottom:8px" hidden></div>
+  <button class="vopt" data-vk="info"><b>Infographic</b> &mdash; the whole book at a glance</button>
+  <button class="vopt" data-vk="beats"><b>Story beats</b> &mdash; the key moments on the hero&rsquo;s journey</button>
+  <button class="vopt" data-vk="world"><b>The world</b> &mdash; settings, sites and institutions</button>
+  <button class="vopt" data-vk="cast"><b>The cast</b> &mdash; the characters, to their visual locks</button>
+  <button class="vopt" data-vk="settings"><b>Key settings</b> &mdash; the places the story returns to</button>
+  <button class="vopt" data-vk="pages"><b>Graphic novel pages</b> &mdash; one rendered page per beat (takes a few minutes)</button>
+  <div id="vizstatus" class="note" style="margin-top:10px;white-space:pre-line"></div>
+  <div class="end"><button id="viz-close">Close</button></div>
+</dialog>
+
+<dialog id="logdlg">
+  <h3>Refinements log</h3>
+  <p>Every refinement this team has accepted, newest first. The draft files stay untouched as the current state.</p>
+  <div id="logbody"></div>
+  <div class="end"><button id="log-close">Close</button></div>
+</dialog>
+
+<dialog id="viewer">
+  <h3 id="v-name"></h3>
+  <div id="v-body"></div>
+  <div class="end"><button id="v-cancel">Close</button><button class="primary" id="v-save" hidden>Save changes</button></div>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const chat = $("chat"), box = $("box");
+let configured = false, camp = localStorage.getItem("riff-camp") || "avalanche";
+let history = [];
+$("camp").value = camp;
+
+const chatKey = () => "riff-chat-" + camp;
+function loadChat(){
+  try { history = JSON.parse(localStorage.getItem(chatKey()) || "[]"); } catch { history = []; }
+  chat.innerHTML = "";
+  if (!history.length){
+    chat.innerHTML = `<div class="hello"><h2>What should be better?</h2>
+      <p>The room finished pre-production — everything in the sidebar is draft.<br>
+      Ask anything: <i>make the villain scarier</i> · <i>what’s weak in chapter two?</i> · <i>pitch three better openings</i>.</p></div>`;
+  } else history.forEach(m => {
+    add(bubble(m.role === "user" ? "user" : "bot", m.content));
+    if (m.sugg?.length) add(suggCard(m.sugg, m.applied || {}));
+  });
+}
+const saveChat = () => { try { localStorage.setItem(chatKey(), JSON.stringify(history.slice(-60))) } catch {} };
+
+fetch("/api/config").then(r => r.json()).then(c => {
+  configured = !!c.configured;
+  if (!configured) $("settings").showModal();
+});
+
+$("camp").onchange = () => {
+  camp = $("camp").value;
+  localStorage.setItem("riff-camp", camp);
+  files(); loadViz(); loadChat(); box.focus();
+};
+
+async function files(){
+  const list = await (await fetch(`/api/${camp}/files`)).json();
+  const el = $("flist"); el.textContent = "";
+  if (!list.length){ const e = document.createElement("div"); e.className = "note"; e.style.padding = "4px 8px";
+    e.textContent = "nothing here yet"; el.append(e); }
+  list.forEach(f => {
+    const d = document.createElement("div"); d.className = "fitem";
+    d.innerHTML = `<span class="ic"></span><span class="n"></span><button class="x" title="Remove">×</button>`;
+    d.querySelector(".ic").textContent = f.image ? "▣" : "¶";
+    d.querySelector(".n").textContent = f.name;
+    d.querySelector(".n").onclick = () => open(f);
+    d.querySelector(".ic").onclick = () => open(f);
+    d.querySelector(".x").onclick = async e => {
+      e.stopPropagation();
+      await fetch(`/api/${camp}/file/` + encodeURIComponent(f.name), {method: "DELETE"});
+      files();
+    };
+    el.append(d);
+  });
+}
+
+async function open(f){
+  $("v-name").textContent = f.name;
+  const body = $("v-body"); body.textContent = "";
+  if (f.image){
+    $("v-save").hidden = true;
+    const img = document.createElement("img");
+    img.src = `/api/${camp}/file/` + encodeURIComponent(f.name);
+    body.append(img);
+  } else {
+    const j = await (await fetch(`/api/${camp}/file/` + encodeURIComponent(f.name))).json();
+    const ta = document.createElement("textarea"); ta.value = j.text; ta.spellcheck = false;
+    body.append(ta);
+    $("v-save").hidden = false;
+    $("v-save").onclick = async () => {
+      await fetch(`/api/${camp}/file`, {method: "POST", headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({name: f.name, text: ta.value})});
+      $("viewer").close(); files();
+    };
+  }
+  $("viewer").showModal();
+}
+$("v-cancel").onclick = () => $("viewer").close();
+
+$("addf").onclick = () => $("fpick").click();
+$("fpick").onchange = async () => {
+  for (const f of $("fpick").files){
+    let body;
+    if (f.type.startsWith("image/")){
+      body = await new Promise(res => { const r = new FileReader();
+        r.onload = () => res({name: f.name, image: r.result}); r.readAsDataURL(f); });
+    } else body = {name: f.name.replace(/\.txt$/, ".md"), text: await f.text()};
+    const r = await fetch(`/api/${camp}/file`, {method: "POST",
+      headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
+    if (!r.ok) alert(f.name + ": " + ((await r.json().catch(() => ({}))).detail || "failed"));
+  }
+  $("fpick").value = ""; files();
+};
+
+function add(el){ $("hello")?.remove(); chat.append(el); el.scrollIntoView({block: "end"}); return el; }
+function bubble(cls, text){
+  const d = document.createElement("div"); d.className = "msg " + cls;
+  if (cls === "bot" && window.marked && window.DOMPurify){
+    d.innerHTML = DOMPurify.sanitize(marked.parse(text));
+  } else d.textContent = text;
+  return d;
+}
+function autosize(){ box.style.height = "auto"; box.style.height = Math.min(box.scrollHeight, 180) + "px"; }
+box.addEventListener("input", autosize);
+box.addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); send(); } });
+$("send").onclick = send;
+$("newchat").onclick = () => { history = []; saveChat(); loadChat(); box.focus(); };
+
+async function send(){
+  const text = box.value.trim(); if (!text) return;
+  if (!configured){ $("settings").showModal(); return; }
+  box.value = ""; autosize();
+  add(bubble("user", text));
+  history.push({role: "user", content: text}); saveChat();
+  const wait = add(bubble("wait", "thinking with the material…"));
+  $("send").disabled = true;
+  try {
+    const r = await fetch(`/api/${camp}/chat`, {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({messages: history})});
+    const j = await r.json().catch(() => ({}));
+    wait.remove();
+    if (!r.ok) throw new Error(j.detail || ("HTTP " + r.status));
+    const m = {role: "assistant", content: j.reply, sugg: j.suggestions || [], applied: {}};
+    history.push(m); saveChat();
+    add(bubble("bot", j.reply));
+    if (m.sugg.length) add(suggCard(m.sugg, m.applied));
+  } catch (e){ wait.remove(); history.pop(); saveChat(); add(bubble("err", String(e.message || e))); }
+  $("send").disabled = false; box.focus();
+}
+
+// suggestions: check what you want, apply, watch each file update
+function suggCard(sugg, applied){
+  const card = document.createElement("div"); card.className = "sugg";
+  card.innerHTML = `<span class="t">Suggested updates</span>`;
+  const rows = sugg.map((s, i) => {
+    const r = document.createElement("div"); r.className = "srow";
+    r.innerHTML = `<input type="checkbox"><div class="body"><span class="st"></span>` +
+      `<span class="sf"></span><div class="sc"></div><div class="status"></div></div>`;
+    r.querySelector(".st").textContent = s.title || "Update";
+    r.querySelector(".sf").textContent = s.file;
+    r.querySelector(".sc").textContent = s.change;
+    const st = r.querySelector(".status"), cb = r.querySelector("input");
+    if (applied[i]){ st.textContent = applied[i]; st.className = "status ok"; cb.checked = true; cb.disabled = true; }
+    else cb.checked = true;
+    card.append(r);
+    return {row: r, cb, st, s, i};
+  });
+  const act = document.createElement("div"); act.className = "actions";
+  const btn = document.createElement("button"); btn.className = "primary";
+  btn.textContent = "Accept selected";
+  const note = document.createElement("span"); note.className = "note";
+  act.append(btn, note); card.append(act);
+  if (rows.every(x => x.cb.disabled)) btn.disabled = true;
+  btn.onclick = async () => {
+    const todo = rows.filter(x => x.cb.checked && !x.cb.disabled);
+    if (!todo.length) return;
+    btn.disabled = true;
+    let done = 0, failed = 0;
+    for (const x of todo){
+      note.textContent = `saving ${done + failed + 1} of ${todo.length} to refinements…`;
+      try {
+        const r = await fetch(`/api/${camp}/apply`, {method: "POST",
+          headers: {"Content-Type": "application/json"}, body: JSON.stringify(x.s)});
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(j.detail || r.status);
+        x.st.textContent = "accepted ✓"; x.st.className = "status ok"; x.cb.disabled = true;
+        applied[x.i] = x.st.textContent; saveChat();
+        done++;
+      } catch (e){
+        x.st.textContent = "failed: " + (e.message || e); x.st.className = "status err";
+        btn.disabled = false; failed++;
+      }
+    }
+    note.textContent = failed
+      ? `${done} accepted, ${failed} failed — retry the red ones`
+      : `✓ ${done} saved to refinements.md — the drafts stay as-is, and the chat builds on these from here`;
+    files();
+  };
+  return card;
+}
+
+$("logbtn").onclick = async () => {
+  const body = $("logbody"); body.textContent = "loading…";
+  $("logdlg").showModal();
+  const log = await (await fetch(`/api/${camp}/log`)).json();
+  body.textContent = "";
+  if (!log.length) body.textContent = "Nothing applied yet.";
+  log.forEach(e => {
+    const d = document.createElement("div"); d.className = "logrow";
+    d.innerHTML = `<span class="lf"></span><span class="lt"></span><span class="ld"></span>`;
+    d.querySelector(".lf").textContent = e.file;
+    d.querySelector(".lt").textContent = e.title || e.change.slice(0, 80);
+    d.querySelector(".lt").title = e.change;
+    d.querySelector(".ld").textContent = new Date(e.ts * 1000).toLocaleString([], {month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+    body.append(d);
+  });
+};
+$("log-close").onclick = () => $("logdlg").close();
+
+// visualizations: versioned infographics from material + refinements
+async function loadViz(){
+  const list = await (await fetch(`/api/${camp}/viz`)).json();
+  const el = $("vlist"); el.textContent = "";
+  if (!list.length){ const e = document.createElement("div"); e.className = "note"; e.style.padding = "4px 8px";
+    e.textContent = "none yet — hit Visualize"; el.append(e); }
+  list.forEach(v => {
+    const d = document.createElement("div"); d.className = "fitem";
+    d.innerHTML = `<span class="ic">◈</span><span class="n"></span><span class="note"></span>`;
+    d.querySelector(".n").textContent = v.title;
+    d.querySelector(".note").textContent = "v" + v.versions.length;
+    d.onclick = () => openViz(v, v.versions[0]);
+    el.append(d);
+  });
+}
+async function openViz(v, ts){
+  $("v-name").textContent = v.title;
+  const body = $("v-body"); body.textContent = "";
+  $("v-save").hidden = true;
+  const pills = document.createElement("div"); pills.className = "pills";
+  v.versions.forEach((t, i) => {
+    const p = document.createElement("button");
+    p.textContent = "v" + (v.versions.length - i);
+    p.className = t === ts ? "cur" : "";
+    p.onclick = () => openViz(v, t);
+    pills.append(p);
+  });
+  const img = document.createElement("img");
+  img.src = `/api/${camp}/viz/${v.kind}/${ts}`;
+  body.append(pills, img);
+  try {
+    const meta = await (await fetch(`/api/${camp}/viz/${v.kind}/${ts}/meta`)).json();
+    if (meta.prompt){
+      const det = document.createElement("details");
+      det.innerHTML = "<summary>the prompt behind it</summary><p></p>";
+      det.querySelector("p").textContent = meta.prompt;
+      body.append(det);
+    }
+  } catch {}
+  if (!$("viewer").open) $("viewer").showModal();
+}
+// synthesize: fold refinements into the drafts, archive them, start fresh
+async function pendingInfo(){
+  try { return await (await fetch(`/api/${camp}/pending`)).json(); }
+  catch { return {decisions: 0, targets: []}; }
+}
+$("synthbtn").onclick = async () => {
+  $("synthstatus").textContent = "checking…";
+  $("synthdlg").showModal();
+  const p = await pendingInfo();
+  $("synthstatus").textContent = p.decisions
+    ? `${p.decisions} accepted refinements pending, targeting: ${p.targets.join(", ")}`
+    : "nothing pending — the drafts are already current";
+  $("synth-go").disabled = !p.decisions;
+};
+$("synth-close").onclick = () => $("synthdlg").close();
+$("synth-go").onclick = async () => {
+  if (!configured){ $("settings").showModal(); return; }
+  const st = $("synthstatus");
+  $("synth-go").disabled = true; $("send").disabled = true;
+  const p = await pendingInfo();
+  let ok = 0, bad = 0;
+  const state = Object.fromEntries(p.targets.map(f => [f, "⏳ rewriting…"]));
+  const draw = () => { st.textContent = p.targets.map(f => `${f}: ${state[f]}`).join("\n"); };
+  draw();
+  await Promise.all(p.targets.map(async f => {     // each rewrites only its own file
+    try {
+      const r = await fetch(`/api/${camp}/synthesize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({file: f})});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      const d = j.chars_after - j.chars_before;
+      state[f] = `✓ done (${d >= 0 ? "+" : ""}${d} chars)`; ok++;
+    } catch (e){ state[f] = "✗ " + (e.message || e); bad++; }
+    draw();
+  }));
+  const out = p.targets.map(f => `${f}: ${state[f]}`);
+  if (ok && !bad){
+    await fetch(`/api/${camp}/synthesize-finish`, {method: "POST"});
+    st.textContent = `✓ ${ok} files updated. Refinements archived — a fresh pass begins.\n` + out.join("\n");
+  } else if (bad){
+    st.textContent = `${ok} updated, ${bad} failed — refinements kept (not archived). Retry.\n` + out.join("\n");
+    $("synth-go").disabled = false;
+  }
+  $("send").disabled = false;
+  files(); loadViz();
+};
+
+// the compiled canon: one .md of everything, to copy out or save as a version
+async function foldAll(){
+  const p = await pendingInfo();
+  if (!p.decisions) return {ok: 0, bad: 0};
+  let ok = 0, bad = 0;
+  await Promise.all(p.targets.map(async f => {
+    try {
+      const r = await fetch(`/api/${camp}/synthesize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({file: f})});
+      if (!r.ok) throw 0;
+      ok++;
+    } catch { bad++; }
+  }));
+  if (ok && !bad) await fetch(`/api/${camp}/synthesize-finish`, {method: "POST"});
+  files();
+  return {ok, bad};
+}
+$("compbtn").onclick = () => openCompile(null);
+async function openCompile(ts){
+  $("v-name").textContent = "Compiled canon — " + $("camp").selectedOptions[0].text;
+  $("v-save").hidden = true;
+  const body = $("v-body"); body.textContent = "compiling…";
+  if (!$("viewer").open) $("viewer").showModal();
+  const [versions, doc] = await Promise.all([
+    (await fetch(`/api/${camp}/compiled`)).json(),
+    (await fetch(ts ? `/api/${camp}/compiled/${ts}` : `/api/${camp}/compile`)).json(),
+  ]);
+  body.textContent = "";
+  const bar = document.createElement("div"); bar.className = "compbar";
+  const copy = document.createElement("button"); copy.textContent = "Copy .md";
+  copy.onclick = async () => {
+    try { await navigator.clipboard.writeText(doc.text); copy.textContent = "copied ✓"; }
+    catch { copy.textContent = "copy failed — select below"; }
+    setTimeout(() => copy.textContent = "Copy .md", 2500);
+  };
+  const save = document.createElement("button"); save.className = "primary";
+  save.textContent = "Save version";
+  const st = document.createElement("span"); st.className = "note";
+  save.onclick = async () => {
+    save.disabled = true;
+    st.textContent = "synthesizing…";
+    const r = await foldAll();
+    if (r.bad){ st.textContent = "synthesis failed on " + r.bad + " file(s) — not saved"; save.disabled = false; return; }
+    st.textContent = "saving…";
+    const j = await (await fetch(`/api/${camp}/compile/save`, {method: "POST"})).json();
+    st.textContent = "✓ saved";
+    openCompile(j.ts);
+  };
+  bar.append(copy, save, st);
+  const pills = document.createElement("div"); pills.className = "pills";
+  const lp = document.createElement("button"); lp.textContent = "live";
+  lp.className = ts ? "" : "cur"; lp.onclick = () => openCompile(null);
+  pills.append(lp);
+  versions.forEach((t, i) => {
+    const p = document.createElement("button");
+    p.textContent = "v" + (versions.length - i);
+    p.className = t === ts ? "cur" : "";
+    p.title = new Date(t).toLocaleString();
+    p.onclick = () => openCompile(t);
+    pills.append(p);
+  });
+  const view = document.createElement("div"); view.className = "msg bot mdread";
+  if (window.marked && window.DOMPurify) view.innerHTML = DOMPurify.sanitize(marked.parse(doc.text));
+  else { view.style.whiteSpace = "pre-wrap"; view.textContent = doc.text; }
+  body.append(bar, pills, view);
+}
+
+$("vizbtn").onclick = async () => {
+  $("vizstatus").textContent = ""; $("vizdlg").showModal();
+  const p = await pendingInfo();
+  $("vizhint").hidden = !p.decisions;
+  if (p.decisions){
+    $("vizhint").innerHTML = "";
+    const b = document.createElement("button"); b.textContent = "↻ Synthesize first";
+    b.onclick = () => { $("vizdlg").close(); $("synthbtn").click(); };
+    $("vizhint").append(document.createTextNode(`${p.decisions} refinements pending — visuals will honor them, but folding them in first cuts the noise. `), b);
+  }
+};
+$("viz-close").onclick = () => $("vizdlg").close();
+document.querySelectorAll(".vopt").forEach(b => { b.onclick = () => runViz(b.dataset.vk, b); });
+async function runViz(kind, btn){
+  if (!configured){ $("settings").showModal(); return; }
+  const st = $("vizstatus");
+  document.querySelectorAll(".vopt").forEach(b => b.disabled = true);
+  try {
+    if (kind === "pages"){
+      st.textContent = "reading the material and naming the beats…";
+      const r = await fetch(`/api/${camp}/beats`, {method: "POST"});
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      st.textContent = j.beats.map(b => `• ${b.name} (${b.stage})`).join("\n");
+      for (let i = 0; i < j.beats.length; i++){
+        const b = j.beats[i];
+        st.textContent = `rendering page ${i + 1} of ${j.beats.length}: ${b.name}…\n` + st.textContent;
+        const rr = await fetch(`/api/${camp}/visualize`, {method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({kind: "page", n: i + 1, beat: b})});
+        const jj = await rr.json().catch(() => ({}));
+        if (!rr.ok){ st.textContent = `page ${i + 1} failed: ${jj.detail || rr.status}\n` + st.textContent; continue; }
+        loadViz();
+      }
+      st.textContent = "✓ pages done — in the list on the left\n" + st.textContent;
+    } else {
+      st.textContent = "writing the prompt from material + refinements…";
+      const t = setTimeout(() => { st.textContent += "\nrendering…"; }, 6000);
+      const r = await fetch(`/api/${camp}/visualize`, {method: "POST",
+        headers: {"Content-Type": "application/json"}, body: JSON.stringify({kind})});
+      clearTimeout(t);
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.detail || r.status);
+      st.textContent = `✓ ${j.title} — saved as a new version, in the list on the left. Render another?`;
+      loadViz();
+    }
+    btn.classList.add("done");
+  } catch (e){ st.textContent = "failed: " + (e.message || e); }
+  document.querySelectorAll(".vopt").forEach(b => b.disabled = false);
+}
+
+$("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
+$("s-cancel").onclick = () => $("settings").close();
+$("s-save").onclick = async () => {
+  const r = await fetch("/api/key", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key: $("s-key").value.trim()})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok){ $("s-msg").textContent = j.detail || "failed"; return; }
+  configured = true; $("s-key").value = "";
+  $("settings").close(); box.focus();
+};
+
+files(); loadViz(); loadChat(); box.focus();
+</script>
+</body>
+</html>

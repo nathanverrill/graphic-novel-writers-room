@@ -1,0 +1,86 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing wide",
+          "angle": "low",
+          "horizon": 35,
+          "bleed": true,
+          "description": "FULL-PAGE SPLASH. Nayah anchors a withdrawal marker and safety line while Sitara steps over the warning flags. The ice slab drops beneath Sitara, exposing a black hatch stamped FALCON and a buried drill housing shuddering below. Sitara grips the ice edge with the recovered sensor; her separate small TJ stands at the hatch. Keep Nayah high left, the hatch central, and the drill low right. Reserve upper-left for Nayah's balloon, upper-right for the TJ balloon, left-middle for a small fracture sound, center-right for the major crack, and lower-right for the drill sound."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Mark the withdrawal route.",
+      "x": 14,
+      "y": 12
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I have it.",
+      "x": 35,
+      "y": 22
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TIK. TIK. TIK.",
+      "size": "small",
+      "x": 13,
+      "y": 39
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Vibration increasing.",
+      "x": 82,
+      "y": 16
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRAK\u2014",
+      "size": "huge",
+      "x": 58,
+      "y": 39
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara!",
+      "x": 17,
+      "y": 56
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THRUMM\u2014THRUMM\u2014THRUMM",
+      "size": "large",
+      "x": 82,
+      "y": 82,
+      "breakout": true
+    },
+    {
+      "panel": 1,
+      "type": "object",
+      "label": "FALCON hatch",
+      "w": 35,
+      "h": 25,
+      "at": "middle"
+    }
+  ]
+}

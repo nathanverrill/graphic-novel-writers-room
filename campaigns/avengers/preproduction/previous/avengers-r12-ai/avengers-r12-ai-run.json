@@ -1,0 +1,487 @@
+{
+  "id": "r12-ai",
+  "kind": "ai",
+  "started": "2026-09-29T22:48:26",
+  "finished": "2026-09-29T22:51:14",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "avengers/drafts/avalanche-draft-with-questions.md": "cf92ef44aaea777f",
+    "avengers/input/amelia.md": "17a719c740583a43",
+    "avengers/input/antagonist-benedict-croft.md": "55759d218ef4776c",
+    "avengers/input/forge-characters.md": "1e008b4e021d39f2",
+    "avengers/input/nemesis-threats.md": "0a7f3e52470ddce7",
+    "avengers/input/open-items.md": "d456c38b548d5272",
+    "avengers/input/seb.md": "b8d9664a260d4be8",
+    "avengers/input/spine-stories.md": "4a6dd4baa4956bbc",
+    "avengers/input/team1-scott-base-background.md": "e78d763ecba34815",
+    "avengers/input/team2-mcmurdo-background.md": "7012e567ad36562d",
+    "avengers/references/team1-scott-base-research.md": "7ed5daf5de3bc3b2",
+    "avengers/references/team2-mcmurdo-research.md": "ca76cedb79809346",
+    "avengers/rules/avengers.md": "afbe771a5c74aefb",
+    "avengers/rules/decisions.md": "07109661e7c917eb",
+    "avengers/rules/extremophiles-colorado.md": "1a341bab1d6df980",
+    "avengers/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "avengers/rules/protagonists.md": "c9845c798ad7965c",
+    "avengers/rules/rules.md": "3aa5e3f35ae23526",
+    "avengers/rules/story-arc.md": "5e761c628255e285",
+    "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md": "457134f952b7fe7b",
+    "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md": "4fdaa4ffbe2e41b0",
+    "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md": "5d467628b30724cf",
+    "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md": "aaf4780dcbffa847",
+    "avengers/rules/worldbuilding/refinements.md": "ef8eadffa0a39541",
+    "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md": "89d25e26cab0caa1",
+    "avengers/rules/worldbuilding/tj_neural_interface_reference.md": "ab0dd819fbf6d801",
+    "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md": "a6154f4615d01953",
+    "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md": "f22a4b3acd5bdec1"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.16434243,
+      "input_tokens": 482234,
+      "cached_tokens": 40819,
+      "image_input_tokens": 0,
+      "output_tokens": 44311,
+      "reasoning_tokens": 776,
+      "total_tokens": 526545
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 6,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.16434243,
+        "input_tokens": 482234,
+        "cached_tokens": 40819,
+        "image_input_tokens": 0,
+        "output_tokens": 44311,
+        "reasoning_tokens": 776,
+        "total_tokens": 526545
+      }
+    }
+  },
+  "run_id": "75d819d88359",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": true,
+    "calls": [
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 399512,
+        "input_tokens_est": 99878,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 45074,
+        "preservation": {
+          "source_chars": 147814,
+          "output_chars": 120377,
+          "mass": 0.814,
+          "terms": 187,
+          "missing": 3,
+          "coverage": 0.984,
+          "substantive_terms": 183,
+          "substantive_coverage": 0.989,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Proposal"
+            ],
+            "named entities": [
+              "Nexus's"
+            ],
+            "on-screen text": [
+              "T-ALL"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 1,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "Nexus's",
+            "Proposal",
+            "T-ALL"
+          ]
+        }
+      },
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 399522,
+        "input_tokens_est": 99880,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 47581,
+        "preservation": {
+          "source_chars": 147814,
+          "output_chars": 120377,
+          "mass": 0.814,
+          "terms": 187,
+          "missing": 3,
+          "coverage": 0.984,
+          "substantive_terms": 183,
+          "substantive_coverage": 0.989,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Proposal"
+            ],
+            "named entities": [
+              "Nexus's"
+            ],
+            "on-screen text": [
+              "T-ALL"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 1,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "Nexus's",
+            "Proposal",
+            "T-ALL"
+          ]
+        }
+      },
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 399512,
+        "input_tokens_est": 99878,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 27720,
+        "preservation": {
+          "source_chars": 147814,
+          "output_chars": 120377,
+          "mass": 0.814,
+          "terms": 187,
+          "missing": 3,
+          "coverage": 0.984,
+          "substantive_terms": 183,
+          "substantive_coverage": 0.989,
+          "dropped_by_kind": {
+            "craft vocabulary": [
+              "Proposal"
+            ],
+            "named entities": [
+              "Nexus's"
+            ],
+            "on-screen text": [
+              "T-ALL"
+            ]
+          },
+          "dropped_counts": {
+            "craft vocabulary": 1,
+            "named entities": 1,
+            "on-screen text": 1
+          },
+          "dropped": [
+            "Nexus's",
+            "Proposal",
+            "T-ALL"
+          ]
+        }
+      },
+      {
+        "call": "4B-again",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 399836,
+        "input_tokens_est": 99959,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 33092
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 392782,
+        "input_tokens_est": 98195,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "open-items.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [
+          "item 1 has no '- why:' line",
+          "item 2 has no '- why:' line",
+          "item 3 has no '- why:' line",
+          "item 4 has no '- why:' line",
+          "item 5 has no '- why:' line",
+          "item 6 has no '- why:' line",
+          "item 7 has no '- why:' line",
+          "item 8 has no '- why:' line",
+          "item 9 has no '- why:' line",
+          "item 10 has no '- why:' line",
+          "item 11 has no '- why:' line",
+          "item 12 has no '- why:' line"
+        ],
+        "output_chars": 7567
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "77e0730cb282d14f",
+        "input_chars": 379237,
+        "input_tokens_est": 94809,
+        "inputs": [
+          "avengers/rules/avengers.md",
+          "avengers/rules/decisions.md",
+          "avengers/rules/extremophiles-colorado.md",
+          "avengers/rules/hard-sf-rules.md",
+          "avengers/rules/protagonists.md",
+          "avengers/rules/rules.md",
+          "avengers/rules/story-arc.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_corporate_reference.md",
+          "avengers/rules/worldbuilding/alpha_dynamics_merritt_station_reference.md",
+          "avengers/rules/worldbuilding/antarctic_extremophiles_reference.md",
+          "avengers/rules/worldbuilding/merritt_station_hidden_knowledge_reference.md",
+          "avengers/rules/worldbuilding/refinements.md",
+          "avengers/rules/worldbuilding/tj_bio_inspired_form_factors_reference.md",
+          "avengers/rules/worldbuilding/tj_neural_interface_reference.md",
+          "avengers/rules/worldbuilding/tj_terrain_jumper_reference.md",
+          "avengers/rules/worldbuilding/tj_two_way_sensing_swarm_reference.md",
+          "characters.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 48170
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "room-log.md"
+    ],
+    "human_modified": [
+      "open-items.md"
+    ],
+    "failed": [],
+    "snapshot": "77e0730cb282d14f",
+    "kept_previous": [
+      "world.md"
+    ],
+    "decisions_integrated": [],
+    "recommendations_taken": [],
+    "notes_applied": [
+      "[HIGH] The worldbuilding documents under rules/worldbuilding/ are canon: keep their loa"
+    ],
+    "deferred": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "pages": []
+}

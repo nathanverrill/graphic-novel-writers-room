@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forge</title>
+<style>
+:root{
+  --bg:#12140f; --panel:#1c1f17; --line:#31352a; --ink:#edeee6; --muted:#9aa08d;
+  --accent:#d9a53f; --accent-dim:#8a6a2a; --danger:#e07070; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,sans-serif;
+  height:100dvh;display:flex;flex-direction:column}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;border-bottom:1px solid var(--line)}
+header h1{font-size:1rem;margin:0;font-weight:600;letter-spacing:.02em}
+header .spacer{flex:1}
+button,textarea{font:inherit;color:inherit}
+button{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--muted)}
+button:disabled{opacity:.45;cursor:default}
+button.primary{background:var(--accent);border-color:var(--accent);color:#191405;font-weight:600}
+.note{color:var(--muted);font-size:.8rem}
+.layout{flex:1;display:flex;min-height:0}
+aside{width:270px;border-right:1px solid var(--line);display:flex;flex-direction:column;min-height:0;padding:16px 20px}
+aside h2{font-size:.72rem;margin:0 0 6px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+#progress{font-size:1.5rem;font-weight:700;color:var(--accent);margin-bottom:8px}
+.check{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;cursor:pointer;font-size:.9rem}
+.check:hover{background:var(--panel)}
+.check.cur{background:var(--panel);outline:1px solid var(--line)}
+.check .tick{width:18px;height:18px;flex:none;border-radius:50%;border:1.5px solid var(--muted);
+  display:flex;align-items:center;justify-content:center;font-size:.7rem;color:#191405}
+.check.done .tick{background:var(--accent);border-color:var(--accent)}
+.check.done .tick::after{content:"\2713"}
+aside .grow{flex:1;overflow-y:auto;margin-top:14px}
+.saved{display:flex;align-items:baseline;gap:6px;padding:5px 8px;border-radius:8px;cursor:pointer;font-size:.88rem}
+.saved:hover{background:var(--panel)}
+.saved .n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.saved .d{color:var(--muted);font-size:.72rem}
+aside .btns{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+aside .btns button{width:100%}
+main{flex:1;overflow-y:auto;padding:28px 40px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.viz{width:400px;flex:none;border-left:1px solid var(--line);padding:24px 32px;display:flex;
+  flex-direction:column;align-items:center;justify-content:center;overflow-y:auto}
+#wheel{width:100%;max-width:360px;height:auto;flex:none}
+#wheel .ring{fill:none;stroke:var(--line);stroke-width:2}
+#wheel .prog{fill:none;stroke:var(--accent);stroke-width:3;stroke-linecap:round;
+  transform:rotate(-90deg);transform-origin:210px 210px;transition:stroke-dasharray .4s}
+#wheel .node circle{fill:var(--panel);stroke:var(--line);stroke-width:1.5;cursor:pointer}
+#wheel .node.done circle{fill:var(--accent-dim);stroke:var(--accent)}
+#wheel .node.cur circle{stroke:var(--accent);stroke-width:3}
+#wheel .node text{fill:var(--ink);font-size:15px;text-anchor:middle;pointer-events:none}
+#wheel .lbl{fill:var(--muted);font-size:11px;letter-spacing:.08em;text-anchor:middle;pointer-events:none}
+#wheel .node.done ~ nothing{}
+#wheel .cname{fill:var(--ink);font-size:17px;font-weight:600;text-anchor:middle}
+#wheel .csub{fill:var(--muted);font-size:10.5px;letter-spacing:.1em;text-anchor:middle}
+.card{width:min(94vw,640px);background:var(--panel);border:1px solid var(--line);border-radius:14px;
+  padding:22px 24px;display:flex;flex-direction:column;gap:10px;margin-top:2vh}
+.card .eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent)}
+.card .q{font-size:1.45rem;font-weight:700;line-height:1.25}
+.card textarea{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+  resize:vertical;min-height:130px;font-size:1.05rem}
+.card textarea:focus{outline:none;border-color:var(--accent)}
+.card .row{display:flex;gap:8px;justify-content:flex-end}
+.playout{width:min(94vw,640px);border-left:3px solid var(--accent);padding:2px 0 2px 14px;font-size:.98rem}
+.playout .t{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);display:block;margin-bottom:4px}
+.slot{color:var(--accent);font-weight:600}
+.slot.empty{color:var(--muted);font-weight:400}
+.ideas{width:min(94vw,640px);display:flex;flex-direction:column;gap:10px}
+.irow{display:flex;align-items:center;gap:10px}
+.igrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.igrid[hidden]{display:none}
+.ideas[hidden]{display:none}
+.idea{text-align:left;padding:12px 14px;border-radius:10px;line-height:1.4;font-size:.95rem}
+.idea:hover{border-color:var(--accent)}
+.idea.own{color:var(--muted)}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:20px;max-width:420px;width:92vw}
+dialog::backdrop{background:rgba(0,0,0,.6)}
+dialog h3{margin:0 0 4px}
+dialog p{color:var(--muted);font-size:.88rem;margin:4px 0 12px}
+dialog input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin-bottom:10px;font:inherit;color:inherit}
+dialog .end{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
+@media (max-width:980px){
+  .layout{flex-direction:column;overflow-y:auto}
+  aside{width:auto;border-right:none;border-bottom:1px solid var(--line)}
+  .viz{width:auto;border-left:none;border-top:1px solid var(--line)}
+  main{overflow:visible}
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>Forge</h1>
+  <span class="note">a character in seven answers, on the hero&rsquo;s journey</span>
+  <span class="spacer"></span>
+  <button id="newc">New character</button>
+  <button id="gear" title="OpenRouter key for AI ideas">API key</button>
+</header>
+
+<div class="layout">
+<aside>
+  <h2>The checklist</h2>
+  <div id="progress">0/7</div>
+  <div id="checks"></div>
+  <div class="btns"><span class="note" id="savestate">auto-saves as you go</span></div>
+  <div class="grow"><h2 style="margin-top:4px">Roster &mdash; everyone&rsquo;s</h2><div id="roster" class="note">loading&hellip;</div></div>
+</aside>
+
+<main>
+  <div class="card">
+    <span class="eyebrow" id="step"></span>
+    <div class="q" id="question"></div>
+    <span class="note" id="hint"></span>
+    <textarea id="answer" rows="4"></textarea>
+    <div class="row"><button id="back">Back</button><button class="primary" id="next">Next</button></div>
+  </div>
+
+  <div class="playout"><span class="t">How it plays out</span><span id="story"></span></div>
+
+  <div class="ideas">
+    <div class="irow"><button id="ideabtn">✨ Get ideas for this question</button><span class="note" id="ideastate"></span></div>
+    <div class="igrid" id="igrid" hidden>
+      <button class="idea" data-i="0"></button>
+      <button class="idea" data-i="1"></button>
+      <button class="idea" data-i="2"></button>
+      <button class="idea own" id="ideaown">&#9997; Write your own</button>
+    </div>
+  </div>
+</main>
+
+<div class="viz">
+  <svg id="wheel" viewBox="0 0 420 420" aria-label="hero's journey wheel">
+    <circle class="ring" cx="210" cy="210" r="150"/>
+    <circle class="prog" id="prog" cx="210" cy="210" r="150"/>
+    <g id="nodes"></g>
+    <text class="cname" id="cname" x="210" y="206"></text>
+    <text class="csub" x="210" y="226">THE CHARACTER</text>
+  </svg>
+</div>
+</div>
+
+<dialog id="settings">
+  <h3>API key</h3>
+  <p>AI ideas need an OpenRouter key. Paste it once &mdash; it&rsquo;s stored on the server and everyone here shares it. Everything else works without it.</p>
+  <input id="s-key" type="password" placeholder="sk-or-...">
+  <p class="note" id="s-msg"></p>
+  <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
+</dialog>
+
+<script>
+const $ = id => document.getElementById(id);
+const Q = [
+  {k:"name",     lbl:"WHO",       q:"Who are they?",                                        h:"Name and a stroke or two — “Mara, glacier pilot, 60”"},
+  {k:"why",      lbl:"WHY",       q:"Their why — what happened that still shapes them?", h:"The wound or the debt behind everything. One line."},
+  {k:"incentive",lbl:"INCENTIVE", q:"Their incentive — what do they want badly enough to act?", h:"The concrete thing that pulls them out the door."},
+  {k:"motive",   lbl:"MOTIVE",    q:"Their motive — what really drives them underneath?", h:"Often not what they’d admit. The engine under the want."},
+  {k:"weakness", lbl:"WEAKNESS",  q:"Their weakness — what fails them at the worst moment?", h:"The flaw, the habit, the blind spot."},
+  {k:"change",   lbl:"CHANGE",    q:"The change — what must they become to get through?", h:"What they finally accept, drop, or face."},
+  {k:"ret",      lbl:"RETURN",    q:"The return — what do they bring back?",             h:"What’s different when it’s over — for them, and for everyone else."},
+];
+let a = {}, cur = 0, line = null, conclusion = "";
+try {
+  const d = JSON.parse(localStorage.getItem("forge-draft") || "{}");
+  if (d && d.a){ a = d.a; line = d.line || null; conclusion = d.c || ""; } else if (d) a = d;   // legacy draft
+} catch {}
+const draft = () => { try { localStorage.setItem("forge-draft", JSON.stringify({a, line, c: conclusion})); } catch {} };
+const done = k => !!(a[k] || "").trim();
+const count = () => Q.filter(s => done(s.k)).length;
+const CONCL = 7;
+const part = k => (a[k] || "\u2026").trim().replace(/\.$/, "");
+function composeSeed(){ return `${part("name")} carries ${part("why")}. What gets them moving is ${part("incentive")} \u2014 but underneath, ${part("motive")} is doing the driving. At the worst possible moment, ${part("weakness")} fails them. The only way through: ${part("change")}. When it\u2019s over, they come back with ${part("ret")}.`; }
+
+// wheel geometry: 6 ring nodes (Q1..6), name in the middle
+const CX = 210, CY = 210, R = 150;
+const angles = [-90, -30, 30, 90, 150, 210];
+const nodesEl = $("nodes");
+Q.slice(1).forEach((s, i) => {
+  const rad = angles[i] * Math.PI / 180;
+  const x = CX + R * Math.cos(rad), y = CY + R * Math.sin(rad);
+  const lx = CX + (R + 44) * Math.cos(rad), ly = CY + (R + 44) * Math.sin(rad);
+  const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+  g.setAttribute("class", "node"); g.dataset.i = i + 1;
+  g.innerHTML = `<circle cx="${x}" cy="${y}" r="24"/><text x="${x}" y="${y + 5}">${i + 2}</text>` +
+    `<text class="lbl" x="${lx}" y="${ly + 4}">${s.lbl}</text>`;
+  g.onclick = () => go(i + 1);
+  nodesEl.append(g);
+});
+$("cname").onclick = () => go(0);
+
+function render(){
+  const n = count();
+  $("progress").textContent = n + "/7";
+  // checklist
+  const c = $("checks"); c.textContent = "";
+  Q.forEach((s, i) => {
+    const d = document.createElement("div");
+    d.className = "check" + (done(s.k) ? " done" : "") + (i === cur ? " cur" : "");
+    d.innerHTML = `<span class="tick"></span><span></span>`;
+    d.querySelector("span:last-child").textContent = s.lbl.charAt(0) + s.lbl.slice(1).toLowerCase();
+    d.onclick = () => go(i);
+    c.append(d);
+  });
+  const d8 = document.createElement("div");
+  d8.className = "check" + (conclusion.trim() ? " done" : "") + (cur === CONCL ? " cur" : "");
+  d8.innerHTML = `<span class="tick"></span><span></span>`;
+  d8.querySelector("span:last-child").textContent = "The conclusion";
+  d8.onclick = () => go(CONCL);
+  c.append(d8);
+  // wheel
+  const ring = Q.slice(1).filter(s => done(s.k)).length;
+  const C = 2 * Math.PI * R;
+  $("prog").setAttribute("stroke-dasharray", `${C * ring / 6} ${C}`);
+  [...nodesEl.children].forEach((g, i) => {
+    g.classList.toggle("done", done(Q[i + 1].k));
+    g.classList.toggle("cur", cur === i + 1);
+    g.querySelector("text").textContent = done(Q[i + 1].k) ? "✓" : (i + 2);
+  });
+  const nm = (a.name || "").trim();
+  $("cname").textContent = nm ? (nm.length > 18 ? nm.slice(0, 17) + "…" : nm) : "?";
+  // question card
+  document.querySelector(".ideas").hidden = cur === CONCL;
+  if (cur === CONCL){
+    $("step").textContent = "The conclusion";
+    $("question").textContent = "Say it in one breath.";
+    $("hint").textContent = "Seeded from your answers \u2014 edit it freely, roll the AI, or both.";
+    if (document.activeElement !== $("answer")) $("answer").value = conclusion || composeSeed();
+    $("back").disabled = false;
+    $("next").textContent = "\u26a1 Roll an improvement";
+  } else {
+  const s = Q[cur];
+  $("step").textContent = `${cur + 1} of 7`;
+  $("question").textContent = s.q;
+  $("hint").textContent = s.h;
+  if (document.activeElement !== $("answer")) $("answer").value = a[s.k] || "";
+  $("back").disabled = cur === 0;
+  $("next").textContent = cur === 6 ? "Conclusion \u2192" : "Next";
+  }
+  // playout
+  const slot = k => done(k) ? `<span class="slot"></span>` : `<span class="slot empty">…</span>`;
+  $("story").innerHTML =
+    `${slot("name")} carries ${slot("why")}. What gets them moving is ${slot("incentive")} — ` +
+    `but underneath, ${slot("motive")} is doing the driving. At the worst possible moment, ` +
+    `${slot("weakness")} fails them. The only way through: ${slot("change")}. ` +
+    `When it’s over, they come back with ${slot("ret")}.`;
+  const filled = ["name","why","incentive","motive","weakness","change","ret"].filter(done);
+  [...$("story").querySelectorAll(".slot:not(.empty)")].forEach((el, i) => {
+    el.textContent = (a[filled[i]] || "").trim().replace(/\.$/, "");
+  });
+}
+
+// every change becomes a version on the roster a moment after typing stops
+let saveTimer = null, lastSaved = "", saving = false;
+const snap = () => JSON.stringify(a) + "|" + conclusion + "|" + line;
+async function flushSave(){
+  clearTimeout(saveTimer);
+  if (saving || !(a.name || "").trim() || snap() === lastSaved) return;
+  saving = true;
+  const body = {line, answers: a, conclusion};
+  try {
+    const r = await fetch("/api/character", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify(body)});
+    const j = await r.json().catch(() => ({}));
+    if (r.ok){ line = j.line; lastSaved = snap(); draft();
+      $("savestate").textContent = "saved " + new Date().toLocaleTimeString(); roster(); }
+    else $("savestate").textContent = "not saved: " + (j.detail || r.status);
+  } catch (e){ $("savestate").textContent = "not saved: " + (e.message || e); }
+  saving = false;
+}
+function queueSave(){ clearTimeout(saveTimer); saveTimer = setTimeout(flushSave, 2500); }
+
+function commit(){ if (cur === CONCL) conclusion = $("answer").value; else a[Q[cur].k] = $("answer").value; draft(); }
+function go(i){ commit(); cur = Math.max(0, Math.min(CONCL, i)); $("igrid").hidden = true; $("ideastate").textContent = ""; render(); $("answer").focus(); }
+$("answer").addEventListener("input", () => { commit(); render(); queueSave(); });
+$("answer").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey && cur !== CONCL){ e.preventDefault(); $("next").click(); } });
+$("back").onclick = () => go(cur === CONCL ? 6 : cur - 1);
+$("next").onclick = () => { if (cur === CONCL) return roll(); if (cur < 6) return go(cur + 1); go(CONCL); };
+async function roll(){
+  if (!configured){ $("settings").showModal(); return; }
+  conclusion = $("answer").value || composeSeed();
+  draft();
+  $("next").disabled = true;
+  $("hint").textContent = "rolling an improvement\u2026";
+  try {
+    const r = await fetch("/api/polish", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({answers: a, conclusion})});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.detail || r.status);
+    conclusion = j.text;
+    $("answer").value = j.text;
+    draft(); queueSave();
+    $("hint").textContent = "rolled \u2014 keep it, edit it, or roll again";
+  } catch (e){ $("hint").textContent = "roll failed: " + (e.message || e); }
+  $("next").disabled = false;
+}
+
+$("newc").onclick = async () => {
+  commit();
+  await flushSave();                       // nothing is lost - park the old one first
+  a = {}; line = null; conclusion = ""; cur = 0; lastSaved = ""; draft();
+  $("savestate").textContent = "auto-saves as you go";
+  render(); $("answer").focus();
+};
+window.addEventListener("beforeunload", () => { commit(); flushSave(); });
+
+// AI ideas: 3 from the model for the current question, 4th is your own hand
+let configured = false;
+fetch("/api/config").then(r => r.json()).then(c => { configured = !!c.configured; }).catch(() => {});
+$("ideabtn").onclick = async () => {
+  if (!configured){ $("settings").showModal(); return; }
+  commit();
+  $("ideabtn").disabled = true; $("igrid").hidden = true;
+  $("ideastate").textContent = "thinking…";
+  try {
+    const r = await fetch("/api/suggest", {method: "POST", headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({field: Q[cur].k, answers: a})});
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(j.detail || r.status);
+    [...document.querySelectorAll(".idea[data-i]")].forEach((b, i) => {
+      b.textContent = j.ideas[i] || ""; b.hidden = !j.ideas[i];
+      b.onclick = () => { a[Q[cur].k] = j.ideas[i]; draft(); $("igrid").hidden = true; render(); queueSave(); $("answer").focus(); };
+    });
+    $("igrid").hidden = false; $("ideastate").textContent = "";
+  } catch (e){ $("ideastate").textContent = String(e.message || e); }
+  $("ideabtn").disabled = false;
+};
+$("ideaown").onclick = () => { $("igrid").hidden = true; $("answer").focus(); };
+
+// key
+$("gear").onclick = () => { $("s-msg").textContent = configured ? "A key is already set; saving replaces it for everyone." : ""; $("settings").showModal(); };
+$("s-cancel").onclick = () => $("settings").close();
+$("s-save").onclick = async () => {
+  const r = await fetch("/api/key", {method: "POST", headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({key: $("s-key").value.trim()})});
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok){ $("s-msg").textContent = j.detail || "failed"; return; }
+  configured = true; $("s-key").value = "";
+  $("settings").close();
+};
+
+async function pick(id){
+  await flushSave();                       // park whatever was open
+  const doc = await (await fetch("/api/character/" + id)).json();
+  a = doc.answers || {}; line = doc.line || id; conclusion = doc.conclusion || "";
+  cur = 0; lastSaved = snap(); draft();    // editing from here saves new versions
+  $("savestate").textContent = "loaded - edits save as a new version";
+  render(); $("answer").focus();
+}
+const when = id => new Date(parseInt(id)).toLocaleString([], {month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"});
+async function roster(){
+  try {
+    const list = await (await fetch("/api/characters")).json();
+    const el = $("roster"); el.textContent = "";
+    if (!list.length) el.textContent = "Empty. Forge the first one.";
+    list.forEach(c => {
+      const d = document.createElement("div"); d.className = "saved";
+      d.innerHTML = `<span class="n"></span><span class="d"></span><span class="d v"></span>`;
+      d.querySelector(".n").textContent = c.name;
+      d.querySelector(".d").textContent = c.done + "/7";
+      const vb = d.querySelector(".v");
+      vb.textContent = "v" + c.versions.length;
+      vb.title = "show versions";
+      d.querySelector(".n").onclick = () => pick(c.versions[0]);
+      d.querySelector(".d").onclick = () => pick(c.versions[0]);
+      vb.onclick = e => {
+        e.stopPropagation();
+        const open = d.nextElementSibling?.classList?.contains("vers");
+        document.querySelectorAll(".vers").forEach(x => x.remove());
+        if (open) return;
+        const w = document.createElement("div"); w.className = "vers";
+        c.versions.forEach((id, i) => {
+          const r = document.createElement("div"); r.className = "saved";
+          r.style.paddingLeft = "22px";
+          r.innerHTML = `<span class="n"></span><span class="d"></span>`;
+          r.querySelector(".n").textContent = "v" + (c.versions.length - i);
+          r.querySelector(".d").textContent = when(id);
+          r.onclick = () => pick(id);
+          w.append(r);
+        });
+        d.after(w);
+      };
+      el.append(d);
+    });
+  } catch { $("roster").textContent = "roster unavailable"; }
+}
+roster();
+render();
+$("answer").focus();
+</script>
+</body>
+</html>

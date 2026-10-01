@@ -1,0 +1,83 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "COLORADO LOGISTICS TERMINAL. Roman submits an Antarctic transport request. The terminal separates Falcon field site from Nexus coastal cave laboratory and identifies the Antarctic over-ice leg as two hours, weather dependent. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman signs the existing CSG logistics authorization. His bonded TJ waits beside him. Leave upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman boards a conventional long-range aircraft or sealed passenger-cargo connection with his bonded TJ secured in a padded case. No Antarctic tracked vehicle appears here. Leave top clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 35,
+          "description": "A route schematic shows Colorado to an Antarctic logistics hub, then separate over-ice lines to Falcon and Nexus, converging only at Nexus. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO LOGISTICS TERMINAL"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "middle",
+      "text": "FALCON \u2014 FIELD SITE / NEXUS \u2014 COASTAL CAVE LABORATORY / TWO HOURS, WEATHER DEPENDENT"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CSG ANTARCTIC LOGISTICS / NEXUS ACCESS"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019m going south.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "TRANSFER TO ANTARCTIC LOGISTICS"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "COLORADO \u2192 ANTARCTIC LOGISTICS HUB \u2192 FALCON / NEXUS"
+    }
+  ]
+}

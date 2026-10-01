@@ -1,21 +1,27 @@
 import base64
 import dataclasses
+import io
 import json
 import mimetypes
 import re
 import threading
 import time
+import zipfile
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+import urllib.error
+import urllib.request
+
+import anyio
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import keys, lettering, llm, mcp, notes, objectstore, projects, prompts, review, room, rules, search, thumbnails, usage
-from .config import AGENTS_DIR, AgentConfig, settings
-from .agents import IMAGE_TYPES, SHARED, assets, get_role, list_hats, load_roles, load_tools
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages, render
+from .config import AGENTS_DIR, AgentConfig, env
+from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
 room_mcp = mcp.build()          # the same tools the agents call, for clients outside the room
 
@@ -33,6 +39,13 @@ def index_in_background(slug=None):
 @asynccontextmanager
 async def lifespan(_app):
     objectstore.start()      # no-op unless S3_ENDPOINT is set
+    for slug in projects.list_projects():     # a campaign laid out the old way gets its two desks
+        if projects.migrate(slug):
+            print(f"{slug}: output/ is now production/, and preproduction/ holds intake's files", flush=True)
+        for rid in projects.close_stale_rounds(slug):
+            print(f"{slug}: round {rid} was running when the app last stopped; marked interrupted", flush=True)
+        if magic.close_stale(slug):
+            print(f"{slug}: production was running when the app last stopped; marked failed, resumable", flush=True)
     index_in_background()
     threading.Thread(target=search.watch, args=(0.5, lambda msg: print(f"search: {msg}")),
                      daemon=True).start()   # a file changes, its passages are reindexed
@@ -47,9 +60,9 @@ app.mount("/static", StaticFiles(directory=STATIC), name="static")
 app.mount("/mcp", room_mcp.streamable_http_app(streamable_http_path="/"))   # POST http://host/mcp
 
 
-def not_found(fn, *args):
+def not_found(fn, *args, **kw):
     try:
-        return fn(*args)
+        return fn(*args, **kw)
     except (FileNotFoundError, KeyError) as e:
         raise HTTPException(404, f"not found: {e}")
     except ValueError as e:
@@ -57,9 +70,87 @@ def not_found(fn, *args):
 
 
 @app.get("/")
+def landing():
+    """The doors: pre-production, production, voices, sheets."""
+    return FileResponse(STATIC / "landing.html")
+
+
+@app.get("/quick")
 def home():
     """One button, on a phone: start the book, watch it, see the lettered pages."""
     return FileResponse(STATIC / "home.html")
+
+
+# ---- sheets: its own container, reached through this port --------------------------------
+
+SHEETS_URL = (env("SHEETS_URL") or "http://sheets:8001").rstrip("/")
+ART_URL = (env("ART_URL") or "http://art:8002").rstrip("/")
+
+
+@app.api_route("/sheets", methods=["GET"])
+@app.api_route("/sheets/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def sheets_proxy(request: Request, path: str = ""):
+    """Hand the request to the sheets container and hand its answer back, as is. The sheets
+    page is told its prefix (PREFIX=/sheets in docker-compose.yml), so its links come back
+    pointing here."""
+    return await _proxy(request, SHEETS_URL, path, "sheets")
+
+
+@app.api_route("/art", methods=["GET"])
+@app.api_route("/art/{path:path}", methods=["GET", "POST", "PUT", "DELETE"])
+async def art_proxy(request: Request, path: str = ""):
+    """The Art Department's container (art/server.py): the style plate and reference sheets."""
+    return await _proxy(request, ART_URL, path, "the art department")
+
+
+async def _proxy(request, base, path, name):
+    url = f"{base}/{path}" + (f"?{request.url.query}" if request.url.query else "")
+    body = await request.body()
+    headers = {k: v for k, v in request.headers.items() if k.lower() in ("content-type", "accept")}
+    req = urllib.request.Request(url, data=body if body else None, headers=headers, method=request.method)
+
+    def call():
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                return r.status, dict(r.headers), r.read()
+        except urllib.error.HTTPError as e:
+            return e.code, dict(e.headers), e.read()
+        except (urllib.error.URLError, OSError) as e:
+            return 502, {"Content-Type": "text/plain"}, f"{name} is not running: {e}".encode()
+    status, hdrs, data = await anyio.to_thread.run_sync(call)
+    keep = {k: v for k, v in hdrs.items() if k.lower() in ("content-type", "content-disposition", "cache-control")}
+    return Response(content=data, status_code=status, headers=keep)
+
+
+@app.get("/preproduction")
+def preproduction():
+    """The pre-production desk: the material, the three working documents, and the gate.
+
+    Intake stops for the showrunner between pass 3 and pass 4, and this is where that waiting
+    happens - the open items, their options and where each one came from, what you answer,
+    defer or say about the book. The one-button screen and the full room are untouched."""
+    return FileResponse(STATIC / "preproduction.html")
+
+
+@app.get("/voices")
+def voices_page():
+    """The dialog simulator: talk with a character in the world, and tune how they talk."""
+    return FileResponse(STATIC / "voices.html")
+
+
+@app.get("/renders")
+def renders_page():
+    """The rendered book, page by page: each model's art and the art lettered, side by side."""
+    return FileResponse(STATIC / "renders.html")
+
+
+@app.get("/production")
+def production():
+    """The production room: what will happen, one button, the log, then the finished work.
+
+    The room takes every gate itself (app/magic.py) and stops twice: at page 1, and at the
+    end. The showrunner's part is notes, and stepping back if a note reaches further."""
+    return FileResponse(STATIC / "production.html")
 
 
 @app.get("/room")
@@ -72,7 +163,6 @@ def index():
 def config():
     """The .env defaults, as a role with no agent.json would see them."""
     d = AgentConfig().resolve().public()
-    d["figma_token_set"] = bool(settings.figma_token)
     d["storage"] = objectstore.describe()
     return d
 
@@ -82,11 +172,11 @@ def config():
 @app.get("/api/agents")
 def roles():
     return {"roles": [r.to_dict() for r in load_roles()], "shared": assets(SHARED),
-            "hats": list_hats(), "tools": sorted(load_tools())}
+            "phases": phases.load(), "tools": sorted(load_tools())}
 
 
 def _role_folder(role_id):
-    if role_id != SHARED:
+    if role_id != SHARED and role_id not in {r.shares for r in load_roles()}:
         not_found(get_role, role_id)
     return AGENTS_DIR / role_id
 
@@ -190,7 +280,6 @@ class ArtifactBody(BaseModel):
 class RunRequest(BaseModel):
     roles: list[str]
     note: str | None = None
-    hat: str | None = None
 
 
 @app.get("/api/projects")
@@ -208,18 +297,27 @@ def create_project(body: NewProject):
         raise HTTPException(409, "a project with that name already exists")
 
 
+def _desk(desk):
+    if desk not in projects.DESKS:
+        raise HTTPException(400, f"desk must be one of {', '.join(projects.DESKS)}")
+    return desk
+
+
 @app.get("/api/projects/{slug}")
-def get_project(slug: str):
-    artifacts = not_found(projects.list_artifacts, slug)
+def get_project(slug: str, desk: str = projects.PROD):
+    """The project as one desk sees it: `desk=preproduction` for intake's files and rounds."""
+    artifacts = not_found(projects.list_artifacts, slug, desk=_desk(desk))
     run = room.active_run(slug)
-    return {"slug": slug, "artifacts": artifacts, "images": projects.list_images(slug),
+    return {"slug": slug, "desk": desk, "artifacts": artifacts, "images": projects.list_images(slug),
             "references": projects.list_references(slug),
-            "versions": projects.list_versions(slug),
+            "versions": projects.list_versions(slug, desk),
             "active_run": run.id if run else None,
             "active_version": run.version.id if run else None,
             "settings": review.settings(slug),
-            "library": projects.library(),
-            "output": f"output/{slug}"}
+            "magic": magic.state(slug),
+            **phases.state(slug),
+            "library": projects.library(slug),
+            "output": f"production/{slug}"}
 
 
 @app.post("/api/projects/{slug}/export")
@@ -235,16 +333,16 @@ def get_image(slug: str, name: str):
 
 
 @app.get("/api/projects/{slug}/artifacts/{name}", response_class=PlainTextResponse)
-def get_artifact(slug: str, name: str):
-    content = not_found(projects.read_artifact, slug, name)
+def get_artifact(slug: str, name: str, desk: str = projects.PROD):
+    content = not_found(projects.read_artifact, slug, name, desk=_desk(desk))
     if content is None:
         raise HTTPException(404)
     return content
 
 
 @app.put("/api/projects/{slug}/artifacts/{name}")
-def put_artifact(slug: str, name: str, body: ArtifactBody):
-    not_found(projects.write_artifact, slug, name, body.content)
+def put_artifact(slug: str, name: str, body: ArtifactBody, desk: str = projects.PROD):
+    not_found(projects.write_artifact, slug, name, body.content, desk=_desk(desk))
     if name == "layouts.md":  # hand edits to layouts redraw the preview too
         md, _, feedback = thumbnails.render_layouts(body.content, projects.read_artifact(slug, "thumbnails.md"))
         projects.write_artifact(slug, "thumbnails.md", md)
@@ -252,7 +350,7 @@ def put_artifact(slug: str, name: str, body: ArtifactBody):
     return {"ok": True}
 
 
-PREVIEW_FILES = {"layout": "thumbnails.md", "drawn": "thumbnails-drawn.md", "image": "thumbnails-image.md"}
+PREVIEW_FILES = {"layout": "thumbnails.md"}     # the page sketch, drawn in code from layouts.md
 
 
 @app.get("/api/projects/{slug}/prompts")
@@ -268,6 +366,74 @@ def page_prompts(slug: str, version: str | None = None):
         pages = {int(p.name[len(pre) + 1:].split("-")[0]): p.read_text()
                  for p in folder.glob(f"{pre}p*-prompt.md")}
     return {"pages": pages, "book": book}
+
+
+@app.get("/api/projects/{slug}/keypages")
+def keypages_list(slug: str):
+    """The key pages: which book page each is, its locked words, whether it has art."""
+    not_found(projects.project_dir, slug)
+    return {"pages": [{"chapter": k["chapter"], "page": k["page"], "book": k["book"], "title": k["title"],
+                       "lines": [f"{w + ': ' if w else ''}{t}" for w, t in k["lines"]],
+                       "art": k["art"].name if k["art"] else None} for k in keypages.pages(slug)]}
+
+
+@app.get("/api/projects/{slug}/keypages/{name}")
+def keypage_file(slug: str, name: str):
+    if not keypages.NAME_RE.match(name):
+        raise HTTPException(404, "not a key page")
+    path = keypages.folder(slug) / name
+    if not path.is_file():
+        raise HTTPException(404, "not found")
+    return FileResponse(path)
+
+
+@app.get("/api/projects/{slug}/packet.zip")
+def packet_zip(slug: str, version: str | None = None):
+    """Everything to take to the image model, in one download: the book packet, one file per
+    page, each page's print-scale sketch, and the lettering layers for later."""
+    not_found(projects.project_dir, slug)
+    pages, book = not_found(prompts.build, slug, version)
+    if not pages:
+        raise HTTPException(404, "no pages yet - run production first")
+    sketches = prompts.context(slug, version).get("sketches") or {}
+    letters = review.text_layers(slug, version)
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        z.writestr(f"{slug}/00-book.md", book)
+        z.writestr(f"{slug}/00-read-me-first.md", prompts.book_packet(slug, version))
+        for name in ("script.md", "layouts.md", "brief.md", "characters.md", "world.md"):   # the instructions behind the packets
+            text = projects.read_artifact(slug, name, version)
+            if text:
+                z.writestr(f"{slug}/source/{name}", text)
+        for k in keypages.pages(slug):      # the locked look: attach these as style references
+            if k["art"]:
+                z.write(k["art"], f"{slug}/keypages/{k['art'].name}")
+        if keypages.notes(slug):
+            z.writestr(f"{slug}/keypages/notes.md", keypages.notes(slug))
+        for n in sorted(pages):
+            z.writestr(f"{slug}/pages/p{n:02d}.md", pages[n])
+            if n in sketches:
+                z.writestr(f"{slug}/sketches/p{n:02d}.txt", sketches[n])
+            if n in letters:
+                z.writestr(f"{slug}/letters/p{n:02d}.svg", letters[n])
+    buf.seek(0)
+    name = f"{slug}-packets{'-' + version if version else ''}.zip"
+    return StreamingResponse(buf, media_type="application/zip",
+                             headers={"Content-Disposition": f'attachment; filename="{name}"'})
+
+
+class LetteredPage(BaseModel):
+    data_url: str
+
+
+@app.post("/api/projects/{slug}/lettering/{page}/lettered")
+def put_lettered_page(slug: str, page: int, body: LetteredPage):
+    """The finished page: art with the lettering flattened onto it, as the browser drew it."""
+    head, _, b64 = body.data_url.partition(",")
+    if not b64 or "image/png" not in head:
+        raise HTTPException(400, "expected a PNG data URL")
+    path = not_found(projects.save_lettered_page, slug, page, base64.b64decode(b64))
+    return {"lettered": path}
 
 
 @app.get("/api/projects/{slug}/previews")
@@ -335,9 +501,9 @@ def get_reference(slug: str, name: str):
 # ---- versions --------------------------------------------------------------
 
 @app.get("/api/projects/{slug}/versions/{version}")
-def get_version(slug: str, version: str):
-    meta = not_found(projects.version_meta, slug, version)
-    return {**meta, "artifacts": projects.list_artifacts(slug, version),
+def get_version(slug: str, version: str, desk: str = projects.PROD):
+    meta = not_found(projects.version_meta, slug, version, _desk(desk))
+    return {**meta, "artifacts": projects.list_artifacts(slug, version, desk),
             "image_files": projects.list_images(slug, version),
             "reference_files": projects.list_references(slug, version)}
 
@@ -383,8 +549,8 @@ def get_call_blob(slug: str, version: str, name: str):
 
 
 @app.get("/api/projects/{slug}/versions/{version}/artifacts/{name}", response_class=PlainTextResponse)
-def get_version_artifact(slug: str, version: str, name: str):
-    content = not_found(projects.read_artifact, slug, name, version)
+def get_version_artifact(slug: str, version: str, name: str, desk: str = projects.PROD):
+    content = not_found(projects.read_artifact, slug, name, version, _desk(desk))
     if content is None:
         raise HTTPException(404)
     return content
@@ -396,8 +562,8 @@ def get_version_image(slug: str, version: str, name: str):
 
 
 @app.get("/api/projects/{slug}/versions/{version}/events")
-def get_version_events(slug: str, version: str):
-    return {"events": not_found(projects.version_events, slug, version)}
+def get_version_events(slug: str, version: str, desk: str = projects.PROD):
+    return {"events": not_found(projects.version_events, slug, version, _desk(desk))}
 
 
 @app.post("/api/projects/{slug}/versions/{version}/restore")
@@ -468,7 +634,7 @@ def _lettering(slug, page, version=None):
     ctx = prompts.context(slug, version)
     return {"page": page, "items": lettering.items(spec), "svg": lettering.svg(spec, ctx),
             "spots": list(lettering.ANCHORS),
-            "art": projects.page_art(slug, page), "mode": ctx.get("lettering", "art"),
+            "art": projects.page_art(slug, page), "lettered": projects.lettered_page(slug, page), "mode": ctx.get("lettering", "layer"),
             "size": lettering.page_size()}
 
 
@@ -577,12 +743,20 @@ class RoundSettings(BaseModel):
     lettering: str | None = None   # "art" (the model letters it) or "layer" (we do)
     max_passes: int | None = None
     auto_rounds: int | None = None  # keep going without a review for this many more rounds
+    execution_rounds: int | None = None   # production: rounds of pages before the book is taken as is
     references: list[str] | None = None   # library files to use; ["*"] = all
+    use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
+    draft_mode: str | None = None   # "improve" or "edit": how production treats the showrunner's draft
+    expand_pages: int | None = None  # edit mode: pages the edited drafts grow by
+    proof_page: int | None = None    # the book page a proof lays out
+    max_panels: int | None = None    # drawability: panels a page
+    max_characters: int | None = None  # drawability: named characters a panel
 
 
 class RoundRequest(BaseModel):
     note: str | None = None
-    hat: str | None = None
+    phase: str | None = None   # run this phase rather than the one the book is in (the desk: intake)
+    mode: str | None = None    # intake only: "synthesis" or "revision"; default is chosen
 
 
 class PageReview(BaseModel):
@@ -609,8 +783,20 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "max_passes must be 0-10")
     if body.auto_rounds is not None and not 0 <= body.auto_rounds <= 20:
         raise HTTPException(400, "auto_rounds must be 0-20")
+    if body.execution_rounds is not None and not 1 <= body.execution_rounds <= 10:
+        raise HTTPException(400, "execution_rounds must be 1-10")
+    if body.proof_page is not None and not 1 <= body.proof_page <= 500:
+        raise HTTPException(400, "proof_page must be 1-500")
+    if body.expand_pages is not None and not 0 <= body.expand_pages <= 200:
+        raise HTTPException(400, "expand_pages must be 0-200")
+    if body.max_panels is not None and not 1 <= body.max_panels <= 9:
+        raise HTTPException(400, "max_panels must be 1-9")
+    if body.max_characters is not None and not 1 <= body.max_characters <= 8:
+        raise HTTPException(400, "max_characters must be 1-8")
+    if body.draft_mode not in (None, "improve", "edit"):
+        raise HTTPException(400, "draft_mode must be improve or edit")
     if body.references not in (None, ["*"]):
-        known = {f["name"] for f in projects.library()}
+        known = {f["name"] for f in projects.library(slug)}
         unknown = [r for r in body.references if r not in known]
         if unknown:
             raise HTTPException(400, f"not in the library: {', '.join(unknown)}")
@@ -620,13 +806,83 @@ def update_settings(slug: str, body: RoundSettings):
 @app.post("/api/projects/{slug}/rounds")
 def start_round(slug: str, body: RoundRequest):
     not_found(projects.project_dir, slug)
+    if body.mode is not None and body.mode not in (intake.SYNTHESIS, intake.REVISION, "integration"):
+        raise HTTPException(400, f"mode must be {intake.SYNTHESIS!r} or {intake.REVISION!r}")
     try:
-        run = room.start_round(slug, (body.note or "").strip() or None, body.hat or None)
+        run = room.start_round(slug, (body.note or "").strip() or None, body.mode, body.phase)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except ValueError as e:
         raise HTTPException(400, str(e))
     return {"run_id": run.id, "version": run.version.id, "kind": run.plan["kind"]}
+
+
+# ---- phases: where the book is, and the gate out of each one ----------------
+
+class PhaseMove(BaseModel):
+    action: str                    # "approve", "approve_preproduction", "pick" (with writer) or "go" (with phase)
+    writer: str | None = None
+    phase: str | None = None
+    confirm: str | None = None     # approve_preproduction: the word typed to confirm
+
+
+@app.post("/api/projects/{slug}/phase")
+def move_phase(slug: str, body: PhaseMove):
+    not_found(projects.project_dir, slug)
+    _idle(slug)
+    try:
+        if body.action == "approve":
+            return phases.approve(slug)
+        if body.action == "approve_preproduction":
+            return phases.approve_preproduction(slug, body.confirm)
+        if body.action == "pick":
+            return phases.pick(slug, body.writer)
+        if body.action == "go":
+            return phases.go_to(slug, body.phase)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    raise HTTPException(400, "action must be approve, approve_preproduction, pick or go")
+
+
+# ---- open items: what intake could not settle, and your answers ---------------
+
+class OpenItemAnswer(BaseModel):
+    answer: str | None = None      # your answer; empty takes it back and leaves the item open
+    feedback: str | None = None    # a note about this item that is not an answer to it
+    defer: str | None = None       # leave it open on purpose; the text is why
+
+
+class Feedback(BaseModel):
+    feedback: str | None = None    # about the book, not about one item; empty clears it
+
+
+@app.get("/api/projects/{slug}/open-items")
+def open_items(slug: str):
+    not_found(projects.project_dir, slug)
+    return {**openitems.state(slug), "readiness": phases.readiness(slug)}
+
+
+@app.post("/api/projects/{slug}/open-items/{n}")
+def answer_open_item(slug: str, n: int, body: OpenItemAnswer):
+    """Answer item n, leave a note about it, defer it — or any combination."""
+    not_found(projects.project_dir, slug)
+    try:
+        state = openitems.state(slug)
+        for field, value in (("feedback", body.feedback), ("defer", body.defer)):
+            if value is not None:
+                state = openitems.note_on(slug, n, field, value)
+        if body.answer is not None:
+            state = openitems.answer(slug, n, body.answer)
+        return state
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+
+
+@app.post("/api/projects/{slug}/open-items-feedback")
+def open_items_feedback(slug: str, body: Feedback):
+    """The showrunner's general note about the book: a rule for the next integration."""
+    not_found(projects.project_dir, slug)
+    return openitems.set_feedback(slug, body.feedback)
 
 
 @app.get("/api/projects/{slug}/review")
@@ -700,7 +956,7 @@ def usage_report(project: str | None = None, version: str | None = None):
 def start_run(slug: str, body: RunRequest):
     not_found(projects.project_dir, slug)
     try:
-        run = room.start(slug, body.roles, (body.note or "").strip() or None, body.hat or None)
+        run = room.start(slug, body.roles, (body.note or "").strip() or None)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
     except KeyError as e:
@@ -715,6 +971,39 @@ def _get_run(run_id):
     if not run:
         raise HTTPException(404, "no such run")
     return run
+
+
+# ---- production, run all the way ------------------------------------------------
+
+class MagicStart(BaseModel):
+    step: str = "development"    # where to (re-)enter the chain
+    until: str = "layouts"       # where to stop: page1, layouts (the default) or final
+    note: str | None = None      # carried into the first round
+
+
+@app.get("/api/projects/{slug}/magic")
+def magic_state(slug: str):
+    not_found(projects.project_dir, slug)
+    return {**magic.state(slug), "plan": magic.plan(slug), "pages": review.settings(slug)["pages"],
+            "drafts": magic.drafts(slug),
+            "proof": {"page": review.proof_page(slug), "chapters": magic.chapter_pages(slug)}}
+
+
+@app.post("/api/projects/{slug}/magic")
+def magic_start(slug: str, body: MagicStart):
+    not_found(projects.project_dir, slug)
+    try:
+        return magic.start(slug, body.step, (body.note or "").strip() or None, body.until)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except RuntimeError as e:
+        raise HTTPException(409, str(e))
+
+
+@app.post("/api/projects/{slug}/magic/stop")
+def magic_stop(slug: str):
+    not_found(projects.project_dir, slug)
+    return magic.stop(slug)
 
 
 @app.post("/api/runs/{run_id}/stop")
@@ -763,3 +1052,137 @@ def run_events(run_id: str, after: int = 0):
 
     return StreamingResponse(stream(), media_type="text/event-stream",
                              headers={"Cache-Control": "no-cache"})
+
+
+# ---- the dialog simulator: talk with a character, tune the voice (app/voices.py) -----------------
+
+class VoiceStart(BaseModel):
+    character: str
+    as_: str | None = None          # who the showrunner is: another character's key, or none for a stranger
+    moment: str | None = None       # where in the story: a page ("p12") or a scene ("s40")
+
+
+class VoiceSay(BaseModel):
+    text: str
+
+
+class VoiceJudge(BaseModel):
+    verdict: str                    # "yes": that's them · "no": not them
+    rewrite: str | None = None      # not them: how they would really say it
+    why: str | None = None
+
+
+class VoiceNote(BaseModel):
+    text: str
+
+
+def _voices(fn, *a):
+    try:
+        return fn(*a)
+    except FileNotFoundError as e:
+        raise HTTPException(404, f"not found: {e}")
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+    except llm.LLMError as e:
+        raise HTTPException(502, f"the model did not answer: {str(e)[:300]}")
+
+
+@app.get("/api/voices/{slug}")
+def voices_overview(slug: str):
+    not_found(projects.project_dir, slug)
+    return _voices(voices.overview, slug)
+
+
+@app.post("/api/voices/{slug}/chats")
+def voices_start(slug: str, body: VoiceStart):
+    not_found(projects.project_dir, slug)
+    return _voices(voices.start, slug, body.character, body.as_, body.moment)
+
+
+@app.get("/api/voices/{slug}/chats/{cid}")
+def voices_chat(slug: str, cid: str):
+    return _voices(voices.load_chat, slug, cid)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/say")
+def voices_say(slug: str, cid: str, body: VoiceSay):
+    return _voices(voices.say, slug, cid, body.text)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/turns/{i}/again")
+def voices_again(slug: str, cid: str, i: int):
+    return _voices(voices.again, slug, cid, i)
+
+
+@app.post("/api/voices/{slug}/chats/{cid}/turns/{i}/judge")
+def voices_judge(slug: str, cid: str, i: int, body: VoiceJudge):
+    chat, tuning = _voices(voices.judge, slug, cid, i, body.verdict, body.rewrite, body.why)
+    return {"chat": chat, "tuning": tuning}
+
+
+@app.post("/api/voices/{slug}/tuning/{character}/notes")
+def voices_note(slug: str, character: str, body: VoiceNote):
+    return _voices(voices.note, slug, character, body.text)
+
+
+@app.delete("/api/voices/{slug}/tuning/{character}/{entry}")
+def voices_forget(slug: str, character: str, entry: str):
+    return _voices(voices.forget, slug, character, entry)
+
+
+# ---- the renderer: the book drawn by each image model, lettered by the room (app/render.py) --------
+
+class RenderStart(BaseModel):
+    models: list[str] | None = None     # gemini, sunburst; none = both
+    pages: list[int] | None = None      # none = every page in layouts.md
+    redo: bool = False                  # draw pages that are already drawn again
+
+
+@app.get("/api/projects/{slug}/render")
+def render_state(slug: str):
+    not_found(projects.project_dir, slug)
+    return {**render.status(slug), "pages": [s["page"] for s in render.book(slug)], "models": render.MODELS,
+            "state": render.status(slug)["models"]}
+
+
+@app.get("/api/projects/{slug}/needs")
+def render_needs(slug: str, props: str = ""):
+    """What the book draws - characters, places, the props asked about - and on which pages:
+    what the Art Department has to have a reference for before rendering."""
+    not_found(projects.project_dir, slug)
+    return render.needs(slug, [p for p in props.split("|") if p.strip()])
+
+
+@app.post("/api/projects/{slug}/render")
+def render_start(slug: str, body: RenderStart):
+    not_found(projects.project_dir, slug)
+    try:
+        return render.start(slug, body.models, body.pages, body.redo)
+    except ValueError as e:
+        raise HTTPException(400, str(e))
+
+
+@app.get("/api/projects/{slug}/render/{tag}/{kind}/{name}")
+def render_file(slug: str, tag: str, kind: str, name: str):
+    if tag not in render.MODELS or kind not in ("art", "lettered") or not re.fullmatch(r"p\d{2,3}\.png", name):
+        raise HTTPException(404, "not a render")
+    path = render.folder(slug, tag, kind) / name
+    if not path.is_file():
+        raise HTTPException(404, "not drawn yet")
+    return FileResponse(path)
+
+
+@app.get("/api/projects/{slug}/render/{tag}/{kind}.zip")
+def render_zip(slug: str, tag: str, kind: str):
+    if tag not in render.MODELS or kind not in ("art", "lettered"):
+        raise HTTPException(404, "not a render")
+    d = render.folder(slug, tag, kind)
+    files = sorted(d.glob("p*.png")) if d.is_dir() else []
+    if not files:
+        raise HTTPException(404, "nothing drawn yet")
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as z:
+        for f in files:
+            z.write(f, f"{slug}-{tag}-{kind}/{f.name}")
+    return Response(buf.getvalue(), media_type="application/zip",
+                    headers={"Content-Disposition": f'attachment; filename="{slug}-{tag}-{kind}.zip"'})

@@ -10,15 +10,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 AGENTS_DIR = ROOT / "agents"   # one folder per agent, plus agents.json
-PROJECTS_DIR = ROOT / "projects"
-CAMPAIGNS_DIR = ROOT / "campaigns"     # the books' own material: campaigns/<campaign>/<kind>/
-SKILLS_DIR = AGENTS_DIR / "skills"     # craft skills the agents load, always read as guides
+CAMPAIGNS_DIR = ROOT / "campaigns"     # a campaign is a project: rules/ · input/ · preproduction/ · production/
+# the desks inside a campaign - preproduction/ and production/ - are named in projects.py
 TOOLS_DIR = AGENTS_DIR / "tools"       # what an agent can call: one json schema per tool
-LIBRARY_DIRS = (CAMPAIGNS_DIR, SKILLS_DIR)   # everything the agents can read, campaigns and craft
-REFERENCES_DIR = CAMPAIGNS_DIR         # the old name, while anything still says references
-HATS_DIR = AGENTS_DIR / "hats"         # optional thinking mode per run
 LOGS_DIR = ROOT / "logs"               # usage ledger
-OUTPUT_DIR = ROOT / "output"           # the latest deliverables; kept in the object store
+DEBUG_DIR = ROOT / "debug"             # last run's prompts and raw replies (app/intake.py)
 PRICING_FILE = ROOT / "pricing.json"
 REFERENCE_MODES = ("full", "list")
 
@@ -52,13 +48,6 @@ def env_int(name):
     return int(v) if v else None
 
 
-class Settings:
-    figma_token = env("FIGMA_TOKEN")
-
-
-settings = Settings()
-
-
 @dataclass
 class AgentConfig:
     """Everything one agent needs to talk to its models, from roles/<id>/agent.json.
@@ -76,13 +65,12 @@ class AgentConfig:
     model: str = None
     temperature: float = None
     max_tokens: int = None
-    thinking_budget: int = None   # cap on a reasoning model's thinking tokens (None = the provider's default)
+    thinking_budget: int = None   # cap on a reasoning model's thinking tokens (None = the provider's default; 0 = as little as it allows)
     max_steps: int = None
     timeout: int = None
     send_images: bool = None
     extra: dict = field(default_factory=dict)   # merged into the request body, e.g. {"top_p": 0.9}
-    references: str = None   # "full": reference .md files go in the prompt; "list": names only, read on demand
-    reference_files: list = None   # library files this writer gets (None = whatever the round picked)
+    references: str = None   # for a role that reads the library — "full": the files go in the prompt; "list": names only, read on demand
     tools: list = None       # tools from agents/tools/ this agent may call (None = all it can use)
     # ASCII Artist
     min_density: float = None     # share of a panel's free cells that must be inked (default 0.25)

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 3</text>
+<polygon points="139,204 172,196 213,418" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="156" cy="200" rx="93" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="160" font-size="19" fill="#111">NOBODY OPENS</text>
+<text x="156" y="183" font-size="19" fill="#111">AN UNKNOWN</text>
+<text x="156" y="207" font-size="19" fill="#111">DOOR FROM A</text>
+<text x="156" y="230" font-size="19" fill="#111">HOLE IN THE</text>
+<text x="156" y="253" font-size="19" fill="#111">ICE.</text>
+<polygon points="369,196 402,204 328,418" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="385" cy="200" rx="82" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="385" y="183" font-size="19" fill="#111">THEN WE</text>
+<text x="385" y="207" font-size="19" fill="#111">LEARN WHAT</text>
+<text x="385" y="230" font-size="19" fill="#111">IT ASKS.</text>
+<rect x="462" y="320" width="307" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="344" font-size="18" fill="#111">FALCON — LOCAL MAINTENANCE</text>
+<text x="615" y="366" font-size="18" fill="#111">ACCESS</text>
+<rect x="554" y="499" width="350" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="730" y="524" font-size="18" fill="#111">ROTATING CREDENTIAL — RESPONSE</text>
+<text x="730" y="545" font-size="18" fill="#111">REQUIRED</text>
+<text x="385" y="910" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 385 910)">CHIP—CHIP—CHIP</text>
+<polygon points="156,1364 156,1330 213,1347" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="156" cy="1347" rx="88" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="156" y="1319" font-size="19" fill="#111">LOCAL</text>
+<text x="156" y="1342" font-size="19" fill="#111">MAINTENANCE</text>
+<text x="156" y="1365" font-size="19" fill="#111">INTERFACE</text>
+<text x="156" y="1388" font-size="19" fill="#111">AVAILABLE.</text>
+<polygon points="598,915 631,906 672,1129" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="615" cy="910" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="615" y="894" font-size="19" fill="#111">FIVE</text>
+<text x="615" y="917" font-size="19" fill="#111">MINUTES.</text>
+<text x="615" y="940" font-size="19" fill="#111">THEN OUT.</text>
+<polygon points="828,906 861,915 787,1129" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="844" cy="910" rx="76" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="844" y="905" font-size="19" fill="#111">WE RECORD</text>
+<text x="844" y="928" font-size="19" fill="#111">FIRST.</text>
+</g>
+</svg>

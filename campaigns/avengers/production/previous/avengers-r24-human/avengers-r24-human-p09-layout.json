@@ -1,0 +1,81 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "establishing",
+          "horizon": 45,
+          "description": "Nexus later: a route marker stands far behind the coastal cave entrance. Roman arrives at one access point while Sitara and Nayah arrive at another; do not depict them adjacent. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Inside Nexus, Sitara, Roman, and Nayah meet beneath warped metal and blue ice; their separate TJs face across a frozen threshold. Leave upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman holds Orien\u2019s chemical sheet and Sitara the Falcon fragment; both study documents. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Nayah plants a route marker and chalked exit arrow at the corridor entrance. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Sitara.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "You came from Colorado.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "This code is in your record.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Your record is the second half.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We work inside the route. We leave when I say.",
+      "at": "top-left"
+    }
+  ]
+}

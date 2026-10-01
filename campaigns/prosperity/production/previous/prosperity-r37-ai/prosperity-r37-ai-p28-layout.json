@@ -1,0 +1,241 @@
+{
+  "page": 28,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 46,
+          "bleed": true,
+          "description": "Halyard's arrival concourse at a bright industrial plateau: fabrication towers, elevated rail, cranes, green terraces, and Charter House infrastructure rise behind Alex Phantum, Ada Veyra, and Bi11bot as they enter beneath the Aqualis, Helion, and Astra towers. Keep the entire upper half of the sky and pale architectural wall surfaces empty for two stacked caption boxes with a clear gap between them. Place the three figures as clearly separated small silhouettes along the lower edge, moving left to right; keep both captions away from their heads and bodies. Draw no text, logos, readable signage, numerals, or interface writing."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 42,
+          "description": "Inside Halyard's public maker district, an anonymous creator stands at a transparent fabrication kiosk while a projected celebratory display forms behind her. Show polished industrial geometry, bright saturated fabrication colors, and other makers only as soft, unrecognizable silhouettes. Alex Phantum, Ada Veyra, and Bi11bot observe from the near foreground, with Alex angled toward the creator. Keep the upper third open for two separate stacked Bi11bot balloons, with a clear gap between their footprints; keep the creator's face, hands, and kiosk unobstructed. Draw no readable text in the projected display or on equipment."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 50,
+          "description": "The same anonymous creator presents a compact newly fabricated device into a House intake cradle. A neutral House interface visibly replaces her contributor identity with a generic institutional ownership mark, without readable lettering. Alex Phantum stands at lower left, Ada Veyra stands lower center but slightly behind Alex, and Bi11bot stands lower right, all looking toward the altered record. Reserve four separate non-overlapping lettering zones in a stepped reading path: upper-left for Alex's first balloon, upper-right for Bi11bot's first balloon, lower-left for Alex's second balloon, and lower-right for Bi11bot's second balloon. Keep every zone clear of Ada's head, the creator's hands, the device, and the interface. Draw no text or legible symbols."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Alex Phantum, Ada Veyra, and Bi11bot walk deeper into Halyard's bright machinery corridor. Fabrication towers and House infrastructure frame them on both sides; public celebration screens glow in the background but remain abstract and unreadable. Alex looks back toward the anonymous creator, Ada looks ahead with guarded concern, and Bi11bot walks between them. Reserve the upper-left architectural wall for the final caption, well above and left of Ada's head. Keep the figures in the lower half and preserve a clear corridor perspective toward the next page. Draw no text or readable signage."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "x": 18,
+      "y": 84,
+      "size": 18,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 1,
+      "type": "figure",
+      "label": "Ada Veyra",
+      "x": 42,
+      "y": 84,
+      "size": 19,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 1,
+      "type": "figure",
+      "label": "Bi11bot",
+      "x": 66,
+      "y": 85,
+      "size": 12,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "x": 22,
+      "y": 14,
+      "text": "Halyard was supposed to be the city where the future was invented. From the train, it looked like that might even be true."
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "x": 22,
+      "y": 34,
+      "text": "Every building promised a breakthrough. Every screen celebrated a new creator. Every creator seemed to work for someone else."
+    },
+    {
+      "panel": 2,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "x": 18,
+      "y": 82,
+      "size": 34,
+      "pose": "standing",
+      "facing": "right"
+    },
+    {
+      "panel": 2,
+      "type": "figure",
+      "label": "Ada Veyra",
+      "x": 43,
+      "y": 82,
+      "size": 31,
+      "pose": "standing",
+      "facing": "right"
+    },
+    {
+      "panel": 2,
+      "type": "figure",
+      "label": "Bi11bot",
+      "x": 73,
+      "y": 83,
+      "size": 22,
+      "pose": "standing",
+      "facing": "left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Three families. Three companies. Run almost everything in Halyard.",
+      "x": 24,
+      "y": 12,
+      "breakout": true
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Alpha recommended it. Efficiency. Less duplication. Less risk. Also fewer people asking who owns what.",
+      "x": 76,
+      "y": 28,
+      "breakout": true
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "x": 17,
+      "y": 82,
+      "size": 38,
+      "pose": "standing",
+      "facing": "right"
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Ada Veyra",
+      "x": 45,
+      "y": 84,
+      "size": 34,
+      "pose": "standing",
+      "facing": "right"
+    },
+    {
+      "panel": 3,
+      "type": "figure",
+      "label": "Bi11bot",
+      "x": 78,
+      "y": 82,
+      "size": 24,
+      "pose": "standing",
+      "facing": "left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "She made it. The House owns it?",
+      "x": 18,
+      "y": 12,
+      "breakout": true
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The House paid for her time. It claims what she made with it.",
+      "x": 80,
+      "y": 28,
+      "breakout": true
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And if she leaves?",
+      "x": 18,
+      "y": 58,
+      "breakout": true
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "She keeps the experience. They keep everything else.",
+      "x": 80,
+      "y": 74,
+      "breakout": true
+    },
+    {
+      "panel": 4,
+      "type": "figure",
+      "label": "Alex Phantum",
+      "x": 18,
+      "y": 82,
+      "size": 48,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 4,
+      "type": "figure",
+      "label": "Ada Veyra",
+      "x": 45,
+      "y": 83,
+      "size": 44,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 4,
+      "type": "figure",
+      "label": "Bi11bot",
+      "x": 73,
+      "y": 84,
+      "size": 28,
+      "pose": "walking",
+      "facing": "right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "Keel trapped your body. Halyard could trap your ideas."
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "NEXUS, later: a tracked vehicle route marker stands far behind the separate coastal cave entrance. Roman arrives at one access point while Sitara and Nayah arrive at another. Do not depict Falcon nearby. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Inside the cave laboratory, Sitara, Roman, and Nayah meet beneath warped metal and blue ice. Their separate TJs face each other across a frozen threshold. Leave upper third clear for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Roman holds Orien\u2019s chemical calibration sheet and Sitara holds the Falcon fragment. They study the documents rather than each other. Leave upper third clear for two balloons."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Nayah plants a route marker at the corridor entrance. A chalked arrow points toward the exit. Leave upper-left clear for her command."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Sitara.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "You came from Colorado.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "This code is in your record.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Your record is the second half.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "We work inside the route. We leave when I say.",
+      "at": "top-left"
+    }
+  ]
+}

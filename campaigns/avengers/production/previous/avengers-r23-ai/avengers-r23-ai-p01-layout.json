@@ -1,0 +1,67 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Himalayas, 2042 night: eighteen-year-old Roman hangs half-buried in a blue-white crevasse as his small silver Terrain Jumper descends toward him; lightning strikes the sensor housing. No red booties; leave upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Himalayas, 2026 day: floodwater carries a cooking pot and child\u2019s red sweater past six-year-old Sitara seen from behind on a stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific; leave upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Antarctica, 2046: Sitara in her puffy red jacket stands beside Nayah in her puffy yellow jacket near warning flags, a buried sensor tripod, and Sitara\u2019s separate silver TJ. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 60,
+          "description": "Sitara\u2019s boot hovers just short of the flagged line; the sensor\u2019s red light blinks while a geometric tremor advances beneath the ice. Leave upper-left for dialogue and lower-right for the sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara. Stop there.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "medium",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It\u2019s still recording.",
+      "at": "top-left"
+    }
+  ]
+}

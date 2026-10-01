@@ -1,0 +1,112 @@
+{
+  "round": "r22-final",
+  "reviewed_round": "r21-ai",
+  "action": "finalize",
+  "comment": "",
+  "pages": {
+    "1": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "2": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "4": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "5": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "6": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "7": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "8": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "9": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "10": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "13": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "15": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "16": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "17": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    }
+  }
+}

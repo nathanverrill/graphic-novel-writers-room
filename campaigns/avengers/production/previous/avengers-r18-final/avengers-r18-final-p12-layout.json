@@ -1,0 +1,78 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Roman spreads Nexus chemical and waste records; one bears 07:14 / COORDINATE\u2014. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara places Falcon vibration record beside it; incomplete codes join across the papers. Leave upper third for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "top",
+          "horizon": 20,
+          "description": "Nayah holds route tablet showing data layers connecting Falcon drilling, ice motion, Nexus waste, and dead krill data. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara and Roman exchange selected archives locally. Two separate TJ displays read SELECTED SYNC ONLY and FULL PARTITIONS UNAVAILABLE. Leave upper area for captions."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "07:14 / COORDINATE\u2014"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Same minute.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Same coordinate.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "SELECTED SYNC ONLY"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-right",
+      "text": "FULL PARTITIONS UNAVAILABLE"
+    }
+  ]
+}

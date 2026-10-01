@@ -1,0 +1,78 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 25,
+          "description": "Roman spreads Nexus chemical and waste records across a dry floor section. One sheet bears the second half of Orien's code; a sealed Merritt file remains unopened at the edge. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 25,
+          "description": "Sitara places Falcon's vibration record beside the Nexus sheet. The codes join with matching minute and coordinate. Leave top clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 20,
+          "description": "Nayah holds the route tablet while a restrained overlay connects Falcon drilling, ice motion, Nexus process waste, and dead-krill data. Do not reveal Merritt contents. Leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Sitara and Roman deliberately exchange selected archives through the local mesh. Their physically separate TJs display selected synchronization and unavailable full partitions. Leave top-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "NEXUS CHEMICAL / WASTE RECORDS"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Same minute.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Same coordinate.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "at": "top-left",
+      "text": "FALCON VIBRATION / ICE MOTION / NEXUS PROCESS WASTE / KRILL SENSOR DATA"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "top-left",
+      "text": "SELECTED SYNC ONLY / FULL PARTITIONS UNAVAILABLE"
+    }
+  ]
+}

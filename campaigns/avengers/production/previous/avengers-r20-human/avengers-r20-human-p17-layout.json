@@ -1,0 +1,81 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Sitara and Roman stand beside the records while Nayah works at the route line behind them. The phone beside Orien begins to ring. Leave upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Sitara answers the phone while Roman watches her, treatment file in hand. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 40,
+          "description": "Orien\u2019s face appears only in the cracked phone screen, weak and interrupted by breath; do not turn him into a full exposition portrait. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman lowers the treatment file as the call drops. Sitara holds the dead phone; keep quiet except for the sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "RING\u2014RING\u2014",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "Orien?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Croft threatened me. The warnings were scheduled\u2026 in case I disappeared.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ORIEN",
+      "text": "Second timestamp. Do not release everything. Release what can be checked.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "bottom-right"
+    }
+  ]
+}

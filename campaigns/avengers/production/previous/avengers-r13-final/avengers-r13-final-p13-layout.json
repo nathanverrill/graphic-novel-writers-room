@@ -1,0 +1,80 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Sitara faces Roman beside the aligned records. Her copied Merritt files lie between them. Leave upper-left for Sitara's dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Roman's hand rests near the restricted treatment file without covering it. His posture is contained and ashamed. Leave upper-right for Roman's dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close two-shot",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Sitara looks directly at Roman while he answers without looking away. Keep the confrontation restrained and leave upper-left and upper-right for the exchange."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman's bonded TJ and Sitara's separate TJ remain physically apart. Their displays show different category labels and local partition status; identify the neural housing and bright thermal band. Leave bottom for a caption."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I took the safeguards and provenance records from Merritt.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Croft asked me to continue unauthorized T-ALL chemistry.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "You stayed.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "So did you.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "at": "bottom-left",
+      "text": "ACCESS LIMITED / LOCAL PARTITION"
+    }
+  ]
+}
