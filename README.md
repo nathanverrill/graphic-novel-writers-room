@@ -1,7 +1,9 @@
 # Writers' Room
 
-*An example: a 24-page book produced end to end in the room — written, laid out, rendered and
-lettered. **[Download it as a PDF](examples/example-novel-art.pdf)** (24 pages).*
+![Example art from a book produced in the room](examples/example-novel-art.png)
+
+*From a 24-page book produced end to end in the room — written, laid out, rendered and
+lettered. **[Download the full example as a PDF](examples/example-novel-art.pdf)** (24 pages).*
 
 > **Prototype, not a product.** This is proof-of-concept code, developed at speed with
 > assistance from Claude Code. It is unhardened and unreviewed: no auth, no multi-user story,
