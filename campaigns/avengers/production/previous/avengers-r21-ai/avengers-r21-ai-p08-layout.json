@@ -1,0 +1,53 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Colorado logistics terminal: Roman submits an Antarctic transport request. The route display clearly identifies FALCON \u2014 FIELD SITE and NEXUS \u2014 COASTAL CAVE LABORATORY, TWO HOURS, WEATHER DEPENDENT. His bonded TJ waits beside the terminal. Keep silent."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman signs the CSG ANTARCTIC LOGISTICS / NEXUS ACCESS authorization. His bonded TJ remains beside him. Leave upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A tracked transport leaves the Colorado terminal. Roman sits behind the windshield with his bonded TJ secured in a padded case, its screen visible. Keep silent."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 30,
+          "description": "Split route map: Sitara and Nayah depart Falcon on one line while Roman\u2019s Antarctic logistics route enters from another; the lines converge only at NEXUS. Keep Falcon and Nexus visibly separate."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "I\u2019m going south.",
+      "at": "top-right"
+    }
+  ]
+}

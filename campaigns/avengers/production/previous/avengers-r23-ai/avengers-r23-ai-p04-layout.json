@@ -1,0 +1,74 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Falcon maintenance room: Sitara and Nayah stand beneath a projected borehole map labeled SCIENTIFIC DRILLING / ENVIRONMENTAL MONITORING, with unauthorized branches toward resource markers. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "A manifest beside a concealed waste chute shows ICE CORE STORAGE overwritten above DRILL FLUID / RESIDUALS. Nayah photographs it while Sitara studies vibration data. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Synchronized drilling-vibration and ice-motion displays share a red timestamp-and-coordinate fragment handwritten on a maintenance sheet. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The TJ turns toward a sealed archive slot containing paper records, a dead data wafer, and 07:14 / \u2014\u2014\u2014. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "That is not an ice-core manifest.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "It is pretending to be one.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "The vibration is local. The instability is not.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Local record. Access restricted.",
+      "at": "top-left"
+    }
+  ]
+}

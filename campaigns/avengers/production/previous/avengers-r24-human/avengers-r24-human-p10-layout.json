@@ -1,0 +1,81 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "Nexus support corridor buckles as blue ice splits the wall; Roman\u2019s bonded TJ pivots toward falling structure. Leave upper corners clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Roman receives a selective directional warning shown by posture shift, not glowing telepathy; he pulls Sitara clear as a brace crashes. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Nayah redirects them along the marked route as meltwater spreads; keep route arrow visible and leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 38,
+          "description": "Emergency lights flicker in a lower lab; through a fractured window are an empty krill tank and dead sensor display. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROOOAN",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLANG\u2014",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ROMAN",
+      "text": "Left. Move!",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "No retrieval. Keep moving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BEEP\u2026 BEEP\u2026",
+      "size": "small",
+      "at": "top-left"
+    }
+  ]
+}

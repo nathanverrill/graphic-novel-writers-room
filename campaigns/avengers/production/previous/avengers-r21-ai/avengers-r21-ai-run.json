@@ -2,9 +2,15 @@
   "id": "r21-ai",
   "kind": "ai",
   "started": "2026-09-30T14:45:28",
-  "finished": null,
-  "status": "running",
-  "files_written": [],
+  "finished": "2026-09-30T15:07:31",
+  "status": "done",
+  "files_written": [
+    "layouts.md",
+    "thumbnails.md",
+    "room-log.md",
+    "notes.md",
+    "page-prompts.md"
+  ],
   "images": [],
   "references": {
     "avengers/drafts/avalanche-draft-with-questions.md": "cf92ef44aaea777f",
@@ -39,18 +45,43 @@
   },
   "usage": {
     "total": {
-      "calls": 0,
+      "calls": 6,
       "errors": 0,
       "unpriced_calls": 0,
-      "cost_usd": 0.0,
-      "input_tokens": 0,
-      "cached_tokens": 0,
+      "cost_usd": 0.13302756,
+      "input_tokens": 445579,
+      "cached_tokens": 135323,
       "image_input_tokens": 0,
-      "output_tokens": 0,
-      "reasoning_tokens": 0,
-      "total_tokens": 0
+      "output_tokens": 43965,
+      "reasoning_tokens": 981,
+      "total_tokens": 489544
     },
-    "by_role": {}
+    "by_role": {
+      "layout": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.06357336,
+        "input_tokens": 198085,
+        "cached_tokens": 118328,
+        "image_input_tokens": 0,
+        "output_tokens": 34390,
+        "reasoning_tokens": 366,
+        "total_tokens": 232475
+      },
+      "continuity": {
+        "calls": 3,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.0694542,
+        "input_tokens": 247494,
+        "cached_tokens": 16995,
+        "image_input_tokens": 0,
+        "output_tokens": 9575,
+        "reasoning_tokens": 615,
+        "total_tokens": 257069
+      }
+    }
   },
   "run_id": "8a84d0fe4228",
   "note": "The room is in execution: Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.\n\nDrawability: Pages are drawn by an image model, one page per generation, from each character's and location's sheet, and a page drifts when it carries too much. So: at most 4 panels a page; at most 3 named characters in one panel; one location a page where the story allows (every new location needs its own sheet); no crowd that must be recognisable; a big moment gets a splash (one panel, the whole page). Count pages this way, not by comic convention. Every page you make keeps to it.\n\nThe pages are drawn from your layouts by an image model, with NO text on them: the lettering is added afterwards as a layer, from the items in each layout block. So every balloon, caption and sound effect must be in the layout block with the exact words, and each panel's description must say where the clear space for them is.\n\nThe book is exactly 24 pages: pages 1-24, no more, no fewer.\n\nWork from the showrunner's review below. Change only what it asks for; locked pages are restored automatically if you touch them.\n\n# Review r20-human of r19-ai\n\n0 kept \u00b7 0 redrawn by the showrunner \u00b7 0 with a note\n\n## Page 1 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 2 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 4 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 5 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 6 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 7 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 8 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 9 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 10 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 13 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 15 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 16 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n\n## Page 17 \u2014 open\n\nThe showrunner said nothing about this page. Carry on with it.\n",
@@ -114,5 +145,47 @@
       "image_api_key_set": true
     }
   },
-  "writing_round": "execution"
+  "writing_round": "execution",
+  "gate": {
+    "ready": false,
+    "reasons": [
+      "11 layout blocks don't parse",
+      "layouts.md has pages [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15, 16, 17], the brief asks for pages 1-24",
+      "2 continuity blockers"
+    ],
+    "blockers": 2,
+    "layout_issues": 0,
+    "pages": [
+      1,
+      2,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      13,
+      15,
+      16,
+      17
+    ],
+    "dialed_in": {}
+  },
+  "passes": 2,
+  "pages": [
+    1,
+    2,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    13,
+    15,
+    16,
+    17
+  ]
 }

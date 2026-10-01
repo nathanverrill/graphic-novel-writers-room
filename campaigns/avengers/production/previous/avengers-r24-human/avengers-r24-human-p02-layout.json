@@ -1,0 +1,96 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Nayah plants a route marker and safety line as Sitara steps over the warning flags; her separate silver TJ follows toward the buried sensor. Leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Sitara fastens a retrieval line to the sensor while her TJ scans; a dark seam widens beneath the tripod. Leave upper-left for dialogue and upper-right for sound effect."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 60,
+          "description": "The slab drops; Sitara catches the sensor case while Nayah braces against the route marker. Leave upper-left for dialogue and the fracture edge for sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 62,
+          "bleed": true,
+          "description": "Large reveal: blue ice breaks into darkness, exposing a black hatch stamped FALCON and a buried drill housing. Sitara grips sensor and ice edge; her small TJ stands at the hatch. Keep hatch label clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Mark the withdrawal route.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SITARA",
+      "text": "I have it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK. TIK. TIK.",
+      "size": "small",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TJ",
+      "text": "Vibration increasing.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK\u2014",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NAYAH",
+      "text": "Sitara!",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THRUMM\u2014THRUMM\u2014THRUMM",
+      "size": "large",
+      "at": "bottom-right"
+    }
+  ]
+}

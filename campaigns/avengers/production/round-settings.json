@@ -6,7 +6,7 @@
     "round": "r18-ai"
   },
   "magic": {
-    "status": "running",
+    "status": "failed",
     "choices": [
       {
         "t": 1790773248.0684168,
@@ -56,6 +56,20 @@
         "what": "Finalized the book.",
         "why": "Every page as the last round left it.",
         "round": "r18-final"
+      },
+      {
+        "t": 1790780851.2792795,
+        "step": "execution",
+        "what": "Took the pages after 2 rounds, not fully ready.",
+        "why": "11 layout blocks don't parse; layouts.md has pages [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15, 16, 17], the brief asks for pages 1-24; 2 continuity blockers",
+        "round": "r21-ai"
+      },
+      {
+        "t": 1790780851.7816098,
+        "step": "final",
+        "what": "Finalized the book.",
+        "why": "Every page as the last round left it.",
+        "round": "r22-final"
       }
     ],
     "log": [
@@ -178,17 +192,49 @@
       {
         "t": 1790779528.0177147,
         "text": "Round r21-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790780851.2806764,
+        "text": "Pages: not fully ready after 2 rounds - taking them as they are (11 layout blocks don't parse; layouts.md has pages [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 15, 16, 17], the brief asks for pages 1-24; 2 continuity blockers)."
+      },
+      {
+        "t": 1790780851.7839737,
+        "text": "Finalized as r22-final."
+      },
+      {
+        "t": 1790780851.7903936,
+        "text": "The book is done. The page packets are ready to paste into an image model; upload the art it draws and run the lettering."
+      },
+      {
+        "t": 1790780879.773943,
+        "text": "Production starts at Pages, running to final. With your note: Repair pass: pages 3, 11, 12, 14, 18, 19, 20, 21, 22, 23, 24 have layout blocks that do not parse and no packets. Fix ex"
+      },
+      {
+        "t": 1790780880.0599842,
+        "text": "Round r23-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790792011.2010694,
+        "text": "Pages: round 1 not ready (12 layout blocks don't parse; layouts.md has pages [1, 2, 4, 5, 6, 7, 8, 9, 10, 13, 16, 17], the brief asks for pages 1-24; 4 continuity blockers); sending it back for another."
+      },
+      {
+        "t": 1790792012.1435788,
+        "text": "Round r25-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1790802831.3108132,
+        "text": "The app restarted during Pages. Resume to go on."
       }
     ],
     "step": "execution",
     "until": "final",
-    "error": null,
+    "error": "The app restarted while the room was working. Resume picks up at that step.",
     "stop": false,
-    "started": "2026-09-30T14:39:15",
-    "finished": null,
+    "started": "2026-09-30T15:07:59",
+    "finished": "2026-09-30T21:13:51",
     "written_for_page1": false,
-    "run": "8a84d0fe4228",
-    "round": "r21-ai"
+    "run": "51b0c6d16d12",
+    "round": "r25-ai"
   },
   "scope": 0,
   "writer": "writer_a",

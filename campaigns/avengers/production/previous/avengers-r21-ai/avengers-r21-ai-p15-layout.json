@@ -1,0 +1,78 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Downstream Colorado water moves through a constructed wetland; it is visibly clearer but the inlet gate is nearly closed. A monitor shows CLARITY INDEX: 41 \u2192 68. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "horizon": 35,
+          "description": "A survey tray holds aquatic invertebrates beside a monitor reading DOWNSTREAM TAXA: 3 \u2192 11 and WETLAND FLOW CAPACITY: FINITE. Leave the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "A wall screen shows Croft beside his son\u2019s treatment schedule; the son appears only as a pale hand beneath hospital bedding. Keep the patient partial and non-identifying. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Back in Nexus, Sitara watches the recording while Roman stands beside her unable to answer quickly. Leave the upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "at": "top-left",
+      "text": "CLARITY INDEX: 41 \u2192 68"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "top-left",
+      "text": "DOWNSTREAM TAXA: 3 \u2192 11"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "at": "bottom-right",
+      "text": "WETLAND FLOW CAPACITY: FINITE"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You want to stop the work that made this possible.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "CROFT",
+      "text": "You knew it was useful. You knew it was controlled. Why is it wrong only now?",
+      "at": "top-left"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 
 **Layout errors**
 
-- layout block 3: Extra data: line 1 column 1472 (char 1471)
+- layout block 3: Extra data: line 1 column 1520 (char 1519)
 - layout block 11: Extra data: line 1 column 1410 (char 1409)
 - layout block 12: Extra data: line 1 column 1302 (char 1301)
 - layout block 14: Extra data: line 1 column 1176 (char 1175)
@@ -15,7 +15,7 @@
 - layout block 22: Extra data: line 1 column 1066 (char 1065)
 - layout block 23: Extra data: line 1 column 1248 (char 1247)
 - layout block 24: Extra data: line 1 column 949 (char 948)
-## Page 1 (right)
+## Page 1 (right) <!-- layout a28b7b38d4 -->
 
 ```text
                                                                                                                     
@@ -102,13 +102,12 @@
                                                                                                                     
 ```
 
-- P1 CLOSE / LOW: Himalayas, 2042 night: Roman hangs half-buried in a narrow blue-white crevasse, one gloved hand locked around a climbing line as his small silver Terrain Jumper descends toward him. Lightning forks through the glacier and the machine’s sensor housing. Keep silent.
-- P2 WIDE / EYE: Himalayas, 2026 day: floodwater tears across the foreground carrying a cooking pot and a child’s red sweater. Six-year-old Sitara is seen only from behind on a high stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific; keep silent.
+- P1 CLOSE / LOW: Himalayas, 2042 night: Roman hangs half-buried in a narrow blue-white crevasse, one gloved hand locked around a climbing line as his small silver Terrain Jumper descends toward him. Lightning forks through the glacier and the machine’s sensor housing. Keep the upper half clear for lettering.
+- P2 WIDE / EYE: Himalayas, 2026 day: floodwater tears across the foreground carrying a cooking pot and a child’s red sweater. Six-year-old Sitara is seen only from behind on a high stone step as an adult hand pulls her away. Keep faces and cultural details nonspecific; keep the upper area clear.
 - P3 ESTABLISHING / EYE: Antarctica, 2046 day: vast blue-white ice under a hard sky. Sitara in her puffy red jacket stands beside Nayah in her puffy yellow jacket; warning flags mark a dark unstable zone between them and a half-buried sensor tripod. Sitara’s separate silver TJ crouches beside the route marker. Leave upper-left clear.
 - P4 CLOSE / LOW: Sitara’s boot hovers just short of the flagged line; beyond it the sensor’s red status light blinks while a geometric tremor advances beneath the ice. Leave the upper third clear. — SFX KRRRNNN
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 2 (left)
+## Page 2 (left) <!-- layout aee2f75d3b -->
 
 ```text
                                                                                                                     
@@ -155,11 +154,11 @@
                                                                                                                     
         _______________________________    ________________________________________________________________________ 
        |                               |  |                                                                        |
-       |  _  ______      _  _________  |  |                          \\ T H R U M M — T H R U M M — T H R U M M // |
-       | | |/ /  _ \    / \( SITARA! ) |  |                                                                        |
-       | | ` /| |_) |  / _ \~~~~~~~~~  |  |                                                                        |
-       | | _ \|  _ <  / ___ \| _|\     |  |                                                                        |
-       | |_|\_\_| \_\/_/   \_\_|\_\    |  |                                                                        |
+       |                    _________  |  |                          \\ T H R U M M — T H R U M M — T H R U M M // |
+       |                   ( SITARA! ) |  |                                                                        |
+       |                    ~~~~~~~~~  |  |                                                                        |
+       |                        |      |  |                                                                        |
+       |                        |      |  |                                                                        |
        |                               |  |                                                                        |
        |                               |  |                                                                        |
        |_______________________________|  |                                                                        |
@@ -183,11 +182,11 @@
        |                               |  |                                                                        |
        |                               |  |                                                                        |
        |                               |  |                                                                        |
-       |                               |  |                                                                        |
-       |                               |  |                                                                        |
-       |                               |  |                                                                        |
-       |                               |  |                                                                        |
-       |                               |  |                                                                        |
+       |  _  ______      _    _  __    |  |                                                                        |
+       | | |/ /  _ \    / \  | |/ /    |  |                                                                        |
+       | | ` /| |_) |  / _ \ | ` /     |  |                                                                        |
+       | | _ \|  _ <  / ___ \| _ \     |  |                                                                        |
+       | |_|\_\_| \_\/_/   \_\_|\_\    |  |                                                                        |
        |                               |  |                                                                        |
        |_______________________________|  |                                                                        |
                                           |                                                                        |
@@ -197,15 +196,10 @@
 
 - P1 WIDE / EYE: Nayah plants an emergency route marker and clips a safety line in place while Sitara steps over the warning flags. Sitara’s separate TJ follows low across the snow, thermal sensor band facing the buried sensor. Leave upper corners clear.
 - P2 CLOSE / HIGH: Sitara kneels beside the tripod fastening a retrieval line to the sensor case; her fingers work quickly while the TJ scans the surface. A dark blue seam widens beneath the tripod. Leave upper-right and lower-left clear.
-- P3 MEDIUM / LOW: The ice slab drops. Sitara falls to one knee, catching the sensor case as the line jerks tight; Nayah braces against the route marker and cannot reach her without entering the unstable section. Leave the upper-left clear for the sound effect and upper-right clear for Nayah’s balloon. — SFX KRAK—
+- P3 MEDIUM / LOW: The ice slab drops. Sitara falls to one knee, catching the sensor case as the line jerks tight; Nayah braces against the route marker and cannot reach her without entering the unstable section. Keep the upper-left reserved for the sound effect and the upper-right for Nayah’s balloon. — SFX KRAK—
 - P4 WIDE / LOW: Large reveal: blue ice falls into darkness beneath Sitara, exposing a black metal hatch stamped FALCON and a buried drill housing shuddering below. Sitara grips the sensor and ice edge; her small separate TJ stands at the hatch. Leave upper-right clear. — SFX THRUMM—THRUMM—THRUMM
 
-**Issues**
-
-- panel 3: balloon 'NAYAH' overlaps sfx 'KRAK—'
-
-- hand edits reverted — the page will be redrawn on the next run
-## Page 4 (left)
+## Page 4 (left) <!-- layout be95f234e8 -->
 
 ```text
                                                                                                                     
@@ -297,8 +291,7 @@
 - P3 CLOSE / HIGH: Two synchronized displays show drilling vibration below and ice-motion plots above, with matching timing. A red timestamp-and-coordinate fragment is handwritten across a maintenance sheet. Leave upper-left clear.
 - P4 MEDIUM / EYE: The TJ turns toward a sealed archive slot containing paper records, a dead data wafer, and a warning fragment marked 07:14 / ———. Leave upper-right clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 5 (right)
+## Page 5 (right) <!-- layout c096137a06 -->
 
 ```text
                                                                                                                     
@@ -390,8 +383,7 @@
 - P3 MEDIUM / EYE: A warning light flashes and meltwater beads along the threshold. Nayah pulls the emergency line taut toward the exit while Sitara closes the tablet. Leave upper-left and upper-right clear.
 - P4 CLOSE / HIGH: The copied record shows NEXUS — ROUTE 2 — SECOND TIMESTAMP and PAIR BEFORE DISCLOSURE. Keep the coordinate legible with the rest quiet.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 6 (left)
+## Page 6 (left) <!-- layout ffe21c6cbf -->
 
 ```text
                                                                                                                     
@@ -483,8 +475,7 @@
 - P3 MEDIUM / EYE: Croft turns the treatment schedule toward Roman, controlled but exhausted; the schedule date dominates the foreground. Leave upper-left clear.
 - P4 CLOSE / HIGH: Roman signs a restricted-access form. His bonded TJ’s green-black display reads LOCAL PARTITION: STATUS PULSE. Roman’s hand remains on the pen after signing. Leave upper-right clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 7 (right)
+## Page 7 (right) <!-- layout 09d3d7c3fb -->
 
 ```text
                                                                                                                     
@@ -576,8 +567,7 @@
 - P3 MEDIUM / EYE: Roman asks his bonded TJ for the route. The small silver unit’s screen answers with a preserved route reference; keep its neural housing visible but do not add glowing telepathy. Leave upper-left clear.
 - P4 MEDIUM / EYE: Roman folds the Nexus sheet into his jacket. Behind him the treatment file remains open and the bonded TJ stays beside it. Leave upper-left clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 8 (left)
+## Page 8 (left) <!-- layout d60b6bb19c -->
 
 ```text
                                                                                                                     
@@ -669,8 +659,7 @@
 - P3 WIDE / EYE: A tracked transport leaves the Colorado terminal. Roman sits behind the windshield with his bonded TJ secured in a padded case, its screen visible. Keep silent.
 - P4 WIDE / HIGH: Split route map: Sitara and Nayah depart Falcon on one line while Roman’s Antarctic logistics route enters from another; the lines converge only at NEXUS. Keep Falcon and Nexus visibly separate.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 9 (right)
+## Page 9 (right) <!-- layout 620bcf2e26 -->
 
 ```text
                                                                                                                     
@@ -762,8 +751,7 @@
 - P3 MEDIUM / EYE: Roman holds Orien’s chemical calibration sheet while Sitara holds the Falcon fragment. Their eyes stay on the documents, not each other. Leave upper third clear.
 - P4 MEDIUM / HIGH: Nayah plants a route marker at the corridor entrance; a chalked arrow points back toward the exit. Leave upper-left clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 10 (left)
+## Page 10 (left) <!-- layout 883f6b4128 -->
 
 ```text
                                                                                                                     
@@ -855,8 +843,7 @@
 - P3 WIDE / EYE: Nayah redirects the group along the marked route while meltwater spreads across the floor. Leave upper-left clear.
 - P4 MEDIUM / EYE: Emergency lights flicker on in a lower laboratory. Through a fractured window, an empty krill tank and dead sensor display wait in blue darkness. Leave upper-right clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 13 (right)
+## Page 13 (right) <!-- layout 2d9c4e7b2d -->
 
 ```text
                                                                                                                     
@@ -948,8 +935,7 @@
 - P3 CLOSE / EYE: Sitara looks directly at Roman, controlled but accusatory. Leave upper-left clear.
 - P4 WIDE / EYE: The two separate TJs remain physically apart. Their displays show different local partitions and record counts. Keep silent and uncluttered.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 15 (right)
+## Page 15 (right) <!-- layout 36a1a2f6b2 -->
 
 ```text
                                                                                                                     
@@ -1041,8 +1027,7 @@
 - P3 MEDIUM / EYE: A wall screen shows Croft beside his son’s treatment schedule; the son appears only as a pale hand beneath hospital bedding. Keep the patient partial and non-identifying. Leave upper-left clear.
 - P4 MEDIUM / EYE: Back in Nexus, Sitara watches the recording while Roman stands beside her unable to answer quickly. Leave the upper third clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 16 (left)
+## Page 16 (left) <!-- layout aaeeabe098 -->
 
 ```text
                                                                                                                     
@@ -1134,8 +1119,7 @@
 - P3 MEDIUM / EYE: Sitara reaches Orien Keel, frost-stiffened and near hypothermia, curled beside a dead heater. His battered analog watch is visible. Keep silent.
 - P4 CLOSE / EYE: Sitara places a phone on the ice beside Orien and activates it. His eyes open slightly. Leave upper-left clear.
 
-- hand edits reverted — the page will be redrawn on the next run
-## Page 17 (right)
+## Page 17 (right) <!-- layout 2340e7253a -->
 
 ```text
                                                                                                                     
@@ -1226,5 +1210,3 @@
 - P2 CLOSE / EYE: Sitara answers the phone while Roman watches her, treatment file in hand. Leave upper-left clear.
 - P3 CLOSE / EYE: Orien’s face appears only in the cracked phone screen, weak and interrupted by breath; do not turn him into a full exposition portrait. Leave upper-left clear.
 - P4 MEDIUM / EYE: Roman lowers the treatment file as the call drops. Sitara holds the dead phone; keep quiet except for the sound effect.
-
-- hand edits reverted — the page will be redrawn on the next run
