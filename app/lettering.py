@@ -143,8 +143,9 @@ def layer(spec, ctx=None, rects=None):
            f'<g font-family="{FONT}" text-anchor="middle">']
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     placed, boxes, tails = [], {}, {}
-    out.append(f'<text x="{round(W * MARGIN)}" y="{round(H * MARGIN * 0.6)}" text-anchor="start" '
-               f'font-size="{round(W * 0.016)}" fill="#7ec8ff">{html.escape(label)}</text>')
+    out.append(f'<text x="{round(W * 0.015)}" y="{round(H * 0.012) + round(W * 0.016)}" text-anchor="start" '
+               f'font-size="{round(W * 0.016)}" fill="#7ec8ff" stroke="#10304a" '
+               f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
     for item in items(spec):
         kind = item["type"]
         start = len(out)      # everything this item draws is wrapped in <g data-item> below
@@ -189,9 +190,14 @@ def layer(spec, ctx=None, rects=None):
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
         size = SIZES.get(kind, 0.019) * W
-        width = min(rect[2] * 0.8, 0.38) * W
+        width = min(rect[2] * 0.86, 0.6) * W
         limit = max(8, int(width / (size * CHAR)))
         lines = wrap(text, limit) if kind in ("caption", "location") else balloon_wrap(text, limit)
+        # a balloon must fit its panel: in a short strip tier, wrap flat and wide instead of tall
+        max_lines = max(1, int((rect[3] * H * 0.62) / (size * LINE)))
+        if len(lines) > max_lines:
+            per_line = min(limit, max(10, -(-len(text) // max_lines)))
+            lines = wrap(text, per_line)
         box_w = max(len(l) for l in lines) * size * CHAR
         box_h = len(lines) * size * LINE
         rx = box_w / 2 + size * 1.2
@@ -199,6 +205,11 @@ def layer(spec, ctx=None, rects=None):
         pad = size * 0.5
         bounds = (rect[0] * W, rect[1] * H, (rect[0] + rect[2]) * W, (rect[1] + rect[3]) * H)
         x0, y0, x1, y1 = nudge((px - rx - pad, py - ry - pad, px + rx + pad, py + ry + pad), placed, bounds)
+        bw, bh = x1 - x0, y1 - y0        # keep the box inside its drawn panel when it fits
+        if bw <= bounds[2] - bounds[0]:
+            x0 = min(max(x0, bounds[0]), bounds[2] - bw); x1 = x0 + bw
+        if bh <= bounds[3] - bounds[1]:
+            y0 = min(max(y0, bounds[1]), bounds[3] - bh); y1 = y0 + bh
         placed.append((x0, y0, x1, y1))
         boxes[item["i"]] = (x0 / W, y0 / H, x1 / W, y1 / H)
         px, py = (x0 + x1) / 2, (y0 + y1) / 2
