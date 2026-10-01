@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 1</text>
+<g data-item="0">
+<text x="266" y="136" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 266 136)">KRRR—THUMP</text>
+</g>
+<g data-item="1">
+<text x="734" y="491" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 734 491)">THUMP</text>
+</g>
+<g data-item="2">
+<text x="266" y="846" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 266 846)">KRRR</text>
+</g>
+<g data-item="3">
+<text x="266" y="1411" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 266 1411)">THUMP</text>
+</g>
+<g data-item="4">
+<rect x="684" y="1183" width="100" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="1207" font-size="18" fill="#111">GODARAZ</text>
+</g>
+</g>
+</svg>

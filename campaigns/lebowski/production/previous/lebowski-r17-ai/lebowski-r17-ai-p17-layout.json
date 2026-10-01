@@ -1,0 +1,41 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "low",
+          "horizon": 35,
+          "bleed": true,
+          "description": "Full-page GODARAZ interior reveal. The cover has been pulled from the back wall to expose The Ascent of the Pin, a folk-art and Mughal-miniature triptych showing a rising bowling pin as a local saint and civic monument, surrounded by kinnow, mustard flowers, fort brick and tiny bowlers. Keep the four working lanes visible below. Guddu stands small before the mural; Pinty\u2019s bicycle-chain repair, mismatched wiring and old cotton stencils remain visible. The recovered dhurrie lies at the entrance, Moti\u2019s five-dog pack rests outside in shade, Duda grips lane 3\u2019s ball return and Billi occupies the other. Reserve upper-left mural space for the title and Maude\u2019s balloon, and lower-left floor space for Guddu\u2019s balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "The Ascent of the Pin",
+      "at": "top"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "MAUDE",
+      "text": "The pin is not decorative. It is ascending.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GUDDU",
+      "text": "It is\u2026 international standard.",
+      "at": "bottom-left"
+    }
+  ]
+}

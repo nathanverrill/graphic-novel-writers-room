@@ -1,0 +1,95 @@
+{
+  "page": 20,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The Dude steps onto lane 3 in bathrobe, sunglasses and bazaar chappals. The crowned lane, standing pin, recovered dhurrie and oversized GODARAZ z align in one perspective. Duda watches from the ball return. Keep upper-left lane space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The contradictory bilingual rule board is visible behind The Dude. Walter grips his rulebook while Guddu, Pinty and Bua-ji watch from the side. Keep the upper area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The Dude releases the ball without hurry down lane 3. Use the long lane as the dominant shape and keep upper-right travel space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 30,
+          "description": "The ball knocks down the final pin. Naturalistic hands, faces and bodies break into motion. Include a compact scoreboard reading 49\u201348 without competing with the impact. Keep lower-right lane space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "The parrot is not an umpire.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "THE PARROT IS NOT AN UMPIRE.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "the parrot is sometimes an umpire.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "rrrrrrrr",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "49\u201348",
+      "at": "top-right"
+    }
+  ]
+}

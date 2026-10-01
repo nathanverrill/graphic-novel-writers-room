@@ -1,0 +1,83 @@
+{
+  "id": "r16-ai",
+  "kind": "ai",
+  "started": "2026-10-01T19:05:59",
+  "finished": "2026-10-01T19:06:03",
+  "status": "error",
+  "files_written": [],
+  "images": [],
+  "references": {
+    "lebowski/input/characters.md": "cd8cf6128d9a1b82",
+    "lebowski/input/godaraz-and-town.md": "9b4cef4d1060e498",
+    "lebowski/input/humor-beats.md": "fd477625970fe603",
+    "lebowski/input/pitch.md": "f4dd3c125f446035",
+    "lebowski/input/story-beats.md": "caee9d8e6570462a",
+    "lebowski/references/big-lebowski.md": "9287b5e9a6799dd2",
+    "lebowski/references/hanumangarh.md": "dd72007a2cd248e7",
+    "lebowski/rules/decisions.md": "713987612231a72f",
+    "lebowski/rules/tone-and-style.md": "998b2502db6cdab6"
+  },
+  "usage": {
+    "total": {
+      "calls": 1,
+      "errors": 1,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {
+      "presscheck": {
+        "calls": 1,
+        "errors": 1,
+        "unpriced_calls": 0,
+        "cost_usd": 0.0,
+        "input_tokens": 0,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 0,
+        "reasoning_tokens": 0,
+        "total_tokens": 0
+      }
+    }
+  },
+  "run_id": "ab2265bc7ab7",
+  "note": "The room is in press check: The Press Check reads every lettered page as a reader would - the words over the finished art - moves any lettering that covers what matters or fights the eye path, and lists the lines that no longer make sense against the drawn page, each with a suggested rewrite. Moves are applied and the pages re-lettered; rewrites wait for you.",
+  "roles": [
+    "presscheck"
+  ],
+  "configs": {
+    "presscheck": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 8000,
+      "thinking_budget": 0,
+      "max_steps": 8,
+      "timeout": 300,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "presscheck"
+}

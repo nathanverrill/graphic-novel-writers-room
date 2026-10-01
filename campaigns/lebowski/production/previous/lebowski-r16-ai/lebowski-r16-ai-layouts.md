@@ -1,0 +1,740 @@
+# layouts.md
+
+## Base grid and production decisions
+
+**Canon:** Western left-to-right reading; 22-page single issue; odd pages right, even pages left; flat retro color with halftone-dot texture; dusty-gold natural light except the saturated dream sequence, which is not present in this script version.
+
+**Layout:** Four equal rectangular tiers throughout, except Page 17, which is a one-panel full-page splash. Maximum four panels per page and three named characters per panel. All lettering is reserved in clear negative space and added after the art.
+
+**Continuity fixes:** The Dude is headed to **Rishikesh**. Page 17 is one full-page splash. Page 1 uses valid JSON. Page 15 keeps Guddu absent from Panel 1. Page 16 establishes that the reversal occurs before the deadline, because Saand’s sabotage—not a missed deadline—triggers Bua-ji’s decision.
+
+## Page 1 (right) — 4 panels, four equal tiers
+
+Reading path: The cotton bale travels from railway life through agriculture and fort-side traffic toward GODARAZ. Dominant beat: the bale aimed at the unfinished warehouse.
+
+```layout
+{
+ "page": 1,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "establishing",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Dawn at Hanumangarh Junction: a runaway cotton bale rolls across railway tracks from a broken tractor-trolley. Show low buildings, first green fields, sleeping stray dogs and the pale line of Bhatner\u2019s brick walls. Keep upper-left sky clear for lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The cotton bale rolls past a kinnow stall being opened for the day. A steel ladle hangs above a buffalo-milk urn while the stallkeeper watches too late. Keep open air above the urn for lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "low",
+     "horizon": 30,
+     "description": "The bale passes beneath Bhatner fort between a camel cart and a new SUV stopped nose-to-nose. Keep dusty road space beside the bale for lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "low",
+     "horizon": 35,
+     "description": "The bale rolls toward a whitewashed former cotton-press warehouse beside the mandi. Old cotton-bale stencils show through the paint, with tin roof and an unfinished bilingual GODARAZ sign. Leave lower-right road space for lettering."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "sfx",
+   "text": "KRRR\u2014THUMP",
+   "size": "large",
+   "at": "top-left"
+  },
+  {
+   "panel": 2,
+   "type": "sfx",
+   "text": "THUMP",
+   "size": "medium",
+   "at": "top-right"
+  },
+  {
+   "panel": 3,
+   "type": "sfx",
+   "text": "KRRR",
+   "size": "medium",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "sfx",
+   "text": "THUMP",
+   "size": "large",
+   "at": "bottom-left"
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "GODARAZ",
+   "at": "top-right"
+  }
+ ]
+}
+```
+
+## Page 2 (left) — 4 panels, four equal tiers
+
+Reading path: Bale, Baba Tau, narration, then the interior reveal. Dominant beat: the oversized **z**.
+
+```layout
+{
+ "page": 2,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 50,
+     "description": "The cotton bale bumps against the closed warehouse shutter. Dust settles; only the lower edge of the unfinished sign is visible. Keep lower-right metal clear for lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 48,
+     "description": "Baba Tau sits at the mandi-gate chai stall holding his chipped glass. The warehouse is small but centered behind him. Keep the top-left open for a caption."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium close",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Baba Tau looks toward the warehouse as a railway horn sounds and the mandi stirs. Keep upper-left negative space for narration."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "low",
+     "horizon": 30,
+     "description": "The shutter lifts slightly. In the dark warehouse, the oversized English z of GODARAZ appears first, twice the height of every other letter, with four lane silhouettes and festoon lights behind it. Keep upper-right darkness clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "sfx",
+   "text": "TOK",
+   "size": "medium",
+   "at": "bottom-right"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "text": "In Hanumangarh, every story begins with a thing that has already been moving.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "caption",
+   "text": "This one concerns a man for his time and place.",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "sfx",
+   "text": "KRRRNNNK",
+   "size": "large",
+   "at": "top-right"
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "GODARAZ",
+   "at": "bottom-right"
+  }
+ ]
+}
+```
+
+## Page 3 (right) — 4 panels, four equal tiers
+
+Reading path: Street-stall transaction, cheque, Guddu’s entrance, invitation toward GODARAZ. Dominant beat: the buffalo-milk purchase and recruitment of The Dude.
+
+```layout
+{"page":3,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"At a mandi-side street stall, buffalo milk, kinnow pyramids and vegetables frame The Dude in a worn bathrobe, sunglasses and bazaar chappals. He holds one milk pouch while the stallkeeper studies a post-dated ₹69 cheque. Keep the upper stall area clear."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","description":"Close on the ₹69 cheque, milk pouch and the stallkeeper’s doubtful hand. Keep the top third uncluttered."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu enters with his permit folder tight against his chest. He looks from the cheque to The Dude, already deciding something. Keep space above both figures."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu points toward GODARAZ while The Dude looks toward the railway road toward Rishikesh. Keep upper-left and upper-right air open for balloons."}]}],"items":[{"panel":1,"type":"balloon","speaker":"STALLKEEPER","text":"Post-dated?","at":"top-left"},{"panel":1,"type":"balloon","speaker":"THE DUDE","text":"It’s, like, a very near date.","at":"top-right"},{"panel":2,"type":"balloon","speaker":"STALLKEEPER","text":"The buffalo is not post-dated.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"THE DUDE","text":"Far out.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"GUDDU","text":"You are American?","at":"top-left"},{"panel":3,"type":"balloon","speaker":"THE DUDE","text":"Among other things.","at":"top-right"},{"panel":4,"type":"balloon","speaker":"GUDDU","text":"Bowling. International standard, saab.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"THE DUDE","text":"I was headed to Rishikesh.","at":"top-right"}]}
+```
+
+## Page 4 (left) — 4 panels, four equal tiers
+
+Reading path: Deadline, collateral, Guddu’s pitch, concealed support. Dominant beat: the one-month obligation.
+
+```layout
+{"page":4,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Bua-ji sits behind ledgers and mustard sacks while Guddu stands opposite with his permit folder. Leave upper-left desk space."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","description":"A loan ledger lies beside Saand’s unsigned bid papers awaiting approval. Keep the upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"high","horizon":55,"description":"Guddu leans over a rough GODARAZ plan and points at four lanes. Keep the upper-left plan margin clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"eye","description":"Bua-ji closes the ledger. An open cash box behind it visibly contains a folded GODARAZ flyer. Keep upper-left space open."}]}],"items":[{"panel":1,"type":"balloon","speaker":"BUA-JI","text":"One month. Before Diwali.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"BUA-JI","text":"The warehouse is collateral. Miss the opening, it goes to Saand.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"GUDDU","text":"First we open, then we become stable. This is the normal sequence.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"GUDDU","text":"Four lanes. Imported pine. International standard, saab.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"BUA-JI","text":"It is a cotton warehouse.","at":"top-right"},{"panel":4,"type":"balloon","speaker":"BUA-JI","text":"One month.","at":"top-left"}]}
+```
+
+## Page 5 (right) — 4 panels, four equal tiers
+
+Reading path: Dhurrie, permit counter, rejected photograph, machine failure. Dominant beat: imported aspiration meeting local obstacles.
+
+```layout
+{
+ "page": 5,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "At the GODARAZ entrance, Guddu lays a hand-woven bazaar dhurrie across the threshold. A stray dog immediately pees on it; Moti\u2019s five-dog pack sleeps in exact shade circles nearby. Keep upper-left wall clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 48,
+     "description": "Inspector Chaudhary sits perfectly still behind one queue bench and a deliberately dry stamp pad while Guddu faces him. Leave the top third open."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "description": "Guddu holds up an unsmiling photograph of himself beside the warehouse. Keep the photograph visible and leave space for dialogue."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The Mandarin-labelled pin-setter jams above lane 3; one pin hangs crookedly. Pinty stands beside it with tools ready. Keep machine space open for lettering."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "GUDDU",
+   "text": "This is not international standard.",
+   "at": "top-left"
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "CHAUDHARY",
+   "text": "Applicant and premises must both be smiling.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "GUDDU",
+   "text": "The premises is smiling internally.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "CHAUDHARY",
+   "text": "Seniority is not delay. It is sequence.",
+   "at": "top-right"
+  },
+  {
+   "panel": 4,
+   "type": "sfx",
+   "text": "KRRR\u2014CHUNK",
+   "size": "large",
+   "at": "bottom-right"
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "PINTY",
+   "text": "The machine is not haunted. It is emotionally overloading.",
+   "at": "top-left"
+  }
+ ]
+}
+```
+
+## Page 6 (left) — 4 panels, four equal tiers
+
+Reading path: Approval, bicycle-chain repair, test reset, rule-board introduction.
+
+```layout
+{
+ "page": 6,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 48,
+     "description": "At the municipal counter, Guddu presents a smiling-premises photograph, ordinary fees and a replacement stamp pad. Chaudhary stamps the papers without changing expression. Keep upper-left counter space clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium close",
+     "angle": "eye",
+     "description": "Pinty removes the cracked drive belt and fits a bicycle chain with pliers at the GODARAZ machinery bench. Keep top-left clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The bicycle chain turns and four pins reset slowly and noisily. Guddu watches, trying not to correct the repair. Keep lower machine space clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Duda grips the lane-3 ball return above the crowned lane while Billi occupies the other return. Behind them, the bilingual rule board has clear space for two exact contradictory lines."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "sfx",
+   "text": "THUP",
+   "size": "medium",
+   "at": "middle"
+  },
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "CHAUDHARY",
+   "text": "Approved.",
+   "at": "top-left"
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "PINTY",
+   "text": "Give me one chain, one tractor and no speeches.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "sfx",
+   "text": "KRAK-KRAK-KRAK",
+   "size": "medium",
+   "at": "bottom"
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "THE PARROT IS NOT AN UMPIRE.",
+   "x": 16.278155527443957,
+   "y": 4.345556487855222
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "the parrot is sometimes an umpire.",
+   "x": 79.70342170918546,
+   "y": 85.91452930576841
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "DUDA",
+   "text": "Main umpire hoon. Also, I am not.",
+   "x": 38.29958183990442,
+   "y": 75.28386895107128
+  }
+ ]
+}
+```
+
+## Page 7 (right) — 4 panels, four equal tiers
+
+Reading path: Improvised test, blackout, Walter’s ruling, contractor intimidation.
+
+```layout
+{
+ "page": 7,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "At night inside and outside GODARAZ, indistinct local testers stand behind the lanes. Pinty connects a tractor jumper to the alley wiring while separate temporary service equipment remains at the threshold. Keep upper-right clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The power cuts mid-frame. Tractor light enters the dark alley. The Dude holds a finished buffalo-milk White Russian at the counter. Keep upper-left counter space clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "A small video screen shows Walter\u2019s intense face and laminated rulebook, surrounded by the dark alley. Keep the screen\u2019s top edge clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "At the GODARAZ threshold beneath the oversized z, two apologetic goons speak with the worried power contractor beside the temporary service equipment. Keep the wall clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "sfx",
+   "text": "CHUG-CHUG-CHUG",
+   "size": "large",
+   "at": "bottom-right"
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "THE DUDE",
+   "text": "Far out, man.",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "WALTER",
+   "text": "A power cut is not a philosophy. It is a ruling.",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "GOON",
+   "text": "Your larger job is waiting.",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "GODARAZ",
+   "at": "top-right"
+  }
+ ]
+}
+```
+
+## Page 8 (left) — 4 panels, four equal tiers
+
+Reading path: Equipment removal, empty service point, goons departing, lights failing. Dominant beat: sabotage becomes active.
+
+```layout
+{"page":8,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Outside GODARAZ, the contractor loads the temporary service equipment into his vehicle. The crude tractor jumper remains attached but inadequate. Guddu stands at the threshold. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu finds the empty service point while Pinty examines disconnected cables. The tractor cable is visibly insufficient. Keep the top third open."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"The apologetic goons drive away with the removed service equipment loaded in the vehicle toward Saand’s site. Keep the oversized z and warehouse wall in frame."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Inside GODARAZ, festoon lights go dark one row at a time. Guddu stands beneath them with his permit folder. Keep upper-left darkness clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"GUDDU","text":"You said until opening.","at":"top-left"},{"panel":1,"type":"balloon","speaker":"CONTRACTOR","text":"I said many things before breakfast.","at":"top-right"},{"panel":2,"type":"balloon","speaker":"PINTY","text":"Tractor power is a test. Not a business.","at":"top-left"},{"panel":3,"type":"sfx","text":"GRIND","size":"medium","at":"bottom-right"},{"panel":4,"type":"sfx","text":"TIK… TIK… TIK…","size":"medium","at":"top-left"}]}
+```
+
+## Page 9 (right) — 4 panels, four equal tiers
+
+Reading path: Manual, rumor, correction, missing dhurrie.
+
+```layout
+{"page":9,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Near GODARAZ, an indistinct customer holds open the Mandarin-labelled manual while another points to an unreadable diagram. The pin-setter clanks in darkness behind them. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"eye","description":"Duda sits on the lane-3 ball return above the crowned lane, framed by the dark machine. Keep the upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu holds the manual upside down while Pinty studies it beside him. Keep the space above the manual clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"The GODARAZ entrance stands bare. Dust has collected in the rectangular footprint where the hand-woven dhurrie lay. Keep the doorway clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"CUSTOMER","text":"It says the lane remembers.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"DUDA","text":"Haunted. Bhoot. Haunted bhoot.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"GUDDU","text":"This is a wiring diagram.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"PINTY","text":"It is emotionally a wiring diagram.","at":"top-right"}]}
+```
+
+## Page 10 (left) — 4 panels, four equal tiers
+
+Reading path: Theft, limited witness, repeated phrase, scent lead.
+
+```layout
+{"page":10,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"At the GODARAZ exterior, two apologetic goons roll the hand-woven dhurrie toward a small vehicle. Duda’s lane-3 ball-return silhouette is visible high in the background, with no power equipment shown. Keep upper-right road space clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"eye","description":"Duda watches from the lane-3 ball return as the dhurrie disappears into the vehicle. He does not see the power equipment or full plan. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu and Bua-ji listen while Duda repeats the distinctive phrase. Keep only these three named figures and reserve the upper third."}]},{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"low","horizon":35,"description":"Moti lowers his nose to the empty entrance, one ear upright and the other tilted outward. The other four dogs rise from shade circles and face the road. Keep lower-right clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"GOON","text":"Keep it for the big hall.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"DUDA","text":"“Big hall.” Bada hall. Same words. Very suspicious. Also, I was not an umpire.","at":"top-left"},{"panel":4,"type":"sfx","text":"SNIFF","size":"medium","at":"bottom-right"}]}
+```
+
+## Page 11 (right) — 4 panels, four equal tiers
+
+Reading path: Moti’s trail through the mandi to Saand’s site.
+
+```layout
+{"page":11,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Moti leads through a mandi lane with nose low. The other four dogs mark the route behind him. Guddu follows with his permit folder and Duda rides on his shoulder. Keep the route open."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"The scent trail crosses cotton bales, kinnow crates and mustard sacks. Guddu nearly walks into a tractor-trolley. Keep the upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":42,"description":"The pack reaches Saand’s half-built marriage-hall site. Scaffolding and the self-shaped fountain rise behind the dogs. Keep the sky clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"low","horizon":35,"description":"Moti stops before cement bags, one ear upright. Behind the bags, a rolled corner of the stolen dhurrie is plainly visible. Keep the cement-bag area clear."}]}],"items":[{"panel":2,"type":"balloon","speaker":"GUDDU","text":"We are following dogs.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"DUDA","text":"International investigation, saab.","at":"top-right"}]}
+```
+
+## Page 12 (left) — 4 panels, four equal tiers
+
+Reading path: Dhurrie, Saand’s denial, fountain rhetoric, Billi’s unnoticed presence.
+
+```layout
+{"page":12,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu pulls the hand-woven dhurrie partly from behind cement bags. Saand stands nearby with his two goons behind him. Keep the upper third open."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":55,"description":"The dhurrie lies unrolled in dust with worn GODARAZ entrance marks visible. Keep the top third clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Saand gestures toward the half-built fountain shaped like himself. Keep upper-left space open."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"low","horizon":30,"description":"Billi is visible beneath the cement-bag stack, pale green eyes fixed outward. Nobody notices her. Keep upper-left negative space clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"GUDDU","text":"This is my entrance.","at":"top-left"},{"panel":1,"type":"balloon","speaker":"SAAND","text":"Many entrances resemble one another.","at":"top-right"},{"panel":2,"type":"balloon","speaker":"SAAND","text":"A marriage hall requires warmth.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"GUDDU","text":"It requires permission.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"SAAND","text":"A self-made man must build something that can see itself.","at":"top-left"}]}
+```
+
+## Page 13 (right) — 4 panels, four equal tiers
+
+Reading path: Billi refuses, The Dude waits, Bua-ji intervenes, evidence appears.
+
+```layout
+{"page":13,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Workers tug the dhurrie while Billi remains beneath the cement bags. Guddu crouches beside the stack, frustrated. Keep upper-left space for dialogue."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"The Dude stands several paces away, relaxed and waiting. Guddu gestures impatiently toward him. Preserve broad empty floor around The Dude."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Bua-ji raises one hand. Workers stop tugging and shift cement bags one at a time. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"low","horizon":30,"description":"Billi slips through the widening gap. Beneath her is a metal fragment from the removed service equipment, with a service number visibly matching the equipment removed from GODARAZ. Keep lower-right ground clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"GUDDU","text":"Come out, Billi.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"GUDDU","text":"Do something.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"THE DUDE","text":"I’m doing it.","at":"top-right"},{"panel":4,"type":"sfx","text":"CLINK","size":"medium","at":"bottom-right"}]}
+```
+
+## Page 14 (left) — 4 panels, four equal tiers
+
+Reading path: Equipment match, Duda’s limited testimony, Moti’s confirmation, Billi’s return.
+
+```layout
+{"page":14,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"eye","description":"Bua-ji holds the marked equipment fragment while Guddu compares its service number with a contractor copy from his permit folder. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"low","horizon":35,"description":"Duda perches on a cement bag above the group, delivering his careful limitation. Keep the upper third open."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Moti stands beside the recovered dhurrie, one ear up, while the other four dogs guard the route behind him. Keep road and sky space clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Inside GODARAZ, Billi returns to the empty ball return opposite Duda’s lane-3 perch. She accepts no thanks. Keep the upper-left interior clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"BUA-JI","text":"Same contractor. Same equipment.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"DUDA","text":"I saw the goons take the galeecha. I did not hear the whole plan. I am a truthful bird.","at":"top-left"}]}
+```
+
+## Page 15 (right) — 4 panels, four equal tiers
+
+Reading path: Evidence before Bua-ji, Duda’s phrase, Guddu yields judgment, sale tab torn.
+
+```layout
+{"page":15,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"In Bua-ji’s courtyard office, Bua-ji faces Saand while Duda perches above the desk. The recovered dhurrie and equipment fragment dominate the tabletop. Guddu is absent. Keep the upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium close","angle":"eye","description":"Duda repeats the goon’s phrase while Saand’s shoulder remains at the edge. Keep separate balloon spaces."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"At the office doorway, Guddu begins to speak, then closes his mouth and lets Bua-ji judge. Leave the top third open."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"high","horizon":60,"description":"Bua-ji removes the folded GODARAZ flyer from the cash box and tears the pending sale tab from the mustard ledger. Keep flyer, tab and ledger unobstructed."}]}],"items":[{"panel":1,"type":"balloon","speaker":"SAAND","text":"A piece of metal proves a piece of metal.","at":"top-right"},{"panel":2,"type":"balloon","speaker":"DUDA","text":"“Big hall.” Bada hall. Same mouth. Different language.","at":"top-left"},{"panel":4,"type":"sfx","text":"RRRIP","size":"large","at":"bottom-right"}]}
+```
+
+## Page 16 (left) — 4 panels, four equal tiers
+
+Reading path: Bua-ji’s ruling, sale withdrawn, new contractor, mural delivery. Dominant beat: sabotage is exposed before the deadline and is judged as bad faith.
+
+```layout
+{"page":16,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Bua-ji stands in the courtyard-office doorway with the torn sale tab while Saand and his two goons face her. A calendar visibly shows several days remain before the pre-Diwali deadline, establishing that the reversal occurs before the deadline. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Bua-ji hands the torn sale tab to Saand. His self-assured posture remains fixed. Keep the top third open."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"At GODARAZ, Bua-ji directs a new power contractor while Pinty studies the service plan. Guddu reaches toward the plan, then lets Pinty take it. Keep plan and upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"A truck arrives outside GODARAZ carrying a tall covered rectangular mural object. Guddu and Bua-ji look toward it; the recovered dhurrie lies at the entrance. Keep upper-right sky clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"BUA-JI","text":"A loan is a loan. Sabotage is not failure.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"BUA-JI","text":"The warehouse is not for sale.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"SAAND","text":"This defeat is temporary.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"PINTY","text":"This one has an earth connection.","at":"top-left"},{"panel":4,"type":"sfx","text":"HONK","size":"medium","at":"top-right"}]}
+```
+
+## Page 17 (right) — full-page splash
+
+Reading path: One dominant image. Dominant beat: GODARAZ becomes a publicly claimed place.
+
+```layout
+{"page":17,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"low","horizon":35,"bleed":true,"description":"Full-page GODARAZ interior reveal. The cover has been pulled from the back wall to expose The Ascent of the Pin, a folk-art and Mughal-miniature triptych showing a rising bowling pin as a local saint and civic monument, surrounded by kinnow, mustard flowers, fort brick and tiny bowlers. Keep the four working lanes visible below. Guddu stands small before the mural; Pinty’s bicycle-chain repair, mismatched wiring and old cotton stencils remain visible. The recovered dhurrie lies at the entrance, Moti’s five-dog pack rests outside in shade, Duda grips lane 3’s ball return and Billi occupies the other. Reserve upper-left mural space for the title and Maude’s balloon, and lower-left floor space for Guddu’s balloon."}]}],"items":[{"panel":1,"type":"caption","text":"The Ascent of the Pin","at":"upper-center"},{"panel":1,"type":"balloon","speaker":"MAUDE","text":"The pin is not decorative. It is ascending.","at":"top-left"},{"panel":1,"type":"balloon","speaker":"GUDDU","text":"It is… international standard.","at":"bottom-left"}]}
+```
+
+## Page 18 (left) — 4 panels, four equal tiers
+
+Reading path: Opening night, dust interruption, shelter, return. Dominant beat: the storm interrupts but does not cancel the opening.
+
+```layout
+{"page":18,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"GODARAZ opening night: Diwali lights glow over indistinct crowd silhouettes. Jesus is the only recognizable named figure, in purple beside his velvet cricket bag. Keep upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"A dust wall blasts through the entrance. Lights and faces vanish into brown air; only the oversized GODARAZ z remains visible as an orientation anchor. Keep upper-right dust space clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"low","horizon":30,"description":"Inside the darkened alley, simplified silhouettes shelter beneath lanes and counter. The mural is veiled by dust. The Dude calmly holds his drink in the foreground. Keep upper-left dark space clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"The same opening-night view after the dust clears. Diwali lights reappear and indistinct people return through the recovered dhurrie. Keep lower-right entrance space clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"JESUS","text":"Purple is not a color, saab. It is a lane condition.","at":"top-left"},{"panel":1,"type":"caption","text":"GODARAZ","at":"top-right"},{"panel":2,"type":"sfx","text":"WHUMM","size":"huge","at":"top-right"},{"panel":4,"type":"sfx","text":"FSSSHHH","size":"large","at":"bottom-right"}]}
+```
+
+## Page 19 (right) — 4 panels, four equal tiers
+
+Reading path: Jesus’s roll, power cut, repair and fort projection, tied score. Dominant beat: one pin remains as the final available point.
+
+```layout
+{"page":19,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"low","horizon":30,"description":"Jesus releases his ball beneath the oversized GODARAZ z. One pin remains standing on lane 3. Keep upper-right lane space clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"The power cuts and the machine stops. Walter points at the standing pin while gripping his laminated rulebook. Keep the upper third open."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Pinty works on the noisy bicycle-chain linkage while the standing pin remains visible beyond. Through the open doors, a small tournament projection flickers on Bhatner’s whitewashed fort wall. Keep repair as focal point."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"The machine lurches back to life. The standing pin remains under the lane light and a compact scoreboard reads GODARAZ 48 — SAAND’S TEAM 48. Show a small notation beside the standing pin: FINAL LIVE POINT. Keep lower machine space clear."}]}],"items":[{"panel":1,"type":"sfx","text":"KRAK","size":"medium","at":"top-right"},{"panel":2,"type":"balloon","speaker":"WALTER","text":"The frame was live. The pin stands. That is the score.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"PINTY","text":"Give me ten seconds.","at":"top-left"},{"panel":4,"type":"caption","text":"FINAL LIVE POINT","at":"middle"},{"panel":4,"type":"sfx","text":"KRAK-KRAK","size":"medium","at":"bottom"}]}
+```
+
+## Page 20 (left) — 4 panels, four equal tiers
+
+Reading path: Dude steps up, rule board and witnesses, release, final pin. Dominant beat: one-point victory.
+
+```layout
+{"page":20,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"low","horizon":30,"description":"The Dude steps onto lane 3 in bathrobe, sunglasses and bazaar chappals. The crowned lane, standing pin, recovered dhurrie and oversized GODARAZ z align in one perspective. Duda watches from the ball return. Keep upper-left lane space clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"The contradictory bilingual rule board is visible behind The Dude. Walter grips his rulebook while Guddu, Pinty and Bua-ji watch from the side. Keep the upper area clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"low","horizon":30,"description":"The Dude releases the ball without hurry down lane 3. Use the long lane as the dominant shape and keep upper-right travel space clear."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"low","horizon":30,"description":"The ball knocks down the final pin. Naturalistic hands, faces and bodies break into motion. Include a compact scoreboard reading 49–48 without competing with the impact. Keep lower-right lane space clear."}]}],"items":[{"panel":1,"type":"balloon","speaker":"DUDA","text":"The parrot is not an umpire.","at":"top-left"},{"panel":2,"type":"caption","text":"THE PARROT IS NOT AN UMPIRE.","at":"top-left"},{"panel":2,"type":"caption","text":"the parrot is sometimes an umpire.","at":"bottom-left"},{"panel":3,"type":"sfx","text":"rrrrrrrr","size":"medium","at":"top-right"},{"panel":4,"type":"sfx","text":"KRAK","size":"large","at":"bottom-right"},{"panel":4,"type":"caption","text":"49–48","at":"top-right"}]}
+```
+
+## Page 21 (right) — 4 panels, four equal tiers
+
+Reading path: Community use, machines and animals, Guddu yields control, Saand remains unchanged.
+
+```layout
+{"page":21,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"After the contest, indistinct townspeople use GODARAZ as a third place: chai and kachori at the counter, children and workers at lanes. No face is recognizable. Moti’s five-dog pack rests outside in shade. Keep upper-left interior space clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Billi sits in the other ball return while Duda grips lane 3. The mural, crooked lane and working chain share the frame. Keep the upper third clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"Guddu reaches toward a worker adjusting the counter, then stops and leaves the adjustment in place. Keep space above his hand and face open."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Outside, Saand passes beneath his unfinished self-shaped fountain and looks back toward GODARAZ. Through the entrance, Guddu looks at the lane. Keep exterior and interior balloon areas separated."}]}],"items":[{"panel":2,"type":"balloon","speaker":"DUDA","text":"The machine is still haunted.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"PINTY","text":"The machine is still working.","at":"top-right"},{"panel":4,"type":"balloon","speaker":"SAAND","text":"This defeat is temporary.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"GUDDU","text":"International standard.","at":"top-right"}]}
+```
+
+## Page 22 (left) — 4 panels, four equal tiers
+
+Reading path: Baba Tau’s closing frame, visible irregularities, civic dignity, Duda’s final word. Dominant beat: the place remains imperfect and alive.
+
+```layout
+{
+ "page": 22,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "At dawn or dusk, Baba Tau sits at the mandi-gate chai stall holding his chipped glass. Opened GODARAZ is visible in the distance beside the old cotton-press wall, its oversized z catching the light. Keep upper-left sky clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "description": "A distant readable view of GODARAZ shows lane 3 still crowned, the pin-setter leaning into its bicycle-chain repair and the bilingual rule board still contradictory. Keep upper-left air clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Baba Tau lifts his chipped glass. Behind him, Bhatner\u2019s brick walls and canal-fed green hold the town in frame. Keep upper-left sky clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium close",
+     "angle": "eye",
+     "description": "Inside GODARAZ, Duda sits on the lane-3 ball return and cocks his head toward the open alley and town beyond. Keep upper-left interior space clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "caption",
+   "text": "The stamp was dry.",
+   "at": "top-right"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "text": "The lane was crooked. The machine was doubtful. The parrot was not an umpire.",
+   "at": "top-left"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "text": "THE PARROT IS NOT AN UMPIRE.",
+   "at": "middle"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "text": "the parrot is sometimes an umpire.",
+   "at": "bottom"
+  },
+  {
+   "panel": 3,
+   "type": "caption",
+   "text": "But a place may be crooked and still be a place for its time.",
+   "at": "top-right"
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "DUDA",
+   "text": "Dude ji abide karte hain.",
+   "at": "top-left"
+  }
+ ]
+}
+```

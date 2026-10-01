@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="50" y="46" text-anchor="start" font-size="16" fill="#7ec8ff">PAGE 18</text>
+<g data-item="0">
+<polygon points="255,149 277,124 383,241" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="266" cy="136" rx="93" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="266" y="96" font-size="19" fill="#111">PURPLE IS</text>
+<text x="266" y="120" font-size="19" fill="#111">NOT A COLOR,</text>
+<text x="266" y="143" font-size="19" fill="#111">SAAB. IT IS</text>
+<text x="266" y="166" font-size="19" fill="#111">A LANE</text>
+<text x="266" y="189" font-size="19" fill="#111">CONDITION.</text>
+</g>
+<g data-item="1">
+<rect x="684" y="118" width="100" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="734" y="142" font-size="18" fill="#111">GODARAZ</text>
+</g>
+<g data-item="2">
+<text x="734" y="491" font-size="90" font-weight="bold" fill="#fff" stroke="#111" stroke-width="10.8" paint-order="stroke" transform="rotate(-6 734 491)">WHUMM</text>
+</g>
+<g data-item="3">
+<text x="734" y="1411" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 734 1411)">FSSSHHH</text>
+</g>
+</g>
+</svg>

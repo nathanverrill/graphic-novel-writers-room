@@ -1,0 +1,105 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "At the municipal counter, Guddu presents a smiling-premises photograph, ordinary fees and a replacement stamp pad. Chaudhary stamps the papers without changing expression. Keep upper-left counter space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Pinty removes the cracked drive belt and fits a bicycle chain with pliers at the GODARAZ machinery bench. Keep top-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The bicycle chain turns and four pins reset slowly and noisily. Guddu watches, trying not to correct the repair. Keep lower machine space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Duda grips the lane-3 ball return above the crowned lane while Billi occupies the other return. Behind them, the bilingual rule board has clear space for two exact contradictory lines."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THUP",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "CHAUDHARY",
+      "text": "Approved.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "PINTY",
+      "text": "Give me one chain, one tractor and no speeches.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK-KRAK-KRAK",
+      "size": "medium",
+      "at": "bottom"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "THE PARROT IS NOT AN UMPIRE.",
+      "x": 12.0,
+      "y": 10.0
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "the parrot is sometimes an umpire.",
+      "x": 79.70342170918546,
+      "y": 85.91452930576841
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "DUDA",
+      "text": "Main umpire hoon. Also, I am not.",
+      "x": 38.29958183990442,
+      "y": 75.28386895107128
+    }
+  ]
+}
