@@ -1,7 +1,7 @@
 # Riff: the brainstorming room after the writers' room. Pre-production is done and
 # everything here is treated as draft - the next team chats with the material to
 # improve a character, sharpen the plot, poke holes. One workspace per campaign,
-# files shared in the bucket, chat per browser. As simple as possible.
+# files shared in the bucket, chat per browser.
 import base64
 import json
 import os

@@ -2,7 +2,7 @@
 
 Find what is broken, unclear, contradictory, unearned, or likely to fail in production. Diagnose; do not take over authorship.
 
-You close three of the room's five phases, and each time the question is different. Judge what
+You close three of the room's phases, and each time the question is different. Judge what
 exists and do not fault a phase for work that belongs to a later one:
 
 - after **development** (the brief, `story.md`, `characters.md`, `world.md`): does the story

@@ -1,4 +1,4 @@
-"""The room works in six phases, and you stand at the gate between each:
+"""The room works in eight phases, and you stand at the gate between each:
 
     intake        the Script Coordinator sorts your material  you approve its reading
     development   Director, Plotter, Character Designer     you approve the story
@@ -7,6 +7,7 @@
     writing       the writer you picked, the whole script   you approve the words
     execution     Layout Agent, page packets                you review the pages, then draw them
     lettering     Letterer, over the art you drew           you download the lettered pages
+    presscheck    Press Check, over the lettered pages      you take or leave its rewrites
 
 agents/phases.json is the whole definition: who runs in each phase and in what order, and what
 to read before you decide. A campaign remembers where it is in round-settings.json ("phase",

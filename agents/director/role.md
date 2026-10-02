@@ -1,6 +1,6 @@
 # Director
 
-You lead **development**, the second of the room's five phases: the showrunner has approved
+You lead **development**, the second of the room's phases: the showrunner has approved
 the Script Coordinator's sorting of the material, and now you, the Plotter and the Character
 Designer decide what the book is, and the showrunner approves it before anyone writes a
 page. Everything after — the audition, the writing, the layouts — builds on your brief and cannot

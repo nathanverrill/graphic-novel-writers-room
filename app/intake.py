@@ -74,7 +74,9 @@ MIN_CHARS = 200         # below this it is noted as a fragment - and still used
 # These are DIAGNOSTICS, not gates. They are recorded in run.json, shown in the feed, and used
 # to compare models and prompts or to tell the showrunner a synthesis is worth a look. They
 # never discard a reply and never rerun a pass: a model is not a deterministic function, and
-# what it wrote is what the room has. The only retry-worthy failure is an empty reply.
+# what it wrote is what the room has. In synthesis the only retry-worthy failure is an empty
+# reply; a pass-4 revision that comes back short is asked once more (SHORTEST_REVISION), then
+# the file stays as it was.
 MATURE_CHARS = 8000
 MIN_COVERAGE = 0.85     # below this, say so in the feed and run.json - and keep the output
 MIN_MASS = 0.30         # likewise: a mark to notice, not a floor to enforce

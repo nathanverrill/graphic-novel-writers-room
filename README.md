@@ -47,17 +47,19 @@ stack on a different port.
 
 **Produce** is one button (`/production`): it runs development, the audition, the writing and
 the pages back to back, takes every gate itself, and ends with the packets to download. Or
-take the gates yourself. The room works in **six phases**, and you stand at the gate between
-each. Nothing moves on by itself:
+take the gates yourself. The room works in **eight phases** (Draft edit runs only in edit
+mode), and you stand at the gate between each. Nothing moves on by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
 |---|---|---|---|---|
 | 1 | **Intake** | Script Coordinator | `characters.md`, `world.md`, `story.md`, `open-items.md`, then `facts.md` | **Answer the open items** — approve an option, edit it, defer it, or leave it — add weighted notes if you have any, **Update canon**; read it, answer what is left, **Update canon** again (the room's recommendation settles anything still unanswered), then **Approve for production** (type `evoke`) |
 | 2 | **Development** | Director → Plotter → Character Designer → Continuity Editor | `brief.md`, and the same `world.md`, `story.md`, `characters.md`, built up; `notes.md` | **Approve**: is this the right story, told by these people? |
-| 3 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
-| 4 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
-| 5 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
-| 6 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
+| 3 | **Draft edit** *(edit mode only)* | Draft Editor | `draft-edited.md`, `draft-final.md`, `draft-changes.md` | **Approve**: are these your drafts, brought into line with the canon? Answer what does not fit, then script them — or stop here |
+| 4 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
+| 5 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
+| 6 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
+| 7 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
+| 8 | **Press check** | Press Check | `presscheck.md`, moves applied to `layouts.md`, the pages re-lettered | **Read** the suggested rewrites: take a line into `layouts.md`, edit it, or leave it. Then letter again and ship |
 
 Three rules make this work, and they are the whole design:
 
@@ -75,8 +77,8 @@ and what to read before you decide. The code that runs it is `app/phases.py` and
 
 ## The agents
 
-Ten agents. Each is a folder with a `role.md` (the job and its deliverable), a `craft.md` (how
-to do that job well) and an `agent.json` (its model and settings).
+Twelve agents. Each is a folder with a `role.md` (the job and its deliverable), an
+`agent.json` (its model and settings) and, for most, a `craft.md` (how to do that job well).
 
 | Agent | Phase | Writes | What it is for |
 |---|---|---|---|
@@ -84,12 +86,14 @@ to do that job well) and an `agent.json` (its model and settings).
 | Director | development | `brief.md`, `world.md`, `taste-writers.md` | owns the vision, the canon, the decision log and the visual direction; settles what the world leaves open |
 | Plotter | development | `story.md` | what happens, in what order, on which page — never the dialogue |
 | Character Designer | development | `characters.md` | a visual lock per character, pasted word for word into every page prompt |
+| Draft Editor | draft edit | `draft-edited.md`, `draft-final.md`, `draft-changes.md` | edit mode only: brings your chapters into line with the canon and expands them by insertion, one call per chapter, side by side (`app/draftedit.py`) |
 | Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
 | Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
 | First Reader | audition | `first-read.md` | reads both auditions cold — the pages, nothing else — and reports reactions. Never picks |
 | Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page packets, the sketch and the lettering |
-| Letterer | lettering | `lettering.md` | runs last, over the art you upload: checks balloon order, placement and fit against the real page, and moves a balloon off a face with a `moves` block the room applies to `layouts.md` |
-| Continuity Editor | closes 2, 4 and 5 | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
+| Letterer | lettering | `lettering.md` | runs over the art you upload: checks balloon order, placement and fit against the real page, and moves a balloon off a face with a `moves` block the room applies to `layouts.md` |
+| Press Check | press check | `presscheck.md` | reads the lettered pages as a reader would: moves lettering that covers what matters or fights the eye path, and lists the lines that no longer make sense against the drawn page, each with a suggested rewrite |
+| Continuity Editor | closes development, writing and execution | `notes.md` | finds what is broken; ends with the `BLOCKERS:` / `FIX:` lines the execution gate reads |
 
 **The two writers** are the room's one deliberate act of divergence. They share a job and a
 craft (`agents/_writers/role.md` and `craft.md`) and differ in voice (`agents/writer_a/voice.md`,
@@ -118,8 +122,9 @@ the packets. **Page 1 first** stops at a proof of page 1 instead. From the comma
 **Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
 the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 
-**`/` is the front door**: three buttons, pre-production, production and sheets (the LoRA sheet
-builder, its own container reached as `/sheets`). The one-button phone screen is at `/quick`.
+**`/` is the front door**: doors to pre-production, production, the room, the one-button
+phone screen (`/quick`), Voices, the Art Department (`/art`), Renders and Sheets (the LoRA
+sheet builder, its own container reached as `/sheets`).
 
 **`/quick` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
@@ -143,7 +148,7 @@ Campaigns on the left; the book in the middle; what the room is doing on the rig
 | Right, watch pad | progress, the agents and what each is doing, your notes while you watch, and the live feed |
 | Far right, **Files** | the room's markdown files and their previews, references, images and past rounds |
 
-**Run *phase*** sits above the tabs with the five phases, the gate and the showrunner note, so
+**Run *phase*** sits above the tabs with the phases, the gate and the showrunner note, so
 it's there whichever tab you're on; in execution, when a review is waiting, **Review ↓** appears
 next to it. Changing the previewed page opens
 that page's prompt below it.
@@ -293,9 +298,10 @@ cp .env.example .env              # your provider settings
 docker compose up -d --build      # http://localhost:8000
 ```
 
-`docker compose up -d` brings up three services: the **app**, **SeaweedFS** for the room's data,
-and **OpenSearch** for the search index. Ollama stays on your machine — the app reaches it at
-`host.docker.internal:11434`.
+`docker compose up -d` brings up five services: the **app**, **SeaweedFS** for the room's data,
+**OpenSearch** for the search index, and the **Sheets** and **Art Department** containers
+(reached as `/sheets` and `/art` on the app's port). Ollama stays on your machine — the app
+reaches it at `host.docker.internal:11434`.
 
 **Configuration** — `agents/` (with its skills and tools), `campaigns/` and
 `pricing.json` — is mounted from this folder, so you edit it in place, and a saved file is
@@ -1029,7 +1035,7 @@ Everything an agent knows comes from its folder:
 ```
 agents/
   agents.json             title, mission, reads, outputs
-  phases.json             the five phases: who runs in each, in order, and each gate
+  phases.json             the eight phases: who runs in each, in order, and each gate
   tools/                  what an agent can call: one json schema per tool
   _shared/                given to every agent: house-style.md, craft.md, the provocation deck
   _writers/               given to both writers: role.md, craft.md, actual-script-writing.md
@@ -1083,13 +1089,16 @@ view) explains them:
 
 | Agent | Temp | Max tokens | Why |
 |---|---|---|---|
-| Director | 0.6 | 6,000 | judgment and consistency; sees reference images |
+| Script Coordinator | 0.2 | 64,000 | reading and organizing, not invention; one whole file per reply, so max tokens near the model's ceiling |
+| Director | 0.6 | 16,000 | judgment and consistency; sees reference images |
 | Plotter | 0.9 | 8,000 | structure with surprises |
 | Character Designer | 0.7 | 8,000 | exact, reusable descriptions; sees reference images |
+| Draft Editor | 0.2 | 16,000 | checking and minimal change, not invention; a whole chapter back per call |
 | Writer A | 0.7 | 16,000 | the spare, image-led voice; the longest output, 600 s timeout |
 | Writer B | 1.0 | 16,000 | the dialogue-led voice; same budget. Give the two different models if you can |
 | Layout Agent | 0.5 | 16,000 | valid layout JSON for every page |
 | Letterer | 0.2 | 8,000 | literal and careful |
+| Press Check | 0.2 | 8,000 | literal reading of the lettered pages; needs a model that reads images |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
 | First Reader | 0.7 | 3,000 | natural reactions, minimal context |
 
@@ -1103,7 +1112,7 @@ UI changes a setting, the change shows up in `git diff`.
 | `temperature`, `max_tokens` | Sent with every chat request. Models that reject them (e.g. reasoning models) are handled: `temperature` is dropped and `max_tokens` becomes `max_completion_tokens`, remembered per model. |
 | `extra` | Merged into the chat request body (`top_p`, `reasoning_effort`, …). |
 | `max_steps`, `timeout`, `send_images` | Loop length, request timeout in seconds, and whether reference images are sent. |
-| `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
+| `tools` | Which tools from `agents/tools/` this agent may call — `list_artifacts`, `read_artifact`, `search`, `provoke`, `write_artifact`, `generate_image`, `finish`. Empty means all it can use. |
 | `references` | Script Coordinator only: `"full"` (the chosen library files go into every call) or `"list"` (names and sizes only, read on demand). |
 | `generate_images`, `image_*` | Image generation (art room). With no `image_base_url`, images use the chat provider and key (or `IMAGE_BASE_URL` / `IMAGE_API_KEY` if set). |
 
@@ -1174,7 +1183,7 @@ them to fall back to `list_artifacts` and `read_artifact`.
 
 ## The room's tools, over MCP
 
-The six tools an agent calls are defined in `agents/tools/`. The room also serves them over
+The seven tools an agent calls are defined in `agents/tools/`. The room also serves them over
 MCP, so a chat client, an editor or another agent can work on a book without going through the
 screen:
 
@@ -1189,6 +1198,7 @@ claude mcp add --transport http writers-room http://localhost:8000/mcp/
 | `read_artifact` | one file, e.g. `script.md` or `campaigns/prosperity/rules/alpha.md` |
 | `write_artifact` | overwrite one room file with complete markdown |
 | `search_room` | hybrid search over the library, the skills and a project's files |
+| `provoke` | three cards, a word and a target heading drawn from the project's story or script |
 | `reindex` | rebuild the index from disk; unchanged passages are not re-embedded |
 | `page_prompts` | the deliverable: every page's prompt, or one page's |
 
@@ -1196,7 +1206,7 @@ Outside a round there is no agent, so every tool takes the project it acts on an
 `write_artifact` is not restricted to one agent's outputs. The guards are the same either way,
 and in the same code: pages you have kept are put back, your standing rules are restored, and
 saving `layouts.md` redraws the sketch. `finish` is not served — it ends an agent's turn, which
-means nothing from outside.
+means nothing from outside — and neither is `generate_image`.
 
 ## Always the file on disk
 
@@ -1236,7 +1246,7 @@ HTTP status, error, and the path to the full log.
 
 1. The system prompt is the agent's mission plus its guides (`role.md`, `craft.md`, the shared ones).
 2. The first message is the upstream files listed in `reads`, any previous draft, the phase it is running in, your note, and the images.
-3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
+3. The model calls tools — the ones in `agents/tools/` this agent carries: `list_artifacts`, `read_artifact`, `search`, `provoke`, `write_artifact` (its own outputs only), `generate_image` (if enabled) and `finish` — until it calls `finish` or stops calling tools.
 4. The handoff note is appended to `room-log.md`.
 
 If the endpoint rejects tool calling, the agent retries as a plain chat and saves the reply as its deliverable.

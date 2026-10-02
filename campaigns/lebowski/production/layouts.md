@@ -99,7 +99,8 @@ Reading path: The cotton bale travels from railway life through agriculture and 
    "panel": 4,
    "type": "caption",
    "text": "GODARAZ",
-   "at": "top-right"
+   "x": 73.31771351251811,
+   "y": 21.856274318070394
   }
  ]
 }

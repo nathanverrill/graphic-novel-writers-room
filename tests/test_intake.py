@@ -175,19 +175,19 @@ print("   nothing written to the desk:", v.meta["files_written"] == [])
 bad = [x for x in calls if x["destination"] == "world.md"][0]
 print("   nothing to keep from an empty reply:", bad.get("rejected_kept_as"))
 
-# ---- 6c. a refusal-shaped or thin reply is still used ------------------
+# ---- 6b. a refusal-shaped or thin reply is still used ------------------
 a, v, note, err = run({**SYNTH, "world.md": "# World\n\n## One\n\n" + "sparse. " * 40})
 wc = [x for x in v.meta["intake"]["calls"] if x["destination"] == "world.md"][0]
-print("\n6c. a thin world.md, one section:")
+print("\n6b. a thin world.md, one section:")
 print("   attempts:", wc["attempts"], "| status:", wc["status"], "| notes:", wc["notes"])
 print("   used anyway:", "world.md" in v.meta["files_written"])
 
-# ---- 6b. a badly shaped but real reply is kept and fixed ---------------
+# ---- 6c. a badly shaped but real reply is kept and fixed ---------------
 messy = ("# Cast\n\n## Ana Rey\n\n" + "Tall, grey coat, brass gauge. " * 30
          + "\n\n## Tomas Reed\n\n" + "Quiet, from Halyard. " * 30)
 a, v, note, err = run({**SYNTH, "characters.md": messy})
 ch = [x for x in v.meta["intake"]["calls"] if x["destination"] == "characters.md"][0]
-print("\n6b. a characters file with no '## Characters' wrapper:")
+print("\n6c. a characters file with no '## Characters' wrapper:")
 print("   attempts:", ch["attempts"], "| status:", ch["status"], "| repairs:", ch["repairs"])
 print("   written to the desk:", "characters.md" in v.meta["files_written"])
 print("   wrapper present on disk:",
