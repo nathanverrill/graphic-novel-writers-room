@@ -15,11 +15,12 @@
 
   .camps { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .8rem; }
   .camp { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: .9rem 1rem;
-          display: grid; gap: .5rem; align-content: start; }
+          display: grid; gap: .4rem; align-content: start; }
+  a.camp { color: var(--ink); text-decoration: none; grid-template-columns: 1fr auto; align-items: center; }
+  a.camp:hover { border-color: var(--accent); }
+  a.camp i { font-style: normal; font-size: 1.3rem; color: var(--muted); grid-row: span 2; }
   .camp b { font-size: 1.02rem; }
   .camp .st { font-family: ui-monospace, monospace; font-size: .72rem; color: var(--muted); }
-  .camp a.go { justify-self: start; text-decoration: none; font-size: .82rem; padding: .35rem .9rem;
-               border: 1px solid var(--accent); border-radius: 5px; background: var(--accent); color: var(--panel); }
   .camp.new { border-style: dashed; background: transparent; }
   .camp.new input, .camp.new textarea { font: inherit; font-size: .84rem; padding: .35rem .5rem;
                border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
@@ -90,14 +91,17 @@
   fetch("/api/projects").then((r) => r.json()).then(async ({ projects }) => {
     const box = q("#camps");
     for (const slug of projects || []) {
-      const el = document.createElement("div");
+      // the card is the campaign chooser: one click sets the context and continues the book
+      const el = document.createElement("a");
       el.className = "camp";
-      el.innerHTML = `<b></b><span class="st">…</span><a class="go">Continue →</a>`;
+      el.href = `/production?p=${encodeURIComponent(slug)}`;
+      el.innerHTML = `<b></b><i>→</i><span class="st">…</span>`;
       el.querySelector("b").textContent = slug;
+      el.addEventListener("click", () => localStorage.setItem("wr.campaign", slug));
       box.insertBefore(el, box.firstChild);
       fetch(`/api/projects/${encodeURIComponent(slug)}`).then((r) => r.json()).then((p) => {
         el.querySelector(".st").textContent = p.phase ? `in ${p.phase}` : "not started";
-        el.querySelector("a").href = `${PAGE[p.phase] || "/production"}?p=${encodeURIComponent(slug)}`;
+        el.href = `${PAGE[p.phase] || "/production"}?p=${encodeURIComponent(slug)}`;
       }).catch(() => { el.querySelector(".st").textContent = ""; });
     }
   }).catch(() => {});

@@ -478,9 +478,13 @@ a.button { text-decoration: none; display: inline-block; }
 .wr-drop a { color: inherit; text-decoration: none; padding: .4rem .6rem; border-radius: 4px; }
 .wr-drop a:hover { background: var(--bg); }
 .wr-drop a[aria-current] { font-weight: 700; color: var(--accent); }
-.wr-camp { font: inherit; font-size: .78rem; max-width: 11rem; padding: .18rem .35rem; border-radius: 4px;
-  border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); background: transparent; color: inherit; }
-.wr-camp option { color: var(--ink); background: var(--panel); }
+.wr-campname { color: inherit; text-decoration: none; font-weight: 700; max-width: 12rem; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; padding: .18rem .5rem; border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); }
+.wr-campname:hover { background: color-mix(in srgb, var(--bg) 14%, transparent); }
+.wr-campname.none { font-weight: 400; opacity: .85; border-style: dashed; }
+/* the campaign is chosen on the front page, once: the in-page pickers stay wired but unseen */
+label:has(> select#camp), label:has(select#camp), select#camp { display: none !important; }
 .wr-phase { color: inherit; text-decoration: none; font-family: ui-monospace, monospace; font-size: .72rem;
   padding: .12rem .5rem; border: 1px solid var(--accent); border-radius: 99px; color: var(--bg);
   background: color-mix(in srgb, var(--accent) 55%, transparent); }

@@ -6,8 +6,19 @@
 
 (function () {
   const WITH_P = ["/", "/preproduction", "/production", "/renders", "/letter", "/voices"];
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const params = new URLSearchParams(location.search);
+  // the campaign is chosen once, on the front page; arriving with ?p= makes it stick
   let slug = params.get("p") || localStorage.getItem("wr.campaign") || "";
+  if (params.get("p")) localStorage.setItem("wr.campaign", slug);
+
+  // a campaign page reached without ?p= gets the chosen campaign put in its URL,
+  // so what the page shows is always the context the bar names
+  if (slug && !params.get("p") && WITH_P.includes(location.pathname) && location.pathname !== "/") {
+    params.set("p", slug);
+    location.replace(`${location.pathname}?${params}`);
+    return;
+  }
 
   const href = (path) => (WITH_P.includes(path) && slug ? `${path}?p=${encodeURIComponent(slug)}` : path);
 
@@ -53,7 +64,8 @@
         (i ? '<i class="wr-arrow">→</i>' : "") + menu(name, items, name === current)).join("")}
     </span>
     <span class="wr-side">
-      <select class="wr-camp" title="campaign"><option value="">campaign…</option></select>
+      <a class="wr-campname${slug ? "" : " none"}" href="/"
+         title="switch campaign - back to the front page">${slug ? esc(slug) : "choose a campaign →"}</a>
       <a class="wr-phase" hidden></a>
       ${menu("Backstage", BACKSTAGE)}
     </span>`;
@@ -67,25 +79,12 @@
     if (!e.target.closest(".wr-nav details")) for (const d of bar.querySelectorAll("details[open]")) d.open = false;
   });
 
-  const camp = bar.querySelector(".wr-camp");
-  camp.addEventListener("change", () => {
-    slug = camp.value;
-    if (slug) localStorage.setItem("wr.campaign", slug); else localStorage.removeItem("wr.campaign");
-    if (WITH_P.includes(here)) {
-      const q = new URLSearchParams(location.search);
-      if (slug) q.set("p", slug); else q.delete("p");
-      location.search = q.toString();
-    }
-  });
-
   fetch("/api/projects").then((r) => r.json()).then(({ projects }) => {
-    for (const name of projects || []) {
-      const o = document.createElement("option");
-      o.value = o.textContent = name;
-      camp.append(o);
+    if (slug && !(projects || []).includes(slug)) {   // a renamed or deleted campaign
+      slug = ""; localStorage.removeItem("wr.campaign");
+      const label = bar.querySelector(".wr-campname");
+      label.textContent = "choose a campaign →"; label.classList.add("none");
     }
-    if (slug && (projects || []).includes(slug)) camp.value = slug;
-    else if (slug) { slug = ""; localStorage.removeItem("wr.campaign"); }
     if (!slug) return;
     return fetch(`/api/projects/${encodeURIComponent(slug)}`).then((r) => r.json()).then((p) => {
       if (!p.phase) return;
