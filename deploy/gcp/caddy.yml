@@ -17,6 +17,23 @@ services:
   art:
     user: "${ROOM_UID:-1000}:${ROOM_GID:-1000}"
 
+  # the team's file manager: campaigns/ and agents/ in the browser, behind the same
+  # password popup, at files.<host>. No terminal, no reach into secrets/ or the code.
+  filebrowser:
+    image: filebrowser/filebrowser:v2
+    user: "${ROOM_UID:-1000}:${ROOM_GID:-1000}"
+    restart: unless-stopped
+    environment:
+      FB_NOAUTH: "true"      # Caddy's Basic Auth is the door; don't add a second login
+      FB_ROOT: /srv
+      FB_DATABASE: /database/filebrowser.db
+      FB_ADDRESS: 0.0.0.0
+      FB_PORT: "8080"
+    volumes:
+      - ./campaigns:/srv/campaigns
+      - ./agents:/srv/agents
+      - ./deploy/gcp/filebrowser:/database   # its settings db; created by deploy.sh, git-ignored
+
   caddy:
     image: caddy:2
     restart: unless-stopped

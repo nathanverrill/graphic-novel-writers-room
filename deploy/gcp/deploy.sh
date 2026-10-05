@@ -62,13 +62,26 @@ g compute ssh "$NAME" --zone "$ZONE" --command "
 
   # the containers run as this user, so the room's output stays editable over SSH
   grep -q '^ROOM_UID=' .env || printf 'ROOM_UID=%s\nROOM_GID=%s\n' \"\$(id -u)\" \"\$(id -g)\" >> .env
-  mkdir -p secrets debug logs campaigns sheets/characters art/data
-  sudo chown -R \"\$(id -u):\$(id -g)\" secrets debug logs campaigns sheets/characters art/data
+  mkdir -p secrets debug logs campaigns sheets/characters art/data deploy/gcp/filebrowser
+  sudo chown -R \"\$(id -u):\$(id -g)\" secrets debug logs campaigns sheets/characters art/data deploy/gcp/filebrowser
 
   # Caddy: HTTPS on the sslip.io name, Basic Auth popup in front of everything
   HASH=\$(sudo docker run --rm caddy:2 caddy hash-password --plaintext '$ROOM_PASSWORD')
-  printf '%s {\n    basic_auth {\n        %s %s\n    }\n    reverse_proxy app:8000\n}\n' \
-    '$HOST' '$ROOM_USER' \"\$HASH\" | sudo tee deploy/gcp/Caddyfile >/dev/null
+  sudo tee deploy/gcp/Caddyfile >/dev/null <<CADDY
+$HOST {
+    basic_auth {
+        $ROOM_USER \$HASH
+    }
+    reverse_proxy app:8000
+}
+
+files.$HOST {
+    basic_auth {
+        $ROOM_USER \$HASH
+    }
+    reverse_proxy filebrowser:8080
+}
+CADDY
 
   sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml up -d --build
 "
