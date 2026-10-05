@@ -260,3 +260,6 @@ spine/data/
 station/data/
 nemesis/data/
 canon/data/
+
+# generated per-VM by deploy/gcp/deploy.sh (hostname + password hash)
+deploy/gcp/Caddyfile
