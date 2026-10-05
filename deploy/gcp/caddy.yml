@@ -26,13 +26,15 @@ services:
     environment:
       FB_NOAUTH: "true"      # Caddy's Basic Auth is the door; don't add a second login
       FB_ROOT: /srv
-      FB_DATABASE: /database/filebrowser.db
+      FB_DATABASE: /config/filebrowser.db
       FB_ADDRESS: 0.0.0.0
       FB_PORT: "8080"
     volumes:
       - ./campaigns:/srv/campaigns
       - ./agents:/srv/agents
-      - ./deploy/gcp/filebrowser:/database   # its settings db; created by deploy.sh, git-ignored
+      # /config must be writable: the image's entrypoint seeds settings.json there,
+      # and running as the VM user it can't write the image's own /config
+      - ./deploy/gcp/filebrowser:/config   # settings + db; created by deploy.sh, git-ignored
 
   caddy:
     image: caddy:2
