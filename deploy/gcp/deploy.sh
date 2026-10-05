@@ -60,6 +60,11 @@ g compute ssh "$NAME" --zone "$ZONE" --command "
     sed -i 's|^OPENAI_API_KEY=.*|OPENAI_API_KEY=|' .env
   fi
 
+  # the containers run as this user, so the room's output stays editable over SSH
+  grep -q '^ROOM_UID=' .env || printf 'ROOM_UID=%s\nROOM_GID=%s\n' \"\$(id -u)\" \"\$(id -g)\" >> .env
+  mkdir -p secrets debug logs campaigns sheets/characters art/data
+  sudo chown -R \"\$(id -u):\$(id -g)\" secrets debug logs campaigns sheets/characters art/data
+
   # Caddy: HTTPS on the sslip.io name, Basic Auth popup in front of everything
   HASH=\$(sudo docker run --rm caddy:2 caddy hash-password --plaintext '$ROOM_PASSWORD')
   printf '%s {\n    basic_auth {\n        %s %s\n    }\n    reverse_proxy app:8000\n}\n' \
