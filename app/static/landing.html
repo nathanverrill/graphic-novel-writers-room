@@ -7,19 +7,36 @@
 <title>Writers' Room</title>
 <link rel="stylesheet" href="/static/style.css">
 <style>
-  body { display: grid; place-items: center; min-height: 100vh; margin: 0; padding: 1.5rem; box-sizing: border-box; }
-  main { width: min(34rem, 100%); }
-  h1 { font-size: 1.6rem; margin: 0 0 .3rem; }
-  p.lead { color: var(--muted); margin: 0 0 1.6rem; }
-  .doors { display: grid; gap: .8rem; }
-  a.door { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 1rem; padding: 1rem 1.2rem;
-           border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); text-decoration: none; }
-  a.door:hover { border-color: var(--accent); }
-  a.door b { font-size: 1.1rem; display: block; margin-bottom: .15rem; }
-  a.door span { color: var(--muted); font-size: .86rem; }
-  a.door i { font-style: normal; font-size: 1.4rem; color: var(--muted); }
-  a.door.pre { border-left: 4px solid #b45309; } a.door.prod { border-left: 4px solid #1d4ed8; } a.door.sheets { border-left: 4px solid #15803d; } a.door.voices { border-left: 4px solid #7c3aed; } a.door.renders { border-left: 4px solid #be185d; } a.door.art { border-left: 4px solid #0e7490; }
-  footer { margin-top: 1.6rem; font-size: .8rem; color: var(--muted); display: flex; gap: 1rem; }
+  body { margin: 0; }
+  main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  h1 { font-size: 1.5rem; margin: 1rem 0 .2rem; }
+  p.lead { color: var(--muted); margin: 0 0 1.4rem; }
+  h2 { font-size: .8rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 2rem 0 .6rem; }
+
+  .camps { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .8rem; }
+  .camp { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: .9rem 1rem;
+          display: grid; gap: .5rem; align-content: start; }
+  .camp b { font-size: 1.02rem; }
+  .camp .st { font-family: ui-monospace, monospace; font-size: .72rem; color: var(--muted); }
+  .camp a.go { justify-self: start; text-decoration: none; font-size: .82rem; padding: .35rem .9rem;
+               border: 1px solid var(--accent); border-radius: 5px; background: var(--accent); color: var(--panel); }
+  .camp.new { border-style: dashed; background: transparent; }
+  .camp.new input, .camp.new textarea { font: inherit; font-size: .84rem; padding: .35rem .5rem;
+               border: 1px solid var(--line); border-radius: 4px; background: var(--panel); color: var(--ink); }
+  .camp.new button { font: inherit; font-size: .82rem; padding: .35rem .9rem; justify-self: start;
+               border: 1px solid var(--ink); border-radius: 5px; background: var(--ink); color: var(--bg); cursor: pointer; }
+  .camp.new .err { color: var(--bad, #b91c1c); font-size: .76rem; }
+
+  .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .8rem; }
+  .stage { border: 1px solid var(--line); border-radius: 8px; background: var(--panel); padding: .8rem .9rem; }
+  .stage h3 { margin: 0 0 .1rem; font-size: .95rem; }
+  .stage > span { display: block; color: var(--muted); font-size: .76rem; margin-bottom: .55rem; }
+  .stage a { display: block; color: var(--ink); text-decoration: none; padding: .3rem .4rem; border-radius: 4px; font-size: .86rem; }
+  .stage a:hover { background: var(--bg); }
+  .stage a small { display: block; color: var(--muted); font-size: .72rem; }
+  .stage.s1 { border-top: 3px solid #7c3aed; } .stage.s2 { border-top: 3px solid #b45309; }
+  .stage.s3 { border-top: 3px solid #0e7490; } .stage.s4 { border-top: 3px solid #be185d; }
+  footer { margin-top: 2.2rem; font-size: .8rem; color: var(--muted); display: flex; gap: 1rem; }
   footer a { color: inherit; }
 </style>
 </head>
@@ -27,15 +44,77 @@
 <main>
   <h1>Writers' Room</h1>
   <p class="lead">A graphic novel, from your material to page packets and lettered pages.</p>
-  <div class="doors">
-    <a class="door pre" href="/preproduction"><div><b>Pre-production</b><span>Your material in. The Script Coordinator sorts it, asks what is open, and you answer.</span></div><i>→</i></a>
-    <a class="door prod" href="/production"><div><b>Production</b><span>Produce: the story, the audition, the script, the pages. Out come the page packets; the art comes back to be lettered.</span></div><i>→</i></a>
-    <a class="door renders" href="/renders"><div><b>Renders</b><span>The whole book drawn by each image model, lettered by the room, side by side.</span></div><i>→</i></a>
-    <a class="door voices" href="/voices"><div><b>Voices</b><span>Talk with a character, in the world. Mark what is them and what is not; it tunes their voice in the canon.</span></div><i>→</i></a>
-    <a class="door art" href="/art"><div><b>Art Department</b><span>The book's look: a style plate from your reference, then a full sheet for every character, place and prop, and key frames of the key scenes.</span></div><i>→</i></a>
-    <a class="door sheets" href="/sheets"><div><b>Sheets</b><span>One character at a time: lock a view, roll the variations, keep the best. A LoRA training set.</span></div><i>→</i></a>
+
+  <h2>Campaigns</h2>
+  <div class="camps" id="camps">
+    <div class="camp new">
+      <b>New campaign</b>
+      <input id="new-title" placeholder="Title" autocomplete="off">
+      <textarea id="new-pitch" rows="2" placeholder="The pitch, in a line or two"></textarea>
+      <button id="new-go">Create</button>
+      <span class="err" id="new-err"></span>
+    </div>
   </div>
-  <footer><a href="/quick">the one-button screen</a><a href="/room">the whole room</a></footer>
+
+  <h2>The stages</h2>
+  <div class="stages">
+    <div class="stage s1">
+      <h3>Imagine</h3><span>before the room: the team's idea tools</span>
+      <a href="/tools">Sprint tools<small>Riff, Easel, Forge, Spine, Station, Nemesis, Persona, Canon — exports land in a campaign's <code>input/</code></small></a>
+    </div>
+    <div class="stage s2">
+      <h3>Write</h3><span>the gated phases, your judgment at each</span>
+      <a href="/preproduction">Pre-production<small>material in, open items answered, canon approved</small></a>
+      <a href="/production">Production<small>development, the audition, the script, the pages</small></a>
+    </div>
+    <div class="stage s3">
+      <h3>Draw</h3><span>the book's look, and the pages drawn</span>
+      <a href="/art">Art department<small>style plate, character / place / prop sheets, key frames</small></a>
+      <a href="/sheets">Sheets<small>a LoRA training set, one character at a time</small></a>
+      <a href="/renders">Renders<small>every page by each image model, side by side</small></a>
+    </div>
+    <div class="stage s4">
+      <h3>Ship</h3><span>words on the art, then out the door</span>
+      <a href="/letter">Lettering<small>balloons and captions on the rendered pages; press check; download</small></a>
+    </div>
+  </div>
+
+  <footer><a href="/quick">the one-button screen</a><a href="/room">the whole room</a><a href="/voices">voices</a></footer>
 </main>
+
+<script>
+  // which page continues each phase
+  const PAGE = { intake: "/preproduction", lettering: "/letter" };
+  const q = (s) => document.querySelector(s);
+
+  fetch("/api/projects").then((r) => r.json()).then(async ({ projects }) => {
+    const box = q("#camps");
+    for (const slug of projects || []) {
+      const el = document.createElement("div");
+      el.className = "camp";
+      el.innerHTML = `<b></b><span class="st">…</span><a class="go">Continue →</a>`;
+      el.querySelector("b").textContent = slug;
+      box.insertBefore(el, box.firstChild);
+      fetch(`/api/projects/${encodeURIComponent(slug)}`).then((r) => r.json()).then((p) => {
+        el.querySelector(".st").textContent = p.phase ? `in ${p.phase}` : "not started";
+        el.querySelector("a").href = `${PAGE[p.phase] || "/production"}?p=${encodeURIComponent(slug)}`;
+      }).catch(() => { el.querySelector(".st").textContent = ""; });
+    }
+  }).catch(() => {});
+
+  q("#new-go").addEventListener("click", async () => {
+    const title = q("#new-title").value.trim();
+    if (!title) { q("#new-err").textContent = "A title first."; return; }
+    try {
+      const res = await fetch("/api/projects", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ title, pitch: q("#new-pitch").value.trim() }) });
+      if (!res.ok) throw new Error(await res.text());
+      const { slug } = await res.json();
+      localStorage.setItem("wr.campaign", slug);
+      location.href = `/preproduction?p=${encodeURIComponent(slug)}`;
+    } catch (e) { q("#new-err").textContent = String(e.message || e); }
+  });
+</script>
+<script src="/static/nav.js" defer></script>
 </body>
 </html>

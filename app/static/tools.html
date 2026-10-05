@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sprint tools</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  body { margin: 0; }
+  main { max-width: 64rem; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+  h1 { font-size: 1.4rem; margin: 1rem 0 .2rem; }
+  p.lead { color: var(--muted); margin: 0 0 1.4rem; max-width: 62ch; line-height: 1.5; }
+  .tools { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: .8rem; }
+  a.tool { display: block; padding: .85rem 1rem; border: 1px solid var(--line); border-radius: 8px;
+           background: var(--panel); color: var(--ink); text-decoration: none; }
+  a.tool:hover { border-color: var(--accent); }
+  a.tool b { display: block; margin-bottom: .2rem; font-size: 1rem; }
+  a.tool span { color: var(--muted); font-size: .8rem; line-height: 1.45; }
+  footer { margin-top: 1.8rem; font-size: .8rem; color: var(--muted); max-width: 62ch; line-height: 1.5; }
+  footer code { font-size: .74rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Sprint tools</h1>
+  <p class="lead">
+    Eight standalone team apps from the Avalanche hackathon — everyone on the link works in the
+    same one. Their output feeds the room: export, then drop the files into a campaign's
+    <code>input/</code> folder (Backstage → Files) and run intake.
+  </p>
+  <div class="tools">
+    <a class="tool" href="https://riff-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Riff</b><span>the brainstorming room after the writers' room: chat with a campaign's material, accept refinements, compile one canon file, visualize it</span></a>
+    <a class="tool" href="https://easel-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Easel</b><span>image chat: every prompt drawn by two models at once, iterate by reference, everything kept in a shared gallery</span></a>
+    <a class="tool" href="https://forge-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Forge</b><span>a character in seven answers — why, incentive, motive, weakness, change, return — on a hero's-journey wheel</span></a>
+    <a class="tool" href="https://spine-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Spine</b><span>a story on the Seven-Point structure, asked in sprint order — ends first, the choice last — drawn as the wall</span></a>
+    <a class="tool" href="https://station-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Station</b><span>a hard-SF Antarctic facility under the 80/15/5 rule, drawn as a station map of hub and modules</span></a>
+    <a class="tool" href="https://nemesis-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Nemesis</b><span>the antagonist and the existential threat — and the convergence: who comes together and what each brings</span></a>
+    <a class="tool" href="https://persona-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Persona</b><span>one character bot built by everyone: knowledge files, a face, a voice tuned take by take</span></a>
+    <a class="tool" href="https://canon-4rrfcj3y3a-uc.a.run.app" target="_blank" rel="noreferrer"><b>Canon</b><span>story and research files on two shelves, and seven checks a model run marks pass / thin / fail, with receipts</span></a>
+  </div>
+  <footer>
+    Each app also runs on its own machine with two pip packages — see <b>The sprint tools</b> in
+    the README. The links above are the shared team instances on Cloud Run.
+  </footer>
+</main>
+<script src="/static/nav.js" defer></script>
+</body>
+</html>

@@ -36,7 +36,7 @@
 <body>
 <header>
   <h1><a href="/">Writers' room</a> <span>renders</span></h1>
-  <div class="config"><span id="camp-name">—</span> · <a href="/letter">letter the pages →</a> · <a id="to-production" href="/production">production →</a></div>
+  <div class="config"><span id="camp-name">—</span></div>
 </header>
 
 <div class="rx">
@@ -77,7 +77,6 @@ function pagesWanted() {
 async function load() {
   state.data = await api(`/api/projects/${state.slug}/render`);
   $("#camp-name").textContent = state.slug;
-  $("#to-production").href = `/production?p=${encodeURIComponent(state.slug)}`;
   render();
   const running = TAGS.some((t) => state.data.state?.[t]?.state === "running");
   if (running && !state.poll) state.poll = setInterval(load, 5000);
@@ -133,5 +132,6 @@ $("#camp").addEventListener("change", () => { state.slug = $("#camp").value; loa
   await load();
 })();
 </script>
+<script src="/static/nav.js" defer></script>
 </body>
 </html>

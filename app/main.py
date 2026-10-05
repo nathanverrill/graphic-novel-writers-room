@@ -81,6 +81,12 @@ def home():
     return FileResponse(STATIC / "home.html")
 
 
+@app.get("/tools")
+def tools():
+    """The sprint tools: the eight standalone team apps whose exports feed a campaign's input/."""
+    return FileResponse(STATIC / "tools.html")
+
+
 # ---- sheets: its own container, reached through this port --------------------------------
 
 SHEETS_URL = (env("SHEETS_URL") or "http://sheets:8001").rstrip("/")

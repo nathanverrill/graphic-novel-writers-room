@@ -458,3 +458,31 @@ a.button { text-decoration: none; display: inline-block; }
 .open-item .tag.unlabelled { color: var(--bad); }
 .open-item .src { color: var(--muted); font-family: ui-monospace, monospace; font-size: .72rem; }
 .open-items .to-desk { float: right; font-size: .75rem; }
+
+/* ---- the navigation bar (nav.js): the lifecycle, the campaign, backstage ---- */
+.wr-nav { display: flex; align-items: center; gap: .9rem; padding: .45rem 1.25rem;
+  background: var(--ink); color: var(--bg); font-size: .82rem; flex-wrap: wrap; }
+.wr-brand { color: inherit; text-decoration: none; font-weight: 700; letter-spacing: .02em; }
+.wr-stages { display: flex; align-items: center; gap: .15rem; }
+.wr-arrow { font-style: normal; opacity: .45; font-size: .72rem; padding: 0 .1rem; }
+.wr-side { margin-left: auto; display: flex; align-items: center; gap: .6rem; }
+.wr-nav details { position: relative; }
+.wr-nav summary { list-style: none; cursor: pointer; padding: .2rem .55rem; border-radius: 4px; opacity: .85; }
+.wr-nav summary::-webkit-details-marker { display: none; }
+.wr-nav summary:hover { background: color-mix(in srgb, var(--bg) 14%, transparent); opacity: 1; }
+.wr-nav .wr-here > summary { opacity: 1; font-weight: 700; box-shadow: inset 0 -2px var(--accent); }
+.wr-drop { position: absolute; left: 0; top: calc(100% + .3rem); z-index: 50; min-width: 11rem;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.18); padding: .3rem; display: grid; }
+.wr-side .wr-drop { left: auto; right: 0; }
+.wr-drop a { color: inherit; text-decoration: none; padding: .4rem .6rem; border-radius: 4px; }
+.wr-drop a:hover { background: var(--bg); }
+.wr-drop a[aria-current] { font-weight: 700; color: var(--accent); }
+.wr-camp { font: inherit; font-size: .78rem; max-width: 11rem; padding: .18rem .35rem; border-radius: 4px;
+  border: 1px solid color-mix(in srgb, var(--bg) 35%, transparent); background: transparent; color: inherit; }
+.wr-camp option { color: var(--ink); background: var(--panel); }
+.wr-phase { color: inherit; text-decoration: none; font-family: ui-monospace, monospace; font-size: .72rem;
+  padding: .12rem .5rem; border: 1px solid var(--accent); border-radius: 99px; color: var(--bg);
+  background: color-mix(in srgb, var(--accent) 55%, transparent); }
+.wr-phase:hover { background: var(--accent); }
+@media (max-width: 46rem) { .wr-side { margin-left: 0; } }
