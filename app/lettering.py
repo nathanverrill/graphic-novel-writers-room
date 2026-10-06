@@ -228,9 +228,11 @@ def layer(spec, ctx=None, rects=None):
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
         if kind == "caption":
+            # action text: a bright box with a heavy border, so it reads against any art
+            fill, ink = ("#111", "#ffe14d") if dark else ("#ffe14d", "#111")
             cw, ch = box_w + size * 1.4, box_h + size * 0.9
             out.append(f'<rect x="{px - cw / 2:.0f}" y="{py - ch / 2:.0f}" width="{cw:.0f}" '
-                       f'height="{ch:.0f}" rx="{size * 0.3:.0f}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
+                       f'height="{ch:.0f}" rx="{size * 0.3:.0f}" fill="{fill}" stroke="{ink}" stroke-width="3"/>')
         elif kind == "thought":
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2" stroke-dasharray="2 7"/>')
@@ -245,21 +247,21 @@ def layer(spec, ctx=None, rects=None):
                 pts.append(f"{px + math.cos(ang) * rx * rr * 1.15:.0f},{py + math.sin(ang) * ry * rr * 1.2:.0f}")
             out.append(f'<polygon points="{" ".join(pts)}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
         else:
-            if speaker and item.get("tail", "auto") != "none":   # tail first: the balloon covers its base
+            if speaker and item.get("tail", "auto") != "none":
+                # the tail target is still tracked (the lettering desk drags it),
+                # but no pointer is drawn: against real art the arrows kept landing wrong
                 if item.get("tail_x") is not None and item.get("tail_y") is not None:
                     tx = (rect[0] + rect[2] * float(item["tail_x"]) / 100) * W
                     ty = (rect[1] + rect[3] * float(item["tail_y"]) / 100) * H
                 else:
                     tx, ty = rect[0] * W + rect[2] * W / 2, (rect[1] + rect[3] * 0.82) * H
                 tails[item["i"]] = (round(tx / W, 4), round(ty / H, 4))
-                dx, dy = (tx - px), (ty - py)
-                norm = max((dx ** 2 + dy ** 2) ** 0.5, 1)
-                ox, oy = -dy / norm * size * 0.9, dx / norm * size * 0.9
-                out.append(f'<polygon points="{px + ox:.0f},{py + oy:.0f} {px - ox:.0f},{py - oy:.0f} '
-                           f'{px + dx * 0.5:.0f},{py + dy * 0.5:.0f}" fill="{fill}" stroke="{ink}" '
-                           f'stroke-width="2" stroke-linejoin="round"/>')
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2"{dash}/>')
+            if speaker:                 # the tail used to say who speaks; now a small name does
+                out.append(f'<text x="{px:.0f}" y="{py - ry - size * 0.35:.0f}" font-size="{size * 0.72:.0f}" '
+                           f'fill="{ink}" font-weight="bold" letter-spacing="1" stroke="{fill}" '
+                           f'stroke-width="3" paint-order="stroke">{html.escape(speaker)}</text>')
         y = py - box_h / 2 + size * 0.95
         for line in lines:
             out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}">'

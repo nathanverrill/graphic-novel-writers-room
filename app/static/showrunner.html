@@ -38,6 +38,9 @@
   .spread .empty { color: var(--muted); font-size: .85rem; text-align: center; padding: 2rem 1rem; }
   .where { text-align: center; color: var(--muted); font-size: .74rem; letter-spacing: .06em;
            text-transform: uppercase; margin: .3rem 0 .4rem; }
+  .where button { font: inherit; color: inherit; background: none; border: 1px solid var(--line);
+                  border-radius: 99px; padding: .05rem .6rem; cursor: pointer; margin-left: .6rem; }
+  .where button:hover { color: var(--ink); border-color: var(--muted); }
 
   .jot { display: flex; gap: .5rem; max-width: 46rem; margin: 0 auto; }
   .jot input { flex: 1; font: inherit; font-size: .92rem; padding: .55rem .7rem; border: 1px solid var(--line);
@@ -97,13 +100,13 @@
     <button class="turn" id="prev" aria-label="previous spread">‹</button>
     <div>
       <div class="spread" id="spread"><div class="empty">Loading the book…</div></div>
-      <p class="where" id="where"></p>
+      <p class="where" id="where"><span id="where-at"></span> <button id="lettering-toggle" hidden>hide lettering</button></p>
     </div>
     <button class="turn" id="next" aria-label="next spread">›</button>
   </div>
 
   <div class="jot">
-    <input id="note-text" placeholder="Add a note on this spread…" autocomplete="off">
+    <input id="note-text" placeholder="Add a note…" autocomplete="off">
     <button id="note-add">Add note</button>
   </div>
   <p class="down"><a href="#log" id="note-count">all notes</a></p>
@@ -167,6 +170,7 @@ $("title").textContent = `${SLUG} — showrunner`;
 
 let pages = [], at = 0, stamp = Date.now();
 let drawn = {};               // tag -> pages whose art the room has actually drawn
+let lettering = true;         // the toggle: words on the pages, or the bare art
 const spreads = () => {
   const out = [];
   if (pages.length) out.push([pages[0]]);
@@ -188,11 +192,17 @@ function leaf(page) {
       el.innerHTML = svg;
     } catch { el.innerHTML = `<div class="empty">page ${page}: nothing drawn yet</div>`; }
   };
-  // only ask for pictures the room has drawn: lettered first, then the bare art
+  // only ask for pictures the room has drawn: lettered first (unless hidden), then the bare art
+  const nn = String(page).padStart(2, "0");
   const tries = TRY_TAGS.filter((t) => drawn[t]?.has(page))
-    .flatMap((t) => [`/api/projects/${SLUG}/render/${t}/lettered/p${String(page).padStart(2, "0")}.png`,
-                     `/api/projects/${SLUG}/render/${t}/art/p${String(page).padStart(2, "0")}.png`]);
-  if (!tries.length) { layer(); return el; }
+    .flatMap((t) => lettering
+      ? [`/api/projects/${SLUG}/render/${t}/lettered/p${nn}.png`, `/api/projects/${SLUG}/render/${t}/art/p${nn}.png`]
+      : [`/api/projects/${SLUG}/render/${t}/art/p${nn}.png`]);
+  if (!tries.length) {
+    if (lettering) layer();      // the text layer is lettering too: hidden means hidden
+    else el.innerHTML = `<div class="empty">page ${page}: no art yet</div>`;
+    return el;
+  }
   const img = document.createElement("img");
   img.alt = `page ${page}`;
   let i = 0;
@@ -206,17 +216,24 @@ function showSpread() {
   const all = spreads();
   if (!all.length) {
     $("spread").innerHTML = `<div class="empty">No pages yet. Add a note for the room and run the book.</div>`;
-    $("where").textContent = ""; $("prev").disabled = $("next").disabled = true;
+    $("where-at").textContent = ""; $("prev").disabled = $("next").disabled = true;
     return;
   }
   at = Math.max(0, Math.min(at, all.length - 1));
   const sp = all[at];
   $("spread").innerHTML = "";
   for (const p of sp) $("spread").append(leaf(p));
-  $("where").textContent = sp.length === 2 ? `pages ${sp[0]}–${sp[1]} of ${pages.length}` : `page ${sp[0]} of ${pages.length}`;
+  $("where-at").textContent = sp.length === 2 ? `pages ${sp[0]}–${sp[1]} of ${pages.length}` : `page ${sp[0]} of ${pages.length}`;
+  $("lettering-toggle").hidden = false;
   $("prev").disabled = at === 0;
   $("next").disabled = at === all.length - 1;
 }
+
+$("lettering-toggle").onclick = () => {
+  lettering = !lettering;
+  $("lettering-toggle").textContent = lettering ? "hide lettering" : "show lettering";
+  showSpread();
+};
 
 const goTo = (page) => {
   const i = spreads().findIndex((s) => s.includes(page));
@@ -247,8 +264,8 @@ async function showNotes() {
     row.className = "note-row";
     const tag = document.createElement("span");
     tag.className = "tag";
-    tag.textContent = n.page ? spreadName(n.page) : "the book";
-    if (n.page) { tag.title = "show this spread"; tag.onclick = () => goTo(n.page); }
+    tag.textContent = n.page ? spreadName(n.page) : "general";
+    if (n.page) { tag.title = "noted while reading this spread — click to show it"; tag.onclick = () => goTo(n.page); }
     const text = document.createElement("span");
     text.className = "text";
     text.textContent = n.text;
