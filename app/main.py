@@ -81,6 +81,15 @@ def home():
     return FileResponse(STATIC / "home.html")
 
 
+@app.get("/showrunner")
+def showrunner():
+    """The simplest desk: jot notes, run the whole book again, see the lettered pages.
+
+    For a showrunner who never takes a gate - magic takes them all (?p= picks the
+    campaign; prosperity is the default)."""
+    return FileResponse(STATIC / "showrunner.html")
+
+
 @app.get("/tools")
 def tools():
     """The sprint tools: the eight standalone team apps whose exports feed a campaign's input/."""

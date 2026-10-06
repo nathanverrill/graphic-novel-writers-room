@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ee">
+<title>Showrunner</title>
+<style>
+  :root {
+    --bg: #f6f3ee; --panel: #fffdf9; --ink: #1d1b18; --muted: #7a7266;
+    --line: #e2dcd2; --accent: #c2410c; --ok: #3f7d3a; --bad: #b42318;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    color: var(--ink);
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body { margin: 0; background: var(--bg); min-height: 100vh; display: flex; flex-direction: column;
+         align-items: center; padding: max(1.25rem, env(safe-area-inset-top)) 1rem max(1.25rem, env(safe-area-inset-bottom)); }
+  [hidden] { display: none !important; }
+  main { width: 100%; max-width: 34rem; flex: 1; }
+  h1 { font-size: 1rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+       color: var(--muted); margin: 0 0 .25rem; text-align: center; }
+  .sub { text-align: center; color: var(--muted); font-size: .9rem; margin: 0 0 1.5rem; }
+
+  h2 { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 1.6rem 0 .5rem; }
+  .note-row { display: flex; gap: .6rem; align-items: baseline; padding: .55rem .7rem; margin-bottom: .4rem;
+              background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent);
+              border-radius: 6px; font-size: .95rem; }
+  .note-row span { flex: 1; }
+  .note-row button { font: inherit; border: none; background: none; color: var(--muted); cursor: pointer; font-size: 1rem; }
+  textarea { width: 100%; font: inherit; font-size: .95rem; padding: .6rem .7rem; border: 1px solid var(--line);
+             border-radius: 6px; background: var(--panel); color: var(--ink); resize: vertical; }
+  .add { display: flex; justify-content: flex-end; margin-top: .4rem; }
+  .add button { font: inherit; font-weight: 600; padding: .5rem 1rem; border: 2px solid var(--ink);
+                border-radius: .6rem; background: var(--panel); color: var(--ink); cursor: pointer; }
+
+  #run { display: block; width: 100%; margin: 1.6rem 0 .4rem; padding: 1.5rem 1.25rem; font: inherit;
+         font-size: 1.3rem; font-weight: 600; color: var(--panel); background: var(--ink); border: none;
+         border-radius: 1rem; cursor: pointer; transition: transform .1s ease; }
+  #run:active { transform: scale(.985); }
+  #run:disabled { background: var(--muted); cursor: default; }
+  .hint { text-align: center; color: var(--muted); font-size: .85rem; margin: 0 0 1rem; }
+  #stop { display: block; margin: .6rem auto; font: inherit; font-size: .85rem; padding: .4rem 1rem;
+          border: 1px solid var(--line); border-radius: .6rem; background: var(--panel); color: var(--bad); cursor: pointer; }
+
+  ol { list-style: none; margin: 1rem 0; padding: 0; }
+  li { display: flex; align-items: center; gap: .75rem; padding: .65rem .25rem;
+       border-bottom: 1px solid var(--line); font-size: 1rem; color: var(--muted); }
+  li:last-child { border-bottom: none; }
+  li .dot { flex: none; width: 1.05rem; height: 1.05rem; border-radius: 50%; border: 2px solid var(--line); }
+  li.now { color: var(--ink); font-weight: 600; }
+  li.now .dot { border-color: var(--accent); border-right-color: transparent; animation: spin 1s linear infinite; }
+  li.done { color: var(--ink); }
+  li.done .dot { border-color: var(--ok); background: var(--ok); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { li.now .dot { animation: none; } }
+  #last { text-align: center; color: var(--muted); font-size: .85rem; min-height: 1.2em; }
+  #said { text-align: center; font-size: .92rem; margin: .8rem 0; color: var(--muted); }
+  #said.bad { color: var(--bad); }
+
+  #pages { margin: 1.5rem 0 0; display: flex; flex-direction: column; gap: 1.5rem; }
+  figure { margin: 0; }
+  figcaption { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 .4rem; }
+  .sheet { background: #fff; border: 1px solid var(--line); border-radius: .5rem; overflow: hidden;
+           box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .sheet svg { display: block; width: 100%; height: auto; }
+  footer { width: 100%; max-width: 34rem; text-align: center; padding-top: 2rem; }
+  footer a { color: var(--muted); font-size: .85rem; text-decoration: none; border-bottom: 1px solid var(--line); margin: 0 .5rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="title">Showrunner</h1>
+  <p class="sub">Drop in your notes. Run the book again. The room takes every gate itself.</p>
+
+  <h2>Notes for the next run</h2>
+  <div id="notes"></div>
+  <textarea id="note-text" rows="3" placeholder="e.g. Page 3 is too talky; let the storm do the work."></textarea>
+  <div class="add"><button id="note-add">Add note</button></div>
+
+  <button id="run">Run the book again</button>
+  <p class="hint">Development, the audition, the writing, the pages, the lettering — in one go, with your notes.</p>
+  <button id="stop" hidden>Stop</button>
+
+  <div id="progress" hidden><ol id="steps"></ol><p id="last"></p></div>
+  <p id="said" hidden></p>
+
+  <div id="pages"></div>
+</main>
+<footer><a id="to-renders" href="/renders">the drawn pages</a><a id="to-room" href="/production">the production room</a></footer>
+
+<script>
+const SLUG = new URLSearchParams(location.search).get("p") || "prosperity";
+const $ = (id) => document.getElementById(id);
+
+const api = async (path, opts) => {
+  const r = await fetch(path, opts && {
+    method: opts.method || "POST",
+    headers: opts.body ? { "Content-Type": "application/json" } : undefined,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || `the room said no (${r.status})`);
+  return r.json();
+};
+
+const say = (text, bad = false) => {
+  $("said").textContent = text; $("said").hidden = !text;
+  $("said").classList.toggle("bad", bad);
+};
+
+$("title").textContent = `${SLUG} — showrunner`;
+$("to-renders").href = `/renders?p=${encodeURIComponent(SLUG)}`;
+$("to-room").href = `/production?p=${encodeURIComponent(SLUG)}`;
+
+/* ---- notes: jot, list, drop -------------------------------------------- */
+
+async function showNotes() {
+  const { pending } = await api(`/api/projects/${SLUG}/notes`);
+  const box = $("notes");
+  box.innerHTML = "";
+  for (const n of pending) {
+    const row = document.createElement("div");
+    row.className = "note-row";
+    row.innerHTML = `<span></span><button title="drop this note">×</button>`;
+    row.firstElementChild.textContent = n.text;
+    row.lastElementChild.onclick = async () => {
+      try { await api(`/api/projects/${SLUG}/notes/${n.id}`, { method: "DELETE" }); showNotes(); }
+      catch (e) { say(e.message, true); }
+    };
+    box.append(row);
+  }
+}
+
+$("note-add").onclick = async () => {
+  const text = $("note-text").value.trim();
+  if (!text) return;
+  try {
+    await api(`/api/projects/${SLUG}/notes`, { body: { text } });
+    $("note-text").value = "";
+    showNotes();
+  } catch (e) { say(e.message, true); }
+};
+
+/* ---- the run: everything, start to lettered pages ----------------------- */
+
+let timer = null;
+
+function drawPlan(plan, state) {
+  const steps = $("steps");
+  steps.innerHTML = "";
+  const order = plan.map((s) => s.step);
+  const nowAt = order.indexOf(state.step);
+  plan.forEach((s, i) => {
+    const li = document.createElement("li");
+    li.innerHTML = `<span class="dot"></span><span></span>`;
+    li.lastElementChild.textContent = s.title;
+    if (state.status === "running") {
+      if (i < nowAt) li.className = "done";
+      if (i === nowAt) li.className = "now";
+    } else if (state.status === "done") li.className = "done";
+    steps.append(li);
+  });
+  $("progress").hidden = false;
+  const log = state.log || [];
+  $("last").textContent = log.length ? log[log.length - 1].text : "";
+}
+
+async function poll() {
+  let m;
+  try { m = await api(`/api/projects/${SLUG}/magic`); } catch (e) { return say(e.message, true); }
+  drawPlan(m.plan || [], m);
+  const running = m.status === "running";
+  $("run").disabled = running;
+  $("run").textContent = running ? "The room is working…" : "Run the book again";
+  $("stop").hidden = !running;
+  if (running && !timer) timer = setInterval(poll, 3000);
+  if (!running && timer) { clearInterval(timer); timer = null; }
+  if (!running) {
+    if (m.status === "failed") say(m.error || "The run failed.", true);
+    else if (m.status === "stopped") say("Stopped.", true);
+    else if (m.status === "done") { say(""); showPages(); showNotes(); }
+  }
+}
+
+$("run").onclick = async () => {
+  say("");
+  $("pages").innerHTML = "";
+  try {
+    await api(`/api/projects/${SLUG}/magic`, { body: { step: "development", until: "final" } });
+    poll();
+  } catch (e) { say(e.message, true); }
+};
+
+$("stop").onclick = async () => {
+  try { await api(`/api/projects/${SLUG}/magic/stop`, { body: {} }); } catch (e) { say(e.message, true); }
+};
+
+/* ---- the pages, lettered ------------------------------------------------ */
+
+async function showPages() {
+  const box = $("pages");
+  box.innerHTML = "";
+  let pages = {};
+  try { ({ pages } = await api(`/api/projects/${SLUG}/prompts`)); } catch { return; }
+  for (const page of Object.keys(pages || {}).map(Number).sort((a, b) => a - b)) {
+    const r = await fetch(`/api/projects/${SLUG}/lettering/${page}`);
+    if (!r.ok) continue;
+    const { svg } = await r.json();
+    const fig = document.createElement("figure");
+    fig.innerHTML = `<figcaption></figcaption><div class="sheet"></div>`;
+    fig.firstElementChild.textContent = `Page ${page}`;
+    fig.lastElementChild.innerHTML = svg;   // the app's own SVG, from this origin
+    box.append(fig);
+  }
+}
+
+showNotes().catch((e) => say(e.message, true));
+poll();
+showPages();
+</script>
+</body>
+</html>
