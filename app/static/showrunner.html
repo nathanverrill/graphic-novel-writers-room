@@ -166,6 +166,7 @@ $("title").textContent = `${SLUG} — showrunner`;
  * text layer the room drew. */
 
 let pages = [], at = 0, stamp = Date.now();
+let drawn = {};               // tag -> pages whose art the room has actually drawn
 const spreads = () => {
   const out = [];
   if (pages.length) out.push([pages[0]]);
@@ -181,18 +182,21 @@ const spreadName = (p) => {
 function leaf(page) {
   const el = document.createElement("div");
   el.className = "leaf";
-  const tries = TRY_TAGS.flatMap((t) => [`/api/projects/${SLUG}/render/${t}/lettered/p${String(page).padStart(2, "0")}.png`,
-                                         `/api/projects/${SLUG}/render/${t}/art/p${String(page).padStart(2, "0")}.png`]);
-  const img = document.createElement("img");
-  img.alt = `page ${page}`;
-  let i = 0;
-  img.onerror = async () => {
-    if (++i < tries.length) { img.src = `${tries[i]}?${stamp}`; return; }
-    try {                                       // no art yet: the room's own text layer
+  const layer = async () => {                   // no art: the room's own text layer
+    try {
       const { svg } = await api(`/api/projects/${SLUG}/lettering/${page}`);
       el.innerHTML = svg;
     } catch { el.innerHTML = `<div class="empty">page ${page}: nothing drawn yet</div>`; }
   };
+  // only ask for pictures the room has drawn: lettered first, then the bare art
+  const tries = TRY_TAGS.filter((t) => drawn[t]?.has(page))
+    .flatMap((t) => [`/api/projects/${SLUG}/render/${t}/lettered/p${String(page).padStart(2, "0")}.png`,
+                     `/api/projects/${SLUG}/render/${t}/art/p${String(page).padStart(2, "0")}.png`]);
+  if (!tries.length) { layer(); return el; }
+  const img = document.createElement("img");
+  img.alt = `page ${page}`;
+  let i = 0;
+  img.onerror = () => { (++i < tries.length) ? img.src = `${tries[i]}?${stamp}` : layer(); };
   img.src = `${tries[0]}?${stamp}`;
   el.append(img);
   return el;
@@ -353,6 +357,9 @@ async function watch() {
       while (true) {
         const r = await api(`/api/projects/${SLUG}/render`);
         const m = (r.state || {})[TAG] || {};
+        const before = drawn[TAG]?.size || 0;
+        drawn[TAG] = new Set(Object.entries(m.pages || {}).filter(([, p]) => p.state === "done").map(([n]) => +n));
+        if (drawn[TAG].size !== before && spreadPages().some((p) => drawn[TAG].has(p))) showSpread();
         const st = Object.values(m.pages || {});
         const done = st.filter((p) => p.state === "done").length;
         const failed = st.filter((p) => p.state === "failed").length;
@@ -415,12 +422,16 @@ $("stop").onclick = async () => {
 /* ---- load ---------------------------------------------------------------- */
 
 async function load() {
-  // the packets name every page of the book; the render list only the pages drawn so far
+  // the packets name every page of the book; the render state says which are drawn
   try { const { pages: p } = await api(`/api/projects/${SLUG}/prompts`); pages = Object.keys(p || {}).map(Number).sort((a, b) => a - b); }
   catch { pages = []; }
-  if (!pages.length) {
-    try { const r = await api(`/api/projects/${SLUG}/render`); pages = r.pages || []; } catch {}
-  }
+  drawn = {};
+  try {
+    const r = await api(`/api/projects/${SLUG}/render`);
+    if (!pages.length) pages = r.pages || [];
+    for (const [t, m] of Object.entries(r.state || {}))
+      drawn[t] = new Set(Object.entries(m.pages || {}).filter(([, p]) => p.state === "done").map(([n]) => +n));
+  } catch {}
   showSpread();
   showNotes();
 }
