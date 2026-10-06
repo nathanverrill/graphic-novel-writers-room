@@ -8,6 +8,8 @@
 services:
   app:
     user: "${ROOM_UID:-1000}:${ROOM_GID:-1000}"
+    dns: [169.254.169.254, 8.8.8.8]   # metadata DNS first; a public fallback — one resolver
+                                      # hiccup killed a whole round with "Name or service not known"
     volumes:
       - ./logs:/app/logs   # the usage ledger; bind-mounted so the non-root app can write it
 
