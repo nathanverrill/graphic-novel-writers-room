@@ -13,54 +13,62 @@
     color: var(--ink);
   }
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-  body { margin: 0; background: var(--bg); min-height: 100vh; display: flex; flex-direction: column;
-         align-items: center; padding: max(.8rem, env(safe-area-inset-top)) 1rem max(1.2rem, env(safe-area-inset-bottom)); }
+  body { margin: 0; background: var(--bg); display: flex; flex-direction: column; align-items: center;
+         padding: max(.6rem, env(safe-area-inset-top)) 1rem max(1.2rem, env(safe-area-inset-bottom)); }
   [hidden] { display: none !important; }
-  main { width: 100%; max-width: 72rem; flex: 1; display: flex; flex-direction: column; }
-  h1 { font-size: .9rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
-       color: var(--muted); margin: 0 0 .6rem; text-align: center; }
+  main { width: 100%; max-width: 86rem; }
 
-  /* ---- the open book: scaled to the window, the notes always visible below ---- */
-  .book { display: grid; grid-template-columns: 2.4rem 1fr 2.4rem; gap: .4rem; align-items: stretch; }
+  /* ---- first screen: the book as big as the window allows, the jot line under it ---- */
+  h1 { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+       color: var(--muted); margin: 0 0 .45rem; text-align: center; }
+  .book { display: grid; grid-template-columns: 2.2rem 1fr 2.2rem; gap: .35rem; align-items: stretch; }
   .book .turn { font: inherit; font-size: 1.7rem; color: var(--muted); background: none; border: none;
                 cursor: pointer; border-radius: .5rem; }
   .book .turn:hover:not(:disabled) { background: var(--panel); color: var(--ink); }
   .book .turn:disabled { opacity: .2; cursor: default; }
   .spread { display: flex; justify-content: center; align-items: center; gap: 4px;
             background: var(--panel); border: 1px solid var(--line); border-radius: .5rem;
-            padding: .5rem; box-shadow: 0 2px 8px rgba(0,0,0,.07);
-            height: clamp(16rem, calc(100vh - 23rem), 54rem); }
+            padding: .45rem; box-shadow: 0 2px 8px rgba(0,0,0,.07);
+            height: calc(100vh - 10.6rem); min-height: 16rem; }
   .spread .leaf { height: 100%; max-width: 50%; display: flex; align-items: center; justify-content: center; }
   .spread .leaf:only-child { max-width: 100%; }
   .spread img, .spread .leaf svg { max-height: 100%; max-width: 100%; width: auto; height: auto;
             border: 1px solid var(--line); background: #fff; display: block; }
   .spread .leaf svg { height: 100%; }
   .spread .empty { color: var(--muted); font-size: .85rem; text-align: center; padding: 2rem 1rem; }
-  .where { text-align: center; color: var(--muted); font-size: .78rem; letter-spacing: .06em;
-           text-transform: uppercase; margin: .4rem 0 0; }
+  .where { text-align: center; color: var(--muted); font-size: .74rem; letter-spacing: .06em;
+           text-transform: uppercase; margin: .3rem 0 .4rem; }
 
-  /* ---- notes on this spread ---- */
-  .notes-box { margin: .8rem auto 0; width: 100%; max-width: 40rem; }
-  .note-row { display: flex; gap: .6rem; align-items: baseline; padding: .45rem .65rem; margin-bottom: .3rem;
+  .jot { display: flex; gap: .5rem; max-width: 46rem; margin: 0 auto; }
+  .jot input { flex: 1; font: inherit; font-size: .92rem; padding: .55rem .7rem; border: 1px solid var(--line);
+               border-radius: .6rem; background: var(--panel); color: var(--ink); }
+  .jot button { font: inherit; font-weight: 600; padding: .55rem 1rem; border: 2px solid var(--ink);
+                border-radius: .6rem; background: var(--panel); color: var(--ink); cursor: pointer; white-space: nowrap; }
+  .down { text-align: center; color: var(--muted); font-size: .76rem; margin: .4rem 0 1.4rem; }
+  .down a { color: inherit; }
+
+  /* ---- below the fold: the log of every note, then save / run ---- */
+  .log { max-width: 46rem; margin: 0 auto; }
+  h2 { font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 1.2rem 0 .5rem; }
+  .note-row { display: flex; gap: .6rem; align-items: baseline; padding: .5rem .65rem; margin-bottom: .35rem;
               background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent);
               border-radius: 6px; font-size: .9rem; }
-  .note-row span { flex: 1; }
-  .note-row button { font: inherit; border: none; background: none; color: var(--muted); cursor: pointer; }
-  .jot { display: flex; gap: .5rem; align-items: flex-start; }
-  textarea { flex: 1; font: inherit; font-size: .9rem; padding: .5rem .6rem; border: 1px solid var(--line);
-             border-radius: 6px; background: var(--panel); color: var(--ink); resize: vertical; }
-  .jot button { font: inherit; font-weight: 600; padding: .5rem .9rem; border: 2px solid var(--ink);
-                border-radius: .6rem; background: var(--panel); color: var(--ink); cursor: pointer; }
-  .count { color: var(--muted); font-size: .76rem; margin-top: .3rem; display: block; text-align: right; }
+  .note-row .tag { font-family: ui-monospace, monospace; font-size: .7rem; color: var(--muted);
+                   white-space: nowrap; cursor: pointer; border-bottom: 1px dotted var(--line); }
+  .note-row span.text { flex: 1; }
+  .note-row textarea { flex: 1; font: inherit; font-size: .9rem; padding: .35rem .5rem;
+                       border: 1px solid var(--line); border-radius: 4px; background: var(--bg); color: var(--ink); }
+  .note-row button { font: inherit; font-size: .76rem; border: none; background: none; color: var(--muted); cursor: pointer; }
+  .note-row button:hover { color: var(--ink); }
+  .none { color: var(--muted); font-size: .88rem; }
 
-  /* ---- the run ---- */
-  .runbox { margin: .9rem auto 0; width: 100%; max-width: 40rem; }
-  #run { display: block; width: 100%; padding: 1rem 1.25rem; font: inherit; font-size: 1.1rem; font-weight: 600;
-         color: var(--panel); background: var(--ink); border: none; border-radius: .9rem; cursor: pointer;
-         transition: transform .1s ease; }
-  #run:active:not(:disabled) { transform: scale(.985); }
+  .acts { display: flex; gap: .6rem; margin: 1.1rem 0 0; }
+  #save { font: inherit; font-weight: 600; flex: 1; padding: .9rem; border: 2px solid var(--ink);
+          border-radius: .9rem; background: var(--panel); color: var(--ink); cursor: pointer; }
+  #run { font: inherit; font-weight: 600; flex: 2; padding: .9rem; font-size: 1.05rem;
+         color: var(--panel); background: var(--ink); border: none; border-radius: .9rem; cursor: pointer; }
   #run:disabled { background: var(--muted); cursor: default; }
-  #working { margin-top: .7rem; }
+  #working { margin-top: .8rem; }
   .bar { height: .5rem; background: var(--panel); border: 1px solid var(--line); border-radius: 99px; overflow: hidden; }
   .bar i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .8s ease; }
   #doing { text-align: center; color: var(--ink); font-size: .9rem; margin: .5rem 0 .1rem; }
@@ -69,6 +77,7 @@
           border: 1px solid var(--line); border-radius: .6rem; background: var(--panel); color: var(--bad); cursor: pointer; }
   #said { text-align: center; font-size: .88rem; margin: .7rem 0 0; color: var(--muted); }
   #said.bad { color: var(--bad); }
+  #said.ok { color: var(--ok); }
 
   dialog { border: 1px solid var(--line); border-radius: .8rem; background: var(--panel); color: var(--ink);
            width: min(27rem, 92vw); padding: 1.2rem 1.3rem; }
@@ -93,17 +102,20 @@
     <button class="turn" id="next" aria-label="next spread">›</button>
   </div>
 
-  <div class="notes-box">
-    <div id="notes"></div>
-    <div class="jot">
-      <textarea id="note-text" rows="2" placeholder="What should be different on this spread?"></textarea>
-      <button id="note-add">Add note</button>
-    </div>
-    <span class="count" id="note-count"></span>
+  <div class="jot">
+    <input id="note-text" placeholder="Add a note on this spread…" autocomplete="off">
+    <button id="note-add">Add note</button>
   </div>
+  <p class="down"><a href="#log" id="note-count">all notes</a></p>
 
-  <div class="runbox">
-    <button id="run">Run the book again</button>
+  <div class="log" id="log">
+    <h2>Every note waiting for the next run</h2>
+    <div id="notes"><p class="none">No notes yet — they collect here as you read.</p></div>
+
+    <div class="acts">
+      <button id="save">Save notes</button>
+      <button id="run">Run the book again</button>
+    </div>
     <div id="working" hidden>
       <div class="bar"><i id="bar"></i></div>
       <p id="doing"></p>
@@ -131,16 +143,17 @@ const $ = (id) => document.getElementById(id);
 
 const api = async (path, opts) => {
   const r = await fetch(path, opts && {
-    method: opts.method || "POST",
+    method: opts.method || "GET",
     headers: opts.body ? { "Content-Type": "application/json" } : undefined,
     body: opts.body ? JSON.stringify(opts.body) : undefined,
   });
   if (!r.ok) throw new Error((await r.json().catch(() => ({}))).detail || `the room said no (${r.status})`);
   return r.json();
 };
-const say = (text, bad = false) => {
+const post = (path, body = {}) => api(path, { method: "POST", body });
+const say = (text, cls = "") => {
   $("said").textContent = text; $("said").hidden = !text;
-  $("said").classList.toggle("bad", bad);
+  $("said").className = cls;
 };
 const mins = (s) => s >= 3600 ? `${Math.round(s / 360) / 10} hours` : `${Math.max(1, Math.round(s / 60))} minutes`;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -158,6 +171,11 @@ const spreads = () => {
   if (pages.length) out.push([pages[0]]);
   for (let i = 1; i < pages.length; i += 2) out.push(pages.slice(i, i + 2));
   return out;
+};
+const spreadPages = () => (spreads()[at] || []);
+const spreadName = (p) => {
+  const sp = spreads().find((s) => s.includes(p));
+  return sp ? (sp.length === 2 ? `pages ${sp[0]}–${sp[1]}` : `page ${sp[0]}`) : `page ${p}`;
 };
 
 function leaf(page) {
@@ -185,7 +203,6 @@ function showSpread() {
   if (!all.length) {
     $("spread").innerHTML = `<div class="empty">No pages yet. Add a note for the room and run the book.</div>`;
     $("where").textContent = ""; $("prev").disabled = $("next").disabled = true;
-    showNotes();
     return;
   }
   at = Math.max(0, Math.min(at, all.length - 1));
@@ -195,60 +212,101 @@ function showSpread() {
   $("where").textContent = sp.length === 2 ? `pages ${sp[0]}–${sp[1]} of ${pages.length}` : `page ${sp[0]} of ${pages.length}`;
   $("prev").disabled = at === 0;
   $("next").disabled = at === all.length - 1;
-  showNotes();
 }
+
+const goTo = (page) => {
+  const i = spreads().findIndex((s) => s.includes(page));
+  if (i >= 0) { at = i; showSpread(); window.scrollTo({ top: 0, behavior: "smooth" }); }
+};
 
 $("prev").onclick = () => { at--; showSpread(); };
 $("next").onclick = () => { at++; showSpread(); };
 document.addEventListener("keydown", (e) => {
-  if (e.target.tagName === "TEXTAREA") return;
+  if (["INPUT", "TEXTAREA"].includes(e.target.tagName)) return;
   if (e.key === "ArrowLeft" && !$("prev").disabled) $("prev").click();
   if (e.key === "ArrowRight" && !$("next").disabled) $("next").click();
 });
 
-/* ---- notes: each belongs to the spread it was written on ---------------- */
+/* ---- the notes log: every pending note, edit and delete in place --------
+ * A note is saved the moment it is added or edited; Save re-reads the pile
+ * and says so, for peace of mind. */
 
 let pending = [];
-const spreadPages = () => (spreads()[at] || []);
 
 async function showNotes() {
   try { ({ pending } = await api(`/api/projects/${SLUG}/notes`)); } catch { pending = []; }
-  const here = spreadPages();
-  const mine = here.length ? pending.filter((n) => here.includes(n.page)) : pending.filter((n) => !n.page);
   const box = $("notes");
   box.innerHTML = "";
-  for (const n of mine) {
+  if (!pending.length) box.innerHTML = `<p class="none">No notes yet — they collect here as you read.</p>`;
+  for (const n of pending) {
     const row = document.createElement("div");
     row.className = "note-row";
-    row.innerHTML = `<span></span><button title="drop this note">×</button>`;
-    row.firstElementChild.textContent = n.text;
-    row.lastElementChild.onclick = async () => {
+    const tag = document.createElement("span");
+    tag.className = "tag";
+    tag.textContent = n.page ? spreadName(n.page) : "the book";
+    if (n.page) { tag.title = "show this spread"; tag.onclick = () => goTo(n.page); }
+    const text = document.createElement("span");
+    text.className = "text";
+    text.textContent = n.text;
+    const edit = document.createElement("button");
+    edit.textContent = "edit";
+    const del = document.createElement("button");
+    del.textContent = "×"; del.title = "drop this note";
+    del.onclick = async () => {
       try { await api(`/api/projects/${SLUG}/notes/${n.id}`, { method: "DELETE" }); showNotes(); }
-      catch (e) { say(e.message, true); }
+      catch (e) { say(e.message, "bad"); }
     };
+    edit.onclick = () => {
+      const ta = document.createElement("textarea");
+      ta.rows = 2; ta.value = n.text;
+      const keep = document.createElement("button");
+      keep.textContent = "keep";
+      keep.onclick = async () => {        // an edit is a new note in the old one's place
+        const v = ta.value.trim();
+        try {
+          if (v && v !== n.text) {
+            await post(`/api/projects/${SLUG}/notes`, { text: v, page: n.page });
+            await api(`/api/projects/${SLUG}/notes/${n.id}`, { method: "DELETE" });
+          }
+          showNotes();
+        } catch (e) { say(e.message, "bad"); }
+      };
+      row.replaceChildren(tag, ta, keep, del);
+      ta.focus();
+    };
+    row.append(tag, text, edit, del);
     box.append(row);
   }
-  const elsewhere = pending.length - mine.length;
   $("note-count").textContent = pending.length
-    ? `${pending.length} note${pending.length > 1 ? "s" : ""} waiting for the next run${elsewhere ? ` — ${elsewhere} on other spreads` : ""}`
-    : "";
+    ? `${pending.length} note${pending.length > 1 ? "s" : ""} waiting — see them all ↓`
+    : "all notes ↓";
 }
 
-$("note-add").onclick = async () => {
+async function addNote() {
   const text = $("note-text").value.trim();
-  if (!text) return;
+  if (!text) return false;
+  await post(`/api/projects/${SLUG}/notes`, { text, page: spreadPages()[0] || null });
+  $("note-text").value = "";
+  await showNotes();
+  return true;
+}
+
+$("note-add").onclick = () => addNote().catch((e) => say(e.message, "bad"));
+$("note-text").addEventListener("keydown", (e) => { if (e.key === "Enter") $("note-add").click(); });
+
+$("save").onclick = async () => {
   try {
-    await api(`/api/projects/${SLUG}/notes`, { body: { text, page: spreadPages()[0] || null } });
-    $("note-text").value = "";
-    showNotes();
-  } catch (e) { say(e.message, true); }
+    await addNote();                       // anything still in the box goes in too
+    await showNotes();
+    say(`Saved — ${pending.length ? `${pending.length} note${pending.length > 1 ? "s" : ""}` : "nothing"} with the campaign, ready for the next run.`, "ok");
+  } catch (e) { say(e.message, "bad"); }
 };
 
 /* ---- the run: write the book, draw every page, letter it -----------------
  * Three stages behind one bar. The stage is remembered (localStorage), so a
  * reloaded page picks the watch back up; the chain itself runs in the room. */
 
-let chain = null;   // a run of watch() in flight
+let chain = null;
 
 function working(frac, doing, last) {
   $("run").disabled = true;
@@ -274,8 +332,8 @@ async function watch() {
       while (true) {
         const m = await api(`/api/projects/${SLUG}/magic`);
         if (m.status !== "running") {
-          if (m.status === "failed") { idle(); return say(m.error || "The writing failed - run it again.", true); }
-          if (m.status === "stopped") { idle(); return say("Stopped.", true); }
+          if (m.status === "failed") { idle(); return say(m.error || "The writing failed - run it again.", "bad"); }
+          if (m.status === "stopped") { idle(); return say("Stopped.", "bad"); }
           break;
         }
         const plan = (m.plan || []).filter((s) => !s.after && !s.optional);
@@ -288,7 +346,7 @@ async function watch() {
       }
       localStorage.setItem(CHAIN_KEY, "drawing");
       stamp = Date.now(); await load();                      // the book changed: new pages
-      await api(`/api/projects/${SLUG}/render`, { body: { models: [TAG], redo: true } });
+      await post(`/api/projects/${SLUG}/render`, { models: [TAG], redo: true });
     }
 
     if (localStorage.getItem(CHAIN_KEY) === "drawing") {
@@ -309,22 +367,22 @@ async function watch() {
 
     if (localStorage.getItem(CHAIN_KEY) === "lettering") {
       working(.92, "Lettering — the words go onto the art");
-      const { lettered, skipped } = await api(`/api/projects/${SLUG}/render/${TAG}/letter`, { body: {} });
+      const { lettered, skipped } = await post(`/api/projects/${SLUG}/render/${TAG}/letter`);
       idle();
       stamp = Date.now(); await load();
       const missed = Object.keys(skipped || {}).length;
-      say(`Done. ${lettered.length} pages lettered${missed ? `, ${missed} skipped (no art)` : ""} — the book above is the new run.`);
+      say(`Done. ${lettered.length} pages lettered${missed ? `, ${missed} skipped (no art)` : ""} — the book above is the new run.`, "ok");
     }
   } catch (e) {
     idle();
-    say(e.message, true);
+    say(e.message, "bad");
   }
 }
 
 async function confirmRun() {
   say("");
   let m;
-  try { m = await api(`/api/projects/${SLUG}/magic`); } catch (e) { return say(e.message, true); }
+  try { m = await api(`/api/projects/${SLUG}/magic`); } catch (e) { return say(e.message, "bad"); }
   const chainSteps = (m.plan || []).filter((s) => !s.after && !s.optional);
   const write = chainSteps.reduce((a, s) => a + (s.seconds || 0), 0);
   const draw = (pages.length || 24) * 25;             // the image model, page by page
@@ -336,22 +394,22 @@ async function confirmRun() {
   $("confirm").showModal();
 }
 
-$("run").onclick = confirmRun;
+$("run").onclick = () => addNote().catch(() => {}).then(confirmRun);
 $("confirm-no").onclick = () => $("confirm").close();
 $("confirm-yes").onclick = async () => {
   $("confirm").close();
   try {
-    await api(`/api/projects/${SLUG}/magic`, { body: { step: "development", until: "final" } });
+    await post(`/api/projects/${SLUG}/magic`, { step: "development", until: "final" });
     localStorage.setItem(CHAIN_KEY, "writing");
     chain = watch();
-  } catch (e) { say(e.message, true); }
+  } catch (e) { say(e.message, "bad"); }
 };
 $("stop").onclick = async () => {
   const stage = localStorage.getItem(CHAIN_KEY);
   try {
-    if (stage === "writing") await api(`/api/projects/${SLUG}/magic/stop`, { body: {} });
+    if (stage === "writing") await post(`/api/projects/${SLUG}/magic/stop`);
     else idle();                                   // drawing finishes the page it is on
-  } catch (e) { say(e.message, true); }
+  } catch (e) { say(e.message, "bad"); }
 };
 
 /* ---- load ---------------------------------------------------------------- */
@@ -364,6 +422,7 @@ async function load() {
     try { const r = await api(`/api/projects/${SLUG}/render`); pages = r.pages || []; } catch {}
   }
   showSpread();
+  showNotes();
 }
 
 (async () => {
