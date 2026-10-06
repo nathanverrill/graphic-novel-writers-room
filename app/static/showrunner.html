@@ -301,13 +301,11 @@ async function poll() {
 /* ---- load ---------------------------------------------------------------- */
 
 async function load() {
-  try {
-    const r = await api(`/api/projects/${SLUG}/render`);
-    pages = r.pages || [];
-  } catch { pages = []; }
+  // the packets name every page of the book; the render list only the pages drawn so far
+  try { const { pages: p } = await api(`/api/projects/${SLUG}/prompts`); pages = Object.keys(p || {}).map(Number).sort((a, b) => a - b); }
+  catch { pages = []; }
   if (!pages.length) {
-    try { const { pages: p } = await api(`/api/projects/${SLUG}/prompts`); pages = Object.keys(p || {}).map(Number).sort((a, b) => a - b); }
-    catch {}
+    try { const r = await api(`/api/projects/${SLUG}/render`); pages = r.pages || []; } catch {}
   }
   showSpread();
 }
