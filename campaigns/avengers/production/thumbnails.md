@@ -1,7 +1,7 @@
 # Thumbnails — layout render
 
 <!-- generated; 116x82 cells, one cell = one letter at 7.5 pt lettering -->
-## Page 1 (right) <!-- layout 6df7c38aa7 -->
+## Page 1 (right) <!-- layout 51759eef4d -->
 
 ```text
                                                                                                                     
@@ -11,7 +11,7 @@
        |                                                |  |                                                |       
        |                              _____________     |  |                                                |       
        |                             /   SITARA.   \    |  |                                                |       
-       |                             \ STOP THERE! /    |  |                                                |       
+       |                             \ STOP THERE. /    |  |                                                |       
        |                              ~~~~~~~~~~~~~     |  |                                                |       
        |                                    |           |  |                                                |       
        |                                    |           |  |                                                |       
@@ -1293,7 +1293,7 @@
 - P3 MEDIUM / EYE: Recovered hydrocarbon feedstock enters a sealed container; residual solids sit in a separate drum beside an emissions monitor. Keep objects distinct and upper area clear.
 - P4 WIDE / EYE: Monitoring wall presents four separated readable blocks for water, grid demand, emissions, and limited throughput. Keep display uncluttered and reserve upper-right for dialogue.
 
-## Page 15 (right) <!-- layout c558fc241b -->
+## Page 15 (right) <!-- layout 354b078f60 -->
 
 ```text
                                                                                                                     
@@ -1340,15 +1340,15 @@
                                                                                                                     
         ________________________________________________    ________________________________________________        
        |                                                |  |                                                |       
-       |  __________________________                    |  |  _______________________                       |       
-       | /   YOU WANT TO STOP THE   \                   |  | / YOU KNEW THE WORK WAS \                      |       
-       | |  RESEARCH PIPELINE THAT  |                   |  | |  USEFUL. YOU KNEW THE |                      |       
-       | |   GAVE THIS PILOT ITS    |                   |  | | PILOT WAS CONTROLLED. |                      |       
-       | | CHANCE—AND THE TREATMENT |                   |  | |  WHY IS IT WRONG ONLY |                      |       
-       | \  PATH MY SON HAS LEFT.   /                   |  | \          NOW?         /                      |       
-       |  ~~~~~~~~~~~~~~~~~~~~~~~~~~                    |  |  ~~~~~~~~~~~~~~~~~~~~~~~                       |       
-       |               |                                |  |             |                                  |       
-       |               |                                |  |             |                                  |       
+       |  __________________                            |  |  _______________________                       |       
+       | / YOU WANT TO STOP \                           |  | /    YOU KNEW IT WAS    \                      |       
+       | |  THE WORK THAT   |                           |  | |  USEFUL. YOU KNEW IT  |                      |       
+       | |    MADE THIS     |                           |  | |  WAS CONTROLLED. WHY  |                      |       
+       | \    POSSIBLE.     /                           |  | \ IS IT WRONG ONLY NOW? /                      |       
+       |  ~~~~~~~~~~~~~~~~~~                            |  |  ~~~~~~~~~~~~~~~~~~~~~~~                       |       
+       |           |                                    |  |             |                                  |       
+       |           |                                    |  |             |                                  |       
+       |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       
        |                                                |  |                                                |       

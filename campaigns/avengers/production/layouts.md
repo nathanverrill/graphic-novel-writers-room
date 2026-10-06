@@ -59,7 +59,7 @@ Reading path: Roman’s origin → Sitara’s loss → Antarctic geography → S
    "panel": 1,
    "type": "balloon",
    "speaker": "NAYAH",
-   "text": "Sitara. Stop there!",
+   "text": "Sitara. Stop there.",
    "x": 75.71244268316646,
    "y": 8.004535147392291,
    "tail_x": 81.68433143866865,
@@ -269,7 +269,94 @@ Reading path: sorted material → enzyme-assisted process → feedstock and resi
 Reading path: clearer water → invertebrate survey → Croft’s argument → silent reaction. Dominant beat: the benefit does not excuse the method.
 
 ```layout
-{"page":15,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Colorado constructed wetland shows clearer water passing a nearly closed inlet gate; monitor shows clarity change and dated pilot interval. Leave upper area clear."},{"w":1,"shot":"close","angle":"high","horizon":35,"description":"Survey tray holds aquatic invertebrates beside increased taxa and finite-flow warning. Keep tray and warning distinct; leave upper-left clear."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"Croft appears on a wall screen beside his son’s treatment schedule; only a pale hand beneath hospital bedding is visible. The screen’s secondary file references the broader restricted research and access pipeline, not the Colorado treatment process. Leave upper-left clear for dialogue."},{"w":1,"shot":"medium","angle":"eye","horizon":42,"description":"In Nexus, Sitara watches the recording while Roman stands beside her, unable to answer. Leave upper third clear for dialogue."}]}],"items":[{"panel":1,"type":"caption","x":65,"y":26,"text":"CLARITY INDEX: 41 → 68"},{"panel":1,"type":"caption","x":65,"y":48,"text":"PILOT INTERVAL: DATED"},{"panel":2,"type":"caption","x":58,"y":28,"text":"DOWNSTREAM TAXA: 3 → 11"},{"panel":2,"type":"caption","x":58,"y":55,"text":"WETLAND FLOW CAPACITY: FINITE"},{"panel":3,"type":"balloon","speaker":"CROFT","text":"You want to stop the research pipeline that gave this pilot its chance—and the treatment path my son has left.","at":"top-left"},{"panel":4,"type":"balloon","speaker":"CROFT","text":"You knew the work was useful. You knew the pilot was controlled. Why is it wrong only now?","at":"top-left"}]}
+{
+ "page": 15,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Colorado constructed wetland shows clearer water passing a nearly closed inlet gate; monitor shows clarity change and dated pilot interval. Leave upper area clear."
+    },
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "high",
+     "horizon": 35,
+     "description": "Survey tray holds aquatic invertebrates beside increased taxa and finite-flow warning. Keep tray and warning distinct; leave upper-left clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Croft appears on a wall screen beside his son\u2019s treatment schedule; only a pale hand beneath hospital bedding is visible. The screen\u2019s secondary file references the broader restricted research and access pipeline, not the Colorado treatment process. Leave upper-left clear for dialogue."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "In Nexus, Sitara watches the recording while Roman stands beside her, unable to answer. Leave upper third clear for dialogue."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "caption",
+   "x": 65,
+   "y": 26,
+   "text": "CLARITY INDEX: 41 \u2192 68"
+  },
+  {
+   "panel": 1,
+   "type": "caption",
+   "x": 65,
+   "y": 48,
+   "text": "PILOT INTERVAL: DATED"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "x": 58,
+   "y": 28,
+   "text": "DOWNSTREAM TAXA: 3 \u2192 11"
+  },
+  {
+   "panel": 2,
+   "type": "caption",
+   "x": 58,
+   "y": 55,
+   "text": "WETLAND FLOW CAPACITY: FINITE"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "CROFT",
+   "text": "You want to stop the work that made this possible.",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "CROFT",
+   "text": "You knew it was useful. You knew it was controlled. Why is it wrong only now?",
+   "at": "top-left"
+  }
+ ]
+}
 ```
 
 ## Page 16 (left) — 4 panels, Orien found alive
