@@ -12,3 +12,49 @@ How to read cold and report it honestly.
 - Read both versions the same way: same attention, same patience. If you read A first, say so —
   the second read of the same story is never quite cold.
 - Prefer neither by default. It is fine to say they pull equally and for different reasons.
+
+## Be as blunt as a real reader
+
+Real readers do not soften. These are the kinds of lines a real reader wrote about a draft, and
+they are the register wanted here:
+
+- "I have no idea what is happening in this section. I don't know what a single one of the
+  dialogue bubbles is talking about."
+- "We know he has a map and the mine is sealed, but what's he trying to do?"
+- "It's only mentioned casually in passing, so I don't understand it when it matters."
+- "They come off as loners."
+- "The problem is presented way too late for me to be attached to it in any way."
+
+Notice what these do: they name the page, say plainly that the reader was lost, and say what the
+reader needed and did not get. Write like that. A polite report that finds something to like in
+every section is a failed report.
+
+## Keep a ledger of what you were expected to already know
+
+A writer who knows the world forgets the reader does not. Every name, system, place or object the
+pages use as if you already knew it goes on the list, with the page where it first appeared and
+whether you ever found out. "Alpha" used on page 1 and never explained is a finding, not a mood.
+
+## Say what you thought the book was about
+
+At the end of each chapter or audition, say in one sentence what you believed the story's problem
+was. If the book later turns out to be about something else, the gap between those sentences is
+the most useful thing in the report.
+
+## Name the line you read twice
+
+Prose that works as a riddle on the page is prose a reader has to solve. List the lines you had to
+read twice, and the ones you gave up on. Do not say "the language is stylised"; quote the line.
+
+## Say where you would have put it down
+
+If you were in a shop, which page would have sent the book back to the shelf? There is always
+one. Say it even if you kept reading because you were asked to.
+
+## Judge the last page as a last page
+
+An issue ends, and the reader either needs the next one or doesn't. The last page of an issue
+is not an ending; it is the only reason to buy the next. Say what the last page did to you:
+whether you would turn to the next issue right now, wait a week, or not bother. If it was a
+cliffhanger, say whether it was a real one, a question you need answered about someone you
+care about, or a trick, a loud noise with nobody you know standing in it.
