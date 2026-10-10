@@ -97,6 +97,9 @@ from app import readers
 _t = "**Panel 4.** Water.\nALEX: Keep moving!\n**ISSUE QUESTION: Has she opened their route?**\nPAGE CHECK: x\nCAPTION: END OF THE FIRST MOVEMENT.\n"
 _o = readers.pages_only(_t)
 assert "ISSUE QUESTION" not in _o and "PAGE CHECK" not in _o and "FIRST MOVEMENT" in _o and "Keep moving" in _o, _o
+_t = "**Writers' Room Review – Draft v4.0**\n# Chapter One\n\n**Chapter Function**\n\n* Introduce the world.\n\n**Central Question**\n\n**Did Adrian abandon Alex?**\n\n## PAGE 1\n\nALEX: Hi.\n"
+_o = readers.pages_only(_t)
+assert "Introduce the world" not in _o and "Did Adrian" not in _o and "Draft v4.0" not in _o and "ALEX: Hi." in _o, _o
 print("3d. a reader gets the captions, not the writer's questions to the room: ok")
 # 3e. the analysis: the Analyst reads as the audience does, gets its briefing, and holds the two rules
 analyst = {r.id: r for r in load_roles()}["analyst"]

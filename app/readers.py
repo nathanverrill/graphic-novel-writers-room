@@ -14,7 +14,7 @@ from . import projects
 _NOTE = re.compile(
     r"^\s*(?:\*\*)?(issue question|page-turn question|reader question|cliffhanger question|turn question|page function|page-turn function|page intent|page check|chapter function|chapter intent|"
     r"central question|prosperity principle|style block|layout|rows? [a-z]\b|reading order|composition|timing|"
-    r"lock|changed|intent|function|image prompt|writers.? room draft|draft script)\b", re.I)
+    r"lock|changed|intent|function|image prompt|writers.? room (?:draft|review)|draft script|graphic novel story draft)\b", re.I)
 # a sentence inside an art description that is aimed at the artist or the room, not the eye
 _ASIDE = re.compile(
     r"\b(the reader|readers?\b|easy to miss|second-time|the eye should|should register|should feel|should hurt|"
@@ -39,7 +39,7 @@ def pages_only(text):
     to the page number, asides to the artist removed from the art, chapters called issues."""
     out, skip = [], False
     for line in (text or "").splitlines():
-        if re.match(r"^\s*#*\s*(chapter function|central question|prosperity principle)\b", line, re.I):
+        if re.match(r"^\s*#*\s*\**\s*(chapter function|central question|prosperity principle)\b", line, re.I):
             skip = True
         if re.match(r"^\s*#*\s*PAGE\s+\d+", line, re.I):
             skip = False
