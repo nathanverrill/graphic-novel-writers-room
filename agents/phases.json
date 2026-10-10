@@ -123,6 +123,20 @@
   ]
  },
  {
+  "id": "analysis",
+  "title": "Analysis",
+  "does": "The Analyst reads the whole script, the pages only, as the book's audience, its partner and its backer would meet it, and as a comic writer, a game designer and a streaming showrunner would. It reports the political read, what might offend and whom, and whether it smells like schoolwork. It fixes nothing.",
+  "agents": [
+   "analyst"
+  ],
+  "gate": "approve",
+  "asks": "Would Young Americans Center and Bill Reynolds each be satisfied, at least in part, and does it stay clear of schoolwork? Send it back to the writer with the analysis, or go on to the pages.",
+  "read": [
+   "analysis.md",
+   "script.md"
+  ]
+ },
+ {
   "id": "execution",
   "title": "Execution",
   "does": "Lay out every page until the pages pass the readiness check, then write the page packets: everything you paste into an image model to draw each page, with no text on it. Lettering comes later, over the art.",

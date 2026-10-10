@@ -35,12 +35,12 @@ import time
 from . import notes as notes_mod, phases, projects, review, room
 from .agents import load_roles
 
-STEPS = ("development", "drafts", "audition", "page1", "writing", "coldread", "layouts", "execution", "final")
+STEPS = ("development", "drafts", "audition", "page1", "writing", "coldread", "analysis", "layouts", "execution", "final")
 PHASE_OF = {"development": "development", "drafts": "drafts", "audition": "audition", "page1": "execution",
-            "writing": "writing", "coldread": "coldread", "layouts": "execution", "execution": "execution", "final": "execution"}
+            "writing": "writing", "coldread": "coldread", "analysis": "analysis", "layouts": "execution", "execution": "execution", "final": "execution"}
 TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Proof page",
-          "writing": "Writing", "coldread": "Cold read", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
-STOPS = {"drafts": "drafts", "page1": "page1", "coldread": "coldread", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
+          "writing": "Writing", "coldread": "Cold read", "analysis": "Analysis", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
+STOPS = {"drafts": "drafts", "page1": "page1", "coldread": "coldread", "analysis": "analysis", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
 
 def chapter_pages(slug):
     """[{chapter, title, first, pages}]: where each chapter starts in the book, for the proof picker.
@@ -190,7 +190,7 @@ def _run(slug, step, until, note):
                 i += 1                  # not stopping there: the pages step lays out and fixes
                 continue
             note = {"development": _development, "drafts": _drafts, "audition": _audition, "page1": _page1,
-                    "writing": _writing, "coldread": _coldread, "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
+                    "writing": _writing, "coldread": _coldread, "analysis": _analysis, "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
             if step == until or step == "drafts":     # an edit always stops at the edited drafts
                 break
             i += 1
@@ -205,6 +205,10 @@ def _run(slug, step, until, note):
             _set(slug, status="coldread", finished=projects.now())
             _log(slug, "The script is revised against two cold reads: cold-read.md, cold-read-b.md and the writer's "
                        "answer in script.md and notes.md. Read it, then Make the pages.")
+        elif until == "analysis":
+            _set(slug, status="analysis", finished=projects.now())
+            _log(slug, "The script has been read cold and analysed: analysis.md says how the partner, the backer and "
+                       "the professionals would take it. Read it, then Make the pages.")
         elif until == "layouts":
             _set(slug, status="layouts", finished=projects.now())
             _log(slug, "The layouts are drawn: every page's map and panels. Look them over, then Make the pages.")
@@ -430,6 +434,65 @@ def put_down(text):
     return body[:160] or None
 
 
+ANALYSIS = "analysis.md"
+ANALYSIS_RE = re.compile(r"VERDICT\s+Young\s+Americans(?:\s+Center)?\s*:\s*(yes|partly|no)\b[^;\n]*;\s*Bill\s+Reynolds\s*:\s*(yes|partly|no)\b"
+                         r"[^;\n]*;\s*smells?\s+like\s+school(?:work)?\s*:\s*(yes|no)\b", re.I)
+
+
+def max_analyses(slug):
+    """Analyses of the script before it is taken as it is (the analysis_rounds setting)."""
+    return max(1, int(review.settings(slug).get("analysis_rounds") or 2))
+
+
+def analysis_verdict(text):
+    """(passed, reasons) from the Analyst's VERDICT line. The rule: Young Americans Center and Bill
+    Reynolds each satisfied at least in part, and it does not smell like school. No verdict line is
+    not a pass: the room does not guess."""
+    m = None
+    for m in ANALYSIS_RE.finditer(text or ""):
+        pass                            # the last verdict line is the one that counts
+    if not m:
+        return False, ["no VERDICT line"]
+    yac, br, school = (g.lower() for g in m.groups())
+    reasons = [f"Young Americans Center: {yac}", f"Bill Reynolds: {br}", f"smells like school: {school}"]
+    return yac != "no" and br != "no" and school == "no", reasons
+
+
+def _analysis(slug, note):
+    """The Analyst reads the script as its partner, its backer and the professionals would; the writer
+    answers; the Analyst reads again. The loop ends when both partners are satisfied at least in part
+    and the book does not smell like school, or when the budget of analyses is spent. As with the cold
+    read, the last analysis is not followed by a revision nobody would read."""
+    review.save_settings(slug, scope=0)
+    most = max_analyses(slug)
+    for n in range(1, most + 1):
+        _round(slug, "analysis", note if n == 1 else None)
+        rnd = (review.latest_round(slug) or {}).get("id")
+        passed, reasons = analysis_verdict(projects.read_artifact(slug, ANALYSIS) or "")
+        why = "; ".join(reasons)
+        if passed:
+            _choice(slug, "analysis", f"The analysis passed on read {n}.", why, rnd)
+            _log(slug, f"Analysis {n}: passed. {why}")
+            return None
+        if n == most:
+            _choice(slug, "analysis", f"Took the script after {n} analyses, not passed.", why, rnd)
+            _log(slug, f"Analysis {n}: not passed ({why}). Taking the script as it is.")
+            return None
+        _choice(slug, "analysis", f"Analysis {n}: sent the script back to the writer with the analysis.", why, rnd)
+        _log(slug, f"Analysis {n}: not passed ({why}). The writer revises.")
+        revision = ("The Analyst has read the whole script, the pages only, as the book's partner (Young Americans "
+                    "Center), its backer (Bill Reynolds) and three professionals would. The report is analysis.md and "
+                    "ends with a VERDICT line. The rules are in your role guide: both partners satisfied at least in "
+                    "part, and it must not smell like school. Revise the script against the report's \"What would "
+                    "change the verdicts\": fix the pages it names, not their wording, and never answer an objection "
+                    "with a speech. Keep what the cold readers won. Say what you changed, and what you would not, "
+                    "in notes.md.")
+        _round(slug, "writing", revision)
+        _choice(slug, "writing", f"Revised the script after analysis {n}.", "Against the analysis.",
+                (review.latest_round(slug) or {}).get("id"))
+    return None
+
+
 def _layouts(slug, note):
     """The Layout Agent alone, once: no continuity, no fix passes. The quick look."""
     review.save_settings(slug, scope=0)
@@ -508,6 +571,7 @@ def plan(slug):
                     "note": {"page1": "Only if you ask for a proof first.",
                              "drafts": "An edit stops here: read what changed, then script it - or stop.",
                              "coldread": f"Up to {max_cold_reads(slug)} cold reads, the writer revising between them, until both readers are won.",
+                             "analysis": f"Up to {max_analyses(slug)} analyses, the writer revising between them, until both partners are satisfied and it does not smell like school.",
                              "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
     letterer = roles.get("letterer")

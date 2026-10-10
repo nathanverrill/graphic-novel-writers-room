@@ -103,7 +103,8 @@
    "draft-final.md",
    "first-read.md",
    "cold-read.md",
-   "cold-read-b.md"
+   "cold-read-b.md",
+   "analysis.md"
   ],
   "outputs": [
    "script.md"
@@ -126,7 +127,8 @@
    "draft-final.md",
    "first-read.md",
    "cold-read.md",
-   "cold-read-b.md"
+   "cold-read-b.md",
+   "analysis.md"
   ],
   "outputs": [
    "script.md"
@@ -170,6 +172,20 @@
   ],
   "outputs": [
    "cold-read-b.md"
+  ]
+ },
+ {
+  "id": "analyst",
+  "title": "Analyst",
+  "context": "minimal",
+  "pages_only": true,
+  "briefing": "stakeholders.md",
+  "mission": "You read the finished script as the people who will meet it: its readers, its partner, its backer and the professionals who could take it further. You report how each would respond, and whether it smells like schoolwork. You never fix anything.",
+  "reads": [
+   "script.md"
+  ],
+  "outputs": [
+   "analysis.md"
   ]
  },
  {

@@ -15,7 +15,7 @@ slug = projects.create_project("Fast Book", "a pitch")
 
 # 1. the phases: the Letterer is out of execution and has a phase of its own, last
 ids = [p["id"] for p in phases.load()]
-assert ids == ["intake", "development", "drafts", "audition", "writing", "coldread", "execution", "lettering", "presscheck"], ids
+assert ids == ["intake", "development", "drafts", "audition", "writing", "coldread", "analysis", "execution", "lettering", "presscheck"], ids
 assert phases.get("execution")["agents"] == ["layout", "continuity"]
 assert phases.get("coldread")["parallel"] == [["cold_reader", "cold_reader_b"]]
 assert phases.get("lettering")["agents"] == ["letterer"]
@@ -25,9 +25,10 @@ phases.go_to(slug, "presscheck")
 assert phases.approve(slug)["phase"] == "presscheck", "approving the last phase keeps the book there"
 phases.go_to(slug, "writing")
 assert phases.approve(slug)["phase"] == "coldread", "approving the script goes to the cold read"
-assert phases.approve(slug)["phase"] == "execution", "approving the cold read goes to the pages"
+assert phases.approve(slug)["phase"] == "analysis", "approving the cold read goes to the analysis"
+assert phases.approve(slug)["phase"] == "execution", "approving the analysis goes to the pages"
 phases.go_to(slug, "intake")
-print("1. nine phases, the cold read after the writing, three parallel groups: ok")
+print("1. ten phases, the cold read and the analysis after the writing, three parallel groups: ok")
 
 # 2. the runner groups agents that run side by side, and keeps the order otherwise
 dev = phases.roles(slug, phases.get("development"))
@@ -97,6 +98,26 @@ _t = "**Panel 4.** Water.\nALEX: Keep moving!\n**ISSUE QUESTION: Has she opened 
 _o = readers.pages_only(_t)
 assert "ISSUE QUESTION" not in _o and "PAGE CHECK" not in _o and "FIRST MOVEMENT" in _o and "Keep moving" in _o, _o
 print("3d. a reader gets the captions, not the writer's questions to the room: ok")
+# 3e. the analysis: the Analyst reads as the audience does, gets its briefing, and holds the two rules
+analyst = {r.id: r for r in load_roles()}["analyst"]
+assert analyst.reader and analyst.minimal and analyst.briefing == "stakeholders.md"
+assert not {r.id: r for r in load_roles()}["writer_a"].reader
+rules_dir = projects.campaign_dir(slug) / projects.RULES
+rules_dir.mkdir(exist_ok=True)
+(rules_dir / "stakeholders.md").write_text("# Who must be satisfied")
+from app import readers
+assert readers.briefing(slug, "stakeholders.md") == "# Who must be satisfied"
+assert readers.briefing(slug, "missing.md") is None and readers.briefing(slug, None) is None
+ok, why = magic.analysis_verdict("...\nVERDICT Young Americans Center: partly; Bill Reynolds: yes; smells like school: no\n")
+assert ok, why
+ok, why = magic.analysis_verdict("VERDICT Young Americans Center: yes; Bill Reynolds: no; smells like school: no")
+assert not ok and "Bill Reynolds: no" in why
+ok, why = magic.analysis_verdict("VERDICT Young Americans: yes; Bill Reynolds: partly (the windfall); smells like schoolwork: yes")
+assert not ok and "smells like school: yes" in why
+ok, why = magic.analysis_verdict("no verdict at all")
+assert not ok and why == ["no VERDICT line"]
+assert magic.STEPS.index("analysis") == magic.STEPS.index("coldread") + 1 and "analysis" in magic.STOPS
+print("3e. the Analyst reads the pages with its briefing; the verdict holds both partners and the smell of school: ok")
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting

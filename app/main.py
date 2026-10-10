@@ -832,6 +832,7 @@ class RoundSettings(BaseModel):
     auto_rounds: int | None = None  # keep going without a review for this many more rounds
     execution_rounds: int | None = None   # production: rounds of pages before the book is taken as is
     cold_read_rounds: int | None = None   # production: cold reads of the script before it is taken as is
+    analysis_rounds: int | None = None    # production: analyses of the script before it is taken as is
     issue_pages: int | None = None   # pages an issue, for a script without "## Issue" headings
     models: dict[str, str | dict] | None = None  # {role id: model or {model, thinking_budget, max_tokens, ...}}: over agent.json
     references: list[str] | None = None   # library files to use; ["*"] = all
@@ -877,6 +878,8 @@ def update_settings(slug: str, body: RoundSettings):
         raise HTTPException(400, "execution_rounds must be 1-10")
     if body.cold_read_rounds is not None and not 1 <= body.cold_read_rounds <= 5:
         raise HTTPException(400, "cold_read_rounds must be 1-5")
+    if body.analysis_rounds is not None and not 1 <= body.analysis_rounds <= 5:
+        raise HTTPException(400, "analysis_rounds must be 1-5")
     if body.proof_page is not None and not 1 <= body.proof_page <= 500:
         raise HTTPException(400, "proof_page must be 1-500")
     if body.expand_pages is not None and not 0 <= body.expand_pages <= 200:
@@ -1069,7 +1072,7 @@ def _get_run(run_id):
 
 class MagicStart(BaseModel):
     step: str = "development"    # where to (re-)enter the chain
-    until: str = "layouts"       # where to stop: page1, coldread, layouts (the default) or final
+    until: str = "layouts"       # where to stop: page1, coldread, analysis, layouts (the default) or final
     note: str | None = None      # carried into the first round
 
 

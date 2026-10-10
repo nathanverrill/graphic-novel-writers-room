@@ -67,3 +67,11 @@ def profile(slug):
     """rules/reader.md, if the campaign says who its reader is: the one thing from rules/ a reader gets."""
     path = projects.campaign_dir(slug) / projects.RULES / READER
     return path.read_text() if path.exists() else None
+
+
+def briefing(slug, name):
+    """A file from the campaign's rules/ that a role is given by name (agents.json "briefing"), or None."""
+    if not name:
+        return None
+    path = projects.campaign_dir(slug) / projects.RULES / name
+    return path.read_text() if path.exists() else None

@@ -215,6 +215,9 @@ class Agent:
             who = readers.profile(self.slug)
             if who:
                 text += [f"# rules/{readers.READER} (who reads this book)", who]
+        brief = readers.briefing(self.slug, getattr(r, "briefing", None))
+        if brief:
+            text += [f"# rules/{r.briefing}", brief]
         for name in r.reads:
             content = projects.read_artifact(self.slug, name)
             if content and getattr(r, "reader", False):
