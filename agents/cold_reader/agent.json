@@ -1,0 +1,20 @@
+{
+  "_why": "The whole script, read cold after the writing. The same reader as the audition: in the pages-only trial on Prosperity (debug/first-reader-trial/pages-only/), Opus held the reluctant reader's voice and found the choices that cost nothing, the grandmother left alone and the endings that were a noise, not a question.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "anthropic/claude-opus-5.5",
+  "api_key_env": null,
+  "temperature": 0.3,
+  "max_tokens": 24000,
+  "max_steps": 4,
+  "timeout": 600,
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "tools": []
+}

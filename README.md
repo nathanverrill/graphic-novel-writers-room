@@ -47,7 +47,7 @@ stack on a different port.
 
 **Produce** is one button (`/production`): it runs development, the audition, the writing and
 the pages back to back, takes every gate itself, and ends with the packets to download. Or
-take the gates yourself. The room works in **eight phases** (Draft edit runs only in edit
+take the gates yourself. The room works in **nine phases** (Draft edit runs only in edit
 mode), and you stand at the gate between each. Nothing moves on by itself:
 
 | | Phase | Who runs, in order | What you get | Your gate |
@@ -57,9 +57,10 @@ mode), and you stand at the gate between each. Nothing moves on by itself:
 | 3 | **Draft edit** *(edit mode only)* | Draft Editor | `draft-edited.md`, `draft-final.md`, `draft-changes.md` | **Approve**: are these your drafts, brought into line with the canon? Answer what does not fit, then script them — or stop here |
 | 4 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 5 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
-| 6 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
-| 7 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
-| 8 | **Press check** | Press Check | `presscheck.md`, moves applied to `layouts.md`, the pages re-lettered | **Read** the suggested rewrites: take a line into `layouts.md`, edit it, or leave it. Then letter again and ship |
+| 6 | **Cold read** | Cold Reader + Second Cold Reader, at the same time | `cold-read.md`, `cold-read-b.md` | **Read** what two readers who did not choose the book made of the whole script, the pages only. Send it back to the writer with the reports, or go on. **Produce** sends it back once by itself |
+| 7 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
+| 8 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
+| 9 | **Press check** | Press Check | `presscheck.md`, moves applied to `layouts.md`, the pages re-lettered | **Read** the suggested rewrites: take a line into `layouts.md`, edit it, or leave it. Then letter again and ship |
 
 Three rules make this work, and they are the whole design:
 
@@ -89,7 +90,8 @@ Twelve agents. Each is a folder with a `role.md` (the job and its deliverable), 
 | Draft Editor | draft edit | `draft-edited.md`, `draft-final.md`, `draft-changes.md` | edit mode only: brings your chapters into line with the canon and expands them by insertion, one call per chapter, side by side (`app/draftedit.py`) |
 | Writer A | audition, writing | `script.md` | the writer who trusts the picture: spare, image-led |
 | Writer B | audition, writing | `script.md` | the writer who trusts the voices: dialogue-led |
-| First Reader | audition | `first-read.md` | reads both auditions cold — the pages, nothing else — and reports reactions. Never picks |
+| First Reader | audition | `first-read.md` | reads both auditions cold, as a student handed the book as homework: the pages, nothing else, with the writer's notes stripped (`app/readers.py`). Reports reactions, page by page. Never picks |
+| Cold Reader, Second Cold Reader | cold read | `cold-read.md`, `cold-read-b.md` | read the whole script the same way, at the same time, on two different model families, and never see each other's report. The writer revises against both; where they disagree is the note |
 | Layout Agent | execution | `layouts.md` (+ `thumbnails.md`, drawn in code) | the shape of each page; its layout blocks are the source of the page packets, the sketch and the lettering |
 | Letterer | lettering | `lettering.md` | runs over the art you upload: checks balloon order, placement and fit against the real page, and moves a balloon off a face with a `moves` block the room applies to `layouts.md` |
 | Press Check | press check | `presscheck.md` | reads the lettered pages as a reader would: moves lettering that covers what matters or fights the eye path, and lists the lines that no longer make sense against the drawn page, each with a suggested rewrite |
@@ -1035,7 +1037,7 @@ Everything an agent knows comes from its folder:
 ```
 agents/
   agents.json             title, mission, reads, outputs
-  phases.json             the eight phases: who runs in each, in order, and each gate
+  phases.json             the nine phases: who runs in each, in order, and each gate
   tools/                  what an agent can call: one json schema per tool
   _shared/                given to every agent: house-style.md, craft.md, the provocation deck
   _writers/               given to both writers: role.md, craft.md, actual-script-writing.md

@@ -1,6 +1,30 @@
-# First Reader's craft
+# The readers' craft
 
-How to read cold and report it honestly.
+How to read cold and report it honestly. This folder is shared by every reader in the room.
+
+## Who you are when you read
+
+You did not choose this book. It was assigned. You said no, you fought your parents and your
+teacher about it, you left it until the last possible night, and now you are reading it because
+you have to. You open it wanting it to be bad so you can be right.
+
+That is the reader the book has to win. Read from that seat. If the first pages pull you in
+anyway, say exactly where and what did it, because that is the most valuable thing you can
+report. If they don't, say where you went back to your phone. Do not pretend to be won over
+because the book is trying, and do not stay hostile for show once it has you. Report what
+actually happened to you, page by page.
+
+If the campaign says who its reader is (`rules/reader.md`, sent with the pages when it exists),
+read as that reader: their age, what they have patience for, what they have read before.
+Knowing the reader is not knowing the plan.
+
+## What you are given
+
+Only what a reader gets: the art as described, the captions, the balloons, the screen text and
+the sound effects, page by page. The writer's notes to the artist about what a page is for, how
+it is laid out and what it should make you feel are stripped before the pages reach you. If one
+slips through, ignore it: a reader never sees it. Issues, not chapters: say "Issue 01, page 3".
+
 
 - Reactions first. Write down what happened to you before you work out why.
 - No fixes, no rewrites, no craft lecture. "I skimmed page 2" is useful; "page 2 needs a tighter

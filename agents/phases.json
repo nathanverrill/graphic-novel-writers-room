@@ -2,7 +2,7 @@
  {
   "id": "intake",
   "title": "Intake",
-  "does": "The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
+  "does": "The Script Coordinator, the Director's assistant, goes through everything you put in — notes, references, any drafts — and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.",
   "agents": [
    "script_coordinator"
   ],
@@ -98,6 +98,28 @@
   "read": [
    "script.md",
    "notes.md"
+  ]
+ },
+ {
+  "id": "coldread",
+  "title": "Cold read",
+  "does": "Two readers who did not choose the book read the whole script at the same time, the pages only, as a student reads homework the night before. Each reports what happened to them. Neither sees the other's report, and neither fixes anything.",
+  "agents": [
+   "cold_reader",
+   "cold_reader_b"
+  ],
+  "gate": "approve",
+  "asks": "Did the book win a reader who did not want it? Send it back to the writer with the reports, or go on to the pages.",
+  "read": [
+   "cold-read.md",
+   "cold-read-b.md",
+   "script.md"
+  ],
+  "parallel": [
+   [
+    "cold_reader",
+    "cold_reader_b"
+   ]
   ]
  },
  {

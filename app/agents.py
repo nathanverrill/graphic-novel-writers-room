@@ -37,6 +37,7 @@ from .config import AGENTS_DIR, TOOLS_DIR, AgentConfig
 IMAGE_TYPES = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg",
                ".webp": "image/webp", ".gif": "image/gif"}
 SHARED = "_shared"
+READERS = "_readers"     # the readers' shared guides: being on them makes a role a reader
 
 
 @dataclass
@@ -56,6 +57,12 @@ class Role:
     @property
     def minimal(self):
         return self.context == "minimal"
+
+    @property
+    def reader(self):
+        """Reads as the audience: the pages only (app/readers.py), plus rules/reader.md. Any role on
+        the readers' shared guides, so agents.json needs no key the running app may not know."""
+        return self.shares == READERS
 
     @property
     def dir(self):

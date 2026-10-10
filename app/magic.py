@@ -35,11 +35,11 @@ import time
 from . import notes as notes_mod, phases, projects, review, room
 from .agents import load_roles
 
-STEPS = ("development", "drafts", "audition", "page1", "writing", "layouts", "execution", "final")
+STEPS = ("development", "drafts", "audition", "page1", "writing", "coldread", "layouts", "execution", "final")
 PHASE_OF = {"development": "development", "drafts": "drafts", "audition": "audition", "page1": "execution",
-            "writing": "writing", "layouts": "execution", "execution": "execution", "final": "execution"}
+            "writing": "writing", "coldread": "coldread", "layouts": "execution", "execution": "execution", "final": "execution"}
 TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Proof page",
-          "writing": "Writing", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
+          "writing": "Writing", "coldread": "Cold read", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
 STOPS = {"drafts": "drafts", "page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
 
 def chapter_pages(slug):
@@ -190,7 +190,7 @@ def _run(slug, step, until, note):
                 i += 1                  # not stopping there: the pages step lays out and fixes
                 continue
             note = {"development": _development, "drafts": _drafts, "audition": _audition, "page1": _page1,
-                    "writing": _writing, "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
+                    "writing": _writing, "coldread": _coldread, "layouts": _layouts, "execution": _execution, "final": _final}[step](slug, note)
             if step == until or step == "drafts":     # an edit always stops at the edited drafts
                 break
             i += 1
@@ -314,6 +314,43 @@ def _writing(slug, note):
     _choice(slug, "writing", "Approved the script as written.", "The whole book, in the picked writer's voice.",
             (review.latest_round(slug) or {}).get("id"))
     return None
+
+
+COLD_READS = ("cold-read.md", "cold-read-b.md")
+
+
+def _coldread(slug, note):
+    """Two readers read the finished script cold, then the writer gets one revision round with their
+    reports in hand. One round, not a loop: the readers say where the book lost them, the writer
+    answers, and the pages are laid out from that."""
+    review.save_settings(slug, scope=0)
+    _round(slug, "coldread", note)
+    rnd = (review.latest_round(slug) or {}).get("id")
+    reports = [(n, projects.read_artifact(slug, n) or "") for n in COLD_READS]
+    lost = [f"{n}: {where}" for n, where in ((n, put_down(t)) for n, t in reports) if where]
+    _choice(slug, "coldread", "Sent the script back to the writer once, with both cold reads.",
+            "; ".join(lost)[:400] or "Two readers read the whole book cold; the writer revises against their reports.", rnd)
+    _log(slug, "Cold read: " + ("; ".join(lost)[:300] if lost else "both reports are in; the writer revises against them."))
+    revision = ("Two readers who did not choose this book have read the whole script cold. Their reports are "
+                "cold-read.md and cold-read-b.md. Revise the script against them: where they put the book down, where "
+                "they skimmed, what they were expected to already know, the lines they read twice, and whether the last "
+                "page of each issue made them need the next. Where the two readers disagree, decide, and say why in notes.md.")
+    _round(slug, "writing", revision)
+    _choice(slug, "writing", "Approved the revised script.", "Revised once against the two cold reads.",
+            (review.latest_round(slug) or {}).get("id"))
+    return None
+
+
+PUT_DOWN_RE = re.compile(r"#+\s*Where I would have put it down[^\n]*\n(.*?)(?=\n#+\s|\Z)", re.S | re.I)
+
+
+def put_down(text):
+    """The first "where I would have put it down" a report names, as one line, or None."""
+    m = PUT_DOWN_RE.search(text or "")
+    if not m:
+        return None
+    body = " ".join(m.group(1).split())
+    return body[:160] or None
 
 
 def _layouts(slug, note):

@@ -17,6 +17,7 @@ import json
 import re
 
 from . import llm, projects, review, rules, search, thumbnails, keypages
+from . import readers
 from . import agents as agents_mod
 from .agents import IMAGE_TYPES, gather_context, random_entry
 from .usage import CallLogger
@@ -195,8 +196,14 @@ class Agent:
         r = self.role
         text = [f"Project: {self.slug}"]
 
+        if getattr(r, "reader", False):       # the audience: who they are, then the pages and nothing else
+            who = readers.profile(self.slug)
+            if who:
+                text += [f"# rules/{readers.READER} (who reads this book)", who]
         for name in r.reads:
             content = projects.read_artifact(self.slug, name)
+            if content and getattr(r, "reader", False):
+                content = readers.pages_only(content)
             if content:
                 text += [f"# {name} (from the room)", content]
             elif name != projects.DRAFT:      # a book with no draft has nothing to say about it

@@ -15,15 +15,19 @@ slug = projects.create_project("Fast Book", "a pitch")
 
 # 1. the phases: the Letterer is out of execution and has a phase of its own, last
 ids = [p["id"] for p in phases.load()]
-assert ids == ["intake", "development", "drafts", "audition", "writing", "execution", "lettering"], ids
+assert ids == ["intake", "development", "drafts", "audition", "writing", "coldread", "execution", "lettering", "presscheck"], ids
 assert phases.get("execution")["agents"] == ["layout", "continuity"]
+assert phases.get("coldread")["parallel"] == [["cold_reader", "cold_reader_b"]]
 assert phases.get("lettering")["agents"] == ["letterer"]
 assert phases.get("development")["parallel"] == [["plotter", "character_designer"]]
 assert phases.get("audition")["parallel"] == [["writer_a", "writer_b"]]
-phases.go_to(slug, "lettering")
-assert phases.approve(slug)["phase"] == "lettering", "approving the last phase keeps the book there"
+phases.go_to(slug, "presscheck")
+assert phases.approve(slug)["phase"] == "presscheck", "approving the last phase keeps the book there"
+phases.go_to(slug, "writing")
+assert phases.approve(slug)["phase"] == "coldread", "approving the script goes to the cold read"
+assert phases.approve(slug)["phase"] == "execution", "approving the cold read goes to the pages"
 phases.go_to(slug, "intake")
-print("1. seven phases, the Letterer last, two parallel groups: ok")
+print("1. nine phases, the cold read after the writing, three parallel groups: ok")
 
 # 2. the runner groups agents that run side by side, and keeps the order otherwise
 dev = phases.roles(slug, phases.get("development"))

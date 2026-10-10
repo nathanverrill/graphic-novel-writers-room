@@ -1,0 +1,20 @@
+{
+  "_why": "The second reader is from a family nobody else in the room uses. In the same trial Kimi held the hostile student's voice hardest and found what the Claude readers did not: the credits that do not add up, the accident that was too convenient, the mother nobody mentions. It also disagreed with the first reader about the Issue 01 ending, which is what a second reader is for.",
+  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "moonshotai/kimi-k3",
+  "api_key_env": null,
+  "temperature": 0.3,
+  "max_tokens": 24000,
+  "max_steps": 4,
+  "timeout": 600,
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "tools": []
+}

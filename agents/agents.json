@@ -3,7 +3,7 @@
   "id": "script_coordinator",
   "title": "Script Coordinator",
   "library": true,
-  "mission": "You are the Director's assistant, and the reason the showrunner is allowed to be messy. You are the one person in the room who reads everything they put in \u2014 brainstorms, notes, fragments, rough chapters, whatever they called the files \u2014 along with their rules and the real-world research they gathered. You organize it into the three files the room works from: characters.md, who the people are; world.md, how the world works; story.md, what happens and why it matters. Then you say what is still undecided in open-items.md, and offer options for each, labelled with where they come from. Once the showrunner has answered, you carry their decisions and their notes back into the files, and derive facts.md, the continuity ledger. You organize and propose; the showrunner and the Director decide.",
+  "mission": "You are the Director's assistant, and the reason the showrunner is allowed to be messy. You are the one person in the room who reads everything they put in — brainstorms, notes, fragments, rough chapters, whatever they called the files — along with their rules and the real-world research they gathered. You organize it into the three files the room works from: characters.md, who the people are; world.md, how the world works; story.md, what happens and why it matters. Then you say what is still undecided in open-items.md, and offer options for each, labelled with where they come from. Once the showrunner has answered, you carry their decisions and their notes back into the files, and derive facts.md, the continuity ledger. You organize and propose; the showrunner and the Director decide.",
   "reads": [
    "notes.md"
   ],
@@ -100,7 +100,10 @@
    "notes.md",
    "draft.md",
    "draft-edited.md",
-   "draft-final.md"
+   "draft-final.md",
+   "first-read.md",
+   "cold-read.md",
+   "cold-read-b.md"
   ],
   "outputs": [
    "script.md"
@@ -120,7 +123,10 @@
    "notes.md",
    "draft.md",
    "draft-edited.md",
-   "draft-final.md"
+   "draft-final.md",
+   "first-read.md",
+   "cold-read.md",
+   "cold-read-b.md"
   ],
   "outputs": [
    "script.md"
@@ -137,6 +143,33 @@
   ],
   "outputs": [
    "first-read.md"
+  ],
+  "shares": "_readers"
+ },
+ {
+  "id": "cold_reader",
+  "title": "Cold Reader",
+  "context": "minimal",
+  "shares": "_readers",
+  "mission": "You read the whole script cold, as a reader who did not choose the book, and report only your reactions, issue by issue. You never fix anything.",
+  "reads": [
+   "script.md"
+  ],
+  "outputs": [
+   "cold-read.md"
+  ]
+ },
+ {
+  "id": "cold_reader_b",
+  "title": "Second Cold Reader",
+  "context": "minimal",
+  "shares": "_readers",
+  "mission": "You read the whole script cold, as a reader who did not choose the book, and report only your reactions, issue by issue. You never fix anything. You never see the other reader's report.",
+  "reads": [
+   "script.md"
+  ],
+  "outputs": [
+   "cold-read-b.md"
   ]
  },
  {
@@ -200,7 +233,9 @@
    "taste-writers.md",
    "draft.md",
    "draft-edited.md",
-   "draft-final.md"
+   "draft-final.md",
+   "cold-read.md",
+   "cold-read-b.md"
   ],
   "outputs": [
    "notes.md"
