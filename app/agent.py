@@ -143,15 +143,26 @@ class Stopped(Exception):
     pass
 
 
+EXPERIMENT_KEYS = ("model", "thinking_budget", "max_tokens", "temperature", "timeout")
+
+
+def experiment_config(override):
+    """A campaign's own setting for one role: a model name, or {model, thinking_budget, max_tokens,
+    temperature, timeout}. Anything else is ignored, so an experiment cannot reach a key or a host."""
+    if isinstance(override, str):
+        return {"model": override}
+    return {k: override[k] for k in EXPERIMENT_KEYS if k in override and override[k] is not None}
+
+
 class Agent:
     def __init__(self, role, version, emit, should_stop=lambda: False):
         self.role = role
         self.cfg = role.config()
         self.version = version  # projects.Version — where this run's output goes
         self.slug = version.slug
-        models = review.settings(self.slug).get("models") or {}     # a campaign's own models, for an experiment
-        if role.id in models and models[role.id]:
-            self.cfg = dataclasses.replace(self.cfg, model=models[role.id])
+        override = (review.settings(self.slug).get("models") or {}).get(role.id)   # a campaign's own models, for an experiment
+        if override:
+            self.cfg = dataclasses.replace(self.cfg, **experiment_config(override))
         self.emit = emit  # emit(type, **data) -> shows up in the UI
         self.should_stop = should_stop
         self.written = set()

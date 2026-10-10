@@ -65,6 +65,24 @@ assert won and why == ["a: won"], why
 won, why = magic.cold_verdict([("a", "no verdict here")], {1: 1})
 assert not won and "no VERDICT" in why[0]
 print("3b. the cold read holds the script to the two rules: ok")
+# 3c. a campaign's own models, and a settings file a parallel reader never sees empty
+from app.agent import experiment_config
+assert experiment_config("moonshotai/kimi-k3") == {"model": "moonshotai/kimi-k3"}
+assert experiment_config({"model": "m", "thinking_budget": 4000, "api_key": "x", "base_url": "y"}) == {"model": "m", "thinking_budget": 4000}
+import threading as _th
+stop, bad = [False], []
+def _reader():
+    while not stop[0]:
+        try:
+            review.settings(slug)
+        except Exception as e:
+            bad.append(e)
+t = _th.Thread(target=_reader); t.start()
+for i in range(300):
+    review.save_settings(slug, auto_rounds=i % 3)
+stop[0] = True; t.join()
+assert not bad, bad[:1]
+print("3c. experiment models; settings written whole under a parallel reader: ok")
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting
