@@ -345,7 +345,7 @@ ALEX: Open attribution protects you from being erased. It doesn't stop a House f
 ALEX: So don't give them anything to own. Build it so small and so cheap that no House would bother claiming it.
 
 **P4: The reaction (wide)**  
-*Image:* A row of reactions across the group. Lina's eyebrows rise, skeptical. Suri leans forward, interested. Ren grins for the first time in the chapter. Ada watches Alex, not the schematic.  
+*Image:* A row of reactions across the group. Lina's eyebrows rise, skeptical. Suri leans forward, interested. Ren grins. Ada watches Alex, not the schematic.  
 LINA: You want to take an industrial purification system and shrink it to something a single household builds?  
 ALEX: I want to take the five hardest problems you all solved and stop pretending only a House has the resources to use them.  
 SURI: It's not impossible. It's just never been asked of the design before.
@@ -465,7 +465,7 @@ ALEX: The Covenant.
 *(No dialogue.)*
 
 **P5: Direct (dominant)**  
-*Image:* The wall display again, wider. The bronze point in Halyard steadies, no longer flickering, fully activated. For the first time since Chapter One, she turns slightly toward the screen rather than sitting perfectly still before it, the first hint of her profile the reader has seen across both chapters.  
+*Image:* The wall display again, wider. The bronze point in Halyard steadies, no longer flickering, fully activated. She turns slightly toward the screen rather than sitting perfectly still before it, the first hint of her profile.  
 *Lettering:* MERA VALE  
 MERA: Two found. He'll want the third from me directly.  
 *(Lettering, post):* END OF CHAPTER THREE

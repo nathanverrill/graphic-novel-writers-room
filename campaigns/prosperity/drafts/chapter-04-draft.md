@@ -25,7 +25,7 @@ Ada's hand stays on the gate's edge a moment longer than it needs to.
 ADA: It knew my name before I gave it.
 
 **P5: Not his city (strip)**  
-*Image:* Wide, low shot of the three of them passing through, Ada now walking slightly ahead, Alex and Bi11bot a step behind her for the first time in the story.  
+*Image:* Wide, low shot of the three of them passing through, Ada now walking slightly ahead, Alex and Bi11bot a step behind her.  
 ALEX *(quiet, mostly to himself)*: Guess I'm just along for this one.
 
 ## PAGE 2: THE RECORD
@@ -146,7 +146,7 @@ ALEX *(quiet)*: Ada?
  MERA: I felt the record search this morning. I should have come sooner.
 
 **P3: Face to face (dominant)**  
- *Image:* Mera and Ada regard each other directly for the first time in the story, close, neither flinching.  
+ *Image:* Mera and Ada regard each other directly, close, neither flinching.  
  ADA: You've been watching me. My whole life.  
  MERA: I promised your mother I would keep you safe. I kept that promise the only way I had left to keep it.  
  ADA: That's not the same as knowing me.  
@@ -189,7 +189,7 @@ ALEX *(quiet)*: Ada?
 ## PAGE 8: THE COST
 
 **P1: What broke (dominant, memory-toned)**  
- *Image:* A wide, chaotic sepia-grey scene: a seized water facility, crowds pressed against barricades, families separated, visible urgency bordering on violence. This is the only page in the book so far to show the Water Wars directly rather than through aftermath.  
+ *Image:* A wide, chaotic sepia-grey scene: a seized water facility, crowds pressed against barricades, families separated, visible urgency bordering on violence.  
  *Caption:* THE WATER WARS, THE FINAL WEEK
 
 **P2: Names (medium, memory-toned)**  
@@ -216,7 +216,7 @@ ALEX *(quiet)*: Ada?
  LEONA: You're still certain of that.
 
 **P2: Diverging (close two-shot)**  
- *Image:* Mera and Leona, close, the first real disagreement between them the reader has seen.  
+ *Image:* Mera and Leona, close, disagreeing.  
  MERA: Certainty kept this city standing.  
  LEONA: Certainty kept me from ever asking whether it still needed to.
 

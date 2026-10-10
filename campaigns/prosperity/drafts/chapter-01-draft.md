@@ -8,14 +8,14 @@ A full-page cinematic establishing image of the three-tier civilization in the y
 
 At the bottom of a vast mountain basin lies **KEEL**, built into and around an exhausted open-pit lithium mine. Dense stacked housing, repaired industrial equipment, rusted mining structures, crowded pedestrian lanes and aging factories fill the basin. Dust hangs in the air. Workers pass through small digital checkpoints. Water moves through narrow channels and old pipes. The palette is rust, charcoal and oxidized orange. A large sealed mine entrance on the pit's rim is marked with faded hazard striping. Low in the basin, a single aging pump gantry has one small work-light on.
 
-Midway up lies **HALYARD**, visibly more prosperous and active. Workshops, fabrication towers, greenhouse terraces, elevated trains and advanced industrial facilities line the slope, and freight moves both up and down. The palette is warm bronze and gold with engineered green. Three towering fabrication complexes each carry a distinct, restrained insignia for energy, water and space. These are the Charter Houses, and they read as a detail for second-time readers.
+Midway up lies **HALYARD**, visibly more prosperous and active. Workshops, fabrication towers, greenhouse terraces, elevated trains and advanced industrial facilities line the slope, and freight moves both up and down. The palette is warm bronze and gold with engineered green. Three towering fabrication complexes each carry a distinct, restrained insignia for energy, water and space. These are the Charter Houses.
 
 Above both, partly beyond the cloud layer, lies **OASIS**: pearl-white architecture, designed gardens, broad reservoirs, civic spaces and automated transit. The palette is pearl white, silver, cool blue and controlled green. A spacecraft rises toward orbit from a distant launch structure, carrying the same space-and-mining insignia as the largest Halyard tower.
 
 The three cities share **one spine of infrastructure**: a massive water conduit, energy lines, transit rails and control nodes running vertically through the mountain.
 
-* The conduit is enormous at Oasis's reservoirs and narrows dramatically by the time it reaches Keel's channels. Nothing points at the mismatch, but the eye should register it without resolving it.  
-* One small, identical white-and-amber control node sits on the spine at every tier. It is unremarkable and easy to miss.  
+* The conduit is enormous at Oasis's reservoirs and narrows dramatically by the time it reaches Keel's channels.  
+* One small, identical white-and-amber control node sits on the spine at every tier.  
 * Access gates multiply toward Keel, including a permission gate across the rail line between Keel and Halyard.
 
 **Captions**
@@ -36,7 +36,7 @@ ALEX: Then don't approve it.
 ALEX: Just notice it works.
 
 **Panel 2: The checkpoint (medium-wide)**  
-*Image:* End of shift at the exit checkpoint. Alex, in worn mining clothes with a weathered tool bag, tired and dirty, puts his hand on the scanner, whose housing carries the same white-and-amber node. Workers queue silently, each with a balance floating overhead, mostly in the tens of thousands. When his scan completes, his becomes the largest in the queue. Everyone glances up. No one speaks. The silence should hurt more than laughter.
+*Image:* End of shift at the exit checkpoint. Alex, in worn mining clothes with a weathered tool bag, tired and dirty, puts his hand on the scanner, whose housing carries the same white-and-amber node. Workers queue silently, each with a balance floating overhead, mostly in the tens of thousands. When his scan completes, his becomes the largest in the queue. Everyone glances up. No one speaks.
 
 *Display, under a banner reading* **TODAY: DEBT TRANSFER DAY**  
 ALEX PHANTUM  
@@ -64,7 +64,7 @@ BOUNCER: Your father always believed the next hand would change everything.
 ALEX: It did. Just not for him.
 
 **Panel 4: The log (small cutaway, no Alex)**  
-*Image:* The pump hall, empty now, with sunlight through the high window. The supervisor stands alone at the wall terminal. The white-and-amber node blinks beside a red flag reading **UNAUTHORIZED REPAIR — REVIEW REQUIRED.** Behind him the pump hums steadily. He looks at the pump, then at the flag, and his thumb selects **ROUTINE MAINTENANCE.** A green check appears. At the pump's base, a balanced water-drop symbol is scratched into an old valve plate, easy to miss.
+*Image:* The pump hall, empty now, with sunlight through the high window. The supervisor stands alone at the wall terminal. The white-and-amber node blinks beside a red flag reading **UNAUTHORIZED REPAIR — REVIEW REQUIRED.** Behind him the pump hums steadily. He looks at the pump, then at the flag, and his thumb selects **ROUTINE MAINTENANCE.** A green check appears. At the pump's base, a balanced water-drop symbol is scratched into an old valve plate.
 
 SUPERVISOR *(muttering)*: ...Works.
 
@@ -83,7 +83,7 @@ ALEX *(small bubble)*: One day... I'm leaving.
 *Caption:* Later that afternoon...
 
 **P2: The offer (medium)**  
-*Image:* Ada reaches Alex and holds out a mug. She is twenty, with long, wind-tangled copper hair, freckles and teal-blue eyes. She wears a dark high-collared top with a rivet-studded strap across one shoulder and a muted moss-green wrap at her neck, and her stance is steady and rooted. Alex looks up and smiles for the first time in the story.  
+*Image:* Ada reaches Alex and holds out a mug. She is twenty, with long, wind-tangled copper hair, freckles and teal-blue eyes. She wears a dark high-collared top with a rivet-studded strap across one shoulder and a muted moss-green wrap at her neck, and her stance is steady and rooted. Alex looks up and smiles.  
  ADA: Thought you might need this.  
  ALEX: The birthday special? Not sure I can afford it.
 
@@ -106,7 +106,7 @@ ALEX: Everyone did.
 *(Ada lets the silence sit.)*
 
 **P6: Two dreams (wide, split eyelines)**  
-*Image:* Over-the-shoulder from behind. Alex's head tilts up toward Oasis, catching the last sunlight. Ada's gaze angles down toward Keel in shadow, her copper hair lifted by the wind. The railing cuts the frame diagonally between them, and the mountain is only a sliver. The panel is about where each of them looks.
+*Image:* Over-the-shoulder from behind. Alex's head tilts up toward Oasis, catching the last sunlight. Ada's gaze angles down toward Keel in shadow, her copper hair lifted by the wind. The railing cuts the frame diagonally between them, and the mountain is only a sliver.
 ALEX: Every birthday... I look up there... and wonder what it feels like to wake up somewhere you get to choose your own future.  
 ADA: I look down here... and wonder why everyone gave up trying to change it.  
 ALEX: Because nobody leaves.  
@@ -115,7 +115,7 @@ ADA: Nobody stays either. Not really.
 ## PAGE 4: WHAT PEOPLE TOLD HIM
 
 **P1: The photograph (medium)**  
-*Image:* Alex draws a worn photograph half out of his jacket pocket. His grandmother smiles, and Adrian's face is folded over and creased where Alex has hidden it. The audience catches only a glimpse. His other hand, in the same pocket, turns the worn casino chip. Ada notices both. Light turning from gold to amber.  
+*Image:* Alex draws a worn photograph half out of his jacket pocket. His grandmother smiles, and Adrian's face is folded over and creased where Alex has hidden it. His other hand, in the same pocket, turns the worn casino chip. Ada notices both. Light turning from gold to amber.  
 ADA: How's your grandma?
 
 **P2: Alex answers (medium two-shot)**  
@@ -135,7 +135,7 @@ ADA: What do you actually remember about him?
 ALEX: Nothing. I was two.
 
 **P5: The crack (wide, quiet)**  
-*Image:* Both figures small against the darkening basin, with Oasis the brightest thing in the frame. Ada faces Alex, and he stands stiff with his eyes on the horizon. There is deliberate white space between the two balloons for the silence.
+*Image:* Both figures small against the darkening basin, with Oasis the brightest thing in the frame. Ada faces Alex, and he stands stiff with his eyes on the horizon.
 ADA: So everything else is what people told you. What if they were wrong?  
 *(Alex stiffens. A long silence.)*  
 ALEX: Maybe…Or maybe they're right. Either way... he's gone.
@@ -160,11 +160,11 @@ GRANDMOTHER: Of course. Alex. I knew that. Did your father come home yet?
 ALEX: Not yet.
 
 **P4: The hinge (tight close-up)**  
-*Image:* Grandmother's face and eyes. For one beat the fog clears and her gaze is steady and studying, a little too careful. Behind her, out of focus, Alex still smiles, unaware. The mood is comforting, not mystical.  
+*Image:* Grandmother's face and eyes. For one beat the fog clears and her gaze is steady and studying, a little too careful. Behind her, out of focus, Alex still smiles, unaware.  
 GRANDMOTHER: He's closer than you think.
 
 **P5: The handoff (close on hands)**  
-*Image:* Her frail hands pass a worn, hand-bound book to Alex's scarred, work-rough hands. The cover is worn from decades of use, and a faint balanced water-drop mark sits on the spine. The moment should feel completely ordinary.  
+*Image:* Her frail hands pass a worn, hand-bound book to Alex's scarred, work-rough hands. The cover is worn from decades of use, and a faint balanced water-drop mark sits on the spine.  
 GRANDMOTHER: Would you put this away for me? Your father never liked seeing it left out.  
 ALEX: He had opinions about everything.
 
@@ -203,7 +203,7 @@ GRANDMOTHER: Before he went to work.
  
 
 **P4: The bench (wide).** A child-sized seated shape under a dust sheet with a faint amber pulse beneath the cloth. Beside it lies a beautiful metallic key with a circular head bearing an unfamiliar symbol. Alex's open hand enters from the left edge, reaching but not touching.  
-**Hook inset:** Extreme close-up of the key. The symbol catches the light, and the reader has no idea what it opens.
+**Hook inset:** Extreme close-up of the key. The symbol catches the light.
 
 ## PAGE 8: THE AWAKENING
 
@@ -264,7 +264,7 @@ ADRIAN: Hello, Alex. If you're seeing this... then you found the workshop.
 *Image:* Close on Alex. His armor is gone for a moment. His jaw is set, his eyes are bright and he isn't blinking. Soft-blue light plays across his face.
 
 **P3: The joke (wide trio)**  
-*Image:* Adrian on the left with a half-smile, Alex in the centre, and Grandmother small in the background, standing in the open bookshelf doorway with warm household light behind her. One hand is at her mouth and her eyes are wet, and she is smiling. For the first time in the book, her hands have stopped folding the cloth.  
+*Image:* Adrian on the left with a half-smile, Alex in the centre, and Grandmother small in the background, standing in the open bookshelf doorway with warm household light behind her. One hand is at her mouth and her eyes are wet, and she is smiling. Her hands have stopped folding the cloth.  
 ADRIAN: Which means your grandmother still refuses to throw anything away.  
 GRANDMOTHER: I heard that.
 

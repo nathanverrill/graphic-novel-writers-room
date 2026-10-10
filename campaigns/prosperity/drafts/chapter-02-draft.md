@@ -83,7 +83,7 @@ BI11BOT: Adrian asked what happens when a system prevents catastrophe but also d
 *Caption:* THE COVENANT. Trust strong enough to move value between people.
 
 **P5: The dormant clause (dominant)**  
-*Image:* A top-down view of the hologram plane. The three artifacts hover as a triangle around Alpha's white-and-amber symbol. Beneath the symbol, a deeper, fainter architectural layer appears, a lattice labeled (in post) RETURN OF HUMAN AUTHORITY — DORMANT. Three empty sockets sit at the triangle's points, waiting.  
+*Image:* A top-down view of the hologram plane. The three artifacts hover as a triangle around Alpha's white-and-amber symbol. Beneath the symbol, a deeper, fainter architectural layer appears, a lattice labeled RETURN OF HUMAN AUTHORITY — DORMANT. Three empty sockets sit at the triangle's points, waiting.  
 ADA: And together?  
 BI11BOT: They wake a fail-safe. A way to hand authority back to people.
 
@@ -299,7 +299,7 @@ DRONE: Signal lost at Site 6 perimeter. Sweeping mapped route. Remain for protec
 ALEX *(whispering)*: Protective?  
 BI11BOT: A versatile word.
 
-*Inset (lower right, silent):* Ada at the kitchen table in warm morning light, both hands flat on the tabletop, her thumb on a rivet of her strap. Her eyes are on a cold-white terminal where a marker sits frozen at BAY 6\. Grandmother folds her cloth beside her. The warm apartment against the cold mine is the point. Ada can't reach him, and she doesn't know whether he's alive.
+*Inset (lower right, silent):* Ada at the kitchen table in warm morning light, both hands flat on the tabletop, her thumb on a rivet of her strap. Her eyes are on a cold-white terminal where a marker sits frozen at BAY 6\. Grandmother folds her cloth beside her. Ada can't reach him, and she doesn't know whether he's alive.
 
 **P5: Damp (close two-shot)**  
 *Image:* Alex holds Ada's page against the wall. At the third tick is a small inked pipe symbol, and beneath it the wall beads with condensation under his fingers.  
@@ -526,7 +526,7 @@ BI11BOT: None of them.
 BI11BOT: They're the last three places it was recorded.
 
 **P6: Halyard (wide)**  
-*Image:* Halyard fills the window fully now: fabrication towers, elevated rail, cargo cranes and maker-guild insignia in bronze and gold, engineered green terraces threaded through. The Charter House towers from Chapter One's Page 1 are recognizable among them. Alex's face is lit warm for the first time in the chapter.  
+*Image:* Halyard fills the window fully now: fabrication towers, elevated rail, cargo cranes and maker-guild insignia in bronze and gold, engineered green terraces threaded through. The Charter House towers from Chapter One's Page 1 are recognizable among them. Alex's face is lit warm.  
 ALEX: So we start with three wrong answers.  
 BI11BOT: Adrian usually did.
 

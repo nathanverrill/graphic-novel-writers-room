@@ -88,7 +88,7 @@
  BI11BOT: I didn't know how to say it without it sounding like something it wasn't.
 
 **P4: Here (close, Alex)**  
- *Image:* Close on Alex, something entirely unguarded crossing his face for the first time in the story, the sarcasm genuinely absent.  
+ *Image:* Close on Alex, something entirely unguarded crossing his face, the sarcasm gone.  
  ALEX: He was sitting right there. Saying the same thing you've played me a hundred times.  
  ALEX: I always thought that message came from somewhere safe.
 
@@ -116,7 +116,7 @@
  MERA: I was the most powerful person in Oasis. I could not stop a door from closing.
 
 **P5: Short sentences (closing strip)**  
- *Image:* Wide, low shot. Alex watches her, saying nothing yet, the sarcasm the bible calls for absent entirely from his posture.  
+ *Image:* Wide, low shot. Alex watches her, saying nothing yet.  
  MERA: I have never told anyone that. Not even Leona.
 
 ## PAGE 6: THE ESCAPE HE DIDN'T TAKE
@@ -133,7 +133,7 @@
  *Image:* Close on the narrowing gap at the bulkhead's edge, still wide enough to pass through, water rising visibly now around Adrian's boots. His hand hovers over the unfinished transmission unit.
 
 **P4: No calculation (close, nearly grey)**  
- *Image:* Close on Adrian's face, almost entirely drained of color now, steady rather than afraid. For the first time in the story's visual language, there are no floating odds, no probability trees, nothing calculated around him.  
+ *Image:* Close on Adrian's face, almost entirely drained of color now, steady rather than afraid. There are no floating odds, no probability trees, nothing calculated around him.  
  *Caption:* He had spent his whole life putting a number on everything. This was the one moment he didn't try.
 
 **P5: Amber (dominant, nearly monochrome)**  
@@ -152,7 +152,7 @@
  BI11BOT: He didn't say anything meaningful. He just looked at me the way you look at something you're betting on.
 
 **P3: The wager (medium two-shot)**  
- *Image:* Alex and Bi11bot, closer together than they've been drawn in any panel so far.  
+ *Image:* Alex and Bi11bot, close together.  
  ALEX: He bet his life that someone would eventually prove it was worth it.  
  BI11BOT: He bet his life that you would. Specifically. Not someone. You.
 
@@ -207,7 +207,7 @@
  ALEX: I know. That's the part I didn't understand until today. He doesn't have to be only one thing for me to be allowed to miss him.
 
 **P4: The debt reframed (close)**  
- *Image:* Close on Alex, something genuinely settled in his expression for the first time in the book.  
+ *Image:* Close on Alex, something genuinely settled in his expression.  
  ALEX: I used to think I inherited his debt. Then his patents. Then his enemies.  
  ALEX: I think what I actually inherited was a decision he made, not an answer he left.
 
