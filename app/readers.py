@@ -12,7 +12,7 @@ from . import projects
 
 # a line that is the writer talking, by its label
 _NOTE = re.compile(
-    r"^\s*(?:\*\*)?(page function|page-turn function|page intent|page check|chapter function|chapter intent|"
+    r"^\s*(?:\*\*)?(issue question|page-turn question|reader question|cliffhanger question|turn question|page function|page-turn function|page intent|page check|chapter function|chapter intent|"
     r"central question|prosperity principle|style block|layout|rows? [a-z]\b|reading order|composition|timing|"
     r"lock|changed|intent|function|image prompt|writers.? room draft|draft script)\b", re.I)
 # a sentence inside an art description that is aimed at the artist or the room, not the eye

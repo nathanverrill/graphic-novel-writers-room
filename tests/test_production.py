@@ -92,6 +92,11 @@ for i in range(300):
 stop[0] = True; t.join()
 assert not bad, bad[:1]
 print("3c. experiment models; settings written whole under a parallel reader: ok")
+from app import readers
+_t = "**Panel 4.** Water.\nALEX: Keep moving!\n**ISSUE QUESTION: Has she opened their route?**\nPAGE CHECK: x\nCAPTION: END OF THE FIRST MOVEMENT.\n"
+_o = readers.pages_only(_t)
+assert "ISSUE QUESTION" not in _o and "PAGE CHECK" not in _o and "FIRST MOVEMENT" in _o and "Keep moving" in _o, _o
+print("3d. a reader gets the captions, not the writer's questions to the room: ok")
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting
