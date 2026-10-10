@@ -341,7 +341,7 @@ def _coldread(slug, note):
     for n in range(1, most + 1):
         _round(slug, "coldread", note if n == 1 else None)
         rnd = (review.latest_round(slug) or {}).get("id")
-        starts = issue_starts(projects.read_artifact(slug, "script.md") or "")
+        starts = issue_starts(projects.read_artifact(slug, "script.md") or "", review.settings(slug).get("issue_pages"))
         reports = [(name, projects.read_artifact(slug, name) or "") for name in COLD_READS]
         won, reasons = cold_verdict(reports, starts)
         if won:
@@ -367,7 +367,7 @@ def _coldread(slug, note):
     return None
 
 
-VERDICT_RE = re.compile(r"VERDICT\s+Issue\s+(\d+)\s*:\s*put\s*down\s*:\s*(?:page\s*)?(\d+|none|nowhere)\s*[;,|]\s*next\s+issue\s*:\s*(yes|no|maybe)", re.I)
+VERDICT_RE = re.compile(r"VERDICT\s+Issue\s+(\d+)\s*:\s*put\s*down\s*:\s*(?:page\s*)?(\d+|none|nowhere)[^;,|\n]*[;,|]\s*next\s+(?:issue|book)\s*:\s*(yes|no|maybe)", re.I)
 PUT_DOWN_RE = re.compile(r"#+\s*Where I would have put it down[^\n]*\n(.*?)(?=\n#+\s|\Z)", re.S | re.I)
 
 
@@ -379,37 +379,44 @@ def verdicts(text):
     return out
 
 
-def issue_starts(script):
-    """{issue number: its first page} from the script's headings."""
+def issue_starts(script, issue_pages=None):
+    """{issue number: its first page}: from the script's "## Issue N" headings, or, when the writer
+    marked none, from the campaign's issue length (the issue_pages setting)."""
     starts, issue = {}, None
     for m in re.finditer(r"^## (?:Issue\s+(\d+)\b|Page\s+(\d+)\b)", script or "", re.M):
         if m.group(1):
             issue = int(m.group(1))
         elif issue is not None and issue not in starts:
             starts[issue] = int(m.group(2))
+    if not starts and issue_pages:
+        pages = max((int(n) for n in re.findall(r"^## Page\s+(\d+)\b", script or "", re.M)), default=0)
+        starts = {i + 1: i * issue_pages + 1 for i in range(max(1, -(-pages // issue_pages)))}
     return starts
 
 
 def cold_verdict(reports, starts):
     """(won, reasons): the two rules, held against every reader's VERDICT lines. A reader whose
-    report carries no verdict has not been won: the room does not guess."""
+    report carries no verdict for an issue has not been won on it: the room does not guess. "page 1
+    (nearly)" counts as page 1. The last issue is not held to "wants the next issue"."""
+    issues = sorted(starts) or sorted({i for _, t in reports for i, _, _ in verdicts(t)}) or [1]
+    last = issues[-1]
     reasons, won = [], True
-    last = max(starts) if starts else None
     for name, text in reports:
-        found = verdicts(text)
-        if not found:
-            won = False
-            reasons.append(f"{name}: no VERDICT line")
-            continue
-        for issue, page, nxt in found:
-            first = starts.get(issue, 1)
-            if page is not None and page == first:
-                won = False
-                reasons.append(f"{name}: put Issue {issue:02d} down on its first page")
+        found = {issue: (page, nxt) for issue, page, nxt in verdicts(text)}
+        lost = []
+        for issue in issues:
+            if issue not in found:
+                lost.append(f"no VERDICT for Issue {issue:02d}")
+                continue
+            page, nxt = found[issue]
+            if page is not None and page == starts.get(issue, 1):
+                lost.append(f"put Issue {issue:02d} down on its first page")
             if not nxt and issue != last:
-                won = False
-                reasons.append(f"{name}: does not want the issue after Issue {issue:02d}")
-        if all(page != starts.get(issue, 1) and (nxt or issue == last) for issue, page, nxt in found):
+                lost.append(f"does not want the issue after Issue {issue:02d}")
+        if lost:
+            won = False
+            reasons += [f"{name}: {r}" for r in lost]
+        else:
             reasons.append(f"{name}: won")
     return won, reasons
 

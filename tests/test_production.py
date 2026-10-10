@@ -64,6 +64,15 @@ won, why = magic.cold_verdict([("a", rep_a)], {1: 1, 2: 3})
 assert won and why == ["a: won"], why
 won, why = magic.cold_verdict([("a", "no verdict here")], {1: 1})
 assert not won and "no VERDICT" in why[0]
+# no headings: the issue length splits the script; "(nearly)" is page 1; a missing issue is not a pass
+flat = "".join(f"## Page {n}\n" for n in range(1, 55))
+assert magic.issue_starts(flat) == {} and magic.issue_starts(flat, 18) == {1: 1, 2: 19, 3: 37}
+nearly = "VERDICT Issue 01: put down: page 1 (nearly); next issue: yes\nVERDICT Issue 02: put down: page 19; next issue: yes\nVERDICT Issue 03: put down: page 47; next book: no\n"
+assert magic.verdicts(nearly) == [(1, 1, True), (2, 19, True), (3, 47, False)]
+won, why = magic.cold_verdict([("k", nearly)], {1: 1, 2: 19, 3: 37})
+assert not won and why == ["k: put Issue 01 down on its first page", "k: put Issue 02 down on its first page"], why
+won, why = magic.cold_verdict([("o", "VERDICT Issue 02: put down: page 20; next issue: yes")], {1: 1, 2: 19, 3: 37})
+assert not won and "no VERDICT for Issue 01" in why[0], why
 print("3b. the cold read holds the script to the two rules: ok")
 # 3c. a campaign's own models, and a settings file a parallel reader never sees empty
 from app.agent import experiment_config

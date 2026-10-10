@@ -29,6 +29,7 @@ DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_p
                     "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
                     "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
                     "cold_read_rounds": 2,   # production: cold reads before the script is taken as it is (magic._coldread)
+                    "issue_pages": None,  # pages an issue: splits a script the writer did not mark into issues
                     "models": None,      # {role id: model}: this campaign's own models, over agent.json (an experiment)
                     "scope": None,       # set: execution is a proof of one page (magic's proof); None = the book
                     "proof_page": None,  # the book page the proof lays out; None = page 1 (see magic.chapter_pages)
