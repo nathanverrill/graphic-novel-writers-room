@@ -323,29 +323,95 @@ def _writing(slug, note):
 COLD_READS = ("cold-read.md", "cold-read-b.md")
 
 
+def max_cold_reads(slug):
+    """Cold reads of the script before it is taken as it is (the cold_read_rounds setting)."""
+    return max(1, int(review.settings(slug).get("cold_read_rounds") or 2))
+
+
 def _coldread(slug, note):
-    """Two readers read the finished script cold, then the writer gets one revision round with their
-    reports in hand. One round, not a loop: the readers say where the book lost them, the writer
-    answers, and the pages are laid out from that."""
+    """Two readers read the finished script cold; the writer answers; the readers read again.
+
+    The loop ends when both readers are won - nobody puts an issue down on its first page, and
+    everybody wants the next issue - or when the budget of reads is spent. A read that fails is
+    followed by a writer's revision with both reports in hand; the last read is not, since a
+    revision nobody reads is not a result. The rules the readers hold the script to are the
+    writers' own (agents/_writers/role.md)."""
     review.save_settings(slug, scope=0)
-    _round(slug, "coldread", note)
-    rnd = (review.latest_round(slug) or {}).get("id")
-    reports = [(n, projects.read_artifact(slug, n) or "") for n in COLD_READS]
-    lost = [f"{n}: {where}" for n, where in ((n, put_down(t)) for n, t in reports) if where]
-    _choice(slug, "coldread", "Sent the script back to the writer once, with both cold reads.",
-            "; ".join(lost)[:400] or "Two readers read the whole book cold; the writer revises against their reports.", rnd)
-    _log(slug, "Cold read: " + ("; ".join(lost)[:300] if lost else "both reports are in; the writer revises against them."))
-    revision = ("Two readers who did not choose this book have read the whole script cold. Their reports are "
-                "cold-read.md and cold-read-b.md. Revise the script against them: where they put the book down, where "
-                "they skimmed, what they were expected to already know, the lines they read twice, and whether the last "
-                "page of each issue made them need the next. Where the two readers disagree, decide, and say why in notes.md.")
-    _round(slug, "writing", revision)
-    _choice(slug, "writing", "Approved the revised script.", "Revised once against the two cold reads.",
-            (review.latest_round(slug) or {}).get("id"))
+    most = max_cold_reads(slug)
+    for n in range(1, most + 1):
+        _round(slug, "coldread", note if n == 1 else None)
+        rnd = (review.latest_round(slug) or {}).get("id")
+        starts = issue_starts(projects.read_artifact(slug, "script.md") or "")
+        reports = [(name, projects.read_artifact(slug, name) or "") for name in COLD_READS]
+        won, reasons = cold_verdict(reports, starts)
+        if won:
+            _choice(slug, "coldread", f"Both readers won on read {n}.", "; ".join(reasons)[:400] or
+                    "Nobody put an issue down on its first page, and everybody wants the next issue.", rnd)
+            _log(slug, f"Cold read {n}: both readers won. " + "; ".join(reasons)[:200])
+            return None
+        if n == most:
+            _choice(slug, "coldread", f"Took the script after {n} cold reads, not fully won.", "; ".join(reasons)[:400], rnd)
+            _log(slug, f"Cold read {n}: not won ({'; '.join(reasons)[:200]}). Taking the script as it is.")
+            return None
+        _choice(slug, "coldread", f"Read {n}: sent the script back to the writer with both cold reads.", "; ".join(reasons)[:400], rnd)
+        _log(slug, f"Cold read {n}: not won ({'; '.join(reasons)[:200]}). The writer revises.")
+        revision = ("Two readers who did not choose this book have read the whole script cold. Their reports are "
+                    "cold-read.md and cold-read-b.md, and each ends every issue with a VERDICT line. The rules are the "
+                    "two in your role guide: nobody puts an issue down on its first page, and everybody wants the next "
+                    "issue. Where a verdict names a put-down page, fix that page, not its wording. Where it says no to "
+                    "the next issue, the last page is not yet a question about a person. Revise the script against "
+                    "both reports; where the two readers disagree, decide, and say why in notes.md.")
+        _round(slug, "writing", revision)
+        _choice(slug, "writing", f"Revised the script after cold read {n}.", "Against both reports.",
+                (review.latest_round(slug) or {}).get("id"))
     return None
 
 
+VERDICT_RE = re.compile(r"VERDICT\s+Issue\s+(\d+)\s*:\s*put\s*down\s*:\s*(?:page\s*)?(\d+|none|nowhere)\s*[;,|]\s*next\s+issue\s*:\s*(yes|no|maybe)", re.I)
 PUT_DOWN_RE = re.compile(r"#+\s*Where I would have put it down[^\n]*\n(.*?)(?=\n#+\s|\Z)", re.S | re.I)
+
+
+def verdicts(text):
+    """[(issue, put_down_page or None, wants_next)] from a reader's VERDICT lines."""
+    out = []
+    for issue, page, nxt in VERDICT_RE.findall(text or ""):
+        out.append((int(issue), int(page) if page.isdigit() else None, nxt.lower() == "yes"))
+    return out
+
+
+def issue_starts(script):
+    """{issue number: its first page} from the script's headings."""
+    starts, issue = {}, None
+    for m in re.finditer(r"^## (?:Issue\s+(\d+)\b|Page\s+(\d+)\b)", script or "", re.M):
+        if m.group(1):
+            issue = int(m.group(1))
+        elif issue is not None and issue not in starts:
+            starts[issue] = int(m.group(2))
+    return starts
+
+
+def cold_verdict(reports, starts):
+    """(won, reasons): the two rules, held against every reader's VERDICT lines. A reader whose
+    report carries no verdict has not been won: the room does not guess."""
+    reasons, won = [], True
+    last = max(starts) if starts else None
+    for name, text in reports:
+        found = verdicts(text)
+        if not found:
+            won = False
+            reasons.append(f"{name}: no VERDICT line")
+            continue
+        for issue, page, nxt in found:
+            first = starts.get(issue, 1)
+            if page is not None and page == first:
+                won = False
+                reasons.append(f"{name}: put Issue {issue:02d} down on its first page")
+            if not nxt and issue != last:
+                won = False
+                reasons.append(f"{name}: does not want the issue after Issue {issue:02d}")
+        if all(page != starts.get(issue, 1) and (nxt or issue == last) for issue, page, nxt in found):
+            reasons.append(f"{name}: won")
+    return won, reasons
 
 
 def put_down(text):
@@ -434,6 +500,7 @@ def plan(slug):
                     "seconds": seconds, "stop": step in STOPS, "optional": step == "page1",
                     "note": {"page1": "Only if you ask for a proof first.",
                              "drafts": "An edit stops here: read what changed, then script it - or stop.",
+                             "coldread": f"Up to {max_cold_reads(slug)} cold reads, the writer revising between them, until both readers are won.",
                              "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
     letterer = roles.get("letterer")

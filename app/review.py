@@ -26,6 +26,7 @@ OLD_KINDS = {"love": KEPT, "changes": EDITED}   # locks written before the verdi
 DEFAULT_SETTINGS = {"pages": None, "chapter": None, "lettering": "layer", "max_passes": 2, "references": None,
                     "min_text_match": 0.95, "min_layout_match": 0.8, "auto_rounds": 0,
                     "execution_rounds": 2,   # production: rounds of pages before the book is taken as it is
+                    "cold_read_rounds": 2,   # production: cold reads before the script is taken as it is (magic._coldread)
                     "scope": None,       # set: execution is a proof of one page (magic's proof); None = the book
                     "proof_page": None,  # the book page the proof lays out; None = page 1 (see magic.chapter_pages)
                     "use_references_during_synthesis": True,    # see app/intake.py, pass 1

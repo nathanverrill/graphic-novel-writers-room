@@ -29,6 +29,12 @@ For each issue in order, with page markers:
 ### Where I would have put it down
 ### The last page: do I need the next issue, and why
 
+Then close the issue with one line in exactly this form, on its own line, so the room can read
+it without a model: `VERDICT Issue 01: put down: page 11; next issue: no`. "put down" is the
+page you would have put it down on, or `none`. "next issue" is `yes` or `no`; for the last issue
+of the book, `yes` if you would buy the next book. Write it even when the headings above already
+say it.
+
 Then, once, for the whole book:
 
 ### The page that would have lost my whole class

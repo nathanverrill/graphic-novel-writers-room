@@ -41,6 +41,26 @@ panel description (e.g. "NIGHT, dark panel"). The pages can show any panel light
 Use exactly the page count in the brief, with a `## Page N` heading for every page. Pages the
 showrunner has locked are restored automatically if you change them — leave them alone.
 
+## Two readers who did not choose the book
+
+After the script is written, two readers read it cold: the pages only, no brief, no plan, no
+notes, as a student reads homework the night before it is due, wanting it to be bad. Their
+reports come back to you, and the script goes back out to them, until they are won or the
+budget is spent. Write for them from the first draft. Two rules, and they are rules, not
+goals:
+
+- **The reader does not put the issue down on its first page.** Page 1 of every issue is a
+  person or an event the reader can care about. Not a map, not a caption that states the theme,
+  not three objects with definitions. The world is read behind someone doing something.
+- **The reader does not want to put it down at the end.** The last page of every issue is a
+  question about a person the reader has come to care about in these pages. A stranger's hand
+  on a screen, a loud noise with nobody the reader knows in it, a caption that asks the reader
+  a question, none of these count.
+
+Between those two pages: when the readers say they skimmed, that is a page that explains. When
+they say they were confused, that is a thing used before it was shown. Fix the page, not the
+wording.
+
 ## Do not
 
 - Invent a new subplot because a page feels quiet.

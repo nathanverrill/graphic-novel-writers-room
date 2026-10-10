@@ -52,6 +52,19 @@ w, why = magic.pick_from_first_read("no headings, but I would go on with writer 
 assert w == "writer_a"
 assert magic.pick_from_first_read("") == (None, None)
 assert not hasattr(magic, "ask_reader")
+# 3b. the cold read: verdict lines, issue starts, and the two rules
+script = "## Issue 01\n## Page 1 (right) — a\n## Page 2\n## Issue 02\n## Page 3\n"
+assert magic.issue_starts(script) == {1: 1, 2: 3}
+rep_a = "### The last page\nyes\n\nVERDICT Issue 01: put down: page 11; next issue: yes\nVERDICT Issue 02: put down: none; next issue: yes\n"
+rep_b = "VERDICT Issue 01: put down: page 1; next issue: no\nVERDICT Issue 02: put down: none; next issue: no\n"
+assert magic.verdicts(rep_a) == [(1, 11, True), (2, None, True)]
+won, why = magic.cold_verdict([("a", rep_a), ("b", rep_b)], {1: 1, 2: 3})
+assert not won and any("first page" in r for r in why) and any("after Issue 01" in r for r in why), why
+won, why = magic.cold_verdict([("a", rep_a)], {1: 1, 2: 3})
+assert won and why == ["a: won"], why
+won, why = magic.cold_verdict([("a", "no verdict here")], {1: 1})
+assert not won and "no VERDICT" in why[0]
+print("3b. the cold read holds the script to the two rules: ok")
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting
