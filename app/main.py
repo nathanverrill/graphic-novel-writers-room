@@ -1064,7 +1064,7 @@ def _get_run(run_id):
 
 class MagicStart(BaseModel):
     step: str = "development"    # where to (re-)enter the chain
-    until: str = "layouts"       # where to stop: page1, layouts (the default) or final
+    until: str = "layouts"       # where to stop: page1, coldread, layouts (the default) or final
     note: str | None = None      # carried into the first round
 
 

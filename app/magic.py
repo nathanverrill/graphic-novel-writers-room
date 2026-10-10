@@ -40,7 +40,7 @@ PHASE_OF = {"development": "development", "drafts": "drafts", "audition": "audit
             "writing": "writing", "coldread": "coldread", "layouts": "execution", "execution": "execution", "final": "execution"}
 TITLES = {"development": "Development", "drafts": "Draft edit", "audition": "Audition", "page1": "Proof page",
           "writing": "Writing", "coldread": "Cold read", "layouts": "Layouts", "execution": "Pages", "final": "Final"}
-STOPS = {"drafts": "drafts", "page1": "page1", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
+STOPS = {"drafts": "drafts", "page1": "page1", "coldread": "coldread", "layouts": "layouts", "final": "final"}    # a chain ends here and waits for the showrunner
 
 def chapter_pages(slug):
     """[{chapter, title, first, pages}]: where each chapter starts in the book, for the proof picker.
@@ -201,6 +201,10 @@ def _run(slug, step, until, note):
         elif until == "page1":
             _set(slug, status="page1", finished=projects.now())
             _log(slug, f"The proof, page {review.proof_page(slug)}, is ready. Have a look: is this about right?")
+        elif until == "coldread":
+            _set(slug, status="coldread", finished=projects.now())
+            _log(slug, "The script is revised against two cold reads: cold-read.md, cold-read-b.md and the writer's "
+                       "answer in script.md and notes.md. Read it, then Make the pages.")
         elif until == "layouts":
             _set(slug, status="layouts", finished=projects.now())
             _log(slug, "The layouts are drawn: every page's map and panels. Look them over, then Make the pages.")

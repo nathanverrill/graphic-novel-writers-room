@@ -48,6 +48,7 @@ function renderState() {
   const [cls, label] = active || m.status === "running" ? ["run", "working"]
     : m.status === "drafts" ? ["wait", "the edited drafts are waiting for you"]
     : m.status === "page1" ? ["wait", `the proof, page ${proofPage()}, is waiting for you`]
+    : m.status === "coldread" ? ["wait", "the script, revised against two cold reads, is waiting for you"]
     : m.status === "layouts" ? ["wait", "the layouts are waiting for you"]
     : m.status === "done" ? ["ready", "the book is done"]
     : m.status === "stopped" ? ["fail", "stopped"]
