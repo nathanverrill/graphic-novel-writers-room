@@ -14,7 +14,7 @@ from . import projects
 _NOTE = re.compile(
     r"^\s*(?:\*\*)?(issue question|page-turn question|reader question|cliffhanger question|turn question|page function|page-turn function|page intent|page check|chapter function|chapter intent|"
     r"central question|prosperity principle|style block|layout|rows? [a-z]\b|reading order|composition|timing|"
-    r"lock|changed|intent|function|image prompt|writers.? room (?:draft|review)|draft script|graphic novel story draft)\b", re.I)
+    r"locked(?: words| layout)?|changed|intent|function|image prompt|writers.? room (?:draft|review)|draft script|graphic novel story draft)\b", re.I)
 # a sentence inside an art description that is aimed at the artist or the room, not the eye
 _ASIDE = re.compile(
     r"\b(the reader|readers?\b|easy to miss|second-time|the eye should|should register|should feel|should hurt|"
