@@ -832,6 +832,7 @@ class RoundSettings(BaseModel):
     auto_rounds: int | None = None  # keep going without a review for this many more rounds
     execution_rounds: int | None = None   # production: rounds of pages before the book is taken as is
     cold_read_rounds: int | None = None   # production: cold reads of the script before it is taken as is
+    models: dict[str, str] | None = None  # {role id: model}: this campaign's own models, over agent.json
     references: list[str] | None = None   # library files to use; ["*"] = all
     use_references_during_synthesis: bool | None = None   # let intake's pass 1 read references/
     draft_mode: str | None = None   # "improve" or "edit": how production treats the showrunner's draft

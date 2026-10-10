@@ -13,6 +13,7 @@ If the endpoint does not support tool calling, the agent falls back to a
 single request and saves the reply as its deliverable.
 """
 import base64
+import dataclasses
 import json
 import re
 
@@ -148,6 +149,9 @@ class Agent:
         self.cfg = role.config()
         self.version = version  # projects.Version — where this run's output goes
         self.slug = version.slug
+        models = review.settings(self.slug).get("models") or {}     # a campaign's own models, for an experiment
+        if role.id in models and models[role.id]:
+            self.cfg = dataclasses.replace(self.cfg, model=models[role.id])
         self.emit = emit  # emit(type, **data) -> shows up in the UI
         self.should_stop = should_stop
         self.written = set()
