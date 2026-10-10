@@ -10,5 +10,41 @@
     "kind": "always",
     "text": "We never learn anything about his mother. Only that she left after Adrian lost everything.",
     "t": 1790265711.7533755
+  },
+  {
+    "id": 3,
+    "kind": "always",
+    "text": "The book is published in issues, not chapters. They are Issue 01, Issue 02 and so on, and every file and every page says \"issue\". What the earlier drafts called Chapter 1 is Issue 01.",
+    "t": 1791667472.781132
+  },
+  {
+    "id": 4,
+    "kind": "always",
+    "text": "Issue 01 ends on a cliffhanger strong enough that a reader who did not want to read it needs Issue 02. It is a question about a person the reader has come to care about in these pages, not a loud noise.",
+    "t": 1791667472.7811332
+  },
+  {
+    "id": 5,
+    "kind": "always",
+    "text": "An issue is 18 pages. Not 22, not \"about 20\": eighteen, with the last page a question about a person the reader has come to care about. Issue 01 is Keel. Issue 02 is Halyard. If the material does not fit, cut the explaining, not the scenes.",
+    "t": 1791667472.7811332
+  },
+  {
+    "id": 6,
+    "kind": "always",
+    "text": "TJ is the crossover character and he is introduced early, in Issue 01, where the canon already puts him: Site 6, assembled by Bi11bot from spare parts to reach what nobody else can. He is not added at the end to satisfy the canon.",
+    "t": 1791667472.7811341
+  },
+  {
+    "id": 7,
+    "kind": "always",
+    "text": "The crossing from Keel to Halyard is not a train. Down from Keel into the old mine works, then up inside the water conduit, the pipe the Measure proved was running near empty. Issue 01's last three pages are the climb and its last page is the pipe starting to fill behind them. Issue 02 opens in a Halyard storm drain. `(rules/decisions.md)`",
+    "t": 1791667472.7811341
+  },
+  {
+    "id": 8,
+    "kind": "always",
+    "text": "Young Americans Center, the book's partner, and Bill Reynolds, its backer, are each satisfied at least in part (rules/stakeholders.md), and the book never smells like schoolwork: no character explains a concept so the reader can learn it, and no caption states the lesson.",
+    "t": 1791667472.781135
   }
 ]
