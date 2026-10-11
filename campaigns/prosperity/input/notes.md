@@ -1,5 +1,28 @@
 # Showrunner notes for this pass
 
+## Issue 00: the prologue, Lake Keel, 2099 (10 pages)
+
+Seventy years after the book. Keel is green and prosperous, not idyllic: the old open pit is a
+clean lake ringed by terraces, gardens and workshops, and water is still worth stealing. Alex is
+in his seventies, the self-made millionaire next door: work jacket, plain and a little roundabout
+when he talks, and one ridiculous indulgence, a boathouse full of restored boats. His
+granddaughter, about fifteen, lives with the boats as much as he does. TJ is still with him:
+old, rusty, missing a part or two, and still a dog.
+
+- **Night, and thieves on the lake.** Drones are siphoning Alex's lake into a tanker barge offshore.
+  The thieves talk while they work, and they are the ones who say it: *How'd he get his money?*
+  *Water.* Whether he made it fairly, or took control of it, is left open for the book to answer.
+- **Alex and his granddaughter do not give chase.** They watch from the boathouse. TJ goes.
+- **TJ comes apart to do it.** His rusty pieces separate and work the dark water on their own:
+  that is the hook on page 1, before the reader knows why.
+- **At the end of the scene, TJ comes back with part of one of the drones,** and puts it down at
+  their feet.
+- **No connection to the debt, Alpha, the safeguards or anything later in the book.** The only
+  link is the water. Nobody explains the past. The prologue makes the reader want to know how
+  this man got here.
+
+## Issues 01 to 03
+
 **The fifth draft is direction, not a draft.** `input/fifth-draft/` is the author's book as they
 imagined it: its premise, its people, its world and its ending are what this book is about. Its
 scenes, their order and its dialogue are not. Plan new scenes, find a new order where it serves,
