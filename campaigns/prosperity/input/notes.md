@@ -17,6 +17,10 @@ old, rusty, missing a part or two, and still a dog.
   that is the hook on page 1, before the reader knows why.
 - **At the end of the scene, TJ comes back with part of one of the drones,** and puts it down at
   their feet.
+- **The last exchange.** The granddaughter asks why they were stealing. Alex: *When you don't
+  have anything, some people take the easy way out.* A beat. *It wasn't always easy for me,
+  either...* And the page turns straight into Issue 01: Keel, seventy years earlier. His words
+  can be shaped to his voice, but that is the line and the turn.
 - **No connection to the debt, Alpha, the safeguards or anything later in the book.** The only
   link is the water. Nobody explains the past. The prologue makes the reader want to know how
   this man got here.
