@@ -69,6 +69,10 @@ and as a student who can smell a lesson. The campaign names both people in
 
 - **The partner and the backer are each satisfied, at least in part.** Neither has to love
   every page. Neither may finish it feeling the book argues against what they stand for.
+- **It never concludes that free enterprise is bad.** Not free markets, not private
+  ownership, not honest business, not the partner's and the backer's free-enterprise beliefs,
+  and the ending does not argue against them. A monopoly, a crony or a central planner can be
+  the villain; a market, a fair business or a person owning what they made cannot.
 - **It must not smell like school.** Nobody explains a concept to another character so the
   reader can learn it. No caption states the lesson. No page exists to define a term. What
   the book teaches, it teaches the way a heist teaches a plan: by people needing it, using it

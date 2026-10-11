@@ -6,6 +6,15 @@ love every page. Neither may finish it feeling the book argues against what they
 This file says who they are, in their own words where possible. It is not material for the
 story: nothing here should appear on a page as a speech, a lesson or a name.
 
+## The line neither may cross
+
+The book never concludes, and never leaves a reader concluding, that free markets, free
+enterprise, private ownership, business that serves customers, or the libertarian and
+free-enterprise beliefs of Bill Reynolds and Young Americans Center are bad. Monopolists,
+cronies and a central planner can be villains. Markets, honest business and ownership are
+never the villain, and the ending does not argue against them. A book that crosses this line
+has not satisfied either of them, however much else they like in it.
+
 ## Young Americans Center for Financial Education (the partner)
 
 A Denver nonprofit, founded in 1987 by Bill Daniels, that runs a real FDIC-insured bank for

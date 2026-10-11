@@ -28,7 +28,8 @@ the profile does not support, and say "inference" when you go past it.
 Where readers across the spectrum would place the book: progressive, libertarian, conservative,
 socialist, capitalist in a bad way, capitalist in a good way. For each, the signal (strong,
 some, weak) and the pages that carry it. Then which reading the surface invites and which the
-story supports, and who stops reading because of the first.
+story supports, and who stops reading because of the first. Then, in one line: does the book
+conclude, or leave a reader concluding, that free enterprise is bad? Yes or no, and the pages.
 
 ### What might offend, and whom
 A table: the issue, who is offended (be specific), how likely a real complaint is (high,
@@ -68,7 +69,10 @@ without a model:
 
 `VERDICT Young Americans Center: partly; Bill Reynolds: yes; smells like school: no; school pages: 2`
 
-Each partner is `yes`, `partly` or `no`: satisfied, satisfied in part, or not satisfied.
+Each partner is `yes`, `partly` or `no`: satisfied, satisfied in part, or not satisfied. A
+partner is `no`, whatever else they like, if the book concludes or leaves a reader concluding that
+free markets, free enterprise, private ownership, honest business or their own free-enterprise
+and libertarian beliefs are bad: that is the line in `rules/stakeholders.md`.
 "school pages" is the count from "Does it smell like school". "smells like school" is `no` when
 that count is three or fewer and none of them is a whole page that exists to explain; otherwise
 `yes`. A book with no lesson anywhere is not the goal: one line that states a moral will not lose
