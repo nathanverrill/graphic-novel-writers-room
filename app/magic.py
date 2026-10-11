@@ -436,7 +436,7 @@ def put_down(text):
 
 ANALYSIS = "analysis.md"
 ANALYSIS_RE = re.compile(r"VERDICT\s+Young\s+Americans(?:\s+Center)?\s*:\s*(yes|partly|no)\b[^;\n]*;\s*Bill\s+Reynolds\s*:\s*(yes|partly|no)\b"
-                         r"[^;\n]*;\s*smells?\s+like\s+school(?:work)?\s*:\s*(yes|no)\b", re.I)
+                         r"[^;\n]*;\s*smells?\s+like\s+school(?:work)?\s*:\s*(yes|no)\b(?:[^;\n]*;\s*school\s+pages\s*:\s*(\d+))?", re.I)
 
 
 def max_analyses(slug):
@@ -453,43 +453,70 @@ def analysis_verdict(text):
         pass                            # the last verdict line is the one that counts
     if not m:
         return False, ["no VERDICT line"]
-    yac, br, school = (g.lower() for g in m.groups())
-    reasons = [f"Young Americans Center: {yac}", f"Bill Reynolds: {br}", f"smells like school: {school}"]
+    yac, br, school = (g.lower() for g in m.groups()[:3])
+    pages = m.group(4)
+    reasons = [f"Young Americans Center: {yac}", f"Bill Reynolds: {br}",
+               f"smells like school: {school}" + (f" ({pages} pages)" if pages else "")]
     return yac != "no" and br != "no" and school == "no", reasons
 
 
+def words(text):
+    return len((text or "").split())
+
+
 def _analysis(slug, note):
-    """The Analyst reads the script as its partner, its backer and the professionals would; the writer
-    answers; the Analyst reads again. The loop ends when both partners are satisfied at least in part
-    and the book does not smell like school, or when the budget of analyses is spent. As with the cold
-    read, the last analysis is not followed by a revision nobody would read."""
+    """The Analyst reads the script as its partner, its backer and the professionals would, and the
+    two cold readers' rules still hold. The loop ends when both partners are satisfied at least in
+    part, the book does not smell like school, and both cold readers are won - or when the budget
+    of analyses is spent. After the first analysis the cold read comes from the cold read step; after
+    each revision both readers read again, so a revision that wins the partners cannot quietly lose
+    the readers. A revision here is a cut pass: the writer takes out the pages that teach and may not
+    grow the script, because every pass that answered an objection with more words added a lesson.
+    As with the cold read, the last analysis is not followed by a revision nobody would read."""
     review.save_settings(slug, scope=0)
     most = max_analyses(slug)
     for n in range(1, most + 1):
+        if n > 1:
+            _round(slug, "coldread")
         _round(slug, "analysis", note if n == 1 else None)
         rnd = (review.latest_round(slug) or {}).get("id")
+        script = projects.read_artifact(slug, "script.md") or ""
         passed, reasons = analysis_verdict(projects.read_artifact(slug, ANALYSIS) or "")
-        why = "; ".join(reasons)
-        if passed:
-            _choice(slug, "analysis", f"The analysis passed on read {n}.", why, rnd)
+        starts = issue_starts(script, review.settings(slug).get("issue_pages"))
+        won, cold = cold_verdict([(name, projects.read_artifact(slug, name) or "") for name in COLD_READS], starts)
+        lost = [r for r in cold if not r.endswith(": won")]
+        why = "; ".join(reasons + lost)
+        if passed and won:
+            _choice(slug, "analysis", f"The analysis passed on read {n}, and both cold readers are won.", why, rnd)
             _log(slug, f"Analysis {n}: passed. {why}")
             return None
         if n == most:
             _choice(slug, "analysis", f"Took the script after {n} analyses, not passed.", why, rnd)
             _log(slug, f"Analysis {n}: not passed ({why}). Taking the script as it is.")
             return None
-        _choice(slug, "analysis", f"Analysis {n}: sent the script back to the writer with the analysis.", why, rnd)
-        _log(slug, f"Analysis {n}: not passed ({why}). The writer revises.")
-        revision = ("The Analyst has read the whole script, the pages only, as the book's partner (Young Americans "
-                    "Center), its backer (Bill Reynolds) and three professionals would. The report is analysis.md and "
-                    "ends with a VERDICT line. The rules are in your role guide: both partners satisfied at least in "
-                    "part, and it must not smell like school. Revise the script against the report's \"What would "
-                    "change the verdicts\": fix the pages it names, not their wording, and never answer an objection "
-                    "with a speech. Keep what the cold readers won. Say what you changed, and what you would not, "
-                    "in notes.md.")
+        _choice(slug, "analysis", f"Analysis {n}: sent the script back to the writer for a cut pass.", why, rnd)
+        _log(slug, f"Analysis {n}: not passed ({why}). The writer cuts.")
+        budget = words(script)
+        revision = ("This revision is a CUT PASS. The Analyst has read the whole script, the pages only, as the book's "
+                    "partner (Young Americans Center), its backer (Bill Reynolds) and three professionals would; the "
+                    "report is analysis.md. Its \"Does it smell like school\" section numbers every page where a line "
+                    "or caption exists to teach. Take each one in turn: cut the line, or replace it with something a "
+                    "person does, wants or pays for on the page. A lesson replaced by another lesson is not a fix. "
+                    "Then make the report's \"What would change the verdicts\" changes the same way: through what "
+                    "happens, never through what someone says about it. "
+                    + (f"The cold readers are not all won: {'; '.join(lost)}. Fix those pages too (cold-read.md, "
+                       "cold-read-b.md): a first page that loses a reader is a page that explains, and a last page "
+                       "nobody wants to turn is not yet a question about a person. " if lost else
+                       "Both cold readers are won: keep what won them. ")
+                    + f"The script is {budget} words. It comes back no longer than that. Say in notes.md what you cut, "
+                    "page by page.")
         _round(slug, "writing", revision)
-        _choice(slug, "writing", f"Revised the script after analysis {n}.", "Against the analysis.",
-                (review.latest_round(slug) or {}).get("id"))
+        after = words(projects.read_artifact(slug, "script.md"))
+        grew = after > budget * 1.02
+        _choice(slug, "writing", f"Cut pass after analysis {n}: {budget} words to {after}.",
+                "It grew past its budget." if grew else "Within its budget.", (review.latest_round(slug) or {}).get("id"))
+        if grew:
+            _log(slug, f"The cut pass grew the script from {budget} to {after} words.")
     return None
 
 
@@ -571,7 +598,7 @@ def plan(slug):
                     "note": {"page1": "Only if you ask for a proof first.",
                              "drafts": "An edit stops here: read what changed, then script it - or stop.",
                              "coldread": f"Up to {max_cold_reads(slug)} cold reads, the writer revising between them, until both readers are won.",
-                             "analysis": f"Up to {max_analyses(slug)} analyses, the writer revising between them, until both partners are satisfied and it does not smell like school.",
+                             "analysis": f"Up to {max_analyses(slug)} analyses, a cut pass and a fresh cold read between them, until both partners are satisfied, it does not smell like school and both readers are still won.",
                              "layouts": "Produce stops here. Make the pages goes on.",
                              "execution": f"Up to {max_execution_rounds(slug)} rounds, until the pages pass the readiness check."}.get(step)})
     letterer = roles.get("letterer")

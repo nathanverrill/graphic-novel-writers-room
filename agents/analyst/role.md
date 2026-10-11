@@ -66,7 +66,10 @@ satisfy. Never "add a speech."
 Then close with one line in exactly this form, on its own line, so the room can read it
 without a model:
 
-`VERDICT Young Americans Center: partly; Bill Reynolds: yes; smells like school: no`
+`VERDICT Young Americans Center: partly; Bill Reynolds: yes; smells like school: no; school pages: 2`
 
 Each partner is `yes`, `partly` or `no`: satisfied, satisfied in part, or not satisfied.
-"smells like school" is `yes` or `no`. Write it even when the sections above already say it.
+"school pages" is the count from "Does it smell like school". "smells like school" is `no` when
+that count is three or fewer and none of them is a whole page that exists to explain; otherwise
+`yes`. A book with no lesson anywhere is not the goal: one line that states a moral will not lose
+a reader, three pages of civics will. Write the line even when the sections above already say it.

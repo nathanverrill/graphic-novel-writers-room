@@ -121,6 +121,11 @@ ok, why = magic.analysis_verdict("VERDICT Young Americans: yes; Bill Reynolds: p
 assert not ok and "smells like school: yes" in why
 ok, why = magic.analysis_verdict("no verdict at all")
 assert not ok and why == ["no VERDICT line"]
+ok, why = magic.analysis_verdict("VERDICT Young Americans Center: yes; Bill Reynolds: partly; smells like school: no; school pages: 2")
+assert ok and "smells like school: no (2 pages)" in why, why
+assert magic.words("one two  three\nfour") == 4
+src = pathlib.Path("app/magic.py").read_text()
+assert 'if n > 1:\n            _round(slug, "coldread")' in src and "CUT PASS" in src, "the analysis loop reads cold again and cuts"
 assert magic.STEPS.index("analysis") == magic.STEPS.index("coldread") + 1 and "analysis" in magic.STOPS
 print("3e. the Analyst reads the pages with its briefing; the verdict holds both partners and the smell of school: ok")
 print("3. the pick comes from the report alone: ok")

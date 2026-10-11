@@ -1,7 +1,18 @@
 # Showrunner notes for this pass
 
-From the analyses of the fifth draft and of the room's last script. Each is a change to what
-happens on the page, not something for a character to explain.
+**The fifth draft is direction, not a draft.** `input/fifth-draft/` is the author's book as they
+imagined it: its premise, its people, its world and its ending are what this book is about. Its
+scenes, their order and its dialogue are not. Plan new scenes, find a new order where it serves,
+and write new dialogue; reuse a line from it only where nothing better exists. Keep:
+
+- Alex, seventeen, handed his missing father's debt, and the hidden workshop where Bi11bot wakes.
+- Ada, Grandmother, Tomas, Mera, Leona, Lock and the Halyard makers, as the people they are.
+- The three safeguards, the Measure, the Maker's Seal and the Covenant, learned by using them.
+- Adrian's fate, and why: Alpha closed the door, and Mera could not stop it.
+- The ending's choice: Alex refuses to concentrate power, in anyone, including himself.
+
+The changes below come from the analyses of the fifth draft and of the room's last script. Each
+is a change to what happens on the page, not something for a character to explain.
 
 1. **A debt owed to a person, and paid.** Somewhere in Keel, a named person fronts Alex
    something real: the medicine, the token, the parts. Alex can't pay on time. He goes to
