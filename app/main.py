@@ -19,7 +19,7 @@ from fastapi.responses import FileResponse, PlainTextResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages, render
+from . import intake, keys, lettering, llm, magic, mcp, notes, objectstore, openitems, phases, projects, prompts, review, room, rules, search, thumbnails, usage, voices, keypages, render, storydesk, riff
 from .config import AGENTS_DIR, AgentConfig, env
 from .agents import IMAGE_TYPES, SHARED, assets, get_role, load_roles, load_tools
 
@@ -136,6 +136,14 @@ def preproduction():
     happens - the open items, their options and where each one came from, what you answer,
     defer or say about the book. The one-button screen and the full room are untouched."""
     return FileResponse(STATIC / "preproduction.html")
+
+
+@app.get("/story")
+def story_page():
+    """The story desk: the outline as cards, the outline against the hero's journey or the
+    seven-point structure, and each character's visual lock beside its drawing - the book at a
+    high level, before you press run."""
+    return FileResponse(STATIC / "story.html")
 
 
 @app.get("/voices")
@@ -1302,3 +1310,141 @@ def render_pdf(slug: str, tag: str, kind: str):
     pages[0].save(buf, format="PDF", save_all=True, append_images=pages[1:], resolution=150)
     return Response(buf.getvalue(), media_type="application/pdf",
                     headers={"Content-Disposition": f'attachment; filename="{slug}-{tag}-{kind}.pdf"'})
+
+
+# ---- the story desk (app/storydesk.py) -----------------------------------------------------------
+
+def _sd(fn, *args, **kw):
+    try:
+        return not_found(fn, *args, **kw)
+    except storydesk.ConflictError as e:
+        raise HTTPException(409, str(e))
+    except RuntimeError as e:
+        raise HTTPException(502, str(e))
+
+
+class SectionBody(BaseModel):
+    hash: str
+    title: str = ""
+    body: str = ""
+    after: int = -1
+    level: int = 3
+    direction: int = 0
+
+
+@app.get("/api/projects/{slug}/story-desk")
+def story_desk(slug: str, desk: str | None = None, file: str = "story.md"):
+    """The desk the book is on (intake: pre-production; after: production), and one working file
+    as sections (the outline, by default)."""
+    phase = phases.state(slug)["phase"]
+    desk = desk or projects.desk_for(phase)
+    run = room.active_run(slug)
+    return {"phase": phase, "running": bool(run), **_sd(storydesk.outline, slug, desk, file)}
+
+
+@app.put("/api/projects/{slug}/story-desk/sections/{i}")
+def story_section_update(slug: str, i: int, body: SectionBody, desk: str = projects.PRE, file: str = "story.md"):
+    return _sd(storydesk.update_section, slug, desk, body.hash, i, body.title, body.body, file)
+
+
+@app.post("/api/projects/{slug}/story-desk/sections")
+def story_section_add(slug: str, body: SectionBody, desk: str = projects.PRE, file: str = "story.md"):
+    return _sd(storydesk.add_section, slug, desk, body.hash, body.after, body.level, body.title, body.body, file)
+
+
+@app.delete("/api/projects/{slug}/story-desk/sections/{i}")
+def story_section_delete(slug: str, i: int, hash: str, desk: str = projects.PRE, file: str = "story.md"):
+    return _sd(storydesk.delete_section, slug, desk, hash, i, file)
+
+
+@app.post("/api/projects/{slug}/story-desk/sections/{i}/move")
+def story_section_move(slug: str, i: int, body: SectionBody, desk: str = projects.PRE, file: str = "story.md"):
+    return _sd(storydesk.move_section, slug, desk, body.hash, i, body.direction, file)
+
+
+@app.get("/api/projects/{slug}/story-desk/structure/{framework}")
+def story_structure(slug: str, framework: str, desk: str = projects.PRE):
+    return _sd(storydesk.structure, slug, desk, framework)
+
+
+@app.post("/api/projects/{slug}/story-desk/structure/{framework}")
+def story_structure_check(slug: str, framework: str, desk: str = projects.PRE):
+    return _sd(storydesk.check_structure, slug, desk, framework)
+
+
+class LookBody(BaseModel):
+    name: str
+    hash: str = ""
+    text: str = ""
+    folder: str = ""
+    note: str = ""
+    file: str = ""
+
+
+@app.get("/api/projects/{slug}/story-desk/locks")
+def story_locks(slug: str, desk: str = projects.PRE):
+    return _sd(storydesk.locks, slug, desk)
+
+
+@app.put("/api/projects/{slug}/story-desk/locks/look")
+def story_look_save(slug: str, body: LookBody, desk: str = projects.PRE):
+    return _sd(storydesk.save_look, slug, desk, body.name, body.hash, body.text)
+
+
+@app.post("/api/projects/{slug}/story-desk/locks/compare")
+def story_lock_compare(slug: str, body: LookBody, desk: str = projects.PRE):
+    return _sd(storydesk.compare, slug, desk, body.name, body.folder)
+
+
+@app.post("/api/projects/{slug}/story-desk/locks/redraw")
+def story_lock_redraw(slug: str, body: LookBody, desk: str = projects.PRE):
+    return _sd(storydesk.redraw, slug, desk, body.name, body.note)
+
+
+@app.post("/api/projects/{slug}/story-desk/locks/keep")
+def story_lock_keep(slug: str, body: LookBody):
+    return _sd(storydesk.keep, slug, body.folder, body.file)
+
+
+@app.post("/api/projects/{slug}/story-desk/locks/discard")
+def story_lock_discard(slug: str, body: LookBody):
+    return _sd(storydesk.discard, slug, body.folder, body.file)
+
+
+@app.get("/api/projects/{slug}/story-desk/locks/{folder}/{name}")
+def story_lock_image(slug: str, folder: str, name: str):
+    return FileResponse(_sd(storydesk.lock_file, slug, folder, name), headers={"Cache-Control": "no-cache"})
+
+
+# ---- riff: brainstorm the draft, take ideas in section by section (app/riff.py) -----------------
+
+class RiffChat(BaseModel):
+    messages: list[dict]
+
+
+class RiffEdit(BaseModel):
+    file: str
+    section: str = ""
+    change: str = ""
+    new: bool = False
+    hash: str = ""
+    i: int = -1
+    title: str = ""
+    body: str = ""
+    level: int = 3
+    why: str = ""
+
+
+@app.post("/api/projects/{slug}/story-desk/riff")
+def riff_chat(slug: str, body: RiffChat, desk: str = projects.PRE):
+    return _sd(riff.chat, slug, desk, body.messages)
+
+
+@app.post("/api/projects/{slug}/story-desk/riff/propose")
+def riff_propose(slug: str, body: RiffEdit, desk: str = projects.PRE):
+    return _sd(riff.propose, slug, desk, body.file, body.section, body.change, body.new)
+
+
+@app.post("/api/projects/{slug}/story-desk/riff/accept")
+def riff_accept(slug: str, body: RiffEdit, desk: str = projects.PRE):
+    return _sd(riff.accept, slug, desk, body.file, body.hash, body.i, body.title, body.body, body.new, body.level, body.why)
