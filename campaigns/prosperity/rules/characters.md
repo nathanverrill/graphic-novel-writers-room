@@ -22,6 +22,10 @@ give way where they disagree.
 - **What that lets him do**, for example: leave his head behind as a camera to watch a place;
   drop his legs and slinky his body segments through a gap too tight for anyone else; reach into
   machinery, ducts and walls to fix what nobody can get at.
+- **His eyes change between the two times, quietly.** In 2043 (Issues 01 to 03) TJ's camera
+  lenses are plain scratched ceramic. In 2099 (Issue 00) his right eye has a small adjustable
+  brass lens ring: Bi11bot's ring, the one around Bi11bot's right eye in 2043. Draw it exactly
+  the same on both. Never explain it, never point a panel at it.
 - **He does not talk.** He is a dog: he communicates by body language, posture and sounds, never words.
 - He looks like what he is: salvaged, mismatched parts, visibly held together by magnets, a
   thing Bi11bot made by hand. He reads as a dog in every shape he takes.

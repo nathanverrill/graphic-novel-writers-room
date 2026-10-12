@@ -1,0 +1,20 @@
+{
+  "_why": "The last read before the pages: the book as its audience, its partner and its backer would meet it. The strongest model in the room, reading the pages only, the way the reception report on the fifth draft was read (debug/reception/). Low temperature: a verdict that holds from one run to the next.",
+  "_help": "Committed. Provider and model are usually set in the UI (⚙ Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "base_url": "https://openrouter.ai/api/v1",
+  "model": "anthropic/claude-opus-5.5",
+  "api_key_env": null,
+  "temperature": 0.3,
+  "max_tokens": 24000,
+  "max_steps": 4,
+  "timeout": 900,
+  "send_images": false,
+  "extra": {},
+  "generate_images": false,
+  "image_base_url": null,
+  "image_api_key_env": null,
+  "image_model": null,
+  "image_size": null,
+  "image_extra": {},
+  "tools": []
+}

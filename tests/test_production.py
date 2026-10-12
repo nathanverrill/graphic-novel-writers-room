@@ -15,15 +15,20 @@ slug = projects.create_project("Fast Book", "a pitch")
 
 # 1. the phases: the Letterer is out of execution and has a phase of its own, last
 ids = [p["id"] for p in phases.load()]
-assert ids == ["intake", "development", "drafts", "audition", "writing", "execution", "lettering"], ids
+assert ids == ["intake", "development", "drafts", "audition", "writing", "coldread", "analysis", "execution", "lettering", "presscheck"], ids
 assert phases.get("execution")["agents"] == ["layout", "continuity"]
+assert phases.get("coldread")["parallel"] == [["cold_reader", "cold_reader_b"]]
 assert phases.get("lettering")["agents"] == ["letterer"]
 assert phases.get("development")["parallel"] == [["plotter", "character_designer"]]
 assert phases.get("audition")["parallel"] == [["writer_a", "writer_b"]]
-phases.go_to(slug, "lettering")
-assert phases.approve(slug)["phase"] == "lettering", "approving the last phase keeps the book there"
+phases.go_to(slug, "presscheck")
+assert phases.approve(slug)["phase"] == "presscheck", "approving the last phase keeps the book there"
+phases.go_to(slug, "writing")
+assert phases.approve(slug)["phase"] == "coldread", "approving the script goes to the cold read"
+assert phases.approve(slug)["phase"] == "analysis", "approving the cold read goes to the analysis"
+assert phases.approve(slug)["phase"] == "execution", "approving the analysis goes to the pages"
 phases.go_to(slug, "intake")
-print("1. seven phases, the Letterer last, two parallel groups: ok")
+print("1. ten phases, the cold read and the analysis after the writing, three parallel groups: ok")
 
 # 2. the runner groups agents that run side by side, and keeps the order otherwise
 dev = phases.roles(slug, phases.get("development"))
@@ -48,6 +53,81 @@ w, why = magic.pick_from_first_read("no headings, but I would go on with writer 
 assert w == "writer_a"
 assert magic.pick_from_first_read("") == (None, None)
 assert not hasattr(magic, "ask_reader")
+# 3b. the cold read: verdict lines, issue starts, and the two rules
+script = "## Issue 01\n## Page 1 (right) — a\n## Page 2\n## Issue 02\n## Page 3\n"
+assert magic.issue_starts(script) == {1: 1, 2: 3}
+rep_a = "### The last page\nyes\n\nVERDICT Issue 01: put down: page 11; next issue: yes\nVERDICT Issue 02: put down: none; next issue: yes\n"
+rep_b = "VERDICT Issue 01: put down: page 1; next issue: no\nVERDICT Issue 02: put down: none; next issue: no\n"
+assert magic.verdicts(rep_a) == [(1, 11, True), (2, None, True)]
+won, why = magic.cold_verdict([("a", rep_a), ("b", rep_b)], {1: 1, 2: 3})
+assert not won and any("first page" in r for r in why) and any("after Issue 01" in r for r in why), why
+won, why = magic.cold_verdict([("a", rep_a)], {1: 1, 2: 3})
+assert won and why == ["a: won"], why
+won, why = magic.cold_verdict([("a", "no verdict here")], {1: 1})
+assert not won and "no VERDICT" in why[0]
+# no headings: the issue length splits the script; "(nearly)" is page 1; a missing issue is not a pass
+flat = "".join(f"## Page {n}\n" for n in range(1, 55))
+assert magic.issue_starts(flat) == {} and magic.issue_starts(flat, 18) == {1: 1, 2: 19, 3: 37}
+nearly = "VERDICT Issue 01: put down: page 1 (nearly); next issue: yes\nVERDICT Issue 02: put down: page 19; next issue: yes\nVERDICT Issue 03: put down: page 47; next book: no\n"
+assert magic.verdicts(nearly) == [(1, 1, True), (2, 19, True), (3, 47, False)]
+won, why = magic.cold_verdict([("k", nearly)], {1: 1, 2: 19, 3: 37})
+assert not won and why == ["k: put Issue 01 down on its first page", "k: put Issue 02 down on its first page"], why
+won, why = magic.cold_verdict([("o", "VERDICT Issue 02: put down: page 20; next issue: yes")], {1: 1, 2: 19, 3: 37})
+assert not won and "no VERDICT for Issue 01" in why[0], why
+print("3b. the cold read holds the script to the two rules: ok")
+# 3c. a campaign's own models, and a settings file a parallel reader never sees empty
+from app.agent import experiment_config
+assert experiment_config("moonshotai/kimi-k3") == {"model": "moonshotai/kimi-k3"}
+assert experiment_config({"model": "m", "thinking_budget": 4000, "api_key": "x", "base_url": "y"}) == {"model": "m", "thinking_budget": 4000}
+import threading as _th
+stop, bad = [False], []
+def _reader():
+    while not stop[0]:
+        try:
+            review.settings(slug)
+        except Exception as e:
+            bad.append(e)
+t = _th.Thread(target=_reader); t.start()
+for i in range(300):
+    review.save_settings(slug, auto_rounds=i % 3)
+stop[0] = True; t.join()
+assert not bad, bad[:1]
+print("3c. experiment models; settings written whole under a parallel reader: ok")
+from app import readers
+_t = "**Panel 4.** Water.\nALEX: Keep moving!\n**ISSUE QUESTION: Has she opened their route?**\nPAGE CHECK: x\nCAPTION: END OF THE FIRST MOVEMENT.\n"
+_o = readers.pages_only(_t)
+assert "ISSUE QUESTION" not in _o and "PAGE CHECK" not in _o and "FIRST MOVEMENT" in _o and "Keep moving" in _o, _o
+_t = "**Writers' Room Review – Draft v4.0**\n# Chapter One\n\n**Chapter Function**\n\n* Introduce the world.\n\n**Central Question**\n\n**Did Adrian abandon Alex?**\n\n## PAGE 1\n\nALEX: Hi.\n"
+_o = readers.pages_only(_t)
+assert "Introduce the world" not in _o and "Did Adrian" not in _o and "Draft v4.0" not in _o and "ALEX: Hi." in _o, _o
+_o = readers.pages_only("LOCK: A simple assignment of rights.\n**Locked words:** keep.\nLOCKED LAYOUT: grid.\n")
+assert "LOCK: A simple assignment" in _o and "keep" not in _o and "grid" not in _o, _o
+print("3d. a reader gets the captions, not the writer's questions to the room: ok")
+# 3e. the analysis: the Analyst reads as the audience does, gets its briefing, and holds the two rules
+analyst = {r.id: r for r in load_roles()}["analyst"]
+assert analyst.reader and analyst.minimal and analyst.briefing == "stakeholders.md"
+assert not {r.id: r for r in load_roles()}["writer_a"].reader
+rules_dir = projects.campaign_dir(slug) / projects.RULES
+rules_dir.mkdir(exist_ok=True)
+(rules_dir / "stakeholders.md").write_text("# Who must be satisfied")
+from app import readers
+assert readers.briefing(slug, "stakeholders.md") == "# Who must be satisfied"
+assert readers.briefing(slug, "missing.md") is None and readers.briefing(slug, None) is None
+ok, why = magic.analysis_verdict("...\nVERDICT Young Americans Center: partly; Bill Reynolds: yes; smells like school: no\n")
+assert ok, why
+ok, why = magic.analysis_verdict("VERDICT Young Americans Center: yes; Bill Reynolds: no; smells like school: no")
+assert not ok and "Bill Reynolds: no" in why
+ok, why = magic.analysis_verdict("VERDICT Young Americans: yes; Bill Reynolds: partly (the windfall); smells like schoolwork: yes")
+assert not ok and "smells like school: yes" in why
+ok, why = magic.analysis_verdict("no verdict at all")
+assert not ok and why == ["no VERDICT line"]
+ok, why = magic.analysis_verdict("VERDICT Young Americans Center: yes; Bill Reynolds: partly; smells like school: no; school pages: 2")
+assert ok and "smells like school: no (2 pages)" in why, why
+assert magic.words("one two  three\nfour") == 4
+src = pathlib.Path("app/magic.py").read_text()
+assert 'if n > 1:\n            _round(slug, "coldread")' in src and "CUT PASS" in src, "the analysis loop reads cold again and cuts"
+assert magic.STEPS.index("analysis") == magic.STEPS.index("coldread") + 1 and "analysis" in magic.STOPS
+print("3e. the Analyst reads the pages with its briefing; the verdict holds both partners and the smell of school: ok")
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting

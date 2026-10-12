@@ -78,3 +78,11 @@ Moved out so the campaign starts from a small set: `drafts/SCRIPT_DRAFT_AUG_23.m
 script draft), `rules/hard-sf-rules.md`, and `references/`. The Script Coordinator now builds
 `characters.md`, `world.md` and `story.md` from those, which is the job these files were
 cut by hand to do.
+
+## prosperity-drafts/fourth-draft-in-room/ — retired 2026-10-10
+
+The author's fifth draft (Oct 10, six chapters) replaces every earlier draft. These are the files
+the room was using before it: `drafts/` holds chapters 1-4 as the room had them (from the fourth
+draft and the chapter 3 PDF), and `input/` holds the characters, story and world extracted from
+the fourth draft. Nothing here is used going forward. The fifth draft is in
+`campaigns/prosperity/drafts/`, split by chapter, text unchanged.

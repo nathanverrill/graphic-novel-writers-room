@@ -716,3 +716,16 @@ _(decided 2026-09-25, about world.md)_
 Make Keel’s legacy ore a copper-zinc-lead-silver polymetallic body, with indium, gallium, germanium, antimony, or bismuth appearing as trace byproducts rather than treasure deposits. Keep lithium entirely in separate salar or DLE operations. [research] `(references/andean-hard-rock-futures.md; references/triangle-science.md)` — the room's recommendation, taken overnight
 
 _(decided 2026-09-25, about world.md)_
+
+## How do Alex, Ada, Bi11bot and TJ get from Keel to Halyard, and where does Issue 01 end?
+
+Not by train. The route goes down before it goes up: from Keel into the old mine works, then up inside the water conduit. The Measure has just proved the residential line carries less than Alpha records, so the pipe is big enough to climb and nobody watches it, because Alpha believes it is full. They go up inside the lie. TJ, built by Bi11bot at Site 6 earlier in the issue, goes first: he drops his legs to pass the narrow sections and leaves his head behind as a camera at the junction. The whole trio is in danger in a confined space, not sitting in a seat. The last page of Issue 01 is the pipe beginning to fill behind them: someone turned the water back on. That is a question about people, not a glove on a train. Mera opening the gate is the second-strongest crossing, and the two combine: she lets the water back on knowing exactly where they are. The watcher pressed TRACK, not REPORT; this is what she was tracking for.  `(story.md; world.md; characters.md; rules/showrunner-rules.md)`
+
+_(decided 2026-10-09, about story.md)_
+
+## How does Issue 02 open?
+
+Coming out of a storm drain in Halyard's maker district, wet, with the Measure, with no idea who let them through. The first page starts moving. Issue 02 is Halyard.  `(story.md)`
+
+_(decided 2026-10-09, about story.md)_
+

@@ -5,6 +5,8 @@ For each model and each page of layouts.md:
     art        the page packet's prompt (no text on the page), sent with reference images:
                the style plate (the book's look), the model's own lock of every character on
                the page, and - for a key page - the key page's art, to be close to it
+    checked    every drawing is looked over by artcheck (fingers, limbs, faces, clones, text,
+               characters off their locks) and redrawn with the problems named, up to three tries
     lettered   written only when asked (letter_pages, from /letter or the renders screen):
                the room's lettering layer (lettering.py) composited over that same art, so
                the words are exactly what the showrunner placed and art never changes
@@ -30,7 +32,7 @@ import time
 import urllib.error
 import urllib.request
 
-from . import keypages, keys, lettering, projects, prompts, thumbnails
+from . import artcheck, keypages, keys, lettering, projects, prompts, thumbnails
 
 MODELS = {"gemini": "google/gemini-3.1-flash-image", "sunburst": "openai/gpt-image-2.5-sunburst"}
 OPENROUTER = "https://openrouter.ai/api/v1"
@@ -187,11 +189,13 @@ def page(slug, tag, spec, ctx, key):
     refs = references(slug, tag, spec, ctx)
     _update(slug, tag, n, state="drawing", refs=[str(p.name) for _, p in refs], started=time.time())
     try:
-        art, cost = generate(MODELS[tag], prompt_for(spec, ctx, refs), refs, key)
+        art, report, cost = artcheck.draw_checked(lambda text, r: generate(MODELS[tag], text, r, key),
+                                                  prompt_for(spec, ctx, refs), refs, key, lettered=False)
         d = folder(slug, tag, "art")
         d.mkdir(parents=True, exist_ok=True)
         (d / f"p{n:02d}.png").write_bytes(art)
-        _update(slug, tag, n, state="done", cost=cost, seconds=round(time.time() - _page_started(slug, tag, n)), error=None)
+        _update(slug, tag, n, state="done", cost=cost, seconds=round(time.time() - _page_started(slug, tag, n)), error=None,
+                check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
     except Exception as e:      # noqa: BLE001 - one page failing never stops the book
         _update(slug, tag, n, state="failed", error=str(e)[:400])
 

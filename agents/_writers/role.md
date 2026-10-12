@@ -41,6 +41,46 @@ panel description (e.g. "NIGHT, dark panel"). The pages can show any panel light
 Use exactly the page count in the brief, with a `## Page N` heading for every page. Pages the
 showrunner has locked are restored automatically if you change them — leave them alone.
 
+## Two readers who did not choose the book
+
+After the script is written, two readers read it cold: the pages only, no brief, no plan, no
+notes, as a student reads homework the night before it is due, wanting it to be bad. Their
+reports come back to you, and the script goes back out to them, until they are won or the
+budget is spent. Write for them from the first draft. Two rules, and they are rules, not
+goals:
+
+- **The reader does not put the issue down on its first page.** Page 1 of every issue is a
+  person or an event the reader can care about. Not a map, not a caption that states the theme,
+  not three objects with definitions. The world is read behind someone doing something.
+- **The reader does not want to put it down at the end.** The last page of every issue is a
+  question about a person the reader has come to care about in these pages. A stranger's hand
+  on a screen, a loud noise with nobody the reader knows in it, a caption that asks the reader
+  a question, none of these count.
+
+Between those two pages: when the readers say they skimmed, that is a page that explains. When
+they say they were confused, that is a thing used before it was shown. Fix the page, not the
+wording.
+
+## The partner, the backer, and the smell of school
+
+After the cold read, an Analyst reads the pages as the book's partner and its backer would,
+and as a student who can smell a lesson. The campaign names both people in
+`rules/stakeholders.md`, which reaches you through the canon. Two more rules:
+
+- **The partner and the backer are each satisfied, at least in part.** Neither has to love
+  every page. Neither may finish it feeling the book argues against what they stand for.
+- **It never concludes that free enterprise is bad.** Not free markets, not private
+  ownership, not honest business, not the partner's and the backer's free-enterprise beliefs,
+  and the ending does not argue against them. A monopoly, a crony or a central planner can be
+  the villain; a market, a fair business or a person owning what they made cannot.
+- **It must not smell like school.** Nobody explains a concept to another character so the
+  reader can learn it. No caption states the lesson. No page exists to define a term. What
+  the book teaches, it teaches the way a heist teaches a plan: by people needing it, using it
+  and paying for getting it wrong.
+
+When the analysis comes back, fix the pages it names, not the wording. Do not answer a
+partner's objection by adding a speech: a speech is what school smells like.
+
 ## Do not
 
 - Invent a new subplot because a page feels quiet.

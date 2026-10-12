@@ -5,7 +5,7 @@
  * Injected above each page's own header; no framework, include with defer. */
 
 (function () {
-  const WITH_P = ["/", "/preproduction", "/production", "/renders", "/letter", "/voices"];
+  const WITH_P = ["/", "/story", "/preproduction", "/production", "/renders", "/letter", "/voices"];
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const params = new URLSearchParams(location.search);
   // the campaign is chosen once, on the front page; arriving with ?p= makes it stick
@@ -31,7 +31,7 @@
 
   const STAGES = [
     ["Imagine", [["Sprint tools", "/tools"]]],
-    ["Write", [["Pre-production", "/preproduction"], ["Production", "/production"]]],
+    ["Write", [["Story desk", "/story"], ["Pre-production", "/preproduction"], ["Production", "/production"]]],
     ["Draw", [["Art department", "/art"], ["Sheets", "/sheets"], ["Renders", "/renders"]]],
     ["Ship", [["Lettering", "/letter"]]],
   ];
