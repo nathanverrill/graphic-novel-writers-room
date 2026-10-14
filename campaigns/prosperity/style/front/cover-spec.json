@@ -1,0 +1,74 @@
+{
+ "page": 0,
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "location",
+   "text": "Year 2043.",
+   "x": 50,
+   "y": 4,
+   "place": "exact"
+  },
+  {
+   "panel": 1,
+   "type": "location",
+   "text": "OASIS",
+   "x": 12,
+   "y": 14,
+   "place": "exact"
+  },
+  {
+   "panel": 1,
+   "type": "caption",
+   "text": "What if everyone you've trusted has a secret?",
+   "x": 84,
+   "y": 14,
+   "place": "exact",
+   "w": 24
+  },
+  {
+   "panel": 1,
+   "type": "location",
+   "text": "HALYARD",
+   "x": 12,
+   "y": 40,
+   "place": "exact"
+  },
+  {
+   "panel": 1,
+   "type": "caption",
+   "text": "Who really owns what we create?",
+   "x": 84,
+   "y": 40,
+   "place": "exact",
+   "w": 24
+  },
+  {
+   "panel": 1,
+   "type": "location",
+   "text": "KEEL",
+   "x": 12,
+   "y": 66,
+   "place": "exact"
+  },
+  {
+   "panel": 1,
+   "type": "caption",
+   "text": "Where does all our water go?",
+   "x": 84,
+   "y": 66,
+   "place": "exact",
+   "w": 24
+  }
+ ]
+}
