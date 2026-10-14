@@ -1,0 +1,7 @@
+# Showrunner rules
+
+- **Always:** This campaign is ONLY the four-page prologue of Prosperity, "The Wall" (about 2070), exactly as rules/decisions.md breaks it down page by page and panel by panel. Exactly 4 pages. Keep its dialogue word for word, and its panels in its order. Do not add scenes, characters, chapters or exposition, and do not write any of Chapter 1 beyond the last panel's transition.
+- **Always:** It is not a dystopia: warm, ordinary, comfortable and earned. No co-op, collective or giveaway anywhere.
+- **Always:** Young Americans Center and Bill Reynolds (rules/stakeholders.md) can each see, on the wall and never in a line of dialogue, that the story ends where they want: earned success, ownership written down, independent businesses licensing and competing, a failure that taught something, and a debt paid back in full. Nothing explains a lesson; nothing names them.
+- **Always:** Characters: Alex in his mid-40s, grey at the temples, plain sweater, Adrian's old steel watch on his left wrist; his daughter, about 9. In the last panel only, Alex at seventeen in Keel's pump hall. Lina, Suri, Jalen and Ren appear only in a framed photo, unnamed. TJ, Bi11bot and everyone else do not appear.
+- **Always:** Art: every panel has one clear focus. Backgrounds stay simple unless the busyness tells the story. Detail goes on faces, hands, and the object that matters (the clippings, the frames, the sketch, the watch). Clippings and framed text are part of the art layer only where the decisions quote them; all dialogue is lettered.

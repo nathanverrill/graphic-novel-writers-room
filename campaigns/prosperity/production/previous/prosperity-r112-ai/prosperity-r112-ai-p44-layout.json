@@ -1,0 +1,68 @@
+{
+  "page": 44,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Lina places the worn bronze Maker's Seal in Alex's palm. Their hands and the open-hand symbol dominate; leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex sets the Seal beside the purifier's registry tag while Suri's hand enters from one side and Ren's hand from the other. Do not show full additional bodies; leave the upper band clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The registry screen lists all five named contributors and separates attribution from exclusive claim. Keep the display unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri presses the public-release control while Ren watches from beside the machine; Alex is visible only as a hand holding the Seal at frame edge. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "It records who made this. It doesn\u2019t make you owner of us.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TUNK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "NAMED CONTRIBUTORS: LINA VEY / SURI ANIK / JALEN ORR / REN OKAFOR / ALEX PHANTUM\nEXCLUSIVE CLAIM: PENDING REVIEW",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "DESIGN: PUBLIC / NONEXCLUSIVE",
+      "at": "top"
+    }
+  ]
+}

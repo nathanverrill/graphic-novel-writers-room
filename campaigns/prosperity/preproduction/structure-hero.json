@@ -1,0 +1,163 @@
+{
+ "summary": "Chapters 1\u20133 follow the journey closely and well. The Keel world, the call, the mentors, the threshold and the tests are all clear, dramatized and driven by Alex's own choices. The biggest gap is the back half: Chapters 4\u20136 are unsettled drafts in which Alex mostly watches the ordeal as a memory, nothing chases him on the road back, and his final choice costs him nothing.",
+ "score": 72,
+ "stages": [
+  {
+   "id": "ordinary",
+   "rating": "strong",
+   "beats": [
+    "Issue 00 Prologue \u2014 Lake Keel, 2099",
+    "Chapter 1, Page 1 \u2014 The three cities and the water question",
+    "Page 2 \u2014 Debt transfer",
+    "Page 3 \u2014 Two different dreams",
+    "Page 4 \u2014 What people told Alex"
+   ],
+   "where": "Chapter 1, Pages 1\u20134",
+   "note": "Keel's scarcity, Alex's skill with machines, his wish to leave and his missing father are all shown through the pump hall, the public debt display, Ada's two mugs and the folded photograph. The prologue's future frame adds a hook without crowding the ordinary world.",
+   "suggestion": ""
+  },
+  {
+   "id": "call",
+   "rating": "strong",
+   "beats": [
+    "Page 2 \u2014 Debt transfer",
+    "Page 5 \u2014 The old book",
+    "Page 6 \u2014 The hidden workshop",
+    "Page 10 \u2014 Adrian's message",
+    "Page 11 \u2014 The first waypoint"
+   ],
+   "where": "Chapter 1, Pages 2\u201311",
+   "note": "The debt transfer creates the pressure. The workshop, Adrian's message and the map turn that pressure into a concrete quest. Adrian's 'what you do with it is your choice' makes the call clear.",
+   "suggestion": ""
+  },
+  {
+   "id": "refusal",
+   "rating": "thin",
+   "beats": [
+    "Page 11 \u2014 The first waypoint",
+    "Page 5 \u2014 The cost and plan"
+   ],
+   "where": "Chapter 1, Page 11; Chapter 2, Page 5",
+   "note": "Alex wants out of Keel, so he is eager rather than reluctant. His only hesitation is skepticism ('theory versus evidence'), and he presses the node one panel later. Putting Grandmother first in Chapter 2 is a constraint, not a refusal. An eager hero can work here, but the outline misses a cheap chance to show the fear that he might repeat Adrian's failures.",
+   "suggestion": "Add a short beat in which Alex nearly walks away because following Adrian looks like the same gamble that left Grandmother alone. Ada or Grandmother's line 'He's closer than you think' can then turn him."
+  },
+  {
+   "id": "mentor",
+   "rating": "strong",
+   "beats": [
+    "Page 8 \u2014 Bi11bot wakes",
+    "Page 9 \u2014 Adrian's witness",
+    "Page 10 \u2014 Adrian's message",
+    "Page 7 \u2014 Tomas trusts him",
+    "Page 8 \u2014 The old entrance"
+   ],
+   "where": "Chapter 1, Pages 8\u201310; Chapter 2, Pages 7\u20138",
+   "note": "Bi11bot is a witness and a guide who refuses to choose for Alex. Adrian's recording gives 'Question everything. Especially me.' Tomas gives a real key and makes a real sacrifice. Bi11bot's required mistake is still unplaced, and it would deepen this stage.",
+   "suggestion": ""
+  },
+  {
+   "id": "threshold",
+   "rating": "strong",
+   "beats": [
+    "Page 8 \u2014 The old entrance",
+    "Page 15 \u2014 The train to Halyard"
+   ],
+   "where": "Chapter 2, Pages 8 and 15",
+   "note": "There are two clear crossings. First, the sweating iron door shuts and the wristband signal is lost. Then the fixed train ride through the rail gate takes Alex out of Keel for good. The workshop door in Chapter 1, Page 6 is a good early echo of both.",
+   "suggestion": ""
+  },
+  {
+   "id": "tests",
+   "rating": "strong",
+   "beats": [
+    "Page 6 \u2014 Site 6 and the accident",
+    "Page 9 \u2014 Evidence in the old works",
+    "Page 11 \u2014 What the Measure does and Alex's choice",
+    "Page 12 \u2014 Alex publishes the truth",
+    "Page 13 \u2014 Keel responds",
+    "Page 3 \u2014 Lock's first offer",
+    "Page 5 \u2014 Lina Vey",
+    "Page 6 \u2014 Suri Anik",
+    "Page 7 \u2014 Jalen Orr",
+    "Page 8 \u2014 Ren Okafor",
+    "Page 9 \u2014 The design fails"
+   ],
+   "where": "Chapter 2, Pages 6\u201313; Chapter 3, Pages 1\u20139",
+   "note": "This is the outline's best stretch. Each test is a costly choice, and the new rules (Alpha's survey versus physical evidence, House ownership) are shown through action. Allies are given distinct motives, and Lock is a credible, non-cartoon opponent.",
+   "suggestion": ""
+  },
+  {
+   "id": "approach",
+   "rating": "thin",
+   "beats": [
+    "Page 10 \u2014 Lock's second offer",
+    "Page 12 \u2014 The five",
+    "Page 16 \u2014 Mera's direct connection",
+    "Chapter 4 \u2014 The Broken Covenant",
+    "Chapter 5 \u2014 The Last Bet"
+   ],
+   "where": "Chapter 3, Pages 10\u201316; Chapters 4\u20135 (draft)",
+   "note": "Chapter 3's countdown tightens tension well, but only for that chapter's mini-climax. At book level, the approach to Oasis is unsettled draft material. Chapter 4 centres on Ada and Leona, while Alex mostly stands outside the scene. The descent below Oasis is a guided tour from Mera rather than a dangerous approach.",
+   "suggestion": "Make the trip below Oasis into Alex's own risky move against Alpha's routing, with clearance about to expire. That way he chooses to enter the station rather than being escorted there."
+  },
+  {
+   "id": "ordeal",
+   "rating": "thin",
+   "beats": [
+    "Chapter 5 \u2014 The Last Bet",
+    "Page 12 \u2014 Alex publishes the truth",
+    "Page 14 \u2014 The Maker's Seal"
+   ],
+   "where": "Chapter 5 (draft); strong mini-ordeals at Chapter 2, Page 12 and Chapter 3, Page 14",
+   "note": "The father's death in the sealed room is the right symbolic death. However, Alex only watches a reconstructed memory, and nothing is at risk for him in the present. The real crises Alex lives through come earlier: publishing the evidence and the Charter House review. Both are smaller than this beat should be.",
+   "suggestion": "Put Alex in Adrian's last room under live danger. For example, Alpha reseals the door and the water rises again, so Alex must choose not to 'calculate a way out' as his father did and get out through trust in Ada and Bi11bot instead."
+  },
+  {
+   "id": "reward",
+   "rating": "strong",
+   "beats": [
+    "Chapter 5 \u2014 The Last Bet",
+    "Chapter 4 \u2014 The Broken Covenant",
+    "Page 14 \u2014 The Maker's Seal"
+   ],
+   "where": "Chapters 3\u20135",
+   "note": "Alex gains a clear truth: 'what I actually inherited was a decision he made, not an answer he left.' He also gains the linked Covenant bands and the Seal, earned through acknowledged contribution. The truth reward is earned and well phrased.",
+   "suggestion": ""
+  },
+  {
+   "id": "road_back",
+   "rating": "missing",
+   "beats": [],
+   "where": "Between Chapter 5 and Chapter 6 (draft)",
+   "note": "After the reveal in the station, the outline cuts straight to the artifacts in the civic hall. Alpha does not react, and nothing threatens Keel, Grandmother or the collaborators. Chapter 3, Page 15 has a good local version, but the book has no final chase toward home.",
+   "suggestion": "Have Alpha begin running Mera's four steps (surveillance, financial restriction, public liability, pursuit) on Alex, Ada, Tomas or Keel's water. The danger that broke Adrian then chases his son into the civic hall."
+  },
+  {
+   "id": "resurrection",
+   "rating": "thin",
+   "beats": [
+    "Chapter 6 \u2014 The Fourth Choice",
+    "Alex refuses the authority"
+   ],
+   "where": "Chapter 6 (draft)",
+   "note": "The concept is strong. Alex is tempted, imagines everything he could fix, refuses, and builds his answer from all three artifacts, with Ada catching his two-person fallback. But the test has no pressure and no price. Nobody is fighting him in the hall, and the required visible cost (Open item 8) is unset.",
+   "suggestion": "Attach a real, immediate cost to refusing, such as losing the travel clearance or failing to protect Grandmother tonight. Keep the road-back threat live in the room so the refusal is made under pressure."
+  },
+  {
+   "id": "elixir",
+   "rating": "thin",
+   "beats": [
+    "Chapter 6 \u2014 The Fourth Choice",
+    "Ending",
+    "Issue 00 Prologue \u2014 Lake Keel, 2099"
+   ],
+   "where": "Chapter 6 (draft); Issue 00 frame",
+   "note": "The return is grounded and honest: the debt has fallen to 402,110, records are public, Tomas reviews the numbers and Grandmother sets down the cloth. The prologue shows the long-term elixir up front, which is a deliberate inversion that works. Two gaps remain. The cloudy-water problem from Chapter 3 is never paid off in Keel, and the required scene of someone rigging a decision and being caught (Open item 9) is missing.",
+   "suggestion": "In the Keel return, show one small business's purifier on a Keel tap next to Ada's mug. Then show residents using the open records to catch an attempted rigging on the page."
+  }
+ ],
+ "story_hash": "c8454c1dede7",
+ "model": "anthropic/claude-opus-5.5",
+ "cost": 0.227112,
+ "checked": 1792005117.4495478
+}

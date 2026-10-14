@@ -1,0 +1,68 @@
+{
+  "page": 32,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Blue-white lines cross from the analog gauge to the official data line through the Measure. Keep the upper instrument clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The Measure's readout displays the same rolling thirty-day period and the 62 percent reported versus 18 percent physically delivered figures. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada studies the readout beside the old pipe. Keep the upper display clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The Measure traces the missing flow through the industrial uplink toward Halyard. Keep the upper pipe route clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ROLLING PERIOD: 30 DAYS\nREPORTED TO KEEL: 62%\nPHYSICALLY DELIVERED: 18%",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Same period?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Same water.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "ROUTE: INDUSTRIAL DIVERSION.",
+      "at": "top"
+    }
+  ]
+}

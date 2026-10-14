@@ -1,0 +1,61 @@
+{
+  "page": 53,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In an old monitoring station, Alex and B11 stand with Mera before a sealed archive door. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Mera opens the archive; her old override request is rejected on a physical display. Keep the display clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The archive lists travel restriction, financial restriction and pursuit active. Leave the status field unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Mera's hand leaves the control while Alex watches. Reserve upper space for her line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "OVERRIDE REQUEST: MERA VALE\nTARGET: ALPHA PURSUIT OF ADRIAN PHANTUM\nSCOPE EXCEEDED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "TRAVEL RESTRICTION\nFINANCIAL RESTRICTION\nPURSUIT ACTIVE",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "I could not stop it.",
+      "at": "top-left"
+    }
+  ]
+}

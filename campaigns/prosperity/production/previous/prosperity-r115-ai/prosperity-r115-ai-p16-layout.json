@@ -1,0 +1,63 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Grandmother's Keel apartment. The medicine sits beside her cup as she gives Alex a worn notebook. Ada stands nearby but remains secondary; leave upper room space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The notebook lies open to paper plans with a water-drop mark repeating every third junction. Keep the marks clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex places the casino chip over the plan; the etched loops align with the junction marks. Leave upper paper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada studies the bookcase while Alex turns toward her. The ordinary bookcase should visibly conceal a seam; leave upper space for her line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He said you\u2019d know when you were ready.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He said that about everything.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That isn\u2019t a bookcase.",
+      "at": "top-left"
+    }
+  ]
+}

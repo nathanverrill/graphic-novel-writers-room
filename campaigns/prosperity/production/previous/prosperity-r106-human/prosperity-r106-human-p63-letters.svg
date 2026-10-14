@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 63</text>
+<g data-item="0">
+<rect x="41" y="109" width="426" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="254" y="133" font-size="18" fill="#111">MORROW &amp; SONS LINA VEY · SURI ANIK ·</text>
+<text x="254" y="155" font-size="18" fill="#111">JALEN ORR · REN OKAFOR · ALEX PHANTUM</text>
+</g>
+<g data-item="1">
+<rect x="46" y="872" width="415" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="254" y="896" font-size="18" fill="#111">MEDICINE ADVANCE: PAID WEEKLY TERMS:</text>
+<text x="254" y="917" font-size="18" fill="#111">COMPLETE</text>
+</g>
+<g data-item="2">
+<polygon points="128,1411 128,1377 191,1394" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="1394" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="1389" font-size="19" fill="#111">TOOK YOU</text>
+<text x="128" y="1412" font-size="19" fill="#111">LONG ENOUGH.</text>
+</g>
+<g data-item="3">
+<polygon points="379,1377 379,1411 316,1394" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="379" cy="1394" rx="76" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="379" y="1389" font-size="19" fill="#111">YOU KEPT</text>
+<text x="379" y="1412" font-size="19" fill="#111">COUNTING.</text>
+</g>
+<g data-item="4">
+<rect x="534" y="872" width="426" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="896" font-size="18" fill="#111">DEBT BALANCE: 402,110 CREDITS TRAVEL:</text>
+<text x="746" y="917" font-size="18" fill="#111">ELIGIBLE FOR PUBLIC REVIEW</text>
+</g>
+</g>
+</svg>

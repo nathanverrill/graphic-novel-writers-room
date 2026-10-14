@@ -1,0 +1,77 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "TJ's head crosses the lake while his body and legs travel along a half-submerged maintenance rail; the tanker hose churns behind him. Leave upper water clear for the sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Two thieves monitor the hose on the tanker barge, with dry terraces behind them. Leave upper third clear for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ's head angles toward a drone intake. Leave space above for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Alex and his granddaughter stand deliberately in the sweep of the tanker lamps on shore. Leave upper corners clear for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "SHHHRRRR",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "Keep the pull low.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 2",
+      "text": "Clean water doesn\u2019t stay unclaimed.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "They can see us.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Good.",
+      "at": "top-right"
+    }
+  ]
+}

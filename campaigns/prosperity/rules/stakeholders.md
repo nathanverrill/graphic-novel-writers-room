@@ -40,6 +40,40 @@ running a simulated town, with paychecks, deposits and business loans), Internat
   gambling made glamorous for minors; partisan cues in either direction; anything that gets
   how accounts, loans or credit work wrong. They are a real bank.
 
+### Their reaction to the fifth draft (October 2026)
+
+They read the fifth draft and said, in their own words (input/customer-v5-notes.md): "As it
+stands, I cannot ethically present this to any student associated with Young Americans." What
+they named, in their order:
+
+- The lettering is "REALLY hard to see," with typos, and the art is obviously AI-generated,
+  which high-school students dislike.
+- The plot is "mostly good, but it is extremely hard to follow."
+- "There is no mention of water in the first chapter," so missions about water feel random.
+- Too little setting: the three cities, Keel's problems, the Water Wars, "only mentioned
+  casually in passing."
+- "The First Waypoint" is unclear: "what's he trying to do?"
+- Chapter 2 assumes the reader knows what Alpha is. The Three Safeguards are "a really cool
+  concept" but they cannot tell how they work, or whether there is magic.
+- "Riddle-style prose" makes it hard to stay engaged; the mine scenes are too technical.
+- "The Lie" is fragmented; the released water looks wasted; nobody can say why everyone
+  leaves that night; "The Train" is unreadable.
+- Chapter 3: the Halyard families and the collaborators need origins, reasons and talents;
+  water purity arrives too late.
+- "At the end of Chapter 3, we start veering back into the realm of altruism over
+  capitalism... We teach about the importance of profit and protecting intellectual property."
+
+This is the partner's actual reaction, not a prediction. Read a later draft against it.
+
+### Their further comments on Chapter 3 (October 2026)
+
+Passed on in Bob's Chapter 3 notes (input/bob-chapter-3-v5-notes.md):
+
+- The collaborators' decisions to join Alex "should involve professional judgment, ambition,
+  loyalty to former colleagues, and personal risk."
+- Water scarcity and water contamination are different problems, and both should be on the
+  page before Chapter 3.
+
 ## Bill Reynolds (the backer)
 
 Born in Boulder in 1938. Naval officer, then a real-estate developer who started with no salary

@@ -1,0 +1,84 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Nera tightens the siphon coupling while Voss notices movement beneath the rail. Leave upper deck space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ's head catches the siphon housing; the casing strains around his magnetic parts. Leave upper water space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter reaches for an emergency radio; older Alex stops her hand while keeping his eyes on the barge. Leave upper dock space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Rotating shutters close around TJ's head inside the siphon housing. Keep the amber lens visible and leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "Pressure\u2019s good.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "Something\u2019s under us.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "GRRNNNK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "We can call the wardens.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not yet.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Let him show us where it goes.",
+      "at": "top-left"
+    }
+  ]
+}

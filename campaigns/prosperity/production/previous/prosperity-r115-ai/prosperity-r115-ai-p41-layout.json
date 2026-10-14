@@ -1,0 +1,49 @@
+{
+  "page": 41,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Rented maker room. Alex and Lina align the folded membrane sleeve, routing shard and salvaged heat exchanger on a crowded workbench; Suri, Jalen and Ren remain off-panel. Leave upper third clear for the coming failure."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "The assembled purifier components shudder on the bench, clamps vibrating and indicator lights flickering. Keep the machine dominant and leave upper space for sound lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri reaches in and pulls the living biofilter vial away from the failing assembly while Alex steadies the casing. Keep only Alex and Suri visible; leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Jalen's hand kills the power cycle at the routing shard while Ren's gloved hand catches the loose heat connector at frame edge. Do not show their full bodies; leave upper band clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KUMM\u2014KUMM",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

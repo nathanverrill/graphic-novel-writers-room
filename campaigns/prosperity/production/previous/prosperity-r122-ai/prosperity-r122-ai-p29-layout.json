@@ -1,0 +1,62 @@
+{
+  "page": 29,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex removes a corroded cover beneath the misleading gauge. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The compact brass Measure rests inside; its three arms unfold. Leave upper space for the inscription."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex lifts the Measure while Ada watches the engraved collar. Leave upper chamber space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The instrument rejects the official data line, then locks onto the analog gauge. Leave upper display space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "WHAT IS NOT MEASURED CAN BE MADE INVISIBLE",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It needs both.",
+      "at": "top-left"
+    }
+  ]
+}

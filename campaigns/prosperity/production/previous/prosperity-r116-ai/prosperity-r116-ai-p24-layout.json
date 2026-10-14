@@ -1,0 +1,76 @@
+{
+  "page": 24,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "At Site 6, Tomas lies pinned beneath a collapsed hauling frame. Alex stands just outside the painted assignment boundary; leave upper machinery space for the groan."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's identity band flashes the wage-forfeiture warning. Keep his wrist and the boundary stripe clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas looks toward Alex from beneath the frame, trying to dismiss the danger. Leave upper space for his line."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "Alex crosses the painted boundary and wedges a pry bar under the frame. Make the cause-and-effect silhouette clear and leave upper space for the alarm."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GROANNN",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LEAVING ASSIGNED ZONE \u2014 WAGE FORFEITED: \u221240 CR",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "It can wait.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BEEP",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

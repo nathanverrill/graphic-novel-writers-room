@@ -1,0 +1,120 @@
+{
+  "pages": 4,
+  "phase": "execution",
+  "magic": {
+    "status": "done",
+    "step": "final",
+    "until": "final",
+    "error": null,
+    "stop": false,
+    "started": "2026-10-14T21:34:30",
+    "finished": "2026-10-14T21:42:19",
+    "choices": [
+      {
+        "t": 1792013778.6305711,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r08-ai"
+      },
+      {
+        "t": 1792013868.3984783,
+        "step": "audition",
+        "what": "Picked Writer B.",
+        "why": "The report did not conclude plainly; the last version it named.",
+        "round": "r09-ai"
+      },
+      {
+        "t": 1792013925.6508992,
+        "step": "writing",
+        "what": "Approved the script as written.",
+        "why": "The whole book, in the picked writer's voice.",
+        "round": "r10-ai"
+      },
+      {
+        "t": 1792013980.1528466,
+        "step": "coldread",
+        "what": "Both readers won on read 1.",
+        "why": "cold-read.md: won; cold-read-b.md: won",
+        "round": "r11-ai"
+      },
+      {
+        "t": 1792014064.1071606,
+        "step": "analysis",
+        "what": "The analysis passed on read 1, and both cold readers are won.",
+        "why": "Young Americans Center: partly; Bill Reynolds: yes; smells like school: no (0 pages)",
+        "round": "r12-ai"
+      },
+      {
+        "t": 1792014139.9440181,
+        "step": "final",
+        "what": "Finalized the book.",
+        "why": "Every page as the last round left it.",
+        "round": "r14-final"
+      }
+    ],
+    "log": [
+      {
+        "t": 1792013670.687553,
+        "text": "Production starts at Development, running to final."
+      },
+      {
+        "t": 1792013670.7040668,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md."
+      },
+      {
+        "t": 1792013670.9295728,
+        "text": "Round r08-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1792013778.8130522,
+        "text": "Round r09-ai: audition, Writer A, Writer B, First Reader."
+      },
+      {
+        "t": 1792013868.400159,
+        "text": "Audition: picked Writer B - The report did not conclude plainly; the last version it named."
+      },
+      {
+        "t": 1792013868.5840287,
+        "text": "Round r10-ai: writing, Writer B, Continuity Editor."
+      },
+      {
+        "t": 1792013925.7857084,
+        "text": "Round r11-ai: cold read, Cold Reader, Second Cold Reader."
+      },
+      {
+        "t": 1792013980.1554549,
+        "text": "Cold read 1: both readers won. cold-read.md: won; cold-read-b.md: won"
+      },
+      {
+        "t": 1792013980.3402827,
+        "text": "Round r12-ai: analysis, Analyst."
+      },
+      {
+        "t": 1792014064.110013,
+        "text": "Analysis 1: passed. Young Americans Center: partly; Bill Reynolds: yes; smells like school: no (0 pages)"
+      },
+      {
+        "t": 1792014064.3526347,
+        "text": "Round r13-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1792014139.6166887,
+        "text": "Pages: ready after round 1 of layouts."
+      },
+      {
+        "t": 1792014139.946244,
+        "text": "Finalized as r14-final."
+      },
+      {
+        "t": 1792014139.9509315,
+        "text": "The book is done. The page packets are ready to paste into an image model; upload the art it draws and run the lettering."
+      }
+    ],
+    "written_for_page1": false,
+    "run": "c0244e22ec24",
+    "round": "r13-ai"
+  },
+  "scope": 0,
+  "writer": "writer_b"
+}

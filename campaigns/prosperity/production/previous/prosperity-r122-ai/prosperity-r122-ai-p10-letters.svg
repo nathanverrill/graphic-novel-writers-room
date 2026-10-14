@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 10</text>
+<g data-item="0">
+<polygon points="230,295 263,286 373,774" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="246" cy="290" rx="93" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="246" y="262" font-size="19" fill="#111">YOU REALLY</text>
+<text x="246" y="285" font-size="19" fill="#111">DON’T KNOW</text>
+<text x="246" y="308" font-size="19" fill="#111">WHO OWNS THE</text>
+<text x="246" y="332" font-size="19" fill="#111">WATER?</text>
+</g>
+<g data-item="1">
+<polygon points="737,286 770,295 627,774" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="754" cy="290" rx="82" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="754" y="262" font-size="19" fill="#111">I KNOW WHO</text>
+<text x="754" y="285" font-size="19" fill="#111">KEEPS</text>
+<text x="754" y="308" font-size="19" fill="#111">SHOWING UP</text>
+<text x="754" y="332" font-size="19" fill="#111">FOR IT.</text>
+</g>
+<g data-item="2">
+<polygon points="483,774 517,774 500,1015" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="500" cy="774" rx="82" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="500" y="768" font-size="19" fill="#111">THAT ISN’T</text>
+<text x="500" y="792" font-size="19" fill="#111">AN ANSWER.</text>
+</g>
+<g data-item="3">
+<polygon points="483,867 517,867 500,1062" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="500" cy="867" rx="40" ry="29" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="500" y="874" font-size="19" fill="#111">NO.</text>
+</g>
+</g>
+</svg>

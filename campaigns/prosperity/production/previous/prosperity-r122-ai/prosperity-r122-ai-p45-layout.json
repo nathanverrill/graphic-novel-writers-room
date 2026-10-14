@@ -1,0 +1,69 @@
+{
+  "page": 45,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The train climbs into Oasis: pearl-white architecture, broad reservoirs, geometric gardens and quiet automated transit. Leave upper city space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada scans her band at a clearance gate. Leave upper display space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada presses the largest rivet on her strap while Alex waits beside the civic archive entrance. Leave upper gate space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada steps toward the archive by her own choice while Alex follows only after her. Leave upper civic space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "VEYRA, A. \u2014 RESIDENT RECORD FOUND \u2014 STATUS: UNRESOLVED.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s a strange way to say hello.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You want to go in?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I chose to come this far.",
+      "at": "top-right"
+    }
+  ]
+}

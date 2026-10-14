@@ -1,0 +1,54 @@
+{
+  "page": 42,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Dated work records show several weeks of fabrication, testing and installation. Keep the board readable and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The first tested unit is installed at a small Keel shop. Ren checks a service panel while a worker watches. Leave upper shop space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lina and Suri test the treated sample; Jalen checks the route record. Leave upper bench space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The collaborators stand around the working unit, visibly tired but attentive. Leave upper room space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "WEEK 1 \u2014 FABRICATION\nWEEK 2 \u2014 TESTING\nWEEK 3 \u2014 INSTALLATION",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "91% SIMULATED EFFICIENCY\nFIELD TEST \u2014 NOT POTABLE-OUTPUT GUARANTEE",
+      "at": "top"
+    }
+  ]
+}

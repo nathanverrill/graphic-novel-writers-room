@@ -1,0 +1,63 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex and Ada pass the faded LAST CHANCE sign in a crowded Keel lane. Keep the sign prominent and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex turns Adrian's worn casino chip between his fingers; the looping equation is visible but not magical. Leave upper space for Ada's line."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex stops beneath the casino sign, shoulders tight. Ada faces him with practical directness; leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex closes his hand around the chip, knuckles whitening. Keep the faded sign blurred behind him and leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Same hands built pumps and lost rent.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "One of them paid better.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Not ours.",
+      "at": "top-right"
+    }
+  ]
+}

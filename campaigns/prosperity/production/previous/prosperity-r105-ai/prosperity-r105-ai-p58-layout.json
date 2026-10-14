@@ -1,0 +1,55 @@
+{
+  "page": 58,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Mera places the lever on the civic table; adjacent records unlock for debt, travel, water and House review. Keep the lever dominant and reserve upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's debt record previews clearance available. Keep the record clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "description": "Ada catches Alex's wrist before he reaches for the lever. Keep their hands and the lever visible; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex looks between Lina's unsigned form, Tomas's verified reading and the lever. The affected residents remain behind him; no recognizable crowd. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "DEBT: CLEARANCE AVAILABLE",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "If you hold all the keys, everyone waits for your hand.",
+      "at": "top-left"
+    }
+  ]
+}

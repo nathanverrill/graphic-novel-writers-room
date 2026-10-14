@@ -1,0 +1,63 @@
+{
+  "page": 36,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In Keel, residents open the old residential branch; water surges through narrow channels. Leave upper channel space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The water emerges cloudy and orange into a household container. Leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The train enters Halyard: bronze towers, engineered green terraces and House checkpoint arches. Leave upper city space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex studies the cloudy sample in Ada's jar inside the train. Leave upper carriage space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "RESIDENT",
+      "text": "More isn\u2019t clean.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "We found the missing water.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "It still needs work.",
+      "at": "top-right"
+    }
+  ]
+}

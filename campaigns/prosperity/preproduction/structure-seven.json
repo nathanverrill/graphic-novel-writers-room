@@ -1,0 +1,94 @@
+{
+ "summary": "Chapters 1\u20133 follow the seven-point shape well. Each turn is a dramatized choice with a visible cost. The second half is unsettled draft material, and the biggest gap is Pinch 2: Alex never truly loses before the finale, so the refusal of power in Chapter 6 comes without a dark moment to earn it.",
+ "score": 68,
+ "stages": [
+  {
+   "id": "hook",
+   "rating": "strong",
+   "beats": [
+    "Issue 00 Prologue \u2014 Lake Keel, 2099",
+    "Page 1 \u2014 The three cities and the water question",
+    "Page 2 \u2014 Debt transfer",
+    "Page 3 \u2014 Two different dreams"
+   ],
+   "where": "Issue 00; Chapter 1, Pages 1\u20133",
+   "note": "Alex starts indebted, travel-restricted and set on leaving Keel. That is the clean opposite of the ending, where he stays by choice and the records are open. The flash-forward prologue deliberately subverts the hook by showing the future first. It works because it opens a real question: did he make his money fairly or take control of the water?",
+   "suggestion": ""
+  },
+  {
+   "id": "plot1",
+   "rating": "strong",
+   "beats": [
+    "Page 5 \u2014 The old book",
+    "Page 6 \u2014 The hidden workshop",
+    "Page 8 \u2014 Bi11bot wakes",
+    "Page 11 \u2014 The first waypoint",
+    "Page 12 \u2014 Someone in Oasis watches"
+   ],
+   "where": "Chapter 1, Pages 5\u201312",
+   "note": "The workshop opens, Bi11bot wakes and the map appears. Alex's own touch on the bright node alerts Oasis. His world changes because of something he chooses to do.",
+   "suggestion": ""
+  },
+  {
+   "id": "pinch1",
+   "rating": "strong",
+   "beats": [
+    "Page 6 \u2014 Site 6 and the accident",
+    "Page 11 \u2014 What the Measure does and Alex's choice",
+    "Page 12 \u2014 Alex publishes the truth"
+   ],
+   "where": "Chapter 2, Pages 6\u201312",
+   "note": "Alpha detects the Measure, isolates the corridor and forces Alex to choose between a safe escape and publishing the evidence. Publishing gets him located and costs him the route. The pressure is real, but the antagonist is a faceless system. The watcher in Oasis only tracks him.",
+   "suggestion": ""
+  },
+  {
+   "id": "midpoint",
+   "rating": "strong",
+   "beats": [
+    "Page 10 \u2014 Lock's second offer",
+    "Page 11 \u2014 Who should decide",
+    "Page 12 \u2014 The five"
+   ],
+   "where": "Chapter 3, Pages 10\u201312",
+   "note": "Alex is offered a clean private escape and turns it down: \"It's not mine to sign away. It was never just mine to find.\" He moves from an heir looking for a private fix to someone who brings the other contributors in to decide with him. That is the book's new understanding, and it sits at the right place in the book.",
+   "suggestion": ""
+  },
+  {
+   "id": "pinch2",
+   "rating": "thin",
+   "beats": [
+    "Page 15 \u2014 The cost of the choice",
+    "Chapter 4 \u2014 The Broken Covenant",
+    "Chapter 5 \u2014 The Last Bet"
+   ],
+   "where": "Chapter 3, Page 15; Chapters 4\u20135",
+   "note": "The setbacks are small or belong to someone else. The 11% design failure is fixed on the same page. The collaborators are reassigned or watched. Mera's band stays dark. Adrian's last room is a loss from the past. Alex's own plan never collapses, so he never seems to lose.",
+   "suggestion": "In Chapter 5, have Alpha run Adrian's four steps on Alex: surveillance, financial restriction, public liability, pursuit. Freeze his accounts, shut down the first purifier sellers and cut him off from Ada, so he is living his father's fate when he reaches the last room."
+  },
+  {
+   "id": "plot2",
+   "rating": "thin",
+   "beats": [
+    "Chapter 5 \u2014 The Last Bet"
+   ],
+   "where": "Chapter 5 ending; Chapter 6 opening",
+   "note": "Alex's reframing is the right inner key: \"what I actually inherited was a decision he made, not an answer he left.\" But the outer key is never shown. Mera's band is dark at the end of Chapter 4, and in Chapter 6 the three artifacts are simply together. Nothing on the page shows Mera committing.",
+   "suggestion": "Put a scene in Chapter 5 where Mera, faced with the room she failed to open, makes a public promise she can be held to. Her band lights because of that promise, which hands Alex the last piece."
+  },
+  {
+   "id": "resolution",
+   "rating": "thin",
+   "beats": [
+    "Chapter 6 \u2014 The Fourth Choice",
+    "Ending"
+   ],
+   "where": "Chapter 6",
+   "note": "The climax is a strong temptation. Alex refuses executive control, Ada blocks the two-person compromise, and the distributed structure is registered. The new state is honest: debt is reduced, not erased. But the climax is mostly carried by system messages. The outline's own Open list says the visible cost of refusal and a scene where a rigged decision is caught are both missing. The prologue's money question is also never paid off.",
+   "suggestion": "Add one short scene in Keel where someone tries to rig a water allocation and residents catch it on the public records. Give Alex one concrete thing his refusal costs him, and show how he earned his money so the prologue's question gets its answer."
+  }
+ ],
+ "story_hash": "c8454c1dede7",
+ "model": "anthropic/claude-opus-5.5",
+ "cost": 0.176436,
+ "checked": 1792005094.7420068
+}

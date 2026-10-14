@@ -1,0 +1,63 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex wipes dust from a workshop chalkboard where Adrian's equation continues across the surface. Keep the upper board clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A balanced water-drop mark is stamped into a brass plate beside an empty recess. Keep the upper plate clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada finds a hand-drawn mine map marked with three ink ticks and a pipe symbol. Keep the upper map clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Beneath a cloth, a single round amber eye pulses in the dark workshop. Keep the upper darkness clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "This part\u2019s old.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The dust isn\u2019t.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TICK",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

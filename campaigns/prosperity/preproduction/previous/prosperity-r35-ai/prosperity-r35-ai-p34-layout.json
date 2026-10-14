@@ -1,0 +1,61 @@
+{
+  "page": 34,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "A Halyard worker inserts a repaired component into a public registry kiosk. Keep the component and kiosk clear, with upper space for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The registry records Caldera House ownership, an unlisted creator and a 14-credit bonus. Keep the display unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex scans his identity band at an adjacent reader while Ada watches from the edge. Leave upper registry space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Adrian's estate record fills the public display, with Alex reflected faintly in the glass. Keep the text area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "OWNERSHIP: CALDERA HOUSE\nCREATOR: UNLISTED\nCREATOR BONUS: 14 CREDITS",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "312 PATENTS / 47 RESTRICTED / 19 DISPUTED",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "WORKER",
+      "text": "My correction is in there.",
+      "at": "bottom-left"
+    }
+  ]
+}

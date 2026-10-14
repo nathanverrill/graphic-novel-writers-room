@@ -1,0 +1,67 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Silent close inspection of the mismatched frame on the 2070 hallway wall. Inside is a visibly crumpled, grease-stained loose sheet with smudged fingerprints and a crude pencil drawing of a pump bracket, with no patent number. The frame is older and visibly unlike the orderly frames around it. Make the bracket geometry and paper damage the dominant visual facts; leave the image free of lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "The daughter faces Alex, still slightly raised onto her toes, one hand hovering near the mismatched frame without touching the glass. Her short, slight figure, warm-brown skin, large dark eyes, thick dark hair in two low uneven braids, mustard-yellow cardigan, pale blue school shirt, navy skirt, white socks and scuffed red sneakers remain consistent. Alex stands beside her, quiet and guarded but not stern; Alex is a man in his mid-40s in the 2070 scenes, of average height with a lean, capable repairer's build, squared shoulders and work-worn hands; he has a long, calm face, grey at the temples, close-cropped dark hair, medium-brown skin and steady dark eyes, and wears a plain charcoal-brown sweater over a pale shirt with practical dark trousers. Reserve upper-left space for the daughter's question and upper-right space for Alex's reply."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The daughter turns from the sketch toward Alex with a bright, uncomplicated smile. The wall fills the background, showing polished patents, photographs, clippings and the rough mismatched frame together. Keep her expression enthusiastic rather than exaggerated and reserve the top third for her balloon."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "horizon": 58,
+          "description": "Quiet close panel on Alex studying the pump-bracket sketch while his left wrist enters the foreground. Alex's old steel wristwatch is slightly too large, with worn steel, a plain cream dial, scratched glass and a small dark display window; show the dial and dark window clearly for a beat, then his thumb comes over the watch face, visibly concealing it. Alex's sleeve partly hides the watch. Keep the caseback and engraved equation out of view, invent no readout, and leave the panel silent."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "This one's just a drawing. Why isn't it a patent?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Because it never needed to be.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "Inventing stuff must have been *so* much fun.",
+      "at": "top"
+    }
+  ]
+}

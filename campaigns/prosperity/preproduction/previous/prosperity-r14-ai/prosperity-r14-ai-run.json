@@ -1,0 +1,498 @@
+{
+  "id": "r14-ai",
+  "kind": "ai",
+  "started": "2026-10-10T03:30:35",
+  "finished": "2026-10-10T03:35:12",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "729cb89f10cc988a",
+    "prosperity/drafts/chapter-02-draft.md": "689a4df6ef51395d",
+    "prosperity/drafts/chapter-03-draft.md": "c7c429063cd51dcc",
+    "prosperity/drafts/chapter-04-draft.md": "c4b53d6be9fe912e",
+    "prosperity/input/characters.md": "889ea832d09ed701",
+    "prosperity/input/notes.md": "e3b0c44298fc1c14",
+    "prosperity/input/story.md": "e306eb629be63723",
+    "prosperity/input/world.md": "5bc69037291d1741",
+    "prosperity/keypages/ch03-p01.md": "1718867e83761f2b",
+    "prosperity/keypages/ch03-p02.md": "687b54f5fdb3ec38",
+    "prosperity/keypages/ch03-p03.md": "bbb59555be29b523",
+    "prosperity/keypages/ch03-p04.md": "ef8b7754f9dbff9a",
+    "prosperity/keypages/ch03-p05.md": "a68c2f610995c34c",
+    "prosperity/keypages/ch03-p06.md": "bb3351b97d8c5099",
+    "prosperity/keypages/ch03-p07.md": "9cca70b7c56a7085",
+    "prosperity/keypages/ch03-p08.md": "dfd99143c3f82bf2",
+    "prosperity/keypages/ch03-p09.md": "b8be8319a633425a",
+    "prosperity/keypages/ch03-p10.md": "08f0ce07d72b03da",
+    "prosperity/keypages/ch03-p11.md": "aa64debf9388dbeb",
+    "prosperity/keypages/ch03-p12.md": "e7025c32bd4cf32a",
+    "prosperity/keypages/ch03-p13.md": "ef9614ebd6c4311e",
+    "prosperity/keypages/ch03-p14.md": "bfe84ef74f3e7c5b",
+    "prosperity/keypages/ch03-p15.md": "002e7316bac807ed",
+    "prosperity/keypages/notes.md": "a840b36d1091108a",
+    "prosperity/references/andean-hard-rock-futures.md": "11f8ca56313c04be",
+    "prosperity/references/lithium-triangle-futures.md": "cfd986a962d82142",
+    "prosperity/references/social-innovators-framework.md": "01f6d477423da251",
+    "prosperity/references/triangle-autonomy.md": "dd1c4ffc004cd9cb",
+    "prosperity/references/triangle-enclaves-borders.md": "94db049fecced78f",
+    "prosperity/references/triangle-everyday-life.md": "796cf8065596c429",
+    "prosperity/references/triangle-foreign-security.md": "ddf53d00eac9c84c",
+    "prosperity/references/triangle-money.md": "7d03855e67f8d6b1",
+    "prosperity/references/triangle-science.md": "665ed77fb36067f8",
+    "prosperity/references/triangle-water-wars.md": "815679695f8ee56a",
+    "prosperity/references/water-wars.md": "89419860c9e3ab1e",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/decisions.md": "fcb643e43396f701",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "adbd7d7cd5241800",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781",
+    "prosperity/style/locks/ada-veyra-gemini/description.txt": "d5b87086ee3417d6",
+    "prosperity/style/locks/ada-veyra-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/ada-veyra-sunburst/description.txt": "d5b87086ee3417d6",
+    "prosperity/style/locks/ada-veyra-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/adrian-phantum-gemini/description.txt": "2431c943adf25809",
+    "prosperity/style/locks/adrian-phantum-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/adrian-phantum-sunburst/description.txt": "2431c943adf25809",
+    "prosperity/style/locks/adrian-phantum-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/alex-phantum-gemini/description.txt": "72a05bbd34ed5d80",
+    "prosperity/style/locks/alex-phantum-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/alex-phantum-sunburst/description.txt": "72a05bbd34ed5d80",
+    "prosperity/style/locks/alex-phantum-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/bi11bot-gemini/description.txt": "14d9917009cf641e",
+    "prosperity/style/locks/bi11bot-gemini/notes.txt": "e7d34795e2c423ce",
+    "prosperity/style/locks/bi11bot-sunburst/description.txt": "14d9917009cf641e",
+    "prosperity/style/locks/bi11bot-sunburst/notes.txt": "e7d34795e2c423ce",
+    "prosperity/style/locks/cassian-lock-gemini/description.txt": "720b30aaa2017c84",
+    "prosperity/style/locks/cassian-lock-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/cassian-lock-sunburst/description.txt": "720b30aaa2017c84",
+    "prosperity/style/locks/cassian-lock-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/elias-renn-gemini/description.txt": "758fbef5057edc45",
+    "prosperity/style/locks/elias-renn-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/elias-renn-sunburst/description.txt": "758fbef5057edc45",
+    "prosperity/style/locks/elias-renn-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/foreman-7-gemini/description.txt": "8a018e8c3319ecea",
+    "prosperity/style/locks/foreman-7-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/foreman-7-sunburst/description.txt": "8a018e8c3319ecea",
+    "prosperity/style/locks/foreman-7-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/frank-reed-gemini/description.txt": "67637b2bfaf6d122",
+    "prosperity/style/locks/frank-reed-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/frank-reed-sunburst/description.txt": "67637b2bfaf6d122",
+    "prosperity/style/locks/frank-reed-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/grandmother-gemini/description.txt": "90fd441fe2a46ea7",
+    "prosperity/style/locks/grandmother-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/grandmother-sunburst/description.txt": "90fd441fe2a46ea7",
+    "prosperity/style/locks/grandmother-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/jalen-orr-gemini/description.txt": "c64f26ec3cdcf809",
+    "prosperity/style/locks/jalen-orr-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/jalen-orr-sunburst/description.txt": "c64f26ec3cdcf809",
+    "prosperity/style/locks/jalen-orr-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/leona-veyra-gemini/description.txt": "c5f1b4afb5751f47",
+    "prosperity/style/locks/leona-veyra-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/leona-veyra-sunburst/description.txt": "c5f1b4afb5751f47",
+    "prosperity/style/locks/leona-veyra-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/lina-vey-gemini/description.txt": "cfc552a01d5331d9",
+    "prosperity/style/locks/lina-vey-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/lina-vey-sunburst/description.txt": "cfc552a01d5331d9",
+    "prosperity/style/locks/lina-vey-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/mara-doss-gemini/description.txt": "28bd0b41e9959a03",
+    "prosperity/style/locks/mara-doss-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/mara-doss-sunburst/description.txt": "28bd0b41e9959a03",
+    "prosperity/style/locks/mara-doss-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/mera-vale-gemini/description.txt": "970b48a700bac3b8",
+    "prosperity/style/locks/mera-vale-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/mera-vale-sunburst/description.txt": "970b48a700bac3b8",
+    "prosperity/style/locks/mera-vale-sunburst/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/suri-anik-gemini/description.txt": "2d6eff1514949021",
+    "prosperity/style/locks/suri-anik-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/suri-anik-sunburst/description.txt": "2d6eff1514949021",
+    "prosperity/style/locks/suri-anik-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/tj-gemini/description.txt": "314b8345dbdcfb7d",
+    "prosperity/style/locks/tj-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/tj-sunburst/description.txt": "314b8345dbdcfb7d",
+    "prosperity/style/locks/tj-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/tomas-gemini/description.txt": "7ff30fd348e756dc",
+    "prosperity/style/locks/tomas-gemini/notes.txt": "93f49307e72083ef",
+    "prosperity/style/locks/tomas-reed-gemini/description.txt": "684d541b318b7056",
+    "prosperity/style/locks/tomas-reed-gemini/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/tomas-reed-sunburst/description.txt": "684d541b318b7056",
+    "prosperity/style/locks/tomas-reed-sunburst/notes.txt": "7180276d4396ef04",
+    "prosperity/style/locks/tomas-sunburst/description.txt": "7ff30fd348e756dc",
+    "prosperity/style/locks/tomas-sunburst/notes.txt": "93f49307e72083ef"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1802996,
+      "input_tokens": 451638,
+      "cached_tokens": 27500,
+      "image_input_tokens": 0,
+      "output_tokens": 61430,
+      "reasoning_tokens": 1020,
+      "total_tokens": 513068
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 6,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.1802996,
+        "input_tokens": 451638,
+        "cached_tokens": 27500,
+        "image_input_tokens": 0,
+        "output_tokens": 61430,
+        "reasoning_tokens": 1020,
+        "total_tokens": 513068
+      }
+    }
+  },
+  "run_id": "dc18e02bd9ed",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.\n\nThe book is exactly 65 pages: pages 1-65, no more, no fewer.\n\nShowrunner's note for this round: The showrunner rules changed on 2026-10-09 (rules/showrunner-rules.md, rules/decisions.md): the book is published in 18-page issues, Issue 01 is Keel and Issue 02 is Halyard; every issue ends on a question about a person the reader cares about; TJ is the crossover character, built by Bi11bot at Site 6 in Issue 01; the crossing from Keel to Halyard is not a train but down into the old mine works and up inside the water conduit, with Issue 01 ending as the pipe fills behind them and Issue 02 opening in a Halyard storm drain. Carry these into story.md, characters.md and world.md.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 353352,
+        "input_tokens_est": 88338,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 42531,
+        "preservation": {
+          "source_chars": 211626,
+          "output_chars": 162758,
+          "mass": 0.769,
+          "terms": 345,
+          "missing": 4,
+          "coverage": 0.988,
+          "substantive_terms": 342,
+          "substantive_coverage": 0.988,
+          "dropped_by_kind": {
+            "named entities": [
+              "It's"
+            ],
+            "names and terms": [
+              "Falls",
+              "I'll",
+              "Relational"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 3
+          },
+          "dropped": [
+            "Falls",
+            "I'll",
+            "It's",
+            "Relational"
+          ]
+        }
+      },
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 353352,
+        "input_tokens_est": 88338,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 45506,
+        "preservation": {
+          "source_chars": 211626,
+          "output_chars": 162758,
+          "mass": 0.769,
+          "terms": 345,
+          "missing": 4,
+          "coverage": 0.988,
+          "substantive_terms": 342,
+          "substantive_coverage": 0.988,
+          "dropped_by_kind": {
+            "named entities": [
+              "It's"
+            ],
+            "names and terms": [
+              "Falls",
+              "I'll",
+              "Relational"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 3
+          },
+          "dropped": [
+            "Falls",
+            "I'll",
+            "It's",
+            "Relational"
+          ]
+        }
+      },
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 353362,
+        "input_tokens_est": 88340,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 74719,
+        "preservation": {
+          "source_chars": 211626,
+          "output_chars": 162758,
+          "mass": 0.769,
+          "terms": 345,
+          "missing": 4,
+          "coverage": 0.988,
+          "substantive_terms": 342,
+          "substantive_coverage": 0.988,
+          "dropped_by_kind": {
+            "named entities": [
+              "It's"
+            ],
+            "names and terms": [
+              "Falls",
+              "I'll",
+              "Relational"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 3
+          },
+          "dropped": [
+            "Falls",
+            "I'll",
+            "It's",
+            "Relational"
+          ]
+        }
+      },
+      {
+        "call": "4C-again",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 353676,
+        "input_tokens_est": 88419,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 58156
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 347921,
+        "input_tokens_est": 86980,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [
+          "rewrote bolded field lines as '- field: value'"
+        ],
+        "notes": [],
+        "output_chars": 8489
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "b8870576b75fff27",
+        "input_chars": 343712,
+        "input_tokens_est": 85928,
+        "inputs": [
+          "characters.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/decisions.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 48930
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "page-prompts.md",
+      "room-log.md"
+    ],
+    "human_modified": [
+      "world.md",
+      "story.md"
+    ],
+    "failed": [],
+    "snapshot": "b8870576b75fff27",
+    "kept_previous": [
+      "story.md"
+    ],
+    "decisions_integrated": [],
+    "recommendations_taken": [],
+    "notes_applied": [
+      "[HIGH] Add a `## Key props` section at the end of world.md, before Open: the recurring ",
+      "[HIGH] Add a `## Key scenes` section to story.md, before Ending: the eight to fifteen m"
+    ],
+    "deferred": []
+  },
+  "pages": [
+    46
+  ]
+}

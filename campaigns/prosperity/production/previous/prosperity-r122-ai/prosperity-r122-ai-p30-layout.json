@@ -1,0 +1,68 @@
+{
+  "page": 30,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The Measure connects the analog gauge to the official data line. Blue-white lines cross between both readings. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The readout displays the same rolling thirty-day period and conflicting percentages. Leave upper display space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada and Alex study the readout together. Leave upper chamber space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "The Measure traces the missing flow through the broad industrial uplink toward Halyard. Leave upper pipe space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ROLLING PERIOD: 30 DAYS\nREPORTED TO KEEL: 62%\nPHYSICALLY DELIVERED: 18%",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Same period?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Same water.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "ROUTE: INDUSTRIAL DIVERSION.",
+      "at": "top"
+    }
+  ]
+}

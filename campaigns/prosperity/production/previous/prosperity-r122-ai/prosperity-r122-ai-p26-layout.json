@@ -1,0 +1,84 @@
+{
+  "page": 26,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas leads Alex and Ada to an older service wall marked with the balanced water-drop. Leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The heavy old key enters an unwired mechanical lock. Leave the key and lock clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas creates a credible worksite distraction at the main gate while Alex, Ada and folded Bi11bot prepare at the old door. Leave upper worksite space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The old door opens; Alex and Ada slip through while Tomas remains behind. Leave upper doorway space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Adrian asked me to keep this closed.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "From me?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "From anyone who came for the work.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Foreman! Your safety report is on fire.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Someone has to look ordinary.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLUNK",
+      "size": "medium",
+      "at": "middle"
+    }
+  ]
+}

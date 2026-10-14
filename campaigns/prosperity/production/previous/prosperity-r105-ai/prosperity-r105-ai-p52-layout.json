@@ -1,0 +1,62 @@
+{
+  "page": 52,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In the civic review room, Leona enters beside Ada while affected residents and temporary representatives face the public table. Keep the room legible without a recognizable crowd; leave upper area."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona places her band on the public table and states her obligation to remain through the review and accept its recorded judgment. Leave upper space for the exact line."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona performs the first public review action by accepting a resident's challenge marker and sitting among the affected residents. Keep the marker, band and hands clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Only after the public action, Leona's band warms and links to Adrian's band carried by B11. A separate dark band remains untouched. Leave upper space for the small sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I will remain through this review and accept its recorded judgment.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "PUBLIC REVIEW ACCEPTED",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

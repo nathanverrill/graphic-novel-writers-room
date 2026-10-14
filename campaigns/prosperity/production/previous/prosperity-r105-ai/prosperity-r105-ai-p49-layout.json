@@ -1,0 +1,63 @@
+{
+  "page": 49,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In a pale Oasis apartment, Leona stands beside a stone-grey box as Ada enters. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona recognizes Ada but does not approach. Keep the distance between them clear; reserve upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada stands across the room from Leona. Leave upper-left for Ada's line."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Leona opens the stone-grey box, revealing photographs and a dark Covenant band. Leave upper-right for her answer."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "You\u2019re taller.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s what you have?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "No.",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 58</text>
+<g data-item="0">
+<rect x="571" y="109" width="350" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="133" font-size="18" fill="#111">DEBT BALANCE: 418,107 CREDITS.</text>
+<text x="746" y="155" font-size="18" fill="#111">EXECUTIVE CLEARANCE AVAILABLE.</text>
+</g>
+<g data-item="1">
+<polygon points="111,920 144,911 191,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="916" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="899" font-size="19" fill="#111">YOU COULD</text>
+<text x="128" y="922" font-size="19" fill="#111">FIX ONE</text>
+<text x="128" y="945" font-size="19" fill="#111">HOUSE.</text>
+</g>
+<g data-item="2">
+<polygon points="604,920 637,911 684,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="916" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="899" font-size="19" fill="#111">AND LEAVE</text>
+<text x="621" y="922" font-size="19" fill="#111">THE REST</text>
+<text x="621" y="945" font-size="19" fill="#111">WAITING.</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,69 @@
+{
+  "page": 32,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Public screens across Keel display the verified discrepancy while residents turn toward them. No recognizable crowd faces; leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada's voice carries through a public speaker as workers open ledgers and old gauges. Leave upper wall space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "At Site 6, Tomas watches the public display while Foreman-7 orders him back. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Workers open a communal table of ledgers and gauges beneath the same figures. Keep no individual crowd recognizable; leave upper table space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "REPORTED TO KEEL: 62% \u2014 DELIVERED TO KEEL: 18%.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Check your pipes.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Return to assigned zone.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "We\u2019re already in it.",
+      "at": "top-right"
+    }
+  ]
+}

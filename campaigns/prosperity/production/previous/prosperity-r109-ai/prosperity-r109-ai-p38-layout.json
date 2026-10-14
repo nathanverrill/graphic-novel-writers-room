@@ -1,0 +1,56 @@
+{
+  "page": 38,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A reduced Halyard laboratory with empty benches. Suri tends a weakly pulsing living biofilter culture in its vial; leave upper lab space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex connects a test power cycle while the culture falters. Keep the vial, connection and warning lights clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Suri cuts the power and shields the vial with both hands. Keep her hands and living culture dominant; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Suri carries the protected culture toward the laboratory door while Alex follows at a respectful distance. Leave upper doorway space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SURI",
+      "text": "Not yet.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SURI",
+      "text": "Bring me a cycle that keeps it alive.",
+      "at": "top-left"
+    }
+  ]
+}

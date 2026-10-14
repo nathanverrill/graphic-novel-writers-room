@@ -1,0 +1,77 @@
+{
+  "page": 26,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas takes the old key from his jacket and faces Alex at a concealed vent housing. Leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The old key enters the vent housing's mechanical lock. Keep the key and lock unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Tomas throws an emergency lever; the Site 6 bay flashes amber. Alex, Ada, B11 and TJ are positioned at the opening without crowding; leave upper space for the alarm."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex, Ada, B11 and TJ slip through the old route while Tomas remains at the lever behind them. Keep Tomas separated from the escaping group and leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Adrian asked me to keep this door closed.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "From me?",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "From anyone who came for the work.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KLAXON",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Go. I\u2019m about to become paperwork.",
+      "at": "top-left"
+    }
+  ]
+}

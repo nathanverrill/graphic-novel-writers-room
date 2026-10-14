@@ -1,0 +1,63 @@
+{
+  "page": 27,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex and Ada enter the sealed old workings through the unwired door; folded Bi11bot rests in Alex's bag. Condensation beads on the inner surface. Leave upper tunnel space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "The mine branches. Alpha's projection shows a straight route while Ada's paper map marks a leftward pipe. Leave upper tunnel space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex presses his palm to the wall; a faint vibration answers. Leave upper rock space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Fresh bolts and condensation lead left. Leave upper wall space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Your father marked the bends.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He marked what survived them.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "DRIP",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

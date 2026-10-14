@@ -1,0 +1,91 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 48,
+          "description": "In the warm 2070 hallway, Alex reaches up and taps the framed photograph of four unnamed collaborators laughing together in a lab. The photograph remains behind glass and the figures stay confined to the frame; do not individuate or animate them. Alex is a man in his mid-40s in the 2070 scenes, of average height with a lean, capable repairer's build, squared shoulders and work-worn hands; he has a long, calm face, grey at the temples, close-cropped dark hair, medium-brown skin and steady dark eyes, and wears a plain charcoal-brown sweater over a pale shirt with practical dark trousers. Keep the upper-left area open for his balloon."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "The daughter has moved one step along the hallway wall and points directly at the purifier diagram inside a framed patent. The clipping reading '40TH INDEPENDENT SHOP LICENSES PHANTUM PURIFIER' is adjacent as secondary evidence. Alex remains slightly behind her in the same space, calm and matter-of-fact. Leave the upper portion open for the daughter's balloon and a lower-right pocket for Alex's reply."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A scorched, cracked prototype fills the foreground among cleaner patent records and machine photographs. The handwritten label 'v1 - didn't work' is clearly visible on the object or its backing. Keep partial silhouettes of Alex and his daughter at the edge so this remains part of the hallway wall rather than an isolated product display. Reserve the upper third as clean, silent space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "high",
+          "horizon": 58,
+          "description": "Low on the hallway wall, the visibly mismatched frame holds a crumpled, grease-stained pump-bracket sketch with smudged fingerprints and crude pencil geometry. Beside it, smaller and partly surrounded by other frames, the account statement reads 'PAID IN FULL \u00b7 BALANCE 0 CREDITS'; it is legible to a careful reader but not visually loud. The daughter tilts her head toward the sketch without touching the glass, while Alex watches from the edge. Keep the upper-right area open and silent."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Made some. Fixed most. Borrowed a few ideas from people smarter than me.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "That one's in my school.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That one's in a lot of schools. Somebody else's company put it there.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "object",
+      "label": "Scorched cracked prototype \u2014 v1 - didn't work",
+      "at": "middle",
+      "w": 62,
+      "h": 58
+    },
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "Mismatched frame containing crumpled grease-stained pump-bracket sketch",
+      "at": "middle",
+      "w": 68,
+      "h": 62
+    },
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "PAID IN FULL \u00b7 BALANCE 0 CREDITS statement",
+      "at": "bottom-right",
+      "w": 24,
+      "h": 18
+    }
+  ]
+}

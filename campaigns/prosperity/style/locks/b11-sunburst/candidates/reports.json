@@ -1,0 +1,37 @@
+{
+ "cand-20261014-200917.png": {
+  "pass": true,
+  "problems": [
+   {
+    "panel": 1,
+    "kind": "hands",
+    "severity": "minor",
+    "what": "B11's right hand has four fingers and a thumb, but the reference design has three fingers and a thumb",
+    "box": [
+     560,
+     170,
+     640,
+     250
+    ],
+    "unconfirmed": true
+   },
+   {
+    "panel": 1,
+    "kind": "hands",
+    "severity": "minor",
+    "what": "B11's left hand has four fingers and a thumb, but the reference design has three fingers and a thumb",
+    "box": [
+     560,
+     720,
+     650,
+     810
+    ],
+    "unconfirmed": true
+   }
+  ],
+  "tries": 2,
+  "cost": 0.203205,
+  "note": "",
+  "prompt": "A CHARACTER LOCK for a graphic novel: one full-body drawing of B11, standing in a relaxed,\ncharacterful three-quarter pose, head to boots in frame, on a plain warm cream background. Portrait.\nThis image is the reference every page of the book is drawn from, so every detail must be clear.\n\nB11: B11 is a small foldable archival robot approximately 5 feet 6 inches tall when upright, with a compact torso, two articulated arms, two broad folding legs, a rounded shoulder projector and a chest compartment. He is a rugged, weathered industrial robot: an oversized round head of segmented faded industrial-blue panels with visible seams, side-mounted round ear assemblies, broad rounded shoulder plates, angular chest armour with a white \"Bi11\" marking, exposed pistons, articulated metal fingers, compact legs and broad feet. His paint is chipped mustard-yellow over blue, with exposed steel, rivets, scratches and rust. He has two large warm amber eyes recessed in heavy metal rings that double as searchlights; the ring around his right eye clicks or rotates when he focuses. He wears an old faded rust-red scarf looped twice around his neck. His silhouette is low, compact and companionable, never looming or predatory. His signature detail is the rotating ring around his amber right eye.\n\nDraw it exactly in the style of the style plate: the same line, color, light and rendering.\nThe second attached image is the current lock: keep the same person, and change only what the description above says differently.\n\nNo text, no labels, no names, no numbers, no frame, no other people.\nThe attached images, in order: 1. the style plate - draw in exactly this style; 2. B11's current lock - keep everything the words do not change"
+ }
+}

@@ -1,0 +1,94 @@
+{
+  "id": "r12-ai",
+  "kind": "ai",
+  "started": "2026-10-14T21:39:40",
+  "finished": "2026-10-14T21:41:04",
+  "status": "done",
+  "files_written": [
+    "analysis.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-prologue/input/notes.md": "367224ca739d0f00",
+    "prosperity-prologue/input/pitch.md": "964f9a0ea9fbe503",
+    "prosperity-prologue/rules/characters.md": "03dc2439c5c2cd3c",
+    "prosperity-prologue/rules/decisions.md": "9e26a478b679954c",
+    "prosperity-prologue/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity-prologue/rules/look.md": "3b9fcb3e7645b4ee",
+    "prosperity-prologue/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity-prologue/rules/showrunner-rules.md": "dff29faf996cfc32",
+    "prosperity-prologue/rules/stakeholders.md": "03929e0519af09bb",
+    "prosperity-prologue/rules/vocabulary.md": "128aac4bf1bb7842"
+  },
+  "usage": {
+    "total": {
+      "calls": 1,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.190624,
+      "input_tokens": 8276,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 7876,
+      "reasoning_tokens": 2428,
+      "total_tokens": 16152
+    },
+    "by_role": {
+      "analyst": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.190624,
+        "input_tokens": 8276,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 7876,
+        "reasoning_tokens": 2428,
+        "total_tokens": 16152
+      }
+    }
+  },
+  "run_id": "fdd2a3414859",
+  "note": "The room is in analysis: The Analyst reads the whole script, the pages only, as the book's audience, its partner and its backer would meet it, and as a comic writer, a game designer and a streaming showrunner would. It reports the political read, what might offend and whom, and whether it smells like schoolwork. It fixes nothing.\n\nThe book is exactly 4 pages: pages 1-4, no more, no fewer.",
+  "roles": [
+    "analyst"
+  ],
+  "configs": {
+    "analyst": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "anthropic/claude-opus-5.5",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 900,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "analysis",
+  "pages": [
+    1,
+    2,
+    3,
+    4
+  ]
+}

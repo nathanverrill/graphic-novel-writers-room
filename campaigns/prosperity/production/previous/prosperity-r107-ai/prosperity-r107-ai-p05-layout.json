@@ -1,0 +1,70 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A thief cuts the tanker hose; the free end whips across the deck. Leave upper deck space for the impact sound."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The barge pulls away while TJ's torso and remaining legs converge beneath the damaged drone. The thieves abandon the disabled equipment; leave upper sky open for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "TJ's fourth leg catches on the drone frame above the dark lake. Keep the magnetic joint and bent frame dominant."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "From shore, the granddaughter watches as the leg tears loose from TJ. Older Alex remains behind her near the boathouse. Leave upper water space for her cry."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "FSSSHHH",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "Leave it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 2",
+      "text": "It saw the route.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "TJ!",
+      "at": "top-left"
+    }
+  ]
+}

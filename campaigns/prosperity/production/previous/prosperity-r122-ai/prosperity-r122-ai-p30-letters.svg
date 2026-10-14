@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 30</text>
+<g data-item="0">
+<rect x="544" y="109" width="404" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="133" font-size="18" fill="#111">ROLLING PERIOD: 30 DAYS REPORTED TO</text>
+<text x="746" y="155" font-size="18" fill="#111">KEEL: 62% PHYSICALLY DELIVERED: 18%</text>
+</g>
+<g data-item="1">
+<polygon points="111,920 144,911 191,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="916" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="922" font-size="19" fill="#111">SAME PERIOD?</text>
+</g>
+<g data-item="2">
+<polygon points="363,911 396,920 316,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="379" cy="916" rx="88" ry="39" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="379" y="922" font-size="19" fill="#111">SAME WATER.</text>
+</g>
+<g data-item="3">
+<rect x="582" y="882" width="328" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="907" font-size="18" fill="#111">ROUTE: INDUSTRIAL DIVERSION.</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,75 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex scans his identity band at the checkpoint; Foreman-7 stands beside the scanner, visibly human beneath his supervisory harness. Leave upper checkpoint space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The band displays liability transfer and Adrian's whereabouts. Keep the display unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The band displays the debt balance, projected clearance and travel restriction. Leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The shutter opens toward the closed, dust-covered Last Chance bar. Alex covers Adrian's watch with his thumb. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Age verified. Seventeen.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE\nORIGINAL DEBTOR: ADRIAN PHANTUM \u2014 WHEREABOUTS UNRECORDED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "DEBT BALANCE: 418,607 CREDITS\nPROJECTED CLEARANCE: 28.7 YEARS\nTRAVEL STATUS: RESTRICTED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Happy birthday, Phantum.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Twenty-eight point seven.",
+      "at": "top-right"
+    }
+  ]
+}

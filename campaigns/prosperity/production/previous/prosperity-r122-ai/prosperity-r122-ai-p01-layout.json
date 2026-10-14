@@ -1,0 +1,77 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Night at restored Lake Keel in 2099: terraces, gardens, workshops, boathouse, tanker barge and two siphon drones. Older Alex and his granddaughter watch from the dock. Leave upper lake and sky clear for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "TJ springs from the dock and separates into head, body and magnetic legs above the dark water. Keep every dog-shaped piece readable; leave upper space for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "TJ's separated pieces skim toward the barge while bright columns of stolen water rise from the siphons. Leave open water for sound lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter catches older Alex's sleeve as a drone beam sweeps the boathouse. Alex keeps watching the theft. Leave upper dock space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLAK-KLAK-KLAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Is TJ broken?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not usually.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "They\u2019re taking it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Watch.",
+      "at": "top-right"
+    }
+  ]
+}

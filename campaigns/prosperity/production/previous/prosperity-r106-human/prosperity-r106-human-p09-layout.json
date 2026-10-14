@@ -1,0 +1,49 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "TJ reaches the boathouse wet and crooked; the granddaughter steadies him. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "TJ drops the broken drone component at Alex's feet. Leave center clear for the sound effect."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "description": "Alex and his granddaughter look down at the component between their boots. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "extreme-close",
+          "angle": "eye",
+          "description": "The component lies between them and TJ's crooked front paws. No lettering; preserve object clarity."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLINK",
+      "size": "medium",
+      "at": "middle"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "page": 40,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In a rented Halyard workroom, Lina, Suri, Jalen and Ren place four components around a cloudy Keel water sample. Keep each maker distinct and leave upper bench space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lina tests the sample and rejects a membrane while Alex watches. Leave upper bench space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The components fail to communicate; the prototype shudders and the readout drops to eleven percent. Leave upper machine space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ren studies the failed connector while the others look at the machine, each taking in a different problem. Leave upper room space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Keel has water now. It can\u2019t use it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "Not that one. It lies under heat.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "11% SIMULATED EFFICIENCY",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "CHUFF",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "Good. Now we know where it breaks.",
+      "at": "top-left"
+    }
+  ]
+}

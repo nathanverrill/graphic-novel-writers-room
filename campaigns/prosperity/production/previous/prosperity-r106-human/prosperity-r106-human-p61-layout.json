@@ -1,0 +1,55 @@
+{
+  "page": 61,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Three marked tables read KEEL, HALYARD and OASIS. Each has three temporary representatives; show only a few distinct figures, none requiring individual recognition. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At the Keel table, Tomas reads a stamped instruction strip and folds it closed. Leave upper area for the record."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The public allocation sheet reads COMMUNITY SUPPLY: 420 UNITS and APPROVAL PENDING. Keep the sheet unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas places the Measure beside the allocation sheet while the other Keel representatives look toward the physical gauge outside frame. Leave upper-left for his line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "COMMUNITY SUPPLY: 420 UNITS\nAPPROVAL PENDING",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Before we approve, show us the units.",
+      "at": "top-left"
+    }
+  ]
+}

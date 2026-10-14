@@ -1,0 +1,136 @@
+{
+  "id": "r52-ai",
+  "kind": "ai",
+  "started": "2026-10-10T22:58:16",
+  "finished": "2026-10-10T23:08:12",
+  "status": "done",
+  "files_written": [
+    "cold-read.md",
+    "room-log.md",
+    "cold-read-b.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "d5f487311d1cf6df",
+    "prosperity/drafts/chapter-02-draft.md": "dc7c1a0c49aff903",
+    "prosperity/drafts/chapter-03-draft.md": "d2b6025659ba3732",
+    "prosperity/drafts/chapter-04-draft.md": "96ecfaad6761f8b7",
+    "prosperity/drafts/chapter-05-draft.md": "c36382ae85178cdb",
+    "prosperity/drafts/chapter-06-draft.md": "1c0d6c99b1adede4",
+    "prosperity/input/notes.md": "e3b0c44298fc1c14",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "913019e59ff89665",
+    "prosperity/rules/stakeholders.md": "7bf68df3cdafe266",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 3,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.7602472,
+      "input_tokens": 57506,
+      "cached_tokens": 13824,
+      "image_input_tokens": 0,
+      "output_tokens": 37956,
+      "reasoning_tokens": 22387,
+      "total_tokens": 95462
+    },
+    "by_role": {
+      "cold_reader": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.393736,
+        "input_tokens": 24039,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 14879,
+        "reasoning_tokens": 4265,
+        "total_tokens": 38918
+      },
+      "cold_reader_b": {
+        "calls": 2,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.3665112,
+        "input_tokens": 33467,
+        "cached_tokens": 13824,
+        "image_input_tokens": 0,
+        "output_tokens": 23077,
+        "reasoning_tokens": 18122,
+        "total_tokens": 56544
+      }
+    }
+  },
+  "run_id": "54192eb5c621",
+  "note": "The room is in cold read: Two readers who did not choose the book read the whole script at the same time, the pages only, as a student reads homework the night before. Each reports what happened to them. Neither sees the other's report, and neither fixes anything.\n\nThe book is exactly 54 pages: pages 1-54, no more, no fewer.",
+  "roles": [
+    "cold_reader",
+    "cold_reader_b"
+  ],
+  "configs": {
+    "cold_reader": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "anthropic/claude-opus-5.5",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    },
+    "cold_reader_b": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "moonshotai/kimi-k3",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "coldread",
+  "pages": [
+    46
+  ]
+}

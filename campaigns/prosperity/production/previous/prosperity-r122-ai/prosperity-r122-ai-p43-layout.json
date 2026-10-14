@@ -1,0 +1,68 @@
+{
+  "page": 43,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex stands with the four collaborators before a House review team. Keep no more than three named figures prominent in the panel; others may be partial hands or silhouettes."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The Maker's Seal rests in Lina's palm beside the contributor records. Leave upper display space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The Seal projects named provenance, testing obligations and pending House claims. Leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A later dated record shows the first licensed shop receiving a tested unit while a House notice announces a competing industrial purifier. Leave upper shop space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Lina made the membrane. Suri kept the biofilter alive. Jalen built the routing. Ren made it serviceable.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "It records who made this. It doesn\u2019t make you owner of us.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "NAMED CONTRIBUTORS: LINA VEY / SURI ANIK / JALEN ORR / REN OKAFOR / ALEX PHANTUM\nEXCLUSIVE CLAIM: PENDING REVIEW",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "COMPETING INDUSTRIAL UNIT IN DEVELOPMENT.",
+      "at": "top"
+    }
+  ]
+}

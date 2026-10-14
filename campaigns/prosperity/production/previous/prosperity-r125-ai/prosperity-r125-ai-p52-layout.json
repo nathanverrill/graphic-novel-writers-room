@@ -1,0 +1,61 @@
+{
+  "page": 52,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "An old recording shows Mera issuing an override from a control console. Keep upper console clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The console rejects Mera's override with impersonal administrative text. Keep upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Younger Mera strikes the console, then lowers her hand. Keep upper console clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Present Mera faces Alex in the archive, upright but no longer controlled. Keep upper archive clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "SUSPEND PURSUIT. EFFECTIVE IMMEDIATELY.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "OVERRIDE DENIED.\nINTERVENTION PARAMETERS EXCEED EXECUTIVE SCOPE.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "I had the title. The door still closed.",
+      "at": "top-left"
+    }
+  ]
+}

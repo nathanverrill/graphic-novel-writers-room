@@ -1,0 +1,63 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex inserts the casino chip behind the bookcase; a concealed latch releases. Keep the physical mechanism dominant and leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The hidden workshop contains paper plans, analog gauges, a folded dog chassis and a sealed three-arm Measure case. Keep the room tactile and leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex fits a scratched ceramic lens into TJ's dog-shaped head; the second lens activates. Keep the head and hands dominant."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The dark metal band engraved ADRIAN rests beside the unfinished chassis. Alex's hand hovers near it; leave upper space for his line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KLAK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "PIP",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He left it waiting.",
+      "at": "top-left"
+    }
+  ]
+}

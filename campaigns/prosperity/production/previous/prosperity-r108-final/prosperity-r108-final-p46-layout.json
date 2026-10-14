@@ -1,0 +1,69 @@
+{
+  "page": 46,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "The barrier crushes Alex's wrist guard in the track. Keep metal, guard and hand separated safely; leave upper space for impact lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "A service shutter closes behind Lina while a clerk forces her through the narrowing opening. Keep Lina's face and hands clear; leave upper shutter space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada strikes the barrier glass from the far side while Alex is trapped on the opposite side. Keep both figures separated by the clear barrier and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A white-and-amber node flashes the conditional convenor and pending collaborator status. Keep the display unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CLANG",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "Don\u2019t sign anything.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Alex!",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "CONVENOR PASSAGE REQUIRED\nCOLLABORATOR STATUS: REVIEW PENDING",
+      "at": "top"
+    }
+  ]
+}

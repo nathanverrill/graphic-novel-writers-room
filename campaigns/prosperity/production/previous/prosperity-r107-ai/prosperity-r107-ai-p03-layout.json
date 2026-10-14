@@ -1,0 +1,70 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "One thief studies the distant boathouse through binoculars. Keep the binoculars and eye dominant, with empty sky above."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The tanker gauge climbs while hose fittings vibrate. No faces; leave the upper area clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The two thieves glance toward the dark boathouse, their silhouettes framed by the tanker lamps. Leave upper deck space for the accusation."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "TJ's head reaches the drone while his torso and legs close in below over the black water. Keep the approaching parts readable and reserve sky for sound lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "That\u2019s Phantum\u2019s place.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "How\u2019d he get his money?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 2",
+      "text": "Water.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "He owns the lake.",
+      "at": "top-left"
+    }
+  ]
+}

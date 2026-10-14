@@ -1,0 +1,74 @@
+{
+  "page": 63,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The Caldera representative revises the proposal while the public record updates to include the residential branch. Keep upper record clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's account shows a cumulative repayment ledger with posted installments, Keel repairs, Halyard repairs, licensed-build royalties, purifier allocation and other posted repayments. Keep upper account display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "A separate Tomas note receipt sits beside the household account while Tomas faces Alex. Keep upper receipts clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In Keel, a licensed shop services a purifier while a customer agrees to the posted repair price; contributors' names are painted above the door. Keep upper shop sign clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "PROPOSAL REVISED \u2014 RESIDENTIAL BRANCH INCLUDED.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "500-CREDIT INSTALLMENT\nKEEL REPAIR WAGES\nHALYARD REPAIR WAGES\nLICENSED-BUILD ROYALTIES\nPURIFIER ALLOCATION\nOTHER POSTED REPAYMENTS\n\nHOUSEHOLD DEBT BALANCE: 314,159 CREDITS.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "TOMAS NOTE: 40 CREDITS \u2014 KEY / TRAVEL TOKEN / PARTS\nSTATUS: REPAYMENT IN PROGRESS",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Took you long enough.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You kept counting.",
+      "at": "bottom-right"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "page": 22,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "An amber signal pulses through Keel's pump hall, rail gate, Halyard and Oasis as a connected infrastructure path. Keep the upper line clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "In an Oasis control room, Mera sees the Legacy Protocol alert on a cold display. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera aligns a glass of water with the desk edge, then stops correcting it. Keep the upper desk clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "A cold tracking ring closes around the amber signal moving toward Site 6. Keep the upper display clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LEGACY PROTOCOL DETECTED \u2014 SOURCE: KEEL SECTOR.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Track.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "TRACKING ACTIVE.",
+      "at": "top"
+    }
+  ]
+}

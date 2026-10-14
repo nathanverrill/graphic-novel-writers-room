@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 2</text>
+<g data-item="0">
+<polygon points="111,157 144,149 191,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="153" rx="93" ry="98" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="90" font-size="19" fill="#111">MADE SOME.</text>
+<text x="128" y="113" font-size="19" fill="#111">FIXED MOST.</text>
+<text x="128" y="136" font-size="19" fill="#111">BORROWED A</text>
+<text x="128" y="160" font-size="19" fill="#111">FEW IDEAS</text>
+<text x="128" y="183" font-size="19" fill="#111">FROM PEOPLE</text>
+<text x="128" y="206" font-size="19" fill="#111">SMARTER THAN</text>
+<text x="128" y="229" font-size="19" fill="#111">ME.</text>
+</g>
+<g data-item="1">
+<polygon points="604,157 637,149 684,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="153" rx="82" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="136" font-size="19" fill="#111">THAT ONE&#x27;S</text>
+<text x="621" y="160" font-size="19" fill="#111">IN MY</text>
+<text x="621" y="183" font-size="19" fill="#111">SCHOOL.</text>
+</g>
+<g data-item="2">
+<polygon points="872,614 872,648 809,631" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="872" cy="631" rx="88" ry="98" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="872" y="568" font-size="19" fill="#111">THAT ONE&#x27;S</text>
+<text x="872" y="591" font-size="19" fill="#111">IN A LOT OF</text>
+<text x="872" y="615" font-size="19" fill="#111">SCHOOLS.</text>
+<text x="872" y="638" font-size="19" fill="#111">SOMEBODY</text>
+<text x="872" y="661" font-size="19" fill="#111">ELSE&#x27;S</text>
+<text x="872" y="684" font-size="19" fill="#111">COMPANY PUT</text>
+<text x="872" y="707" font-size="19" fill="#111">IT THERE.</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 64</text>
+<g data-item="0">
+<text x="500" y="774" font-size="45" font-weight="bold" fill="#fff" stroke="#111" stroke-width="5.4" paint-order="stroke" transform="rotate(-6 500 774)">THRUM</text>
+</g>
+<g data-item="1">
+<polygon points="246,1274 246,1240 373,1257" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="246" cy="1257" rx="70" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="246" y="1252" font-size="19" fill="#111">YOU’RE</text>
+<text x="246" y="1275" font-size="19" fill="#111">STAYING?</text>
+</g>
+<g data-item="2">
+<polygon points="754,1240 754,1274 627,1257" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="754" cy="1257" rx="88" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="754" y="1252" font-size="19" fill="#111">I’M SHOWING</text>
+<text x="754" y="1275" font-size="19" fill="#111">UP.</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 12</text>
+<g data-item="0">
+<polygon points="111,157 144,149 191,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="153" rx="82" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="136" font-size="19" fill="#111">AGE</text>
+<text x="128" y="160" font-size="19" fill="#111">VERIFIED.</text>
+<text x="128" y="183" font-size="19" fill="#111">SEVENTEEN.</text>
+</g>
+<g data-item="1">
+<rect x="528" y="77" width="437" height="122" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="101" font-size="18" fill="#111">PARENTAL HOUSEHOLD LIABILITY TRANSFER:</text>
+<text x="746" y="123" font-size="18" fill="#111">COMPLETE ORIGINAL DEBTOR: ADRIAN</text>
+<text x="746" y="144" font-size="18" fill="#111">PHANTUM — WHEREABOUTS UNRECORDED DEBT</text>
+<text x="746" y="165" font-size="18" fill="#111">BALANCE: 418,607 CREDITS PROJECTED</text>
+<text x="746" y="187" font-size="18" fill="#111">CLEARANCE: 28.7 YEARS</text>
+</g>
+<g data-item="2">
+<polygon points="111,920 144,911 191,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="916" rx="76" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="899" font-size="19" fill="#111">HAPPY</text>
+<text x="128" y="922" font-size="19" fill="#111">BIRTHDAY,</text>
+<text x="128" y="945" font-size="19" fill="#111">PHANTUM.</text>
+</g>
+<g data-item="3">
+<polygon points="379,1377 379,1411 316,1394" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="379" cy="1394" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="379" y="1389" font-size="19" fill="#111">TWENTY-EIGHT</text>
+<text x="379" y="1412" font-size="19" fill="#111">POINT SEVEN.</text>
+</g>
+</g>
+</svg>

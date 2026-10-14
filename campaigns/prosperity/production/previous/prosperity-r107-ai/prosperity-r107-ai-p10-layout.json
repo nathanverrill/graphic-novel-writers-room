@@ -1,0 +1,63 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter looks from the broken drone component to older Alex at the boathouse. Leave upper lake space for her question."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Older Alex looks across Lake Keel, the first grey light touching the water and terraces. Leave upper sky clear for his answer."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Close on older Alex's face, carrying memory and restraint rather than a smile. Keep the lake softly out of focus and leave upper space for the unfinished line."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Lake Keel under first grey light, with the boathouse, distant terraces and empty water. No characters required; leave the sky open for the final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Why were they stealing?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "When you don\u2019t have anything, some people take the easy way out.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It wasn\u2019t always easy for me, either...",
+      "at": "top-left"
+    }
+  ]
+}

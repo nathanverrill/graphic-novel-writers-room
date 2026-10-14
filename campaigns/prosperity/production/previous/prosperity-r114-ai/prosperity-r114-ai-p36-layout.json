@@ -1,0 +1,63 @@
+{
+  "page": 36,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex pushes Lock's assignment document back across the registry table. Ada watches, tense but still; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Lock opens four contributor files on the terminal: Lina Vey, Suri Anik, Jalen Orr and Ren Okafor. Keep the display unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex folds the contributor list into his pocket. Keep his hand and the names clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "high",
+          "description": "Alex adds his own name to the corner of the list with a registry stylus. Leave upper space for his line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I\u2019m not signing people I haven\u2019t met.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Four disputed contributors.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then I\u2019ll meet the names.",
+      "at": "top-left"
+    }
+  ]
+}

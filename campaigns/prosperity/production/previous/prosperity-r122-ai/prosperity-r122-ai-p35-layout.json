@@ -1,0 +1,63 @@
+{
+  "page": 35,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "An old industrial train waits at Keel's rail gate beneath work lamps, dust and steam. Leave upper platform space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The green rail authorization opens the gate without a confirmation chime. Leave upper gate space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex, Ada and folded Bi11bot sit among workers and tool crates inside the train. Leave upper carriage space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Through the window, Keel falls below as the train climbs toward bronze-lit Halyard. Leave upper window sky space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "GRIND",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You still want out?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I want the answer.",
+      "at": "top-right"
+    }
+  ]
+}

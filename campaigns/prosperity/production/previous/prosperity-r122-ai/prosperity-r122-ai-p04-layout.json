@@ -1,0 +1,84 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ's head strains between the siphon shutters while detached legs reach through a maintenance gap. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Nera opens the service panel as a magnetic leg snaps onto the inner latch. Leave upper deck space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The siphon bucks and sprays water across the barge. Nera and Voss recoil. Leave upper spray space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At the dock, the granddaughter grips the rail while older Alex watches TJ work. Leave upper dock space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRRRNNK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "Something\u2019s in the housing.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "Shut it down.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "WHUMP\u2014KRAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "He\u2019s stuck.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He\u2019s working.",
+      "at": "top-right"
+    }
+  ]
+}

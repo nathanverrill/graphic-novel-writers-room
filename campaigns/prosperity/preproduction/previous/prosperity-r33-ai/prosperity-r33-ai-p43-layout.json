@@ -1,0 +1,62 @@
+{
+  "page": 43,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Lock enters the maker room with two indistinct clerks. Alex and Lina stand beside the purifier; keep the clerks unrecognizable and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A public notice marks the contributors for access review. Show the notice beside the purifier casing and leave it unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri and Jalen stand together on one side of the bench, watching Lock's document without reaching for it. Keep only these two named makers visible; leave upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ren stands with Alex at the public registry terminal. Alex opens the record while Ren watches; leave upper space for the names."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "The review begins in one hour.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ACCESS REVIEW",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Lina Vey. Suri Anik. Jalen Orr. Ren Okafor. Alex Phantum.",
+      "at": "top-left"
+    }
+  ]
+}

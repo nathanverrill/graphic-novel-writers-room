@@ -101,7 +101,9 @@ def items(spec):
     out = []
     for i, item in enumerate(spec.get("items") or []):
         if item.get("type") in KINDS:
-            out.append({"i": i, **item})
+            # a writer's *emphasis* marks are not lettered: the words are, plain
+            text = re.sub(r"\*+([^*]+)\*+", r"\1", str(item.get("text", ""))).replace("*", "")
+            out.append({"i": i, **item, "text": text})
     return out
 
 
@@ -143,9 +145,10 @@ def layer(spec, ctx=None, rects=None):
            f'<g font-family="{FONT}" text-anchor="middle">']
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     placed, boxes, tails = [], {}, {}
-    out.append(f'<text x="{round(W * 0.015)}" y="{round(H * 0.012) + round(W * 0.016)}" text-anchor="start" '
-               f'font-size="{round(W * 0.016)}" fill="#7ec8ff" stroke="#10304a" '
-               f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
+    if ctx.get("page_label", True):     # a marker on the lettering screen; never on a finished page
+        out.append(f'<text x="{round(W * 0.015)}" y="{round(H * 0.012) + round(W * 0.016)}" text-anchor="start" '
+                   f'font-size="{round(W * 0.016)}" fill="#7ec8ff" stroke="#10304a" '
+                   f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
     for item in items(spec):
         kind = item["type"]
         start = len(out)      # everything this item draws is wrapped in <g data-item> below

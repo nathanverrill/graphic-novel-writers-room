@@ -1,0 +1,84 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ wedges one detached ear into the siphon drone rotor. The ceramic dog part is the clear focal point; leave upper space for the impact sound."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The tanker hose buckles and sprays water across the deck as both thieves reach toward the machinery. Keep the spray directional and leave upper deck space for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Older Alex pulls his granddaughter behind the boathouse wall as water and distant lamps flash across the lake. Keep the child protected behind his body; leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "The drone drops toward the lake, dragging TJ's detached head while the body and legs remain below. Keep the fall legible against the dark water and leave upper space for sound."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "GRRNNK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 2",
+      "text": "Cut it!",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "THIEF 1",
+      "text": "The drone first!",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Papa\u2014",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Down.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK\u2014KRAK",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

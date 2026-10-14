@@ -1,0 +1,77 @@
+{
+  "page": 25,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "low",
+          "description": "Alex braces the collapsed frame while TJ's detached head reaches the release mechanism. Keep both rescue actions readable and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A cold search beam sweeps toward Alex and Tomas across the Site 6 machinery. B11 remains farther back; leave upper dark space for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Alex shifts his grip and lifts while Tomas pulls free from the frame. Keep the rescue silhouette clear and leave upper space for impact lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "B11 faces Alex after the beam turns back, amber eyes steady and brass ring visible. Leave upper space for the admission."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "Leave him. The beam will pass us.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "I predicted we could leave him unseen.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You were wrong.",
+      "at": "middle-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "Yes. What would you do?",
+      "at": "bottom-left"
+    }
+  ]
+}

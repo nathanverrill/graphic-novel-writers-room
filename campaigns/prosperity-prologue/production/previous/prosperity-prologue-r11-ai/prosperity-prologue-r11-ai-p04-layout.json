@@ -1,0 +1,67 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Alex remains beside the hallway wall, with the mismatched pump-bracket sketch frame behind him. He turns toward his daughter rather than toward the polished records. Alex is a man in his mid-40s in the 2070 scenes, of average height with a lean, capable repairer's build, squared shoulders and work-worn hands; he has a long, calm face, grey at the temples, close-cropped dark hair, medium-brown skin and steady dark eyes, and wears a plain charcoal-brown sweater over a pale shirt with practical dark trousers. Leave the upper-left area open for his short balloon."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "low",
+          "horizon": 52,
+          "description": "The daughter looks up at Alex and waits. Her bright expression has gone still and attentive, with lifted eyes and a small pause; no tears, panic, recoil or melodramatic fear. The warm hallway wall remains behind her, and the small 'PAID IN FULL \u00b7 BALANCE 0 CREDITS' statement remains visible as background continuity at reduced contrast, not as a new discovery. Leave clean space above her head and keep this panel silent."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Alex faces his daughter in the hallway. The polished patents, photographs and clippings share the background with the rough mismatched pump-bracket frame. Alex's expression is controlled and plainspoken, carrying difficult history without theatricality. Keep the upper area open for one long balloon and do not cover either face or the sketch frame."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 36,
+          "bleed": true,
+          "description": "Full-width visual match and transition: the crude grease-stained pencil geometry from the framed pump-bracket sketch transforms directly into the same two or three unmistakable geometry points on a rusted, grease-dark metal bracket attached to a real industrial pump. The warm hallway disappears into a Keel pump hall of rust, charcoal shadow and heavy machinery. In a secondary but clear focal area, seventeen-year-old Alex stands with his palm flat on the pump; he is visibly younger and narrower, with the same dark hair and determined eyes, wearing grease-marked work clothes in Keel's pump hall. Make the bracket the largest foreground shape. Reserve clean dark-to-mid-tone negative space in the upper-left for the transition caption."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not in the beginning.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "In the beginning, I owed four hundred thousand credits I'd never borrowed.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "KEEL. 2043.",
+      "at": "top-left"
+    }
+  ]
+}

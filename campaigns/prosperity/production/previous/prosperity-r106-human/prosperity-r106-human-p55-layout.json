@@ -1,0 +1,83 @@
+{
+  "page": 55,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "B11 connects to the archive reader. Keep his hands, cable and reader clear; leave upper space for the sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The public record displays Adrian's legal status and unresolved estate. Keep the record unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex studies the record while Mera stands beside him. Leave upper space for the exchange."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Alex looks at B11; B11 answers plainly. Leave upper corners clear for their lines."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "PIP\u2014PIP",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ADRIAN PHANTUM: PRESUMED DEAD\nLEGAL STATUS: MISSING\nESTATE: UNRESOLVED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He was still a gambler.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Yes.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He built something worth finding.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "Also yes.",
+      "at": "top-right"
+    }
+  ]
+}

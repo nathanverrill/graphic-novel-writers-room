@@ -1,0 +1,46 @@
+{
+ "cand-20261014-200211.png": {
+  "pass": true,
+  "problems": [
+   {
+    "panel": 1,
+    "kind": "hands",
+    "severity": "minor",
+    "what": "Alex's right hand has six digits (a thumb and five fingers)",
+    "box": [
+     220,
+     290,
+     310,
+     390
+    ],
+    "unconfirmed": true
+   }
+  ],
+  "tries": 1,
+  "cost": 0.102996,
+  "note": "",
+  "prompt": "A CHARACTER LOCK for a graphic novel: one full-body drawing of Alex Phantum, standing in a relaxed,\ncharacterful three-quarter pose, head to boots in frame, on a plain warm cream background. Portrait.\nThis image is the reference every page of the book is drawn from, so every detail must be clear.\n\nAlex Phantum: Alex Phantum is seventeen years old, lean and wiry from pump-hall and mine work, approximately 5'9\" tall, with narrow shoulders, strong forearms and scarred, work-rough hands. He has medium-brown skin, a broad Indigenous Andean-inherited nose and cheekbones, a firm jaw and dark brown eyes whose shape visibly echoes his European-descended father Adrian; his thick black hair is cut short with an uneven, self-trimmed edge. He wears a patched charcoal work shirt, rust-brown utility trousers, worn boots, a weathered tool bag and a white-and-amber identity band on his left wrist. His silhouette is compact, forward-leaning and practical.\n\nDraw it exactly in the style of the style plate: the same line, color, light and rendering.\nThe second attached image is the current lock: keep the same person, and change only what the description above says differently.\n\nNo text, no labels, no names, no numbers, no frame, no other people.\nThe attached images, in order: 1. the style plate - draw in exactly this style; 2. Alex Phantum's current lock - keep everything the words do not change"
+ },
+ "cand-20261014-200656.png": {
+  "pass": true,
+  "problems": [
+   {
+    "panel": 1,
+    "kind": "hands",
+    "severity": "minor",
+    "what": "Right hand is backwards; thumb points down.",
+    "box": [
+     400,
+     250,
+     470,
+     320
+    ],
+    "unconfirmed": true
+   }
+  ],
+  "tries": 3,
+  "cost": 0.355301,
+  "note": "No casino chip",
+  "prompt": "A CHARACTER LOCK for a graphic novel: one full-body drawing of Alex Phantum, standing in a relaxed,\ncharacterful three-quarter pose, head to boots in frame, on a plain warm cream background. Portrait.\nThis image is the reference every page of the book is drawn from, so every detail must be clear.\n\nAlex Phantum: Alex Phantum is seventeen years old, lean and wiry from pump-hall and mine work, approximately 5'9\" tall, with narrow shoulders, strong forearms and scarred, work-rough hands. He has medium-brown skin, a broad Indigenous Andean-inherited nose and cheekbones, a firm jaw and dark brown eyes whose shape visibly echoes his European-descended father Adrian; his thick black hair is cut short with an uneven, self-trimmed edge. He wears a patched charcoal work shirt, rust-brown utility trousers, worn boots, a weathered tool bag and a white-and-amber identity band on his left wrist. His silhouette is compact, forward-leaning and practical.\n\nDraw it exactly in the style of the style plate: the same line, color, light and rendering.\nThe second attached image is the current lock: keep the same person, and change only what the description above says differently.\nNote for this drawing: No casino chip\n\nNo text, no labels, no names, no numbers, no frame, no other people.\nThe attached images, in order: 1. the style plate - draw in exactly this style; 2. Alex Phantum's current lock - keep everything the words do not change"
+ }
+}

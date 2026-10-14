@@ -1,0 +1,49 @@
+{
+  "page": 33,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The group emerges through a storm drain into Halyard: bronze towers, glass laboratories and engineered greenery. Keep Alex, Ada, B11 and TJ small against the city; leave sky space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Soaked and dust-streaked, Alex, Ada and B11 pass a polished checkpoint while TJ follows low. Keep the gate and white-and-amber node prominent."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A worker's hand is stopped by a House scanner; no face required. Keep the polished scanner and hand clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex's identity band opens a public registry while Ada looks up at the towers. Leave upper commercial signage space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Too much glass.",
+      "at": "top-left"
+    }
+  ]
+}

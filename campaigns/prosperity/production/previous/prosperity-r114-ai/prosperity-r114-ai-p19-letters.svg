@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 19</text>
+<g data-item="0">
+<polygon points="111,157 144,149 191,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="153" rx="88" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="136" font-size="19" fill="#111">DO YOU WANT</text>
+<text x="128" y="160" font-size="19" fill="#111">ANSWERS OR</text>
+<text x="128" y="183" font-size="19" fill="#111">AN EXIT?</text>
+</g>
+<g data-item="1">
+<polygon points="604,157 637,149 684,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="153" rx="76" ry="34" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="160" font-size="19" fill="#111">THE EXIT.</text>
+</g>
+<g data-item="2">
+<polygon points="621,648 621,614 684,631" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="631" rx="64" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="626" font-size="19" fill="#111">ANSWERS</text>
+<text x="621" y="649" font-size="19" fill="#111">FIRST.</text>
+</g>
+<g data-item="3">
+<polygon points="111,920 144,911 191,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="916" rx="82" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="911" font-size="19" fill="#111">THAT COSTS</text>
+<text x="128" y="934" font-size="19" fill="#111">MORE.</text>
+</g>
+<g data-item="4">
+<text x="746" y="1155" font-size="30" font-weight="bold" fill="#fff" stroke="#111" stroke-width="3.6" paint-order="stroke" transform="rotate(-6 746 1155)">TIK</text>
+</g>
+<g data-item="5">
+<polygon points="621,1411 621,1377 684,1394" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="1394" rx="82" ry="63" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="1366" font-size="19" fill="#111">THEN I’LL</text>
+<text x="621" y="1389" font-size="19" fill="#111">KNOW WHAT</text>
+<text x="621" y="1412" font-size="19" fill="#111">I’M PAYING</text>
+<text x="621" y="1435" font-size="19" fill="#111">FOR.</text>
+</g>
+</g>
+</svg>

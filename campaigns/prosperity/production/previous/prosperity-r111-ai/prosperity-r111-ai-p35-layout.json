@@ -1,0 +1,69 @@
+{
+  "page": 35,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Director Cassian Lock waits beside Adrian's estate record in the Halyard registry. Alex and Ada face him across the terminal; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lock places a formal assignment document on the table. Keep his hands and the document clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The assignment document offers debt clearance and pending collaborator protection in exchange for House administration. Leave the document unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Alex reads the listed contributors while Lock studies the record before looking at him. Leave upper space for the exchange."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Your father\u2019s work could clear every debt attached to your name.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "ASSIGNMENT TO HOUSE ADMINISTRATION\nDEBT: CLEARED\nCOLLABORATOR PROTECTION: PENDING",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Protection for who?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "The people you haven\u2019t met yet.",
+      "at": "top-right"
+    }
+  ]
+}

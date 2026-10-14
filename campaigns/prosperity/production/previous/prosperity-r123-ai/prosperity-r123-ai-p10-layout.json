@@ -1,0 +1,48 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "bleed": true,
+          "description": "FULL-PAGE DAWN IMAGE. Older Alex, his granddaughter and crooked TJ stand above restored Lake Keel. The damaged component rests in the granddaughter's hand. Mine walls, terraces, gardens, workshops and control nodes recede into the bright basin. Keep the upper-left sky, upper-right sky, lower-left lake and lower-right lake visually quiet for four separate lettering zones."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "You really don\u2019t know who owns the water?",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I know who keeps showing up for it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "That isn\u2019t an answer.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "bottom-right"
+    }
+  ]
+}
