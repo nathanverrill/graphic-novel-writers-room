@@ -369,7 +369,7 @@ def page_cast(spec, ctx):
                 names.append(name)
     # Whoever the panels describe but nobody names: a page where Alex works in silence still
     # has to carry his visual lock, or the artist draws a different boy every page.
-    described = " ".join(str(p.get("description") or "") for p in panel_specs)
+    described = " ".join(str(p.get("description") or "") for p in panel_specs).replace("\u2019", "'").replace("\u2018", "'")
     for name in named_in(ctx["bible"], described):
         if name.upper() not in [n.upper() for n in names]:
             names.append(name)
@@ -488,6 +488,7 @@ def character_entries(bible):
         if not m:
             continue
         depth, head = len(m.group(1)), m.group(2).strip().rstrip("*").strip()
+        head = re.split(r"\s+[\u2014\u2013]\s+|\s+-\s+", head)[0].strip()   # "ALEX'S DAUGHTER — ABOUT 9": the name
         is_name = 1 <= len(head.split()) <= 4 and not head.endswith(":") and not not_a_name.search(head)
         if depth == 1:
             file_is_people = in_people = bool(people.search(head)) and not not_a_name.search(head)
@@ -563,7 +564,8 @@ def context(slug, version=None):
         "chapter": chapter,
         "lettering": settings.get("lettering") or "layer",
         "style": section(read("brief.md"), "visual", "style", "look"),
-        "bible": read("characters.md"),
+        # straight apostrophes, so "ALEX'S DAUGHTER" in a layout finds "### ALEX’S DAUGHTER" in the bible
+        "bible": read("characters.md").replace("\u2019", "'").replace("\u2018", "'"),
         "world": read("world.md"),
         "script": read("script.md"),
         "trim": f"{w_in:g} x {h_in:g} inches",

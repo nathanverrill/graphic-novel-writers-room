@@ -288,6 +288,11 @@ def layer(spec, ctx=None, rects=None):
                            f'stroke-width="2" stroke-linejoin="round"/>')
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2"{dash}/>')
+            if item["i"] in tails:     # the balloon's outline crosses the tail's base: fill over the join
+                bx, by = px + ux * edge * 0.82, py + uy * edge * 0.82
+                out.append(f'<polygon points="{bx + ox * 0.8:.0f},{by + oy * 0.8:.0f} {bx - ox * 0.8:.0f},{by - oy * 0.8:.0f} '
+                           f'{px + ux * (reach - size * 0.35):.0f},{py + uy * (reach - size * 0.35):.0f}" '
+                           f'fill="{fill}" stroke="none"/>')
         y = py - box_h / 2 + size * 0.95
         for line in lines:
             out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}">'
