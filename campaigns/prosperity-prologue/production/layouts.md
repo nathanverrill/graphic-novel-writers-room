@@ -29,7 +29,7 @@
      "angle": "eye",
      "horizon": 48,
      "bleed": true,
-     "description": "Warm evening exterior of a comfortable, lived-in house in the Prosperity basin, with distant mountains and stepped basin terraces behind it. Pearl-white composite water-capture panels cover part of the roof, a rooftop cistern rises behind the roofline, and a small purifier unit stands beside the entry. A delivery drone crosses the sky, ordinary and unobtrusive. The house is maintained but not luxurious. No car, garden spectacle, extra technology or readable signage. Leave quiet sky space for no lettering."
+     "description": "Warm evening exterior of Alex's house in 2070, built the way the book's Oasis was built: pearl-white curved architecture with rounded rooflines on a garden terrace, a still reservoir with a fountain below, slender white towers and a white monorail viaduct across the basin, snow mountains behind. A delivery drone crosses the dusk sky. One modest house among others like it, lived in: a workbench and a bike on the terrace, plants in pots. Never present-day suburbia: no shingled roof, no lawn, no car. No car, garden spectacle, extra technology or readable signage. Leave quiet sky space for no lettering."
     }
    ]
   },
@@ -84,8 +84,8 @@
    "speaker": "ALEX'S DAUGHTER",
    "text": "Did you make *all of these*?",
    "at": "top-right",
-   "tail_x": 58.3,
-   "tail_y": 46.2
+   "tail_x": 58.2,
+   "tail_y": 41.1
   }
  ]
 }
@@ -256,8 +256,8 @@
    "speaker": "ALEX'S DAUGHTER",
    "text": "This one's just a drawing. Why isn't it a patent?",
    "at": "top-left",
-   "tail_x": 33.9,
-   "tail_y": 53.4
+   "tail_x": 31.9,
+   "tail_y": 66.8
   },
   {
    "panel": 2,
@@ -265,8 +265,8 @@
    "speaker": "ALEX",
    "text": "Because it never needed to be.",
    "at": "top-right",
-   "tail_x": 64.1,
-   "tail_y": 29.0
+   "tail_x": 59.1,
+   "tail_y": 32.5
   },
   {
    "panel": 3,
@@ -274,8 +274,8 @@
    "speaker": "ALEX'S DAUGHTER",
    "text": "Inventing stuff must have been *so* much fun.",
    "at": "top-left",
-   "tail_x": 50.9,
-   "tail_y": 41.2
+   "tail_x": 51.5,
+   "tail_y": 42.8
   }
  ]
 }
@@ -297,5 +297,75 @@
 **Flags:** The paid-in-full statement is not repeated as lettering on this page. The bracket geometry, young Alex’s identity and the identical watch must all remain readable in the final transition.
 
 ```layout
-{"page":4,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":46,"description":"Alex remains beside the warm hallway wall, with the mismatched pump-bracket sketch frame behind him. He turns toward his daughter rather than toward the polished records. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic’s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Leave clean upper-left space for his short balloon."},{"w":1,"shot":"medium-close","angle":"eye","horizon":50,"description":"The daughter looks directly up at Alex and waits without speaking. Her expression is attentive and open; there are no tears, panic, recoil or melodrama. The mismatched pump-bracket frame remains visible between them as a quiet visual bridge. Keep the paid-in-full statement only as previously lettered background art at reduced contrast; do not make it a destination and do not reserve a new lettering area for it. Leave clean space above her head and keep this panel silent."},{"w":1,"shot":"medium","angle":"eye","horizon":46,"description":"Alex faces his daughter in the hallway. The polished patents, photographs and clippings share the background with the rough mismatched pump-bracket frame. His posture has shifted: he is no longer presenting the wall, but facing the beginning behind it. His expression is plain and controlled. Keep both faces and the sketch frame readable. Reserve a quiet upper balloon field away from the faces and frame."}]},{"h":2,"panels":[{"w":1,"shot":"wide","angle":"low","horizon":36,"bleed":true,"description":"Full-width visual match and threshold transition. At the foreground edge, the damaged pump-bracket sketch’s crude pencil geometry transforms directly into the same two or three unmistakable angle and attachment points on a rusted, grease-dark metal bracket fixed to a real industrial pump. The warm hallway disappears into Keel’s dense, wind-scoured industrial pump hall: compressed space, oxidized orange, rust, grease, dust, charcoal machinery and hard industrial shadow. Seventeen-year-old Alex is a visibly younger, narrower version of the older Alex, with medium-brown skin, close-cropped dark hair, determined dark eyes and a lean repairer’s build. He wears grease-marked, worn work clothes appropriate to a dense industrial pump hall. His silhouette is narrow and alert, with one arm extended and his palm flat against the pump. On his left wrist he wears Adrian’s old steel watch, physically identical to the older Alex’s watch: worn steel, slightly too large, plain cream dial, scratched glass and a small display window that stays dark. Give his face, left wrist and palm-on-pump action clear secondary emphasis while the bracket remains the dominant foreground match. Reserve stable quiet industrial shadow for the caption, away from the bracket, Alex’s face, palm and watch. No other characters and no subsequent Chapter 1 event."}]}],"items":[{"panel":1,"type":"balloon","speaker":"ALEX","text":"Not in the beginning.","at":"top-left"},{"panel":3,"type":"balloon","speaker":"ALEX","text":"In the beginning I was deep in debt, our water was rationed...","at":"top-left"},{"panel":4,"type":"caption","text":"KEEL. 2043.","at":"top-left"}]}
+{
+ "page": 4,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 46,
+     "description": "Alex remains beside the warm hallway wall, with the mismatched pump-bracket sketch frame behind him. He turns toward his daughter rather than toward the polished records. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Leave clean upper-left space for his short balloon."
+    },
+    {
+     "w": 1,
+     "shot": "medium-close",
+     "angle": "eye",
+     "horizon": 50,
+     "description": "The daughter looks directly up at Alex and waits without speaking. Her expression is attentive and open; there are no tears, panic, recoil or melodrama. The mismatched pump-bracket frame remains visible between them as a quiet visual bridge. Keep the paid-in-full statement only as previously lettered background art at reduced contrast; do not make it a destination and do not reserve a new lettering area for it. Leave clean space above her head and keep this panel silent."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 46,
+     "description": "Alex faces his daughter in the hallway. The polished patents, photographs and clippings share the background with the rough mismatched pump-bracket frame. His posture has shifted: he is no longer presenting the wall, but facing the beginning behind it. His expression is plain and controlled. Keep both faces and the sketch frame readable. Reserve a quiet upper balloon field away from the faces and frame."
+    }
+   ]
+  },
+  {
+   "h": 2,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "low",
+     "horizon": 36,
+     "bleed": true,
+     "description": "Full-width visual match and threshold transition. At the foreground edge, the damaged pump-bracket sketch\u2019s crude pencil geometry transforms directly into the same two or three unmistakable angle and attachment points on a rusted, grease-dark metal bracket fixed to a real industrial pump. The warm hallway disappears into Keel\u2019s dense, wind-scoured industrial pump hall: compressed space, oxidized orange, rust, grease, dust, charcoal machinery and hard industrial shadow. Seventeen-year-old Alex is a visibly younger, narrower version of the older Alex, with medium-brown skin, close-cropped dark hair, determined dark eyes and a lean repairer\u2019s build. He wears grease-marked, worn work clothes appropriate to a dense industrial pump hall. His silhouette is narrow and alert, with one arm extended and his palm flat against the pump. On his left wrist he wears Adrian\u2019s old steel watch, physically identical to the older Alex\u2019s watch: worn steel, slightly too large, plain cream dial, scratched glass and a small display window that stays dark. Give his face, left wrist and palm-on-pump action clear secondary emphasis while the bracket remains the dominant foreground match. Reserve stable quiet industrial shadow for the caption, away from the bracket, Alex\u2019s face, palm and watch. No other characters and no subsequent Chapter 1 event."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "Not in the beginning.",
+   "at": "top-left",
+   "tail_x": 52.7,
+   "tail_y": 32.7
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "In the beginning I was deep in debt, our water was rationed...",
+   "at": "top-left",
+   "tail_x": 27.5,
+   "tail_y": 28.0
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "KEEL. 2043.",
+   "at": "top-left"
+  }
+ ]
+}
 ```

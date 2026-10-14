@@ -137,13 +137,15 @@ The businesses are independent companies that license Alex's patents and compete
 other and with the Houses.
 
 **Page 1: The house**
-- P1, wide: Alex's house at evening, in the Prosperity basin in 2070: the near future, drawn by
-  the hard-SF rules (80% today aged, 15% today's new things gone ordinary, 5% new). What only
-  Oasis had in 2043 is ordinary now: pearl-white composite and water-capture panels on the roof,
-  a small purifier unit by the door, a rooftop cistern, a delivery drone crossing the dusk sky,
-  the mountains and the basin's terraces behind. Lived in, a little worn, comfortable, nothing
-  flashy. Not present-day suburbia.
-- P2: inside, the hallway wall is covered in framed patents, photos of machines and news
+- P1, wide: Alex's house at evening, in 2070, built the way Oasis was built in 2043: the
+  book's own Oasis (see the opening three-cities page), now ordinary and lived in. Pearl-white
+  curved architecture with rounded rooflines, terraced gardens, a still reservoir with fountains,
+  slender white towers and a white monorail viaduct across the basin, the snow mountains behind,
+  a delivery drone in the dusk sky. One house in a neighbourhood of them: modest for Oasis, a
+  workbench and a bike on the terrace, plants that need watering. Never present-day suburbia:
+  no shingled roofs, no lawns, no ordinary cars.
+- P2: inside, an Oasis-built hallway: smooth pearl-white curved walls, warm wood floor, a tall
+  window onto the terraces. The wall is covered in framed patents, photos of machines and news
   clippings. Alex, mid-40s, grey at the temples, a day's stubble, still dressed like a mechanic:
   a worn work jacket over a T-shirt, sleeves pushed up, scuffed boots, nothing proper or
   polished; Adrian's old steel watch on his left wrist. His daughter, about 9: warm-brown skin, freckles, dark auburn-brown hair in two low braids, a mustard cardigan over a pale blue school shirt, navy skirt, white socks, red sneakers, the same on every page. She stands on tiptoe in front of it.
