@@ -194,7 +194,7 @@ def layer(spec, ctx=None, rects=None):
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
         size = SIZES.get(kind, 0.019) * W
-        width = min(rect[2] * 0.86, 0.6) * W
+        width = (float(item["w"]) / 100 * rect[2] if "w" in item else min(rect[2] * 0.86, 0.6)) * W   # "w": percent of the panel
         limit = max(8, int(width / (size * CHAR)))
         lines = wrap(text, limit) if kind in ("caption", "location") else balloon_wrap(text, limit)
         # a balloon must fit its panel: in a short strip tier, wrap flat and wide instead of tall
@@ -214,7 +214,10 @@ def layer(spec, ctx=None, rects=None):
         pad = size * (0.3 if boxed else 0.5)
         fy = float(item["y"]) / 100 if "y" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[1]
         edge_x, edge_y = rect[2] * 0.02 * W, rect[3] * 0.015 * H
-        if kind == "location":     # a place-and-time header always sits in the panel's top-left corner
+        exact = item.get("place") == "exact"      # a cover or a designed page: the x/y given, nothing hugged
+        if exact:
+            pass
+        elif kind == "location":   # a place-and-time header always sits in the panel's top-left corner
             px, py = rect[0] * W + edge_x + rx + pad, rect[1] * H + edge_y + ry + pad
         else:
             if boxed:              # a caption at a side of the panel sits against that side
