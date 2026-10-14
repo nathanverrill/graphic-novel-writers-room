@@ -175,7 +175,9 @@ def letter(art_bytes, spec, ctx):
     from PIL import Image
     art = Image.open(io.BytesIO(art_bytes)).convert("RGBA")
     rects = lettering.detect_rects(spec, art_bytes)   # the drawn grid, not the assumed one
-    layer = cairosvg.svg2png(bytestring=lettering.svg(spec, {**ctx, "page_label": False}, rects).encode(), output_width=art.width, output_height=art.height)
+    size = (1000, round(1000 * art.height / art.width))   # the layer in the art's own proportions
+    layer = cairosvg.svg2png(bytestring=lettering.svg(spec, {**ctx, "page_label": False, "page_size": size}, rects).encode(),
+                             output_width=art.width, output_height=art.height)
     out = Image.alpha_composite(art, Image.open(io.BytesIO(layer)).convert("RGBA").resize(art.size))
     buf = io.BytesIO()
     out.convert("RGB").save(buf, "PNG")
@@ -301,3 +303,74 @@ def start(slug, tags=None, pages=None, redo=False):
         t.start()
         started.append(tag)
     return {"started": started, "pages": [s["page"] for s in specs], **status(slug)}
+
+
+# ---- where each speaker is: the tails, from the drawn page -----------------------------------
+
+SPEAKERS_ASK = """This is one drawn page of a graphic novel, with no lettering on it yet. Balloons will be
+added for the lines below. For each one, find the speaker in that panel and give where their
+mouth or head is, as fractions of the WHOLE PAGE: x from 0 (left edge) to 1 (right edge), y
+from 0 (top) to 1 (bottom). Panels are numbered left to right, top to bottom. If the speaker is
+not visible in that panel (off panel, behind a door, a voice on a screen nobody shows), say so.
+
+{lines}
+
+Reply with ONLY JSON: {{"items": [{{"item": <number>, "x": <0-1>, "y": <0-1>}} or {{"item": <number>, "offpanel": true}}]}}"""
+
+TAILED = ("balloon", "whisper", "shout", "thought")
+
+
+def place_tails(slug, tag, pages=None, redo=False):
+    """Point every speech balloon's tail at its speaker: one look at each drawn page by the art
+    check's model, which marks where each speaker's head is. Written into layouts.md as
+    tail_x / tail_y (percent of the panel), so lettering again costs nothing. {page: result}."""
+    key = api_key()
+    specs = {s["page"]: s for s in book(slug)}
+    todo = sorted(int(p) for p in (pages or specs))
+
+    def one(n):
+        spec, art = specs.get(n), folder(slug, tag, "art") / f"p{n:02d}.png"
+        if not spec or not art.is_file():
+            return n, "no art"
+        want = [i for i in lettering.items(spec) if i["type"] in TAILED and i.get("speaker")
+                and i.get("tail") != "none" and (redo or i.get("tail_x") is None)]
+        if not want:
+            return n, "nothing to place"
+        rects = lettering.detect_rects(spec, art.read_bytes()) or lettering.panel_rects(spec)
+        lines = "\n".join(f'- item {i["i"]}: panel {i.get("panel")}, {i["speaker"]}: "{i.get("text", "")[:90]}"' for i in want)
+        t0 = time.time()
+        answer, cost = artcheck._ask([{"type": "text", "text": SPEAKERS_ASK.format(lines=lines)},
+                                      {"type": "image_url", "image_url": {"url": data_url(art)}}], key, artcheck.MODEL)
+        usage.ledger(slug, "letterer", "speakers", artcheck.MODEL, cost, time.time() - t0, page=n)
+        found = {int(r["item"]): r for r in ((artcheck._json(answer) or {}).get("items") or [])
+                 if isinstance(r, dict) and "item" in r}
+        changes = {}
+        for i in want:
+            r = found.get(i["i"])
+            if not r or r.get("offpanel") or "x" not in r or "y" not in r:
+                continue
+            x0, y0, w, h = rects.get(i.get("panel"), (0, 0, 1, 1))
+            changes[i["i"]] = {"tail_x": round((float(r["x"]) - x0) / w * 100, 1),
+                               "tail_y": round((float(r["y"]) - y0) / h * 100, 1)}
+        if changes:
+            with _write_lock:      # every page's pass rewrites the one layouts.md
+                lettering.set_items(slug, n, changes)
+        return n, f"{len(changes)} of {len(want)} placed"
+
+    out = {}
+    with _lock_tails:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+            for n, r in pool.map(lambda n: _safe(one, n), todo):
+                out[n] = r
+    return out
+
+
+_lock_tails = threading.Lock()     # one pass at a time
+_write_lock = threading.Lock()     # one layouts.md write at a time
+
+
+def _safe(fn, n):
+    try:
+        return fn(n)
+    except Exception as e:      # noqa: BLE001 - one page failing never stops the book
+        return n, f"failed: {str(e)[:200]}"

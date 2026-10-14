@@ -16,7 +16,79 @@
 **Flags:** The exterior-to-interior movement is the approved deliberate exception. Panel 1 remains brief and quiet so the hallway carries the story. The two headlines are represented by clean text areas and visual hierarchy only; exact wording is lettering-layer material.
 
 ```layout
-{"page":1,"side":"right","tiers":[{"h":1,"panels":[{"w":1,"shot":"establishing","angle":"eye","horizon":48,"bleed":true,"description":"Warm evening exterior of a comfortable, lived-in house in the Prosperity basin, with distant mountains and stepped basin terraces behind it. Pearl-white composite water-capture panels cover part of the roof, a rooftop cistern rises behind the roofline, and a small purifier unit stands beside the entry. A delivery drone crosses the sky, ordinary and unobtrusive. The house is maintained but not luxurious. No car, garden spectacle, extra technology or readable signage. Leave quiet sky space for no lettering."}]},{"h":1,"panels":[{"w":1,"shot":"wide","angle":"eye","horizon":45,"description":"Warm evening hallway inside the same lived-in 2070 home, with a dense but organized wall of framed patents, machine photographs, clippings and personal artifacts. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic’s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. On his left wrist he wears Adrian’s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark; it has no readout and counts nothing. He keeps the watch partly hidden beneath his sleeve. His approximately nine-year-old daughter stands on tiptoe before the wall. She has warm-brown skin, a child’s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. She studies the frames one by one while Alex watches her. Keep the upper area above the daughter clear for later lettering."}]},{"h":1,"panels":[{"w":2,"shot":"wide","angle":"eye","horizon":42,"description":"Wall-focused view that remains clearly part of the warm hallway. Make the two approved news clippings visually dominant through large clean headline-shaped lettering areas, beside a separate-founders photograph showing many distinct founders with individual water units and different shop signs. Include the collaborator photograph of four people laughing together in a lab, the purifier diagram, patents and machine photographs as unmistakable framed evidence. Do not generate words or legible text in the art layer; reserve clean frame interiors and stable areas for exact lettering."},{"w":1,"shot":"medium","angle":"eye","horizon":45,"description":"The daughter remains on tiptoe, points toward the framed wall evidence and looks back toward Alex with direct curiosity. Keep her expressive face and raised hand unobstructed against the frames. Leave the upper-right area clear for her balloon, with the tail aimed at her mouth."}]}],"items":[{"panel":3,"type":"caption","text":"40TH INDEPENDENT SHOP LICENSES PHANTUM PURIFIER","at":"top-left"},{"panel":3,"type":"caption","text":"SMALL MAKERS AND THE HOUSES RACE FOR THE NEXT DESIGN","at":"top-right"},{"panel":4,"type":"balloon","speaker":"ALEX'S DAUGHTER","text":"Did you make *all of these*?","at":"top-right"}]}
+{
+ "page": 1,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "establishing",
+     "angle": "eye",
+     "horizon": 48,
+     "bleed": true,
+     "description": "Warm evening exterior of a comfortable, lived-in house in the Prosperity basin, with distant mountains and stepped basin terraces behind it. Pearl-white composite water-capture panels cover part of the roof, a rooftop cistern rises behind the roofline, and a small purifier unit stands beside the entry. A delivery drone crosses the sky, ordinary and unobtrusive. The house is maintained but not luxurious. No car, garden spectacle, extra technology or readable signage. Leave quiet sky space for no lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Warm evening hallway inside the same lived-in 2070 home, with a dense but organized wall of framed patents, machine photographs, clippings and personal artifacts. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. On his left wrist he wears Adrian\u2019s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark; it has no readout and counts nothing. He keeps the watch partly hidden beneath his sleeve. His approximately nine-year-old daughter stands on tiptoe before the wall. She has warm-brown skin, a child\u2019s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. She studies the frames one by one while Alex watches her. Keep the upper area above the daughter clear for later lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 2,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 42,
+     "description": "Wall-focused view that remains clearly part of the warm hallway. Make the two approved news clippings visually dominant through large clean headline-shaped lettering areas, beside a separate-founders photograph showing many distinct founders with individual water units and different shop signs. Include the collaborator photograph of four people laughing together in a lab, the purifier diagram, patents and machine photographs as unmistakable framed evidence. Do not generate words or legible text in the art layer; reserve clean frame interiors and stable areas for exact lettering."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The daughter remains on tiptoe, points toward the framed wall evidence and looks back toward Alex with direct curiosity. Keep her expressive face and raised hand unobstructed against the frames. Leave the upper-right area clear for her balloon, with the tail aimed at her mouth."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 3,
+   "type": "caption",
+   "text": "40TH INDEPENDENT SHOP LICENSES PHANTUM PURIFIER",
+   "at": "top-left"
+  },
+  {
+   "panel": 3,
+   "type": "caption",
+   "text": "SMALL MAKERS AND THE HOUSES RACE FOR THE NEXT DESIGN",
+   "at": "top-right"
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "ALEX'S DAUGHTER",
+   "text": "Did you make *all of these*?",
+   "at": "top-right",
+   "tail_x": 58.3,
+   "tail_y": 46.2
+  }
+ ]
+}
 ```
 
 ## Page 2 (left) — 4 panels, grid: two equal upper panels over two equal lower panels
@@ -35,7 +107,82 @@
 **Flags:** The fixed dialogue is restored exactly. The purifier panel contains only the daughter’s approved line; no explanatory ownership dialogue is added. The paid-in-full statement is lettered here once and remains background art on Page 4.
 
 ```layout
-{"page":2,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":48,"description":"In the warm 2070 hallway, Alex reaches up and taps the framed photograph of four former lab collaborators laughing together in a lab. The photograph remains an inked graphic-novel image behind glass; the four people stay confined to the frame and are not active characters. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic’s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Leave clean upper-left space for his balloon."},{"w":1,"shot":"medium","angle":"eye","horizon":46,"description":"The daughter has moved one step along the hallway wall and places her fingertip directly on the compact purifier diagram inside a framed patent. The adjacent clipping is secondary evidence. Alex stands just behind her, following the point of her finger. Keep her fingertip and face unobstructed. Leave clean upper space for one balloon from the daughter; do not reserve or add a second speech balloon."}]},{"h":1,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":45,"description":"A scorched, cracked prototype fills the foreground among cleaner patent records and machine photographs. Its casing is visibly blackened, warped and damaged, with partial silhouettes of Alex and his daughter at the edge so it remains part of the hallway wall. Reserve a stable blank label area beside or beneath the object for later lettering of the exact artifact label. Do not generate words. Keep the upper third silent and clear."},{"w":1,"shot":"medium-close","angle":"eye","horizon":52,"description":"The daughter’s movement ends at a visibly mismatched frame holding a crumpled, grease-stained pump-bracket sketch with smudged fingerprints and crude pencil geometry. She looks only at the sketch while Alex watches from the edge of the panel. In a separate neighboring frame, show the paid-in-full account statement as a smaller, cleaner document with a stable blank lettering area; it is visible to the reader but not a visual destination for the daughter. Do not generate text. Leave the upper area clear and silent."}]}],"items":[{"panel":1,"type":"balloon","speaker":"ALEX","text":"Made some. Fixed most. Worked with some people smarter than me.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ALEX'S DAUGHTER","text":"That one's in my school!","at":"top-left"},{"panel":3,"type":"caption","text":"v1 - didn't work","at":"bottom-right"},{"panel":4,"type":"caption","text":"PAID IN FULL · BALANCE 0 CREDITS","at":"bottom-right"}]}
+{
+ "page": 2,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 48,
+     "description": "In the warm 2070 hallway, Alex reaches up and taps the framed photograph of four former lab collaborators laughing together in a lab. The photograph remains an inked graphic-novel image behind glass; the four people stay confined to the frame and are not active characters. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Leave clean upper-left space for his balloon."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 46,
+     "description": "The daughter has moved one step along the hallway wall and places her fingertip directly on the compact purifier diagram inside a framed patent. The adjacent clipping is secondary evidence. Alex stands just behind her, following the point of her finger. Keep her fingertip and face unobstructed. Leave clean upper space for one balloon from the daughter; do not reserve or add a second speech balloon."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "A scorched, cracked prototype fills the foreground among cleaner patent records and machine photographs. Its casing is visibly blackened, warped and damaged, with partial silhouettes of Alex and his daughter at the edge so it remains part of the hallway wall. Reserve a stable blank label area beside or beneath the object for later lettering of the exact artifact label. Do not generate words. Keep the upper third silent and clear."
+    },
+    {
+     "w": 1,
+     "shot": "medium-close",
+     "angle": "eye",
+     "horizon": 52,
+     "description": "The daughter\u2019s movement ends at a visibly mismatched frame holding a crumpled, grease-stained pump-bracket sketch with smudged fingerprints and crude pencil geometry. She looks only at the sketch while Alex watches from the edge of the panel. In a separate neighboring frame, show the paid-in-full account statement as a smaller, cleaner document with a stable blank lettering area; it is visible to the reader but not a visual destination for the daughter. Do not generate text. Leave the upper area clear and silent."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "Made some. Fixed most. Worked with some people smarter than me.",
+   "at": "top-left",
+   "tail_x": 120,
+   "tail_y": 120
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "ALEX'S DAUGHTER",
+   "text": "That one's in my school!",
+   "at": "top-left",
+   "tail_x": 120,
+   "tail_y": 120
+  },
+  {
+   "panel": 3,
+   "type": "caption",
+   "text": "v1 - didn't work",
+   "at": "bottom-right"
+  },
+  {
+   "panel": 4,
+   "type": "caption",
+   "text": "PAID IN FULL \u00b7 BALANCE 0 CREDITS",
+   "at": "bottom-right"
+  }
+ ]
+}
 ```
 
 ## Page 3 (right) — 4 panels, grid: large upper panel over one wide dialogue panel over two lower panels
@@ -54,7 +201,84 @@
 **Flags:** The daughter’s third-panel balloon has been given a wider panel than the prior layout. The watch is staged as one unambiguous still gesture, not as a timed action.
 
 ```layout
-{"page":3,"side":"right","tiers":[{"h":2,"panels":[{"w":1,"shot":"close","angle":"eye","horizon":45,"description":"Silent close inspection of the mismatched frame on the 2070 hallway wall. Inside is a visibly crumpled, grease-stained sheet with smudged fingerprints and a crude pencil drawing of a pump bracket, with no patent number. The frame is older and visibly unlike the orderly frames around it. Make the bracket geometry, paper damage and mismatch the dominant visual facts. Leave the panel free of lettering."}]},{"h":1,"panels":[{"w":1,"shot":"medium","angle":"eye","horizon":46,"description":"The daughter faces Alex beside the mismatched frame, slightly raised onto her toes, one hand hovering near the glass without touching it. She has warm-brown skin, a child’s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. Alex stands close by, restrained and guarded without becoming stern. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic’s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Reserve separate uncluttered balloon zones: daughter upper-left, Alex upper-right."}]},{"h":1,"panels":[{"w":3,"shot":"medium","angle":"eye","horizon":45,"description":"The daughter turns from the sketch toward Alex with a bright, uncomplicated smile. Her admiration is open and specific, not exaggerated. The wall recedes into warm, softened detail so her face remains dominant. Give the panel broad quiet negative space above and beside her for the complete balloon; do not cover her face or the sketch."},{"w":1,"shot":"close","angle":"high","horizon":58,"description":"Quiet close panel on Alex studying the pump-bracket sketch while his left wrist enters the foreground. Alex wears Adrian’s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark; it has no readout and counts nothing. His thumb visibly covers the watch face while enough of the dial, scratched glass and dark window remain identifiable. Keep the sketch edge visible in a separate background plane. Do not show the caseback, engraved equation or any readout. Leave the panel silent."}]}],"items":[{"panel":2,"type":"balloon","speaker":"ALEX'S DAUGHTER","text":"This one's just a drawing. Why isn't it a patent?","at":"top-left"},{"panel":2,"type":"balloon","speaker":"ALEX","text":"Because it never needed to be.","at":"top-right"},{"panel":3,"type":"balloon","speaker":"ALEX'S DAUGHTER","text":"Inventing stuff must have been *so* much fun.","at":"top-left"}]}
+{
+ "page": 3,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 2,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Silent close inspection of the mismatched frame on the 2070 hallway wall. Inside is a visibly crumpled, grease-stained sheet with smudged fingerprints and a crude pencil drawing of a pump bracket, with no patent number. The frame is older and visibly unlike the orderly frames around it. Make the bracket geometry, paper damage and mismatch the dominant visual facts. Leave the panel free of lettering."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 46,
+     "description": "The daughter faces Alex beside the mismatched frame, slightly raised onto her toes, one hand hovering near the glass without touching it. She has warm-brown skin, a child\u2019s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. Alex stands close by, restrained and guarded without becoming stern. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Reserve separate uncluttered balloon zones: daughter upper-left, Alex upper-right."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 3,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The daughter turns from the sketch toward Alex with a bright, uncomplicated smile. Her admiration is open and specific, not exaggerated. The wall recedes into warm, softened detail so her face remains dominant. Give the panel broad quiet negative space above and beside her for the complete balloon; do not cover her face or the sketch."
+    },
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "high",
+     "horizon": 58,
+     "description": "Quiet close panel on Alex studying the pump-bracket sketch while his left wrist enters the foreground. Alex wears Adrian\u2019s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark; it has no readout and counts nothing. His thumb visibly covers the watch face while enough of the dial, scratched glass and dark window remain identifiable. Keep the sketch edge visible in a separate background plane. Do not show the caseback, engraved equation or any readout. Leave the panel silent."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "ALEX'S DAUGHTER",
+   "text": "This one's just a drawing. Why isn't it a patent?",
+   "at": "top-left",
+   "tail_x": 33.9,
+   "tail_y": 53.4
+  },
+  {
+   "panel": 2,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "Because it never needed to be.",
+   "at": "top-right",
+   "tail_x": 64.1,
+   "tail_y": 29.0
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "ALEX'S DAUGHTER",
+   "text": "Inventing stuff must have been *so* much fun.",
+   "at": "top-left",
+   "tail_x": 50.9,
+   "tail_y": 41.2
+  }
+ ]
+}
 ```
 
 ## Page 4 (left) — 3 dialogue panels over one full-width transition panel

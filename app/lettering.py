@@ -26,6 +26,7 @@ GUTTER = 0.01        # between panels: the models draw thin gutters
 FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
+GLYPH = 0.7          # widest-line width per glyph, in em: what the balloon must hold, capitals in the comic font
 SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023,
          "location": 0.02}
 SFX_SIZES = {"small": 0.03, "medium": 0.045, "large": 0.065, "huge": 0.09}
@@ -137,7 +138,7 @@ def layer(spec, ctx=None, rects=None):
     (x0, y0, x1, y1) for hit areas, and each tailed balloon's tail target (x, y).
     `rects` overrides the panel grid - detect_rects measures it from the drawn art."""
     ctx = ctx or {}
-    W, H = page_size()
+    W, H = ctx.get("page_size") or page_size()    # the drawn art's proportions, when lettering over it
     rects = rects or panel_rects(spec)
     number = spec.get("page", 0)
     chapter = ctx.get("chapter")
@@ -201,11 +202,31 @@ def layer(spec, ctx=None, rects=None):
         if len(lines) > max_lines:
             per_line = min(limit, max(10, -(-len(text) // max_lines)))
             lines = wrap(text, per_line)
-        box_w = max(len(l) for l in lines) * size * CHAR
+        box_w = max(len(l) for l in lines) * size * GLYPH
         box_h = len(lines) * size * LINE
-        rx = box_w / 2 + size * 1.2
-        ry = max(box_h / 2 + size * 0.9, rx * 0.45)
-        pad = size * 0.5
+        boxed = kind in ("caption", "location")
+        if boxed:              # a box is as tall as its lines, not as round as a balloon
+            rx = (box_w + size * (2.0 if kind == "location" else 1.4)) / 2
+            ry = (box_h + size * (1.1 if kind == "location" else 0.9)) / 2
+        else:
+            rx = box_w / 2 + size * 1.5
+            ry = max(box_h / 2 + size * 0.9, rx * 0.45)
+        pad = size * (0.3 if boxed else 0.5)
+        fy = float(item["y"]) / 100 if "y" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[1]
+        edge_x, edge_y = rect[2] * 0.02 * W, rect[3] * 0.015 * H
+        if kind == "location":     # a place-and-time header always sits in the panel's top-left corner
+            px, py = rect[0] * W + edge_x + rx + pad, rect[1] * H + edge_y + ry + pad
+        else:
+            if boxed:              # a caption at a side of the panel sits against that side
+                fx = float(item["x"]) / 100 if "x" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[0]
+                if fx <= 0.3:
+                    px = rect[0] * W + edge_x + rx + pad
+                elif fx >= 0.7:
+                    px = (rect[0] + rect[2]) * W - edge_x - rx - pad
+            if fy <= 0.3:          # anything at the top of a panel sits against its top edge, as lettered books do
+                py = rect[1] * H + edge_y + ry + pad
+            elif fy >= 0.7:
+                py = (rect[1] + rect[3]) * H - edge_y - ry - pad
         bounds = (rect[0] * W, rect[1] * H, (rect[0] + rect[2]) * W, (rect[1] + rect[3]) * H)
         x0, y0, x1, y1 = nudge((px - rx - pad, py - ry - pad, px + rx + pad, py + ry + pad), placed, bounds)
         bw, bh = x1 - x0, y1 - y0        # keep the box inside its drawn panel when it fits
@@ -257,9 +278,13 @@ def layer(spec, ctx=None, rects=None):
                 tails[item["i"]] = (round(tx / W, 4), round(ty / H, 4))
                 dx, dy = (tx - px), (ty - py)
                 norm = max((dx ** 2 + dy ** 2) ** 0.5, 1)
-                ox, oy = -dy / norm * size * 0.9, dx / norm * size * 0.9
+                ux, uy = dx / norm, dy / norm
+                edge = 1 / max(((ux / rx) ** 2 + (uy / ry) ** 2) ** 0.5, 1e-6)   # the ellipse's radius that way
+                # a short tail that points at the speaker and stops well short of them
+                reach = edge + max(size * 0.9, min(norm - edge - size * 3, size * 2.2))
+                ox, oy = -uy * size * 0.9, ux * size * 0.9
                 out.append(f'<polygon points="{px + ox:.0f},{py + oy:.0f} {px - ox:.0f},{py - oy:.0f} '
-                           f'{px + dx * 0.5:.0f},{py + dy * 0.5:.0f}" fill="{fill}" stroke="{ink}" '
+                           f'{px + ux * reach:.0f},{py + uy * reach:.0f}" fill="{fill}" stroke="{ink}" '
                            f'stroke-width="2" stroke-linejoin="round"/>')
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2"{dash}/>')
@@ -481,8 +506,54 @@ def replace_block(markdown, page, spec):
 
 # ---- the drawn grid: detected from the art, because the model's page is the real page ----
 
+def gutter_rects(spec, art_bytes, white=232, cover=0.92):
+    """{panel: (x, y, w, h)} from the drawn page's white gutters, or None when the drawn grid
+    does not have the tiers and panels the spec asks for. A tier is a stretch between
+    full-width white bands; a panel, a stretch of its tier between full-height white bands."""
+    import io
+    from PIL import Image
+    tiers = spec.get("tiers") or []
+    if not tiers:
+        return None
+    im = Image.open(io.BytesIO(art_bytes)).convert("L")
+    im = im.resize((512, round(512 * im.height / im.width)))
+    W, H = im.size
+    px = im.load()
+
+    def bands(n, is_white, min_len):
+        """[(start, end)] of the stretches between white bands, each at least min_len long."""
+        out, s = [], None
+        for i in range(n + 1):
+            content = i < n and not is_white(i)
+            if content and s is None:
+                s = i
+            if not content and s is not None:
+                if i - s >= min_len:
+                    out.append((s, i))
+                s = None
+        return out
+
+    row_white = lambda y, x0=0, x1=W: sum(px[x, y] >= white for x in range(x0, x1)) >= cover * (x1 - x0)
+    tier_spans = bands(H, row_white, H * 0.06)
+    if len(tier_spans) != len(tiers):
+        return None
+    rects, n = {}, 0
+    for (y0, y1), tier in zip(tier_spans, tiers):
+        col_white = lambda x: sum(px[x, y] >= white for y in range(y0, y1)) >= cover * (y1 - y0)
+        cols = bands(W, col_white, W * 0.06)
+        if len(cols) != len(tier.get("panels") or [{}]):
+            return None
+        for x0, x1 in cols:
+            n += 1
+            rects[n] = (x0 / W, y0 / H, (x1 - x0) / W, (y1 - y0) / H)
+    return rects
+
+
 def detect_rects(spec, art_bytes):
     """{panel: (x, y, w, h)} measured from the drawn art, or None when there is no art.
+
+    The white gutters first (gutter_rects): exact when the drawn grid has the spec's tiers and
+    panels, which is nearly always. The measurement below is the fallback.
 
     The models draw their own margins and gutters - asymmetric ones, since the prompt names
     the page's side of the book - so the grid the lettering can trust is the one in the
@@ -494,6 +565,12 @@ def detect_rects(spec, art_bytes):
     tiers = spec.get("tiers") or []
     if not tiers:
         return None
+    try:
+        found = gutter_rects(spec, art_bytes)
+        if found:
+            return found
+    except Exception:      # noqa: BLE001 - an unreadable image falls through to the fallback
+        pass
     try:
         im = Image.open(io.BytesIO(art_bytes)).convert("L").resize((240, 360))
     except Exception:
