@@ -839,3 +839,31 @@ def labels_by_panel(page):
     for label, pn, _ in page.faces:
         out.setdefault(pn, []).append(label)
     return out
+
+
+PAGE_SECTION_RE = re.compile(r"(?m)^(?=## Pages? \d)")
+
+
+def page_sections(markdown):
+    """(head, {page: section}): layouts.md split at its "## Page N" headings, for the sections
+    that carry a layout block. A "## Pages 11-19 - retained" line with no block is not a page."""
+    parts = PAGE_SECTION_RE.split(markdown or "")
+    out = {}
+    for part in parts[1:]:
+        m = re.match(r"## Page (\d+)\b", part)
+        if m and "```layout" in part:
+            out[int(m.group(1))] = part.rstrip() + "\n\n"
+    return parts[0], out
+
+
+def keep_dropped_pages(before, after, pages=None):
+    """A rewrite of layouts.md that drops pages it had - a long reply that wrote "Pages 11-19 -
+    retained" instead of the pages - gets them back from the version before it. Returns
+    (layouts, [pages kept]). Pages past the book's page count stay dropped."""
+    _, old = page_sections(before)
+    head, new = page_sections(after)
+    kept = sorted(n for n in old if n not in new and (not pages or n <= pages))
+    if not kept:
+        return after, []
+    merged = {**{n: old[n] for n in kept}, **new}
+    return head + "".join(merged[n] for n in sorted(merged)), kept

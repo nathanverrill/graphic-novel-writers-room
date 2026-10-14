@@ -476,9 +476,9 @@ def _analysis(slug, note):
     review.save_settings(slug, scope=0)
     most = max_analyses(slug)
     for n in range(1, most + 1):
-        if n > 1:
-            _round(slug, "coldread")
-        _round(slug, "analysis", note if n == 1 else None)
+        # the first analysis reads the script the cold read step just read; after a cut pass the two
+        # cold readers read again in the same round as the Analyst, side by side, not one after another
+        _round(slug, "analysis", note if n == 1 else None, only=["analyst"] if n == 1 else None)
         rnd = (review.latest_round(slug) or {}).get("id")
         script = projects.read_artifact(slug, "script.md") or ""
         passed, reasons = analysis_verdict(projects.read_artifact(slug, ANALYSIS) or "")

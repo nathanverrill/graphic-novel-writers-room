@@ -32,12 +32,12 @@ import time
 import urllib.error
 import urllib.request
 
-from . import artcheck, keypages, keys, lettering, projects, prompts, thumbnails
+from . import artcheck, keypages, keys, lettering, projects, prompts, thumbnails, usage
 
 MODELS = {"gemini": "google/gemini-3.1-flash-image", "sunburst": "openai/gpt-image-2.5-sunburst"}
 OPENROUTER = "https://openrouter.ai/api/v1"
 MAX_REFS = 6            # the plate, then the page's key art, then up to four locks
-WORKERS = 3             # pages at a time, per model
+WORKERS = int(os.getenv("RENDER_WORKERS") or 8)   # pages at a time, per model; the provider's rate limit is the ceiling
 TIMEOUT = 300
 MIME = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp"}
 
@@ -194,10 +194,15 @@ def page(slug, tag, spec, ctx, key):
         d = folder(slug, tag, "art")
         d.mkdir(parents=True, exist_ok=True)
         (d / f"p{n:02d}.png").write_bytes(art)
-        _update(slug, tag, n, state="done", cost=cost, seconds=round(time.time() - _page_started(slug, tag, n)), error=None,
+        seconds = round(time.time() - _page_started(slug, tag, n))
+        _update(slug, tag, n, state="done", cost=cost, seconds=seconds, error=None,
                 check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
+        usage.ledger(slug, "renderer", "page", MODELS[tag], cost, seconds, page=n,
+                     tries=len(report["attempts"]), check_pass=report["pass"],
+                     problems=[p.get("what", "")[:120] for p in report["problems"]])
     except Exception as e:      # noqa: BLE001 - one page failing never stops the book
         _update(slug, tag, n, state="failed", error=str(e)[:400])
+        usage.ledger(slug, "renderer", "page", MODELS[tag], None, None, page=n, error=str(e)[:300])
 
 
 def letter_pages(slug, tag, pages=None):

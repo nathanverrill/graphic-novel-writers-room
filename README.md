@@ -83,8 +83,8 @@ mode), and you stand at the gate between each. Nothing moves on by itself:
 | 4 | **Audition** | Writer A → Writer B → First Reader | `audition-a.md`, `audition-b.md` (the same opening pages, twice), `first-read.md` | **Pick**: whose book do you want to read? |
 | 5 | **Writing** | the writer you picked → Continuity Editor | `script.md`, `notes.md` | **Approve**: are these the words? |
 | 6 | **Cold read** | Cold Reader + Second Cold Reader, at the same time | `cold-read.md`, `cold-read-b.md` | **Read** what two readers who did not choose the book made of the whole script, the pages only. Send it back to the writer with the reports, or go on. **Produce** sends it back once by itself |
-| 7 | **Analysis** | Analyst | `analysis.md` | **Read** how the partner and the backer (the campaign's `rules/stakeholders.md`), a comic writer, a game designer and a streaming showrunner would take the whole script, the pages only; the political read; what might offend, and whom; whether it smells like school. Send it back to the writer, or go on. **Produce** sends it back for a cut pass (the pages that teach come out; the script may not grow), then both cold readers and the Analyst read again, until both partners are satisfied at least in part, it does not smell like school (three or fewer teaching pages) and both readers are still won |
-| 8 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets** | **Review** the pages: keep, note, send back, or finalize. Then draw them |
+| 7 | **Analysis** | Analyst | `analysis.md` | **Read** how the partner and the backer (the campaign's `rules/stakeholders.md`), a comic writer, a game designer and a streaming showrunner would take the whole script, the pages only; the political read; what might offend, and whom; whether it smells like school. Send it back to the writer, or go on. **Produce** sends it back for a cut pass (the pages that teach come out; the script may not grow), then both cold readers and the Analyst read again, side by side in one round, until both partners are satisfied at least in part, it does not smell like school (three or fewer teaching pages) and both readers are still won |
+| 8 | **Execution** | Layout Agent → Continuity Editor | `layouts.md`, the page sketches, and the **page packets**. A rewrite of `layouts.md` that drops pages ("Pages 11–19 retained") gets them back from the version before it, and the agent is told to write every page in full | **Review** the pages: keep, note, send back, or finalize. Then draw them |
 | 9 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
 | 10 | **Press check** | Press Check | `presscheck.md`, moves applied to `layouts.md`, the pages re-lettered | **Read** the suggested rewrites: take a line into `layouts.md`, edit it, or leave it. Then letter again and ship |
 
@@ -774,7 +774,7 @@ reference images: Sheets' style plate (the book's look), the page's key art when
 that model's own kept lock of every character on the page - built in Sheets, kept with the
 campaign under `campaigns/<slug>/style/locks/<name>-<model>/`, like the style plate at
 `campaigns/<slug>/style/plate.*`; a plate or lock is one book's look and is never shared
-across campaigns. Pages are drawn a few at a time per model, both models side by side;
+across campaigns. Pages are drawn eight at a time per model (`RENDER_WORKERS` in `.env`; the provider's rate limit is the ceiling), both models side by side;
 drawn pages are kept, and one page can be drawn again.
 
 **Every drawing is art-checked** (`app/artcheck.py`): Gemini 3.1 Pro looks for extra or missing
@@ -1397,6 +1397,10 @@ HTTP status, error, and the path to the full log.
 - **In the UI:** each call shows its tokens and cost in the live feed, and agent cards show what their last run cost. The **Costs** section breaks spending down by role, by provider/model, by role × provider/model, and by chat vs image, for this project, a selected round, or all projects. A round's **Model calls** button lists its calls, with links to the full JSON.
 - **Your own analysis:** `logs/usage.jsonl` loads straight into pandas: `pd.read_json("logs/usage.jsonl", lines=True)`.
 - **Totals:** each round's `run.json` has a `usage` block with totals per agent.
+- **Outside rounds:** every drawn page (model, seconds, cost, art-check tries and result), every
+  Story desk check and lock redraw, and every Riff message and preview also get a line in
+  `logs/usage.jsonl`, so pages, minutes and cost per run stay on record after `renders/` is
+  redrawn. Docker mounts `./logs`, so the ledger survives rebuilds.
 
 ## How an agent works
 

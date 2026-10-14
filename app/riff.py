@@ -22,7 +22,7 @@ import time
 import urllib.error
 import urllib.request
 
-from . import artcheck, projects, render, storydesk
+from . import artcheck, projects, render, storydesk, usage
 
 MODEL = "anthropic/claude-opus-5.5"
 URL = "https://openrouter.ai/api/v1/chat/completions"
@@ -133,7 +133,10 @@ def chat(slug, desk, messages):
     if not msgs or msgs[-1]["role"] != "user":
         raise ValueError("say something")
     system = _system(slug, desk, SYSTEM.format(title=_title(slug)))
+    t0 = time.time()
     reply, cost = _ask([{"role": "system", "content": system}] + msgs, key)
+    usage.ledger(slug, "riff", "chat", MODEL, cost, time.time() - t0, desk=desk,
+                 cached_tokens=(_last_usage.get("prompt_tokens_details") or {}).get("cached_tokens"))
     suggestions = []
     m = re.search(r"```suggestions\s*(.*?)```", reply, re.S)
     if m:
@@ -206,6 +209,7 @@ def propose(slug, desk, file, section, change, new=False):
                        {"role": "user", "content": REWRITE.format(file=name, mode=mode, what=what, change=change,
                                                                   section=f"{'#' * s['level']} {s['title']}\n\n{s['body']}")}],
                       key, max_tokens=8000)
+    usage.ledger(slug, "riff", "propose", MODEL, cost, None, desk=desk, file=name)
     data = artcheck._json(text)
     if not data or "body" not in data:
         raise RuntimeError("the rewrite could not be read - try again")
