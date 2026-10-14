@@ -11,10 +11,32 @@ CU Boulder creative hackathon.*
 > assistance from Claude Code. Elements have been user tested. It is not yet intended for
 > production use.
 
-A web-based, agentic writers' room for graphic novels. Its product is **page packets**:
-for every page, a complete markdown brief you paste into an image model (outside the room)
-to draw the page with **no text on it**. Drawing the pages is not this application's job;
-lettering them is: you upload the art, and the room draws the words over it.
+A web-based, agentic writers' room for graphic novels: **fifteen agents across ten phases**,
+on six models from three labs, with the showrunner approving every stage. It writes the book,
+lays out every page as a **page packet** (a complete brief for an image model, with **no text
+on the page**), draws the pages at `/renders` with an art check on every drawing, and letters
+them itself as a separate layer over the art. The words can change, or be translated, without
+redrawing anything.
+
+### Why it is built this way
+
+One-shot AI hands you a whole book to keep or throw away: words drawn into the art come out
+garbled, characters drift from page to page, and one late fix means redoing everything. The
+room is a stage-gate pipeline modeled on a TV writers' room and a comic studio's full-script
+process (script, layouts, art, lettering), built on six principles:
+
+- **The showrunner holds every gate.** Agents propose; you approve, pick, note or send back.
+- **Everything is editable.** The book lives in plain files - story, characters, world, script,
+  layouts - that you, the agents and Riff edit one section at a time.
+- **Change the smallest thing.** A phase reruns alone; a redraw is one page.
+- **Text stays separate from art.** Pages are drawn with no words; the room letters them as a
+  layer. A text change costs $0 and takes seconds, against about $0.40 and two minutes a page to
+  redraw (about $28 for a 72-page book), and the approved art cannot drift because it is never
+  touched. See **Changing the words, and translating them**.
+- **Consistency is locked in.** One style plate and a lock image per character go with every
+  page, and an art check sends back any drawing that drifts.
+- **Many readers, fast.** Agents work side by side, two writers audition, and two cold readers
+  and an analyst read the script before anything is drawn.
 
 ## Quick start
 
@@ -36,7 +58,10 @@ Open http://localhost:8000 and:
    and git keeps their history.
 3. **Pre-production** (`/preproduction`): press **Run intake**, answer the open items it
    raises, **Update canon**, answer what is left, **Update canon** again (the room's
-   recommendation settles anything still unanswered), then approve by typing `evoke`.
+   recommendation settles anything still unanswered). Before you approve, open the **Story
+   desk** (`/story`) to read the outline as a board, check it against the hero's journey,
+   compare the character locks with their words, and riff on what is weak. Then approve by
+   typing `evoke`.
 4. **Produce** (`/production`): one button runs development, the audition, the writing and
    the pages, and ends with a packet per page. `/renders` draws every page with the image
    models and downloads each version as a zip of PNGs or as a single PDF.
@@ -63,7 +88,7 @@ mode), and you stand at the gate between each. Nothing moves on by itself:
 | 9 | **Lettering** | Letterer | `lettering.md`, balloons moved in `layouts.md`, the lettered pages | **Download** the lettered pages, or note and run again |
 | 10 | **Press check** | Press Check | `presscheck.md`, moves applied to `layouts.md`, the pages re-lettered | **Read** the suggested rewrites: take a line into `layouts.md`, edit it, or leave it. Then letter again and ship |
 
-Three rules make this work, and they are the whole design:
+Four rules make this work, and they are the whole design:
 
 - **A phase never reruns the ones before it.** A lettering problem reruns the Letterer, not the
   writer. Not happy with a phase? Add a note and run it again; each agent revises its own last draft.
@@ -79,7 +104,7 @@ and what to read before you decide. The code that runs it is `app/phases.py` and
 
 ## The agents
 
-Twelve agents. Each is a folder with a `role.md` (the job and its deliverable), an
+Fifteen agents. Each is a folder with a `role.md` (the job and its deliverable), an
 `agent.json` (its model and settings) and, for most, a `craft.md` (how to do that job well).
 
 | Agent | Phase | Writes | What it is for |
@@ -114,6 +139,27 @@ each project's own files — is searchable, hybrid, keywords and meaning at once
 a second or two after you save a file. The same tools the agents call are served over MCP, so a
 chat client or an editor can work on a book without the screen.
 
+### The models
+
+Each agent has its own model and temperature (`agents/<id>/agent.json`, see **Per-agent
+settings**), chosen per job, and the room mixes labs on purpose: the two writers run on
+different models so their voices differ, the two cold readers come from different labs so they
+do not share blind spots, and the art check finds problems with one model and confirms them
+with another. As committed:
+
+| Model | Used by |
+|---|---|
+| OpenAI GPT-5.6 Luna | Script Coordinator, Director, Plotter, Character Designer, Draft Editor, Layout Agent, Letterer, Press Check, Continuity Editor |
+| OpenAI GPT-5.6 Luna Pro | Writer B |
+| Google Gemini 3.1 Pro | Writer A, Second Cold Reader, the art check's first look |
+| Anthropic Claude Opus 5.5 | First Reader, Cold Reader, Analyst, Riff, the structure check, the lock comparison, the art check's confirmation |
+| OpenAI GPT Image 2.5 Sunburst | every page and every character lock |
+| Google Gemini 3.1 Flash Image | the second model on `/renders`, to compare |
+
+Around the fifteen agents sit five supporting tools on the same models: **Riff**, the
+**structure check** and the **lock comparison** (all on the Story desk), the **art check**
+(every drawing) and **Voices** (the character simulator).
+
 ## Two screens
 
 **`/production` is Produce.** One button runs development to the **layouts** and takes every
@@ -138,6 +184,40 @@ Writer B**. After execution it shows the lettered pages. Built for a phone, noth
 **`/room` is everything else** — every writer, every file, every round — and the rest of this
 document is about that screen. The two link to each other: the footer on `/`, the title on
 `/room`.
+
+## The Story desk
+
+`/story` is pre-production at a high level: what you look at before you press run. It works on
+whichever desk the book is on (intake: pre-production; after: production), and on
+pre-production it says plainly that changes reach production only if you approve again, which
+starts production over at development.
+
+- **Outline.** `story.md` as a board: one lane per issue or act, a short card per beat; click a
+  card for its full text, edit it, add, move or delete a section. Sections that are not story
+  (stakes, aims) fold into *Around the story*. Across the top, the **arc**: every beat as a tick
+  in book order, with the last structure check's stages pinned to the beats that carry them,
+  colored strong, thin or missing, and the missing ones listed under it.
+- **Structure.** Scores the outline against the **hero's journey** (twelve stages, drawn as a
+  wheel) or **seven-point structure** (drawn as a line): each stage rated, the beats that carry
+  it, a note and a suggested fix. About $0.15-0.20 a check, on Claude Opus 5.5. A result older
+  than the story is flagged. Saved as `structure-hero.json` / `structure-seven.json` on the desk.
+- **Locks.** Every character's visual lock from `characters.md` beside its drawing. **Compare**
+  lists where the words and the drawing disagree, with a fix for each and revised words to take
+  into the file (about $0.05). **Redraw** draws a candidate from the words, the style plate and
+  the old lock on GPT Image 2.5 Sunburst, art-checked (about $0.10); **Keep** it (the old lock
+  moves to `previous/`) or discard it.
+- **Riff.** A side panel, on any tab: brainstorm with a model that has read the three working
+  files, the campaign's `rules/` and the last structure checks. Every idea it proposes names one
+  section of one file; **Preview the edit** shows that section rewritten, with the changes
+  marked, and nothing is written until you **Accept**. Every accepted change is logged in
+  `riff-log.md` on the desk. On the Structure tab, **Riff on this** takes any thin or missing
+  stage to Riff, and **Fill the gaps with Riff** asks for a fix for every weak stage at once.
+  The draft is sent as one cached prompt: the first message costs about $0.50, and each message
+  or preview after it within five minutes about $0.03.
+
+Edits are section by section and hash-checked: if the file changed under you (the room, another
+tab), the edit is refused and the board reloads, and untouched sections are written back byte
+for byte. The code is `app/storydesk.py`, `app/riff.py` and `app/static/story.js`.
 
 ## The room's screen
 
@@ -688,14 +768,22 @@ draws (`/api/projects/<slug>/needs`), with the pages each is on, against every m
 plate - kept, missing, or not in the cast yet (add it in one click). Choose the models on every roll. Projects live in `art/data/` (not committed); every roll records
 what each model was shown.
 
-**Renders** (`/renders`) draw the whole book with each image model - Gemini 3.1 Flash Image and GPT
-Image 2.5 Sunburst - art only, with no lettering on it. Every page is drawn from its packet with
+**Renders** (`/renders`) draw the whole book with each image model - GPT Image 2.5 Sunburst (the
+room's default) and Gemini 3.1 Flash Image - art only, with no lettering on it. Every page is drawn from its packet with
 reference images: Sheets' style plate (the book's look), the page's key art when it has one, and
 that model's own kept lock of every character on the page - built in Sheets, kept with the
 campaign under `campaigns/<slug>/style/locks/<name>-<model>/`, like the style plate at
 `campaigns/<slug>/style/plate.*`; a plate or lock is one book's look and is never shared
 across campaigns. Pages are drawn a few at a time per model, both models side by side;
 drawn pages are kept, and one page can be drawn again.
+
+**Every drawing is art-checked** (`app/artcheck.py`): Gemini 3.1 Pro looks for extra or missing
+fingers, broken limbs, bad faces, cloned figures, stray text and characters off their locks, and
+Claude Opus 5.5 confirms each problem it finds. A page with a confirmed major problem is drawn
+again with the problems named, up to three tries; the report is kept beside the page. On
+Prosperity a page costs about $0.19 to draw and $0.09 to check, and about 4 in 10 pages need a
+second try, so a page averages **about $0.40 and two minutes**, and a 72-page book **about
+$28** (about $14 without the check).
 
 **Lettering is the second step, at `/letter`** - the page on the left, its text on the right.
 The rendered art sits under the live text layer; every balloon, caption and sound effect has a
@@ -1032,6 +1120,70 @@ fact-checker's list — every checkable statement in the material, one per line,
 material's own label and its source — and the Continuity Editor reads it beside the book. An
 agent that asks `read_artifact` for a file under `campaigns/` is refused and pointed at the three files.
 
+## Changing the words, and translating them
+
+The art and the words are kept apart on purpose. Pages are drawn with no text; every balloon,
+caption and sound effect lives in the page's block in `layouts.md`, and the room draws it as a
+layer over the art (`app/lettering.py`, composited with cairo in `app/render.py`). Lettering
+calls no model.
+
+| Change | Re-letter | Redraw instead |
+|---|---|---|
+| One line on one page | $0, seconds | about $0.40, two minutes |
+| A dialogue pass on a 72-page book | $0, seconds | about $28, hours |
+| Ten rounds of text notes | $0 | about $280 |
+
+A text change also needs no new art check: the approved drawing is never touched, so faces,
+poses and composition cannot drift. What is left to look at is the lettering itself - a longer
+line can outgrow its balloon - which the Letterer and Press Check read. Redraw only when the
+picture is wrong; a line that changes what is drawn (a new action, a different character) needs
+that page redrawn.
+
+**To change a line:** edit it at `/letter` (or in `layouts.md`), then **Letter this page** or
+**Letter all pages**.
+
+### How to: apply a translation offline, at no cost
+
+`scripts/translate.py` letters the drawn book in another language over the art already drawn.
+No model is called, nothing leaves the machine, and nothing in the campaign changes:
+`layouts.md`, the art and the English pages stay as they are. On Prosperity it letters 46 pages
+in about 15 seconds.
+
+1. **Export the lines** to a spreadsheet, one row per balloon, caption and sound effect:
+
+   ```sh
+   .venv/bin/python scripts/translate.py export prosperity lines.csv
+   ```
+
+   Columns: `page`, `panel`, `item`, `type`, `speaker`, `text`, and an empty `translation`.
+
+2. **Translate** by filling the `translation` column - by hand, with a translator, or with any
+   tool you like, offline or not. Leave the other columns as they are; a row left blank keeps
+   the original line. Save it as CSV in UTF-8 (`lines-es.csv`).
+
+3. **Apply it** to the drawn art, into a folder of its own:
+
+   ```sh
+   .venv/bin/python scripts/translate.py apply prosperity lines-es.csv out/es
+   ```
+
+   One lettered PNG per page that has art (`renders/sunburst/art`; `--model gemini` for the
+   other model's). In Docker, put the CSV in the repo and run
+   `docker compose exec app python scripts/translate.py apply prosperity /app/lines-es.csv /app/out/es`.
+
+4. **Read the pages.** Translations run longer (German and Spanish often by a fifth or more),
+   and a long line can crowd its balloon: shorten the line in the CSV and apply again, which
+   costs nothing.
+
+Notes:
+
+- **Export again after the layouts change.** Rows are matched by page and item number; `apply`
+  says how many translated lines matched nothing.
+- **Fonts and scripts.** Lettering uses Comic Neue (Comic Sans on a Mac), which covers Latin
+  alphabets with accents. Other alphabets (Cyrillic, Greek, CJK, Arabic) need a font with those
+  glyphs installed, and right-to-left languages are not laid out right-to-left.
+- **Sound effects** are in the sheet too; translate them or leave them, as comics do both.
+
 ## Guiding the agents
 
 Everything an agent knows comes from its folder:
@@ -1104,7 +1256,9 @@ view) explains them:
 | Letterer | 0.2 | 8,000 | literal and careful |
 | Press Check | 0.2 | 8,000 | literal reading of the lettered pages; needs a model that reads images |
 | Continuity Editor | 0.1 | 10,000 | catches everything; exact `BLOCKERS` line |
-| First Reader | 0.7 | 3,000 | natural reactions, minimal context |
+| First Reader | 0.3 | 24,000 | reads both auditions cold, the pages only; the strongest model in the room, and a stranger to Writer A |
+| Cold Reader, Second Cold Reader | 0.3 | 24,000 | the whole script, read cold; the second from a model family the picked writer does not use, so the two disagree for real |
+| Analyst | 0.3 | 24,000 | the book as its audience, partner and backer would meet it |
 
 Blank or `null` fields use the `.env` defaults; keys starting with `_` are comments. When the
 UI changes a setting, the change shows up in `git diff`.
