@@ -362,7 +362,7 @@
   },
   {
    "panel": 4,
-   "type": "caption",
+   "type": "location",
    "text": "KEEL. 2043.",
    "at": "top-left"
   }

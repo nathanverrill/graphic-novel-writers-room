@@ -37,6 +37,7 @@ ANCHORS = {   # keyword -> (x, y) inside the panel
     "bottom-left": (0.24, 0.82), "bottom": (0.5, 0.84), "bottom-right": (0.76, 0.82),
 }
 KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "sfx")
+YELLOW = "#f4d978"      # the place-and-time box ("KEEL. 2043."), dark letters on yellow
 
 
 def page_size():
@@ -240,8 +241,10 @@ def layer(spec, ctx=None, rects=None):
         placed.append((x0, y0, x1, y1))
         boxes[item["i"]] = (x0 / W, y0 / H, x1 / W, y1 / H)
         px, py = (x0 + x1) / 2, (y0 + y1) / 2
-        dark = item.get("invert", kind == "location")   # location headers run dark by default
+        dark = item.get("invert", False)
         fill, ink = ("#111", "#fff") if dark else ("#fff", "#111")
+        if kind == "location" and not dark:    # place-and-time headers: the book's yellow box
+            fill = YELLOW
         dash = ' stroke-dasharray="6 5"' if kind == "whisper" else ""
         if kind == "location":
             cw, ch = box_w + size * 2.0, box_h + size * 1.1

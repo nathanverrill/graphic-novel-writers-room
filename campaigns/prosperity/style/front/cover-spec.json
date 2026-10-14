@@ -14,10 +14,7 @@
   {
    "panel": 1,
    "type": "location",
-   "text": "Year 2043.",
-   "x": 50,
-   "y": 4,
-   "place": "exact"
+   "text": "YEAR 2043."
   },
   {
    "panel": 1,
@@ -25,7 +22,8 @@
    "text": "OASIS",
    "x": 12,
    "y": 14,
-   "place": "exact"
+   "place": "exact",
+   "invert": true
   },
   {
    "panel": 1,
@@ -42,7 +40,8 @@
    "text": "HALYARD",
    "x": 12,
    "y": 40,
-   "place": "exact"
+   "place": "exact",
+   "invert": true
   },
   {
    "panel": 1,
@@ -59,7 +58,8 @@
    "text": "KEEL",
    "x": 12,
    "y": 66,
-   "place": "exact"
+   "place": "exact",
+   "invert": true
   },
   {
    "panel": 1,
