@@ -1,0 +1,135 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex draws a worn photograph from his jacket; Grandmother smiles while Adrian\u2019s face is folded and creased. Ada notices Alex\u2019s clenched hand. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex studies the photograph while Ada\u2019s hand stops before touching his shoulder. Leave upper-left and upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Sunset over the basin, Oasis brightening as Keel dims. Ada faces Alex. Leave upper-left and upper-right sky open."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Ada\u2019s steady face with Alex\u2019s tightening fist in foreground. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 55,
+          "description": "Alex and Ada stand small against the darkening basin, separated by open space but still together. Leave lower-left and lower-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Narrow strip of Alex walking ahead while Ada looks back toward Oasis. Leave top-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "How's your grandma?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Some days she knows me. Other days she calls me Adrian.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The hardest part is not knowing which stories are true.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What kind of stories?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That he wasn't gambling. That he was working.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What do you actually remember about him?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Nothing. I was two.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "So everything else is what people told you. What if they were wrong?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Maybe. Either way, he's gone.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "He wouldn't just leave.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,112 @@
+{
+  "id": "r141-ai",
+  "kind": "ai",
+  "started": "2026-10-15T20:31:57",
+  "finished": "2026-10-15T20:33:14",
+  "status": "done",
+  "files_written": [
+    "draft-edited.md",
+    "draft-final.md",
+    "draft-changes.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/input/fifth-draft/chapter-01-draft.md": "0f261409a757ac52",
+    "prosperity/input/fifth-draft/chapter-02-draft.md": "9d172057fec98078",
+    "prosperity/input/fifth-draft/chapter-03-draft.md": "23dc223856335076",
+    "prosperity/input/fifth-draft/chapter-04-draft.md": "37ff4d8cde680374",
+    "prosperity/input/fifth-draft/chapter-05-draft.md": "7f99396156f4a34f",
+    "prosperity/input/fifth-draft/chapter-06-draft.md": "1c0d6c99b1adede4",
+    "prosperity/input/notes.md": "44c162f2162eaba4",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "fd828279ef4518bd",
+    "prosperity/rules/decisions.md": "bedb02482fd46cdc",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "94feb001e1a08f2b",
+    "prosperity/rules/vocabulary.md": "128aac4bf1bb7842"
+  },
+  "usage": {
+    "total": {
+      "calls": 7,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.12330815,
+      "input_tokens": 416672,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 15951,
+      "reasoning_tokens": 2279,
+      "total_tokens": 432623
+    },
+    "by_role": {
+      "draft_editor": {
+        "calls": 7,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.12330815,
+        "input_tokens": 416672,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 15951,
+        "reasoning_tokens": 2279,
+        "total_tokens": 432623
+      }
+    }
+  },
+  "run_id": "66844fbd0b19",
+  "note": "The room is in draft edit: Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.\n\ndraft.md is the showrunner's own draft. Edit it to the canon, chapter by chapter: change only what the canon contradicts, keep everything else word for word, and flag what no longer fits rather than rewriting it.\n\nThe book is exactly 16 pages: pages 1-16, no more, no fewer.",
+  "roles": [
+    "draft_editor"
+  ],
+  "configs": {
+    "draft_editor": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 1,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "drafts",
+  "pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ]
+}

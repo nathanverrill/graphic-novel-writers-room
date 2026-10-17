@@ -1,0 +1,126 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 42,
+          "description": "Alex follows the hidden pipe through a cramped service trench behind the pump station. The pipe descends through the foundation; dry taps and the tightening non-recognizable queue are visible above, with the uphill conduit and distant infrastructure visibly climbing away toward Halyard. Leave upper-right clear for the off-panel warning."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "description": "The newer pipe enters an open foundation breach. Clearly adjacent and separate is the concrete-sealed pit-rim mine entrance with faded hazard stripes and a forbidden marker, shown as a solid closed mass. Beyond the breach are damp rock, rusted rail, and darkness. Leave upper-left clear for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Alex shines his work light through the open breach. Condensation beads on the newer pipe and an old amber gauge glows below. Put Bi11bot\u2019s balloon upper-left and Alex\u2019s balloon lower-right, with a clear vertical reading path."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "description": "Alex slings the tool bag over his shoulder and steps into the maintenance breach. Bi11bot folds into a compact bundle with one amber eye open. Keep the distant AUTHORIZED ALLOCATION: NORMAL display far left and separate from lettering. Reserve upper-left for Alex\u2019s first balloon, lower-left for his second, upper-right for Bi11bot\u2019s first reply, and lower-right for his final reply."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "QUEUE WORKER",
+      "text": "Last warning! If the line doesn\u2019t recover, the remaining allocation goes uphill!",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The pipe continues.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I can see that.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The dark part too?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It\u2019s not a route. It\u2019s a maintenance gap.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Is that different?",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It is if someone asks.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Stay quiet.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I am quiet.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You\u2019re asking questions.",
+      "at": "middle-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Quietly.",
+      "at": "middle-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "AUTHORIZED ALLOCATION: NORMAL",
+      "at": "top-left"
+    }
+  ]
+}

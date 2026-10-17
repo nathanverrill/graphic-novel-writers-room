@@ -1,0 +1,65 @@
+{
+  "page": 27,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas creates a shutdown distraction at the main gate while Foreman-7 turns toward him. Keep the upper worksite clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex turns the heavy key in the unwired lock; no digital node or chime is present. Keep the upper lock clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex and Ada slip through the opening while folded B11 rests against Alex's bag. Keep the upper passage clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The door closes between Alex and Tomas; condensation beads on the inner surface. Keep the upper metal clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Foreman! Your safety report is on fire.",
+      "at": "top-left",
+      "tail_x": 35.4,
+      "tail_y": 35.6
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLUNK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Abandoned mines do not sweat.",
+      "at": "top-left"
+    }
+  ]
+}

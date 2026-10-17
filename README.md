@@ -451,7 +451,7 @@ dropping files into a campaign's `input/` (see `campaigns/avengers/input/` for e
 
 | Folder | App | What it is |
 |---|---|---|
-| `easel/` | **Easel** | image chat: every prompt drawn by *both* Gemini 3.1 Flash Image and GPT Image 2.5 Sunburst via OpenRouter, iterate by reference, everything kept in a shared gallery |
+| `easel/` | **Easel** | image chat: every prompt drawn by GPT Image 2.5 Sunburst via OpenRouter, iterate by reference, everything kept in a shared gallery |
 | `forge/` | **Forge** | a character in seven answers — why, incentive, motive, weakness, change, return — on a hero's-journey wheel with a completion checklist |
 | `spine/` | **Spine** | a story on the Seven-Point structure, asked in sprint order (ends first, the choice last), drawn as the wall |
 | `station/` | **Station** | a hard-SF Antarctic facility under the 80/15/5 rule, drawn as a station map of hub and modules |

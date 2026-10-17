@@ -1,0 +1,112 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At Keel's pit rim, Ada offers Alex a battered mug; leave upper sky clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Two mugs sit between Alex and Ada as they drink. Keep the upper rim clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Alex looks over Keel's narrow water channels. Keep the upper basin open."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada studies Alex with her thumb resting on the largest rivet of her strap. Keep the upper sky clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I saved enough for one.",
+      "at": "top-left",
+      "tail_x": 70.2,
+      "tail_y": 28.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "There are two mugs.",
+      "at": "top-right",
+      "tail_x": 27.4,
+      "tail_y": 38.0
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I\u2019m generous with containers.",
+      "at": "top-left",
+      "tail_x": 78.4,
+      "tail_y": 38.0
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You\u2019re still leaving.",
+      "at": "bottom-left",
+      "tail_x": 78.4,
+      "tail_y": 38.0
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Eventually.",
+      "at": "bottom-right",
+      "tail_x": 17.5,
+      "tail_y": 32.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Keel\u2019s not a sentence.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The balance disagrees.",
+      "at": "top-right",
+      "tail_x": 23.6,
+      "tail_y": 40.3
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I\u2019m your friend, Alex. Not your exit plan.",
+      "at": "top-left",
+      "tail_x": 60.3,
+      "tail_y": 26.1
+    }
+  ]
+}

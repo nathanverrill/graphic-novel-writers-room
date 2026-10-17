@@ -1,0 +1,94 @@
+{
+  "id": "r02-ai",
+  "kind": "ai",
+  "started": "2026-10-15T21:24:53",
+  "finished": "2026-10-15T21:25:54",
+  "status": "done",
+  "files_written": [
+    "draft-edited.md",
+    "draft-final.md",
+    "draft-changes.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-book/drafts/00-prologue.md": "9041aec49357d153",
+    "prosperity-book/drafts/01-chapter-01.md": "fbea686c40482253",
+    "prosperity-book/drafts/02-chapter-02.md": "de59f9b05e0bd97c",
+    "prosperity-book/drafts/03-chapter-03.md": "17ba01e419def6c4",
+    "prosperity-book/drafts/alt/02-chapter-02-pipe-ending.md": "6316ff3bcdb913fc",
+    "prosperity-book/input/notes.md": "fa283bf54f891414",
+    "prosperity-book/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity-book/rules/characters.md": "fd828279ef4518bd",
+    "prosperity-book/rules/decisions.md": "0ce605b088cf7fad",
+    "prosperity-book/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity-book/rules/look.md": "3b9fcb3e7645b4ee",
+    "prosperity-book/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity-book/rules/showrunner-rules.md": "ae6a0fa2d2ba93c5",
+    "prosperity-book/rules/vocabulary.md": "128aac4bf1bb7842"
+  },
+  "usage": {
+    "total": {
+      "calls": 7,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1218931,
+      "input_tokens": 425647,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 12902,
+      "reasoning_tokens": 2365,
+      "total_tokens": 438549
+    },
+    "by_role": {
+      "draft_editor": {
+        "calls": 7,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.1218931,
+        "input_tokens": 425647,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 12902,
+        "reasoning_tokens": 2365,
+        "total_tokens": 438549
+      }
+    }
+  },
+  "run_id": "a94cfa9bbbf1",
+  "note": "The room is in draft edit: Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.\n\ndraft.md is the showrunner's own draft. Edit it to the canon, chapter by chapter: change only what the canon contradicts, keep everything else word for word, and flag what no longer fits rather than rewriting it.\n\nThe book is exactly 62 pages: pages 1-62, no more, no fewer.",
+  "roles": [
+    "draft_editor"
+  ],
+  "configs": {
+    "draft_editor": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 1,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "drafts",
+  "pages": []
+}

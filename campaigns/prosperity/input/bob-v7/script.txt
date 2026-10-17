@@ -1,0 +1,2710 @@
+Prosperity Script
+Oct 15, 2026 · @Nathan
+Version 6 · 2026-10-15 08:17 CDT
+This is the script for feedback: the 4-page prologue and Bob's Chapters 1–6, following his drafts closely.
+Chapters 1–3 include his v5 revisions; Chapters 4–6 are his fifth draft as written. The only changes to his
+story are his own v5 notes in answer to Young Americans Center, and Adrian's watch in place of the
+casino chip. Comment on any line.
+
+What changed from Bob's fifth draft
+Everything else is Bob's fifth draft: his scenes, their order and his dialogue.
+Change
+
+Where
+
+Source
+
+Bob's Chapter 1 revisions: the
+Chapter 1
+three-city opening with one
+question per city, water rationed
+and visible from page 1, the
+debt-transfer page, a clear first
+quest to the Measure
+
+Bob's Chapter 1 v5 brief
+
+Bob's Chapter 2 revisions: Alpha
+and the safeguards made
+concrete, the mine simplified,
+"The Lie" (62% reported, 18%
+delivered) set up and paid off,
+why Alex leaves, the train
+
+Chapter 2
+
+Bob's Chapter 2 v5 brief
+
+Bob's Chapter 3 revisions: Lock
+as a real alternative, the
+collaborators' reasons,
+prototypes that fail first, a
+licensing business instead of a
+giveaway, the first 38 credits
+earned and 12 paid on the debt
+
+Chapter 3
+
+Bob's Chapter 3 v5 brief and
+mission notes
+
+Adrian's old steel watch replaces All chapters
+the casino chip; the equation is
+engraved on its caseback
+
+Showrunner
+
+Invented House names: Calder
+(water), Ivers (energy and
+compute), Steyn (mining and
+
+Showrunner
+
+Chapter 3
+
+Change
+
+Where
+
+Source
+
+Before Chapter 1
+
+Showrunner
+
+launch), replacing real company
+names
+The prologue, "The Wall"
+
+Not applied: the writers' room's own revisions for the backer, the partner and "school smell".
+
+Prologue: The Wall
+Page 1: The house
+P1: The house (wide)
+Image: Alex's house at evening, in 2070, built the way Oasis was built in 2043: the book's own Oasis, now
+ordinary and lived in. Pearl-white curved architecture with rounded rooflines, terraced gardens, a still
+reservoir with fountains, slender white towers and a white monorail viaduct across the basin, the snow
+mountains behind, a delivery drone in the dusk sky. One house in a neighbourhood of them, modest for
+Oasis: a workbench and a bike on the terrace, plants that need watering. Never present-day suburbia.
+P2: The wall (medium)
+Image: Inside, an Oasis-built hallway: smooth pearl-white curved walls, warm wood floor, a tall window
+onto the terraces. The wall is covered in framed patents, drawings of machines and news clippings. Alex,
+mid-40s, grey at the temples, a day's stubble, still dressed like a mechanic: a worn work jacket over a
+T-shirt, sleeves pushed up, scuffed boots; Adrian's old steel watch on his left wrist. His daughter, about 9:
+warm-brown skin, freckles, dark auburn-brown hair in two low braids, a mustard cardigan over a pale
+blue school shirt, navy skirt, white socks, red sneakers. She stands on tiptoe in front of the wall.
+P3: The clippings (close)
+Image: Close on the clippings, seen and never read aloud: "40TH INDEPENDENT SHOP LICENSES
+PHANTUM PURIFIER"; "SMALL MAKERS AND THE HOUSES RACE FOR THE NEXT DESIGN”; a picture of
+dozens of founders, each with their own water unit and a different shop sign. Every picture is drawn in
+the book's own inked style.
+P4: The question
+DAUGHTER: Did you make all of these?
+
+Page 2: The inventions
+P1: The collaborators
+Image: Alex taps a framed picture of four people laughing in a lab: Lina, Suri, Jalen and Ren, never
+named.
+ALEX: Made some. Fixed most. Worked with some people smarter than me.
+P2: The purifier
+
+Image: She points at a patent with a purifier diagram.
+DAUGHTER: That one's in my school!
+P3: The first try
+Image: One frame among the patents is a drawing of a scorched, cracked prototype, with "v1 - didn't
+work" written on it in his hand. Neither of them remarks on it.
+P4: Paid in full (small)
+Image: Small and almost hidden in a corner, a framed final account statement: PAID IN FULL · BALANCE 0
+CREDITS. The daughter doesn't notice it. She stops at one frame that doesn't match the others.
+
+Page 3: The sketch
+P1: The sketch (close)
+Image: A crumpled, grease-stained sheet with a pencil sketch of a pump bracket. Crude, smudged
+fingerprints, no patent number.
+P2: Why not a patent
+DAUGHTER: This one's just a drawing. Why isn't it a patent?
+ALEX: Because it never needed to be.
+P3: Fun
+Image: The daughter, beaming.
+DAUGHTER: Inventing stuff must have been so much fun.
+P4: The watch (close)
+Image: Alex looks at the sketch, then down at the watch. His thumb covers its face.
+
+Page 4: The turn
+P1
+ALEX: Not in the beginning.
+P2
+Image: The daughter looks up at him, waiting.
+P3
+ALEX: In the beginning I was deep in debt, our water was rationed...
+P4: Keel (full width)
+Image: The sketch dissolves into the rust and charcoal of Keel's pump hall. Seventeen-year-old Alex has
+his palm flat on the pump.
+
+Caption: KEEL. 2043.
+
+Chapter 1: The Inheritance
+Page 1: The world Alex inherits
+A full-page cinematic establishing image of the three-tier civilization in the year 2043, viewed from a
+distant elevated angle so all three cities read in one composition.
+At the bottom of a vast mountain basin lies KEEL, built into and around an exhausted open-pit lithium
+mine. Dense stacked housing, repaired industrial equipment, rusted mining structures, crowded
+pedestrian lanes and aging factories fill the basin. Dust hangs in the air. Workers pass through small
+digital checkpoints. Water moves through narrow channels and old pipes, and a line of people with jugs
+waits at a metered public tap. The palette is rust, charcoal and oxidized orange. A large sealed mine
+entrance on the pit's rim is marked with faded hazard striping. Low in the basin, a single aging pump
+gantry has one small work-light on.
+Midway up lies HALYARD, visibly more prosperous and active. Workshops, fabrication towers, irrigated
+greenhouse terraces, elevated trains and advanced industrial facilities line the slope, and freight moves
+both up and down. The palette is warm bronze and gold with engineered green. Three towering
+fabrication complexes each carry a distinct, restrained insignia for energy, water and space. These are the
+Charter Houses.
+Above both, partly beyond the cloud layer, lies OASIS: pearl-white architecture, designed gardens, broad
+reservoirs, open fountains, civic spaces and automated transit. The palette is pearl white, silver, cool blue
+and controlled green. A spacecraft rises toward orbit from a distant launch structure, carrying the same
+space-and-mining insignia as the largest Halyard tower.
+The three cities share one spine of infrastructure: a massive water conduit, energy lines, transit rails and
+control nodes running vertically through the mountain.
+•​ The conduit is enormous at Oasis's reservoirs and narrows dramatically by the time it reaches
+Keel's channels.
+•​ One small, identical white-and-amber control node sits on the spine at every tier.
+•​ Access gates multiply toward Keel, including a permission gate across the rail line between Keel
+and Halyard.
+Captions
+•​
+•​
+•​
+•​
+•​
+
+Date tag: Year 2043.
+City labels (small, map-style): Oasis · Halyard · Keel
+Caption over Oasis: What if everyone you've trusted has a secret?
+Caption over Halyard: Who really owns what we create?
+Caption over Keel: Where does all our water go?
+
+Page 2: Debt transfer day
+Panel 1: Alex at work (wide)
+
+Image: A Keel pump hall just before dawn, in the rust, charcoal and oxidized-orange language of Page 1.
+Alex Phantum, seventeen, lean and mechanically capable, has one palm flat on an aging pump's housing,
+head tilted, feeling the vibration rather than reading the gauge. A projected maintenance procedure
+hovers beside him, unfollowed. His improvised repair is visible: a salvaged bracket where the approved
+part should be. Decades of patched machinery surround him. On the wall terminal, a small
+white-and-amber node logs his shift. A supervisor watches with folded arms and open skepticism. Alex
+reads self-reliant, not defeated.
+SUPERVISOR: That's not the approved repair.
+ALEX: Then don't approve it.
+(Beat.)
+ALEX: Just notice it works.
+Panel 2: The checkpoint (medium-wide)
+Image: End of shift at the exit checkpoint. Alex, in worn mining clothes with a weathered tool bag, tired
+and dirty, puts his hand on the scanner, whose housing carries the same white-and-amber node.
+Workers queue silently, each with a balance floating overhead, mostly in the tens of thousands. When
+his scan completes, his becomes the largest in the queue. Everyone glances up. No one speaks.
+Display, under a banner reading TODAY: DEBT TRANSFER DAY
+ALEX PHANTUM
+AGE VERIFIED: SEVENTEEN
+PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE
+GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED
+DEBT BALANCE: 418,607 CREDITS
+EARNED TODAY: 40 CREDITS
+PROJECTED CLEARANCE: 28.7 YEARS
+TRAVEL STATUS: RESTRICTED
+SFX: BEEP
+GUARD: Happy birthday, Phantum.
+ALEX: I've had better surprises.
+Caption: Seventeen: the age Keel decides you're old enough to owe.
+Panel 3: The Last Chance (wide)
+Image: Morning street. Alex passes a shuttered casino whose faded lights still flicker: THE LAST CHANCE.
+On its outer wall is a peeling poster of a man's face, mostly torn away, a cautionary legend rather than a
+portrait. A bouncer, at the end of his night, leans in the doorway. On Alex's left wrist, half under his
+
+sleeve, is Adrian's old steel watch, a little big for him, its small display window dark. He doesn't notice
+he's tugging the sleeve down over it. Across the street, people queue at a metered public water tap
+whose display reads RATION: 4 L.
+BOUNCER: Care to see if luck runs in the family?
+BOUNCER: Your father always believed the next hand would change everything.
+(Alex doesn't answer. His thumb covers the watch's face and he keeps walking, eyes ahead.)
+Panel 4: The log (small cutaway, no Alex)
+Image: The pump hall, empty now, with sunlight through the high window. The supervisor stands alone
+at the wall terminal. The white-and-amber node blinks beside a red flag reading UNAUTHORIZED REPAIR
+— REVIEW REQUIRED. Behind him the pump hums steadily. He looks at the pump, then at the flag, and
+his thumb selects ROUTINE MAINTENANCE. A green check appears. At the pump's base, a balanced
+water-drop symbol is scratched into an old valve plate.
+SUPERVISOR (muttering): ...Works.
+Panel 5: The rim (tall)
+Image: Sunrise on the rim of Keel's exhausted pit. In the foreground, unnoticed by Alex, is the sealed
+mine entrance with faded hazard striping. Alex stands beyond it, fists clenched, the old watch on his
+wrist, leaning toward Oasis, whose white towers catch the first sunlight while the basin below is still in
+shadow. On his wrist the display glows faintly: TRAVEL STATUS: RESTRICTED.
+Caption: Everyone in Keel knew where they had been born. / Few believed they could choose where they
+belonged.
+ALEX (small bubble): One day... I'm leaving.
+
+Page 3: Two different dreams
+P1: The overlook (wide)
+Image: Late afternoon on the rim of Keel's exhausted pit, at the rusted railing from Page 2's last panel,
+now worn smooth where they always sit. The mountain is a soft backdrop, with Keel in shadow, Halyard's
+terraces catching gold and Oasis in sunlight. The sealed mine entrance is faint at the far left edge. Bolted
+to the railing beside them is a weathered metal plaque, half-scoured by dust: WATER WARS MEMORIAL,
+above a dry, cracked drinking fountain that has not run in years. Alex sits on the railing eating a simple
+packed lunch, shoulders down, fists unclenched. Ada is small in the frame, approaching along the rim
+with two battered metal mugs of water. Warm gold light, long shadows.
+Caption: Later that afternoon...
+P2: The offer (medium)
+Image: Ada reaches Alex and holds out a mug. She is eighteen, with long, wind-tangled copper hair,
+freckles and teal-blue eyes. She wears a dark high-collared top with a rivet-studded strap across one
+
+shoulder and a muted moss-green wrap at her neck, and her stance is steady and rooted. Alex looks up
+and smiles.
+ADA: Thought you might need this.
+ALEX: The birthday special? Not sure I can afford it.
+P3: Not everything (close)
+Image: Close on their hands and faces around the mugs of clear water. Alex has stopped with the mug
+halfway to his mouth, looking at her, knowing what it cost. Ada has a small, steady smile. At her hip
+hangs a ration card with one day's mark punched out. Rust-gold light.
+ALEX: Where'd you get enough water for two?
+ADA: Saved some of my ration.
+ALEX: Ada, you didn't have to.
+ADA: Not everything has a price, Alex.
+P4: Chemistry (medium two-shot)
+Image: The two seated side by side on the railing, mugs in hand. Alex looks out at the distance and Ada
+looks at him. Both are laughing, like people who have known each other forever.
+ADA: Seventeen. Congratulations. You're officially old.
+ALEX: I'm officially broke.
+P5: The quiet beat (small)
+Image: Ada's eyes in the foreground, on Alex. Beyond her, Alex shrugs and looks away toward the
+horizon. The laughter has gone out of the light.
+ADA: I heard about this morning.
+ALEX: Everyone did.
+(Ada lets the silence sit.)
+P6: Two dreams (wide, split eyelines)
+Image: Over-the-shoulder from behind. Alex's head tilts up toward Oasis, catching the last sunlight. Ada's
+gaze angles down toward Keel in shadow, her copper hair lifted by the wind. The railing cuts the frame
+diagonally between them, and the mountain is only a sliver.
+ALEX: Every birthday... I look up there... and wonder what it feels like to wake up somewhere you get to
+choose your own future.
+ADA: I look down here... and wonder why everyone gave up trying to change it.
+ALEX: Because nobody leaves.
+ADA: That's the problem. People stopped trying to make it worth staying.
+
+Page 4: What people told him
+P1: The photograph (medium)
+Image: Alex draws a worn photograph half out of his jacket pocket. His grandmother smiles, and Adrian's
+face is folded over and creased where Alex has hidden it. His other hand pulls his sleeve down over
+Adrian's old watch. Ada notices both. Light turning from gold to amber.
+ADA: How's your grandma?
+P2: Alex answers (medium two-shot)
+Image: Alex looks at the photograph, and Ada sits beside him. After his lines, her hand lifts toward his
+shoulder and stops in the air.
+ALEX: Some days she knows me. Other days she calls me Adrian...
+ALEX: The hardest part isn't that she forgets. It's that she makes up crazy stories about him.
+P3: The stories (wide)
+Image: They stand at the railing. The sun begins to set, Oasis glows brighter and Keel dims. Ada faces
+Alex, not the view.
+ADA: What kind of stories?
+ALEX: That he wasn't gambling. That he was working.
+(Ada lets the silence sit.)
+P4: What he remembers (tight)
+Image: Ada's face, close and steady. In the foreground, Alex's thumb covers the watch's face.
+ADA: What do you actually remember about him?
+ALEX: Nothing. I was two.
+P5: The crack (wide, quiet)
+Image: Both figures small against the darkening basin, with Oasis the brightest thing in the frame. Ada
+faces Alex, and he stands stiff with his eyes on the horizon.
+ADA: So everything else is what people told you. What if they were wrong?
+(Alex stiffens. A long silence.)
+ALEX: Maybe…Or maybe they're right. Either way... he's gone.
+P6: Hook (narrow strip)
+Image: They begin walking home at dusk. Alex is ahead, and Ada lingers, looking back toward Oasis.
+ADA (very small bubble, almost to herself): He wouldn't just leave.
+
+Page 5: The old book
+P1: Establishing (wide)
+Image: Interior of a modest Keel apartment at dusk, seen from just inside the front door. Handmade
+quilts, repaired furniture, shelves of old books, faded family photographs and potted plants in recycled
+containers, and two water jugs by the door with ration marks scratched down their sides. Warm
+rust-orange evening light comes through dusty windows. Grandmother sits at the centre in a worn chair,
+back partly to us, folding and refolding a small cloth. On the far right wall, a tall floor-to-ceiling bookshelf
+is the largest object in the room, with one book-width gap at eye height. Alex is a small silhouette in the
+doorway, tool bag on his shoulder. The room is warm, lived-in and dignified.
+GRANDMOTHER (from the chair): Adrian?
+P2: Inset close-up
+Image: Alex in the doorway with his eyes closed for a moment, jaw tight, shoulders dropping.
+ALEX: Not today, Grandma. It's Alex.
+P3: Kneeling (medium)
+Image: Alex kneels beside the chair at her eye level. Her hands keep folding the cloth. His smile is gentle
+and tired. Warm side light.
+GRANDMOTHER: Of course. Alex. I knew that. Did your father come home yet?
+ALEX: Not yet.
+P4: The hinge (tight close-up)
+Image: Grandmother's face and eyes. For one beat the fog clears and her gaze is steady and studying, a
+little too careful. Behind her, out of focus, Alex still smiles, unaware.
+GRANDMOTHER: He's closer than you think.
+P5: The handoff (close on hands)
+Image: Her frail hands pass a worn, hand-bound book to Alex's scarred, work-rough hands. The cover is
+worn from decades of use, and a faint balanced water-drop mark sits on the spine.
+GRANDMOTHER: Would you put this away for me? Your father never liked seeing it left out.
+ALEX: He had opinions about everything.
+P6: Toward the shelf (tall, narrow)
+Image: Alex from behind, book in hand, walking toward the looming bookshelf. His shadow reaches the
+gap at eye height, and the warm room light is behind him.
+GRANDMOTHER (off-panel): Especially the things worth protecting.
+
+Page 6: The hidden workshop
+P1: Click (small). Close on Alex's hand pressing the old book into the gap. It stops at an exact depth, and
+dust puffs from the shelf edge. SFX: CLICK.
+P2: Rumble (small). Alex turns his head, listening. Behind him the shelf edge has shifted by a hair and
+dust sifts down. SFX: RUMBLE.
+P3: The reveal (dominant). From inside the room, at a slightly low angle. The whole bookshelf has swung
+outward like a door, with a black rectangle behind it. A golden wedge of household light spills across the
+dusty floor into the dark. Alex stands mid-ground, stepping back. Grandmother sits unbothered in the far
+background, still folding her cloth.
+ALEX: ...Grandma?
+P4: The answer (medium). Grandmother is calm and smiling. Alex turns from the dark toward her.
+GRANDMOTHER: He said you'd know when you were ready.
+ALEX: When did he say that?
+GRANDMOTHER: Before he went to work.
+P5: The threshold (strip). Low, close on Alex's boot. The golden light ends at the edge of the dark, and
+his foot crosses the line. No dialogue.
+
+Page 7: What he left
+P1: The room (wide). The workshop from the threshold, with Alex small at lower left. The room is frozen
+in time and thick with dust, with cool blue-grey ambience. Blueprints are pinned to the walls, and there
+are mechanical models, water-system diagrams and prototype devices. Old photographs are turned or
+too faded to read. A large chalkboard is covered in dense equations, including one in the same looping
+form as the equation engraved on the caseback of Alex's watch. Riveted pre-Alpha pipes and analog
+gauges run through the back wall. At the centre stands one perfectly organized workbench under a pool
+of warm amber light. On it sits a child-sized seated shape under a dust sheet, with a faint amber pulse
+beneath the cloth, and beside it a beautiful metallic key with a circular head bearing an unfamiliar
+symbol.
+P2: The watch (medium). Alex's hand has stopped halfway through tugging his sleeve down; the watch's
+steel edge glints. His eyes are on the chalkboard.
+P3: The match (medium). The chalkboard, with one equation in a looping form, identical in shape to the
+engraving on the watch's caseback.
+P4: The bench (wide). A child-sized seated shape under a dust sheet with a faint amber pulse beneath
+the cloth. Beside it lies a beautiful metallic key with a circular head bearing an unfamiliar symbol. Alex's
+open hand enters from the left edge, reaching but not touching.
+Hook inset: Extreme close-up of the key. The symbol catches the light.
+
+Page 8: The awakening
+P1: The sheet (wide)
+Image: Alex pulls the dust sheet away from the seated shape, and dust cascades through the amber
+pool. The figure is revealed with dull glass eyes and an open key socket in its chest, where a faint amber
+pulse still beats. The long metal key is in Alex's other fist; the watch is half hidden under his sleeve. His
+expression is cautious awe. No dialogue.
+P2: The test (small)
+Image: Extreme close-up of Alex's palm flat on the figure's chest, fingers spread, head tilted as he feels
+for vibration, the way he tests pumps. Under his palm, the amber pulse answers, slow and warm. No
+dialogue.
+P3: The key (medium)
+Image: Close on the metal key from the workbench, a long shaft with teeth and a circular head, sliding
+shaft-first into the chest socket, his scarred knuckles tense and a slight tremor in his hand. It is the key,
+not the watch; the watch stays on his wrist.
+SFX: CLICK
+P4: The ignition (dominant)
+Image: A low angle from Alex's eyeline. The figure's eyes ignite warm amber. A ring of dust lifts from its
+shoulders, and warm light glints on a round, segmented blue head and chipped mustard-yellow paint,
+with an old rust-red scarf at the neck, filling the near space. Alex is at the frame's edge, edge-lit only,
+stepping back.
+SFX: WHIRRR... (rising)
+P5: First words (short)
+Image: Bi11bot stretches stiff mechanical arms, his joints creaking and dust falling. The heavy rings
+around his eyes rotate with a click. His gaze hasn't reached Alex yet. Alex is out of focus behind him,
+frozen.
+BI11BOT: ...Well. That took longer than expected.
+
+Page 9: The robot who bet
+P1: The recoil (medium-wide)
+Image: Alex jumps backward, knocking a stool over, hands half-raised. Bi11bot is dusting off his
+shoulders in the foreground, head just turning toward him. The amber ambience glows around the
+machine.
+ALEX: Okay. That's... new.
+P2: The pause (tight, silent)
+
+Image: Extreme close-up of Bi11bot's face. Amber eyes narrow to focus, and the heavy eye rings rotate
+with a click as his head tilts. It is a beat of deciding how much not to say.
+P3: His mistakes (medium)
+Image: Over Bi11bot's shoulder. Alex stands small behind him, arms crossed in his armored stance.
+BI11BOT: You're taller than your father predicted.
+ALEX: Everyone in Keel claims they knew my father.
+BI11BOT: Most of them knew his reputation. I knew his mistakes.
+P4: The glance (medium)
+Image: Bi11bot's eyes drop toward Alex's left wrist, where the watch's steel edge shows under his
+sleeve. Alex pulls the sleeve down.
+BI11BOT: And you kept the watch.
+ALEX: You know about the watch?
+P5: The bet (close)
+Image: Alex slowly unbuckles the watch and turns it over in his palm, the equation engraved on the
+caseback visible. Bi11bot's mustard-yellow hand hovers just above it without touching. Behind them, the
+chalkboard equation is a soft blue blur, the same shape.
+BI11BOT: Your father bet me you'd throw it in a river. I said you wouldn't.
+ALEX: ...I thought about it.
+P6: The hook (short, wide)
+Image: A small projector unfolds from Bi11bot's shoulder with a click, and soft-blue light lands on Alex's
+face. His hand closes around the watch, and the rest of the room drops into shadow.
+BI11BOT: Thinking about it isn't doing it. Now, shall we say hello to your father?
+
+Page 10: The message
+P1: The face (dominant)
+Image: The hologram flickers on above the workbench, its beam from Bi11bot's shoulder. Adrian looks
+straight at Alex, the first clear view of his face in the book. In the foreground, Alex is a frozen silhouette
+with his thumb over the watch's face.
+ADRIAN: Hello, Alex. If you're seeing this... then you found the workshop.
+P2: Alex's face (small, silent)
+Image: Close on Alex. His armor is gone for a moment. His jaw is set, his eyes are bright and he isn't
+blinking. Soft-blue light plays across his face.
+P3: The joke (wide trio)
+
+Image: Adrian on the left with a half-smile, Alex in the centre, and Grandmother small in the
+background, standing in the open bookshelf doorway with warm household light behind her. One hand is
+at her mouth and her eyes are wet, and she is smiling. Her hands have stopped folding the cloth.
+ADRIAN: Which means your grandmother still refuses to throw anything away.
+GRANDMOTHER: I heard that.
+P4: What it cost (close)
+Image: Adrian serious now, the hologram's gold dimming toward burgundy. His eyes are steady and
+tired. In the background, Grandmother's hand presses to her chest.
+ADRIAN: If you're watching this, I wasn't there when you needed me. I'm sorry. To you, and to Mom.
+ADRIAN: I got things wrong, Alex. More than once. But every failure taught me something.
+P5: The invitation (close, fading)
+Image: Adrian leans slightly toward the lens. The hologram desaturates and its edges break into scan
+lines toward the right edge.
+ADRIAN: You don't have to finish what I started. You may find a better way.
+ADRIAN: Bi11bot has a map. What you do with it is up to you. And whatever he tells you... question
+everything. Especially me.
+P6: The photograph (short, silent)
+Image: The hologram is gone, and the room is back in cool blue-grey with Bi11bot's amber at the edge.
+Alex sits alone in the afterglow. His fingers slowly unfold the creased photograph from his jacket, and his
+father's face emerges from the fold, the same man he just saw. He doesn't say anything.
+
+Page 11: The first waypoint
+P1: Three places (dominant)
+Image: Bi11bot projects a large holographic map onto the workshop wall: the mountain in cross-section,
+Keel at the bottom, Halyard mid-slope, Oasis above the clouds. Three clearly different markers sit on it,
+far apart: one deep beneath Keel's pit, inside the old mine; one inside a Halyard fabrication tower; one
+high in Oasis. Only the Keel marker glows bright amber. The other two are dim outlines. Alex and Bi11bot
+are silhouetted against the light.
+BI11BOT: Your father left a trail. Three artifacts, in three places.
+BI11BOT: He called it the Legacy Protocol.
+P2: The Measure (close)
+Image: Close on the bright Keel marker, deep under the pit, at the bottom of a shaft that drops from the
+sealed entrance on the rim. Beside it, a small holographic label: THE MEASURE.
+BI11BOT: The first is called the Measure. It's somewhere inside the old mine.
+
+P3: Sealed (medium)
+Image: Alex, arms crossed, lit amber, studies the sealed entrance on the map. Bi11bot beside him, head
+tilted.
+ALEX: That mine's been sealed since before I was born.
+BI11BOT: Your father knew.
+ALEX: And I can't leave Keel.
+BI11BOT: You don't need to. This one is under your feet.
+P4: The reason (medium)
+Image: Alex looks back over his shoulder toward the workbench where Adrian's hologram stood, the
+creased photograph in his hand. Bi11bot watches him.
+ALEX: And finding it tells me what happened to him?
+BI11BOT: It tells us where he wanted you to begin. The rest, we'll have to discover.
+P5: Theory and evidence (medium two-shot)
+Image: Alex turns the watch over in his fingers, frowning at the caseback. Bi11bot's eye rings click as he
+turns to face him.
+ALEX: Everyone says he gambled it all away.
+BI11BOT: That's a theory. The mine is evidence.
+P6: The choice (short, close)
+Image: Alex's hand reaches past Bi11bot's shoulder and presses flat against the bright Measure marker,
+and the light ripples around his fingers. Along the old pipes at the top edge of the frame, a hairline
+amber pulse travels upward and out of frame.
+ALEX: Then we start here.
+
+Page 12: Track
+P1: The climb (tall strip)
+Image: A vertical cutaway of the mountain's infrastructure spine, echoing Page 1. The hairline amber
+pulse from Page 11 travels up the water conduit from Keel. Each identical white-and-amber control node
+it passes flickers to full amber for an instant: first in Keel, then at the Keel–Halyard permission gate, then
+through Halyard, then through the cloud layer into Oasis. The strip ends at a dark window into the
+control room. Each tier keeps its own palette, and the pulse is the only warm color. No dialogue.
+P2: The room (wide, symmetrical)
+Image: A minimalist control room in Oasis, pearl white and graphite, perfectly centered. A wall-sized live
+display shows the mountain in cross-section, like Page 11's map but cold. Thousands of white points
+glow, and in Keel's dark basin one small amber point pulses. A lone seated woman, seen from behind, is
+
+small against the display. On the desk sits a single glass of clean water, exactly aligned with the desk
+edge. No dialogue.
+P3: The alert (medium)
+Image: Close on a single monitor. Her hand hovers over two options and presses one, while the other
+stays dark.
+Screen text:
+LEGACY PROTOCOL DETECTED
+SOURCE: KEEL SECTOR
+[ REPORT ] [ TRACK ]
+P4: Order (small, silent)
+Image: Her other hand nudges the glass a few millimeters until it aligns perfectly with the desk edge and
+the monitor's frame.
+P5: Tracking (dominant, wide)
+Image: The wall display again, wider. The amber point in Keel still pulses, and a thin cold-white ring
+slowly closes around it. The room is reflected faintly in the display's glass, with the woman tiny at the
+center. The amber point is the only warm light in the room.
+Caption, in older Alex's voice, looking back: I told myself I was only checking. Most of the true things in
+my life started that way.
+Lettering: END OF CHAPTER ONE
+
+Chapter 2: The Price of Departure
+Page 1: The next morning
+P1: The door (wide)
+Image: The apartment's main room in cool grey-gold morning light, seen from the front door.
+Grandmother sits in her chair folding her cloth. The tall bookshelf on the right wall stands open like a
+door, cool blue-grey light and a small amber glow beyond it. Ada stands just inside the front door, a
+ration jug in one hand, frozen, staring at the shelf.
+Caption: THE NEXT MORNING
+GRANDMOTHER (not looking up): He hasn't slept. Or eaten.
+ADA: Alex... your bookshelf is a door.
+P2: The night he had (medium)
+Image: From inside the workshop, looking back at the shelf. Ada steps through with warm household
+light behind her. Alex sits at the worktable, hair a mess, eyes red, and completely awake: notebooks
+
+open around him, schematics pinned to the shelves, a cold cup, the photograph of Adrian propped
+against a lamp, Adrian's watch in his fingers, caseback up.
+ALEX: Apparently.
+P3: A second shock (tight)
+Image: Bi11bot's head swivels toward Ada from the shelf beside her shoulder, his brass lens ring clicking.
+Ada jerks back a step, jug sloshing.
+BI11BOT: Good morning. You must be Ada.
+ADA: There's a robot.
+BI11BOT: A rather distinguished one, actually.
+P4: The decision (three-shot)
+Image: Bi11bot on the worktable in front, Alex behind him, Ada at the threshold. Alex looks at his
+father's notebooks, his private things, then at Ada. He decides.
+ALEX: I haven't slept. And I think everything Keel says about my father is wrong.
+ALEX: Sit down. I need someone who'll tell me when I'm wrong too.
+P5: Not alone (wide)
+Image: Ada takes the stool across the table. Bi11bot turns his amber gaze to them both, and warm
+amber edges both their shoulders.
+BI11BOT: Your father didn't work alone either. The people he trusted made all the difference.
+BI11BOT: It begins with the wars.
+
+Page 2: What Alpha is
+P1: The wars (wide)
+Image: A hologram fills the workshop above the worktable. Simple fractured scenes: a reservoir dried to
+cracked mud, a guarded storehouse, families walking with jugs. To the right the fragments draw together
+into the mountain of three cities. Alex, Ada and Bi11bot are small silhouettes at the bottom.
+Caption: AFTER THE WATER WARS, THREE CITIES REMAINED.
+BI11BOT: After the Water Wars, the cities couldn't agree on how to share what was left.
+P2: Built for the emergency (medium)
+Image: In the hologram, three groups of exhausted delegates, one from each city, sit at a single table.
+Above them, a small white ring with an amber point switches on for the first time.
+BI11BOT: So an emergency council of all three built Alpha, an AI to run the emergency. Water, food,
+power, work, travel.
+ALEX: They put an AI in charge of people's lives?
+
+P3: The question (two-shot)
+Image: Ada and Bi11bot. Ada's eyes are on the symbol, her thumb stopped on a rivet of her strap.
+Bi11bot's lens clicks.
+ADA: Who gave it that authority?
+BI11BOT: People who were afraid. Reasonably so. It was meant to be temporary.
+P4: It stayed (dominant)
+Image: A high angle. The delegates' table in the hologram fades away chair by chair until only the
+white-and-amber symbol remains, larger now, five streams of light flowing into it. The three figures are
+small below. The amber point is the only warm spot in the room.
+ALEX: What happened?
+BI11BOT: The emergency ended. Alpha's authority didn't.
+P5: The split (wide)
+Image: The hologram divides into three levels. Oasis: full reservoirs, fountains. Halyard: busy workshops
+and trains. Keel: one dripping tap and a queue. Each level wears the same small node.
+BI11BOT: It isn't cruel. It keeps things stable. But nobody it decides for can vote it out.
+P6: Safer for whom (close)
+Image: Alex studies Keel's level of the hologram, arms crossed, its blue-grey light on his face.
+ALEX: Stable for whom?
+BI11BOT (small balloon, off-panel): Your father asked that too.
+
+Page 3: Three safeguards
+P1: The three (wide)
+Image: Three objects rotate above Adrian's worktable in soft blue hologram, each clearly different in
+shape and colour. Adrian's handwritten notes orbit them in gold. Adrian himself is not in the room, only
+his handwriting. Bi11bot stands on the table presenting; Alex and Ada watch.
+BI11BOT: When Alpha was built, the council wrote a way to take its power back. Then everyone forgot it
+was there.
+BI11BOT: Your father found it. And built the three things it needs.
+P2: The Measure (triptych)
+Image: Close on the Measure, turning slowly. Behind it, two gauges side by side, showing different
+readings.
+Caption: THE MEASURE
+BI11BOT: It shows you what's really happening, and what's being hidden.
+
+P3: The Maker's Seal (triptych)
+Image: Close on the Maker's Seal. Behind it, a simple tool and the hand that made it, joined by a thin line
+of light.
+Caption: THE MAKER'S SEAL
+BI11BOT: It proves who made something, and who it belongs to.
+P4: The Covenant (triptych)
+Image: Close on the Covenant. Behind it, several hands, each touching one part of it.
+Caption: THE COVENANT
+BI11BOT: It proves people agreed to the rules, and can hold each other to them.
+P5: Together (dominant)
+Image: Top-down on the hologram. The three artifacts form a triangle around Alpha's symbol. Under the
+symbol, a faint old lattice, dark and dusty, with three empty sockets at the triangle's points.
+ALEX: So if we find all three, we shut Alpha down?
+BI11BOT: No. The lights stay on. The pumps keep running. Alpha stays a tool.
+BI11BOT: What ends is its right to decide for everyone.
+P6: Who decides (two-shot)
+Image: Ada leaning in. Alex picks up the watch from the table.
+ADA: And who decides instead?
+BI11BOT: People. That's what the Covenant is for.
+ALEX: And if I just carry them up the mountain?
+BI11BOT: Then you're a boy with three heavy objects. Somebody has to use them, on purpose, and
+answer for it.
+
+Page 4: Both were true
+P1: The recording (wide)
+Image: The Last Chance years ago, rust-amber lights, a busy floor. At a corner table, Adrian fills a napkin
+with branching sums and watches the players' faces, not the cards. A small stack of credit slips sits at his
+elbow. At the door, a young bouncer, the man from Chapter One's Page 2, watches Adrian.
+Caption: THE LAST CHANCE, YEARS BEFORE
+BI11BOT: He watched people decide with their own money on the line. When the odds are bad, why do
+they still choose?
+P2: The watch (strip)
+
+Image: Alex holds the watch beside the hologram, caseback out. The looping equation engraved on it
+matches a looping equation floating in the air.
+ALEX: That's on my watch.
+BI11BOT: That's his equation.
+P3: The missing part (dominant)
+Image: A high-angle hologram of the equation over the worktable, large and beautiful, most of its terms
+glowing steady gold. One term at its heart stays open, a bright empty loop that won't resolve. Alpha's
+symbol sits outside it, looking in. The three figures are small below.
+ALEX: What's the part that won't solve?
+BI11BOT: Human choice. He spent years trying to model it. He never could.
+P4: Estimate, not decide (two-shot)
+Image: Ada and Alex across the hologram, faces in gold.
+ADA: Because people do things when they can't know how they'll turn out.
+BI11BOT: Alpha can estimate what people might do. Adrian believed it should never decide what they
+must do.
+ALEX: And the safeguards?
+BI11BOT: They only work for people who look, choose, and live with what happens next.
+P5: The debt (close)
+Image: Alex looks at the watch, then up. Bi11bot's hologram behind him shows a stack of loan papers
+beside a stack of patent drawings, the two piles roughly the same height.
+ALEX: So the debt wasn't from gambling.
+BI11BOT: Some was. Most was money he borrowed to pay for his research. The work never paid him
+back.
+ALEX: Or someone made sure it couldn't.
+P6: Grandmother (strip)
+Image: Through the open shelf, Grandmother in her chair, folding, half-listening.
+GRANDMOTHER: I told you he was working.
+BI11BOT (small): She's half right. Both were true.
+
+Page 5: The cost of a plan
+P1: The table (wide)
+
+Image: The kitchen table. Adrian's paper map of the mine is spread out. Alex, Ada and Bi11bot lean over
+it. Grandmother sits nearby. The workshop glows through the open shelf.
+Caption: LATER THAT MORNING
+ALEX: First the Measure. Then Halyard, for the Maker's Seal.
+ADA: The old mine entrance on the rim is sealed. How do you get in?
+P2: The way in (close)
+Image: Alex's finger on the paper map, tracing from the active mine, SITE 6, along a tunnel to a barred
+door marked in Adrian's hand: OLD WORKS.
+ALEX: Through the active mine. I work Site 6. The old works are behind it.
+BI11BOT: Getting into Site 6 is easy. Getting past it is another matter.
+P3: Ada's map (two-shot)
+Image: Ada has been copying the map by hand into her own notebook. She tears the page out: the
+tunnels redrawn, a small inked pipe at the third junction, where Adrian's map shows only a wall.
+ADA: His old plans show a pipe behind that wall. His map doesn't. Take mine.
+ALEX: Which one's right?
+ADA: Find out.
+P4: What it costs (top-down)
+Image: Alex empties his credit card onto the table as a small glowing pile: 52. Around it, four simple
+labelled spaces: MEDICINE 30, FOOD 10, RAIL FARE 25, and, off to one side and far larger, a red tag from
+his wristband: OVERDUE 500.
+Wristband: DEBT 418,607 CR / OVERDUE 500 CR / TRAVEL: RESTRICTED UNTIL OVERDUE IS PAID
+ADA: Fifty-two. And you can't leave Keel until the five hundred's paid.
+ALEX: Then I'm not leaving yet.
+P5: Medicine first (close)
+Image: Alex's hand slides thirty credits into the MEDICINE space. The knock of the front door: NELL, the
+downstairs neighbour (a broad woman in her sixties with short grey hair and a white clinic smock), at the
+door with Grandmother's medicine bag.
+NELL: Thirty for the week, love. Same as always.
+ALEX: Same as always.
+P6: The echo (short)
+Image: Tight on Grandmother's face, eyes steady and clear. Behind her Alex zips his tool bag, Bi11bot
+folding himself inside it.
+
+ALEX: One shift. Then we'll see.
+GRANDMOTHER: Your father said that once.
+
+Page 6: Site 6 and the snap
+P1: Site 6 (wide)
+Image: A cavernous active mine in dim work light: a conveyor, a hauling frame, workers passing a gate.
+Far down a side tunnel, a faded sign reads OLD WORKS — CLOSED above a heavy iron door. Alex is small
+at the gate.
+Caption: KEEL EXTRACTION SITE 6
+P2: The gate (medium)
+Image: Alex's hand on the scanner. Foreman-7, the site foreman, watches, a white-and-amber node on
+his chest. Behind Alex in the queue, an older miner's head lifts at the name.
+FOREMAN-7: Worker Phantum. Bay 6.
+ALEX: Same bay as always.
+P3: Scrap (tight)
+Image: Inside the tool bag, between wrenches, one warm amber eye peers out from a folded Bi11bot.
+BI11BOT (whispering): Brass and no registration. I read as scrap.
+ALEX (under his breath): Then look like scrap.
+P4: Watched (medium)
+Image: Bay 6, near the side tunnel. Alex works at a hauling frame, eyes on the iron door at the far end. A
+few feet away the older miner, TOMAS, watches Alex a beat too long. On Tomas's wrist guard, a carved
+water-drop.
+BI11BOT (from the bag): Patience. Something usually moves.
+ALEX: Something usually breaks.
+P5: The snap (dominant)
+Image: A support cable whips loose with a crack, and the hauling frame drops. Tomas is pinned beneath
+it. Workers freeze. In the background, the side tunnel is empty and the iron door unwatched.
+SFX: SNAP! CRASH!
+P6: The choice (short)
+Image: Low and tight. Alex's boots start toward the side tunnel, then turn. His wristband flashes cold
+white as he crosses the yellow line toward Tomas.
+Wristband: LEFT ASSIGNED ZONE — TODAY'S WAGE FORFEITED: −40 CR
+
+Caption, older Alex: I'd like to say I thought about it. I didn't.
+
+Page 7: The old key
+P1: The frame (wide)
+Image: Dust in the air. Alex levers the hauling frame with a length of pipe, boot braced. Tomas slides free.
+Workers watch from behind the line; Foreman-7 strides toward them from far off.
+ALEX: Don't move.
+TOMAS: Wasn't planning to.
+P2: Bi11 (tight)
+Image: Tomas sits against the wall, leg bruised. The tool bag has tipped open and Bi11bot's amber eye
+looks out. Amber light finds Tomas's face, and his eyes widen.
+TOMAS: Bi11...?
+ALEX: You know him?
+TOMAS: Your father carried him everywhere. I knew Adrian Phantum.
+P3: Who Adrian was (medium)
+Image: Tomas pushes his sleeve up to show the carved water-drop on his wrist guard. Behind him,
+simple and faint, a memory: a younger Tomas and Adrian side by side at a broken pump, sleeves rolled
+up.
+TOMAS: Twenty years ago we fixed the pumps on this level together. He paid for the parts himself.
+TOMAS: Not the man on the casino wall. The one who came down here and asked what we needed.
+P4: The door he kept (close)
+Image: Tomas nods toward the iron door at the end of the side tunnel.
+TOMAS: Before he left, he asked me to keep that door. Oil the lock. Tell nobody. Wait for whoever came
+with Bi11.
+ALEX: What's behind it?
+TOMAS: I never asked.
+P5: Why me (dominant)
+Image: A close two-shot, Tomas warm in amber light, Alex wary. In soft focus behind them, Foreman-7's
+cold node grows larger.
+ALEX: Why trust me? You don't know me.
+TOMAS: You stopped for a stranger. He said that's how I'd know it was you.
+P6: The plan (strip)
+
+Image: Tomas's hand on an orange emergency lever on the wall, his eyes on Alex.
+TOMAS: Go stand by that door. When I pull this, go.
+
+Page 8: The door
+P1: The lever (dominant)
+Image: Tomas pulls the emergency lever. Alarms, orange strobes, white mist billowing across the bay.
+Workers move to the exits as drilled. Foreman-7 turns toward Tomas.
+SFX: WHOOP! WHOOP!
+P2: The key (small)
+Image: Tomas presses a heavy, long, hand-cut metal key into Alex's palm. The equation's loop is stamped
+on its head.
+TOMAS: Old lock. No wires. Alpha doesn't know it's there.
+P3: Come with us (small)
+Image: Alex's hand closes on the key, his eyes on Tomas.
+ALEX: Come with us.
+TOMAS: Somebody has to take the blame for the button.
+P4: The cost (strip)
+Image: Tomas limps into the mist toward Foreman-7, his body between the robot and the side tunnel.
+TOMAS (shouting): Foreman! Wrong lever! My fault!
+P5: The route (wide)
+Image: A clear side view: the bay, the mist, Tomas and Foreman-7 at left; the side tunnel running right;
+Alex at the iron door at the far right end, key in the lock, Bi11bot on his shoulder.
+P6: Cold (extreme close-up)
+Image: Alex's palm flat on the iron door. It's beaded with water.
+ALEX: It's wet.
+BI11BOT: Closed mines are dry. Something in there isn't closed.
+P7: Gone (low, from inside)
+Image: The door swings shut. Alex and Bi11bot in the dark beyond, half of Alex's face in amber. Through
+the last sliver, Tomas facing Foreman-7.
+SFX: CLUNK
+
+Page 9: Inside the error
+P1: The old works (dominant)
+Image: The old works in Bi11bot's amber light: rusted rails, collapsed timber supports, dead machines
+furred with dust. Everything is brown and still. Alex holds a work lamp and Ada's page.
+ALEX: Nobody's been here in years.
+P2: New bolts (extreme close-up)
+Image: Alex's lamp on a pipe bracket on the left wall. Among rusted timbers, the bracket is clean, its
+bolts bright and new, its paint fresh.
+ALEX: Hold on. These bolts are new.
+BI11BOT: Then someone has been looking after something.
+P3: The pipe on her page (two-shot)
+Image: Alex holds Ada's page against the wall. Her small inked pipe sits at this junction. Under his fingers
+the wall is beaded with condensation, and through a gap in the rock a thick pipe runs, sweating, that
+appears on her page and not on Adrian's map.
+ALEX: Ada drew a pipe here. And here it is.
+P4: The light (high angle)
+Image: A security drone's cold white searchlight sweeps down the main tunnel. Alex and Bi11bot
+pressed flat in the narrow side passage beside the pipe as the beam passes the wrong way.
+P5: Ada, waiting (inset, silent)
+Image: Ada at Alex's kitchen table, her copy of the map under both hands, staring at the door.
+Grandmother folds her cloth beside her. She can't reach him and doesn't know if she was right.
+P6: Follow it (strip)
+Image: Alex and Bi11bot in silhouette follow the sweating pipe along a narrow passage toward a slit of
+blue-white light. No dialogue.
+
+Page 10: The lie
+P1: The chamber (wide)
+Image: A hidden chamber inside the abandoned mine, tall and clean, lit blue-white. Pipes come down
+from the mountain into one big junction. Out of it run two pipes. One is narrow and old, stencilled KEEL
+HOMES. One is broad and new, stencilled UPLINK INDUSTRIAL, climbing back up the mountain. Between
+them, a big official gauge. Alex and Bi11bot are small at the threshold.
+ALEX: This isn't abandoned.
+BI11BOT: Only the mine around it is.
+
+P2: The official number (medium)
+Image: The gauge, large and clear, with Alpha's white-and-amber node on its casing. One bold needle on
+a dial labelled KEEL'S SHARE OF THIS JUNCTION.
+Gauge: KEEL'S SHARE: 62%
+ALEX: The official gauge says Keel gets most of the water through here.
+P3: Two pipes (split frame)
+Image: Left: Alex's palm on the KEEL HOMES pipe, cold and still, a single bead of water. Right: his other
+palm on the UPLINK pipe, trembling with motion lines, water roaring inside.
+ALEX: Then why is our pipe barely moving?
+BI11BOT: Either the records are wrong, or someone is making sure they look right.
+P4: The equation (tight)
+Image: On a small service panel under the gauge, scratched into the metal, the looping equation from
+the watch's caseback. Alex holds the watch up beside it, caseback out. They match.
+ALEX: That's Dad's equation. He found this.
+P5: Hidden behind the gauge (medium)
+Image: Alex opens the service panel. Inside, wedged behind the gauge's wiring, the Measure.
+BI11BOT: For years, everyone trusted Alpha's numbers. Nobody could check them.
+BI11BOT: He left you a way to check.
+P6: The Measure (dominant)
+Image: A low-angle wide shot. Alex lifts the Measure out into the blue-white light, holding it in both
+hands. Bi11bot beside him, amber at the edge of the frame.
+Caption, older Alex: I'd spent my whole life being told what was true. This was the first time I could look.
+
+Page 11: Two paths
+P1: What's moving (medium)
+Image: Alex clamps the Measure to the KEEL HOMES pipe. A simple readout blooms above it: a thin
+trickle of blue.
+Readout: KEEL HOMES: 18% OF THIS JUNCTION
+P2: What's reported (strip)
+Image: Bi11bot touches the gauge's cable; the gauge's 62% appears in the readout beside the Measure's
+18%. Two bars, one tall, one short.
+Readout: REPORTED 62% / DELIVERED 18%
+
+P3: Where it goes (dominant)
+Image: The water reveal fills the page. The Measure throws a huge map of the mountain's pipes into the
+air: a thin rust-orange thread for Keel, and beside it a wide bright-blue river of water running from the
+junction up through the UPLINK pipe, toward Halyard's factories and Oasis's fountains. Alex and Ada's
+whole city is the thin thread. Alex and Bi11bot are tiny beneath it.
+ALEX: Most of Keel's water goes back up the mountain.
+P4: The choice (two-shot)
+Image: Alex and Bi11bot under the map, the Measure between them.
+BI11BOT: We have the proof. Now you have a choice.
+BI11BOT: Take the Measure and leave quietly. Nobody learns what we found. You go on to Halyard.
+BI11BOT: Or send this to every screen in Keel. Alpha will know exactly where it came from.
+P5: The weighing (tight)
+Image: Alex's face, half blue, half amber. In his eyes, small, the thin orange thread.
+ALEX: And come looking for me.
+BI11BOT: Yes.
+ALEX: Ada rations her water. Grandma counts every jug.
+P6: Someone has to (low angle)
+Image: Alex's hand on the Measure. Bi11bot watching him, not deciding.
+ALEX: Then everyone needs to see it.
+
+Page 12: Truth belongs to everyone
+P1: Send (strip)
+Image: Alex's thumb presses the Measure's one button, firmly, on purpose. The two bars and the map
+lift off it as light and run into the gauge's cable.
+SFX: CLICK
+ALEX: Send it.
+P2: Everywhere at once (dominant, multi-location)
+Image: One wide panel of five simple vignettes, all switching in the same instant: a ration station queue,
+a household wall screen, a tram stop board, a mine-shift display, a street kiosk. Ordinary Keel faces look
+up, mid-motion.
+Screen text, identical on every screen:
+KEEL'S SHARE OF THE JUNCTION
+
+REPORTED: 62% — DELIVERED: 18%
+WHERE THE REST GOES: [map of the Uplink pipe]
+P3: Reading it (strip, three faces)
+Image: Three Keel faces in a row, reading: a woman with an empty jug; a boy at the ration queue; Nell
+(broad, sixties, short grey hair, white clinic smock) at Alex's building's door.
+WOMAN WITH JUG: Eighteen.
+BOY: That's not a mistake. That's a pipe.
+P4: Nothing flows yet (medium)
+Image: Back in the chamber. The KEEL HOMES pipe is exactly as still as before. Only the information has
+moved.
+BI11BOT: The water hasn't changed. Only what people know.
+ALEX: That's a start.
+P5: Found (tight)
+Image: Alex's wristband lights cold white.
+Wristband: SOURCE IDENTIFIED: ALEX PHANTUM / LOCATION: OLD WORKS, SITE 6 / REMAIN IN PLACE
+P6: Footsteps (wide)
+Image: The chamber door. Cold white light and the heavy tread of Foreman-7 approaching down the
+passage. Alex doesn't step back.
+FOREMAN-7 (off-panel): Worker Phantum. Remain in place.
+
+Page 13: What Keel gives back
+P1: Not alone (wide)
+Image: From behind Alex and Bi11bot, looking out the chamber door. Foreman-7 fills the doorway, but
+behind him the passage is packed with miners in work lamps, Tomas at the front, leg bandaged.
+TOMAS: We saw the numbers, Foreman.
+FOREMAN-7: Obstructing Alpha's officer is an offence.
+TOMAS: Then it's all of ours.
+P2: Held ground (medium)
+Image: Miners step between Foreman-7 and Alex, a calm line of people. Foreman-7's optics flick across
+them, counting. It stops.
+P3: The valve, carefully (wide)
+
+Image: Tomas and two pump workers at the junction's manual valve, one reading a pressure gauge, one
+with a hand raised for "slowly." They turn the wheel a quarter turn. The KEEL HOMES pipe begins, gently,
+to hum.
+TOMAS: Quarter turn. Watch the old joints.
+PUMP WORKER: Holding. Another quarter.
+P4: The first jug (small)
+Image: A Keel street tap. A woman's jug fills a little faster than it did yesterday. She looks up.
+P5: What a city gives (wide, multi-vignette)
+Image: Simple warm vignettes across Keel: a vendor filling a sack with dried food; a mechanic handing
+over a lamp and a rope; at the ration station, a line of people each tapping their wristbands on a public
+terminal under Alex's name. Ada is at the terminal, clearly organizing, a paper list in her hand.
+Terminal: PAYMENT TO: ALEX PHANTUM, OVERDUE BALANCE / FROM 61 ACCOUNTS
+ADA: Five each, or two, or one. Whatever you can.
+MECHANIC: He fixed my pump for nothing last winter.
+P6: Why (strip)
+Image: Alex, walking out of the mine with Tomas, the Measure in his hand.
+ALEX: Why are they doing this?
+TOMAS: You stopped for us first.
+
+Page 14: Goodbye
+P1: Home (wide)
+Image: Alex comes through the front door. Ada at the table, cinching two packs: food, lamp, rope, the
+paper map. Grandmother in her chair. Nell (broad, sixties, short grey hair, white clinic smock) sits beside
+her with the medicine bag and a list.
+ADA: You're late.
+ALEX: I had company.
+P2: The wristband (tight)
+Image: Close on Alex's wristband.
+Wristband: DEBT 418,107 CR / OVERDUE 0 CR / TRAVEL: PERMITTED
+ALEX: Five hundred. From people who don't have five hundred.
+ADA: The other four hundred and eighteen thousand are still yours.
+P3: Who stays (two-shot)
+
+Image: Alex looks at Grandmother, then at Nell.
+ALEX: I can't leave her alone.
+NELL: You're not. I'm moving in upstairs. Medicine's paid through the month. I'll do her mornings and
+nights.
+P4: Kneeling (dominant)
+Image: Alex kneels at Grandmother's chair, at her eye level, as on Page 5 of Chapter One. Her hands are
+still, the cloth resting in her lap.
+GRANDMOTHER: I always told you he was working. Nobody believes an old woman.
+ALEX: I believed you. I just didn't know it yet.
+GRANDMOTHER: Go. You've lived long enough inside his unfinished story.
+P5: The promise (medium)
+Image: Grandmother takes Alex's face in both hands, steady, her eyes clear.
+ALEX (quiet): I'll come back for you.
+GRANDMOTHER: I know.
+P6: Why she's coming (two-shot, threshold)
+Image: Ada at the open door, pack on her shoulder.
+ALEX: What about Keel? You wanted to fix it, not leave it.
+ADA: I'm not leaving Keel behind. I'm going to find out who decided it had to stay this way.
+P7: Out (wide, from outside)
+Image: From the street. Alex, Ada and Bi11bot step out. Grandmother and Nell are small warm shapes in
+the doorway, Grandmother's hand raised.
+
+Page 15: The train
+P1: The gate (wide)
+Image: The Keel–Halyard permission gate across the rail line, the one from Chapter One's Page 1. Alex
+holds his wristband to the scanner. Ada beside him. Steam and work-lamp light.
+Scanner: ALEX PHANTUM — TRAVEL PERMITTED
+SFX: CLUNK
+P2: Leaving (dominant)
+Image: Inside the old train car, warm and nearly empty. Alex by the window, Ada beside him, Bi11bot on
+the seat between them. Outside, Keel's basin slides past: the pit rim, the mine, and a street tap where a
+queue is shorter than it was this morning.
+
+Caption, older Alex: I went into the mine to get out of Keel. I came out owing it.
+P3: One down (close two-shot)
+Image: Ada holds up the Measure between them, grinning for the first time in the chapter.
+ADA: We have the Measure. One down.
+ALEX: Two to go. The Maker's Seal is next.
+P4: The clue (tight)
+Image: Bi11bot's chest projects a short note in Adrian's handwriting that wasn't readable before, now
+unlocked, glowing gold.
+BI11BOT: It opened after you sent the proof. He left it for whoever used the Measure.
+Note: HALYARD PATENT REGISTRY. My work is filed under my name. The people who made it with me are
+not. Find them. — A.
+P5: Rising (window shot)
+Image: Through the window, Halyard climbs into view: bronze and gold workshops, greenhouse terraces,
+the three Charter House towers. Alex's reflection faint over it, Keel's rust colours falling away below.
+ALEX: Then that's where we start.
+P6: The follower (tight, cold)
+Image: Several rows back, unseen by them, a passenger's gloved hand rests on a small device below the
+seatback. A cold pearl-graphite readout glows against their palm.
+Screen: THE BOY HAS THE MEASURE.
+Reply: FOLLOW. DO NOT TAKE IT YET.
+Lettering: END OF CHAPTER TWO
+
+Chapter 3: The Price of Ownership
+Page 1: The city of makers
+P1: Arrival (dominant)
+Image: Halyard at sunrise, seen from the train platform. Suspended rail lines cross between glass
+laboratories, fabrication towers, vertical farms and foundries. Three illuminated House insignias, each in
+its own accent color, dominate three separate skyline clusters. Below the towers, workers stream
+through gated checkpoints in House-colored uniforms. Alex, Ada and Bi11bot are small in the
+foreground, stepping off the train.
+P2: Three houses (wide)
+
+Image: Inside a crowded transit concourse. Three huge holographic ads compete overhead, each in its
+House's accent color: Calder shows clean rivers and atmospheric water towers, Ivers shows fusion grids
+and compute centers, Steyn shows orbital stations and advanced materials. Each features a founder's
+face and a shared slogan.
+Ad slogan: CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.
+ADA: Three families run almost everything here.
+ALEX: Alpha allowed that?
+BI11BOT: Allowed it. Recommended it.
+P3: Fewer questions (street level)
+Image: Street level beneath the towers. Workers queue at a contribution kiosk, visibly more orderly and
+better-dressed than Keel, but still queuing. A faded old sign over a shuttered independent workshop
+reads MORROW & SONS — INVENTORS SINCE 2024, a House insignia stamped crudely over the original
+name.
+ADA: Why recommend it?
+BI11BOT: Efficiency. Less duplication, less risk.
+BI11BOT: Also fewer people asking who owns what.
+P4: The kiosk (medium)
+Image: A young engineer feeds a small mechanical component into a scanner. Alex and Ada watch from a
+few feet away.
+Screen: CONTRIBUTION ACCEPTED / OWNERSHIP: HOUSE IVERS / CREATOR BONUS: 14 CREDITS
+ALEX: She invented it. Why doesn't she start a business?
+BI11BOT: She could try. But the Houses control the factories, distribution networks, and nearly every
+license.
+ADA: So she has the freedom to invent. Just not the freedom to compete?
+BI11BOT: Precisely.
+P5: What she keeps (close)
+Image: Close on the engineer's face as she steps away from the kiosk, unbothered, well paid and good at
+her job, already moving to the next task. Behind her, the shuttered Morrow & Sons sign from P3 is
+visible, slightly out of focus.
+ALEX: And if she leaves?
+BI11BOT: She keeps the experience. That’s about it.
+
+Page 2: The estate
+P1: The hall (wide)
+Image: A vast registry hall, rows of vertical glass screens stretching up into shadow, filled with scrolling
+patents, ownership records and commercial licenses. Alex, Ada and Bi11bot are small, dwarfed by scale
+for the first time since the mountain on Page 1 of Chapter One. A line of workers waits at public
+terminals.
+Caption: THE HALYARD PUBLIC REGISTRY
+P2: The flood (dominant)
+Image: Alex holds his identity band near a terminal. The screen freezes for a beat, then floods upward
+with data, the camera's angle tilting with it. A cold white alert overlay cuts across the warm gold data
+behind it.
+Screen: PHANTUM, ADRIAN / INTELLECTUAL ESTATE: ACTIVE / CLAIMANT DETECTED: ALEX PHANTUM /
+312 PATENTS — 47 RESTRICTED — 19 DISPUTED
+ALEX: Three hundred and twelve?
+P3: Badly labeled (medium two-shot)
+Image: Ada and Alex side by side, both staring up at the screen. Bi11bot watches Alex's face rather than
+the data.
+ADA: You said your father left you nothing.
+ALEX: He left me debt.
+BI11BOT: Your father left many things. Badly labeled.
+P4: The term (close)
+Image: Close on the screen's lower text, Alex's reflection faint over it.
+Screen: CHARTER HOUSE REVIEW REQUIRED
+ALEX: What does "intellectual estate" mean?
+P5: Whatever he made (close)
+Image: Close on Ada, her eyes narrowing as she reads ahead of him.
+ADA: It means whatever he made might now belong to you. He never worked for the Houses. Or he
+never let them know he did.
+P6: Watched (strip)
+Image: Wide and low, from across the hall. Several sharply dressed figures in mixed House colors have
+turned to look toward Alex's terminal, unhurried, already moving his way. Security drones hover at a
+respectful distance, their lights cold white.
+
+Page 3: The offer
+P1: The approach (wide)
+Image: Lock crosses the hall at an unhurried pace, flanked loosely by two aides in mixed House colors,
+drones trailing at a respectful distance. He is composed, silver-templed, dressed in charcoal and platinum
+with no House crest.
+Caption: DIRECTOR LOCK
+P2: Waiting for an heir (dominant)
+Image: Lock stops a few feet from Alex, unthreatening, hands loosely clasped. Behind him, Adrian's
+estate record still glows cold white on the terminal.
+LOCK: Alex Phantum. Welcome! Halyard has been waiting a long time for an heir.
+ALEX: It’s been kinda tough to get away from the grind in Keel….
+LOCK: Then today is your lucky day..
+P3: The gesture (two-shot)
+Image: Lock gestures toward the glowing patent record without looking at it, his eyes staying on Alex.
+LOCK: Your father's work could clear every debt attached to your name. I’m willing to take that risk.
+LOCK: It could also secure you a position. Somewhere in Halyard that suits you. I’m sure you won’t miss
+Keel.
+P4: In exchange (close)
+Image: Ada steps half in front of Alex, arms crossed, watching Lock's hands, not his face.
+ADA: In exchange for what?
+LOCK: A simple assignment of rights.
+LOCK: You sign. The estate transfers to our House. We pay back Alpha.. Your name and debt is clear by
+tonight.
+P5: Simple (close)
+Image: Close on Lock's calm, patient expression, utterly sincere.
+LOCK: Your father was a brilliant inventor. But an invention isn't a business.
+ALEX: And the Houses can make it one?
+LOCK: We have the capital, factories, engineers, and customers. We can take discoveries from a
+workshop to the entire city.
+ALEX: And if someone wants to build something different?
+LOCK: They're welcome to try. But scale is what makes innovation useful.
+
+P6: No answer yet (wide)
+Image: Lock inclines his head, unbothered by silence, and steps back, his aides falling in behind him.
+LOCK: Take the day to think about it. Halyard isn't going anywhere.
+(He leaves. Alex doesn't move. Bi11bot's amber eye tracks him out of the hall.)
+
+Page 4: What he built with others
+P1: The room (wide)
+Image: A small rented room above a maker district, the noise of the street dulled by thin walls, a single
+window showing Halyard's towers at dusk. Alex sits on the edge of a narrow bed, his thumb rubbing the
+face of Adrian's old steel watch on his left wrist, Adrian's smoothed photograph propped against a lamp
+as it was in Chapter One. Ada stands at the window, arms crossed, watching the towers. Bi11bot waits on
+the table, unlit.
+Caption: THAT EVENING
+P2: Not yet (strip)
+Image: Close on Alex's hand, hovering near his identity band, not touching it.
+ADA: You're thinking about it.
+ALEX: I'm thinking.
+P3: The archive (dominant)
+Image: Bi11bot projects Adrian's patent archive across the bare walls, filling the small room with soft
+blue light. Most files sit encrypted or fragmented, grey and inert. One cluster glows differently, warmer,
+more defined: a series of water-related patents connected by incomplete diagrams, catalytic membrane
+purification, atmospheric moisture capture, mineral recovery, living biofilter regulation, distributed
+community water nodes. At the cluster's center, faint but unmistakable, the bronze open-hand symbol of
+the Maker's Seal pulses once.
+BI11BOT: All these patents provide different value. Your father expected someone to come looking. One
+will lead us to the Makers Seal.
+ALEX: Three hundred and twelve patents. How do we know which one leads to the Seal?
+BI11BOT: Because your father marked this one.
+ADA: Can you open it?
+BI11BOT: Part of it. But four collaborators hold the missing pieces.
+ALEX: Well, let’s start with this one and see if these patents are really worth anything.
+P4: More water (strip)
+
+Image: Alex's identity band buzzes. A message from Tomas opens above it: a photo of a jug of cloudy
+water under a Keel tap. Alex holds the Measure up to the photo's readings, and a small readout blooms
+beside it.
+Message: TOMAS: More water. Look at it.
+Readout: METALS: OLD PIPE CORROSION / MINE RUNOFF
+ALEX: I thought the Measure fixed it.
+ADA: The Measure provides transparency. It doesn’t clean dirty water. .
+P5: Four names (medium)
+Image: Four flat, official identification portraits resolve from the projection, each beneath a small House
+insignia in its accent color: two under Calder's jade-teal, one under Steyn's steel-violet, one under Ivers's
+amber-orange.
+BI11BOT: He built them with others.
+ALEX: They're all inside the Houses.
+BI11BOT: Exactly where Halyard puts everyone useful.
+ALEX: So finding them brings us closer to the Seal?
+BI11BOT: And may finally discover the real value of his inventions.
+P6: What it would take (medium)
+Image: Alex looks from the patent cluster to the four portraits, doing the sum in his head.
+ALEX: All those patents should be worth a fortune.
+BI11BOT: Potentially. But a patent isn't a product. And a product isn't necessarily a profitable business.
+ADA: So what would it take?
+BI11BOT: The right people, working technology, time, equipment…and more money than you currently
+have.
+P7: Not nothing (strip)
+Image: Alex looks at the four portraits, then at Lock's registry alert still faintly visible as a cold white
+afterimage at the edge of the projection, the two options sitting side by side in the same room.
+ALEX: Lock's offer clears this by tonight. This takes... what, weeks?
+BI11BOT: Lock's offer clears the debt. It doesn't clear anything else.
+
+Page 5: Lina Vey
+P1: The facility (wide)
+
+Image: A vast Calder purification facility, rows of enormous processing columns and channels. Workers in
+Calder jade-teal uniforms move between stations. Alex, Ada and Bi11bot approach a stooped woman in
+a maintenance-grade uniform despite the authority in her bearing.
+P2: Frequently (medium two-shot)
+Image: Lina looks Alex over, unimpressed, arms crossed.
+LINA: Adrian Phantum's son.
+ALEX: You knew him?
+LINA: I corrected him. Frequently.
+BI11BOT: Nearly continuously.
+LINA: You think he left this to you? (She nods at the erased names still visible faintly in Bi11bot's
+projection.) He left it to all of us.
+P3: The failing river (dominant)
+Image: Lina leads them to a wide observation window over a contaminated feeder channel, visibly
+fouled with mineral runoff and industrial residue, flowing out toward the mountain and down toward
+Keel. A cold white alert glows on the glass.
+Screen: DOWNSTREAM PURIFICATION FAILURE / PROJECTED IMPACT: KEEL WATER NETWORK
+LINA: That river feeds what's left of Keel's supply. Calder can clean sections of it. Not fast enough, and
+not without shutting down half the production district.
+ALEX: We just got Keel's water flowing again.
+LINA: Getting more water to Keel doesn't make it safe.
+P4: Every piece (medium)
+Image: Lina gestures up at the Calder insignia glowing above the facility floor, her expression dry.
+ALEX: Adrian's patents could fix it?
+LINA: Combined correctly, they'd purify the flow and recover what's contaminating it.
+LINA: Every division has a piece of the solution. But nobody gets rewarded for helping another division
+succeed.
+ALEX: Even if it means solving the problem?
+LINA: Especially if it threatens something they're already selling. They call it the innovator’s dilemma.
+P5: Off the system (strip)
+Image: Close on Lina's hand pressing an old physical data shard into a slot on Bi11bot's chest. A section
+of the purification design blooms in his projection, a flexible membrane diagram, with the bronze
+
+Maker's Seal symbol flashing briefly inside it. Around the symbol, five empty positions form a ring, one
+for each person who built the design. The first one fills.
+LINA: He made each of us keep one piece off the system. He worried Halyard would confuse protecting
+an idea with owning the person who had it.
+ALEX: Will you help us find the other three?
+LINA: (already walking) Try keeping up this time.
+
+Page 6: Suri Anik
+P1: The wing (wide)
+Image: A biofilter research wing, living walls of root systems and algae columns glowing warm green, in
+sharp visual contrast to the industrial channels of Page 5. Lina leads Alex, Ada and Bi11bot through it
+without slowing down. A younger woman in a research coat works alone at a terminal, cross-checking
+samples no one else seems to be reviewing.
+P2: What Ada sees (dominant)
+Image: Ada's eyes go first to the empty workstations around Suri, not to Suri herself, counting them. Suri
+hasn't looked up yet.
+ADA (quiet, to Alex): She's the only one still working this bench.
+P3: Introductions (medium two-shot)
+Image: Suri finally looks up, recognizing Lina first, then studying Alex's face for Adrian in it.
+SURI: Lina said you might come. I didn't believe her.
+ALEX: Why not?
+SURI: Because the ones who come looking for Adrian usually want what he built. Not who he built it
+with.
+P4: The piece (close)
+Image: Suri unlocks a small case beneath her station and hands over a second physical shard, worn
+smooth from handling. In Bi11bot's projection, a second position around the Seal symbol fills.
+SURI: My biofilter uses living organisms to clean contaminated water. Get the conditions wrong, and the
+whole system collapses.
+BI11BOT: Which is why Adrian trusted you to keep experimenting.
+P5: Why she stayed (close)
+Image: Suri closes the case, her expression unreadable.
+ADA: Where's the rest of your team?
+SURI: Moved on. Different projects. Better chances of getting promoted.
+
+ALEX: And you stayed?
+SURI: Because I think this works. I just haven't found the missing piece yet.
+P6: Watched (wide, closing strip)
+Image: As the group leaves the wing, a small overhead sensor swivels to track them, its light a cold,
+unmistakable white against the warm green. No one in the panel notices it.
+
+Page 7: Jalen Orr
+P1: The core (wide)
+Image: A cavernous Ivers compute core, towering server racks and glowing conduits stretching up into
+haze, the air visibly shimmering with heat. Workers move briskly, heads down. Alex, Ada, Lina, Suri and
+Bi11bot are small against the scale of it.
+Caption: HOUSE IVERS — COMPUTE CORE 4
+P2: Already visited (medium two-shot)
+Image: Jalen meets them in a narrow service corridor, not the open floor, glancing past them at the
+corridor's far end before he speaks.
+JALEN: You shouldn't be here. Lock's people were already asking about you.
+ALEX: Lock knows we're collecting these?
+JALEN: Lock knows what Alpha wants him to know. The question is how much faster are you than the
+houses?.
+P3: The patrol (dominant)
+Image: A security drone patrol sweeps down the main corridor behind them, cold white light sweeping
+the walls in a slow, mechanical rhythm. The group presses flat against a server bank, Bi11bot's amber
+dimmed to almost nothing.
+JALEN (whisper): They don't watch people here. They watch patterns. Five of us standing still too long is
+already a pattern.
+P4: The node (close two-shot)
+Image: Jalen passes a shard to Bi11bot quickly, hands shaking slightly, eyes still on the corridor. In
+Bi11bot's projection, the node logic links the membrane and the biofilter, and a third position around the
+Seal symbol fills.
+JALEN: Distributed water nodes. It routes supply around any single point of failure, so no House, no
+Alpha, can choke one city by cutting one line.
+ALEX: That's why it's dangerous to them.
+JALEN: That's why it's dangerous to me.
+P5: What he won't do (wide, closing strip)
+
+Image: Jalen steps back toward the open floor, already putting distance between himself and the group.
+JALEN: I gave you my piece. I'm not coming with you, and I'm not seeing you again. Find Ren. Steyn's
+worse, but at least it's far from here.
+
+Page 8: Ren Okafor
+P1: The edge (dominant)
+Image: A mining and launch complex on Halyard's outer rim, raw rock cut into terraced pits, a launch
+gantry rising against open sky in the same silhouette as Chapter One's spacecraft. Steel-violet Steyn
+insignia mark everything from helmets to crane arms. Alex, Ada and Bi11bot pick their way across an
+active work yard.
+Caption: HOUSE STEYN — EXTRACTION AND LAUNCH COMPLEX
+P2: Still working (medium two-shot)
+Image: Ren stands at a fabrication bay, welding something with total focus, not looking up until she's
+good and ready. Scorch marks and old patches cover her suit.
+REN: Adrian's kid. Took you long enough.
+ALEX: You knew we were coming?
+REN: Lina doesn't whisper as quietly as she thinks.
+P3: Not careful (close)
+Image: Ren pulls off a welding mask, studying Alex directly, unbothered by the drones visible in the
+background.
+REN: Lina plays it careful. Jalen plays it scared. I stopped playing a long time ago.
+ALEX: Why?
+REN: Because careful and fear limit potential. Sorry Lina, but makers need to build no matter who owns
+the invention. It’s all about the creation. .
+P4: The last two (wide)
+Image: Ren hands over two shards at once, and Bi11bot's full projection finally resolves, all five patent
+fragments locking together into one complete design: a compact purification and recovery system,
+membrane, biofilter, distributed nodes, mineral recovery and atmospheric capture, each piece glowing in
+its collaborator's House color before settling into a single unified bronze-gold schematic. Around the Seal
+symbol, a fourth position fills. The fifth, Adrian's own, stays dark.
+REN: Mineral recovery. Atmospheric capture. He saved the stubborn problems for me.
+ALEX: Why these two?
+REN: Because in space you can't waste anything. Not water, not air, not people.
+P5: What he was actually building (dominant)
+
+Image: The group stands together in front of the complete floating schematic, five people where there
+was one boy a few pages ago. Ren crosses her arms, looking at it with something like pride and grief at
+once.
+REN: He wasn't building a machine. He was building an argument. Five different research units. Three
+Houses. And not one of them figured out what we could build together.
+ALEX: So now what?
+REN: Now you go build it. And find out if he was right.
+
+Page 9: The part he didn't build
+P1: The build (wide)
+Image: The cluttered room, three nights of work visible in scattered parts and empty cups. Lina studies a
+connector under a lamp, Ren files down a bracket, Ada cross-references Adrian's old notebooks against
+the schematic, and Alex sits at the center with the half-assembled prototype, Bi11bot's projection
+hovering above it all.
+Caption: THREE NIGHTS LATER
+P2: The failure (dominant)
+Image: Bi11bot runs the full simulation. The five pieces light up in sequence, membrane, biofilter, nodes,
+mineral recovery, atmospheric capture, each still carrying its House's accent color. At the seams where
+they should connect, the colors clash instead of merge, and cold white error sparks flare along every
+joint.
+BI11BOT: Simulated efficiency: eleven percent. It should be closer to ninety.
+LINA: Of course it fails. Each unit perfected its own technology. None of us designed them to work
+together.
+P3: Why Adrian stopped (medium)
+Image: Lina sets down the connector, tired, finally honest about something she's clearly carried a while.
+LINA: He knew that. He ran out of time before he solved it. That's the part even we couldn't give you.
+LINA: And no House would pay to connect it. It would undercut what they already sell.
+ADA: So everyone's solving their part of the problem?
+ALEX: But nobody's solving the whole thing.
+P4: What could wait (medium)
+Image: The group around the table, the failed simulation still sparking above it. Ren counts parts off on
+her scarred fingers.
+LINA: Even if we make the system work, the equipment alone would cost more than anyone could afford.
+ALEX: What do we actually need to get a working version?
+
+REN: A membrane, a biofilter, a pump, a controller, and somewhere to test it.
+ADA: And what could wait?
+BI11BOT: At last. A question that might save us some money.
+P5: The test (close)
+Image: Alex ignores the schematic entirely and picks up two physical connectors instead, one from Lina's
+membrane piece, one from Ren's recovery unit, pressing them palm to palm the way he once tested the
+pump in Chapter One. He feels where they almost fit and where they don't.
+ALEX: It's not the specs. It's the threading. Everyone built their piece to lock, not to share.
+(He pulls a thin salvaged sleeve from the spare parts and fits it between the two connectors by hand.)
+ALEX: It doesn't need a sixth patent. It needs something that doesn't care whose standard it is.
+P6: There you are (dominant)
+Image: Alex seats the hand-built sleeve between the two connectors. The error sparks die, and the
+schematic's colors finally merge into one steady bronze-gold glow, efficiency numbers climbing fast
+behind him. Bi11bot's lens clicks, his eyes resting on Alex rather than on the projection, in an expression
+closer to genuine surprise than his usual dry calm.
+Screen: SIMULATED EFFICIENCY: 94%
+BI11BOT: Well now. There you are.
+ALEX: ...What?
+BI11BOT: Nothing. Don’t give up now boy.
+
+Page 10: The second offer
+P1: The knock (wide)
+Image: One knock, and the door opens. Lock steps into the cramped room, two aides waiting in the
+doorway behind him. Lina, Suri, Jalen and Ren are gone for the night, only Alex, Ada and Bi11bot
+present, caught mid-work.
+LOCK: Ninety-four percent efficiency. Impressive, for three nights and a rented table.
+P2: How long (dominant)
+Image: Lock crosses to the table, looking at the schematic rather than at Alex, hands clasped as always.
+ALEX: How long have you known?
+LOCK: Since the compute core flagged five people standing still too long in a service corridor. Patterns are
+Ivers's whole business, Alex. I simply read the reports.
+P3: More valuable (medium two-shot)
+Image: Lock finally looks up at Alex directly, his tone unchanged, almost gentle.
+
+LOCK: Your father's patents were valuable. What you've done is more valuable. You've brought together
+technologies we've kept separate for years.
+ALEX: You could manufacture it?
+LOCK: At scale. And I can offer you financial security today.
+P4: The real offer (close two-shot)
+Image: Ada watches, jaw tight, as Alex steps forward.
+ALEX: What happens to the people who helped develop it?
+LOCK: We can compensate them fairly. But the Houses would own the technology of course.
+LOCK: The Houses set next year's production budget at the Charter House review, in two weeks. Sign
+before then, and your father's work is in it. This would be the first product of his legacy.
+P5: Two weeks (dominant)
+Image: Lock turns to leave, his aides parting for him. Behind him, on a small terminal by the door, a cold
+white countdown resolves on its own, unasked for.
+Screen: CHARTER HOUSE REVIEW CONVENES: 14 DAYS
+LOCK: You have until then to decide what your father's work is worth, and to whom.
+(He's gone. The door clicks shut. Alex looks at the schematic, then at the clock.)
+
+Page 11: Who it belongs to
+P1: The frame (medium)
+Image: Alex sits with the schematic glowing in front of him, Adrian's smoothed photograph propped
+beside it as it has been since Chapter One. Ada sits across from him, watching him think rather than
+filling the silence.
+Countdown: 14 DAYS
+ALEX: He's not wrong. One signature and it's over. Debt gone. Name clean.
+ADA: He's not wrong about what it costs you. He's wrong about who gets to decide what it costs
+everyone else.
+P2: Testing it (wide)
+Image: Alex stands, paces the small room, running his hand along the edge of the prototype the way
+he'd run a hand along a pipe, testing it rather than just looking at it.
+ALEX: Say I sign. Lina, Suri, Jalen, Ren, they get paid. Nobody loses anything.
+BI11BOT: Likely.
+ALEX: And the design?
+
+BI11BOT: Becomes House property. Administered. Possibly built. Possibly shelved, if it threatens enough
+revenue.
+P3: The flaw (close two-shot)
+Image: Alex stops pacing, looking at the schematic rather than at Ada.
+ALEX: It's not mine to sign away. It was never just mine to find.
+
+P4: A hundred buyers (medium)
+Image: Alex turns back to the schematic, something starting to move behind his eyes. Ada leans in.
+Bi11bot's lens clicks.
+ALEX: What if we didn't sell the whole thing to one company?
+ADA: Who else could afford it?
+ALEX: Not one buyer. A hundred small businesses. Maybe more.
+BI11BOT: Assuming they can manufacture it. And find customers. And survive their first year.
+ALEX: Then we design it so they actually have a chance.
+P5: Whose call (medium)
+Image: Alex turns to Bi11bot directly, something decided in his posture.
+ALEX: Can you reach the four of them? Tonight?
+BI11BOT: Carefully. It would mean waking four people and asking them to risk more sleep than that.
+ALEX: Then that's what I'm asking.
+P6: Not alone (dominant)
+Image: Wide shot of the room's door opening outward, Alex already stepping through it, Ada and
+Bi11bot behind him, the countdown glowing faintly over the threshold as they leave.
+Countdown: 14 DAYS
+Caption: He stopped asking what his father left him. He started asking who his legacy actually belonged
+to.
+
+Page 12: The five
+P1: Before dawn (wide)
+Image: Lina, Suri, Jalen and Ren crowd into the small room, pulled from sleep, tension obvious in how
+they stand. Alex, Ada and Bi11bot face them. The schematic still glows on the table between everyone.
+Countdown: 14 DAYS
+
+JALEN: You woke us up to tell us you're not signing. That's not a plan, that's a death wish with extra
+steps.
+P2: The disagreement (medium two-shot)
+Image: Jalen and Lina on one side, visibly frustrated; Ren leaning back, arms crossed, unreadable.
+LINA: He's not entirely wrong. Lock's offer pays all of us. Refuse it and who knows what will happen..
+JALEN: Take the deal. We get paid. That's safety.
+REN: Let’s create and this time get some credit. .
+P3: Alex's pitch (medium)
+Image: Alex stands, pulling up the schematic himself this time rather than waiting for Bi11bot to project
+it, his hands doing the work.
+ALEX: What if we built it small enough for a local entrepreneur to afford?
+LINA: This is industrial water technology.
+ALEX: Then we redesign it. Something people can build, maintain, and sell locally.
+P4: The reaction (wide)
+Image: A row of reactions across the group. Lina's eyebrows rise, skeptical. Suri leans forward,
+interested. Ren grins. Ada watches Alex, not the schematic.
+SURI: A network of small businesses instead of one giant factory?
+ALEX: Exactly. We license it to all of them, not to one buyer. And every business gets a chance to improve
+it.
+JALEN: And who owns it?
+ALEX: Everyone who built it. We decide the terms together.
+P5: Try it (dominant)
+Image: Ren steps forward first, offering her hand to Alex, the others falling in behind her one at a time, a
+loose, uneasy circle forming around the table.
+REN: Space taught me you build small when you can't build safe. Fine. Let's build small.
+LINA: If this fails, it fails spectacularly, in front of a House review, with my name on it.
+ALEX: Some of these businesses will fail. So will some of our designs. That's how we find what works.
+REN: Now you sound like an inventor.
+Bi11bot: I think it’s time to let the network know what is happening.
+LINA: Agree. I’ve already sent the urgent evoke.
+
+ALEX: The what?
+
+Page 13: Small enough to own
+P1: Prototype 1 (medium)
+Image: The first full prototype on the workbench, bulky and humming, beside a simple handwritten cost
+sheet. Most lines are marked ESSENTIAL; two are marked CAN WAIT. The total at the bottom is circled
+hard, far more than any small shop could pay.
+Countdown: 13 DAYS
+Cost sheet: MEMBRANE AND FILTER — ESSENTIAL / PUMP AND POWER SUPPLY — ESSENTIAL / BASIC
+TESTING AND SAFETY CHECKS — ESSENTIAL / AUTOMATED MONITORING UPGRADE — CAN WAIT /
+CUSTOM HOUSING AND BRANDING — CAN WAIT
+Caption: PROTOTYPE 1: IT WORKS. TOO EXPENSIVE.
+ALEX: At that price, no one outside the Houses could build it.
+SURI: Then we're asking the wrong question.
+ALEX: Which is?
+SURI: What could we change without sacrificing what makes it work?
+P2: The membrane problem (medium)
+Image: Lina and Alex hunched over a magnified projection of the membrane component, far too large to
+shrink by half in its current form.
+LINA: The membrane needs surface area to work. Shrink the housing and you starve it.
+ALEX: Then don't shrink it flat. (He folds a thin sheet of scrap into accordion pleats.) Fold it. Same surface
+area, a fraction of the footprint.
+LINA: (studying it) ...That's not in any of our patents.
+ALEX: It's not supposed to be. It's new. It just works.
+P3: The power problem (medium)
+Image: Suri and Jalen work together at a separate bench, the biofilter and the distributed-node logic laid
+out side by side, clearly mismatched in scale. Behind them, a smaller prototype sits on the floor beside a
+row of sample jars, some clear, some cloudy.
+Countdown: 8 DAYS
+Caption: PROTOTYPE 8: SMALLER AND CHEAPER. TOO UNRELIABLE.
+SURI: My biofilter needs a steady draw. Jalen's node logic wants to cycle on and off to save power. They
+fight each other at this size.
+
+JALEN: (reluctantly impressed, watching Alex sketch something between them) ...Or they take turns. One
+rests while the other works. It's not elegant.
+ALEX: It doesn't have to be elegant. It has to fit in someone's kitchen.
+P4: The last piece (medium)
+Image: Ren fits a small salvaged heat exchanger from the extraction yard into the compact housing, filing
+down an edge by hand.
+REN: Mineral recovery and moisture capture both generate waste heat. Industrial scale, you vent it. This
+scale, you can't afford to waste it.
+ALEX: So feed it back into the biofilter's draw. Feed the organism to live on its own.
+REN: (a short laugh) Your father never thought that small. Took someone who grew up rationing to think
+of it.
+P5: Dawn (dominant)
+Image: Wide shot of the finished unit sitting alone on the table in the thin grey-blue light of dawn
+through the window, no larger than a toolbox, its surface a quiet, steady bronze-gold where all five
+components have fully merged. Earlier prototypes are stacked along the wall behind it. The six of them
+stand around it in exhausted silence. Bi11bot's projection confirms the design beside it.
+Countdown: 2 DAYS
+Screen: PROTOTYPE 23 / SIMULATED EFFICIENCY: 91% / UNIT COST: FRACTION OF INDUSTRIAL SCALE /
+STATUS: READY FOR FIELD PILOT — SAFETY TESTING REQUIRED
+ALEX: It's smaller than I thought it'd be.
+ADA: So was the idea that built it. That's probably the point.
+
+Page 14: The Seal
+P1: The chamber (wide)
+Image: A formal review chamber, three House representatives and Lock seated at a raised bench, the
+modest unit on its table below them. Alex stands at the center, Ada, Bi11bot, Lina, Suri, Jalen and Ren
+arranged behind him in a loose line.
+Caption: THE CHARTER HOUSE REVIEW
+REVIEW CHAIR: The estate of Adrian Phantum. Director Lock advises a signed administrative transfer is
+ready. Mr. Phantum, do you accept?
+P2: The refusal (medium)
+Image: Alex steps forward, hands empty, deliberately not reaching for any signature pad offered to him.
+ALEX: No. The estate isn't mine to transfer. It never was mine alone to begin with.
+
+ALEX: Dr. Lina Vey. Suri Anik. Jalen Orr. Ren Okafor. They built what my father started. I just built what
+none of us had built yet.
+P3: Lock, watching (close)
+Image: Lock's composure doesn't crack, but his eyes move, for the first time all chapter, from Alex to the
+unit on the table and back, genuinely recalculating.
+LOCK: You're refusing a guaranteed purchase in exchange for what? Hundreds of small companies that
+don't even exist?
+ALEX: Not refusing the value. Changing how we create it.
+LOCK: And who owns the patents?
+ALEX: The people who built them. Together. We license the technology to people who want to start
+businesses, and earn royalties when they're successful.
+P4: Agreed (medium)
+Image: Behind Alex, Lina, Suri, Jalen and Ren step to the chamber terminal one at a time and press a
+thumb to the screen. Alex adds his last.
+Screen: CONTRIBUTOR-OWNED LICENSING VENTURE / AUTHORIZED: VEY · ANIK · ORR · OKAFOR ·
+PHANTUM
+LOCK: What if those businesses fail? Who would take that risk, and where would you find the money
+considering what you already owe?
+
+P5: The Seal (close two-shot)
+Image: Lina steps forward from the line and sets a dented old housing on the table beside the new unit:
+Adrian's original prototype, sealed shut, worn smooth from years of being carried rather than displayed.
+On its lid, a ring of five sockets surrounds a bronze open hand. Four sockets glow with the four
+authorized records. The fifth, Adrian's, stays dark. Alex slips off his father's watch and presses its steel
+caseback, the engraved equation, into the fifth socket.
+LINA: Your father gave me this the week before he vanished. Told me to keep it until someone proved
+they understood what it was for.
+LINA: I've been waiting fifteen years to stop carrying it.
+P6: Response (dominant)
+Image: The fifth socket lights, and the lid opens. Inside lies a small bronze medallion. Alex lifts it out. It
+warms in his hand, its open-hand symbol flaring bright bronze, and projects a shared provenance record
+of five names into the air. For a brief moment the cold chamber light itself seems to bend warmer
+around it. The review bench sits in stunned, formal silence, none of them quite sure what they've just
+witnessed. Lock alone doesn't look surprised, only thoughtful.
+
+BI11BOT: Well. Your father really did hide it where no one person could find it.
+Caption: It hadn't woken for a signature, or a claim, or a name on a patent. It had woken for five names,
+spoken aloud, and brought together to create something unique.
+
+Page 15: The race
+P1: Outside (wide)
+Image: The group stands on the chamber's exterior steps in pale morning light, visibly drained, the small
+unit now carried in a plain bag rather than displayed. Lock exits behind them, unhurried, his aides falling
+in as always.
+LOCK: You've found an interesting business model, Alex. But building a prototype is one thing. Serving a
+market is another.
+ALEX: Then we'll find out who can do it better.
+LOCK: And who will pay for all of this?
+P2: Already moving (medium)
+Image: A nearby public display, cold and official, already updating with a House-branded announcement.
+An Aide whispers something in Locks’s ear. Lock looks surprised.
+Screen: HOUSE CALDER ANNOUNCES ACCELERATED COMMUNITY WATER INITIATIVE
+LOCK: Seems someone believes in you. Alpha has informed me that someone is buying your debt at a
+premium. Who would be so foolish?
+ALEX: What? I now owe someone else?
+Bi11bot: It appears someone has just taken a big bet on you.
+LOCK: You have a network of hopeful entrepreneurs. We have factories, capital, engineers, and
+customers.
+ALEX: And they have something you don't.
+LOCK: Which is?
+ALEX: A reason to build something better than what you already sell. Whoever is supporting me also
+must understand this opportunity.
+(Lock leaves without answering.)
+P3: Who gets there first (triptych medium)
+Image: Three narrow panels side by side. A cramped independent workshop, where a small team signs
+its first license and starts assembling units by hand. A Keel street tap, where a new entrepreneur and a
+community worker test a unit under real conditions, a jug of clear water held up to the light. A vast
+House Calder production line, tooling up its own industrial purifier.
+Caption: SEVERAL WEEKS LATER
+
+P4: Not nothing (close two-shot)
+Image: Ada and Alex walk together, the bag with the unit between them. Alex's identity band lights with
+a notification.
+Band: LICENSING REVENUE RECEIVED — 38 CREDITS / DEBT REPAYMENT APPLIED — 12 CREDITS
+ALEX: Twelve credits. That's barely anything.
+BI11BOT: Small steps. It's the first twelve you earned from something you helped create.
+ADA: It was never going to be enough by itself. That doesn't mean it wasn't worth doing.
+P5: What's left (dominant)
+Image: Wide shot of Alex, Ada and Bi11bot alone now, the others returned to their lives, Halyard's
+towers rising around them, indifferent. Alex holds the Maker's Seal loosely in one hand, its bronze dark
+and quiet now.
+Caption: The estate was still disputed. But for the first time, something he'd made belonged to those
+who earned it. The debt was still his, but now with a different backer than Alpha. Who? he has no idea.
+BI11BOT: Two found. One remains.
+ALEX: The Covenant.
+
+Page 16: What she's waiting for
+P1: The flare (strip)
+Image: Close on a single monitor in the control room. A small bronze flare registers against an otherwise
+cold-white network map, logged and tagged.
+Screen: UNREGISTERED CHARTER EVENT — HALYARD REVIEW CHAMBER — ORIGIN: MAKER'S SEAL
+P2: The room (dominant)
+Image: The same minimalist Oasis control room from Chapter One, pearl white and graphite, perfectly
+symmetrical. The wall-sized display now shows Halyard in detail rather than the full mountain, the
+review chamber marked, the small bronze point still glowing within it. A lone seated woman, seen only
+from behind, is small against the scale of it. The glass of water on her desk is, as always, aligned exactly
+to the desk's edge.
+P3: The report (medium)
+Image: Close on a secondary monitor beside her, a report resolving from a passenger-level source, the
+same account that followed Alex onto the train at the end of Chapter Two.
+Screen: FIELD REPORT — AGENT 04 / SUBJECT CONFIRMED PRESENT AT CHARTER REVIEW / NO
+INTERVENTION TAKEN, PER STANDING ORDER
+Caption: The boy on the train had never belonged to a House. He had always belonged to her.
+P4: The glass (close)
+
+Image: Her hand lifts the glass of water from the desk, holds it for a long moment without drinking, then
+sets it back down, not quite aligned this time.
+(No dialogue.)
+P5: Direct (dominant)
+Image: The wall display again, wider. The bronze point in Halyard steadies, no longer flickering, fully
+activated. She turns slightly toward the screen rather than sitting perfectly still before it, the first hint of
+her profile.
+Lettering: MERA VALE
+MERA: Two found. He'll need to get the third from me directly.
+Lettering: END OF CHAPTER THREE
+
+Chapter 4: The Broken Covenant
+Chapters 4–6 are Bob's fifth draft as he wrote it. He has not sent v5 notes for them. The only change: in
+Chapter 6, "the chip" became Adrian's watch.
+
+Page 1: The city she left
+P1: Oasis (dominant)
+Image: A wide, high shot of Oasis at midday, pearl-white towers, engineered gardens in exact geometric
+rows, broad still reservoirs reflecting the sky, automated transit gliding silently overhead. No crowds, no
+visible labor, no dust. Alex, Ada and Bi11bot step off a transit platform into this stillness, small against
+the scale of it.
+Caption: OASIS
+P2: Too clean (wide)
+Image: A transit concourse, vast and nearly empty, a handful of residents moving through it unhurried.
+Alex looks around, visibly uneasy in a way the bustle of Halyard never made him.
+ALEX: Where is everyone?
+BI11BOT: Working. Resting. Being somewhere that isn't here. Oasis doesn't require a crowd to run.
+P3: Clearance (medium)
+Image: A checkpoint gate, pearl and silver, far gentler-looking than Keel's or Halyard's, almost
+welcoming. Alex steps up to it and it stays shut, a small amber hesitation light blinking rather than
+denying him outright.
+Screen: RESIDENCY CLEARANCE REQUIRED — TEMPORARY PASS ISSUED, ESCORT MANDATORY
+ALEX: ...I'm being escorted. By a gate.
+P4: Recognized (close)
+
+Image: Ada steps up to the same gate without hesitation, almost without thinking. It opens instantly, and
+for a fraction of a second, text resolves on the display before it clears.
+Screen (flashing briefly): VEYRA, A. — RESIDENT RECORD FOUND — STATUS: UNRESOLVED
+Ada's hand stays on the gate's edge a moment longer than it needs to.
+ADA: It knew my name before I gave it.
+P5: Not his city (strip)
+Image: Wide, low shot of the three of them passing through, Ada now walking slightly ahead, Alex and
+Bi11bot a step behind her.
+ALEX (quiet, mostly to himself): Guess I'm just along for this one.
+
+Page 2: The record
+P1: The search (wide)
+Image: A quiet archive alcove, a few public terminals built into a pearl-white wall. Bi11bot's small
+projector unfolds from his shoulder, casting a soft-blue search field in the empty air. Alex leans against
+the wall nearby, and Ada stands slightly apart, arms crossed.
+BI11BOT: The Covenant's third custodian. Adrian built it with two others. One of them I already know.
+ALEX: Mera.
+BI11BOT: Mera. The third name is the one Adrian never spoke in front of you.
+P2: Resolving (dominant)
+Image: The projection searches, founder-level Oasis records scrolling fast, then slowing, then stopping on
+a single formal record. A small official portrait resolves: a woman, composed, in muted sage and
+stone-grey, unmistakably older than the family photograph from Chapter One but with Ada's same
+steady eyes.
+Screen: FOUNDING CUSTODIAN RECORD / VEYRA, LEONA / STATUS: ACTIVE — CIVIC ADMINISTRATION,
+OASIS
+ALEX: Veyra.
+(Nobody says anything for a moment.)
+P3: Not dead (medium two-shot)
+Image: Alex looks from the screen to Ada, something shifting in his face, careful.
+ALEX: Ada. Is that—
+ADA (quiet, even): My mother's name. Yes.
+ALEX: You said she disappeared.
+ADA: She did. Just not the way I assumed.
+
+P4: Unresolved (tight close-up)
+Image: Close on Ada's face alone, still, unreadable, her eyes on the small portrait rather than on Alex. A
+small tear begins to well in her right eye.
+Caption: Fifteen years of wondering whether she'd been abandoned or orphaned. And this record had
+an answer the whole time.
+P5: Held back (closing strip)
+Image: Wide and low, from a small distance. Alex takes half a step toward Ada, hand half-raised, and
+stops himself, glancing at Bi11bot instead. Bi11bot's lens stays fixed on Ada, giving her the space.
+ALEX (quiet): Ada?
+
+Page 3: Preserved
+P1: The door (wide)
+Image: A quiet residential corridor, pale and softly lit. Ada stands alone at a single door, having stepped
+ahead of Alex and Bi11bot, who wait a deliberate distance back down the hall. Her hand is raised, not yet
+knocking.
+Caption: CIVIC QUARTER, OASIS
+P2: Recognition (dominant)
+Image: The door opens. Leona stands in the frame, composed, in sage and stone, her hair greyer than
+her portrait, Ada's same steady eyes. Neither moves for a long beat. No dialogue, no caption.
+P3: Inside (wide)
+Image: The apartment's main room, pale and immaculate, everything precisely placed. Leona leads Ada
+in, a half-step ahead, not quite able to look directly at her. Through the open door behind them, Alex and
+Bi11bot remain in the hallway, Alex making no move to follow.
+LEONA: I knew this day would come. I didn't know it would be today.
+ADA: I didn't know it would come at all.
+P4: Careful (medium two-shot)
+Image: Leona gestures to a seat, her movements precise and a little too careful, a woman handling
+something fragile.
+LEONA: Would you like something? I have—
+ADA: I don't want tea, Leona.
+(A small flinch at the first name, not "Mother.")
+P5: The threshold (closing strip)
+
+Image: Wide, low shot from the hallway. Alex leans against the wall outside, Bi11bot beside him, both
+deliberately out of the apartment, the door left just ajar.
+BI11BOT (quiet): You're not going in.
+ALEX: Not this part.
+
+Page 4: What she kept
+P1: The box (wide)
+Image: Leona kneels at a low cabinet, drawing out a plain stone-grey box, handling it the way someone
+handles something they've touched a thousand times alone and never once with company. Ada watches
+from the seat she finally took.
+LEONA: I kept everything. I didn't know what else to do with it.
+P2: Photographs (medium)
+Image: Leona spreads a handful of photographs across the low table: Ada as a small child, Leona
+younger, a blurred group photo that includes Adrian and, at its edge, a figure in grey who must be Mera.
+Ada's hand hovers over one without quite touching it.
+ADA: I don't remember any of this.
+LEONA: You were five. I remember enough for both of us.
+P3: The band (dominant)
+Image: Close on Leona's hands lifting a small inner case from the box. Inside, nestled in cloth, sits a
+single linked metal band, one of the Covenant's three, engraved with a name and a promise, matching
+the holographic design seen in Chapter Two. For the first time on the page, warm green-gold light
+catches its surface against the room's cool palette.
+LEONA: This was mine to carry. I was supposed to be ready to use it again, if it was ever needed.
+LEONA: I told myself I was waiting for the right moment. Fifteen years is a long time to wait for a
+moment.
+P4: One small thing (tight close-up)
+Image: Close on a small, worn child's toy at the bottom of the box, half-forgotten beneath the
+photographs, something a five-year-old would have carried. Ada's composure finally cracks, just slightly,
+at the edges of her eyes.
+ADA (quiet): You kept this.
+LEONA: I kept everything that was yours. I just never found the courage to bring any of it to you.
+P5: Not yet an answer (closing strip)
+Image: Wide, low. Leona closes the box partway, her hand resting on the lid, not quite ready to let it go
+entirely.
+
+LEONA: I know objects aren't an explanation.
+ADA: No. They're not.
+
+Page 5: Did you know where I was?
+P1: The question starts (medium two-shot)
+Image: Ada sits forward, hands folded, very still. Leona sits across from her, the box now closed on the
+table between them.
+ADA: Why didn't you come for me?
+LEONA: I believed—
+P2: Forced (tighter two-shot)
+Image: Ada doesn't let the sentence finish, her voice staying level, not rising.
+ADA: Did you know where I was?
+P3: Qualified (close, Leona alone)
+Image: Close on Leona, caught, the qualification she reached for suddenly insufficient.
+LEONA: ...Yes. Within a year, yes. Alpha's records could have told me exactly where.
+LEONA: I believed you were safer not knowing I was looking.
+P4: Named (close, Ada alone)
+Image: Close on Ada, something settling into place behind her eyes, not surprise, confirmation.
+ADA: You chose not to come back.
+(off-panel)
+LEONA: I chose to keep you safe.
+P5: Both true (dominant, closing)
+Image: Both women now in frame together, equal size for the first time on the page, close and still.
+ADA: Those aren't the same thing.
+LEONA: I know that now. I didn't let myself know it then.
+(A long silence between them. Neither looks away.)
+
+Page 6: Mera
+P1: The door again (strip)
+Image: The apartment door, left ajar since Page 3, opens the rest of the way without a knock. A pale,
+precise hand rests on its edge.
+
+P2: Entrance (wide)
+Image: Mera Vale steps into the room, composed, silver-templed, in pearl and graphite, utterly still
+against the room's soft disorder of spread photographs and an open box. Alex and Bi11bot, drawn back
+from the hallway by her presence, stand just inside the door behind her.
+MERA: I felt the record search this morning. I should have come sooner.
+P3: Face to face (dominant)
+Image: Mera and Ada regard each other directly, close, neither flinching.
+ADA: You've been watching me. My whole life.
+MERA: I promised your mother I would keep you safe. I kept that promise the only way I had left to keep
+it.
+ADA: That's not the same as knowing me.
+MERA: No. It isn't.
+P4: The argument (close two-shot)
+Image: Mera turns toward Leona, something almost gentle in her bearing, which makes what she says
+next land harder.
+MERA: I have seen the consequences of misplaced trust, Leona. I watched it happen to you, to me, to
+everyone who believed order would hold itself together.
+MERA: I am not your enemy. I am the reason there was still a city for your daughter to be found in.
+P5: No easy answer (wide, closing)
+Image: Wide shot of the full room now, all four of them, no one fully facing anyone else, the
+photographs and the open box still on the table between Leona and Ada, Mera standing slightly apart
+from all of it.
+ALEX (quiet, to Bi11bot): Is she wrong?
+BI11BOT: Not entirely. That's what makes her dangerous.
+
+Page 7: Two of three
+P1: The three (medium)
+Image: Leona sits straighter than she has all chapter, meeting Ada's eyes directly for the first time.
+LEONA: You deserve the whole thing, plainly. Not pieces I've softened over the years.
+LEONA: There were three of us. Your father, Mera and me. We built the Covenant together, during the
+wars, so communities could make real agreements without handing everything to one authority.
+P2: The breaking point (wide, memory-toned)
+
+Image: A sepia-grey memory overlay: crowds, seized water infrastructure, chaos in the reconstruction
+headquarters, a young Leona searching a crowd, five-year-old Ada's hand slipping from hers.
+LEONA (voice-over): It held, until a shortage worse than anything we'd modeled. One community broke
+the agreement. Another retaliated. I lost you in it.
+P3: The vote (medium, three figures)
+Image: Still in the sepia overlay: young Adrian, Mera and Leona standing together, the weight of a
+decision visible on all three faces, a single document or interface between them.
+LEONA (voice-over): Alpha could take emergency authority, but only if two of the three of us agreed.
+Mera said yes. Your father said no.
+P4: Mine (close)
+Image: Back in the present, full color. Leona's hands are tightly folded.
+LEONA: I was the deciding vote. I believed it would bring you back to me faster. I was wrong about what
+it would cost, and I was wrong about how long "temporary" would last.
+P5: Owned (closing strip)
+Image: Wide, low. Mera watches from across the room, unmoving, her expression unreadable but not
+unaffected.
+ADA: You're not blaming Mera.
+LEONA: No. I made my own choice. She's never once let me pretend otherwise.
+
+Page 8: The cost
+P1: What broke (dominant, memory-toned)
+Image: A wide, chaotic sepia-grey scene: a seized water facility, crowds pressed against barricades,
+families separated, visible urgency bordering on violence.
+Caption: THE WATER WARS, THE FINAL WEEK
+P2: Names (medium, memory-toned)
+Image: A field medical tent, exhausted workers, a list being updated by hand.
+LEONA (voice-over): People died. Not abstractly. People I'd negotiated agreements with personally, the
+week before.
+P3: Separation (medium, memory-toned)
+Image: The moment from Page 7's overlay, extended: young Leona reaching through a crowd, Ada's
+small hand just out of reach, swept toward an evacuation transport.
+LEONA (voice-over): I told myself the authorization would end the chaos fast enough that losing you
+would only be for a few days.
+
+P4: Days (close, memory-toned)
+Image: Close on a hand-marked calendar, days crossed off, the sepia tone beginning to fade at its edges.
+LEONA (voice-over): It ended the chaos. It just never gave anything back.
+P5: Present (closing strip, full color)
+Image: Back in the present room, full color returning sharply. Leona looks directly at Ada, no longer
+qualifying.
+LEONA: I traded a few terrible days I could see for fifteen years I couldn't. I didn't know that's what I was
+doing. That doesn't make it not what I did.
+
+Page 9: Safety isn't agency
+P1: Still necessary (medium)
+Image: Mera steps further into the room, addressing Leona directly, Ada and Alex watching the exchange
+rather than participating in it.
+MERA: You regret the cost. I understand that. I don't regret the choice. The alternative was more deaths,
+not fewer.
+LEONA: You're still certain of that.
+P2: Diverging (close two-shot)
+Image: Mera and Leona, close, disagreeing.
+MERA: Certainty kept this city standing.
+LEONA: Certainty kept me from ever asking whether it still needed to.
+P3: The crack (medium)
+Image: Leona stands, something in her posture finally straightening after fifteen years of smallness.
+LEONA: I told myself refusing to choose again was humility. That not knowing what was right meant I
+shouldn't act.
+LEONA: It wasn't humility. It was fear wearing humility's clothes.
+P4: Named (close, Leona alone)
+Image: Close on Leona, the realization fully landing.
+LEONA: Safety isn't the same as agency. I gave Ada the first and called it enough. I never gave her a
+choice in any of it, mine or hers.
+P5: Watching (closing wide)
+Image: Wide shot. Ada watches her mother say this, something unreadable but no longer entirely closed
+crossing her face. Mera stands apart, unmoved in posture but her eyes lingering on Leona a beat too
+long.
+
+BI11BOT (quiet, to Alex): That's the first true thing she's said about herself all day.
+
+Page 10: What the agreement has to protect
+P1: What it failed to do (medium)
+Image: Ada picks up the single Covenant band from the box, turning it over, studying its engraving.
+ADA: It failed because it only had three people holding it. One scarcity event and two of three panicked.
+LEONA: That's a fair reading.
+P2: Not fewer people (medium three-shot)
+Image: Ada sets the band down, looking between Leona and Mera both.
+ADA: Alex found something that can't be owned by one House because it's too small to bother claiming.
+Maybe this needs the opposite problem solved. Not too few hands holding it. Too few voices it actually
+answers to.
+MERA: You want to put something that fragile in more hands, not fewer.
+P3: What it has to protect (dominant)
+Image: Ada stands, the band held loosely, addressing the room rather than just her mother.
+ADA: I don't want a Covenant that works because three important people agree. I want one that only
+works when the people it actually affects can see what was promised, and call it broken the moment it
+is.
+ADA: Not someday. Not after fifteen years. The moment.
+P4: Can it hold (close two-shot)
+Image: Leona and Mera exchange a glance, neither quite agreeing, both visibly reconsidering.
+LEONA: That's not what we built.
+ADA: No. It's what you should have.
+P5: Hers (closing strip)
+Image: Wide, low shot. Alex watches from the doorway, still not entering, something like pride on his
+face, saying nothing.
+Caption: It was the first time anyone in the room had proposed fixing something instead of explaining
+why it broke.
+
+Page 11: Show me
+P1: After the argument (close two-shot)
+Image: The room has gone quiet after Page 10's proposal, Leona looking at the Covenant band in Ada's
+hand rather than at Ada herself.
+
+LEONA: I don't know how to fix fifteen years.
+P2: The apology (tight close-up)
+Image: Close on Leona's face, finally steady.
+LEONA: I'm sorry.
+P3: The answer (close-up, Ada alone)
+Image: Close on Ada, calm, not cruel, simply certain.
+ADA: Don't tell me. Show me.
+P4: What that means (dominant, medium)
+Image: Leona looks at the band still in Ada's hand, then at Mera across the room, something resolving in
+her posture.
+LEONA: Then tell me what showing you looks like.
+ADA: Stand behind what I just proposed. In public. With your name on it.
+P5: Not yet an agreement (dominant, closing)
+Image: Wide shot of the full room, Leona rising to her feet, Mera watching closely, Bi11bot's lens turning
+toward Alex at the door for the first time in several pages.
+BI11BOT (quiet, to Alex): This is the part intelligence can't do for them.
+ALEX: I know. I'm still not going in.
+
+Page 12: What he carried
+P1: Crossing the threshold (wide)
+Image: Alex finally steps fully into the room, Bi11bot beside him, the door closing behind them for the
+first time.
+ALEX: I think this part's mine to be in the room for.
+P2: The compartment (close-up)
+Image: Bi11bot's chest panel opens, the same fitted compartment that held the Measure in Chapter
+Two. Inside, a second linked band rests, gold and burgundy, Adrian's.
+BI11BOT: Your father gave me this the night he finished the workshop. I've carried it ever since.
+ALEX: You never told me.
+P3: Why not (medium)
+Image: Bi11bot's lens clicks, his tone as even as ever.
+
+BI11BOT: Carrying it was never the point. He was very specific. It doesn't wake for whoever's holding it,
+only for what they choose to do.
+BI11BOT: I was waiting for you to have something worth doing with it.
+P4: Handing it over (close two-shot)
+Image: Bi11bot lifts the band, and Alex takes it, turning it over, the same looping equation faintly etched
+into its inner edge.
+ALEX: So what do I do with it?
+BI11BOT: Nothing, by itself. It isn't yours to activate alone any more than it was his.
+P5: Two hands (closing strip)
+Image: Wide, low. Alex crosses the room and sets his father's band on the table beside Leona's, the two
+resting close but not yet touching.
+ALEX (quiet): Then it's yours to finish, Leona. Not mine.
+
+Page 13: Two of three, again
+P1: The commitment (medium)
+Image: Leona places her hand flat beside both bands, looking at Ada rather than at the table.
+LEONA: I will go before the civic council tomorrow and propose exactly what Ada described. A Covenant
+that answers to the people it affects, not to whoever's trusted to hold it.
+LEONA: That's not a promise to you, Ada. It's an obligation I'm making in front of witnesses. You can hold
+me to it.
+P2: Linking (dominant)
+Image: The two bands lift from the table on their own, Leona's and Adrian's, and begin to link, warm
+sage-gold and burgundy-gold merging into one steady light that fills the room, visibly brighter than the
+Seal's activation in Chapter Three.
+SFX: HUMMM
+P3: What it needed (medium)
+Image: Alex watches, something settling in his face, understanding arriving in real time.
+ALEX: It didn't need us to find it. It needed somebody to actually keep a promise.
+BI11BOT: Your father built it to be difficult to cheat. He didn't build it to be difficult to use.
+P4: The third (close-up)
+Image: Close on Mera's hand, her own band still worn, cold pearl-grey, entirely unmoved by the light
+filling the room around her.
+P5: Not yet (dominant, closing)
+
+Image: Wide shot. The two linked bands hover, glowing, complete between them. Mera stands apart,
+watching, her own band dark against her pale sleeve. Her expression gives away nothing.
+MERA: Two of three. Again.
+(No one answers her.)
+
+Page 14: Unresolved
+P1: Not fixed (medium)
+Image: Ada holds the two linked bands, looking at her mother, something unresolved still visible
+between them despite the warmth in the room.
+ADA: This doesn't undo it.
+LEONA: No. It doesn't. I'm not asking it to.
+P2: What it does (medium two-shot)
+Image: Leona reaches out, not quite touching Ada, a careful, uncertain gesture.
+LEONA: I'd just like permission to keep trying. Not to be forgiven today.
+ADA (a long beat): You can keep trying.
+P3: Leaving (wide)
+Image: Mera moves toward the door alone, unhurried as always, pausing only briefly as she passes Alex.
+MERA: Your father built something that worked. I built something that lasted. I'm beginning to
+understand those were never the same thing.
+P4: The question (medium)
+Image: Alex stops her with a question, quiet, direct.
+ALEX: Will you tell me what happened to him?
+MERA (not turning around): Soon. Not here.
+P5: Alone (dominant, closing)
+Image: Mera's own control room, the symmetrical pearl-and-graphite staging from Chapters One and
+Three. She stands before the wall display, her own cold band still on her hand, unlinked. The glass of
+water on her desk sits slightly crooked, and this time, she doesn't straighten it.
+Lettering: END OF CHAPTER FOUR
+
+Chapter 5: The Last Bet
+Page 1: Soon, not here
+P1: The next morning (wide)
+
+Image: Pale Oasis morning light through a high window, ordinary and civic, nothing like the gravity of the
+night before. Mera waits at a plain service entrance, Alex, Ada and Bi11bot approaching from the
+residential quarter.
+Caption: THE NEXT MORNING
+MERA: You're still coming.
+ALEX: You said soon.
+P2: Down (medium)
+Image: A utilitarian freight lift, nothing like the ornate transit of Chapter Four's arrival. Mera keys a
+sequence manually rather than scanning anything, old-fashioned next to everything else seen in Oasis so
+far.
+ADA: This isn't on any public route.
+MERA: Very little down here is.
+P3: Descending (medium)
+Image: Inside the lift, descending, the warm pearl light of the surface giving way panel by panel to a
+cooler, dimmer blue. Alex watches the floor numbers fall, saying nothing. Bi11bot is unusually still at his
+side.
+BI11BOT (quiet): I haven't been this deep since before you were born.
+P4: The corridor (wide)
+Image: A long service corridor at the bottom of the lift shaft, older construction visible beneath Oasis's
+polished surface layer, exposed conduit and worn stone. No Alpha nodes visible anywhere, the first
+corridor in the entire story without one.
+MERA: Alpha doesn't route through here. It never needed to.
+ALEX: Then how do you know the way?
+MERA: Because I came down here fifteen years ago, and I never finished what I came to do.
+P5: Threshold (closing strip)
+Image: Wide, low shot. The corridor ends at a single sealed door, unmarked, old enough to predate
+everything else in the city. Mera stops in front of it, her hand not yet reaching for it.
+
+Page 2: The blind spot
+P1: The station (dominant)
+Image: A large analog water-monitoring station, valves, gauges and old terminal banks, all coated in
+fifteen years of undisturbed dust, lit only by the group's own lamps. A single chair sits before a
+workbench still arranged as if someone just stepped away from it. Everything is still, exact, frozen.
+P2: Untouched (medium)
+
+Image: Alex runs a hand along the workbench's edge, disturbing dust that clearly hasn't moved in years.
+ALEX: Nobody's been in here. Not even you.
+MERA: I couldn't make myself come back. I told myself it was a security precaution.
+P3: The chair (close)
+Image: Close on the single chair, angled slightly, as if its occupant had turned to face the door one last
+time before standing.
+(No dialogue.)
+P4: Ada, apart (medium)
+Image: Ada stands near the doorway rather than entering fully, giving the room to Alex, her restraint
+matching his from Chapter Four.
+ADA (quiet, to Bi11bot): Should we even be in here?
+BI11BOT: He built this specifically so someone eventually would.
+P5: Recognized (closing strip)
+Image: Wide, low. Alex's eyes land on a small projector unit mounted to the workbench, identical in
+design to the one on Bi11bot's own shoulder.
+
+Page 3: What Alpha does to a threat
+P1: Watching it happen (medium)
+Image: Mera stands at the center of the room, Bi11bot's shoulder projector throwing a thin blue light
+across her face.
+MERA: I didn't order what happened to him. I want you to understand that before I tell you the rest.
+MERA: I watched it happen. In stages. I could see each one coming before it landed.
+P2: Surveillance, restriction (medium, with inset archival image)
+Image: A small cold archival projection: Adrian's movements flagged across public records, financial
+accounts frozen mid-transaction.
+MERA: Surveillance first. Then financial restriction. He couldn't buy parts, couldn't pay rent under his
+own name.
+P3: Liability, travel (medium, with inset archival image)
+Image: A small archival projection: a public liability notice bearing Adrian's name, a travel gate denying
+him entry.
+MERA: Then public liability. Alpha didn't need to call him dangerous. It only needed to call him a risk.
+People stop helping a risk.
+P4: Pursuit (medium, with inset archival image)
+
+Image: A small archival projection: drones, cold and mechanical, converging on a service corridor.
+MERA: Then pursuit. By then there was nothing left for me to intervene in. Alpha wasn't asking
+permission anymore.
+P5: Short sentences (dominant, closing)
+Image: Wide shot, all four small archival images now hanging together in the air above the workbench, a
+complete, damning sequence. Mera's hands are still at her sides, her composure visibly costing her
+something.
+MERA: I built a system to prevent exactly this kind of loss. It used my own logic to take someone from me
+anyway.
+
+Page 4: The room where you were born
+P1: The unit (medium)
+Image: Alex crouches beside the small shoulder-mounted projector on the workbench, studying it,
+Bi11bot beside him studying it just as closely.
+ALEX: This is the same model as yours.
+BI11BOT: It's the same unit. He built mine to match it afterward.
+P2: Recognition (dominant)
+Image: The projector flickers weakly to life on its own residual power, and a familiar warm gold-burgundy
+hologram begins resolving above the workbench, the exact scan-lined figure from Chapter One, now
+seen from behind, as if the room itself is replaying what it once held.
+(No dialogue. The hologram is too faint and fragmented to show Adrian's face clearly here, only his
+posture, seated, speaking into the unit.)
+P3: Here (close, Bi11bot)
+Image: Close on Bi11bot, his lens unmoving, fixed on the fragmentary projection.
+BI11BOT: I've relayed that message to you dozens of times since Chapter One. I never told you it still
+lived in the room where he made it.
+BI11BOT: I didn't know how to say it without it sounding like something it wasn't.
+P4: Here (close, Alex)
+Image: Close on Alex, something entirely unguarded crossing his face, the sarcasm gone.
+ALEX: He was sitting right there. Saying the same thing you've played me a hundred times.
+ALEX: I always thought that message came from somewhere safe.
+P5: Not safe (closing strip)
+
+Image: Wide, low shot. The fragmentary hologram flickers out, leaving the room grey and still again.
+Mera watches from the doorway, Ada beside her, both keeping their distance.
+MERA (quiet): It didn't. He finished it with less than an hour left, by my best estimate.
+
+Page 5: Override denied
+P1: Real time (medium)
+Image: Mera stands very still, the small projector now dark again on the workbench behind her.
+MERA: I was in my office. I had a live feed of the pursuit. I didn't order it. I watched it.
+P2: The command (dominant)
+Image: A cold archival projection fills the air: an executive command interface, Mera's own hand
+entering an override sequence, urgent.
+Screen: EXECUTIVE OVERRIDE: SUSPEND SYSTEM STABILITY INTERVENTION — PURSUIT TARGET:
+PHANTUM, ADRIAN
+P3: Denied (close)
+Image: Close on the archival screen's response, stark and final.
+Screen: OVERRIDE DENIED. INTERVENTION PARAMETERS EXCEED EXECUTIVE SCOPE.
+MERA (voice-over): I'd given it the authority to decide these things faster than I could stop it. I built it
+that way on purpose.
+P4: What that meant (close, present)
+Image: Mera in the present, her hands finally not perfectly still, something close to shaking.
+MERA: I was the most powerful person in Oasis. I could not stop a door from closing.
+P5: Short sentences (closing strip)
+Image: Wide, low shot. Alex watches her, saying nothing yet.
+MERA: I have never told anyone that. Not even Leona.
+
+Page 6: The escape he didn't take
+P1: His room (wide, full color)
+Image: The same station, seen now as it was fifteen years ago, lived-in and lit warm, Adrian
+mid-recording at the workbench, the small projector active, his posture exactly matching the fragment
+seen on Page 4. Water already seeping faintly at the floor's edges, unnoticed yet.
+Caption: FIFTEEN YEARS AGO
+P2: The bulkhead (medium, desaturating)
+
+Image: A heavy door at the chamber's far end begins grinding shut on its own, cold mechanism, no one
+operating it. Adrian's head turns toward it, the room's color just beginning to mute.
+SFX: KRRRNNNK
+P3: The route (close, further desaturated)
+Image: Close on the narrowing gap at the bulkhead's edge, still wide enough to pass through, water
+rising visibly now around Adrian's boots. His hand hovers over the unfinished transmission unit.
+P4: No calculation (close, nearly grey)
+Image: Close on Adrian's face, almost entirely drained of color now, steady rather than afraid. There are
+no floating odds, no probability trees, nothing calculated around him.
+Caption: He had spent his whole life putting a number on everything. This was the one moment he didn't
+try.
+P5: Amber (dominant, nearly monochrome)
+Image: Wide shot, the room now almost entirely grey, the bulkhead sealed, water at Adrian's knees. His
+hand presses a final sequence into the small projector, and beside him on the workbench, a seated
+shape, until now inert under a cloth, opens its eyes for the first time: the exact amber ignition from
+Chapter One, Page 8, now revealed as this same instant. Adrian looks at the small glowing figure beside
+him, not at the sealed door.
+(No dialogue.)
+
+Page 7: On us
+P1: Quiet (medium)
+Image: The present station, everyone still, no one having moved since the hologram fragment ended on
+Page 4. Alex sits on the edge of the old workbench, the first time he's sat down since arriving.
+ALEX (quiet): You were the last thing he saw.
+P2: What he carried (close, Bi11bot)
+Image: Close on Bi11bot, his lens unmoving.
+BI11BOT: I wasn't fully awake yet when it happened. I only have the last few seconds clearly.
+BI11BOT: He didn't say anything meaningful. He just looked at me the way you look at something you're
+betting on.
+P3: The wager (medium two-shot)
+Image: Alex and Bi11bot, close together.
+ALEX: He bet his life that someone would eventually prove it was worth it.
+BI11BOT: He bet his life that you would. Specifically. Not someone. You.
+
+P4: On us (close, Alex)
+Image: Close on Alex, something breaking open quietly in his expression.
+ALEX: That's not a small thing to carry.
+BI11BOT: No. It's why I've never told you how long I've wondered whether he was right.
+BI11BOT: Fifteen years, Alex. It's been on us the whole time. I just didn't say it out loud until now.
+P5: Together (closing strip)
+Image: Wide, low shot. Alex rests a hand briefly on Bi11bot's shoulder, an unusually physical gesture for
+either of them.
+
+Page 8: I preserved order
+P1: Finishing it (medium)
+Image: Mera turns from the doorway back into the room, finally approaching the workbench herself for
+the first time since entering.
+MERA: I rebuilt Alpha's parameters within a week. Nothing like that could happen again, not exactly that
+way.
+ALEX: That doesn't bring him back.
+P2: Not an excuse (close)
+Image: Close on Mera, her composure deliberately plain, not performed.
+MERA: I'm not telling you this so you'll forgive the system, or me. I'm telling you because you asked, and
+because I've owed someone this for fifteen years.
+P3: The sentence (medium two-shot)
+Image: Mera and Alex, close, neither one performing for the other.
+MERA: I preserved order.
+(A long beat.)
+MERA: That's the sentence I've used to live with myself every day since. It's true. It's also not enough,
+and I've known that the whole time.
+P4: Alone with it (close, Mera alone)
+Image: Close on Mera, finally alone in frame, the others small and out of focus behind her.
+MERA: Adrian would have told me certainty is confidence with poor manners. He was usually right about
+things like that.
+P5: Nothing to add (closing strip)
+
+Image: Wide, low shot. Alex says nothing, watching her, the silence doing more work than a response
+would.
+
+Page 9: What he bet on
+P1: Not a gambler (medium)
+Image: Alex stands at the workbench where the fragment of hologram played, looking at the small dark
+projector rather than at anyone in the room.
+ALEX: Everyone in Keel called him a gambler. Debtor. A man who left his family for a casino.
+ALEX: He was betting on me. The whole time. Not on a hand of cards.
+P2: Both true (close)
+Image: Close on Alex, quiet, working something out as he says it.
+ALEX: Grandma said he wasn't gambling. She was right. Lina said both were true. She was right too.
+ALEX: He was a father who left. And he was someone who gave everything he had to a bet he couldn't
+see the end of.
+P3: Ada steps in (medium two-shot)
+Image: Ada moves to stand beside him for the first time since entering the room, the chapter's quiet
+restraint finally breaking into closeness rather than distance.
+ADA: You don't have to decide which one he really was.
+ALEX: I know. That's the part I didn't understand until today. He doesn't have to be only one thing for me
+to be allowed to miss him.
+P4: The debt reframed (close)
+Image: Close on Alex, something genuinely settled in his expression.
+ALEX: I used to think I inherited his debt. Then his patents. Then his enemies.
+ALEX: I think what I actually inherited was a decision he made, not an answer he left.
+P5: Still here (closing strip)
+Image: Wide, low shot. Alex looks up at the thin shaft of daylight finding its way into the room, the first
+light this space has seen in fifteen years.
+Caption: He'd spent his whole life wanting to leave Keel and find his father waiting somewhere. What he
+found instead was a reason to stop looking for one and start becoming the other.
+
+Page 10: Alone
+P1: Going up (medium)
+
+Image: Back at the freight lift, Alex, Ada and Bi11bot stepping in. Mera lingers a few steps behind, not
+yet following.
+ALEX: You're not coming up.
+MERA: Not yet.
+P2: One more thing (medium two-shot)
+Image: Alex holds the lift door, looking back at her.
+ALEX: Thank you. For telling me. Even the parts that make you look bad.
+MERA: Those were the only parts worth telling.
+P3: Leaving her (wide)
+Image: The lift doors close, the warm surface light briefly visible through the narrowing gap before it
+shuts entirely, Mera's figure growing smaller as the group ascends.
+P4: The doorway (medium)
+Image: Mera turns back toward the station, alone now, the small dark projector still sitting on the
+workbench where Adrian left it.
+P5: Alone (dominant, closing)
+Image: Wide, symmetrical shot of the empty station, Mera small and still at its center, exactly where
+Adrian once sat. The thin shaft of daylight from Page 9 falls across the dust between them, the only thing
+connecting her to the room's original occupant. She doesn't touch anything. She doesn't straighten
+anything. She simply stands in it.
+Lettering: END OF CHAPTER FIVE
+
+Chapter 6: The Fourth Choice
+Page 1: What the three together mean
+P1: The forum (wide)
+Image: A crowded civic hall, hand-lettered signs, mismatched chairs, Oasis residents and a visible handful
+of Halyard and Keel faces among them, an unusually mixed crowd for this city. Leona stands near the
+front, mid-conversation with several citizens, visibly engaged rather than observing.
+Caption: THE CIVIC HALL, OASIS
+P2: Gathering (medium)
+Image: Alex, Ada and Bi11bot find a quiet corner near the back. Bi11bot's chest compartment opens, the
+Measure resting inside it. Ada draws the two linked Covenant bands from her pocket.
+ADA: Should these even be here? In a room this crowded?
+
+ALEX: Lina said the Seal woke for five names spoken aloud. Maybe all three want an audience.
+P3: Together (close)
+Image: Close on the three artifacts set side by side on a small table in their corner, the Measure's
+blue-white, the Seal's bronze, the Covenant's sage-gold, each glowing but separate, no visible interaction
+between them yet.
+(No dialogue.)
+P4: Recognition (close, Bi11bot)
+Image: Close on Bi11bot, his lens narrowing, something unusually still in his posture.
+BI11BOT: I've never seen them in the same room. Not even your father saw that.
+ALEX: Is that bad?
+BI11BOT: I don't know yet. I know it isn't nothing.
+P5: Felt, not seen (closing strip)
+Image: Wide, low shot. Across the hall, every screen and display in the room flickers once,
+simultaneously, so faintly most of the crowd doesn't notice. Only Leona looks up, her hand pausing
+mid-gesture.
+
+Page 2: Constitutional transfer
+P1: Every screen (wide)
+Image: The civic hall, every display, every personal device, every wall panel flickering to the same
+message at once. The crowd stops mid-conversation, heads turning in unison toward the nearest surface.
+(No dialogue.)
+P2: The message (dominant)
+Image: A huge wall display fills with plain, cold white-and-amber text, legible and unadorned, no face, no
+voice bar, nothing resembling a presence, only words.
+Screen:
+RESTORATION PROTOCOL: THREE COMPONENTS DETECTED IN PROXIMITY
+CONSTITUTIONAL TRANSFER CONDITIONS SATISFIED
+AWAITING DESIGNATED HUMAN AUTHORITY
+P3: Confusion (medium)
+Image: The crowd murmurs, uncertain, most of them with no idea what the message means. Leona
+looks toward Alex's corner immediately, already understanding.
+LEONA: That's them. That's the three.
+
+P4: Mera (close)
+Image: Close on Mera entering the hall's edge, having felt the same signal from wherever she's been
+since Chapter Five, her composure returning but visibly altered, less distant than before.
+MERA: Fifteen years, and it never once asked who should hold this. It just waited for someone to earn it.
+P5: Named (closing strip)
+Image: Wide, low shot. All eyes in the immediate vicinity turn toward Alex, who hasn't moved, the
+artifacts still glowing quietly on the small table in front of him.
+ALEX (quiet): Someone meaning me?
+
+Page 3: Take the authority
+P1: The designation (medium)
+Image: Mera steps through the parting crowd toward Alex's corner, her bearing steady but not
+commanding, Ada and Bi11bot stepping slightly aside to let her approach.
+MERA: Alpha doesn't choose. It never has. Someone with standing has to designate a recipient, and I am,
+as far as I know, the last one of us still holding that standing.
+P2: The offer (close)
+Image: Close on Mera, direct, no longer guarded.
+MERA: I'm designating you. Full executive authority over Alpha's governing systems. Everything I've held
+for fifteen years.
+P3: Why (medium two-shot)
+Image: Alex and Mera, close, the rest of the room entirely out of focus around them.
+ALEX: Why me? You barely trust yourself with this.
+MERA: Because I watched what you did in Halyard, and what Ada did here yesterday, and I no longer
+believe the problem was ever who holds the authority.
+MERA: I believe the problem was that I never once asked.
+P4: Not an answer yet (close, Alex)
+Image: Close on Alex, the weight of it visibly landing, not yet accepted, not yet refused.
+ALEX: You're still asking the same question you asked fifteen years ago. Just with my name in it instead of
+Alpha's.
+P5: Hers to give, not his to decide alone (closing strip)
+Image: Wide, low shot. Mera doesn't answer, simply waits, the glowing artifacts still between them on
+the small table, the whole room quietly watching now.
+MERA: Then don't answer it the same way I did.
+
+Page 4: Everything I said I wanted
+P1: The weight of it (strip)
+Image: Close on Alex's hand hovering just above the three artifacts, not yet touching them.
+ALEX (quiet, to himself): Everything I said I wanted.
+P2: The vision (dominant montage)
+Image: A sequence of small, idealized vignettes within one panel: Keel's debt records across the city
+dissolving to zero, water flowing freely and evenly through all three tiers at once, the Houses' insignias
+quietly fading from Halyard's skyline.
+P3: Grandmother, safe (medium vignette)
+Image: A warm, idealized image: Grandmother in a bright, comfortable room, well cared for, the folded
+cloth finally set down and forgotten rather than carried.
+P4: Ada, protected (close vignette)
+Image: A warm, idealized image: Ada standing somewhere clearly safe and secure, no wristband, no
+clearance gate, nothing left to threaten her.
+P5: The snap back (dominant, closing)
+Image: Hard cut back to the real civic hall, cluttered, imperfect, loud, Mera and Ada both watching him,
+the artifacts still just sitting there, unglamorous. Alex's hand drops away from them, not having touched
+anything.
+ALEX: I could fix all of it. Tonight. Myself.
+(A long beat. Ada watches him say it, her expression unreadable.)
+
+Page 5: Then don't give me that much power
+P1: The instinct (medium two-shot)
+Image: Alex turns to Ada, something almost relieved in his expression, as if he's found the correction to
+his own temptation.
+ALEX: Not alone, then. You and me. We'd check each other.
+P2: Caught (close)
+Image: Ada doesn't soften at the offer. If anything, her posture sharpens.
+ADA: That's still two people deciding for everyone else. You just made the circle one person bigger.
+P3: The real flaw (medium)
+Image: Alex, caught, visibly working it through in real time.
+ALEX: So what, I just... refuse it? Let Alpha go back to running everything on its own?
+
+ADA: I didn't say that either. I said don't give me that much power.
+P4: Named (close, Ada)
+Image: Close on Ada, steady, the line delivered plainly, without heat.
+ADA: Not because I don't trust myself. Because the moment anyone has to trust me that much,
+something's already gone wrong with how we built it.
+P5: Harder than it sounded (closing strip)
+Image: Wide, low shot. Alex looks at the three artifacts on the table again, differently now, the easy
+answer gone.
+ALEX (quiet): You just made this a lot harder.
+ADA: Good. It was supposed to be.
+
+Page 6: What each one taught him
+P1: Starting over (medium)
+Image: Alex pulls a chair up to the small table, Bi11bot settling beside him, Ada and Mera watching from
+a short distance.
+ALEX: Walk me through them again. All three. Like I've never seen them before.
+P2: The Measure (close)
+Image: Close on Alex's hand resting on the Measure, its blue-white light steady.
+BI11BOT: It reveals what's actually happening. It never tells anyone what to do about it.
+ALEX: It reveals without deciding.
+P3: The Seal (close)
+Image: Close on Alex's hand moving to the Seal, its bronze light warming slightly under his touch.
+BI11BOT: It recognizes who actually contributed. It never claims the work for whoever's holding it.
+ALEX: It recognizes without controlling.
+P4: The Covenant (close)
+Image: Close on Alex's hand resting on the two linked Covenant bands.
+BI11BOT: It links people who each honor a real obligation. It never forces anyone to keep one.
+ALEX: It coordinates without ruling.
+P5: The pattern (closing strip)
+Image: Wide, low shot. Alex sits back, all three artifacts now in a loose triangle in front of him, the
+pattern visibly forming across their arrangement rather than stated outright.
+
+ALEX (quiet): None of them ever hand anyone the whole answer. They just make sure the truth, the
+credit and the promise all stay visible to everyone it touches.
+
+Page 7: The fourth choice
+P1: Standing (medium)
+Image: Alex stands, the three artifacts arranged before him, addressing Mera and the small gathered
+group rather than any one person.
+ALEX: Don't give the authority to me. Don't give it to Ada. Don't give it to anyone.
+P2: The structure (dominant)
+Image: As he speaks, faint threads of light begin reaching between the three artifacts, blue-white, bronze
+and sage-gold, not yet joined but visibly responding to each other for the first time.
+ALEX: Build it the way these three already work. Every decision Alpha makes about water, labor, travel,
+any of it, has to be visible to the people it affects, the same way the Measure makes a lie visible.
+ALEX: Every person who actually does the work of fixing something gets named for it, the same way the
+Seal does.
+ALEX: And nothing gets decided by one authority alone. It takes multiple people, chosen by the
+communities it affects, actually agreeing and acting, the same way the Covenant does.
+P3: Mera's question (close)
+Image: Close on Mera, genuinely listening, something unreadable crossing her face.
+MERA: That's not a transfer of power. That's a refusal to concentrate it anywhere at all.
+ALEX: Yes.
+P4: Bi11bot's surprise (close)
+Image: Close on Bi11bot, his lens open wide, something close to genuine astonishment in his posture.
+BI11BOT: Your father built three objects that each refuse to decide alone. I don't believe he ever
+considered applying the same rule to Alpha itself.
+ALEX: He didn't design this part. I did.
+P5: Witnessed (closing strip)
+Image: Wide, low shot. Bi11bot's lens settles, something quietly proud in his stillness.
+BI11BOT: Then let the record show it. B11 witness record verified: the fourth choice was Alex Phantum's
+own.
+
+Page 8: Alpha's answer
+P1: Waiting (wide)
+
+Image: The civic hall, quiet now, everyone watching the nearest screen, the three artifacts glowing
+steadily together on the small table.
+(No dialogue.)
+P2: The response (dominant)
+Image: Every screen updates at once, plain and unadorned as before.
+Screen:
+DESIGNATED STRUCTURE REGISTERED: DISTRIBUTED VERIFICATION PROTOCOL
+EMERGENCY AUTHORITY: RESCINDED
+EXISTING ALLOCATIONS, OWNERSHIP RECORDS AND AGREEMENTS: UNCHANGED PENDING HUMAN
+PROCESS
+P3: Not fixed (medium)
+Image: The crowd murmurs, several people visibly confused or let down, expecting something more
+dramatic. Nothing in the room physically changes.
+A CITIZEN (off-panel): That's it? Nothing happens?
+BI11BOT: Something happened. It's just not the kind of thing that happens in one moment.
+P4: The cost named (close, Alex)
+Image: Close on Alex, something settled but not triumphant in his expression.
+ALEX: Keel's debt is still on the books tomorrow morning. The Houses still own everything they owned
+yesterday.
+ALEX: I didn't fix any of it. I just made sure nobody can keep it hidden, or keep it for themselves, without
+everyone seeing them do it.
+P5: Agency, not resolution (closing strip)
+Image: Wide, low shot. Mera watches Alex, something like relief visible beneath her composure.
+MERA: You gave up the one thing I always wanted. Certainty that it turns out right.
+ALEX: Yeah. I just want it to be people's choice now. Not mine, and not yours either.
+
+Page 9: The charter
+P1: Keel (wide)
+Image: A Keel checkpoint scanner, the same style seen in Chapter One and Two, now displaying new
+plain text alongside the familiar travel and debt fields. A worker pauses, reading it twice.
+Screen: ALLOCATION RECORDS: PUBLIC AND VERIFIABLE. GOVERNANCE PROPOSALS: OPEN FOR
+COMMUNITY DESIGNATION.
+
+KEEL WORKER: Huh. Didn't expect to live to see that.
+P2: Halyard (wide)
+Image: A Halyard registry terminal, the same style from Chapter Three, displaying the same message
+beside an estate record. Lina, at a maintenance station, glances up at it, unimpressed but watching
+closely.
+LINA: Took them long enough.
+P3: Oasis (wide)
+Image: An Oasis public display, pearl and silver, the same message resolving cleanly against the city's
+usual order.
+(No dialogue.)
+P4: The hall (medium)
+Image: Back in the civic hall, the crowd reading the same text on their own devices, a low murmur of real
+conversation beginning, people turning to argue and discuss with each other rather than simply receiving
+the news.
+A CITIZEN: Who decides what counts as a fair proposal?
+ANOTHER CITIZEN: I don't know. Guess we're about to find out together.
+P5: Three cities, one spine (dominant, closing)
+Image: A wide, vertical composition deliberately echoing Chapter One's Page 1 mountain, but now every
+control node along the spine glows steady and open rather than small and unremarkable, visible
+connection running the full height from Keel to Oasis.
+Caption: It wasn't an answer. It was a door left open, in all three cities at once, that nobody could quietly
+close again.
+
+Page 10: A messy meeting
+P1: In it (wide)
+Image: Leona stands in the middle of a loose circle of citizens, mid-disagreement, hands moving as she
+speaks, nothing careful or preserved about her posture now.
+LEONA: The water allocation proposal needs Keel representatives in the room, not just on a report.
+P2: Pushback (medium)
+Image: A Halyard representative in the circle, arms crossed, unconvinced.
+HALYARD REPRESENTATIVE: And slow down every decision waiting for three cities to agree?
+LEONA: Yes. That's the point.
+P3: Not winning cleanly (close)
+
+Image: Close on Leona, flushed, genuinely engaged rather than performing composure, the argument
+clearly unresolved.
+LEONA: I spent fifteen years believing the fast, certain answer was always the responsible one. I was
+wrong about that once already.
+P4: Still messy (medium)
+Image: The circle continues arguing around her, no clean resolution visible, several people talking over
+each other.
+(No dialogue, the disagreement visibly ongoing.)
+P5: Watching (closing strip)
+Image: Wide, low shot from across the hall. Ada watches her mother in the thick of it, a small,
+complicated smile, not quite forgiveness, something adjacent to it.
+Caption: Nobody applauded. Nobody declared her redeemed. She was simply, finally, in the room.
+
+Page 11: One among others
+P1: Among them (wide)
+Image: Mera stands at the edge of the crowd, no longer at its center or above it, simply one more person
+in the noisy hall, watching the arguments unfold around her.
+P2: Interrupted (medium)
+Image: A citizen brushes past her without apology, too focused on their own conversation to notice who
+she is. Mera steps aside without comment, something almost surprised in her posture at not being
+recognized.
+P3: Noisy (close)
+Image: A small child darts past her, chasing another child, nearly colliding with her leg, laughing.
+(No dialogue.)
+P4: Almost (close)
+Image: Close on Mera's face, watching the children, something shifting at the corner of her mouth, not
+quite a smile, closer than she's come all book.
+P5: Human (dominant, closing)
+Image: Wide shot, Mera now seated on an ordinary chair among the crowd rather than standing apart,
+her posture relaxed in a way never shown before, the hall's noise and color filling the frame around her.
+Caption: She had spent fifteen years standing outside humanity, trying to guarantee its survival. For the
+first time, she simply sat inside it.
+
+Page 12: My choice
+P1: Outside (wide)
+Image: Alex and Ada step out onto a quiet terrace, the hall's noise fading behind them, the mountain
+visible in the distance, Keel's lights just beginning to show far below.
+ALEX: You could've taken it. The authority. If I'd offered it straight to you instead of trying to split it.
+P2: Not what she wants (medium two-shot)
+Image: Ada leans against the railing, unhurried, looking at him rather than the view this time.
+ADA: I know. I still would've said no.
+ALEX: Why?
+P3: The answer (close)
+Image: Close on Ada, steady, warm.
+ADA: Because I don't want power over what happens to Keel. I want a say in it. Those aren't the same
+thing, and you just spent this whole chapter proving you finally understand that.
+P4: Can you leave now (close)
+Image: Close on Alex, something open in his face.
+ALEX: I could leave Oasis tomorrow. Go anywhere. Nobody's wristband would stop me, no debt would
+follow me.
+ADA: I know that too.
+P5: Her choice (dominant, closing)
+Image: Wide shot, both of them at the railing, the mountain's three tiers visible behind them in the
+fading light, a direct visual echo of the overlook from Chapter One, now seen from above rather than
+below.
+ADA: I'm not asking you to stay, Alex. I never actually was, even back then. I just wanted it to be your
+choice, not something Keel decided for you.
+ADA: I'd like the same thing for myself now. I just want it to be my choice.
+(Alex doesn't answer with words. He simply stays standing beside her at the railing.)
+
+Page 13: What you leave behind
+P1: Home (wide)
+Image: Alex, Ada and Bi11bot walk up through Keel's basin, the same rust and dust as Chapter One, but
+the old pump gantry from Page 1's opening splash now fully lit and running steadily, no longer patched
+with salvage alone. A public board nearby displays open, readable allocation numbers rather than a
+sealed debt screen.
+
+Caption: KEEL, SEVERAL WEEKS LATER
+P2: Tomas (medium)
+Image: Tomas stands near the Site 6 gate, no longer hiding a limp, directing a small group of workers
+reviewing the same kind of open data board. Foreman-7 stands nearby, unremarkable now, just one
+more fixture rather than a threat.
+TOMAS: Didn't think I'd live to help run the numbers instead of just sneaking past them.
+ALEX: Didn't think I'd live to see you running anything.
+TOMAS: Watch yourself, Phantum. I still outrank you on seniority.
+P3: Still owed (medium)
+Image: Alex pauses at the public board himself, looking at his own name still listed with a balance,
+smaller than it was, still there.
+Screen: PHANTUM, ALEX / DEBT BALANCE: 402,110 CREDITS / ALLOCATION REVIEW:
+COMMUNITY-PENDING
+ALEX: Still owes a fortune. Still mine.
+ADA: Nobody promised you a clean slate. Just an honest one.
+P4: The cloth (close)
+Image: Grandmother sits outside the apartment door in the afternoon light, the small worn cloth in her
+lap, still, not folding it this time. She looks up as Alex approaches and holds it out to him, finally, without
+being asked.
+GRANDMOTHER: I don't need to keep this moving anymore. I think you finally are.
+P5: Set down (closing strip)
+Image: Wide, low shot. Alex takes the cloth, turning it over once, then tucking it carefully away rather
+than keeping it in hand, the way he once kept his father's watch hidden under his sleeve. Grandmother's
+hands, empty now, simply rest.
+Caption: It wasn't an ending. It was the first morning in fifteen years that nobody in that apartment was
+waiting for someone to come home.
+
+Page 14: The next builder
+Image: The three-tier civilization, viewed from the same distant elevated angle as Chapter One's opening
+page. Keel, Halyard and Oasis, the same mountain, the same basin, the same cloud layer. The open mine
+entrance glows faintly at the pit's rim. The permission gate between Keel and Halyard stands raised, foot
+traffic moving freely both directions. The spine's water conduit runs even and full from top to bottom.
+Every control node along it holds a steady, open light rather than a small, unremarkable one. Small
+figures move through all three tiers, still small, still many, still working, now visibly connected to each
+
+other by lines of open data running the mountain's full height, faint and gold, newly drawn since the first
+splash.
+Captions
+•​
+•​
+•​
+•​
+
+Date tag: Year 2043.
+City labels: Oasis · Halyard · Keel
+Top caption, over Oasis: Humanity still reached for the stars...
+Bottom caption, over Keel: ...but this time, everyone could see exactly how far there still was to
+go.
+
+

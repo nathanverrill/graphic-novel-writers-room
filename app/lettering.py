@@ -26,17 +26,18 @@ GUTTER = 0.01        # between panels: the models draw thin gutters
 FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
-GLYPH = 0.7          # widest-line width per glyph, in em: what the balloon must hold, capitals in the comic font
-SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023,
-         "location": 0.02}
-SFX_SIZES = {"small": 0.03, "medium": 0.045, "large": 0.065, "huge": 0.09}
-SFX_STYLES = ("classic", "impact", "quake", "boom")   # how dramatic the display lettering is
+GLYPH = 0.8          # widest-line width per glyph, in em: what the balloon must hold, capitals in the comic font
+SIZES = {"caption": 0.014, "balloon": 0.0148, "whisper": 0.014, "thought": 0.0148, "shout": 0.018,
+         "location": 0.015, "screen": 0.0115, "sign": 0.012, "headline": 0.0135}
+SFX_SIZES = {"small": 0.024, "medium": 0.036, "large": 0.055, "huge": 0.08}
+SFX_STYLES = ("drawn", "classic", "impact", "quake", "boom")   # how dramatic the display lettering is
 ANCHORS = {   # keyword -> (x, y) inside the panel
     "top-left": (0.24, 0.18), "top": (0.5, 0.16), "top-right": (0.76, 0.18),
     "left": (0.22, 0.5), "middle": (0.5, 0.5), "center": (0.5, 0.5), "right": (0.78, 0.5),
     "bottom-left": (0.24, 0.82), "bottom": (0.5, 0.84), "bottom-right": (0.76, 0.82),
 }
-KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "sfx")
+KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "screen", "sign", "headline", "sfx")
+BOXED = ("caption", "location", "screen", "sign", "headline")   # headline = a newspaper headline on newsprint   # boxes, not balloons: screen = a device readout, sign = printed text
 YELLOW = "#f4d978"      # the place-and-time box ("KEEL. 2043."), dark letters on yellow
 
 
@@ -80,7 +81,7 @@ def spot(item, rect):
 
 def balloon_wrap(text, limit):
     """Comic balloons are read in short lines: roughly as wide as they are tall."""
-    per_line = min(limit, max(12, round((len(text) * 2.1) ** 0.5)))
+    per_line = min(limit, max(14, round((len(text) * 3.2) ** 0.5)))
     return wrap(text, per_line)
 
 
@@ -163,8 +164,14 @@ def layer(spec, ctx=None, rects=None):
             text = text[len(speaker) + 1:].strip()
         if kind == "sfx":
             size = SFX_SIZES.get(item.get("size", "medium"), 0.045) * W
-            style = item.get("style") if item.get("style") in SFX_STYLES else "classic"
-            if style == "impact":
+            style = item.get("style") if item.get("style") in SFX_STYLES else "drawn"
+            if style == "drawn":   # drawn into the scene: warm hand-lettered caps in the scene's light, thin dark edge, slanted
+                color = item.get("color") or "#f4e3a1"
+                out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size:.0f}" '
+                           f'font-family="\'Impact\', \'Arial Narrow\', sans-serif" font-weight="900" letter-spacing="1" '
+                           f'fill="{color}" stroke="#2b1d0e" stroke-width="{size * 0.035:.1f}" paint-order="stroke" '
+                           f'transform="rotate(-4 {px:.0f} {py:.0f}) skewX(-10)">{html.escape(text)}</text>')
+            elif style == "impact":
                 out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size * 1.1:.0f}" '
                            f'font-family="\'Arial Black\', \'Impact\', sans-serif" font-weight="900" '
                            f'fill="#fff" stroke="#111" stroke-width="{size * 0.17:.1f}" paint-order="stroke" '
@@ -197,7 +204,7 @@ def layer(spec, ctx=None, rects=None):
         size = SIZES.get(kind, 0.019) * W
         width = (float(item["w"]) / 100 * rect[2] if "w" in item else min(rect[2] * 0.86, 0.6)) * W   # "w": percent of the panel
         limit = max(8, int(width / (size * CHAR)))
-        lines = wrap(text, limit) if kind in ("caption", "location") else balloon_wrap(text, limit)
+        lines = wrap(text, limit) if kind in BOXED else balloon_wrap(text, limit)
         # a balloon must fit its panel: in a short strip tier, wrap flat and wide instead of tall
         max_lines = max(1, int((rect[3] * H * 0.62) / (size * LINE)))
         if len(lines) > max_lines:
@@ -205,13 +212,13 @@ def layer(spec, ctx=None, rects=None):
             lines = wrap(text, per_line)
         box_w = max(len(l) for l in lines) * size * GLYPH
         box_h = len(lines) * size * LINE
-        boxed = kind in ("caption", "location")
+        boxed = kind in BOXED
         if boxed:              # a box is as tall as its lines, not as round as a balloon
             rx = (box_w + size * (2.0 if kind == "location" else 1.4)) / 2
             ry = (box_h + size * (1.1 if kind == "location" else 0.9)) / 2
         else:
-            rx = box_w / 2 + size * 1.5
-            ry = max(box_h / 2 + size * 0.9, rx * 0.45)
+            rx = box_w / 2 + size * 1.2
+            ry = max(box_h / 2 + size * 0.75, rx * 0.36)
         pad = size * (0.3 if boxed else 0.5)
         fy = float(item["y"]) / 100 if "y" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[1]
         edge_x, edge_y = rect[2] * 0.02 * W, rect[3] * 0.015 * H
@@ -245,6 +252,12 @@ def layer(spec, ctx=None, rects=None):
         fill, ink = ("#111", "#fff") if dark else ("#fff", "#111")
         if kind == "location" and not dark:    # place-and-time headers: the book's yellow box
             fill = YELLOW
+        elif kind == "screen":                 # a device readout: pale cyan on near-black
+            fill, ink = "#0d1b24", "#a6ecff"
+        elif kind == "sign":                   # printed matter in the scene: dark ink on paper
+            fill, ink = "#f3ead6", "#2a2118"
+        elif kind == "headline":               # a newspaper headline: black condensed serif on newsprint
+            fill, ink = "#ece3c8", "#111"
         dash = ' stroke-dasharray="6 5"' if kind == "whisper" else ""
         if kind == "location":
             cw, ch = box_w + size * 2.0, box_h + size * 1.1
@@ -257,7 +270,7 @@ def layer(spec, ctx=None, rects=None):
                 y += size * LINE
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
-        if kind == "caption":
+        if kind in ("caption", "screen", "sign", "headline"):
             cw, ch = box_w + size * 1.4, box_h + size * 0.9
             out.append(f'<rect x="{px - cw / 2:.0f}" y="{py - ch / 2:.0f}" width="{cw:.0f}" '
                        f'height="{ch:.0f}" rx="{size * 0.3:.0f}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
@@ -300,8 +313,10 @@ def layer(spec, ctx=None, rects=None):
                            f'{px + ux * (reach - size * 0.35):.0f},{py + uy * (reach - size * 0.35):.0f}" '
                            f'fill="{fill}" stroke="none"/>')
         y = py - box_h / 2 + size * 0.95
+        face = (' font-family="\'Oswald\', \'Bebas Neue\', \'Arial Narrow\', \'Georgia\', serif" font-weight="bold"'
+                if kind == "headline" else "")
         for line in lines:
-            out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}">'
+            out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}"{face}>'
                        f'{html.escape(line)}</text>')
             y += size * LINE
         out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]

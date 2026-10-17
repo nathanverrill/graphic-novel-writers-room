@@ -1,0 +1,112 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex wipes residue from the opened housing while Bi11bot lights it. Old contacts and newer cables remain visible. Reserve upper-left for SFX."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The mark resolves into readable A.P. beside an obscured old notation. Keep initials and watch unobstructed; reserve upper third."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "high",
+          "description": "Alex compares the creased photograph of Adrian and its handwriting with the housing mark. Keep both surfaces readable; reserve upper third."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "description": "A newer live channel pulses behind Adrian\u2019s old mark and routes water away from the manual regulator. Keep the channel visible; reserve upper-left for SFX and upper-right for Alex."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "SCRITCH",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Is it yours?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You know whose.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I know the handwriting.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He was here.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That is not the same as why.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I know.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THUMM",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He didn\u2019t throw everything away.",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,198 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Dominant workshop-wall view. Bi11bot projects a mountain cross-section with Keel at the bottom, Halyard midway up and Oasis above the clouds. Three markers sit far apart: one deep beneath Keel\u2019s pit, one inside a Halyard fabrication tower and one high in Oasis. Only the Keel marker glows bright amber. Alex and Bi11bot stand silhouetted against the map. Keep all markers clean and reserve separate upper-left and upper-right zones for the map balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close insert",
+          "angle": "eye",
+          "description": "The bright Keel marker sits deep below the sealed pit entrance at the bottom of a shaft. THE MEASURE is isolated beside it. Reserve the upper-left and upper-right for the first two lines, a middle-left zone for the next line, and a bottom-right zone for the work-card consequence. Keep the marker and label unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "description": "Alex looks toward the workbench where Adrian\u2019s hologram stood, holding the creased photograph. Bi11bot watches with a patient head tilt. Alex brings Danny\u2019s loan slip near the watch; the watch switches from CLOCK to COST and displays a large unobstructed 310 CR with its cost icon and thin bar. Keep the watch and slip in a dedicated center inset, with dialogue zones along the upper and lower edges."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Bi11bot faces Alex. Alex reaches past him and presses his hand flat against the bright Measure marker. The light ripples around his fingers. The old Alpha node glows steadily, showing the continuing B-11 check-in already triggered by Bi11bot\u2019s awakening; Alex\u2019s touch selects the destination rather than activating the network. A hairline pulse leaves the node after the choice. Reserve the lower-right beside Alex\u2019s hand for the final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father left a trail. Three artifacts, in three places.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "He called it the Legacy Protocol.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "THE MEASURE",
+      "x": 28,
+      "y": 45
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The first is called the Measure. It's somewhere inside the old mine.",
+      "x": 23,
+      "y": 12
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That mine's been sealed since before I was born.",
+      "x": 77,
+      "y": 12
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father knew.",
+      "x": 23,
+      "y": 48
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Anyone caught past that seal loses their work card.",
+      "x": 77,
+      "y": 58
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Then we don't get caught.",
+      "x": 77,
+      "y": 88
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And finding it tells me what happened to him?",
+      "x": 20,
+      "y": 10
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It tells us where he wanted you to begin. The rest, we'll have to discover.",
+      "x": 80,
+      "y": 10
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "COST",
+      "x": 35,
+      "y": 43
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "310 CR",
+      "x": 65,
+      "y": 43
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It's reading Danny's loan slip. 310.",
+      "x": 20,
+      "y": 78
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The console cost him 120. Ten a week for thirty-one weeks is 310.",
+      "x": 80,
+      "y": 78
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "So he's an idiot.",
+      "x": 20,
+      "y": 94
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "No. When tomorrow looks bad, today looks bigger.",
+      "x": 20,
+      "y": 12
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father built that so people could see the 310 before they sign. Not after.",
+      "x": 80,
+      "y": 12
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone says he pawned and borrowed it all away.",
+      "x": 20,
+      "y": 48
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That's a theory. The mine is evidence.",
+      "x": 55,
+      "y": 62
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we start here.",
+      "x": 80,
+      "y": 88
+    }
+  ]
+}

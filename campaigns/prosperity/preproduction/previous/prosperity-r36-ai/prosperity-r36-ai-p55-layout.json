@@ -1,0 +1,63 @@
+{
+  "page": 55,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "The station bulkhead descends while water rushes through a ruptured side passage. Keep upper bulkhead clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian completes the recording and reaches for the dormant Bi11bot activation control. Keep upper controls clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The bulkhead seals across Adrian's reaching hand; crop before showing what lies beyond it. Keep upper metal clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "In the present, Alex stands before the blank projector while B11 faces the empty station. Keep upper projector clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "BEEP",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "BOOM",
+      "size": "huge",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The recording ends there.",
+      "at": "top-left"
+    }
+  ]
+}

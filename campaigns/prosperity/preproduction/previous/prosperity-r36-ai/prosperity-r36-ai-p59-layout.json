@@ -1,0 +1,49 @@
+{
+  "page": 59,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex places the Measure beside public gauges while Tomas checks its reading against a physical pipe. Keep upper gauges clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex places the Maker's Seal beside contributor records; Lina, Suri, Jalen and Ren's names appear as attribution. Keep upper records clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex places the linked Covenant circle between affected representatives while Mera's public pledge remains visible. Keep upper table clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex removes the executive authorization from the table and returns it to Mera. Keep upper hands and table clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No single hand.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "id": "r12-final",
+  "kind": "final",
+  "started": "2026-10-12T18:12:46",
+  "finished": "2026-10-12T18:12:47",
+  "status": "done",
+  "files_written": [
+    "review.md",
+    "thumbnails.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-lean/drafts/chapter-01-draft.md": "5c0b900324a43fa8",
+    "prosperity-lean/input/world.md": "9b902deef7d7a77e",
+    "prosperity-lean/rules/characters.md": "bb31f41190b31356"
+  },
+  "usage": {
+    "total": {
+      "calls": 0,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {}
+  },
+  "reviewed_round": "r11-ai",
+  "action": "finalize",
+  "method": "layout",
+  "counts": {
+    "kept": 0,
+    "edited": 0,
+    "noted": 0
+  }
+}

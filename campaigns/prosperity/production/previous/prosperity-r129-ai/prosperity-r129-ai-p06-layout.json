@@ -1,0 +1,77 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Underwater, TJ's amber lens catches a broken drone component on the lakebed. Keep upper water clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "TJ's body and remaining legs converge; one leg clamps onto the component. Keep upper water clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The tanker retreats with less water than planned across the restored lake. Keep upper sky clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "TJ reaches the dock dragging the broken component while Older Alex and the granddaughter wait. Keep upper dock clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "Move!",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "I\u2019m moving.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "He brought something.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He usually does.",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "page": 48,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada places the archive recorder between Leona and herself in the civic archive. Keep the upper table clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada turns the recorder toward Leona while Leona faces the public record. Keep the upper recorder clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona places her sage-gold Covenant band on the public table and states an obligation; keep the band and table clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot opens his fitted chest compartment and carefully retrieves Adrian's gold-and-burgundy Covenant band; its band is visibly stored, not conjured. Keep the upper compartment clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Don\u2019t apologize where it costs nothing.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Put your name on what you do next.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "Review every decision I make. Remove me if I hide one.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CHK",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

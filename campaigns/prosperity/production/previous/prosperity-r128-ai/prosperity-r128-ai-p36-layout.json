@@ -1,0 +1,72 @@
+{
+  "page": 36,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "Drones enter the chamber as a bulkhead descends behind Alex and Ada. Keep the upper bulkhead clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex secures the Measure while Ada takes the transmitter. Keep the upper hands and tools clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex sees the green rail authorization on his identity band as the private route closes. Keep the upper band clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "Alex and Ada sprint toward a maintenance exit as the bulkhead slams down behind them. Keep the upper passage clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRRRNNN",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The private route is closing.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we use the train.",
+      "at": "top-left",
+      "tail_x": 68.1,
+      "tail_y": 40.2
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "BOOM",
+      "size": "huge",
+      "at": "middle"
+    }
+  ]
+}

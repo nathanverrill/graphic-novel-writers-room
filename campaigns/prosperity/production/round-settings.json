@@ -1,243 +1,93 @@
 {
   "use_references_during_synthesis": false,
-  "phase": "execution",
-  "draft_mode": "improve",
+  "phase": "intake",
+  "draft_mode": "edit",
   "approved": {
-    "at": "2026-10-14T20:11:41",
-    "t": 1792008701.7826738,
-    "round": "r35-ai"
+    "at": "2026-10-15T16:03:49",
+    "t": 1792080229.2691722,
+    "round": "r40-ai"
   },
   "magic": {
-    "status": "done",
+    "status": "page1",
     "choices": [
       {
-        "t": 1792008858.0503793,
+        "t": 1792096314.7567403,
         "step": "development",
         "what": "Approved the development files as written.",
         "why": "The brief, story and people go forward as the Director's room left them.",
-        "round": "r109-ai"
+        "round": "r140-ai"
       },
       {
-        "t": 1792008980.4514525,
+        "t": 1792096396.1919246,
         "step": "audition",
-        "what": "Picked Writer B.",
-        "why": "The report did not conclude plainly; the last version it named.",
-        "round": "r110-ai"
+        "what": "No audition: Writer B edits the draft.",
+        "why": "The book is an edit of the showrunner's draft (draft_mode \"edit\").",
+        "round": "r141-ai"
       },
       {
-        "t": 1792009149.7187424,
+        "t": 1792096497.895376,
         "step": "writing",
         "what": "Approved the script as written.",
         "why": "The whole book, in the picked writer's voice.",
-        "round": "r111-ai"
-      },
-      {
-        "t": 1792009328.6890008,
-        "step": "coldread",
-        "what": "Read 1: sent the script back to the writer with both cold reads.",
-        "why": "cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03",
-        "round": "r112-ai"
-      },
-      {
-        "t": 1792009490.210847,
-        "step": "writing",
-        "what": "Revised the script after cold read 1.",
-        "why": "Against both reports.",
-        "round": "r113-ai"
-      },
-      {
-        "t": 1792009660.3128057,
-        "step": "coldread",
-        "what": "Took the script after 2 cold reads, not fully won.",
-        "why": "cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03",
-        "round": "r114-ai"
-      },
-      {
-        "t": 1792009856.3895223,
-        "step": "analysis",
-        "what": "Analysis 1: sent the script back to the writer for a cut pass.",
-        "why": "Young Americans Center: partly; Bill Reynolds: partly; smells like school: yes (5 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03",
-        "round": "r115-ai"
-      },
-      {
-        "t": 1792010005.5653558,
-        "step": "writing",
-        "what": "Cut pass after analysis 1: 6504 words to 6279.",
-        "why": "Within its budget.",
-        "round": "r116-ai"
-      },
-      {
-        "t": 1792010376.9203584,
-        "step": "analysis",
-        "what": "Analysis 2: sent the script back to the writer for a cut pass.",
-        "why": "Young Americans Center: partly; Bill Reynolds: partly; smells like school: yes (4 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03",
-        "round": "r118-ai"
-      },
-      {
-        "t": 1792010527.6614373,
-        "step": "writing",
-        "what": "Cut pass after analysis 2: 6279 words to 6275.",
-        "why": "Within its budget.",
-        "round": "r119-ai"
-      },
-      {
-        "t": 1792010854.541134,
-        "step": "analysis",
-        "what": "Took the script after 3 analyses, not passed.",
-        "why": "Young Americans Center: partly; Bill Reynolds: yes; smells like school: yes (4 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03",
-        "round": "r121-ai"
-      },
-      {
-        "t": 1792011685.5142634,
-        "step": "execution",
-        "what": "Took the pages after 2 rounds, not fully ready.",
-        "why": "layouts.md has pages [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22, 23, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], the brief asks for pages 1-64; 1 layout issues; 3 continuity b",
-        "round": "r125-ai"
-      },
-      {
-        "t": 1792011688.768723,
-        "step": "final",
-        "what": "Finalized the book.",
-        "why": "Every page as the last round left it.",
-        "round": "r126-final"
+        "round": "r142-ai"
       }
     ],
     "log": [
       {
-        "t": 1792008701.8291054,
+        "t": 1792096184.401354,
         "text": "Production starts at Development, running to layouts."
       },
       {
-        "t": 1792008701.8445141,
-        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md."
+        "t": 1792096184.452762,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
       },
       {
-        "t": 1792008703.410103,
-        "text": "Round r109-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+        "t": 1792096185.922042,
+        "text": "Round r140-ai: development, Director, Plotter, Character Designer, Continuity Editor."
       },
       {
-        "t": 1792008859.6310503,
-        "text": "Round r110-ai: audition, Writer A, Writer B, First Reader."
+        "t": 1792096317.081752,
+        "text": "Round r141-ai: draft edit, Draft Editor."
       },
       {
-        "t": 1792008980.4538364,
-        "text": "Audition: picked Writer B - The report did not conclude plainly; the last version it named."
+        "t": 1792096394.90016,
+        "text": "Your drafts are edited to the canon: every change and everything that does not fit is in draft-changes.md. Read them, then script them - or stop here."
       },
       {
-        "t": 1792008981.9452791,
-        "text": "Round r111-ai: writing, Writer B, Continuity Editor."
+        "t": 1792096396.131364,
+        "text": "Production starts at Audition, running to proof page."
       },
       {
-        "t": 1792009151.3170872,
-        "text": "Round r112-ai: cold read, Cold Reader, Second Cold Reader."
+        "t": 1792096396.1977365,
+        "text": "No audition in an edit: the writer scripts the drafts first, for the proof page to be laid out from."
       },
       {
-        "t": 1792009328.692402,
-        "text": "Cold read 1: not won (cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03). The writer revises."
+        "t": 1792096398.442263,
+        "text": "Round r142-ai: writing, Writer B, Continuity Editor."
       },
       {
-        "t": 1792009330.0768209,
-        "text": "Round r113-ai: writing, Writer B, Continuity Editor."
+        "t": 1792096500.0935678,
+        "text": "Round r143-ai: execution, Layout Agent, Continuity Editor."
       },
       {
-        "t": 1792009491.5663838,
-        "text": "Round r114-ai: cold read, Cold Reader, Second Cold Reader."
-      },
-      {
-        "t": 1792009660.3152938,
-        "text": "Cold read 2: not won (cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03). Taking the script as it is."
-      },
-      {
-        "t": 1792009661.7501097,
-        "text": "Round r115-ai: analysis, Analyst."
-      },
-      {
-        "t": 1792009856.3917093,
-        "text": "Analysis 1: not passed (Young Americans Center: partly; Bill Reynolds: partly; smells like school: yes (5 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03). The writer cuts."
-      },
-      {
-        "t": 1792009857.8047245,
-        "text": "Round r116-ai: writing, Writer B, Continuity Editor."
-      },
-      {
-        "t": 1792010007.0656018,
-        "text": "Round r117-ai: cold read, Cold Reader, Second Cold Reader."
-      },
-      {
-        "t": 1792010142.0465684,
-        "text": "Round r118-ai: analysis, Analyst."
-      },
-      {
-        "t": 1792010376.9228714,
-        "text": "Analysis 2: not passed (Young Americans Center: partly; Bill Reynolds: partly; smells like school: yes (4 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03). The writer cuts."
-      },
-      {
-        "t": 1792010378.4016964,
-        "text": "Round r119-ai: writing, Writer B, Continuity Editor."
-      },
-      {
-        "t": 1792010529.5841198,
-        "text": "Round r120-ai: cold read, Cold Reader, Second Cold Reader."
-      },
-      {
-        "t": 1792010671.7689228,
-        "text": "Round r121-ai: analysis, Analyst."
-      },
-      {
-        "t": 1792010854.543681,
-        "text": "Analysis 3: not passed (Young Americans Center: partly; Bill Reynolds: yes; smells like school: yes (4 pages); cold-read.md: does not want the issue after Issue 03; cold-read-b.md: does not want the issue after Issue 03). Taking the script as it is."
-      },
-      {
-        "t": 1792010856.0132132,
-        "text": "Round r122-ai: execution, Layout Agent."
-      },
-      {
-        "t": 1792010970.4135673,
-        "text": "The layouts are drawn: every page's map and panels. Look them over, then Make the pages."
-      },
-      {
-        "t": 1792011006.8817987,
-        "text": "Production starts at Pages, running to final."
-      },
-      {
-        "t": 1792011008.6046894,
-        "text": "Round r123-ai: execution, Layout Agent, Continuity Editor."
-      },
-      {
-        "t": 1792011317.007977,
-        "text": "Pages: round 1 not ready (layouts.md has pages [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]); sending it back for another."
-      },
-      {
-        "t": 1792011321.5625486,
-        "text": "Round r125-ai: execution, Layout Agent, Continuity Editor."
-      },
-      {
-        "t": 1792011685.5171814,
-        "text": "Pages: not fully ready after 2 rounds - taking them as they are (layouts.md has pages [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 21, 22, 23, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64], the brief asks for pages 1-64; 1 layout issues; 3 continuity b)."
-      },
-      {
-        "t": 1792011688.7768269,
-        "text": "Finalized as r126-final."
-      },
-      {
-        "t": 1792011688.8038344,
-        "text": "The book is done. The page packets are ready to paste into an image model; upload the art it draws and run the lettering."
+        "t": 1792096558.085495,
+        "text": "The proof, page 46, is ready. Have a look: is this about right?"
       }
     ],
-    "step": "final",
-    "until": "final",
+    "step": "page1",
+    "until": "page1",
     "error": null,
     "stop": false,
-    "started": "2026-10-14T20:50:06",
-    "finished": "2026-10-14T21:01:28",
-    "written_for_page1": false,
-    "run": "62dde8311216",
-    "round": "r125-ai"
+    "started": "2026-10-15T20:33:16",
+    "finished": "2026-10-15T20:35:58",
+    "written_for_page1": true,
+    "run": "0b7618c5abee",
+    "round": "r143-ai"
   },
-  "scope": 0,
+  "scope": 1,
   "writer": "writer_b",
   "proof_page": 46,
-  "pages": 64,
+  "pages": 47,
   "expand_pages": 0,
   "issue_pages": 18,
   "references": [
@@ -249,5 +99,6 @@
     "prosperity/input/fifth-draft/chapter-06-draft.md",
     "prosperity/input/notes.md"
   ],
-  "analysis_rounds": 3
+  "analysis_rounds": 3,
+  "max_panels": 7
 }

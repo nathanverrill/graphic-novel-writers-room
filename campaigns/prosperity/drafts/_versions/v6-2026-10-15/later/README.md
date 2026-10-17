@@ -1,0 +1,1 @@
+Chapters 4–6: Bob's fifth draft as written, for review only. Not in this pass (rules/decisions.md, "Page budget for this pass"); the room does not read this folder. One change: Chapter 6, page with Grandmother's cloth, "the chip" became Adrian's watch.

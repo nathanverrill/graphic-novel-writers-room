@@ -1,0 +1,56 @@
+{
+  "page": 53,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Mera uses an old mechanical key to open a wet underground passage with no active control nodes. Keep upper passage clear."
+        },
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "description": "The group enters a damaged monitoring station with water stains, obsolete equipment and no Alpha display. Keep upper station clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11's shoulder projector activates while an identical projector wakes across the station. Keep upper projection fields clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Adrian's equation appears on both projections above the wet equipment. Keep upper projection clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "HUM",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He left this where Alpha couldn\u2019t count it.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -59,7 +59,7 @@ footer{border-top:1px solid var(--line);padding:10px 16px calc(10px + env(safe-a
 .chips button:hover{color:var(--ink)}
 .refbar{display:flex;gap:8px;align-items:center}
 .refbar[hidden]{display:none}
-.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo{display:grid;grid-template-columns:1fr;gap:12px;max-width:640px}
 @media (max-width:560px){.duo{grid-template-columns:1fr}}
 .refbar img{height:44px;border-radius:6px;border:1px solid var(--line)}
 .refbar .x{padding:2px 8px;font-size:.8rem}
@@ -82,7 +82,7 @@ a.dl{color:var(--accent);font-size:.85rem;text-decoration:none}
 <body>
 <header>
   <h1>Easel</h1>
-  <span class="note">every prompt draws both models</span>
+  <span class="note">every prompt draws with GPT Image 2.5 Sunburst</span>
   <span class="spacer"></span>
   <button id="new" title="Clear this thread and start fresh">New easel</button>
   <button id="galbtn" title="Every image ever made here">Gallery</button>
@@ -92,7 +92,7 @@ a.dl{color:var(--accent);font-size:.85rem;text-decoration:none}
 <main><div class="col" id="chat">
   <div class="hello" id="hello">
     <h2>What are we drawing?</h2>
-    <p>Tap a starter below or just describe it &mdash; you get one image from each model.<br>
+    <p>Tap a starter below or just describe it &mdash; you get one image from GPT Image 2.5 Sunburst.<br>
     Like one? Hit its <b>Use as reference</b> button and describe the change &mdash; that&rsquo;s how you iterate.</p>
   </div>
 </div></main>
@@ -125,7 +125,7 @@ a.dl{color:var(--accent);font-size:.85rem;text-decoration:none}
 
 <dialog id="settings">
   <h3>API key</h3>
-  <p>Paste an OpenRouter key once &mdash; it&rsquo;s stored on the server, runs both models, and everyone who opens this page draws with it.</p>
+  <p>Paste an OpenRouter key once &mdash; it&rsquo;s stored on the server, draws with Sunburst, and everyone who opens this page draws with it.</p>
   <input id="s-key" type="password" placeholder="sk-or-...">
   <p class="note" id="s-msg"></p>
   <div class="end"><button id="s-cancel">Close</button><button class="primary" id="s-save">Save for everyone</button></div>
@@ -133,7 +133,6 @@ a.dl{color:var(--accent);font-size:.85rem;text-decoration:none}
 
 <script>
 const MODELS = [
-  ["google/gemini-3.1-flash-image", "Gemini 3.1 Flash Image"],
   ["openai/gpt-image-2.5-sunburst", "GPT Image 2.5 Sunburst"],
 ];
 const PRESETS = [

@@ -1,0 +1,87 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 31,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "horizon": 48,
+          "bleed": true,
+          "description": "2070 evening in a lived-in Oasis neighborhood: pearl-white curved architecture, rounded rooflines, terraced gardens, a still reservoir with fountains, slender white towers, a white monorail viaduct, snow mountains, a delivery drone and a distant rocket launch. Alex\u2019s modest terrace workbench and plants needing water occupy the foreground. Keep upper-left sky and lower corners clear for lettering; generate no readable text."
+        }
+      ]
+    },
+    {
+      "h": 23,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Pearl-white curved hallway with warm wood floor, tall terrace window and a wall covered in framed patents, machine images and clippings. Mid-forties Alex stands beside his daughter. Keep upper-left wall clear for lettering; generate no readable text."
+        }
+      ]
+    },
+    {
+      "h": 21,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Close view of framed patents, photographs and collaborative machine images. Leave three separate clean artifact zones: upper-left, upper-right and lower-left. Keep the founders\u2019 photograph visible and generate no readable text in the art."
+        }
+      ]
+    },
+    {
+      "h": 24,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 52,
+          "description": "Alex\u2019s daughter looks up at Alex beneath the framed wall. Keep both faces unobstructed and leave the upper third open for her balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sign",
+      "text": "PHANTUM WATERWORKS: 4,000 KEEL JOBS CREATED",
+      "at": "top-left",
+      "w": 44
+    },
+    {
+      "panel": 3,
+      "type": "sign",
+      "text": "PATENT ROYALTIES FUND 300 NEW FOUNDERS",
+      "at": "top-right",
+      "w": 44
+    },
+    {
+      "panel": 3,
+      "type": "sign",
+      "text": "CLEAN-WATER PRICES DROP 60% AND HEALTH IMPROVED",
+      "at": "bottom-left",
+      "w": 56
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "DAUGHTER",
+      "text": "Did you make all of these?",
+      "at": "top-left",
+      "tail_x": 120,
+      "tail_y": 120
+    }
+  ]
+}

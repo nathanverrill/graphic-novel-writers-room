@@ -1,0 +1,155 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Late afternoon on Keel\u2019s pit rim. Keel lies in shadow, Halyard catches gold and Oasis remains in sunlight. A dry fountain stands nearby as Ada approaches with two battered mugs. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Ada offers Alex a mug, her ration card visible at her hip. Leave upper-left and upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Close on the ration card, Ada\u2019s hand and Alex\u2019s hands around the mugs. Keep four distinct lettering zones."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Alex and Ada sit side by side on the railing, laughing briefly. Leave upper-left and upper-right clear for one balloon each."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Ada watches Alex while he looks away, his frustration over Site 6\u2019s credit visible in his clenched posture. Reserve upper-left for Ada and lower-left for Alex."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "over shoulder",
+          "horizon": 43,
+          "description": "Alex looks upward toward Oasis while Ada looks down toward Keel, wind lifting her copper hair. Reserve a clean upper-left zone for Alex and a clean lower-right zone for Ada. No other dialogue balloons."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Later that afternoon...",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Thought you might need this.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The birthday special? Not sure I can afford it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Where'd you get enough water for two?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Saved some of my ration.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Ada, you didn't have to.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Not everything has a price, Alex.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Eighteen. Congratulations. You're officially old.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I'm officially broke.",
+      "at": "top-right"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I heard about this morning.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone did. My bracket's in the Site 6 catalog now. Their name on it.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I look up there and wonder what it feels like to choose your own future.",
+      "at": "top-left"
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I look down here and wonder why people stopped trying to change it.",
+      "at": "bottom-right"
+    }
+  ]
+}

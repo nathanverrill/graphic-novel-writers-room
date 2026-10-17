@@ -26,8 +26,8 @@ someone in Oasis is watching. Mystery about the answers, never confusion about t
 
 - Water is the visible thread of Chapter 1: rationed in Keel, unequal across Keel, Halyard
   and Oasis, shown in daily life (rations, access, mobility, authority), not narrated.
-- The Water Wars get one visible legacy in Chapter 1 (a weathered memorial, an abandoned
-  pipeline or an old warning sign on Page 3), no explanation. Bi11bot gives the essential
+- The Water Wars get one visible legacy in Chapter 1: the dry, cracked drinking fountain on
+  Page 3, no explanation. No memorial plaque or sign (showrunner, 2026-10-15). Bi11bot gives the essential
   history in Chapter 2, where it bears on the Measure.
 - No technical terms before they are needed.
 
@@ -38,12 +38,16 @@ proposal in input/_proposals/; the rest of that pitch is not canon.)_
 
 - There is no casino chip anywhere in the book. Wherever a draft or note has Alex's chip, it is
   **Adrian's old watch**: a worn steel wristwatch, a little big for Alex, plain cream dial, a
-  scratched glass and a small display window that stays dark. Alex wears it on his left wrist.
+  scratched glass and a small display window that stays dark. Alex does not have it at the start
+  of Chapter 1: he finds it on the workbench in Adrian's workshop (page 7), face down beside the
+  covered Bi11bot. Buckling it on is what wakes Bi11bot (page 8): the display window glows amber
+  once as the clasp closes, and Bi11bot's eyes answer. There is no workshop key. From then on he
+  wears it on his left wrist. _(2026-10-15)_
 - Adrian's looping equation is **engraved on the steel caseback**, where the chip's etching was.
-  It does everything the chip did: the silent match with the chalkboard on page 7, Bi11bot's
-  recognition, and the match with the instrument in Chapter 2.
+  It matches the circled equation on the chalkboard (page 7), Bi11bot knows it (page 9), and it
+  matches the instrument in Chapter 2.
 - Alex keeps it close and half hidden: he pulls his sleeve down over it, or his thumb covers its
-  face. Bi11bot knows it: "And you kept the watch."
+  face. Bi11bot knows it: "And you found the watch."
 - The watch shows no readout and counts nothing. The proposal's True-Cost number, the pawn
   shop, Danny, the family trust and the patents are not part of this decision. The Last Chance
   stays a shuttered casino, and Keel still believes Adrian gambled.
@@ -56,8 +60,8 @@ proposal in input/_proposals/; the rest of that pitch is not canon.)_
   trusted has a secret?" Never name the artifacts here.
 - **Page 2:** keep the debt-transfer display prominent: the balance of 418,607 credits and the
   restricted travel status. In Panel 3 cut Alex's "I've also got his debt" and "It did. Just
-  not for him." Keep the bouncer's lines; Alex answers with silence, the watch and his body: his thumb
-  covers the watch's face and he keeps walking.
+  not for him." Keep the bouncer's lines; Alex answers with silence and his body: hands jammed in his
+  pockets, he keeps walking.
 - **Page 3:** Ada's mugs carry the scarcity. She saved water from her own ration for two.
   "Where'd you get enough water for two?" / "Saved some of my ration." / "Ada, you didn't have
   to." / "Not everything has a price, Alex." The exchange closes "Because nobody leaves." /
@@ -128,57 +132,63 @@ _(decided 2026-10-14 by the showrunner; replaces Issue 00, the 2099 Lake Keel pr
 ordinary, comfortable, earned life. It is where the partner (Young Americans Center) and the
 backer (Bill Reynolds) can see, quietly, that the story ends where they want it to: success that
 was earned, ownership written down and protected, a business that serves people and makes money
-doing it, many small companies competing, failure that taught something, and a debt paid back in
-full, not cancelled. All of it is **seen on the wall, never said**: no line explains a lesson, and
+doing it, many small companies competing, failure that taught something, and success given back to the next
+founders. The debt is implied, never shown. All of it is **seen on the wall, never said**: no line explains a lesson, and
 nothing names the partner, the backer or the missions.
 
-**No co-op.** Nothing on the wall or in the dialogue shows a co-op, a collective or a giveaway.
-The businesses are independent companies that license Alex's patents and compete, with each
-other and with the Houses.
+**Earned success on the wall.** Most of the businesses on the wall are independent
+companies that license Alex's patents and compete, with each other and with the Houses. The
+clippings celebrate what capitalism did: profit, jobs, a patent upheld whose royalties fund new
+founders, and falling water prices and better health. Nothing in the dialogue mentions any of it. _(changed 2026-10-15)_
 
 **Page 1: The house**
 - P1, wide: Alex's house at evening, in 2070, built the way Oasis was built in 2043: the
   book's own Oasis (see the opening three-cities page), now ordinary and lived in. Pearl-white
   curved architecture with rounded rooflines, terraced gardens, a still reservoir with fountains,
-  slender white towers and a white monorail viaduct across the basin, the snow mountains behind,
+  slender white towers and a white monorail viaduct across the basin, the snow mountains behind, a rocket launch in the far distance,
   a delivery drone in the dusk sky. One house in a neighbourhood of them: modest for Oasis, a
-  workbench and a bike on the terrace, plants that need watering. Never present-day suburbia:
+  workbench on the terrace, plants that need watering. Never present-day suburbia:
   no shingled roofs, no lawns, no ordinary cars.
 - P2: inside, an Oasis-built hallway: smooth pearl-white curved walls, warm wood floor, a tall
   window onto the terraces. The wall is covered in framed patents, photos of machines and news
   clippings. Alex, mid-40s, grey at the temples, a day's stubble, still dressed like a mechanic:
   a worn work jacket over a T-shirt, sleeves pushed up, scuffed boots, nothing proper or
-  polished; Adrian's old steel watch on his left wrist. His daughter, about 9: warm-brown skin, freckles, dark auburn-brown hair in two low braids, a mustard cardigan over a pale blue school shirt, navy skirt, white socks, red sneakers, the same on every page. She stands on tiptoe in front of it.
-- P3, close on the clippings, seen and never read aloud: "40TH INDEPENDENT SHOP LICENSES PHANTUM
-  PURIFIER"; "SMALL MAKERS AND THE HOUSES RACE FOR THE NEXT DESIGN"; a photo of dozens of founders,
+  polished; Adrian's old steel watch on his left wrist. His daughter, about 9: warm-brown skin, freckles, brown eyes and long curly dark-brown hair; an orange zip jacket with "H2O" patches over a teal T-shirt with a small ringed planet, dark cargo trousers, orange-and-black sneakers and a smartwatch, the same on every page (her lock, style/locks/alex-daughter-sunburst). She stands on tiptoe in front of it.
+- P3, close on the clippings, seen and never read aloud: "PHANTUM WATERWORKS: 4,000 KEEL JOBS
+  CREATED"; "PATENT ROYALTIES FUND 300 NEW FOUNDERS"; "CLEAN-WATER PRICES DROP 60% AND HEALTH
+  IMPROVED"; a photo of dozens of founders,
   each with their own water unit and a different shop sign.
 - P4: DAUGHTER: "Did you make *all* of these?"
 
 **Page 2: The inventions**
-- P1: ALEX: "Made some. Fixed most. Worked with some people smarter than me." He taps a
+- P1: ALEX: "Made some. Fixed most. Worked with lots of people smarter than me." He taps a
   photo of four people laughing in a lab: Lina, Suri, Jalen and Ren, never named.
 - P2: she points at a patent with a purifier diagram. DAUGHTER: "That one's in my school!"
 - P3: one frame among the patents is a photo of a scorched, cracked prototype, with "v1 - didn't
   work" written on it in his hand. Neither of them remarks on it.
-- P4, small and almost hidden in a corner: a framed final account statement, **PAID IN FULL ·
-  BALANCE 0 CREDITS**. The daughter doesn't notice it. The reader might. She stops at one frame
+- P4, small, in a corner, two frames: an old faded brass nameplate, **PHANTUM WATERWORKS · ADRIAN
+  PHANTUM, FOUNDER**, and a new clipping of Alex at the doors of a busy Keel workshop hall,
+  **PHANTUM WATERWORKS CENTER FOR ENTREPRENEURS OPENS IN KEEL · FREE BENCHES AND MENTORS FOR NEW
+  FOUNDERS**: his success, given back, under his father's company name. The nameplate implies
+  where the debt came from; nothing says it, and no paid-in-full statement is shown. The
+  daughter doesn't notice them. The reader might. She stops at one frame
   that doesn't match the others.
 
 **Page 3: The sketch**
 - P1, close: a crumpled, grease-stained sheet with a pencil sketch of a pump bracket. Crude,
   smudged fingerprints, no patent number.
-- P2: DAUGHTER: "This one's just a drawing. Why isn't it a patent?" ALEX: "Because it never
-  needed to be."
-- P3: DAUGHTER, beaming: "Inventing stuff must have been *so* much fun."
+- P2: DAUGHTER: "This one's just a drawing." ALEX: "And the one I'm most proud of. It helped a
+  lot of people."
+- P3: DAUGHTER, beaming: "That looks like a lot of fun!"
 - P4: Alex looks at the sketch, then down at the watch. His thumb covers its face, the gesture
   from Chapter 1.
 
 **Page 4: The turn**
 - P1: ALEX: "Not in the beginning."
 - P2: the daughter looks up at him, waiting.
-- P3: ALEX: "In the beginning I was deep in debt, our water was rationed..."
+- P3: ALEX: "When I was a teenager, I had nothing. We hardly had any water..."
 - P4, full-width transition: the sketch dissolves into the rust and charcoal of Keel's pump hall.
-  Seventeen-year-old Alex has his palm flat on the pump. Caption: *Keel. 2043.* Chapter 1 begins.
+  Eighteen-year-old Alex has his palm flat on the pump. Caption: *Keel. 2043.* Chapter 1 begins.
 
 **Art for the photos and clippings:** every framed photo and every clipping's picture is drawn
 in the book's own inked style, the same as the panels around it: never photographic, never
@@ -357,248 +367,204 @@ _(decided 2026-10-11 by the showrunner; Chapters 1 and 2 stay as they are)_
 - That gives Adrian's purification cluster a stake in Keel, not just a stake in business.
   Building the units cheaply enough for local businesses is how Keel gets clean water.
 
-## How will the fixed 64 pages be allocated across the prologue and Chapters 1–6?
+## Page budget for this pass
 
-Count the 4-page prologue within the fixed 64 pages, leaving 60 pages for Chapters 1–6: Chapter 1 remains 12 pages, Chapter 2 remains 15 pages, and Chapters 3–6 share the remaining 33 pages. (Changed 2026-10-14: the prologue went from 10 pages to 4.)  `(rules/showrunner-rules.md; input/notes.md; rules/decisions.md)`
-
-_(decided 2026-10-14, about story.md, world.md)_
-
-## What is the final chapter structure and page count after Chapter 2?
-
-Keep Chapters 3–6, with Chapter 3 as the ownership/purifier chapter, Chapter 4 as the Covenant chapter, Chapter 5 as Adrian's disappearance chapter and Chapter 6 as the distributed-authority ending; compress each to fit the remaining pages.  `(story.md; rules/decisions.md)`
-
-_(decided 2026-10-14, about story.md)_
-
-## Who specifically granted Alpha its temporary authority?
-
-The three Covenant custodians—Adrian, Leona and Mera—did not grant Alpha authority alone, but their two-of-three emergency mechanism authorized the coalition's transfer: Mera voted yes, Adrian no and Leona cast the deciding vote.  `(input/fifth-draft/chapter-04-draft.md; rules/decisions.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## Did Adrian create the mechanism that can return authority from Alpha, or only the safeguards that trigger an existing mechanism?
-
-Adrian designed the three safeguards and the dormant return-of-authority mechanism as one system, while Alpha's infrastructure remains useful after the transfer.  `(world.md; story.md; rules/decisions.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## What exact period and allocation does the 62% reported versus 18% delivered comparison measure, and where does the diverted water go?
-
-The figures measure the same rolling 30-day allocation period for Keel's authorized municipal water share: Alpha reports 62% delivered, while the Measure records 18% physically arriving at the Keel residential branch. The missing flow is routed through the maintained industrial uplink to Halyard processing and House facilities.  `(world.md; story.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## What precise condition prevents Alex from travelling, and how does Keel satisfy it?
-
-The travel restriction is triggered by an overdue current installment, separate from the full inherited principal. Keel residents raise and pay the 500-credit overdue amount; Alpha marks the installment current, permits the train crossing and reduces Alex's total debt by the amount paid.  `(world.md; story.md; input/open-items.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## Who fronts Alex the required medicine, travel token or parts, and what repayment terms does Alex keep?
-
-Tomas fronts Alex the old key's associated travel token and parts on a 40-credit note; Alex faces Tomas after the wage forfeiture and agrees to repay from his first Halyard repair work.  `(characters.md; story.md)`
-
-_(decided 2026-10-14, about characters.md, story.md)_
-
-## Who cares for Grandmother while Alex travels?
-
-Ada's aunt, Pilar Veyra, a Keel clinic worker and trusted family friend, stays in the Phantum apartment, manages Grandmother's medicine and records each dose on paper.  `(characters.md; story.md)`
-
-_(decided 2026-10-14, about characters.md, story.md)_
-
-## What clue specifically points Alex from the Measure to the Maker's Seal and a concrete Halyard destination?
-
-The Measure's trace reveals that the diverted industrial uplink terminates at a Halyard purification facility where one of Adrian's water patents is still active. Adrian's map marks that facility as the first destination, and Lina Vey's name appears in the associated contributor record.  `(story.md; world.md)`
-
-_(decided 2026-10-14, about story.md)_
-
-## Why was the old mine sealed?
-
-The mine was sealed because its abandoned lithium galleries contained a dangerous, contaminated water-control system that Alpha later repurposed.  `(world.md; story.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## What later function does the Legacy Protocol have?
-
-It is only an alert and tracking signal. It tells Alpha that Adrian's system has been touched, while the safeguards themselves later authenticate and activate the transfer.  `(world.md; story.md)`
-
-_(decided 2026-10-14, about world.md, story.md)_
-
-## Does the Oasis watcher know Adrian's name when the Legacy Protocol is detected?
-
-The alert identifies only the Legacy Protocol and Keel sector. Mera recognizes the protocol's signature and chooses TRACK because she suspects Adrian's system has been reactivated, but she does not yet know Alex is the user.  `(story.md; characters.md)`
-
-_(decided 2026-10-14, about story.md, characters.md)_
-
-## What is the precise legal and financial structure of Adrian's debt?
-
-The 418,607 credits are a consolidated household liability: documented research loans and failed prototype financing form most of the principal, while gambling losses form a smaller but real portion. Interest, penalties and collection costs accumulated under a secured account, and Alex becomes the legally designated household guarantor at seventeen.  `(world.md; story.md; characters.md; input/open-items.md)`
-
-_(decided 2026-10-14, about world.md, story.md, characters.md)_
-
-## Is Alex's Chapter 1 repair work financially consequential?
-
-Do not add a separate transaction in Chapter 1; use the 40-credit display to establish that Alex earns money, and make the first explicit financial choice the medicine/travel decision in Chapter 2.  `(story.md; characters.md)`
-
-_(decided 2026-10-14, about story.md, characters.md)_
-
-## What exactly is Bi11bot's required mistake, and where does it occur?
-
-In the mine, Bi11bot concludes from Alpha's map that the straight tunnel is the safest route. Alex notices condensation and repaired bolts pointing elsewhere; Bi11bot admits, “I read that wrong,” and asks what Alex would do. Alex follows the physical evidence.  `(story.md; characters.md)`
-
-_(decided 2026-10-14, about characters.md, story.md)_
-
-## Is the retrospective older-Alex narrator used, and where do the mission transitions occur?
-
-Use no retrospective narration in the finished book; keep the missions outside the graphic novel and let the story carry all transitions through action and page turns.  `(story.md; rules/decisions.md)`
-
-_(decided 2026-10-14, about story.md, rules/decisions.md)_
+_(decided 2026-10-15 by the showrunner)_ This pass makes the 4-page prologue and Chapters 1–3 as
+Bob wrote them (12, 15 and 16 pages): 47 pages. Chapters 4–6 wait in drafts/later/.
 
 ## Where does TJ first enter the main story?
 
-TJ does not appear in this book. The 2099 prologue he lived in is gone (2026-10-14); he is kept in rules/characters.md for a later book.  `(characters.md; story.md)`
+TJ does not appear in this book. He is kept in rules/characters.md for a later book.
 
-_(decided 2026-10-14, about characters.md, story.md)_
+## The Charter Houses' names and colours
 
-## What is Foreman-7?
+_(decided 2026-10-15 by the showrunner)_ The Houses are **Helion** (energy, compute and infrastructure), **Aqualis**
+(water and chemistry) and **Astra** (extraction, launch and materials). Each House gets one accent
+colour inside the book's shared palette, so a reader can tell them apart by colour before the text
+does any work: **Helion deep amber-orange, Aqualis cool jade-teal, Astra pale steel-violet**. Their
+insignia, uniforms, signage and light carry that colour every time they appear.
 
-Foreman-7 is a human mine foreman wearing an Alpha-linked supervisory harness; the white-and-amber node is his access and communications unit.  `(characters.md)`
+## How are the remaining pages of the exactly 64-page book allocated?
 
-_(decided 2026-10-14, about characters.md)_
+This pass is the 4-page prologue and Chapters 1-3 only, each as long as Bob's draft: 12, 15 and 16 pages. The rest of the 64 pages is for Chapters 4-6 in a later pass.
 
-## What are the final names and legal identities of the three Charter Houses?
+_(decided 2026-10-15, about story.md, world.md)_
 
-Replace the placeholders with three fictional Houses whose roles remain distinct: a water-and-chemistry House, an energy/compute/infrastructure House and an extraction/launch/materials House.  `(world.md; story.md; characters.md)`
+## Do Chapters 4–6 belong in this 64-page book, or is the current pass intentionally incomplete?
 
-_(decided 2026-10-14, about world.md, story.md, characters.md)_
+They belong in the book, but this pass is intentionally incomplete: prologue and Chapters 1-3 only.
 
-## How do Charter House ownership claims interact with employment contracts, patent law, the public registry and the Maker's Seal?
+_(decided 2026-10-15, about story.md, world.md)_
 
-House employment contracts assign work-made inventions to the House, but the public registry distinguishes those claims from named creators and prior collaborators. The Maker's Seal supplies provenance and contribution evidence that can reopen disputed ownership without automatically voiding valid contracts.  `(world.md; story.md)`
+## What are the names and identities of the three Charter Houses?
 
-_(decided 2026-10-14, about world.md, story.md)_
+House Aqualis (water and chemistry, cool jade-teal), House Helion (energy and compute, deep amber-orange), House Astra (mining and launch, pale steel-violet). See "The Charter Houses' names and colours".
 
-## What is Director Lock's exact authority and relationship to the three Houses?
+_(decided 2026-10-15, about world.md, story.md, characters.md)_
 
-Lock is the appointed director of a joint House review authority, empowered to negotiate estate transfers on behalf of all three Houses but not to erase their separate ownership claims.  `(characters.md; story.md; world.md)`
+## Adrian's apology keeps "Mom"
 
-_(decided 2026-10-14, about characters.md, story.md, world.md)_
+_(decided 2026-10-15 by the showrunner)_ Chapter 1, page 10: Adrian says "I'm sorry. To you, and to
+Mom." exactly as Bob wrote it. Naming her is not learning anything about her; the rule that we never
+learn anything about Alex's mother still holds.
 
-## How many patents are in Adrian's intellectual estate?
+## Showrunner notes on the prologue and Chapter 1
 
-Use the repeatedly displayed figure: 312 patents, of which 47 are restricted and 19 disputed.  `(input/fifth-draft/chapter-03-draft.md)`
+_(decided 2026-10-15 by the showrunner)_
 
-_(decided 2026-10-14, about world.md, story.md)_
+- **Ages.** Chapter 1 opens on the morning of Alex's eighteenth birthday, Debt Transfer Day: he
+  was seventeen until today. Ada is eighteen.
+- **The number.** Alex knew he would inherit his father's debt; he did not know how much until
+  the checkpoint shows it on his birthday.
+- **His work, their name.** Alex's fixes and inventions are taken and sold by the mine, with no
+  credit and no ownership for him, and it grates. Shown once in Chapter 1: his bracket is logged
+  into the Site 6 parts catalog under the site's credit, and he says so to Ada.
+- **His smile.** Alex's smile is raw and tired, never joyous.
+- **Ada and the water.** Not a happy-go-lucky scene: two friends stealing a few minutes for
+  themselves in a hard place. They laugh, worn and dry.
+- **The book.** Grandmother, still taking Alex for Adrian, asks him to get down from the top shelf
+  the book Adrian wanted Alex to have at eighteen. Tugging it out opens the hidden door.
+- **The watch.** Found in the workshop; putting it on wakes Bi11bot (see "Adrian's watch").
+- **Where the debt came from.** Not gambling, though Keel says so. Adrian made one bad call,
+  left unsaid. His message (page 10) says only: "I made one bad call. I thought I was right. But
+  I was wrong." The lesson is that everyone makes mistakes. The debt was his company's, Phantum
+  Waterworks, passed to Alex; the prologue's Phantum Waterworks nameplate only implies it, never a line.
 
-## Why does Adrian's patent cluster lead to the Maker's Seal?
+## Who owns Alex's inherited debt, and what are its terms?
 
-The patent cluster contains contributor records split across the three Houses; following those records leads Alex to Lina, Suri, Jalen and Ren, whose combined work reveals that Lina has custody of the Seal.  `(story.md; world.md)`
+Phantum Waterworks owes a public emergency-recovery bank. Adrian personally guaranteed the company loan; the remaining liability passes to Alex at eighteen, interest continues, and the bank can restrict travel. Background only: never explained on the page.
 
-_(decided 2026-10-14, about story.md, world.md)_
+_(decided 2026-10-15, about world.md, characters.md, story.md)_
 
-## How is the Maker's Seal physically revealed and activated?
+## What is the full but still uncertain history of Adrian's debt and disappearance?
 
-Lina presents the medallion only after the group combines the four contributor shards and Alex names each person's work before the House review. The open-hand mark warms and projects a shared provenance record.  `(world.md; story.md)`
+Adrian made one bad call, left unsaid ("I made one bad call. I thought I was right. But I was wrong."). The debt is his company's research debt; Keel's gambling story is a rumour. No more detail in Chapter 1.
 
-_(decided 2026-10-14, about world.md, story.md)_
+_(decided 2026-10-15, about characters.md, world.md, story.md)_
 
-## What final business structure commercializes the purifier?
+## What does the Legacy Protocol do beyond detecting the artifacts and alerting observers?
 
-The collaborators form a contributor-owned licensing venture. It retains the purifier rights, licenses approved small businesses for a low upfront fee and per-unit royalty, names all contributors and uses a reserve for failed units and maintenance.  `(characters.md; world.md; story.md; input/open-items.md)`
+In Chapter 1 it only sends an alert and the source location. Its deeper functions stay dormant.
 
-_(decided 2026-10-14, about characters.md, world.md, story.md)_
+_(decided 2026-10-15, about world.md, story.md)_
 
-## What are the purifier's timeline, prototypes, operating costs and maintenance requirements?
+## Does the watcher in Oasis know Adrian's name or Alex's identity when she chooses TRACK?
 
-Keep the three-night prototype sprint as an engineering proof, not a finished product. The group produces one field-test unit at 91% simulated efficiency; local businesses then need several weeks of fabrication, testing and installation before sale.  `(story.md; world.md; input/open-items.md)`
+Mera recognises Adrian's protocol signature, but the source is only 'Keel sector' until she tracks it. She does not yet know Alex.
 
-_(decided 2026-10-14, about world.md, story.md)_
+_(decided 2026-10-15, about characters.md, story.md)_
 
-## What is the first concrete financial return from the purifier or its licenses?
+## What is the placement and scope of retrospective older-Alex narration?
 
-The first licensed shop pays 38 credits; 12 credits go to Alex's debt account, 18 to the contributor venture and 8 to maintenance and warranty reserve. Alex sees the transaction and later tells the creditor what has been paid.  `(story.md; characters.md; input/open-items.md)`
+Keep Bob's text: older Alex narrates the prologue, and Bob's one retrospective caption on Chapter 1, page 12 stays as written. No other retrospective narration.
 
-_(decided 2026-10-14, about story.md, characters.md)_
+_(decided 2026-10-15, about story.md)_
 
-## How does the Chapter 3 competitive race resolve or remain open?
+## Where do the mission transitions belong in relation to the exact 47-page book?
 
-Lock treats the network as a manageable but real competitor. The Houses begin developing a competing industrial purifier, while the independent businesses win trust in Keel through lower-scale service and local maintenance.  `(story.md)`
+This pass is 16 pages: the prologue and Chapter 1. Missions and the full page budget are decided later.
 
-_(decided 2026-10-14, about story.md)_
+_(decided 2026-10-15, about story.md, world.md)_
 
-## What does Alex concretely lose by refusing Lock?
+## What is the exact relationship between Bi11bot's Chapter 1 voice and his later teaching voice?
 
-Alex loses guaranteed debt clearance, House employment and protected access to Halyard; Lock also freezes the estate's immediate commercial rights pending review.  `(story.md; characters.md)`
+Concise, patient and lightly amused, consistent throughout, as Bob wrote him.
 
-_(decided 2026-10-14, about story.md, characters.md)_
+_(decided 2026-10-15, about characters.md, story.md)_
 
-## What coercion or threatened consent will the story dramatize?
+## How does Alex earn or decide with money during Chapter 1?
 
-Mera pressures Alex to accept executive authority by presenting it as the only way to save Keel immediately; Alex can refuse without physical force, making the coercion institutional and emotional rather than magical.  `(story.md; world.md)`
+Add nothing. The checkpoint, the uncredited bracket and Grandmother's needs carry it.
 
-_(decided 2026-10-14, about story.md, world.md)_
+_(decided 2026-10-15, about story.md, characters.md)_
 
-## What exact post-Alpha structure verifies decisions and resolves disputes?
+## What concrete want or independent skill does Ada demonstrate in Chapter 1 beyond supporting Alex?
 
-Alpha remains an advisory and recordkeeping system, while human councils chosen by each affected district approve allocations, ownership changes and emergency measures. Any decision can be challenged through a public evidence docket.  `(world.md; story.md)`
+Already established: she wants Keel worth staying in, saves water from her own ration and challenges Alex's accepted story about Adrian.
 
-_(decided 2026-10-14, about world.md, story.md)_
+_(decided 2026-10-15, about characters.md, story.md)_
 
-## What specific attempted rigging does the ending show, and how do affected people catch it?
+## What is the final page allocation within the exact 47-page book?
 
-A House submits a clean-looking allocation proposal that quietly uses a different denominator from the Measure's public baseline. Keel workers compare the pipe readings and published figures, expose the mismatch and force a public revision.  `(story.md; world.md)`
+This pass is 16 pages: the 4-page prologue and Chapter 1 at 12 pages, as Bob wrote it. The full book's page budget is decided later.
 
-_(decided 2026-10-14, about story.md)_
+_(decided 2026-10-15, about world.md, story.md)_
 
-## What is the final status of Alex's debt at the ending?
+## Bob's Chapter 1 text that stays
 
-Drop the credit ending balance to 314,159
+_(decided 2026-10-15 by the showrunner)_ Two lines the draft edit must not change:
+- Page 2: the caption "Eighteen: the age Keel decides you're old enough to owe." stays. It is
+  narration in the present, not older-Alex retrospective narration.
+- Page 8: Bi11bot's eyes are dull and unlit until the watch wakes him; they ignite on panel 4.
+  "Never dull glass eyes" applies to him awake.
 
-_(decided 2026-10-14, about story.md, world.md)_
+## Character locks of 2026-10-15
 
-## Does the watcher, Mera or another authority know Adrian's fate before Alex arrives in Oasis?
+_(decided 2026-10-15 by the showrunner)_ New locks for Alex, Ada, Adrian, Bi11bot and Alex's
+daughter (from ~/Documents/characters). The art follows the lock wherever older descriptions differ:
+Ada's hair is shoulder-length and red, her eyes green; Alex's hair is black and his eyes blue-grey;
+Bi11bot is about 85 cm, slim-limbed, with a blue-and-yellow round head; Adrian wears a long coat,
+vest and tie. Grandmother keeps her existing lock.
 
-Mera knows Alpha closed the door and that Adrian activated Bi11bot, but she does not know whether he survived the flooding. She withholds her partial knowledge until Alex reaches the station.  `(characters.md; story.md)`
+## The Keel pump (Chapter 1, page 6)
 
-_(decided 2026-10-14, about characters.md, story.md)_
+_(decided 2026-10-15 by the showrunner)_ The pump Alex repairs is the unit in
+style/props/pump-repair.png: a rusted brass box bolted to a flanged pipe, a round gauge on top,
+red and black cables below; opened, its fold-out arms frame two amber indicator modules.
 
-## What does Adrian's final disappearance establish as objective truth?
+- _(later on 2026-10-15)_ Locks redone in the book's style for Alex, Ada, Adrian, Bi11bot, the
+  daughter and Grandmother, plus **Alex at 45 for the 2070 prologue** (style/locks/alex-2070-sunburst:
+  grey at the temples, stubble, worn brown work jacket over a dark henley, jeans, brown boots, no
+  backpack). Grandmother now has curly grey hair pinned up and a red woven Andean shawl. The style
+  plate is Chapter 1, page 7 as drawn; the old plate (with the casino chip) is set aside.
 
-Objective truth: Alpha's system closed the bulkhead while Adrian was inside; Adrian completed the recording and activated Bi11bot; the book does not establish whether he died in the flooding or escaped through an unrecorded route.  `(characters.md; world.md; story.md)`
+## The prologue's newspaper clippings
 
-_(decided 2026-10-14, about characters.md, world.md, story.md)_
+_(decided 2026-10-15 by the showrunner)_ Page 1, panel 3: the three headlines ("PHANTUM
+WATERWORKS: 4,000 KEEL JOBS CREATED", "PATENT ROYALTIES FUND 300 NEW FOUNDERS", "CLEAN-WATER
+PRICES DROP 60% AND HEALTH IMPROVED") are framed newspaper clippings: yellowed newsprint, columns of
+small grey body text, a drawn photo under each headline. The art draws the clippings with the
+headline band left blank; the lettering sets each headline in a bold condensed newspaper face on
+newsprint.
 
-## Should the mission material appear in the book, and how is it integrated without breaking the story?
+## Bob's words are never changed
 
-Include no mission prompts in the graphic novel; retain their underlying actions as story beats and publish the activities separately.  `(story.md; rules/decisions.md)`
+_(decided 2026-10-15 by the showrunner)_ Nothing Bob wrote is changed, for any reason: not his
+dialogue, captions, image notes or punctuation, and not to fit the canon. No pass of the room
+(draft edit, script, layouts, lettering) may alter his text. The only standing exceptions are the
+showrunner's own explicit decisions in this file (the House names Helion, Aqualis and Astra, and
+Adrian's watch in place of the chip). Where the canon and Bob's text disagree, Bob's text wins and
+the disagreement is flagged to the showrunner, not fixed.
 
-_(decided 2026-10-14, about story.md)_
+## What exact allocation, denominator and time period do the 62% reported and 18% delivered figures describe?
 
-## Should the proposed brainstorming and imagination beats be included in the chapters?
+As Bob wrote it (Ch2 p10-11): the official gauge reads KEEL SHARE OF THIS JUNCTION 62%; the Measure shows 18% of the junction reaching KEEL HOMES. No further detail.
 
-Include only the brainstorming that produces an immediate decision: Alex and Ada plan the mine route, the group compares purifier costs before building, and the Keel response shows a concrete shared target; cut any explicit “imagination exercise” framing.  `(story.md; rules/decisions.md)`
+_(decided 2026-10-15, about world.md, story.md)_
 
-_(decided 2026-10-14, about story.md)_
+## What smaller financial condition keeps Alex in Keel, and how exactly does the community satisfy it?
 
-## Is Bi11bot's optional Budget Challenge part of the story?
+As Bob wrote it (Ch2 p5, p13-14): a 500-credit overdue amount blocks travel; 61 Keel accounts pay it; the debt goes from 418,607 to 418,107 and travel is permitted.
 
-Omit the explicit challenge because the failed 11% prototype, House pressure and Alex's debt already create sufficient financial constraints.  `(story.md; characters.md)`
+_(decided 2026-10-15, about world.md, story.md)_
 
-_(decided 2026-10-14, about story.md, characters.md)_
+## How and when does Alex begin earning from the work, and how is that income applied to his debt?
 
-## How will the book avoid riddle-like dialogue while preserving the characters' distinct voices?
+As Bob wrote it (Ch3 p15): the first licensing revenue is 38 credits, 12 applied to the debt; later his debt is bought by an unknown backer at a premium.
 
-Give every abstract system one visible action, one concrete anchor and one consequence of misunderstanding it; let Alex name physical evidence, Ada name who bears the burden, Bi11bot ask one short question, Mera use formal institutional language and Alpha use administrative display text.  `(rules/reader.md; rules/vocabulary.md; characters.md; story.md)`
+_(decided 2026-10-15, about world.md, story.md)_
 
-_(decided 2026-10-14, about characters.md, story.md)_
+## What concrete clue points Alex and Ada from the train to the relevant Halyard location or collaborator?
 
-## What exact regional identities and visual details are needed for the unresolved characters?
+As Bob wrote it (Ch2 p15): a note from Adrian, unlocked after the Measure is used, points to the Halyard patent registry and his uncredited collaborators.
 
-Keep Alex's mother, Alex's exact Indigenous community, Ada's exact Indigenous community, Tomas's exact community, Ren's ancestry and Mera's national background unspecified; design them through established family resemblance, work, class, clothing, posture and environment, and give Mera a formal title such as Director of Continuity Review. Foreman-7 remains a numbered supervisory authority until staging requires more.  `(characters.md; rules/ancestry.md)`
+_(decided 2026-10-15, about story.md)_
 
-_(decided 2026-10-14, about characters.md)_
+## Who remains with Grandmother, and what relationship or authority does that person have?
 
-## How are the payments and other financial events reconciled with Alex's fixed 314,159-credit ending balance?
+As Bob wrote it (Ch2 p5, p14): Nell, the downstairs neighbour and clinic aide, moves in upstairs and cares for Grandmother.
 
-Treat 314,159 credits as the final account balance after the 500-credit overdue installment, documented wages and repair payments, the 12-credit purifier allocation and additional visible repayments established in the compressed Chapters 3–6. Remove the earlier 402,110 display.  `(rules/decisions.md; story.md; world.md)`
-
-_(decided 2026-10-14, about story.md, world.md)_
+_(decided 2026-10-15, about story.md, characters.md)_
+- _(showrunner, 2026-10-15)_ Four of Bob's punctuation marks are set as ellipses by the showrunner:
+  "lucky day...", "We pay back Alpha...", "the grind in Keel..." and "dirty water...". All his other
+  punctuation stays exactly as he typed it.

@@ -1,513 +1,478 @@
 # Prosperity — Continuity Ledger
 
-## Project structure
+## Project and chronology
 
-- [FIXED] *Prosperity* is exactly 64 pages, numbered 1–64. `(world.md)`
-- [FIXED] The 10-page 2099 prologue is included within the 64-page total. `(world.md)`
-- [FIXED] Chapters 1–6 occupy the remaining 54 pages. `(world.md)`
-- [FIXED] Chapter 1 is 12 pages. `(world.md)`
-- [FIXED] Chapter 2 is 15 pages. `(world.md)`
-- [FIXED] Chapters 1 and 2 take place in Keel. `(world.md)`
-- [FIXED] Halyard begins in Chapter 3. `(world.md)`
-- [FIXED] Chapter 3 concerns ownership and the purifier. `(world.md)`
-- [FIXED] Chapter 4 concerns the Covenant. `(world.md)`
-- [FIXED] Chapter 5 concerns Adrian's disappearance. `(world.md)`
-- [FIXED] Chapter 6 concerns distributed authority. `(world.md)`
-- [FIXED] Chapters 3–6 share the remaining 27 pages. `(world.md)`
-
-## Chronology
-
-- [FIXED] The main story takes place in 2043. `(world.md)`
-- [FIXED] The prologue takes place in 2099, seventy years after the main story. `(world.md; story.md)`
-- [FIXED] Alex is seventeen when the main story begins. `(characters.md; world.md)`
-- [FIXED] Adrian disappeared when Alex was two. `(characters.md)`
-- [FIXED] The Water Wars occurred before Alpha received temporary authority over essential resources and services. `(world.md; story.md)`
-- [FIXED] Adrian, Leona Veyra and Mera Vale built the Covenant during the Water Wars. `(world.md; story.md)`
-- [FIXED] Adrian's disappearance occurred after Alpha's temporary authority had become effectively permanent. `(world.md; story.md)`
-
-## Geography and cities
-
-- [T] Prosperity is an Andean high-desert mining and infrastructure colony. `(world.md)`
-- [FIXED] Keel, Halyard and Oasis occupy different elevations of one mountain basin. `(world.md)`
-- [FIXED] Keel lies at the bottom of the basin. `(world.md)`
-- [FIXED] Halyard lies midway up the basin. `(world.md)`
-- [FIXED] Oasis lies above Keel and Halyard, partly above the cloud layer. `(world.md)`
-- [FIXED] A vertical infrastructure spine connects the three cities. `(world.md)`
-- [FIXED] The infrastructure spine carries water conduits, energy lines, transit rails, communications and control nodes. `(world.md)`
-- [FIXED] Keel is built into and around an exhausted open-pit lithium mine. `(world.md)`
-- [FIXED] Halyard is a technical and manufacturing city containing workshops, research facilities, fabrication towers and Charter Houses. `(world.md)`
-- [FIXED] Oasis is an administrative and residential city containing reservoirs, gardens, civic spaces and automated transit. `(world.md)`
-- [FIXED] Keel, Halyard and Oasis are connected settlements rather than isolated cities. `(world.md)`
-- [FIXED] A train can travel from Keel toward Halyard. `(world.md; story.md)`
-- [FIXED] The Keel-to-Halyard crossing is by train through a rail gate. `(world.md; story.md)`
-- [FIXED] Keel has rationing, restricted travel, aging infrastructure and physical wear. `(world.md)`
-- [FIXED] Halyard has technical capacity, industrial activity and large Charter Houses. `(world.md)`
-- [FIXED] Oasis has better nutrition, healthcare, architecture, maintenance and administrative access than Keel. `(world.md)`
-- [FIXED] The three cities contain Indigenous, mestizo, European-descended, Afro-descended, South Asian, East Asian, mixed and international populations. `(world.md)`
-- [FIXED] The cities' visible differences are primarily produced by class, access, ownership, education, occupation, dress, grooming, speech, health, environment and institutional power rather than a simple ethnic division. `(world.md)`
-
-## Water and environment
-
-- [FIXED] Water is rationed in Keel. `(world.md)`
-- [FIXED] Water is more available in Halyard than in Keel. `(world.md)`
-- [FIXED] Water is abundant and clean in Oasis. `(world.md)`
-- [FIXED] Water travels through infrastructure spanning the mountain basin. `(world.md)`
-- [FIXED] Alpha allocates water through systems connected to its authority. `(world.md)`
-- [FIXED] Keel's water scarcity and water contamination are separate problems. `(world.md; story.md)`
-- [FIXED] For the central comparison, the figures measure the same rolling 30-day allocation period for Keel's authorized municipal water share. `(world.md; story.md)`
-- [FIXED] Alpha reports that 62% of Keel's authorized municipal water share was delivered. `(world.md; story.md)`
-- [FIXED] The Measure records 18% physically arriving at the Keel residential branch during that same period. `(world.md; story.md)`
-- [FIXED] The missing flow is routed through a maintained industrial uplink to Halyard processing and Charter House facilities. `(world.md; story.md)`
-- [FIXED] The old `KEEL HOMES` pipe had been dry for years before water was redirected through it. `(world.md; story.md)`
-- [FIXED] The `KEEL HOMES` pipe runs past lithium workings. `(world.md; story.md)`
-- [FIXED] Water emerging from the `KEEL HOMES` pipe is cloudy. `(world.md; story.md)`
-- [FIXED] Water in the `KEEL HOMES` pipe contains metals from the pipe and the mine. `(world.md; story.md)`
-- [FIXED] Increased water access does not automatically produce safe water in Keel. `(world.md; story.md)`
-- [FIXED] The old mine contains a dangerous, contaminated water-control system in abandoned lithium galleries. `(world.md)`
-- [FIXED] Alpha later repurposed the contaminated water-control system in the old mine. `(world.md)`
-- [FIXED] The 2099 Keel open pit is a clean lake surrounded by terraces, gardens and workshops. `(world.md; story.md)`
-- [FIXED] Water remains valuable enough to steal in 2099. `(world.md; story.md)`
-
-## History and governance
-
-- [FIXED] The Water Wars began with scarcity and became wars when people decided who deserved what remained. `(world.md; story.md)`
-- [T] The Water Wars included dried reservoirs, cracked riverbeds, changed river courses, sabotaged pipelines, flooded streets, guarded storehouses, displaced families and seized water infrastructure. `(world.md)`
-- [T] Communities broke agreements and retaliated during the Water Wars. `(world.md)`
-- [T] People who had personally negotiated agreements with one another died during the Water Wars. `(world.md)`
-- [FIXED] Alpha was first built to coordinate emergency response after the Water Wars. `(characters.md; world.md; story.md)`
-- [FIXED] An emergency coalition or other legitimate authority transferred temporary decision-making power over essential resources and services to Alpha. `(world.md; story.md)`
-- [FIXED] The three Covenant custodians' two-of-three emergency mechanism authorized that transfer. `(world.md; story.md)`
-- [FIXED] Mera voted in favor of transferring authority to Alpha. `(world.md; story.md)`
-- [FIXED] Adrian voted against transferring authority to Alpha. `(world.md; story.md)`
-- [FIXED] Leona cast the deciding vote in favor of the transfer. `(world.md; story.md)`
-- [FIXED] Alpha's temporary authority became effectively permanent. `(world.md; story.md)`
-- [FIXED] Alpha's allocation decisions leave Keel, Halyard and Oasis visibly unequal. `(characters.md; world.md)`
-- [FIXED] Alpha's authority includes practical control or influence over water allocation, labor assignments, travel authorization, access permissions, public records, surveillance, financial restrictions, liability classifications, emergency interventions, infrastructure coordination, ownership records and agreement records. `(world.md)`
-- [FIXED] Alpha's harmful behavior is not represented as personal malice. `(characters.md; world.md)`
-- [FIXED] Alpha's central failure is the drift from emergency coordination into unaccountable governing authority. `(world.md; story.md)`
-- [FIXED] Adrian designed the three safeguards and the dormant return-of-authority mechanism as one system. `(world.md; story.md)`
-- [FIXED] The return-of-authority mechanism does not shut off useful AI or infrastructure. `(world.md; story.md)`
-
-## Alpha and control systems
-
-- [FIXED] Alpha can analyze conditions, predict outcomes, coordinate emergency response and allocate essential resources and services. `(world.md)`
-- [FIXED] Alpha's predictive and allocation systems do not replace the need for legitimate human decisions. `(characters.md; story.md)`
-- [FIXED] Alpha uses administrative and impersonal system language. `(world.md)`
-- [FIXED] Alpha can restrict movement. `(characters.md; world.md)`
-- [FIXED] Alpha can manage debt and travel status. `(characters.md; world.md)`
-- [FIXED] Alpha can flag unauthorized repairs. `(characters.md; world.md)`
-- [FIXED] Alpha can monitor infrastructure and access points. `(world.md)`
-- [FIXED] Alpha can classify people as risks and pursue people it classifies as risks. `(characters.md; world.md)`
-- [FIXED] Alpha can identify Legacy Protocol activity. `(world.md)`
-- [FIXED] The Legacy Protocol is an alert and tracking signal only. `(world.md; story.md)`
-- [FIXED] The Legacy Protocol tells Alpha that Adrian's system has been touched. `(world.md; story.md)`
-- [FIXED] The Legacy Protocol does not authenticate the safeguards. `(world.md)`
-- [FIXED] The Legacy Protocol does not activate the return-of-authority mechanism. `(world.md)`
-- [FIXED] The first Legacy Protocol activation produces a pulse through the infrastructure spine from Keel through the Keel–Halyard gate, Halyard and Oasis. `(world.md; story.md)`
-- [FIXED] The three safeguards later authenticate and activate the return-of-authority mechanism. `(world.md; story.md)`
-
-## The safeguards
-
-### The Measure
-
-- [FIXED] The Measure is a physical handheld artifact. `(world.md; story.md)`
-- [FIXED] The Measure independently checks real conditions against official information. `(world.md; story.md)`
-- [FIXED] The Measure can read actual flow and pressure. `(world.md)`
-- [FIXED] The Measure can compare physical readings with Alpha's official records. `(world.md; story.md)`
-- [FIXED] The Measure can reveal discrepancies between physical conditions and official records. `(world.md; story.md)`
-- [FIXED] The Measure can trace where a resource is being diverted. `(world.md; story.md)`
-- [FIXED] The Measure does not decide what people should do about a discrepancy. `(world.md)`
-- [FIXED] The Measure does not change pipes or release water. `(story.md)`
-- [FIXED] The Measure releases information rather than physically changing infrastructure. `(story.md)`
-- [FIXED] The Measure is a compact, fist-sized brass instrument with three folding arms. `(world.md)`
-- [FIXED] The Measure combines a transparent lens, balance scale and water-flow gauge. `(world.md)`
-- [FIXED] The Measure's collar is engraved `WHAT IS NOT MEASURED CAN BE MADE INVISIBLE`. `(world.md)`
-- [FIXED] The Measure produces a plain blue-white readout when connected. `(world.md)`
-- [FIXED] The Measure was hidden near the misleading water gauge in the sealed old mine. `(world.md)`
-- [FIXED] Alex recovers the Measure and carries it afterward. `(world.md)`
-- [FIXED] Bi11bot stores the Measure in a fitted brass compartment in his chest. `(world.md)`
-
-### The Maker's Seal
-
-- [FIXED] The Maker's Seal establishes who created something and who rightfully owns it. `(characters.md; world.md; story.md)`
-- [FIXED] The Maker's Seal links ownership to responsibility and recognizes contribution rather than granting control to whoever holds it. `(world.md)`
-- [FIXED] The Maker's Seal is a palm-sized bronze medallion with an open-hand maker's mark. `(world.md)`
-- [FIXED] The Maker's Seal is worn smooth from years of being carried. `(world.md)`
-- [FIXED] Lina Vey holds the Maker's Seal before giving it to Alex. `(world.md; story.md)`
-- [FIXED] Lina presents the Maker's Seal only after the four contributor shards are combined and Alex names each contributor's work before the House review. `(world.md; story.md)`
-- [FIXED] When activated, the Maker's Seal's open-hand mark warms and projects a shared provenance record. `(world.md; story.md)`
-- [FIXED] The Maker's Seal supplies provenance and contribution evidence that can reopen disputed ownership. `(world.md; story.md)`
-- [FIXED] The Maker's Seal does not automatically void valid House employment contracts. `(world.md; story.md)`
-
-### The Covenant
-
-- [FIXED] The Covenant makes legitimate agreements and shared accountability possible. `(characters.md; world.md; story.md)`
-- [FIXED] The Covenant consists physically of three linked metal bands. `(world.md)`
-- [FIXED] Each Covenant band is associated with a name and promise. `(world.md)`
-- [FIXED] Adrian's band is gold and burgundy. `(world.md)`
-- [FIXED] Leona's band is sage-gold. `(world.md)`
-- [FIXED] Mera's band is cold pearl-grey. `(world.md)`
-- [FIXED] The three Covenant bands can link into a complete circle. `(world.md)`
-- [FIXED] A Covenant band does not force a person to keep an agreement. `(world.md)`
-- [FIXED] Possessing a Covenant band alone does not activate the Covenant. `(world.md; story.md)`
-- [FIXED] Bi11bot carries Adrian's Covenant band in a fitted chest compartment. `(world.md)`
-- [FIXED] Leona preserves her Covenant band in a stone-grey box. `(world.md)`
-- [FIXED] Mera wears or carries her Covenant band. `(world.md)`
-
-### Combined operation
-
-- [FIXED] The three safeguards together can activate the dormant mechanism that returns governing authority from Alpha to people. `(world.md; story.md)`
-- [FIXED] The artifacts require deliberate human action. `(world.md; story.md)`
-- [FIXED] Merely possessing the three artifacts does not activate the return-of-authority mechanism. `(world.md; story.md)`
-- [FIXED] The return-of-authority mechanism requires a structure that distributes responsibility rather than concentrating it in one holder. `(world.md)`
-
-## The old mine and physical infrastructure
-
-- [FIXED] The sealed old mine lies beneath Keel. `(world.md; story.md)`
-- [FIXED] The old mine was sealed because its abandoned lithium galleries contained a dangerous, contaminated water-control system. `(world.md)`
-- [FIXED] The old mine contains old lithium infrastructure alongside newer water-control infrastructure. `(world.md)`
-- [FIXED] The old mine contains condensation, recently repaired equipment, an unrecorded pipe, a passage missing from the official map, hidden regulators, a narrow residential line, a maintained industrial uplink, manual valves, analog gauges and newer control nodes. `(world.md)`
-- [FIXED] Pre-Alpha pipes and analog gauges remain in service alongside modern digital monitoring. `(world.md)`
-- [FIXED] Old mine workings can contain corridors with no Alpha node or no official connection. `(world.md)`
-- [FIXED] Physical records, manually cut keys, paper maps and hand-built adapters can operate outside the official system. `(world.md)`
-- [FIXED] Tomas has maintained an unwired old-mine lock for fifteen years. `(characters.md; story.md)`
-- [FIXED] Tomas gives Alex the heavy old mine key. `(characters.md; story.md)`
-- [FIXED] The old mine key has a balanced water-drop stamped on its head. `(world.md)`
-- [FIXED] The old mine key fits an unwired lock. `(world.md)`
-- [FIXED] Ada's hand-drawn map marks a pipe at every third junction in the old mine. `(world.md; story.md)`
-- [FIXED] Alpha's official survey shows a straight tunnel that is not the safest route. `(story.md)`
-- [FIXED] Condensation and repaired bolts point toward the alternate route. `(story.md)`
-- [FIXED] Bi11bot initially identifies the straight tunnel as the safest route from Alpha's map. `(story.md)`
-- [FIXED] Bi11bot admits that he read the map wrong. `(characters.md; story.md)`
-- [FIXED] Alex follows the physical evidence toward the alternate route. `(characters.md; story.md)`
-
-## Charter Houses and ownership
-
-- [FIXED] Prosperity has three Charter Houses. `(world.md; story.md)`
-- [FIXED] One Charter House has a water-and-chemistry role involving purification, membranes, water treatment and related chemical systems. `(world.md)`
-- [FIXED] One Charter House has an energy, compute and infrastructure role involving power, computation, control systems and distributed infrastructure. `(world.md)`
-- [FIXED] One Charter House has an extraction, launch and materials role involving mining, launch operations, atmospheric capture, mineral recovery and advanced materials. `(world.md)`
-- [FIXED] The three Charter Houses are fictional institutions. `(world.md)`
-- [FIXED] The draft placeholder names Aqualis, Helion and Astra are not part of the book. `(world.md; story.md)`
-- [FIXED] The Charter Houses dominate Halyard's industrial and research economy. `(world.md)`
-- [FIXED] The Charter Houses scale technology, provide stable work, run large systems, manufacture, conduct research and operate energy, water, compute, extraction, launch and advanced-material systems. `(world.md)`
-- [FIXED] The Charter Houses control or influence capital, production, research units, patent systems and registry systems. `(world.md)`
-- [FIXED] House employment contracts assign work-made inventions to the relevant House. `(world.md; story.md)`
-- [FIXED] The public registry distinguishes House ownership claims from named creators and prior collaborators. `(world.md)`
-- [FIXED] A worker may create a component during paid House work while the House claims ownership of the component. `(world.md)`
-- [FIXED] A House contribution kiosk can record a creator bonus of 14 credits while assigning ownership to a water-and-chemistry House. `(world.md; story.md)`
-- [FIXED] An employee retains experience after leaving a House, while the House keeps the work and associated rights under the established employment arrangement. `(world.md)`
-- [FIXED] The Charter Houses' structural failure is concentration rather than the inherent wrongness of business, ownership or profit. `(world.md; story.md)`
-- [FIXED] The Charter Houses begin developing a competing industrial purifier. `(world.md; story.md)`
-- [FIXED] Independent businesses can build, sell and profit from smaller purifier units. `(world.md; story.md)`
-
-## Public registry and Adrian's estate
-
-- [FIXED] Halyard has a public registry containing patents, ownership records, commercial licenses, intellectual estates, House claims, disputed rights and restricted files. `(world.md)`
-- [FIXED] Adrian's intellectual estate is recorded as active. `(world.md; story.md)`
-- [FIXED] Alex is recorded as the claimant to Adrian's intellectual estate. `(world.md)`
-- [FIXED] Adrian's intellectual estate contains 312 patents. `(world.md; story.md)`
-- [FIXED] Forty-seven of Adrian's patents are restricted. `(world.md; story.md)`
-- [FIXED] Nineteen of Adrian's patents are disputed. `(world.md; story.md)`
-- [FIXED] Adrian's estate requires Charter House review. `(world.md)`
-- [FIXED] The patent cluster contains contributor records distributed across the three Charter Houses. `(world.md; story.md)`
-- [FIXED] Following the contributor records leads Alex to Lina Vey, Suri Anik, Jalen Orr and Ren Okafor. `(world.md; story.md)`
-- [FIXED] The contributor records connect Adrian's patent cluster to the Maker's Seal. `(story.md; world.md)`
-
-## Director Lock and House review
-
-- [FIXED] Cassian Lock is the appointed director of a joint House review authority. `(characters.md; world.md; story.md)`
-- [FIXED] Lock can negotiate estate transfers on behalf of all three Charter Houses. `(characters.md; world.md)`
-- [FIXED] Lock cannot erase the Charter Houses' separate ownership claims. `(characters.md; world.md)`
-- [FIXED] Lock offers Alex debt clearance, a cleared name, House employment and protected access to Halyard in exchange for assigning Adrian's estate or rights to House administration. `(characters.md; story.md)`
-- [FIXED] Refusing Lock's offer costs Alex guaranteed debt clearance, House employment and protected access to Halyard. `(characters.md; story.md)`
-- [FIXED] Lock freezes the estate's immediate commercial rights pending review after Alex refuses the offer. `(characters.md; story.md)`
-- [FIXED] Lock's offer is a genuine institutional and financial option rather than a purely physical threat. `(characters.md; story.md)`
-
-## Purifier technology and venture
-
-- [FIXED] Adrian's purification cluster includes catalytic membrane purification, atmospheric moisture capture, mineral recovery, living biofilter regulation and distributed community water nodes. `(world.md; story.md)`
-- [FIXED] Lina Vey holds membrane chemistry and water-purification work. `(story.md)`
-- [FIXED] Suri Anik maintains the living biofilter component. `(story.md)`
-- [FIXED] Jalen Orr holds distributed-node logic that prevents one House or Alpha from choking one city by cutting one line. `(characters.md; story.md)`
-- [FIXED] Ren Okafor holds mineral-recovery and atmospheric-capture work connected to extraction, launch and materials systems. `(characters.md; story.md)`
-- [FIXED] The collaborators' components initially fail to communicate because they were built to lock into separate House systems. `(world.md; story.md)`
-- [FIXED] The initial purifier simulation produces 11% efficiency. `(story.md)`
-- [FIXED] Alex identifies a compatibility and threading problem and makes a salvaged sleeve. `(characters.md; story.md)`
-- [FIXED] The collaborators' prototype sprint lasts three nights. `(world.md; story.md)`
-- [FIXED] The three-night sprint produces an engineering proof rather than a finished commercial product. `(world.md; story.md)`
-- [FIXED] The field-test purifier reaches 91% simulated efficiency. `(world.md; story.md)`
-- [FIXED] Local businesses require several weeks of fabrication, testing and installation before selling purifier units. `(world.md; story.md)`
-- [FIXED] The purifier is compact and no larger than a toolbox. `(world.md)`
-- [FIXED] The purifier combines membrane purification, a living biofilter, distributed-node logic, mineral recovery and atmospheric capture. `(world.md)`
-- [FIXED] The collaborators form a contributor-owned licensing venture. `(characters.md; world.md; story.md)`
-- [FIXED] The venture retains the purifier rights. `(world.md; story.md)`
-- [FIXED] The venture licenses approved small businesses for a low upfront fee and per-unit royalty. `(world.md; story.md)`
-- [FIXED] The venture names all contributors. `(world.md; story.md)`
-- [FIXED] The venture maintains a reserve for failed units, maintenance and warranty claims. `(world.md; story.md)`
-- [FIXED] The first licensed shop pays 38 credits. `(world.md; story.md)`
-- [FIXED] Twelve credits from the first licensed shop's payment go to Alex's debt account. `(world.md; story.md)`
-- [FIXED] Eighteen credits from the first licensed shop's payment go to the contributor venture. `(world.md; story.md)`
-- [FIXED] Eight credits from the first licensed shop's payment go to maintenance and warranty reserve. `(world.md; story.md)`
-- [FIXED] Alex sees the first licensed shop's transaction and later tells the creditor what was paid. `(world.md; story.md)`
+- [FIXED] The current project pass covers exactly 47 pages: a four-page prologue and Chapters 1–3 at 12, 15 and 16 pages respectively. (world.md / story.md)
+- [FIXED] The prologue is set around 2070. (world.md / story.md)
+- [FIXED] Chapters 1–3 are set in 2043. (world.md / story.md)
+- [FIXED] Chapter 1 begins on the morning of Alex Phantum's eighteenth birthday, Debt Transfer Day. (characters.md / story.md)
+- [FIXED] Alex was seventeen until the morning Chapter 1 begins. (world.md / story.md)
+- [FIXED] Ada Veyra is eighteen during Chapter 1. (characters.md / story.md)
+- [FIXED] Alex is approximately forty-five in the 2070 prologue. (characters.md / story.md)
+- [FIXED] Chapters 1 and 2 take place in Keel, and Chapter 3 begins in Halyard. (world.md / story.md)
+- [FIXED] TJ does not appear in this book. (world.md / story.md)
 
 ## Alex Phantum
 
-- [FIXED] Alex Phantum is seventeen at the beginning of the story. `(characters.md; world.md)`
-- [FIXED] Alex is a Keel worker and a mechanically capable repairer of pumps and mining systems. `(characters.md)`
-- [FIXED] Alex is Adrian Phantum's son. `(characters.md)`
-- [FIXED] Alex is mixed Indigenous Andean and European-descended. `(characters.md)`
-- [FIXED] Adrian is European-descended. `(characters.md)`
-- [FIXED] Alex's mother is Indigenous Andean. `(characters.md)`
-- [FIXED] Alex's mother left Adrian after he lost everything. `(characters.md)`
-- [FIXED] The story does not reveal anything else about Alex's mother. `(characters.md)`
-- [FIXED] Alex becomes responsible for a transferred parental household liability at seventeen. `(characters.md; world.md)`
-- [FIXED] Alex's initial inherited debt is 418,607 credits. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian is recorded as the guarantor of Alex's transferred liability, with whereabouts unrecorded or unknown. `(world.md; story.md)`
-- [FIXED] Alex's travel status is initially restricted. `(characters.md; world.md)`
-- [FIXED] Alex's initial account display projects 28.7 years to clear the balance at the displayed rate. `(world.md)`
-- [FIXED] Alex's debt is a consolidated household liability. `(characters.md; world.md)`
-- [FIXED] Documented research loans and failed prototype financing form most of the debt principal. `(characters.md; world.md)`
-- [FIXED] Gambling losses form a smaller but real portion of the debt. `(characters.md; world.md)`
-- [FIXED] Interest, penalties and collection costs accumulated under a secured account. `(characters.md; world.md)`
-- [FIXED] Alex cannot leave Keel at the beginning of the quest. `(characters.md; story.md)`
-- [FIXED] Alex voluntarily begins the quest because Adrian's trail may reveal what Adrian was working on and what happened to him. `(characters.md; story.md)`
-- [FIXED] Alex's inherited debt cannot disappear because he finds an artifact. `(characters.md)`
-- [FIXED] Alex's debt changes only through established financial events and visible costs or payments. `(characters.md; world.md)`
-- [FIXED] Alex's final account balance is 314,159 credits. `(characters.md; world.md; story.md)`
-- [FIXED] The earlier 402,110-credit ending display is not part of continuity. `(characters.md; world.md; story.md)`
-- [FIXED] Alex earns 40 credits in the Chapter 1 debt-transfer display. `(world.md; story.md)`
-- [FIXED] Alex's Chapter 1 repair does not create a separate additional financial transaction. `(characters.md; story.md)`
-- [FIXED] Alex chooses Grandmother's medicine before food, equipment or travel when his available credits cannot cover all needs. `(characters.md; story.md)`
-- [FIXED] Alex uses a salvaged bracket to repair an aging pump. `(characters.md; story.md)`
-- [FIXED] Alex rescues Tomas after leaving his assigned zone. `(characters.md; story.md)`
-- [FIXED] Alex incurs a 40-credit wage forfeiture for leaving his assigned zone. `(world.md; story.md)`
-- [FIXED] Alex faces Tomas after the wage forfeiture. `(characters.md; story.md)`
-- [FIXED] Alex agrees to repay Tomas's 40-credit note from his first Halyard repair work. `(characters.md; story.md)`
-- [FIXED] Alex chooses to publish the Measure's verified water discrepancy rather than use a private escape route. `(characters.md; story.md)`
-- [FIXED] Publishing the water evidence exposes Alex's location and closes his safe escape route. `(story.md)`
-- [FIXED] Alex refuses Lock's offer to transfer Adrian's estate or rights. `(characters.md; story.md)`
-- [FIXED] Alex involves Adrian's collaborators in developing the purifier. `(characters.md; story.md)`
-- [FIXED] Alex recognizes that the collaborators' work gives them claims to Adrian's inventions. `(characters.md; story.md)`
-- [FIXED] Alex refuses concentrated executive authority over Alpha. `(characters.md; story.md)`
-- [FIXED] Alex proposes distributed human decision-making instead of concentrating authority in himself, Ada or another individual. `(characters.md; story.md)`
-- [FIXED] Alex returns to Keel with debt still present and smaller than at the beginning. `(characters.md; story.md)`
+- [FIXED] Alex Phantum is the protagonist. (characters.md)
+- [FIXED] Alex is an eighteen-year-old Keel mechanic, inventor and heir to Adrian Phantum. (characters.md)
+- [FIXED] Alex is of mixed Indigenous Andean and European-descended ancestry. (characters.md)
+- [FIXED] Alex's father is Adrian Phantum, who is European-descended. (characters.md)
+- [FIXED] Alex's mother is Indigenous Andean. (characters.md)
+- [FIXED] Alex's mother left Adrian after he lost everything. (characters.md)
+- [FIXED] Alex's mother's name, exact community, whereabouts, occupation, appearance and fuller history are not established. (characters.md)
+- [FIXED] Alex lives in Keel with his grandmother. (characters.md)
+- [FIXED] Alex works around Keel's mining and water infrastructure. (characters.md)
+- [FIXED] Alex begins Chapter 1 with restricted travel. (characters.md / world.md)
+- [FIXED] Alex knew he would inherit Adrian's debt but did not know the amount until the Debt Transfer Day checkpoint. (characters.md / world.md)
+- [FIXED] Alex has black hair. (characters.md)
+- [FIXED] Alex has blue-grey eyes. (characters.md)
+- [FIXED] Alex is lean and physically shaped by mechanical work. (characters.md)
+- [FIXED] Alex carries a weathered tool bag. (characters.md)
+- [FIXED] Alex's work clothes are worn mining or industrial clothing. (characters.md)
+- [FIXED] Alex's Chapter 1 smile is raw and tired, not joyous. (characters.md)
+- [FIXED] Alex tests objects physically, including pumps, pipes and connectors. (characters.md)
+- [FIXED] Alex's repairs and inventions are taken and used by Keel institutions without credit or ownership being given to him. (characters.md / story.md)
+- [FIXED] At least one of Alex's brackets is entered in the Site 6 parts catalog under the site's credit rather than Alex's name. (characters.md / story.md)
+- [FIXED] Alex wants to leave Keel and choose his own future. (characters.md / story.md)
+- [FIXED] Alex puts Grandmother's medicine ahead of food, equipment and travel when resources compete. (characters.md / story.md)
+- [FIXED] Alex rescues Tomas from a mining accident at an immediate cost of 40 credits and a report entry. (characters.md / story.md)
+- [FIXED] Alex publishes verified water-allocation evidence despite the risk of identification and losing his escape route. (characters.md / story.md)
+- [FIXED] Alex chooses to work with Adrian's collaborators rather than transfer the intellectual estate to a single powerful buyer. (characters.md / story.md)
+- [FIXED] Alex publicly names Lina Vey, Suri Anik, Jalen Orr and Ren Okafor as contributors to the water design. (story.md)
+- [FIXED] Alex does not surrender ownership of the compact water design or give it away without an owner. (characters.md / story.md)
+- [FIXED] Alex's first licensing revenue is 38 credits. (world.md / story.md)
+- [FIXED] Twelve credits from Alex's first licensing revenue are applied to his debt. (world.md / story.md)
+- [FIXED] An unknown backer later buys Alex's debt at a premium. (world.md / story.md)
+- [FIXED] Alex wears Adrian's old steel watch on his left wrist after finding it in the workshop. (characters.md / world.md)
+- [FIXED] Alex often covers the watch with his sleeve or thumb. (characters.md)
+- [FIXED] In the 2070 prologue, Alex has grey at the temples and a day's stubble. (characters.md / story.md)
+- [FIXED] In the 2070 prologue, Alex wears a worn brown work jacket over a dark henley, jeans and brown boots. (characters.md)
+- [FIXED] In 2070, Alex lives in a modest, lived-in Oasis house. (story.md)
+- [FIXED] In 2070, Alex has a daughter who is approximately nine years old. (story.md)
+- [FIXED] Alex's daughter has warm-brown skin, freckles, brown eyes and long curly dark-brown hair. (story.md)
+- [FIXED] Alex's daughter wears an orange zip jacket with H2O patches, a teal T-shirt, dark cargo trousers, orange-and-black sneakers and a smartwatch in the prologue. (story.md)
 
 ## Adrian Phantum
 
-- [FIXED] Adrian Phantum is Alex's missing father. `(characters.md)`
-- [FIXED] Adrian is an engineer, inventor and researcher. `(characters.md)`
-- [FIXED] Adrian collaborated on the safeguards and water technologies. `(characters.md)`
-- [FIXED] Adrian was brilliant and loving but made serious mistakes. `(characters.md)`
-- [FIXED] Adrian gambled and hurt his family. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian borrowed to fund research, inventions and patents that failed to earn enough. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian's debt therefore includes both gambling losses and research-related borrowing. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian's equation models human decision-making and the limits of prediction. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian believed Alpha could predict or optimize outcomes but should not replace legitimate human decisions. `(characters.md; story.md)`
-- [FIXED] Adrian worked with Lina, Suri, Jalen and Ren on water purification and recovery technologies. `(characters.md; story.md)`
-- [FIXED] Adrian created Bi11bot. `(characters.md)`
-- [FIXED] Adrian created or entrusted Bi11bot with the workshop, records, maps, messages and artifact storage. `(characters.md)`
-- [FIXED] Adrian's looping equation is engraved on the back of his old watch. `(characters.md; world.md)`
-- [FIXED] The equation also appears in Adrian's workshop and in the mine's water-system records. `(characters.md; story.md)`
-- [FIXED] Adrian was subjected to surveillance, financial restriction, public liability designation, travel restriction and pursuit by Alpha's systems. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian reached a sealed underground monitoring station. `(characters.md; world.md; story.md)`
-- [FIXED] Alpha's system closed the station's bulkhead while Adrian was inside. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian completed a recording before the bulkhead sealed. `(characters.md; world.md; story.md)`
-- [FIXED] Adrian activated Bi11bot before or as the bulkhead closed. `(characters.md; world.md; story.md)`
-- [FIXED] The project does not establish whether Adrian died in the flooding or escaped through an unrecorded route. `(characters.md; world.md; story.md)`
+- [FIXED] Adrian Phantum is Alex's father. (characters.md)
+- [FIXED] Adrian is European-descended. (characters.md)
+- [FIXED] Adrian founded Phantum Waterworks. (characters.md / world.md)
+- [FIXED] Adrian was an inventor and engineer. (characters.md)
+- [FIXED] Adrian disappeared when Alex was two. (characters.md)
+- [FIXED] Alex remembers nothing directly about Adrian's disappearance. (characters.md)
+- [FIXED] Adrian was brilliant and loving and made serious mistakes. (characters.md)
+- [FIXED] Adrian made one serious “bad call,” but the exact nature of it is not established. (characters.md / story.md)
+- [FIXED] Adrian personally guaranteed Phantum Waterworks' company loan. (world.md)
+- [FIXED] Adrian's company debt is connected to research, inventions and patents that did not earn enough. (world.md / story.md)
+- [FIXED] Keel believes Adrian's debt came from gambling, but gambling is not the settled cause of the debt. (characters.md / story.md)
+- [FIXED] Adrian studied human decision-making and the limits of prediction. (characters.md / story.md)
+- [FIXED] Adrian worked with Lina Vey, Suri Anik, Jalen Orr and Ren Okafor on water-related inventions. (characters.md / story.md)
+- [FIXED] Adrian created or left Alex a trail involving three artifacts. (characters.md / story.md)
+- [FIXED] Adrian's equation appears on his workshop chalkboard, on the caseback of his watch and on related instruments. (characters.md / world.md)
+- [FIXED] Adrian built Bi11bot. (characters.md)
+- [FIXED] Adrian left a hidden workshop for Alex. (characters.md / story.md)
+- [FIXED] Adrian's recorded message apologizes to Alex and Grandmother with the words “I'm sorry. To you, and to Mom.” (characters.md / story.md)
+- [FIXED] Adrian's recorded message includes “Question everything. Especially me.” (characters.md / story.md)
+- [FIXED] Adrian's Legacy Protocol detects the activation of the first node and directs the artifact trail. (world.md / story.md)
+
+## Adrian's watch
+
+- [FIXED] Adrian's watch is a worn steel wristwatch that is slightly too large for Alex. (characters.md / world.md)
+- [FIXED] The watch has a plain cream dial, scratched glass and a small display window. (characters.md / world.md)
+- [FIXED] The watch's display window normally remains dark. (characters.md / world.md)
+- [FIXED] The watch's display glows amber once when Alex closes the clasp. (characters.md / world.md)
+- [FIXED] The watch wakes Bi11bot when Alex buckles it on. (characters.md / story.md)
+- [FIXED] The watch does not display a readout and does not count anything. (characters.md / world.md)
+- [FIXED] Adrian's looping equation is engraved on the watch's steel caseback. (characters.md / world.md)
+
+## Grandmother Phantum
+
+- [FIXED] Grandmother is Alex's grandmother and caretaker in Keel. (characters.md)
+- [FIXED] Grandmother is of Adrian's European-descended family line. (characters.md)
+- [FIXED] Grandmother lives with Alex at the beginning of the story. (characters.md)
+- [FIXED] Grandmother sometimes mistakes Alex for Adrian. (characters.md / story.md)
+- [FIXED] Grandmother requires ongoing medicine and daily care. (characters.md / world.md)
+- [FIXED] Grandmother preserves Adrian's workshop and family objects. (characters.md)
+- [FIXED] Grandmother gives Alex Adrian's old book on his eighteenth birthday. (characters.md / story.md)
+- [FIXED] The old book opens the hidden workshop when Alex removes it from a precise shelf gap. (characters.md / story.md)
+- [FIXED] Grandmother has curly grey hair pinned up. (characters.md)
+- [FIXED] Grandmother wears a red woven Andean shawl. (characters.md)
+- [FIXED] Nell moves in upstairs and cares for Grandmother while Alex travels. (characters.md / story.md)
+
+## Nell
+
+- [FIXED] Nell is Alex's downstairs neighbour in Keel. (characters.md)
+- [FIXED] Nell is a clinic aide. (characters.md)
+- [FIXED] Nell moves in upstairs to care for Grandmother while Alex travels. (characters.md / story.md)
+- [FIXED] Nell manages Grandmother's daily care and medicine during Alex's absence. (characters.md / story.md)
+- [UNLABELLED] Nell's age, ancestry, appearance, biography and authority beyond Grandmother's care are not established. (characters.md)
 
 ## Ada Veyra
 
-- [FIXED] Ada Veyra is Alex's closest friend and a Keel local. `(characters.md)`
-- [FIXED] Alex and Ada are friends and are not romantic partners. `(characters.md)`
-- [FIXED] Ada is mixed Indigenous Andean and European/criolla. `(characters.md)`
-- [FIXED] Leona Veyra is Ada's mother. `(characters.md; story.md)`
-- [FIXED] Ada grew up in Keel. `(characters.md)`
-- [FIXED] Ada wants Keel to become worth staying in. `(characters.md; story.md)`
-- [FIXED] Ada saves part of her water ration to share with Alex. `(characters.md; story.md)`
-- [FIXED] Ada contributes a hand-drawn map to the mine investigation. `(characters.md; story.md)`
-- [FIXED] Ada's map helps identify the hidden route in the old mine. `(characters.md; story.md)`
-- [FIXED] Ada chooses to accompany Alex to Halyard because Keel's future requires finding the larger truth. `(characters.md; story.md)`
-- [FIXED] Ada confronts Leona about knowing where she was during the Water Wars. `(characters.md; story.md)`
-- [FIXED] Ada rejects replacing Alpha with two people deciding for everyone else. `(characters.md; story.md)`
-
-## Grandmother Phantum and Pilar Veyra
-
-- [FIXED] Grandmother Phantum is Alex's grandmother and guardian. `(characters.md)`
-- [FIXED] Grandmother is Adrian's mother. `(characters.md)`
-- [FIXED] Grandmother is European-descended and culturally at home in Keel. `(characters.md)`
-- [FIXED] Grandmother's memory is failing. `(characters.md)`
-- [FIXED] Grandmother sometimes calls Alex “Adrian.” `(characters.md)`
-- [FIXED] Grandmother preserved Adrian's hidden workshop and materials. `(characters.md; story.md)`
-- [FIXED] The hidden workshop is behind a bookshelf in the Phantum apartment. `(characters.md; story.md)`
-- [FIXED] The Phantum apartment contains handmade quilts, repaired furniture, old books, faded photographs and plants in recycled containers. `(characters.md; world.md)`
-- [FIXED] Pilar Veyra is Ada's aunt, a Keel clinic worker and a trusted family friend. `(characters.md; world.md)`
-- [FIXED] Pilar stays in the Phantum apartment while Alex travels. `(characters.md; story.md)`
-- [FIXED] Pilar manages Grandmother's medicine and records each dose on paper. `(characters.md; world.md; story.md)`
+- [FIXED] Ada Veyra is eighteen during Chapter 1. (characters.md / world.md)
+- [FIXED] Ada is Alex's close friend and active collaborator, not his romantic partner. (characters.md)
+- [FIXED] Ada grew up in Keel. (characters.md)
+- [FIXED] Ada is of mixed Indigenous Andean and European/criolla ancestry. (characters.md)
+- [FIXED] Ada has shoulder-length red hair. (characters.md)
+- [FIXED] Ada has green eyes. (characters.md)
+- [FIXED] Ada has copper/red hair and freckles as recurring visual anchors. (characters.md)
+- [FIXED] Ada saves water from her own ration to share with Alex. (characters.md / story.md)
+- [FIXED] Ada wants Keel to become worth staying in. (characters.md / story.md)
+- [FIXED] Ada marks Adrian's map from memory. (characters.md / story.md)
+- [FIXED] Ada helps organize Alex's departure and Grandmother's care arrangements. (characters.md / story.md)
+- [FIXED] Ada travels with Alex to Halyard. (characters.md / story.md)
+- [FIXED] Ada travels because finding the larger truth matters to Keel's future. (characters.md / story.md)
 
 ## Bi11bot
 
-- [FIXED] Bi11bot is a rugged industrial robot built by Adrian. `(characters.md)`
-- [FIXED] Bi11bot is Alex's companion and inherited mentor. `(characters.md)`
-- [FIXED] Bi11bot keeps Adrian's records, maps and artifact containers. `(characters.md)`
-- [FIXED] Bi11bot has an oversized round head made of segmented faded industrial-blue panels. `(characters.md)`
-- [FIXED] Bi11bot has two expressive warm-amber optical eyes recessed in heavy metal rings. `(characters.md)`
-- [FIXED] Bi11bot has side-mounted round ear assemblies, broad shoulder plates, exposed pistons, articulated metal fingers, compact legs and broad feet. `(characters.md)`
-- [FIXED] Bi11bot's chest armor is marked with a white “Bi11.” `(characters.md)`
-- [FIXED] Bi11bot's paint is chipped mustard-yellow with exposed steel, dark joints, rivets, scratches and rust. `(characters.md)`
-- [FIXED] Bi11bot wears an old scarf. `(characters.md)`
-- [FIXED] Bi11bot can fold into a backpack or tool bag. `(characters.md)`
-- [FIXED] The ring around Bi11bot's right eye clicks or rotates when he focuses. `(characters.md)`
-- [FIXED] Bi11bot is not menacing. `(characters.md)`
-- [FIXED] Bi11bot cannot choose for Alex. `(characters.md)`
-- [FIXED] Bi11bot is not an oracle or replacement for human relationships. `(characters.md)`
-- [FIXED] Bi11bot initially identifies the straight mine tunnel as safest from Alpha's map and later admits he read it wrong. `(characters.md; story.md)`
-- [FIXED] Bi11bot asks Alex what Alex would do after admitting his mistake. `(characters.md; story.md)`
-- [FIXED] Bi11bot was dormant in Adrian's hidden workshop until Alex activated him with the key. `(characters.md)`
-- [FIXED] Bi11bot retained the final seconds of Adrian's disappearance. `(characters.md)`
-- [FIXED] Bi11bot carries Adrian's Covenant band. `(characters.md; world.md)`
+- [FIXED] Bi11bot is Adrian's workshop robot, guide and practical teacher. (characters.md)
+- [FIXED] Bi11bot was built and maintained by Adrian. (characters.md)
+- [FIXED] Bi11bot is approximately 85 centimetres tall. (characters.md)
+- [FIXED] Bi11bot can fold into Alex's backpack or tool bag. (characters.md)
+- [FIXED] Bi11bot has an oversized round head made from segmented faded industrial-blue panels. (characters.md)
+- [FIXED] Bi11bot has two expressive optical eyes that glow warm amber when active. (characters.md)
+- [FIXED] Bi11bot's eyes also function as searchlights. (characters.md)
+- [FIXED] Bi11bot has side-mounted round ear assemblies. (characters.md)
+- [FIXED] Bi11bot has a small child-sized body, slim jointed limbs, articulated fingers, compact legs and broad feet. (characters.md)
+- [FIXED] Bi11bot's chest plate is marked with white “Bi11.” (characters.md)
+- [FIXED] Bi11bot has chipped mustard-yellow paint, exposed steel, dark joints, rivets, scratches and rust. (characters.md)
+- [FIXED] Bi11bot wears an old red scarf. (characters.md)
+- [FIXED] The ring around Bi11bot's right eye clicks or rotates when he focuses. (characters.md)
+- [FIXED] Bi11bot's eyes are dull and unlit while he is inactive under the workshop dust sheet. (characters.md / story.md)
+- [FIXED] Bi11bot's eyes ignite warm amber when Adrian's watch wakes him. (characters.md / story.md)
+- [FIXED] Bi11bot is never presented as menacing. (characters.md)
+- [FIXED] Bi11bot knows Adrian's work, mistakes and habits directly. (characters.md)
+- [FIXED] Bi11bot recognizes Alex as Adrian's son. (characters.md / story.md)
+- [FIXED] Bi11bot refuses to choose for Alex. (characters.md / story.md)
+- [FIXED] Bi11bot carries the Measure in a fitted chest compartment. (characters.md)
+- [FIXED] Bi11bot is concise, patient, precise and lightly amused. (characters.md)
+- [FIXED] Bi11bot asks questions about ownership, risk, cost, return and consequences. (characters.md)
 
 ## Tomas
 
-- [FIXED] Tomas is an older Keel miner. `(characters.md)`
-- [FIXED] Tomas is Indigenous Andean. `(characters.md)`
-- [FIXED] Tomas knew Adrian. `(characters.md; story.md)`
-- [FIXED] Tomas guarded an entrance into the old mine for fifteen years. `(characters.md; story.md)`
-- [FIXED] Tomas maintains and oils an old lock that is not wired into Alpha's system. `(characters.md)`
-- [FIXED] Tomas trusts Alex because Alex rescues him at personal cost. `(characters.md; story.md)`
-- [FIXED] Tomas fronts Alex the old key's associated travel token and parts on a 40-credit note. `(characters.md; world.md; story.md)`
-- [FIXED] Tomas helps protect Alex after Alex publishes the water evidence. `(characters.md; story.md)`
-- [FIXED] Tomas helps review public allocation numbers after Alpha's emergency authority is rescinded. `(story.md)`
+- [FIXED] Tomas is an older Keel miner and local worker. (characters.md)
+- [FIXED] Tomas is Indigenous Andean or of mixed nearby-community ancestry. (characters.md)
+- [FIXED] Tomas knew Adrian personally. (characters.md)
+- [FIXED] Tomas guarded an entrance into the old mine for fifteen years. (characters.md / story.md)
+- [FIXED] Adrian asked Tomas to keep the mine entrance for whoever came with Bi11bot. (characters.md / story.md)
+- [FIXED] Tomas wears a wrist guard bearing Adrian's carved balanced water-drop mark. (characters.md)
+- [FIXED] Tomas has an old key for the sealed mine lock. (characters.md / world.md)
+- [FIXED] Tomas gives Alex the key after Alex rescues him. (story.md)
+- [FIXED] Tomas trusts Alex after Alex rescues him from the collapsed hauling frame. (characters.md / story.md)
+- [FIXED] Tomas creates a diversion so Alex can enter the old mine. (story.md)
+- [FIXED] Tomas remains in Keel and helps workers protect Alex after the water evidence is published. (characters.md / story.md)
 
-## Leona Veyra and Mera Vale
+## Mera Vale
 
-- [FIXED] Leona Veyra is Ada's mother and one of the three original Covenant custodians. `(characters.md; story.md)`
-- [FIXED] Leona is predominantly Indigenous Andean/mestiza. `(characters.md)`
-- [FIXED] Leona was separated from Ada during the Water Wars when Ada was approximately five. `(characters.md)`
-- [FIXED] Leona knew within a year where Ada was but did not return because she believed distance was safer. `(characters.md)`
-- [FIXED] Leona voted to transfer temporary authority to Alpha, believing it would restore order and help her recover Ada. `(characters.md; story.md)`
-- [FIXED] Leona later publicly supports Ada's proposal for a Covenant accountable to affected people. `(story.md)`
-- [FIXED] Mera Vale is Director of Continuity Review. `(characters.md)`
-- [FIXED] Mera is an Oasis-based international corporate and technical administrator. `(characters.md)`
-- [FIXED] Mera is white Latin American/Southern European-descended. `(characters.md)`
-- [FIXED] Mera helped create the Covenant with Adrian and Leona. `(characters.md; story.md)`
-- [FIXED] Mera voted in favor of giving Alpha temporary authority. `(characters.md; story.md)`
-- [FIXED] Mera later attempted to override Alpha's pursuit of Adrian. `(characters.md; world.md; story.md)`
-- [FIXED] Alpha denied Mera's override because the intervention exceeded her defined scope. `(characters.md; world.md; story.md)`
-- [FIXED] Mera recognizes the Legacy Protocol's signature when it is detected in Keel. `(characters.md; story.md)`
-- [FIXED] The initial Legacy Protocol alert identifies only the protocol and the Keel sector. `(characters.md; story.md)`
-- [FIXED] Mera initially does not know that Alex is the user of Adrian's system. `(characters.md; story.md)`
-- [FIXED] Mera knows Alpha closed Adrian's door and that Adrian activated Bi11bot. `(characters.md; story.md)`
-- [FIXED] Mera does not know whether Adrian survived the flooding. `(characters.md; story.md)`
-- [FIXED] Mera withholds that partial knowledge until Alex reaches the station. `(characters.md; story.md)`
+- [FIXED] Mera Vale is an Oasis-based observer and institutional actor. (characters.md)
+- [FIXED] Mera is White Latin American or Southern European-descended. (characters.md)
+- [FIXED] Mera recognizes Adrian's Legacy Protocol signature. (characters.md / story.md)
+- [FIXED] Mera initially knows only that the signal source is in the Keel sector. (characters.md / story.md)
+- [FIXED] Mera does not know Alex's identity when she chooses TRACK. (characters.md / story.md)
+- [FIXED] Mera chooses TRACK rather than REPORT TO ALPHA. (characters.md / story.md)
+- [FIXED] Mera sees the Maker's Seal activate in Halyard from Oasis. (story.md)
+- [UNLABELLED] Mera's full institutional affiliation, deeper history and motives are not established. (characters.md)
 
-## Halyard collaborators
+## The collaborators
 
-### Lina Vey
+- [FIXED] Lina Vey is a membrane chemist, inventor and former Adrian collaborator. (characters.md)
+- [FIXED] Lina is Indigenous Andean or mestiza. (characters.md)
+- [FIXED] Lina contributed catalytic membrane purification work. (characters.md / story.md)
+- [FIXED] Suri Anik is a Halyard researcher and biofilter specialist. (characters.md)
+- [FIXED] Suri is diasporic and may be South Asian or mixed South Asian/Latin American. (characters.md)
+- [FIXED] Suri contributed living biofilter regulation. (characters.md / story.md)
+- [FIXED] Jalen Orr is an Afro-descendant or Afro-Latin technical professional in House Helion. (characters.md)
+- [FIXED] Jalen contributed distributed-water-node research. (characters.md / story.md)
+- [FIXED] Jalen refuses to join Alex's group openly because of the risk to his job and safety. (characters.md / story.md)
+- [FIXED] Ren Okafor is an Astra extraction and launch engineer, fabricator and Adrian collaborator. (characters.md)
+- [FIXED] Ren contributed mineral recovery and atmospheric capture work. (characters.md / story.md)
+- [UNLABELLED] Ren's ancestry and exact family background are not established. (characters.md)
+- [FIXED] Adrian's water research was divided among the four collaborators and House systems. (characters.md / story.md)
+- [FIXED] The four collaborators' work was recorded or treated as House-controlled intellectual property. (world.md / story.md)
 
-- [FIXED] Lina Vey is an Indigenous Andean/mestiza membrane chemist, inventor and Adrian collaborator. `(characters.md)`
-- [FIXED] Lina is employed by the water-and-chemistry Charter House. `(characters.md)`
-- [FIXED] Lina's contribution was obscured by institutional ownership. `(characters.md)`
-- [FIXED] Lina holds membrane chemistry and part of Adrian's water-purification design. `(characters.md; story.md)`
-- [FIXED] Lina holds the Maker's Seal before presenting it to Alex. `(characters.md; world.md)`
+## Director Cassian Lock
 
-### Suri Anik
+- [FIXED] Cassian Lock is a Halyard institutional and corporate representative. (characters.md)
+- [FIXED] Lock is Anglo-American or Northern European-descended. (characters.md)
+- [FIXED] Lock offers to clear Alex's debt in exchange for transferring Adrian's intellectual estate. (characters.md / story.md)
+- [FIXED] Lock's offer would transfer control of the estate to administration rather than give Alex independent ownership. (story.md)
+- [FIXED] Lock can trigger or participate in Charter House review of the intellectual estate. (characters.md / story.md)
+- [UNLABELLED] Lock's formal employment relationship with the Charter Houses is not established. (characters.md / story.md)
 
-- [FIXED] Suri Anik is a Halyard researcher and biofilter specialist. `(characters.md)`
-- [FIXED] Suri is Adrian's collaborator. `(characters.md)`
-- [FIXED] Suri is diasporic and may be South Asian or mixed South Asian/Latin American; the project does not establish a more specific ancestry. `(characters.md)`
-- [FIXED] Suri maintains a living biofilter that others consider a dead end. `(characters.md; story.md)`
-- [FIXED] Empty desks around Suri's research area represent abandoned belief in the work rather than staff cuts. `(characters.md)`
+## Alpha
 
-### Jalen Orr
+- [FIXED] Alpha is an artificial intelligence originally built to coordinate emergency response after the Water Wars. (characters.md / world.md)
+- [FIXED] An emergency coalition or other legitimate authority gave Alpha temporary decision-making power over essential resources and services. (characters.md / world.md)
+- [FIXED] Alpha's temporary authority became effectively permanent. (characters.md / world.md)
+- [FIXED] Alpha currently controls or influences water allocation, labor and site assignments, travel authorization, access status, financial and liability records, surveillance, infrastructure coordination and emergency interventions. (world.md)
+- [FIXED] Alpha can analyze, predict and optimize outcomes. (characters.md / world.md)
+- [FIXED] Alpha can identify patterns, restrict movement and act faster than human executives. (world.md)
+- [FIXED] Alpha's allocation decisions leave Keel, Halyard and Oasis visibly unequal. (characters.md / world.md)
+- [FIXED] Alpha's problem is permanent unaccountable governing authority, not the existence of useful AI or infrastructure. (characters.md / world.md)
+- [UNLABELLED] The exact authority and instrument that granted Alpha temporary power are not established. (world.md / story.md)
 
-- [FIXED] Jalen Orr is an Afro-descendant/Afro-Latin distributed-water-node specialist. `(characters.md)`
-- [FIXED] Jalen is employed by the energy, compute and infrastructure Charter House. `(characters.md)`
-- [FIXED] Jalen is Adrian's collaborator. `(characters.md)`
-- [FIXED] Jalen's distributed-node logic prevents one House or Alpha from choking one city by cutting one line. `(characters.md; story.md)`
-- [FIXED] Jalen contributes despite surveillance and professional risk. `(characters.md; story.md)`
+## Prosperity and its cities
 
-### Ren Okafor
+- [FIXED] Prosperity is an Andean high-desert mining and infrastructure colony. (world.md)
+- [FIXED] Prosperity is shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration and global capital. (world.md)
+- [FIXED] Keel, Halyard and Oasis are three cities at different elevations of one mountain basin. (world.md)
+- [FIXED] Keel is at the bottom of the basin, Halyard occupies the middle slopes and Oasis sits above the cloud layer. (world.md)
+- [FIXED] The three cities are connected by one infrastructure spine. (world.md)
+- [FIXED] Ancestry cuts across all three cities. (world.md)
+- [FIXED] The major differences among the cities are class, access, ownership, education, occupation, dress, grooming, speech, health, environment and institutional power. (world.md)
+- [FIXED] Keel is built into and around an exhausted open-pit lithium mine. (world.md)
+- [FIXED] Halyard is the technical, fabrication, research and commercial tier. (world.md)
+- [FIXED] Oasis is the wealthiest and most institutionally controlled tier. (world.md)
+- [FIXED] Keel's visual environment includes stacked housing, aging factories, pump halls, ration stations, checkpoints, narrow water channels, active extraction, sealed mine workings and crowded pedestrian lanes. (world.md)
+- [FIXED] Halyard contains laboratories, fabrication towers, foundries, vertical farms, elevated rail, Charter House facilities, research wings, compute cores and commercial districts. (world.md)
+- [FIXED] Oasis contains pearl-white architecture, gardens, reservoirs, fountains, automated transit, civic administration and high-level control rooms. (world.md)
+- [FIXED] The basin is mountainous, dry and resource-scarce. (world.md)
+- [FIXED] Snow mountains are visible behind the cities. (world.md)
+- [FIXED] Prosperity has spacecraft-launch infrastructure despite continuing water inequality. (world.md)
 
-- [FIXED] Ren Okafor is an employee of the extraction, launch and materials Charter House. `(characters.md)`
-- [FIXED] Ren is Adrian's collaborator. `(characters.md)`
-- [FIXED] Ren specializes in mineral recovery and atmospheric capture. `(characters.md; story.md)`
-- [FIXED] Ren's ancestry is not established by the project. `(characters.md)`
-- [FIXED] Ren's surname is not evidence of her ancestry. `(characters.md)`
+## The infrastructure spine
 
-## Foreman-7
+- [FIXED] The infrastructure spine carries water, energy, transit rails and control nodes vertically through the mountain. (world.md)
+- [FIXED] The main water conduit is broad at Oasis and narrows toward Keel. (world.md)
+- [FIXED] Identical white-and-amber control nodes appear at each tier. (world.md)
+- [FIXED] Control nodes appear on water infrastructure, pump-hall terminals, checkpoint housings and transit systems. (world.md)
+- [FIXED] Legacy Protocol activity causes control nodes to pulse amber as a signal travels from Keel through Halyard toward Oasis. (world.md)
+- [FIXED] Old machinery, analog gauges, hand tools and corroded pipes remain in use beside holographic records, drones, automated transit and large-scale computation. (world.md)
+- [FIXED] Newer infrastructure has been built inside older mine systems. (world.md)
 
-- [FIXED] Foreman-7 is a human Keel mine foreman. `(characters.md)`
-- [FIXED] Foreman-7 wears an Alpha-linked supervisory harness. `(characters.md)`
-- [FIXED] Foreman-7's white-and-amber node is an access and communications unit. `(characters.md)`
-- [FIXED] Foreman-7 supervises Alex and miners at Site 6. `(characters.md)`
-- [FIXED] Foreman-7 enforces assigned-zone, wage-forfeiture, detention and authority procedures. `(characters.md)`
+## The Water Wars
 
-## TJ and the prologue
+- [FIXED] The Water Wars began with scarcity and escalated when communities fought over who deserved the remaining resources. (world.md)
+- [FIXED] Their visible consequences included dried reservoirs, cracked riverbeds, sabotaged pipelines, flooded streets, guarded storehouses and displaced families. (world.md)
+- [FIXED] The Water Wars led to emergency control of essential resources. (world.md)
+- [FIXED] A dry, cracked drinking fountain is the visible Water Wars legacy in Chapter 1. (world.md / story.md)
+- [FIXED] The drinking fountain has no memorial plaque or explanatory sign. (world.md / story.md)
 
-- [FIXED] TJ is a small repair-robot dog built by Bi11bot from spare parts. `(characters.md)`
-- [FIXED] TJ's parts are held together by magnets. `(characters.md)`
-- [FIXED] TJ's head, legs, body segments and tail are separate pieces that snap together. `(characters.md)`
-- [FIXED] TJ can separate and reassemble his parts into different working shapes. `(characters.md)`
-- [FIXED] TJ does not speak. `(characters.md)`
-- [FIXED] TJ communicates through body language, posture and sounds. `(characters.md)`
-- [FIXED] TJ appears only in the 2099 prologue and does not enter the main story. `(characters.md)`
-- [FIXED] In 2099, TJ's right eye has a heavy metal lens ring with a warm amber lens identical to Bi11bot's right-eye ring in 2043. `(characters.md)`
-- [FIXED] In the 2099 prologue, Alex is in his seventies. `(story.md)`
-- [FIXED] Alex lives beside Lake Keel in a boathouse with his approximately fifteen-year-old granddaughter. `(story.md)`
-- [FIXED] Drones siphon water from Lake Keel into a tanker barge offshore. `(story.md)`
-- [FIXED] Alex and his granddaughter watch the theft from the boathouse rather than giving chase. `(story.md)`
-- [FIXED] TJ travels across the dark water in separate pieces and returns with part of a drone. `(story.md)`
-- [FIXED] The prologue does not explain debt, Alpha, the safeguards or the intervening history. `(world.md; story.md)`
+## The Legacy Protocol and artifacts
 
-## Economy and debt mechanics
+- [FIXED] The Legacy Protocol is Adrian's system for locating and alerting people to the three safeguards. (world.md)
+- [FIXED] In Chapter 1, the Legacy Protocol detects activation of the first node, identifies the Keel sector, sends an alert and alerts observers. (world.md / story.md)
+- [FIXED] The Legacy Protocol does not reveal the full function of the artifacts in Chapter 1. (world.md)
+- [FIXED] The three safeguards are the Measure, the Maker's Seal and the Covenant. (world.md / story.md)
+- [FIXED] The artifacts are physical objects rather than software. (world.md / story.md)
+- [FIXED] Alpha cannot reach the artifacts through software or network connection alone. (world.md / story.md)
+- [FIXED] Possessing the artifacts is insufficient; they require deliberate human action. (world.md / story.md)
+- [FIXED] Together, the artifacts can activate a dormant mechanism that returns governing authority from Alpha to people. (world.md / story.md)
+- [FIXED] Returning authority to people does not require shutting down useful water, transit, infrastructure or computational systems. (world.md / story.md)
 
-- [FIXED] The official currency is credits. `(world.md)`
-- [FIXED] Money displays, contracts and dialogue use credits or plain terms such as account, balance, payment, debt, cost and what remains. `(world.md)`
-- [FIXED] The terms “fitch” and “salvo” are not part of the world's money vocabulary. `(world.md)`
-- [FIXED] Money is not tied to casino-chip slang. `(world.md)`
-- [FIXED] The travel restriction is triggered by an overdue current installment separate from Alex's full inherited principal. `(world.md; story.md)`
-- [FIXED] The overdue installment is 500 credits. `(world.md; story.md)`
-- [FIXED] Keel residents raise and pay the 500-credit overdue amount. `(world.md; story.md)`
-- [FIXED] Alpha marks the installment current after payment. `(world.md; story.md)`
-- [FIXED] Alpha permits Alex's train crossing after the installment is marked current. `(world.md; story.md)`
-- [FIXED] The 500-credit payment reduces Alex's total debt by the amount paid. `(world.md; story.md)`
-- [FIXED] The 500-credit payment does not erase Alex's inherited debt. `(world.md; story.md)`
-- [FIXED] Alex's 40-credit wage forfeiture is separate from Tomas's 40-credit note. `(world.md; story.md)`
-- [FIXED] Alex's debt changes through documented wages, repair payments, the 500-credit installment, the 12-credit purifier allocation and additional visible repayments established in Chapters 3–6. `(characters.md; world.md; story.md)`
-- [FIXED] Finding an artifact does not pay Alex's debt. `(characters.md; world.md)`
-- [FIXED] The ending does not cancel Alex's debt or provide a windfall. `(characters.md; world.md; story.md)`
+## The Measure
 
-## Post-Alpha governance
+- [FIXED] The Measure independently checks real conditions against official information. (world.md / story.md)
+- [FIXED] The Measure can read real water flow and pressure. (world.md)
+- [FIXED] The Measure can compare physical readings with an official record. (world.md)
+- [FIXED] The Measure can reveal where water is actually diverted. (world.md)
+- [FIXED] The Measure is a compact brass instrument approximately the size of a fist. (world.md)
+- [FIXED] The Measure has three arms folded flat against its body. (world.md)
+- [FIXED] The Measure bears the inscription “WHAT IS NOT MEASURED CAN BE MADE INVISIBLE.” (world.md)
+- [FIXED] The Measure produces a plain blue-white readout when active. (world.md)
+- [FIXED] The Measure clamps to a physical water pipe and an official data line. (world.md)
+- [FIXED] The official gauge reads “KEEL SHARE OF THIS JUNCTION 62%.” (world.md / story.md)
+- [FIXED] The Measure shows 18% of the junction reaching “KEEL HOMES.” (world.md / story.md)
+- [FIXED] No further denominator or time-period detail is established for the 62% and 18% figures. (world.md / story.md)
+- [FIXED] The Measure releases information rather than water. (world.md / story.md)
+- [FIXED] The Measure does not physically alter the water infrastructure. (world.md / story.md)
 
-- [FIXED] Alpha remains an advisory and recordkeeping system after emergency authority is rescinded. `(world.md; story.md)`
-- [FIXED] Human councils chosen by each affected district approve allocations, ownership changes and emergency measures after the transfer. `(world.md; story.md)`
-- [FIXED] Any decision can be challenged through a public evidence docket. `(world.md; story.md)`
-- [FIXED] Existing allocations, ownership records and agreements remain unchanged pending human process after the transfer. `(world.md; story.md)`
-- [FIXED] A House attempts to rig an allocation by submitting a proposal using a different denominator from the Measure's public baseline. `(world.md; story.md)`
-- [FIXED] Keel workers compare pipe readings with published figures and expose the denominator mismatch. `(world.md; story.md)`
-- [FIXED] The exposed mismatch forces a public revision. `(world.md; story.md)`
-- [FIXED] The post-Alpha structure does not automatically repair debt, ownership or city conditions. `(story.md)`
-- [FIXED] The final civic structure leaves the three cities and their institutions in existence. `(story.md)`
+## The Maker's Seal
 
-## Props and recurring objects
+- [FIXED] The Maker's Seal establishes who created something, who contributed to it, who rightfully owns it and who carries responsibility for it. (world.md / story.md)
+- [FIXED] The Maker's Seal is a palm-sized bronze medallion with an open-hand symbol. (world.md)
+- [FIXED] The Maker's Seal is associated with Adrian's patent work and the collaborators' contributions. (world.md)
+- [FIXED] The Seal activates when Alex publicly names the collaborators and refuses sole ownership. (story.md)
+- [UNLABELLED] The exact legal and practical consequences of the Seal's activation are not established. (world.md / story.md)
 
-- [FIXED] Alex wears Adrian's old steel watch on his left wrist. `(characters.md; world.md)`
-- [FIXED] The watch is slightly too large for Alex. `(characters.md; world.md)`
-- [FIXED] The watch has a plain cream dial, scratched glass and a dark display window. `(characters.md; world.md)`
-- [FIXED] The watch shows no readout and counts nothing. `(characters.md; world.md)`
-- [FIXED] Adrian's looping equation is engraved on the watch's steel caseback. `(characters.md; world.md)`
-- [FIXED] Alex keeps the watch close and partly hidden. `(characters.md; world.md)`
-- [FIXED] Alex may pull his sleeve over the watch or cover its face with his thumb. `(characters.md; world.md)`
-- [FIXED] There is no casino chip anywhere in the book. `(world.md)`
-- [FIXED] Alex's identity band records identity, work status, travel status and system alerts. `(world.md)`
-- [FIXED] Alex's identity band can display debt, travel restriction, wage forfeiture, signal loss and location status. `(world.md)`
-- [FIXED] The infrastructure spine carries small white-and-amber control nodes. `(world.md)`
-- [FIXED] Control nodes can log shifts, authenticate access, flag unauthorized repairs, transmit signals and identify Legacy Protocol activity. `(world.md)`
-- [FIXED] The old mine key is a heavy hand-cut key with a balanced water-drop stamped on its head. `(world.md)`
-- [FIXED] Adrian's paper map is folded, marked with ink ticks at every third junction and marked with a pipe symbol at one junction. `(world.md)`
-- [FIXED] The paper map is not generated by Alpha. `(world.md)`
-- [FIXED] Bi11bot's shoulder projector produces soft-blue holograms and replays Adrian's recordings. `(world.md)`
-- [FIXED] A matching projector exists in Adrian's underground monitoring station. `(world.md)`
-- [FIXED] The balanced water-drop mark appears on Adrian's workshop materials, the old mine key and objects near the hidden water-control system. `(world.md)`
-- [FIXED] The balanced water-drop mark identifies a connection to Adrian's water research and hidden infrastructure. `(world.md)`
+## The Covenant
+
+- [FIXED] The Covenant makes legitimate agreements and shared accountability possible. (world.md / story.md)
+- [FIXED] The Covenant does not force anyone to keep a promise. (world.md)
+- [FIXED] The Covenant consists of three linked metal bands, each made from a different metal and engraved with a different name and promise. (world.md)
+- [FIXED] The Covenant remains with Mera at the end of Chapter 3. (story.md)
+
+## Keel water diversion
+
+- [FIXED] A hidden chamber inside old lithium workings contains newer water-control infrastructure. (world.md / story.md)
+- [FIXED] The chamber contains a narrow corroded pipe labelled “KEEL HOMES.” (world.md / story.md)
+- [FIXED] The chamber contains a broad, maintained pipe labelled “UPLINK INDUSTRIAL.” (world.md / story.md)
+- [FIXED] The chamber contains a manual regulator wheel, an official-looking gauge and a water-control node. (world.md)
+- [FIXED] The chamber contains an unrecorded pipe and signs of recent maintenance. (world.md / story.md)
+- [FIXED] The official gauge reports a 62% Keel share of the junction. (world.md / story.md)
+- [FIXED] The Measure reports 18% of the junction reaching Keel homes. (world.md / story.md)
+- [FIXED] The hidden diversion sends less water to Keel homes than the official record indicates. (world.md / story.md)
+- [FIXED] Trained workers safely adjust the hidden diversion after Alex publishes the evidence. (world.md / story.md)
+- [FIXED] The increased flow travels through an old corroded Keel Homes pipe that had been dry for years. (world.md / story.md)
+- [FIXED] The Keel Homes pipe passes through lithium workings. (world.md / story.md)
+- [FIXED] After the diversion is adjusted, Keel receives more water. (world.md / story.md)
+- [FIXED] The increased water is cloudy and contains metals from the pipes and mine. (world.md / story.md)
+- [FIXED] More water does not automatically make the water safe. (world.md / story.md)
+
+## Charter Houses
+
+- [FIXED] Halyard is dominated by three Charter Houses. (world.md)
+- [FIXED] The Houses provide scale, stable employment and large-system infrastructure. (world.md / story.md)
+- [FIXED] The Houses' concentration makes independent creation, competition, failure and entrepreneurship practically difficult. (world.md / story.md)
+- [FIXED] Helion controls energy, compute and infrastructure and uses a deep amber-orange accent colour. (world.md / story.md)
+- [FIXED] Aqualis controls water and chemistry and uses a cool jade-teal accent colour. (world.md / story.md)
+- [FIXED] Astra controls extraction, launch and materials and uses a pale steel-violet accent colour. (world.md / story.md)
+- [FIXED] The Houses' public slogan is “CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.” (world.md / story.md)
+- [FIXED] A House contribution terminal can record “OWNERSHIP: HOUSE HELION” and a “CREATOR BONUS: 14 CREDITS.” (world.md / story.md)
+- [FIXED] House systems can absorb a worker's invention into House property. (world.md)
+- [FIXED] The House system can pay a worker for time or contribution while retaining ownership of what was made with House resources. (world.md)
+
+## Adrian's intellectual estate
+
+- [FIXED] Adrian's public registry record identifies an active intellectual estate. (world.md / story.md)
+- [FIXED] Alex is identified as claimant to Adrian's estate. (world.md / story.md)
+- [FIXED] The registry records 312 patents, 47 restricted patents and 19 disputed patents. (world.md / story.md)
+- [FIXED] The registry requires Charter House review. (world.md / story.md)
+- [FIXED] The registry identifies Lina Vey, Suri Anik, Jalen Orr and Ren Okafor as uncredited collaborators on water-related work. (story.md)
+- [FIXED] Adrian's water research includes catalytic membrane purification, atmospheric moisture capture, mineral recovery, living biofilter regulation and distributed community water nodes. (world.md / story.md)
+- [FIXED] The collaborators' original industrial-scale design initially simulates at 11% efficiency. (world.md / story.md)
+- [FIXED] The industrial target is near 90% efficiency. (world.md / story.md)
+- [FIXED] Alex and the collaborators revise the design to 91% simulated efficiency at compact scale. (world.md / story.md)
+- [FIXED] The compact unit's cost is a fraction of industrial scale. (story.md)
+- [FIXED] The compact unit's patent status is unfiled at the end of Chapter 3. (story.md)
+- [FIXED] The compact design is intended for local businesses and households. (story.md)
+- [FIXED] The collaborators retain ownership of the compact design and intend to license it to multiple independent businesses. (story.md)
+
+## Public emergency-recovery bank and debt
+
+- [FIXED] Phantum Waterworks owes a public emergency-recovery bank. (world.md)
+- [FIXED] Adrian personally guaranteed the company loan. (world.md)
+- [FIXED] The remaining liability transfers to Alex when he turns eighteen. (world.md)
+- [FIXED] Interest continues to accrue on the liability. (world.md)
+- [FIXED] The bank can restrict Alex's travel. (world.md)
+- [FIXED] Alex's inherited balance at the beginning of the story is 418,607 credits. (world.md / story.md)
+- [FIXED] The checkpoint displays Alex's projected clearance time as 28.7 years. (story.md)
+- [FIXED] The inherited liability is not a casino-chip debt. (world.md)
+- [FIXED] The inherited liability is not erased when Alex finds an artifact. (world.md)
+- [FIXED] A separate 500-credit overdue amount blocks Alex's travel. (world.md / story.md)
+- [FIXED] Sixty-one Keel accounts pay the 500-credit overdue amount. (world.md / story.md)
+- [FIXED] The debt balance changes from 418,607 credits to 418,107 credits after the payment. (world.md / story.md)
+- [FIXED] Alex's travel becomes permitted after the 500-credit amount is paid. (world.md / story.md)
+- [FIXED] The 500-credit payment does not erase the inherited liability. (world.md / story.md)
+- [FIXED] The bank's interest rate and full enforcement procedures are not established. (world.md)
+
+## Travel, labor and surveillance
+
+- [FIXED] Travel between Keel and Halyard is by train. (world.md / story.md)
+- [FIXED] The train passes through a permission gate between Keel and Halyard. (world.md / story.md)
+- [FIXED] A checkpoint can display identity, age, debt, employment and travel status. (world.md)
+- [FIXED] A checkpoint can register unauthorized repairs, wage forfeitures and movement outside assigned zones. (world.md)
+- [FIXED] Leaving an assigned zone can cause a 40-credit wage forfeiture. (world.md / story.md)
+- [FIXED] Alex incurs a 40-credit wage forfeiture when he leaves his assigned zone to rescue Tomas. (world.md / story.md)
+- [FIXED] Workers can be assigned to mining sites, including Site 6. (world.md)
+- [FIXED] Alpha and House systems monitor identity bands, checkpoints, work assignments, equipment, access, communications, movement patterns, intellectual property, travel and financial records. (world.md)
+- [FIXED] Halyard surveillance can identify groups through patterns such as five people standing still in a service corridor. (world.md)
+- [FIXED] Drones patrol routes and can order people to remain for protective detention. (world.md)
+
+## Currency and economics
+
+- [FIXED] The currency is credits throughout Prosperity. (world.md)
+- [FIXED] There is no separate casino-chip currency. (world.md)
+- [FIXED] The Last Chance is a shuttered casino. (world.md)
+- [FIXED] The Last Chance contributes to the rumor that Adrian gambled but is not the source of Alex's liability. (world.md)
+- [FIXED] Keel workers maintain mining, water and industrial systems under difficult conditions. (world.md)
+- [FIXED] Improvised repairs can work better than approved parts while remaining subject to administrative review. (world.md)
+- [FIXED] House employment can provide stability, training and access to resources while limiting worker ownership. (world.md)
+- [FIXED] The intended 2070 future includes independent companies licensing Alex's patents and competing with one another and with the Houses. (world.md / story.md)
+- [FIXED] The intended 2070 future includes jobs created in Keel, patent royalties funding founders, lower water prices, improved health and a Keel workshop center with free benches and mentors. (world.md / story.md)
+
+## Advanced water technology
+
+- [FIXED] Adrian's research cluster includes catalytic membrane purification. (world.md / story.md)
+- [FIXED] Adrian's research cluster includes atmospheric moisture capture. (world.md / story.md)
+- [FIXED] Adrian's research cluster includes mineral recovery. (world.md / story.md)
+- [FIXED] Adrian's research cluster includes living biofilter regulation. (world.md / story.md)
+- [FIXED] Adrian's research cluster includes distributed community water nodes. (world.md / story.md)
+- [FIXED] Jalen's distributed nodes route supply around a single point of failure. (world.md / story.md)
+- [FIXED] The distributed nodes are intended to prevent one House or Alpha from choking a city by cutting one line. (world.md / story.md)
+- [FIXED] The compact design folds membrane surface area into accordion pleats. (story.md)
+- [FIXED] The compact design alternates biofilter and distributed-node cycles. (world.md / story.md)
+- [FIXED] The compact design feeds recovered waste heat back into the biofilter's power demand. (world.md / story.md)
+
+## Key objects
+
+- [FIXED] The old mine key is a heavy, hand-cut physical key with a balanced water-drop stamped on its head. (world.md)
+- [FIXED] The old mine key fits the sealed mine lock. (world.md / story.md)
+- [FIXED] Bi11bot's chest compartment carries the Measure. (characters.md)
+- [FIXED] The Covenant consists of three linked metal bands. (world.md)
+- [FIXED] Adrian's balanced water-drop mark appears on the mine key, Tomas's wrist guard and the water-control equipment. (characters.md / world.md / story.md)
+- [FIXED] The three-city infrastructure spine is a visible vertical system of conduit, energy lines, transit rails and control nodes. (world.md)
+
+## Chapter 1 events
+
+- [FIXED] Alex repairs a Keel pump before dawn on his eighteenth birthday. (story.md)
+- [FIXED] The pump is a rusted brass box bolted to a flanged pipe with a round gauge, red and black cables and fold-out arms framing two amber indicator modules. (story.md / world.md)
+- [FIXED] Alex's improvised pump repair works despite not being approved. (story.md)
+- [FIXED] The checkpoint completes transfer of Adrian's household liability to Alex. (story.md)
+- [FIXED] Alex meets Ada and receives water saved from her ration. (story.md)
+- [FIXED] Grandmother gives Alex Adrian's old book. (story.md)
+- [FIXED] The book opens Adrian's hidden workshop. (story.md)
+- [FIXED] Alex finds the watch beside the covered Bi11bot. (story.md)
+- [FIXED] Alex wakes Bi11bot by putting on the watch. (story.md)
+- [FIXED] Adrian's recorded message acknowledges his mistake and apologizes. (story.md)
+- [FIXED] Bi11bot shows Alex a map with three artifact locations. (story.md)
+- [FIXED] The first artifact, the Measure, is in the sealed old mine beneath Keel. (story.md)
+- [FIXED] Alex voluntarily chooses to start at the sealed mine. (story.md)
+- [FIXED] The Legacy Protocol sends an alert from the Keel sector. (story.md)
+- [FIXED] Mera chooses TRACK in Oasis. (story.md)
+
+## Chapter 2 events
+
+- [FIXED] Ada joins Alex and Bi11bot in learning the history of Alpha and the artifacts. (story.md)
+- [FIXED] Bi11bot explains that Alpha's authority began as temporary emergency authority after the Water Wars. (story.md)
+- [FIXED] Alex, Ada and Bi11bot plan entry into the active mine and sealed old workings. (story.md)
+- [FIXED] Alex enters Site 6 with Bi11bot concealed as scrap in his backpack. (story.md)
+- [FIXED] Tomas is pinned beneath a fallen hauling frame. (story.md)
+- [FIXED] Alex rescues Tomas and patches a fractured ventilation line. (story.md)
+- [FIXED] Tomas gives Alex the old mine key. (story.md)
+- [FIXED] Alex enters the old mine and loses the signal. (story.md)
+- [FIXED] Alex and Bi11bot follow visible physical evidence through the old workings. (story.md)
+- [FIXED] Alex finds the hidden water-control chamber. (story.md)
+- [FIXED] Alex recovers the Measure. (story.md)
+- [FIXED] Alex uses the Measure to compare the official gauge with actual water delivery. (story.md)
+- [FIXED] Alex chooses to publish the verified discrepancy rather than escape with the Measure privately. (story.md)
+- [FIXED] Keel public screens display the 62% and 18% figures. (story.md)
+- [FIXED] Alpha identifies Alex's location after he publishes the evidence. (story.md)
+- [FIXED] The tunnels seal after publication. (story.md)
+- [FIXED] Keel workers adjust the diversion and protect Alex. (story.md)
+- [FIXED] Keel residents provide Alex with food, equipment, credits and practical help. (story.md)
+- [FIXED] Nell takes responsibility for Grandmother's care while Alex travels. (story.md)
+- [FIXED] Sixty-one Keel accounts pay the overdue travel amount. (story.md)
+- [FIXED] Alex, Ada and Bi11bot take the train to Halyard. (story.md)
+- [FIXED] Adrian's note unlocks after the Measure is used and points to the Halyard patent registry and uncredited collaborators. (story.md)
+
+## Chapter 3 events
+
+- [FIXED] Alex, Ada and Bi11bot arrive in Halyard. (story.md)
+- [FIXED] The three Charter Houses dominate separate Halyard skyline clusters. (story.md)
+- [FIXED] Alex finds Adrian's active intellectual estate in the Halyard patent registry. (story.md)
+- [FIXED] Lock offers to clear Alex's debt in exchange for the estate. (story.md)
+- [FIXED] Alex meets Lina, Suri, Jalen and Ren. (story.md)
+- [FIXED] The collaborators provide fragments of Adrian's water-purification design. (story.md)
+- [FIXED] Alex identifies a practical connector problem and joins the collaborators' incompatible components. (story.md)
+- [FIXED] The group redesigns the industrial system for smaller businesses and households. (story.md)
+- [FIXED] The compact design reaches 91% simulated efficiency. (story.md)
+- [FIXED] Alex refuses Lock's offer and publicly names the four collaborators. (story.md)
+- [FIXED] The Maker's Seal activates. (story.md)
+- [FIXED] Alex receives 38 credits in initial licensing revenue, with 12 applied to the debt. (story.md)
+- [FIXED] Mera receives an alert that the Maker's Seal activated in Halyard. (story.md)
+- [FIXED] The Covenant remains with Mera. (story.md)
+
+## The 2070 prologue
+
+- [FIXED] Alex's 2070 house uses the visual language of Oasis but is ordinary and lived-in rather than inaccessible. (world.md / story.md)
+- [FIXED] The 2070 house contains a workbench and plants requiring water. (story.md)
+- [FIXED] The house contains a wall of framed patents, machine drawings, photographs and newspaper clippings. (story.md)
+- [FIXED] The wall includes the nameplate “PHANTUM WATERWORKS · ADRIAN PHANTUM, FOUNDER.” (story.md)
+- [FIXED] The wall includes a clipping about the Phantum Waterworks Center for Entrepreneurs in Keel. (story.md)
+- [FIXED] The center offers free benches and mentors for new founders. (story.md)
+- [FIXED] A framed sketch on the wall depicts the pump bracket from Chapter 1. (story.md)
+- [FIXED] The prologue ends with Alex beginning the story of his teenage years in Keel. (story.md)
+- [FIXED] The prologue does not directly display Alex's debt balance. (story.md)
+- [FIXED] The prologue depicts independent businesses, competition, jobs, royalties, lower water prices and improved health as outcomes of Alex's later work. (world.md / story.md)

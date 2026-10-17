@@ -1,0 +1,109 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex pulls the old book; it stops like a lever and dust puffs from the shelf. Keep mechanism clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "The bookshelf shifts by a fraction and dust sifts down. Keep the moving edge clear."
+        }
+      ]
+    },
+    {
+      "h": 3,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The bookshelf swings outward on a concealed vertical pivot with floor clearance, revealing a black passage. Golden room light spills across the floor. Alex steps back; Grandmother remains seated. Preserve the passage as the dominant shape and leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Grandmother smiles calmly as Alex turns from the passage toward her. Leave upper corners clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 32,
+          "description": "Alex\u2019s boot crosses from warm light into darkness. No lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "RUMBLE",
+      "size": "medium",
+      "x": 72,
+      "y": 82
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "...Grandma?",
+      "at": "top-left",
+      "tail_x": 40.8,
+      "tail_y": 10.6
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He said you'd know when you were ready.",
+      "at": "top-left",
+      "tail_x": 32.9,
+      "tail_y": 30.9
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "When did he say that?",
+      "at": "top-right",
+      "tail_x": 66.7,
+      "tail_y": 23.9
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Before he went to work.",
+      "at": "bottom-left",
+      "tail_x": 32.9,
+      "tail_y": 30.9
+    }
+  ]
+}

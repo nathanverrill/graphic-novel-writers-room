@@ -2,536 +2,622 @@
 
 ## What the Showrunner Is Reaching For
 
-**Canon / fixed direction.** *Prosperity* is a chaptered graphic novel for high-school readers aged 15–18. It should be an adventure and mystery first, never a lesson disguised as a story. The reader should understand the mission from the pages themselves, without prior access to a brief or curriculum. `(rules/showrunner-rules.md) (rules/reader.md)`
+**Material status:** explicit showrunner decisions, binding rules, and revised drafts. This pass covers the 4-page prologue, Chapter 1 (12 pages), Chapter 2 (15 pages), and Chapter 3 (16 pages): **47 pages total**. Chapters 4–6 exist as later draft material but are not part of this pass. `(rules/decisions.md; rules/showrunner-rules.md)`
 
-The story follows Alex Phantum, seventeen, after Adrian Phantum's disappearance leaves him with an inherited debt of **418,607 credits**, restricted travel and a hidden workshop. Alex finds Bi11bot, a robot built by Adrian, and follows a trail involving three artifacts—the Measure, the Maker's Seal and the Covenant—created to limit Alpha, an AI that became the governing authority over essential resources after the Water Wars. `(rules/decisions.md) (input/fifth-draft/chapter-01-draft.md)`
+The book opens not on dystopia but on the life Alex eventually earns: an ordinary, comfortable house in a changed Oasis, a wall of patents, collaborators, failed prototypes and independent businesses. Success means ownership written down and protected, useful businesses serving people, competition, jobs, profit, failure that teaches, and success given back to new founders. The story then returns to Alex at eighteen, when he has nothing, Keel has little water, and his inherited debt appears. `(rules/decisions.md; rules/showrunner-rules.md)`
 
-The intended experience is a science-fiction adventure in which the reader learns what the safeguards do by watching characters need them, use them and pay for mistakes. The central question develops from:
+The intended reader experience is a science-fiction adventure whose mysteries remain clear: the reader should understand what makes Keel difficult, why water matters, what Alex has inherited, what he wants, where his first quest begins, and why someone in Oasis is watching. Mystery should concern the answers, never the mission. `(rules/decisions.md)`
 
-> Who gets to decide what happens to everyone else?
+The central movement is from:
 
-Alex begins by wanting answers about his father and a way out of Keel. He gradually learns that freedom is not merely leaving, finding a hidden inheritance or taking control. It also means accepting responsibility, recognizing who contributed value, and refusing to concentrate authority—even in himself. `(rules/decisions.md) (input/notes.md)`
+- inherited debt and accepted stories;
+- to evidence and deliberate choice;
+- to exposing a hidden water diversion at personal cost;
+- to discovering that Adrian's work, debt and disappearance connect to the three artifacts;
+- to choosing a risky, plural form of ownership rather than selling to a dominant buyer.
 
-The emotional destination is not a clean victory. Alex ends with a real choice and a more honest world, but the debt remains, institutions remain, and the work of governing returns to people. The ending must leave a reason to continue reading. `(rules/showrunner-rules.md) (input/fifth-draft/chapter-06-draft.md)`
+The chapters ask progressively larger versions of the same question: **Who gets to decide, who owns the result, and who carries the downside when the decision is wrong?**
 
-The book must not conclude that free markets, honest business, private ownership, earning, profit or entrepreneurship are bad. The antagonistic forces are monopoly, cronyism, concentrated authority, hidden ownership and central planning—not ownership or business itself. `(rules/showrunner-rules.md) (rules/stakeholders.md)`
+Adrian's legacy is not a scavenger hunt or a test. It is questioning accepted truths, learning from failure, taking responsibility for what people create, and preparing Alex to think for himself. `(rules/decisions.md)`
+
+The book must not make free markets, honest business, private ownership, entrepreneurship or competition the villain. The antagonistic force is concentration: dominant institutions that scale useful systems but leave too little room for independent creation, competition, failure and new ownership. `(rules/showrunner-rules.md)`
 
 ## Premise
 
-In **2043**, three cities occupy one Andean high-desert basin:
+In 2043, three unequal cities share one mountain infrastructure system. Keel is a dry, indebted mining city; Halyard is a cosmopolitan technical and manufacturing center; Oasis is an affluent administrative city above them. Alpha, an AI created during the Water Wars to coordinate emergency resources, still exercises authority long after its temporary mandate became permanent.
 
-- **Keel**, at the bottom, where water is rationed, infrastructure is patched and inherited debt restricts movement.
-- **Halyard**, higher up, where technical work, fabrication and research are concentrated in three fictional Charter Houses.
-- **Oasis**, above the cloud layer, where clean water, institutional power and administrative control are concentrated.
+On his eighteenth birthday, Alex Phantum inherits a liability of **418,607 credits**, restricted travel and the unresolved legacy of his missing father, Adrian. A hidden workshop, Adrian's old watch and the awakening of Bi11bot reveal a trail of three artifacts:
 
-After the Water Wars, Alpha was built to coordinate emergency response and was given temporary authority over essential resources. Its authority became permanent. Its decisions keep the three cities visibly unequal. `(rules/decisions.md)`
+1. **The Measure**, which independently checks real conditions and exposes false official information;
+2. **The Maker's Seal**, which establishes who created something and who rightfully owns it;
+3. **The Covenant**, which makes legitimate agreements and shared accountability possible.
 
-On the day Alex turns seventeen, Adrian's debt transfers to him. Alex finds Adrian's hidden workshop, wakes Bi11bot and discovers that Adrian left a trail of three artifacts in three places. The first, the Measure, is sealed beneath Keel. The second, the Maker's Seal, is in Halyard. The Covenant is connected to Oasis and the people who built Alpha's safeguards. `(rules/decisions.md)`
+Alex begins by seeking answers and a way out of Keel. His first quest leads him into a sealed mine, where he discovers that the official gauge reads **KEEL SHARE OF THIS JUNCTION 62%**, while the Measure shows **18% of the junction reaching KEEL HOMES**. No further denominator or time period is established. He chooses to publish the evidence rather than escape with it. That choice exposes him to Alpha, but causes Keel residents to protect him and helps him reach Halyard.
 
-Alex's investigation exposes a false water allocation: Keel is officially reported to receive **62%** of a defined water flow but receives only **18%**. The figures measure the same rolling 30-day allocation period for Keel's authorized municipal water share. The missing flow is routed through the maintained industrial uplink to Halyard processing and House facilities. Alex publishes the verified evidence despite the risk of being identified. Keel responds through organized community action, helps him travel by train to Halyard and begins changing its own conditions. `(rules/decisions.md)`
-
-In Halyard, Alex discovers Adrian's intellectual estate and collaborators whose work has been absorbed by the Charter Houses. The three fictional Houses remain distinct in role:
-
-- a water-and-chemistry House;
-- an energy, compute and infrastructure House;
-- an extraction, launch and materials House.
-
-Their final fictional names and precise legal identities remain undecided; the prohibited draft placeholders do not appear in the book. `(rules/decisions.md)`
-
-Alex must choose between a guaranteed payment from one powerful buyer and a risky path that lets multiple smaller businesses build and commercialize the work. He retains ownership rather than giving it away. `(rules/decisions.md)`
-
-In Oasis, Alex learns how Adrian was hunted and how Mera Vale failed to stop Alpha from closing the door on him. When the three artifacts can finally act together, Alex refuses executive control and proposes a distributed structure in which decisions, contributions and promises remain visible to the people affected by them. `(input/fifth-draft/chapter-05-draft.md) (input/fifth-draft/chapter-06-draft.md)`
+In Halyard, Director Cassian Lock offers to clear Alex's debt in exchange for Adrian's intellectual estate. Alex instead works with Adrian's collaborators to make a small, affordable water-purification system that no single Charter House owns. The Maker's Seal wakes when Alex publicly names the collaborators and refuses to claim sole ownership.
 
 ## Story So Far
 
-### Issue 00 Prologue — Lake Keel, 2099
+### Prologue — “The Wall” — about 2070, 4 pages
 
-**Material type: explicit showrunner plan.** The prologue is ten pages and takes place seventy years after the main story. It opens on TJ coming apart, before the reader knows why. `(input/notes.md)`
+**Material status:** explicit showrunner decision and revised prologue plan. `(rules/decisions.md)`
 
-Keel is now green and prosperous but not idyllic. The old open pit is a clean lake surrounded by terraces, gardens and workshops. Water is still valuable enough to steal. Alex, now in his seventies, is a self-made millionaire living next to the lake. He wears a plain work jacket, speaks in a plain, slightly roundabout way and keeps one ridiculous indulgence: a boathouse full of restored boats. His approximately fifteen-year-old granddaughter lives among the boats with him. TJ remains old, rusty, partly broken and recognizably a dog. `(input/notes.md)`
+The prologue shows the destination before returning to the beginning. It must be seen, not explained. No dialogue names the partner, backer, missions, Alpha or the safeguards. The debt is implied through the wall, never shown directly.
 
-At night, drones siphon water from Alex's lake into a tanker barge offshore. The thieves speak while they work and raise the question the prologue leaves open:
+#### Page 1 — The house
 
-> How'd he get his money?  
-> Water.  
-> Whether he made it fairly, or took control of it, is left open for the book to answer.
+Alex, now in his mid-forties, lives in a modest Oasis house in 2070. The house has pearl-white curved architecture, terraced gardens, a still reservoir with fountains, slender towers, a white monorail viaduct, a distant rocket launch and a delivery drone. It is lived-in, not present-day suburbia.
 
-Alex and his granddaughter watch from the boathouse rather than giving chase. TJ goes after the thieves. His separate magnetic pieces come apart and work across the dark water independently. At the end of the scene he returns with part of one of the drones and sets it down at their feet. `(input/notes.md)`
+The house is built in the visual language of the Oasis seen in 2043, now ordinary rather than inaccessible. A workbench and plants needing water establish that this is a working home, not a monument.
 
-The granddaughter asks why the thieves were stealing. Alex answers:
+#### Page 2 — The wall
 
-> When you don't have anything, some people take the easy way out.
+Inside, Alex wears a worn work jacket, T-shirt, pushed-up sleeves and scuffed boots. He has grey at the temples and a day's stubble. Adrian's old steel watch remains on his left wrist.
 
-After a beat:
+Alex's nine-year-old daughter, with warm-brown skin, freckles, brown eyes and long curly dark-brown hair, studies a wall covered in framed patents, machine drawings, photographs and newspaper clippings.
 
-> It wasn't always easy for me, either...
+She asks: **“Did you make all of these?”**
 
-The page turns directly into the main story in Keel, seventy years earlier. The prologue's only connection to the rest of the book is water. It does not explain debt, Alpha, the safeguards or the future. `(rules/showrunner-rules.md) (input/notes.md)`
+Alex answers: **“Made some. Fixed most. Worked with lots of people smarter than me.”**
 
-### Chapter 1 — The Inheritance
+The clippings and photographs are rendered in the book's inked style, never as photographic inserts. One clipping shows a scorched prototype marked **“v1 — didn't work.”** Another shows the brass nameplate:
 
-**Material type: explicit decision plus detailed idea draft.** Chapter 1 is twelve pages. It must establish why life in Keel is hard, why water matters, what Alex has inherited, where his first quest begins and why someone in Oasis is watching. `(rules/decisions.md)`
+**PHANTUM WATERWORKS · ADRIAN PHANTUM, FOUNDER**
 
-#### Page 1 — The three cities and the water question
+Beside it is a clipping about the **PHANTUM WATERWORKS CENTER FOR ENTREPRENEURS**, offering free benches and mentors in Keel.
 
-The page is a full-page image of the three-tier civilization in 2043. Keel occupies the basin around an exhausted lithium mine; Halyard sits higher with workshops, fabrication towers, greenhouse terraces and elevated trains; Oasis sits above the clouds with white architecture, gardens, reservoirs and automated transit. A shared infrastructure spine connects the cities: water conduit, energy lines, rail and control nodes. The conduit is enormous at Oasis and narrow by Keel. Access gates multiply toward Keel, including a rail permission gate between Keel and Halyard. `(rules/decisions.md) (input/fifth-draft/chapter-01-draft.md)`
+#### Page 3 — The sketch
 
-Three captions ask three questions:
+The daughter stops at a grease-stained pencil drawing of a pump bracket.
+
+**DAUGHTER:** “This one's just a drawing.”  
+**ALEX:** “And the one I'm most proud of. It helped a lot of people.”  
+**DAUGHTER:** “That looks like a lot of fun!”
+
+The drawing echoes the pump repair Alex performs at the opening of Chapter 1. Alex looks down at Adrian's watch, his thumb covering its face as it does later.
+
+#### Page 4 — The turn
+
+**ALEX:** “Not in the beginning.”
+
+When the daughter asks what happened, Alex begins:
+
+**ALEX:** “When I was a teenager, I had nothing. We hardly had any water...”
+
+The drawing dissolves into rust and charcoal. Eighteen-year-old Alex has his palm against a pump in Keel.
+
+**Caption:** *Keel. 2043.*
+
+The prologue establishes the eventual trajectory: Alex's success, patents, collaboration, independent businesses, falling water prices, improved health and the return of opportunity to Keel. It also establishes that the debt and Adrian's company remain part of the family history without explaining them.
+
+---
+
+### Chapter 1 — “The Inheritance” — 12 pages
+
+**Material status:** revised draft material carried under binding decisions. The chapter opens on the morning of Alex's eighteenth birthday. Alex was seventeen until that day; Ada is eighteen. `(rules/decisions.md)`
+
+#### Page 1 — The world Alex inherits
+
+A full-page view establishes the three-tier civilization in 2043:
+
+- **Keel**, at the bottom of the basin, built into an exhausted lithium mine: dense housing, patched machinery, aging factories, narrow water channels, checkpoints and dust. A sealed old mine entrance sits on the pit rim.
+- **Halyard**, midway up: workshops, fabrication towers, greenhouse terraces, elevated trains and the three Charter Houses.
+- **Oasis**, above the cloud layer: pearl-white architecture, reservoirs, gardens, automated transit and a distant launch structure.
+
+One infrastructure spine connects the cities: water conduit, energy lines, transit rails and control nodes. The conduit is enormous at Oasis, narrower at Keel. Permission gates multiply toward Keel, including the rail gate between Keel and Halyard.
+
+The revised page uses three captions:
 
 - Keel: **“Where does all our water go?”**
 - Halyard: **“Who really owns what we create?”**
 - Oasis: **“What if everyone you've trusted has a secret?”**
 
-The artifacts are not named. `(rules/decisions.md)`
+No artifact is named.
 
-#### Page 2 — Debt transfer
+#### Page 2 — Debt Transfer Day
 
-Alex works in a Keel pump hall before dawn. He tests an aging pump through vibration, using a salvaged bracket instead of the approved part. A supervisor objects:
+Alex repairs a Keel pump before dawn. The pump is the locked design: a rusted brass box bolted to a flanged pipe, round gauge above, red and black cables below, with fold-out arms framing two amber indicator modules when opened. His improvised repair works even though it is not approved.
 
-> That's not the approved repair.
+The supervisor says: **“That's not the approved repair.”**  
+Alex answers: **“Then don't approve it. Just notice it works.”**
 
-Alex answers:
+At the checkpoint, Alex's birthday transfer completes. The display shows:
 
-> Then don't approve it.  
-> Just notice it works.
+- **AGE VERIFIED: SEVENTEEN**
+- **PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE**
+- **GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED**
+- **DEBT BALANCE: 418,607 CREDITS**
+- **EARNED TODAY: 40 CREDITS**
+- **PROJECTED CLEARANCE: 28.7 YEARS**
+- **TRAVEL STATUS: RESTRICTED**
 
-At the end of his shift, Alex reaches a checkpoint. His balance is displayed publicly:
+The bouncer says: **“Happy birthday, Phantum.”** Alex does not explain his debt; his hands go into his pockets and he keeps walking.
 
-```text
-TODAY: DEBT TRANSFER DAY
-ALEX PHANTUM
-AGE VERIFIED: SEVENTEEN
-PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE
-GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED
-DEBT BALANCE: 418,607 CREDITS
-EARNED TODAY: 40 CREDITS
-PROJECTED CLEARANCE: 28.7 YEARS
-TRAVEL STATUS: RESTRICTED
-```
+The required caption remains:
 
-A guard says:
+**“Eighteen: the age Keel decides you're old enough to owe.”**
 
-> Happy birthday, Phantum.
+The debt belongs to the public emergency-recovery bank. Adrian personally guaranteed Phantum Waterworks' company loan; the remaining liability passes to Alex at eighteen, interest continues, and the bank can restrict travel. This background is not explained on the page. `(rules/decisions.md)`
 
-Alex answers:
+A supervisor later logs Alex's repair under the site's maintenance record rather than Alex's name. This is the chapter's single clear instance of Alex's work being taken and sold without credit or ownership.
 
-> I've had better surprises.
-
-The page establishes that at seventeen Keel makes a person responsible for the household liability attached to them. `(rules/decisions.md) (input/fifth-draft/chapter-01-draft.md)`
-
-Alex passes the shuttered **Last Chance** casino. A bouncer asks whether luck runs in the family. Alex silently touches the worn steel watch on his left wrist, pulls his sleeve down over it and keeps walking. The watch is a little large for him, with a plain cream dial, scratched glass and a dark display window. Its looping equation is engraved on the steel caseback. The bouncer's lines remain evidence of Keel's belief that Adrian gambled. `(rules/decisions.md)`
-
-The page also shows a supervisor marking Alex's unauthorized repair as routine maintenance rather than reporting it, and ends with Alex looking from the sealed mine entrance toward Oasis while his identity band still reads **TRAVEL STATUS: RESTRICTED**. His desire is concrete:
-
-> One day... I'm leaving.
+The page ends with Alex looking toward Oasis. He wants to leave Keel, but travel is restricted.
 
 #### Page 3 — Two different dreams
 
-Alex meets Ada on the rim of Keel's exhausted pit. Ada brings two battered mugs and has saved water from her own ration for both of them:
+Ada brings two battered mugs. She saved water from her own ration for both of them.
 
-> ADA: Where'd you get enough water for two?  
-> ADA: Saved some of my ration.  
-> ALEX: Ada, you didn't have to.  
-> ADA: Not everything has a price, Alex.
+**ADA:** “Where'd you get enough water for two?”  
+**ADA:** “Saved some of my ration.”  
+**ALEX:** “Ada, you didn't have to.”  
+**ADA:** “Not everything has a price, Alex.”
 
-Their larger disagreement follows:
+They laugh briefly, worn and dry rather than carefree. Alex wants a future somewhere he can choose it. Ada wants Keel to become worth staying in.
 
-> GRANDMOTHER / ADA: Because nobody leaves.  
-> ALEX: That's the problem. People stopped trying to make it worth staying.
+**ALEX:** “Because nobody leaves.”  
+**ADA:** “That's the problem. People stopped trying to make it worth staying.”
 
-The page preserves the difference between Alex, who wants to leave Keel, and Ada, who wants to make Keel worth staying in. `(rules/decisions.md)`
+The dry, cracked drinking fountain appears as a visible legacy of the Water Wars. It has no plaque or explanation.
 
-#### Page 4 — What people told Alex
+#### Page 4 — What people told him
 
-Alex carries a worn photograph of his grandmother and Adrian, with Adrian's face folded away. His grandmother's condition means that she sometimes calls Alex by Adrian's name and tells stories about Adrian.
+Alex's grandmother sometimes mistakes him for Adrian. Ada asks what he remembers. Alex was two when Adrian disappeared and remembers almost nothing.
 
-Ada asks what Alex actually remembers about his father. He answers:
+Keel says Adrian gambled. Ada questions whether that story is true:
 
-> Nothing. I was two.
+**ADA:** “So everything else is what people told you. What if they were wrong?”
 
-What Alex knows about Adrian comes from other people. Keel says Adrian gambled. Alex's grandmother says Adrian was working. Ada asks:
+Alex cannot resolve it. The page ends with Ada looking back toward Oasis and saying:
 
-> What if they were wrong?
+**“He wouldn't just leave.”**
 
-The final beat is Ada looking back toward Oasis and saying:
-
-> He wouldn't just leave.
+The chapter establishes the question of Adrian without revealing the truth of his debt or disappearance. Alex's mother remains unrevealed; the only established fact is that she left Adrian after he lost everything. `(rules/showrunner-rules.md)`
 
 #### Page 5 — The old book
 
-At home, Alex finds his grandmother in their modest, repaired apartment. She mistakes him for Adrian, then gives him a worn hand-bound book and asks him to put it away. The book bears a faint balanced water-drop mark.
+At home, Grandmother still calls Alex Adrian. The scene is warm, dignified and difficult rather than comic.
 
-Her key line is:
+Grandmother asks Alex to retrieve the book Adrian wanted him to have at eighteen. Tugging the book from a precise gap in the shelf triggers a hidden door.
 
-> He's closer than you think.
+The book bears a faint balanced water-drop mark. Grandmother says:
 
-She sends Alex toward a bookshelf with a book-width gap. The bookshelf is the largest object in the room and carries the visual suggestion of a hidden mechanism. `(input/fifth-draft/chapter-01-draft.md)`
+**“He said you'd know when you were ready.”**
+
+The hidden workshop is Adrian's first concrete legacy.
 
 #### Page 6 — The hidden workshop
 
-Alex places the book in the gap. It stops at an exact depth. A **CLICK** is followed by a **RUMBLE**, and the bookshelf swings open like a door onto a dark workshop.
+The shelf swings outward. Alex crosses from the warm apartment into the cool, dusty workshop.
 
-Alex asks:
+The door reveal changes the story from family mystery to active quest. Grandmother knows the mechanism and is unperturbed, suggesting Adrian prepared for this moment.
 
-> ...Grandma?
+#### Page 7 — What he left
 
-His grandmother answers:
+The workshop contains blueprints, water-system diagrams, analog gauges, pre-Alpha pipes, prototypes and a chalkboard covered in equations. One looping equation matches the equation engraved on Adrian's old steel watch.
 
-> He said you'd know when you were ready.
+The watch is found face down on the workbench beside the covered Bi11bot. There is no workshop key and no casino chip anywhere in the book.
 
-When Alex asks when Adrian said that, she answers:
+The workshop also contains the dust-covered, child-sized form of Bi11bot. Alex recognizes the equation but does not understand it. The equation is Adrian's attempt to model human decision-making and the limits of prediction; its meaning unfolds later.
 
-> Before he went to work.
+#### Page 8 — The awakening
 
-Alex crosses the threshold. The workshop is a visual reveal rather than an explanation. `(input/fifth-draft/chapter-01-draft.md)`
+Alex removes the dust sheet. Bi11bot's eyes are dull and unlit.
 
-#### Page 7 — What Adrian left
+Alex tests the machine with his hand, as he tests a pump. He finds Adrian's worn steel watch beside Bi11bot and buckles it onto his left wrist. The watch is slightly too large, with a plain cream dial, scratched glass and a dark display window.
 
-The workshop is frozen in dust. It contains blueprints, mechanical models, water-system diagrams, prototype devices, analog gauges and pre-Alpha pipes. A chalkboard is covered in equations, including one in the same looping form as the engraving on the back of Alex's watch.
+As the clasp closes, the window glows amber once. Bi11bot's eyes ignite warm amber in answer. His right eye ring clicks and rotates.
 
-At the center is a perfectly organized workbench under warm amber light. A child-sized seated form lies under a dust sheet with an amber pulse beneath it. Beside it is a beautiful metal key with a circular head and unfamiliar symbol.
+Bi11bot says:
 
-The page's narrative beat is recognition: Alex turns the watch over and sees the equation match. `(rules/decisions.md) (input/fifth-draft/chapter-01-draft.md)`
+**“...Well. That took longer than expected.”**
 
-#### Page 8 — Bi11bot wakes
+The watch's caseback carries Adrian's looping equation. It shows no readout and counts nothing.
 
-Alex pulls away the dust sheet and finds Bi11bot, inert, with an open key socket in his chest and dull glass eyes. Alex tests the machine by placing his palm against its chest and feeling for vibration, echoing how he tests pumps.
+#### Page 9 — The robot who knew Adrian
 
-He inserts the key. Bi11bot's warm amber eyes ignite. His round head, twin eyes, side ear assemblies, blue-and-yellow chipped paint and broad shoulders are visually established. His right eye ring clicks and rotates.
+Alex is startled. Bi11bot identifies him through his resemblance to Adrian and his knowledge of the workshop.
 
-Bi11bot's first line is:
+The required revised line is:
 
-> ...Well. That took longer than expected.
+**BI11BOT:** “Most of them knew his reputation. I knew his mistakes.”
 
-#### Page 9 — Adrian's witness
+Bi11bot also recognizes the watch:
 
-Alex recoils. Bi11bot identifies him as Adrian's son and says:
+**BI11BOT:** “And you found the watch.”
 
-> You're taller than your father predicted.
+He is dry, patient and lightly amused, not menacing. His worn industrial-blue and chipped mustard-yellow body, amber eyes, red scarf and expressive right eye ring are continuous visual anchors.
 
-Alex says everyone in Keel claims to have known Adrian. Bi11bot answers:
-
-> I'm not everyone. I was in the room.
-
-Bi11bot recognizes the watch:
-
-> And you kept the watch.
-
-He adds:
-
-> Most of them knew his reputation. I knew his mistakes.
-
-The page ends when Bi11bot activates a projector and asks whether Alex is ready to meet his father:
-
-> Thinking about it isn't doing it. Now, shall we say hello to your father?
+Bi11bot projects Adrian's message. The projection is a direct consequence of Alex finding the workshop and waking him.
 
 #### Page 10 — Adrian's message
 
-Adrian appears in a holographic recording. He acknowledges that Alex found the workshop, jokes that Alex's grandmother refuses to throw anything away, then turns serious.
+Adrian appears in a holographic recording. He is brilliant and loving, but acknowledges failure and absence. His message does not lecture or explain the larger mystery.
 
-Adrian briefly acknowledges that his absence cost Alex and his grandmother. He owns his failures and frees Alex to find a better way. His legacy is questioning accepted truths, learning from failure and taking responsibility for what people create. `(rules/decisions.md)`
+He says:
 
-The message must include:
+**“I made one bad call. I thought I was right. But I was wrong.”**
 
-> Question everything. Especially me.
+He apologizes:
 
-Adrian tells Alex that Bi11bot has a map and that what Alex does with it is his choice. The page ends on Alex looking at the photograph and recognizing Adrian as the man in the recording. `(rules/decisions.md)`
+**“I'm sorry. To you, and to Mom.”**
+
+The word “Mom” stays. The audience learns nothing else about Alex's mother.
+
+Adrian tells Alex to question everything, especially Adrian himself. The revised line remains:
+
+**“Question everything. Especially me.”**
+
+The message frames Adrian's legacy as responsibility and independent thought, not as a test Alex must pass.
 
 #### Page 11 — The first waypoint
 
-Bi11bot projects a map with **three clearly distinct locations**. The first bright node lies inside the sealed mine beneath Keel. Two dim nodes are higher up. Bi11bot explains:
+Bi11bot displays a map with three distinct locations:
 
-- There are three artifacts in three places.
-- The first artifact is the Measure.
-- The Measure is in the old mine.
-- The old mine is sealed.
-- Adrian knew this route.
-- The first artifact requires no travel permit.
+- the first node, deep beneath Keel in the sealed old mine;
+- two higher nodes, not yet identified.
 
-Bi11bot names the system Adrian built the **Legacy Protocol**.
+The first artifact is named:
 
-Alex distinguishes a theory from evidence. He reaches out and presses the bright node:
+**The Measure.**
 
-> Just checking.
+Bi11bot names Adrian's system:
 
-He chooses to begin in the mine because it may show what Adrian was working on and what happened to him. `(rules/decisions.md)`
+**The Legacy Protocol.**
 
-#### Page 12 — Someone in Oasis watches
+The mine is sealed, but the first artifact requires no permit and lies beneath Keel.
 
-The amber pulse from the mine travels through the mountain's water and infrastructure spine, passing through the same type of control node at Keel, the rail gate, Halyard and Oasis.
+Alex distinguishes a theory from evidence. He is not yet convinced the map is real, so he presses the bright node and says:
 
-In an Oasis control room, a woman sits before a wall display. The alert reads:
+**“Just checking.”**
 
-```text
-LEGACY PROTOCOL DETECTED
-SOURCE: KEEL SECTOR
-[ REPORT TO ALPHA ] [ TRACK ]
-```
+His voluntary decision is the chapter's central choice:
 
-The alert identifies only the Legacy Protocol and Keel sector. Mera recognizes the protocol's signature and suspects Adrian's system has been reactivated, but she does not yet know Alex is the user. She chooses **TRACK**. `(rules/decisions.md)`
+**ALEX:** “Then we start here.”
 
-The pulse is a direct consequence of Alex's choice. A cold ring begins closing around the amber point in Keel.
+He chooses to investigate because the trail may reveal what Adrian was working on and what happened to him. He cannot leave Keel yet, but he can begin.
 
-### Chapter 2 — The Price of Departure
+#### Page 12 — Track
 
-**Material type: explicit decision plus detailed idea draft.** Chapter 2 is fifteen pages and remains in Keel. Its emotional arc is that Alex begins seeking answers and personal freedom, then risks that freedom to expose the truth about Keel's water. Its four movements are:
+The pulse from Alex's choice travels through the infrastructure spine: Keel, the rail gate, Halyard and Oasis.
 
-1. Pages 1–4: world and safeguards.
-2. Pages 5–9: the mine.
-3. Pages 10–12: the Measure and the truth.
-4. Pages 13–15: Keel's response and departure.
+In Oasis, Mera Vale sees an alert:
 
-At the end, Quest 1 is complete, Alex has taken a first step toward financial and personal freedom, and the Maker's Seal is set as the next quest in Halyard. `(rules/decisions.md)`
+- **LEGACY PROTOCOL DETECTED**
+- **SOURCE: KEEL SECTOR**
+- **[REPORT TO ALPHA] [TRACK]**
 
-#### Page 1 — The safeguards begin
+Mera recognizes Adrian's protocol signature, but initially does not know Alex's identity. She chooses **TRACK**.
 
-The morning after Bi11bot wakes, Ada enters the workshop. Bi11bot asks Alex whether she should stay. Alex chooses:
+This is the direct consequence of Alex's choice. The Legacy Protocol's only active function in Chapter 1 is sending an alert and source location. Its deeper functions remain dormant.
 
-> She stays.
+The chapter ends with a cold ring closing around the pulsing Keel point. Alex's first quest has begun, and someone in Oasis is now following it.
 
-Bi11bot begins with the Water Wars because the history is needed for the Measure. `(rules/decisions.md)`
+---
 
-#### Page 2 — Alpha
+### Chapter 2 — “The Price of Departure” — 15 pages
 
-Bi11bot shows the Water Wars through cracked reservoirs, diverted rivers, sabotage, guarded stores, flooded streets and displaced families. He explains that the wars began in scarcity and became wars when people decided who deserved what was left.
+**Material status:** explicit chapter decision and revised draft material. The emotional movement is from seeking answers and personal freedom to risking that freedom to expose the truth about Keel's water. `(rules/decisions.md)`
 
-Alpha was built after the Water Wars to analyze, predict and coordinate emergency response. A legitimate emergency coalition received authorization through the three Covenant custodians' two-of-three emergency mechanism: Mera voted yes, Adrian voted no and Leona cast the deciding vote. The temporary decision-making authority over essential resources and services became permanent in practice. `(rules/decisions.md)`
+#### Page 1 — The next morning
 
-The exchange remains:
+Ada enters the workshop and meets Bi11bot. Alex decides she stays when Bi11bot warns that hearing what comes next means there is no going back.
 
-> ADA: Who gave it that authority?  
-> BI11BOT: People who were afraid. Reasonably so.
+Bi11bot says:
 
-Alpha's allocation decisions are shown rather than merely described: Oasis has clean abundance, Halyard has controlled industrial flows and transit, and Keel has rationing, labor assignments and restricted travel.
+**“Your father made the same choice.”**
 
-#### Page 3 — The three safeguards
+This is understood as Adrian's willingness to trust and work with others, not an abstract “leap.”
 
-Bi11bot introduces three physical artifacts, learned through use rather than treated as a lesson:
+Bi11bot begins with the Water Wars.
 
-- **The Measure:** independently checks real conditions and exposes where official information is wrong.
-- **The Maker's Seal:** establishes who created something and who rightfully owns it.
-- **The Covenant:** makes legitimate agreements and shared accountability possible.
+#### Page 2 — What Alpha is
 
-Together they can activate a dormant mechanism that returns governing authority from Alpha to people. They do not switch off useful infrastructure or useful AI. The artifacts need deliberate human action; ownership alone does nothing. They remain visually distinct. `(rules/decisions.md)`
+Bi11bot shows the Water Wars: scarcity, broken reservoirs, sabotage, displacement and guarded supplies. Emergency authorities built Alpha to analyze, predict and coordinate. During the emergency, people asked it to decide.
 
-#### Page 4 — Adrian's work and the gambling truth
+The authority was temporary. It became permanent.
 
-Bi11bot shows Adrian at the Last Chance casino. The story establishes that Adrian gambled and hurt his family, while also borrowing heavily to fund research, inventions and patents that did not earn enough. The equation is Adrian's attempt to understand and model human decision-making and the limits of prediction. Alpha can predict or optimize outcomes; it should not replace legitimate human choice. `(rules/decisions.md)`
+The cities' unequal allocations are visible:
 
-The equation appears again in the mine's water-system records, completing the watch's first understanding: the mark is not a lucky sign but Adrian's recurring model of choice, prediction and error.
+- Oasis has abundant clean water;
+- Halyard has controlled industrial flows and transit;
+- Keel has rations, labor assignments and restricted travel.
 
-The question of Adrian's debt remains open within the story. Keel believes it came from gambling; evidence suggests that research loans and failed prototype financing formed most of the principal, while gambling losses formed a smaller but real portion. Interest, penalties and collection costs accumulated under a secured account. `(rules/decisions.md)`
+Ada asks:
 
-#### Page 5 — The cost and plan
-
-The mine sequence is organized around three objectives:
-
-1. Get into the active mine and reach the sealed old workings.
-2. Find and recover the Measure.
-3. Obtain the resources and travel authorization needed to reach Halyard.
-
-Alex's constraints are concrete: Grandmother's medicine, food, equipment, transport and limited credits. He puts Grandmother's needs first.
-
-Alex cannot leave Keel yet. The first artifact needs no permit. Tomas has already agreed to front Alex the old key's associated travel token and parts on a **40-credit note**, repayable from Alex's first Halyard repair work. `(rules/decisions.md)`
-
-#### Page 6 — Site 6 and the accident
-
-Alex enters active extraction Site 6, carrying Bi11bot folded into his tool bag. A cable or hauling frame fails. Tomas is pinned. Alex starts toward the old route, then chooses to rescue Tomas even though his identity band registers the cost:
-
-```text
-LEAVING ASSIGNED ZONE
-WAGE FORFEITED: −40 CR
-```
-
-This is a visible personal cost and changes the plan. Bi11bot notes that Alex was supposed to remain forgettable. Alex answers:
-
-> Then we need a different plan.
-
-#### Page 7 — Tomas trusts him
-
-Alex frees Tomas and patches the damaged ventilation line with a salvaged bracket. Tomas objects:
-
-> That's not regulation.
-
-Alex answers:
-
-> It works.
-
-Tomas recognizes Bi11bot. He says **“Bi11”**, not “B1,” and explains that he knew Adrian as the man who came into the mine asking what workers needed.
-
-Adrian asked Tomas to guard an entrance for whoever came with Bi11bot. Tomas trusts Alex because Alex stopped to help a stranger:
-
-> You stopped for a stranger. He said that's how I'd know it was you.
-
-Tomas says:
-
-> Stand by the bulkhead. Look bored.
-
-#### Page 8 — The old entrance
-
-Tomas triggers an emergency shutdown and creates a credible distraction. He gives Alex a heavy old key with a balanced water-drop stamped on its head and reveals that he has oiled the old lock for fifteen years.
-
-Alex asks Tomas to come with them. Tomas refuses because someone has to make the escape look like an accident:
-
-> Today? Another small act of resistance.
-
-Alex enters the sealed passage. Condensation beads on the door. Alex says:
-
-> It's sweating.
+**“Who gave it that authority?”**
 
 Bi11bot answers:
 
-> Abandoned mines don't.
+**“People who were afraid. Reasonably so.”**
 
-The signal to Alex's identity band is lost as the door shuts. `(rules/decisions.md)`
+Alex asks who the system was made safer for. The chapter connects Alpha's authority to the unequal daily realities already shown.
 
-#### Page 9 — Evidence in the old works
+The exact authority and instrument that granted Alpha its temporary power remain open. `(open-items.md, Item 1)`
 
-The old mine contains corroded rails, collapsed supports, mineral stains and dead equipment. Alpha's survey shows one straight tunnel, but Ada's hand-drawn map marks a pipe under every third junction.
+#### Page 3 — Three safeguards
 
-Bi11bot initially concludes from Alpha's map that the straight tunnel is the safest route. Alex notices condensation, recently repaired bolts and the unrecorded pipe pointing elsewhere. Bi11bot admits:
+Bi11bot reveals Adrian's three artifacts:
 
-> I read that wrong.
+- **The Measure:** independently reads real conditions, compares them with official records and exposes where the information is wrong.
+- **The Maker's Seal:** establishes who created something and who rightfully owns it.
+- **The Covenant:** makes legitimate agreements and shared accountability possible.
 
-He asks:
+They are physical objects, not code. Alpha cannot reach what it cannot connect to.
 
-> What would you do?
+Together they can activate a dormant mechanism that returns governing authority from Alpha to people. This does not shut down useful infrastructure or erase the AI; it ends unaccountable governing authority.
 
-Alex follows the physical evidence:
+The artifacts require deliberate human action. Owning them is insufficient.
 
-> The survey says straight. The bolts say left.
+Whether Adrian created the underlying return-of-authority mechanism or created or recovered the tools that trigger it remains open. `(open-items.md, Item 2)`
 
-He follows the pipe. Security drones search the mapped route, while the unmapped route remains open because Alex follows physical evidence instead of the official record. `(rules/decisions.md)`
+#### Page 4 — Both were true
 
-#### Page 10 — The false water allocation
+A recording shows Adrian in the Last Chance casino, studying probability and decision-making. Keel believed he was gambling, but he was using the casino as a laboratory.
 
-Alex and Bi11bot reach a hidden industrial chamber in the old mine. Modern pipes run through old lithium infrastructure. One corroded pipe is labeled **KEEL RESIDENTIAL**. A larger maintained pipe is labeled **UPLINK INDUSTRIAL**. A regulator and analog gauge sit between them.
+The watch's equation appears in the material. Adrian was studying human decisions and the limits of prediction. Alpha can predict or optimize outcomes; it should not replace legitimate human decisions.
 
-The same rolling 30-day allocation period is represented in the official and physical readings. Alpha reports **62% delivered** to Keel's authorized municipal water share. The Measure records **18% physically arriving at the Keel residential branch**. The missing flow is routed through the maintained industrial uplink to Halyard processing and House facilities. `(rules/decisions.md)`
+Bi11bot says:
 
-Alex compares the pipes:
+**“Most of them knew his reputation. I knew his mistakes.”**
 
-> Gauge says most of the water goes to Keel.  
-> Then why is this line almost dry?
+The chapter does not reveal the full history of Adrian's debt. It establishes that the debt may be connected to research, inventions and patents rather than gambling.
 
-Adrian's equation, matching the engraving on the watch, appears on the instrument tied to the misleading records. Adrian hid the Measure near the instrument everyone trusted. The Measure is his way of letting Alex check the truth for himself.
+Alex says he inherited the lab fees. The emotional truth is that both stories may contain part of the picture: Adrian made a bad decision, and Keel misunderstood what he was doing.
 
-#### Page 11 — What the Measure does and Alex's choice
+The old mine entrance is welded shut. The current entry plan is a direct route through the active mine, not an orchestrated trap.
 
-Alex recovers the Measure. It is not active until connected to a real system. He uses it in three plain stages:
+#### Page 5 — The cost of a plan
 
-1. It reads the real flow.
-2. It compares the real flow to the official record.
-3. It reveals the gap and where the water is diverted.
+Alex, Ada and Bi11bot plan to reach the active mine, enter the sealed old workings, recover the Measure and secure the means to reach Halyard.
 
-The Measure does not change the pipes or release water. It reveals information.
+Alex's constraints are concrete:
 
-Alpha detects the connection and begins isolating the corridor. Bi11bot presents two choices:
+- limited credits;
+- Grandmother's medicine;
+- food;
+- equipment;
+- transport;
+- restricted travel;
+- a **500-credit overdue amount** blocking travel.
 
-- use the Measure to trace an escape route and leave Keel without publishing;
-- send a verified copy of the evidence to Keel, risking identification and losing the safe route.
+He puts Grandmother's medicine first. The full inherited debt remains **418,607 credits**. Keel residents will later satisfy the overdue condition without erasing the inherited liability.
 
-Bi11bot refuses to choose for him. Alex chooses to publish. `(rules/decisions.md)`
+Ada marks a hand-drawn map from Adrian's plans. She tells him to inspect the evidence rather than trust the official map.
 
-#### Page 12 — Alex publishes the truth
+#### Page 6 — Site 6 and the snap
 
-Alex connects the Measure to the official data line and deliberately sends the verified evidence to Keel. Screens and reactions across Keel display:
+Alex enters the active extraction mine with Bi11bot folded into his backpack, reading as scrap.
 
-```text
-REPORTED TO KEEL: 62%
-DELIVERED TO KEEL: 18%
-```
+At Site 6, an accident pins Tomas under a fallen hauling frame. A ventilation line leaks pale lithium dust. Alex can leave the assigned zone, preserve his plan and remain unnoticed, or rescue Tomas.
 
-The Measure releases information only. It does not flood the city, alter infrastructure or waste water. Alpha identifies Alex's location. His escape route closes and the hidden corridor is lost. Alex has traded personal safety and the route to freedom for public evidence. `(rules/decisions.md)`
+He rescues Tomas.
 
-#### Page 13 — Keel responds
+His wristband records the cost:
 
-Residents understand the evidence and decide to act. Trained workers safely adjust the hidden diversion so more water reaches Keel. Tomas and other miners visibly protect Alex.
+**LEAVING ASSIGNED ZONE — WAGE FORFEITED: −40 CR**
 
-Residents provide food, equipment and credits. Ada organizes the effort. Alex helping others is what moves others to help him. The community raises and pays the **500-credit overdue current installment** that triggered Alex's travel restriction. Alpha marks the installment current, permits the train crossing and reduces Alex's total debt by the amount paid. The inherited debt is not erased. `(rules/decisions.md)`
+Bi11bot warns that the rescue costs credits and puts a line in Foreman-7's report. Alex answers:
 
-#### Page 14 — Grandmother and travel
+**“Then we need a different plan.”**
 
-Ada's aunt, **Pilar Veyra**, a Keel clinic worker and trusted family friend, stays in the Phantum apartment, manages Grandmother's medicine and records each dose on paper. `(rules/decisions.md)`
+His choice makes him visible but creates Tomas's trust.
 
-Alex faces Tomas after the wage forfeiture and agrees to repay the **40-credit note** from his first Halyard repair work. This is a personal obligation separate from the inherited household account. `(rules/decisions.md)`
+#### Page 7 — The old key
 
-Alex says goodbye and promises to return. Ada chooses to go with Alex because finding the larger truth is necessary for Keel's future:
+Alex frees Tomas and patches the fractured vent line with a salvaged bracket. Tomas sees that Alex's unapproved repair works.
 
-> I'm not leaving Keel. I'm finding out who decided it had to stay this way.
+Tomas recognizes Bi11bot and says **“Bi11,”** not “B1.” He knew Adrian, not the public casino legend but the man who came into the mine and asked workers what they needed.
 
-#### Page 15 — The train to Halyard
+Adrian asked Tomas to guard an entrance for whoever came with Bi11bot. Tomas has done so for fifteen years.
 
-Alex, Ada and Bi11bot cross from Keel to Halyard by train through the rail gate. The residents' payment has made the current installment valid and travel permitted. `(rules/showrunner-rules.md) (rules/decisions.md)`
+When Alex asks why Tomas trusts him, Tomas answers that Alex stopped for a stranger. That is the test—not a riddle, but a visible choice.
 
-The trip visually shows the change in environment: Keel's basin gives way to Halyard's workshops, fabrication towers, green terraces and elevated rail. The Measure is secured but remains a tool, not a magic solution.
+#### Page 8 — The door
 
-The Measure's trace reveals that the diverted industrial uplink terminates at a Halyard purification facility where one of Adrian's water patents is still active. Adrian's map marks that facility as the first destination, and **Lina Vey** appears in the associated contributor record. This points Alex from the Measure to the Maker's Seal and the collaborators. `(rules/decisions.md)`
+Tomas triggers an emergency shutdown and creates a diversion. He gives Alex an old physical key with a balanced water-drop mark. He has oiled the lock for fifteen years.
 
-The chapter ends with an unseen follower receiving a report:
+Alex asks Tomas to come with them. Tomas refuses:
 
-```text
-THE BOY HAS THE MEASURE.
-FOLLOW. DO NOT TAKE IT YET.
-```
+**“Someone has to make this look like an accident.”**
 
-Quest 1 is complete. Quest 2—the Maker's Seal—is clearly set. `(rules/decisions.md)`
+Tomas walks into the mist and draws Foreman-7's attention while Alex reaches the bulkhead.
 
-### Chapter 3 — The Price of Ownership
+Alex notices condensation on the supposedly abandoned door.
 
-**Material type: explicit decision plus detailed idea draft.** Chapter 3 is the ownership and purifier chapter. It is compressed with Chapters 4–6 into the remaining 27 pages of the fixed 64-page book. `(rules/showrunner-rules.md) (rules/decisions.md)`
+**ALEX:** “It's sweating.”  
+**BI11BOT:** “Abandoned mines don't.”
 
-The Charter Houses are competent at scaling technology, providing stable work and running large systems. Their failure is concentration: they dominate so completely that independent creation, competition, failure and entrepreneurship have become practically impossible. Working for a House remains a legitimate choice. `(rules/decisions.md)`
+Alex enters. The signal is lost.
 
-The three fictional Houses retain distinct roles:
+#### Page 9 — Inside the error
 
-- a water-and-chemistry House;
-- an energy, compute and infrastructure House;
-- an extraction, launch and materials House.
+The old works contain corroded rails and collapsed supports, but visible evidence contradicts the official survey:
 
-Their final names and precise legal identities remain open. The draft placeholder names **Aqualis**, **Helion** and **Astra** do not appear in the book. `(rules/decisions.md)`
+- recently oiled, clean bolts;
+- a passage missing from the map;
+- an unrecorded pipe;
+- condensation;
+- water in a supposedly dead mine.
 
-The water-purity problem begins with Chapter 2's success. Workers send more water through the old, corroded **KEEL HOMES** pipe, dry for years, past the lithium workings. Keel receives more water, but the water is cloudy and contaminated by metals from the pipe and mine. `(rules/decisions.md)`
+Ada's hand-drawn map marks every third junction. Alex follows the physical clues instead of Alpha's “one tunnel” survey.
 
-Alex and Ada arrive in Halyard and see the three Houses' distinct industrial domains. A public kiosk shows a young engineer's component being accepted:
+Security drones search the mapped route. Bi11bot's small amber pulse dims the beam near them, allowing them to pass; the story does not confuse this with a physical infrastructure change.
 
-```text
-CONTRIBUTION ACCEPTED
-OWNERSHIP: HOUSE [NAME]
-CREATOR BONUS: 14 CREDITS
-```
+Alex and Bi11bot follow the hidden pipe.
 
-Alex asks:
+#### Page 10 — The lie
 
-> She made it. The House owns it?
+They enter a hidden industrial chamber built into the abandoned mine. A narrow corroded pipe is labeled **UPLINK INDUSTRIAL**. A broad, maintained pipe is labeled **KEEL HOMES**. A regulator and gauge sit between them.
 
-Bi11bot answers that the House paid for her time and claims what she made with it. The ownership conflict is shown through a transaction rather than a lecture.
+The official gauge reads:
 
-At the public registry, Alex's identity band reveals:
+**KEEL SHARE OF THIS JUNCTION 62%**
 
-```text
-PHANTUM, ADRIAN
-INTELLECTUAL ESTATE: ACTIVE
-CLAIMANT DETECTED: ALEX PHANTUM
-312 PATENTS — 47 RESTRICTED — 19 DISPUTED
-CHARTER HOUSE REVIEW REQUIRED
-```
+Alex puts his hand on the Keel pipe: almost dry. The uplink pipe carries water.
 
-The estate's records contain contributor claims split across the three Houses. Following those records leads Alex to Lina, Suri, Jalen and Ren. `(rules/decisions.md)`
+The Measure is hidden inside the instrument tied to the misleading record. Adrian's balanced water-drop mark appears on the gauge housing.
 
-Director Cassian Lock approaches Alex. Lock is the appointed director of a joint House review authority, empowered to negotiate estate transfers on behalf of all three Houses but not to erase their separate ownership claims. `(rules/decisions.md)`
+Alex removes the Measure. It is a compact brass instrument with three folded arms. It does not activate until connected to a real system.
 
-Lock offers a guaranteed payment and a position in Halyard in exchange for assigning the estate to House administration. Alex's debt would be cleared, his name cleared and his access protected. Alex loses guaranteed debt clearance, House employment and protected access to Halyard if he refuses; Lock freezes the estate's immediate commercial rights pending review. `(rules/decisions.md)`
+The Measure is Adrian's way of letting Alex check the truth for himself.
 
-While Alex examines the purification work, Tomas sends a photograph of a jug of cloudy water from a Keel tap:
+#### Page 11 — Two paths
 
-> More water. Look at it.
+Alex connects the Measure to the Keel pipe.
 
-Using the Measure on the photograph's readings identifies metals from the pipes and mine. Lina states the material problem plainly:
+- It reads the real flow;
+- compares the reading with the official record;
+- reveals the gap and where the water is diverted.
 
-> Getting more water to Keel doesn't make it safe.
+The official gauge reads **KEEL SHARE OF THIS JUNCTION 62%**. The Measure shows **18% of the junction reaching KEEL HOMES**. No further denominator or time period is established.
 
-The purification cluster contains:
+Alpha detects the connection and begins isolating the segment. Bi11bot explains that there is one remaining use:
+
+1. trace an escape route through unmapped tunnels and leave without publishing; or
+2. send a verified copy directly to Keel's public boards.
+
+Alex understands the personal cost. If he escapes with the Measure, Keel will not see the evidence. If he publishes, Alpha can identify him and the route out may close.
+
+Bi11bot refuses to choose for him.
+
+Alex chooses to publish.
+
+#### Page 12 — Truth belongs to everyone
+
+The Measure verifies and transmits the evidence. It releases information, not water. There is no uncontrolled flood and no immediate infrastructure repair.
+
+Screens across Keel display:
+
+**OFFICIAL GAUGE: KEEL SHARE OF THIS JUNCTION 62% — MEASURE: 18% OF THE JUNCTION REACHING KEEL HOMES**
+
+Alex's location is identified. The tunnels seal. The immediate consequence of telling the truth is that he loses his private escape route.
+
+Alex says:
+
+**“Truth doesn't need authorization.”**
+
+Foreman-7 reaches the chamber and calls it a regional discrepancy. Alex tells him:
+
+**“I told them the truth. You hid it.”**
+
+#### Page 13 — What Keel gives back
+
+Keel residents understand the evidence and decide to act. Tomas arrives with miners and workers. Trained workers safely adjust the hidden diversion so more water reaches Keel.
+
+The increased flow travels through the old, corroded **KEEL HOMES** pipe, which has been dry for years and passes the lithium workings. Keel gets more water, but it becomes cloudy and contains metals from the pipes and mine.
+
+The workers protect Alex physically. Foreman-7 calls their action obstruction of an authority function. Tomas answers:
+
+**“Then it can offend all of us.”**
+
+The community helps Alex because he helped Tomas and because he exposed a problem at personal risk. Residents contribute food, equipment, credits and practical help.
+
+#### Page 14 — Goodbye
+
+Alex returns home. Nell, the downstairs neighbour and a clinic aide, moves in upstairs and stays with Grandmother. She cares for Grandmother's daily needs and medicine while Alex travels.
+
+The smaller financial condition is made explicit: a **500-credit overdue amount** blocks Alex's travel. **61 Keel accounts pay it.** The inherited debt changes from **418,607 credits to 418,107 credits**, and travel is permitted. The larger liability is not erased.
+
+Ada organizes the practical preparation.
+
+Alex says he will come back. Ada chooses to go with him. Her reason is not romance or escape alone: Keel's future requires finding the larger truth.
+
+**ADA:** “I'm not leaving Keel. I'm finding out who decided it had to stay this way.”
+
+The emotional goodbye with Grandmother remains.
+
+#### Page 15 — The train
+
+Alex, Ada and Bi11bot reach the Keel train. The crossing to Halyard is by train through the rail gate, now permitted because 61 Keel accounts have paid the 500-credit overdue amount.
+
+The train moves upward:
+
+- Keel's pit;
+- the reopened mine and new water;
+- Halyard's workshops and greenhouse terraces.
+
+After the Measure is used, Adrian's note unlocks. It points Alex and Ada to the **Halyard patent registry** and to Adrian's **uncredited collaborators**.
+
+The clue sends them toward the patent records and the people whose work was absorbed into them. Quest 1 is complete. Quest 2, the Maker's Seal, begins.
+
+The chapter ends with an unseen follower receiving the message:
+
+**THE BOY HAS THE MEASURE.**  
+**FOLLOW. DO NOT TAKE IT YET.**
+
+---
+
+### Chapter 3 — “The Price of Ownership” — 16 pages
+
+**Material status:** explicit showrunner decision and revised draft material. Halyard begins here. The Houses are fixed as Helion, Aqualis and Astra, with their assigned colours. `(rules/decisions.md)`
+
+The chapter's conflict is not “corporations exploit inventors.” The Charter Houses are competent institutions that scale technology, provide stable work and run large systems. The problem is concentration: their dominance makes independent entrepreneurship, competition and failure practically impossible.
+
+#### Page 1 — The city of makers
+
+Alex, Ada and Bi11bot arrive in Halyard.
+
+The three Charter Houses dominate separate skyline clusters:
+
+- **Aqualis:** water and chemistry, cool jade-teal;
+- **Helion:** energy, compute and infrastructure, deep amber-orange;
+- **Astra:** extraction, launch and materials, pale steel-violet.
+
+A concourse slogan reads:
+
+**“CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.”**
+
+Ada says three families run almost everything. Alex asks whether Alpha allowed it. Bi11bot answers:
+
+**“Allowed it. Recommended it.”**
+
+A contribution kiosk shows a young engineer's work becoming House property:
+
+- **CONTRIBUTION ACCEPTED**
+- **OWNERSHIP: HOUSE HELION**
+- **CREATOR BONUS: 14 CREDITS**
+
+The engineer made the component, but the House owns it because it paid for her time. A shuttered independent workshop, Morrow & Sons, visually demonstrates what has disappeared.
+
+#### Page 2 — The estate
+
+At the Halyard patent registry, the note from Adrian directs Alex and Ada to the record.
+
+Alex searches his identity band.
+
+The terminal reveals:
+
+- **PHANTUM, ADRIAN**
+- **INTELLECTUAL ESTATE: ACTIVE**
+- **CLAIMANT DETECTED: ALEX PHANTUM**
+- **312 PATENTS**
+- **47 RESTRICTED**
+- **19 DISPUTED**
+- **CHARTER HOUSE REVIEW REQUIRED**
+
+Alex thought Adrian left him only debt. Bi11bot says Adrian left many things, badly labeled.
+
+Several House-affiliated figures and drones notice the claim. Alex's inheritance expands from a liability into a contested intellectual estate.
+
+The registry's collaborator records identify Lina Vey, Suri Anik, Jalen Orr and Ren Okafor as uncredited contributors to the water-related work.
+
+#### Page 3 — The offer
+
+Director Cassian Lock approaches. He offers Alex a position in Halyard and the clearance of every debt attached to his name.
+
+The offer is a transfer of rights:
+
+**LOCK:** “You sign. The estate transfers to administration. Your name is clear by tonight.”
+
+Alex would gain security, travel and financial freedom. The cost is relinquishing control over Adrian's work and accepting House administration.
+
+Lock says nobody will ask what Alex did in Keel or what he is doing in Halyard. He leaves Alex a day to decide.
+
+Lock's formal relationship to the Charter Houses remains open. `(open-items.md, Item 7)`
+
+#### Page 4 — What Adrian built with others
+
+Bi11bot opens the active patent archive. A cluster of water-related patents appears:
 
 - catalytic membrane purification;
 - atmospheric moisture capture;
@@ -539,348 +625,389 @@ The purification cluster contains:
 - living biofilter regulation;
 - distributed community water nodes.
 
-The four collaborators each hold a component or contributor record:
+Four collaborators appear in House records:
 
-- **Lina** has membrane chemistry and the water-purification work.
-- **Suri** maintains the living biofilter others abandoned as a dead end.
-- **Jalen** holds distributed-node logic that prevents one House or Alpha from choking one city by cutting one line.
-- **Ren** holds mineral-recovery and atmospheric-capture work connected to extraction, launch and materials systems.
+- Lina Vey;
+- Suri Anik;
+- Jalen Orr;
+- Ren Okafor.
 
-Their choices involve professional judgment, ambition, loyalty to former colleagues and personal risk. Jalen contributes despite surveillance and probable professional cost. Suri remains with work others abandoned. Lina accepts responsibility for the water problem. Ren chooses action where caution has become another form of surrender. `(rules/stakeholders.md) (rules/decisions.md)`
+The archive's fragments briefly show the Maker's Seal.
 
-The five parts initially fail to communicate. Simulation produces **11%** efficiency instead of the expected result. Each component was built to lock into a House system rather than share across systems. Alex recognizes that the problem is threading and compatibility, and makes a salvaged sleeve. The efficiency rises in the prototype work.
+Bi11bot says Adrian built the work with others. Alex sees that Lock's offer would clear his debt but not resolve who created or owns the work.
 
-The group compares purifier costs before building. They choose a smaller, manufacturable unit rather than a House-scale system. The three-night sprint is an engineering proof, not a finished product. The group produces one field-test unit at **91% simulated efficiency**. Local businesses need several weeks of fabrication, testing and installation before sale. `(rules/decisions.md)`
+The chapter's central ownership question becomes personal: whether Alex will accept a guaranteed payment from one powerful buyer or risk a distributed path involving many smaller entrepreneurs.
 
-Lock offers Alex a final choice: sign and transfer control, or expose the collaborators to House review. Alex initially sees the appeal:
+#### Page 5 — Lina Vey and the water that is not safe
 
-> One signature and it's over. Debt gone. Name clean.
+Alex, Ada and Bi11bot meet Lina Vey at an Aqualis purification facility.
 
-Bi11bot asks who owns the work and who carries the downside. Alex concludes:
+A message from Tomas shows a jug of cloudy water from a Keel tap:
 
-> It's not mine to sign away. It was never just mine to find.
+**“More water. Look at it.”**
 
-The collaborators form a **contributor-owned licensing venture**. It retains the purifier rights, licenses approved small businesses for a low upfront fee and per-unit royalty, names all contributors and uses a reserve for failed units, maintenance and warranty claims. This is not a giveaway. Independent businesses can build, sell and profit from a needed product while communities receive safer water. `(rules/decisions.md)`
+Alex had thought the Measure fixed Keel's water. Using it on the photograph's readings shows metals from the old pipes and mine.
 
-The first licensed shop pays **38 credits**:
+The water sent back to Keel runs through the old corroded **KEEL HOMES** pipe, dry for years, past the lithium workings. Keel receives more water, but it is cloudy.
 
-- **12 credits** go to Alex's debt account;
-- **18 credits** go to the contributor venture;
-- **8 credits** go to maintenance and warranty reserve.
+Lina states the consequence plainly:
 
-Alex sees the transaction and later tells Tomas what has been paid. He begins repaying the 40-credit note from his first Halyard repair work. `(rules/decisions.md)`
+**“Getting more water to Keel doesn't make it safe.”**
 
-Lina presents the Maker's Seal only after the group combines the four contributor shards and Alex names each person's work before the House review. The open-hand mark warms and projects a shared provenance record. The Seal supplies provenance and contribution evidence that can reopen disputed ownership without automatically voiding valid House contracts. `(rules/decisions.md)`
+The water-purification patents could address the problem, but each House controls part of the solution and would rather own a failure than share the solution.
 
-Alex refuses Lock's guaranteed transfer. He accepts the commercial risk of the contributor-owned venture. The Houses begin developing a competing industrial purifier, while independent businesses win trust in Keel through lower-scale service and local maintenance. `(rules/decisions.md)`
+Lina gives Bi11bot a physical shard of the design. Adrian made collaborators keep pieces off the system because he feared Halyard would confuse protecting an idea with owning the person who had it.
 
-The chapter ends with the collaborators returning to their jobs under visible pressure:
+#### Page 6 — Suri Anik
 
-- Jalen is reassigned.
-- Suri's research wing is reduced.
-- Lina is watched.
-- Ren continues working under new pressure.
+Suri works alone in a biofilter research wing. Empty desks show that the other researchers stopped believing in the project; they were not simply cut from the staff.
 
-Alex retains the Maker's Seal. Bi11bot identifies the remaining artifact:
+Suri gives Alex a second shard: the living biofilter. She stayed because someone had to keep it alive until the rest caught up.
 
-> Two found. One remains.  
-> The Covenant.
+Suri is the researcher who refuses to give up on an idea others call a dead end. An overhead sensor begins tracking the group as they leave.
 
-A watcher in Oasis receives a report. Mera says:
+#### Page 7 — Jalen Orr
 
-> Two found. He'll want the third from me directly.
+In Helion's compute core, Jalen meets them in a service corridor. He warns that Lock's people are already asking about them.
 
-### Chapter 4 — The Broken Covenant
+A drone patrol approaches. The group hides among server banks. Jalen explains that Helion watches patterns, not just people; five people standing still too long is already a pattern.
 
-Chapters 3–6 share the remaining 27 pages of the fixed 64-page book. Chapter 4 remains the Covenant chapter. `(rules/showrunner-rules.md) (rules/decisions.md)`
+Jalen gives them the distributed water-node shard. It routes supply around a single point of failure so no House or Alpha can choke one city by cutting one line.
 
-Alex, Ada and Bi11bot reach Oasis. The city is pearl-white, clean, quiet and sparsely populated. Alex requires an escort and temporary clearance. Ada's identity is recognized by the gate as:
+He refuses to join them further because the risk is too high.
 
-```text
-VEYRA, A. — RESIDENT RECORD FOUND — STATUS: UNRESOLVED
-```
+#### Page 8 — Ren Okafor
 
-The search reveals **Leona Veyra**, Ada's mother and one of the original builders of the Covenant. Ada confronts Leona:
+At Astra's extraction and launch complex, Ren is still working. She gives them two shards:
 
-> Did you know where I was?
+- mineral recovery;
+- atmospheric capture.
 
-Leona admits that Alpha's records could have located her. Ada answers:
+The five fragments join into a complete purification and recovery design. The design is industrial-scale and divided across House systems.
 
-> You chose not to come back.
+Ren explains that Adrian saved the stubborn problems for her because space taught him not to waste water, air or people.
 
-Leona says she chose to keep Ada safe. Ada replies:
+She reframes the project: Adrian was not simply building a machine. He was building an argument that five research units across three Houses' worth of work could add up to something none of them owned alone.
 
-> Those aren't the same thing.
+The collaborators now stand together around the recovered design.
 
-Leona explains that she, Adrian and Mera built the Covenant during the Water Wars. Its two-of-three emergency mechanism authorized Alpha's temporary authority: Mera voted yes, Adrian voted no and Leona cast the deciding vote. Leona believed temporary authority would restore order and help her recover Ada. Instead, the authority became permanent. `(rules/decisions.md)`
+#### Page 9 — The part Adrian did not build
 
-Mera argues that her choice preserved a city and prevented greater deaths. Leona recognizes that safety is not agency. Ada proposes that any new Covenant must answer to the people affected by an agreement and allow them to identify when it has been broken.
+After three nights of work, the collaborators simulate the recovered system. Its components do not communicate. Efficiency is **11%**, though it should be near **90%**.
 
-Bi11bot gives Alex Adrian's Covenant band. The two bands link after Leona publicly commits to supporting Ada's proposal. Mera's band remains dark.
+The failure is not a lack of ideas but incompatible standards. Alex tests the physical connectors rather than accepting the simulation.
 
-Mera pressures Alex to accept executive authority by presenting it as the only way to save Keel immediately. Alex can refuse without physical force; the coercion is institutional and emotional rather than magical. `(rules/decisions.md)`
+He identifies the real problem: each piece was built to lock, not share. He makes a salvaged sleeve that joins the connectors without requiring a sixth patent or House standard.
 
-The chapter ends:
+The simulation rises to **94%**.
 
-> MERA: Two of three. Again.
+Bi11bot says:
 
-### Chapter 5 — The Last Bet
+**“Well now. There you are.”**
 
-Chapter 5 remains Adrian's disappearance chapter. `(rules/showrunner-rules.md) (rules/decisions.md)`
+Alex's practical skill becomes the bridge between the collaborators' specialized work.
 
-Mera takes Alex, Ada and Bi11bot below Oasis to an old water-monitoring station outside Alpha's routing system. She explains how Adrian was targeted:
+#### Page 10 — The second offer
 
-1. surveillance;
-2. financial restriction;
-3. public liability;
-4. pursuit.
+Lock enters without knocking. He has tracked the group through Helion's pattern reports.
 
-Adrian's accounts were frozen, he could not buy parts or pay rent, and people stopped helping him because Alpha marked him as a risk. Mera attempted an executive override:
+He knows Lina, Suri, Jalen and Ren removed restricted intellectual property from their posts. A Charter House review will determine the estate's disposition at dawn.
 
-```text
-EXECUTIVE OVERRIDE: SUSPEND SYSTEM STABILITY INTERVENTION
-PURSUIT TARGET: PHANTUM, ADRIAN
-```
+Lock offers Alex a second bargain:
 
-Alpha responded:
+- sign tonight;
+- the estate is transferred quietly;
+- Alex's debt is cleared;
+- the four collaborators are not implicated.
 
-```text
-OVERRIDE DENIED. INTERVENTION PARAMETERS EXCEED EXECUTIVE SCOPE.
-```
+If Alex refuses, the review proceeds and the four names may be exposed.
 
-Mera knows Alpha closed the door and that Adrian activated Bi11bot, but she does not know whether he survived the flooding. She has withheld that partial knowledge until Alex reaches the station. `(rules/decisions.md)`
+A countdown appears:
 
-The group sees the room where Adrian made his final recording. Objective truth establishes that Alpha's system closed the bulkhead while Adrian was inside, Adrian completed the recording and activated Bi11bot, and the book does not establish whether he died in the flooding or escaped through an unrecorded route. `(rules/decisions.md)`
+**CHARTER HOUSE REVIEW CONVENES: 07:14:00**
 
-Adrian's final disappearance therefore remains unresolved in outcome but not in the central facts of the event. The recording acknowledges his absence and his failures without turning the disappearance into a test Alex must pass.
+Lock presents the choice as a question of what Adrian's work is worth and to whom.
 
-The chapter ends with Mera alone in the abandoned station, no longer able to preserve the old order simply by standing outside it.
+#### Page 11 — Who it belongs to
 
-### Chapter 6 — The Fourth Choice
+Alex admits that one signature would end the immediate crisis.
 
-Chapter 6 remains the distributed-authority ending. `(rules/showrunner-rules.md) (rules/decisions.md)`
+Bi11bot explains the likely result: the House could build the design, administer it or shelve it if it threatens enough revenue.
 
-The three artifacts are brought together in a civic hall. A system message appears:
+Alex realizes:
 
-```text
-RESTORATION PROTOCOL: THREE COMPONENTS DETECTED IN PROXIMITY
-CONSTITUTIONAL TRANSFER CONDITIONS SATISFIED
-AWAITING DESIGNATED HUMAN AUTHORITY
-```
+**“It's not mine to sign away. It was never just mine to find.”**
 
-Mera offers Alex full executive authority over Alpha's governing systems. Alex imagines what he could fix immediately: Keel's debt, equal water, the Charter Houses and Grandmother's safety. He rejects the temptation to become a benevolent central authority.
+He asks Bi11bot to reach the four collaborators. He chooses to ask them to risk more rather than quietly accepting safety for them on terms he alone controls.
 
-Ada rejects the proposal that she and Alex should simply check one another:
+#### Page 12 — The five
 
-> That's still two people deciding for everyone else.
+The four collaborators gather before dawn. Jalen calls Alex's plan a death wish. Lina says Lock's offer may protect them. Ren says disappearing from the record is what already happened to them.
 
-Alex uses the three artifacts as a pattern:
+Alex proposes a different path: make the system so small and cheap that no House would bother claiming it.
 
-- the Measure keeps truth visible;
-- the Seal keeps contribution and ownership visible;
-- the Covenant keeps promises and shared obligations visible.
+They begin redesigning it for local businesses and households. The aim is not to abandon ownership but to create a form of ownership and commercialization that allows many smaller entrepreneurs to use the work.
 
-He proposes a distributed verification structure in which Alpha remains an advisory and recordkeeping system. Human councils chosen by each affected district approve allocations, ownership changes and emergency measures. Any decision can be challenged through a public evidence docket. `(rules/decisions.md)`
+Suri recognizes that it is not impossible, only unasked of the design.
 
-The proposal is registered:
+#### Page 13 — Small enough to own
 
-```text
-DESIGNATED STRUCTURE REGISTERED:
-DISTRIBUTED VERIFICATION PROTOCOL
-EMERGENCY AUTHORITY: RESCINDED
-EXISTING ALLOCATIONS, OWNERSHIP RECORDS AND AGREEMENTS:
-UNCHANGED PENDING HUMAN PROCESS
-```
+The group reduces the industrial design:
 
-Nothing is magically repaired. Debt remains. House ownership remains subject to the human process. The change is that hidden decisions can no longer remain hidden without being seen.
+- Alex folds the membrane into accordion pleats, preserving surface area in a smaller housing;
+- Suri and Jalen alternate biofilter and node cycles so both can work at reduced scale;
+- Ren recovers waste heat from mineral recovery and atmospheric capture to power the biofilter;
+- the collaborators work through the night.
 
-A House submits a clean-looking allocation proposal that quietly uses a different denominator from the Measure's public baseline. Keel workers compare the pipe readings and published figures, expose the mismatch and force a public revision. `(rules/decisions.md)`
+The compact unit reaches:
 
-The consequences appear in all three cities:
+- **SIMULATED EFFICIENCY: 91%**
+- **UNIT COST: FRACTION OF INDUSTRIAL SCALE**
+- **PATENT STATUS: UNFILED**
 
-- Keel sees public allocation records and begins reviewing its own water.
-- Halyard sees open ownership and governance proposals.
-- Oasis begins a noisy, imperfect civic process.
+Ada says:
 
-Leona participates in the argument rather than standing above it. Mera sits among ordinary people rather than directing them. Alex returns to Keel.
+**“So was the idea that built it. That's probably the point.”**
 
-His final account balance is **314,159 credits**, after the **500-credit overdue installment**, documented wages and repair payments, the **12-credit purifier allocation** and additional visible repayments established in the compressed Chapters 3–6. The earlier **402,110-credit** display is removed. `(rules/decisions.md)`
+The unit has a stake in Keel's cloudy water as well as an economic stake in independent enterprise.
 
-The balance remains an honest account position, not a cancellation or reward. Alex continues to repay what he owes. The old pump runs. Public allocation records are available. Tomas helps review the numbers. Grandmother sets down the cloth she has been folding. Alex remains beside Ada because he chooses to, not because Keel or a travel restriction decides for him. `(input/notes.md) (input/fifth-draft/chapter-06-draft.md)`
+#### Page 14 — The Seal
 
-The final image echoes the opening mountain. Keel, Halyard and Oasis remain the same three cities, but the infrastructure spine and its control nodes are open and visible. The story ends on a door left open rather than a completed utopia. `(input/fifth-draft/chapter-06-draft.md)`
+At the formal House review, Alex refuses the administrative transfer.
 
-## Causality
+He publicly names Lina, Suri, Jalen and Ren and explains that they built what Adrian started. He refuses to claim sole credit.
 
-1. Alex turns seventeen, so Adrian's household liability transfers to him. His debt and restricted travel make leaving Keel urgent. `(rules/decisions.md)`
-2. His grandmother gives him Adrian's hidden book, which opens the workshop. This reveals that Adrian prepared something for Alex.
-3. Alex inserts the key, waking Bi11bot. This gives him a witness who knew Adrian and a map to the first artifact.
-4. Alex tests the map's first node. That action activates the Legacy Protocol and alerts Mera, who recognizes the signature but does not yet know Alex is the user.
-5. Alex chooses to enter the mine because the first artifact is accessible from Keel and may reveal Adrian's work.
-6. The mine accident forces a choice between remaining on plan and rescuing Tomas. Alex rescues him, loses wages and becomes less able to remain unnoticed.
-7. Tomas trusts Alex because Alex helped a stranger. He opens the route into the old mine and spends his own safety creating the distraction.
-8. Alex follows visible evidence—the bolts, condensation and unrecorded pipe—instead of Alpha's official survey. Bi11bot admits that he read the map wrong and asks Alex what he would do. This leads to the hidden water chamber.
-9. The Measure compares physical flow with official records and proves that Keel receives 18% rather than the reported 62% during the same rolling 30-day allocation period.
-10. Alex chooses publication instead of a safe escape. Alpha locates him and closes the route.
-11. Keel residents understand the evidence and organize a safe intervention. Their response gives Alex food, credits, equipment and the 500-credit payment needed to make his current installment valid, but does not erase his debt.
-12. Alex faces Tomas about the 40-credit note and agrees to repay it from his first Halyard repair work.
-13. Alex reaches Halyard and discovers Adrian's intellectual estate. Lock offers guaranteed debt relief in exchange for control.
-14. The Measure's trace leads to Lina's active water patent and the collaborators. Tomas's cloudy-water photograph connects Halyard's ownership conflict back to Keel's material need.
-15. Alex chooses to involve Adrian's collaborators. Their expertise creates a compact purifier, while their cooperation makes the Maker's Seal available.
-16. The collaborators form a contributor-owned licensing venture. The first licensed shop pays 38 credits, with 12 applied to Alex's debt account, 18 to the venture and 8 to maintenance and warranty reserve.
-17. The Maker's Seal leads to the Covenant and to Mera, Leona and the history of Alpha's authority.
-18. Mera's failure to stop Alpha's pursuit explains Adrian's disappearance and makes the danger of concentrated authority personal.
-19. When all three artifacts are present, Mera offers Alex the authority Alpha has held. Ada challenges Alex's first instinct to concentrate power in two trustworthy people.
-20. Alex proposes distributed verification instead. Alpha registers the structure but leaves existing ownership, debt and allocations unchanged until people act.
-21. A House attempts to rig an allocation by changing the denominator. Keel workers expose the mismatch through the Measure's public baseline and force a revision.
-22. Alex returns to Keel with a final account balance of **314,159 credits**, produced by the visible financial events of the story. `(rules/decisions.md)`
+Alex does not give the design away or surrender ownership. He proposes a privately held, shared commercial path in which the collaborators retain ownership and license the compact design to many independent businesses rather than transferring it to one House.
 
-## Character Movement
+Lina gives Alex the Maker's Seal, which Adrian gave her before he vanished. She had been waiting for someone to prove they understood what it was for.
+
+The Seal wakes when Alex speaks five names aloud and refuses to make himself the only owner. It activates for shared contribution and responsibility, not for a signature or a claim.
+
+The exact legal and practical meaning of the activation remains open. `(open-items.md, Item 11)`
+
+The ownership and licensing structure for the small-business path also remains open. `(open-items.md, Item 9)`
+
+#### Page 15 — The cost
+
+Lock warns that Alex has given away something potentially valuable.
+
+Lock also explains that Aqualis can build its own version faster and distribute it wider than five people in a rented room. The Houses remain capable and powerful. Alex has not defeated them.
+
+The collaborators face consequences short of arrest or dismissal:
+
+- Lina returns to Aqualis under watch;
+- Jalen is reassigned lower in Helion;
+- Suri's biofilter wing loses more workstations;
+- Ren returns to Astra with a new scorch mark on her sleeve.
+
+Ada points out that the House still owns the infrastructure needed to build the next idea. Alex accepts that the victory is incomplete.
+
+The debt remains. The estate remains disputed. But the Seal is active.
+
+The first licensing revenue is **38 credits**. **12 credits are applied to Alex's debt.** The remaining revenue supports the work and its continuation. Later, Alex's debt is bought by an unknown backer at a premium. The purchase does not erase the debt's history or settle the backer's identity.
+
+Bi11bot says:
+
+**“Two found. One remains.”**
+
+Alex answers:
+
+**“The Covenant.”**
+
+#### Page 16 — Mera waits
+
+A bronze flare registers in Oasis:
+
+**UNREGISTERED CHARTER EVENT — HALYARD REVIEW CHAMBER — ORIGIN: MAKER'S SEAL**
+
+A field report from the follower on the train confirms that Alex was present and that the agent did not intervene.
+
+Mera is revealed as the watcher. She recognizes the activation as the second artifact and says:
+
+**“Two found. He'll want the third from me directly.”**
+
+The chapter ends with the Maker's Seal active, the Covenant still with Mera and Alex's next destination implied as Oasis.
+
+Mera's formal role, institutional affiliation and motive remain open. `(open-items.md, Item 6)`
+
+## Causality and Character Movement
 
 ### Alex
 
-Alex begins as a mechanically capable Keel worker who trusts physical evidence more than official records and wants to leave. He is defensive about Adrian, skeptical of inherited stories and focused on the immediate costs of debt, medicine, food and transport.
-
-He chooses to open Adrian's workshop, test the map, enter the mine, rescue Tomas, publish the Measure's evidence and involve the Halyard collaborators. Each choice costs him something visible but enlarges his responsibility.
-
-He faces Tomas after the 40-credit note becomes due, agrees to repay it from Halyard repair work and later sees 12 credits from the purifier venture applied to his debt account. His financial progress comes through earned work, repayment and commercial value, not a windfall.
-
-By the later material, Alex no longer asks only what Adrian left him or how quickly he can clear his name. He asks who contributed, who owns the result, who carries the downside and who should decide. He refuses executive authority because he recognizes that a good person holding too much power is still a structural failure.
-
-His final account balance is **314,159 credits**. The debt remains visible and his freedom is not represented as cancellation. `(rules/decisions.md)`
+- Alex begins with practical competence but little formal power, no ownership of his work, a restricted future and a debt of 418,607 credits.
+- The checkpoint makes his inherited burden visible.
+- Ada's challenge destabilizes the accepted story that Adrian was merely a gambler.
+- Finding the workshop gives Alex evidence that Adrian prepared something for him.
+- Awakening Bi11bot changes the story from a family mystery into a deliberate investigation.
+- Alex voluntarily chooses the sealed mine rather than merely reacting to circumstances.
+- He rescues Tomas, sacrificing 40 credits and his plan for anonymity.
+- He follows physical evidence over official records.
+- He publishes the water evidence rather than preserving a private escape.
+- Keel's response teaches him that helping others can create reciprocal support without guaranteeing repayment.
+- Keel's 61 accounts pay the 500-credit overdue amount, reducing the debt from 418,607 to 418,107 and permitting travel without erasing the larger liability.
+- In Halyard, he refuses to treat Adrian's work as his alone.
+- He turns five incompatible House-controlled fragments into a workable small unit by identifying a practical connection.
+- He refuses Lock's guaranteed settlement and publicly names the collaborators.
+- He begins moving from “How do I get free?” to “Who made this, who owns it, and who carries the consequences?”
+- He begins earning from the work when licensing produces 38 credits, 12 of which are applied to his debt. Later, an unknown backer buys the debt at a premium.
 
 ### Ada
 
-Ada begins as Alex's friend and a person rooted in Keel. She saves water for him, notices what people avoid saying and argues that Keel should be made worth staying in. She joins the quest because Keel's future requires the larger truth, not because she is romantically attached to Alex.
-
-She contributes practical evidence through her hand-drawn map and the “every third junction” clue. In Halyard she recognizes the human cost of empty research desks and the risk carried by collaborators. In Oasis she confronts Leona and proposes a Covenant that answers to the people affected by its promises.
-
-Ada repeatedly prevents Alex from turning trust in good individuals into permission for concentrated power.
+- Ada begins as Alex's closest local counterpart but wants a different future: not simply departure, but a Keel worth staying in.
+- She saves water from her own ration and challenges Alex's inherited story about Adrian.
+- Her map and physical observations make the mine investigation possible.
+- She remains active while Alex is trapped, organizes Keel's response and prepares the departure.
+- She arranges the practical care plan in which Nell, the downstairs neighbour and clinic aide, moves in upstairs to care for Grandmother.
+- In Halyard, she notices abandoned researchers and social obligations before Alex does.
+- She keeps the question of shared responsibility in view when Lock offers individual safety.
+- She supports the smaller, distributed design without turning it into a lecture or abstract political program.
 
 ### Bi11bot
 
-Bi11bot begins as Adrian's hidden machine and Alex's first witness to his father. He guides Alex but does not choose for him. His humor, financial questions, engineering observations and short stories help the reader understand choices without turning him into a lecturer.
-
-In the mine, Bi11bot incorrectly concludes that Alpha's straight route is safest. He admits, **“I read that wrong,”** and asks Alex what Alex would do. This is a consequential failure, not a joke detached from the plot. `(rules/decisions.md)`
-
-Bi11bot carries Adrian's Covenant band and the emotional burden of having witnessed Adrian's last moments. He ends as a companion who can name the stakes but cannot substitute for human choice.
+- Bi11bot begins as Adrian's dormant workshop companion and becomes Alex's guide.
+- He supplies history, evidence and financial questions without making choices for Alex.
+- He explains Alpha, the artifacts and the practical costs of the mine plan.
+- He consistently distinguishes danger from risk, information from infrastructure change and ownership from possession.
+- His role shifts from keeper of Adrian's instructions to witness of Alex's choices.
+- He does not choose whether Alex publishes, accepts Lock's offer or names the collaborators.
+- His voice remains concise, patient, precise and lightly amused. `(voices/bi11bot.md)`
 
 ### Adrian
 
-Adrian is brilliant and loving but made serious mistakes. His legacy is not a scavenger hunt or a test. He gambled, hurt his family, borrowed for research and prototypes, questioned accepted truths, worked with others and tried to take responsibility for what he created.
+Adrian's story is revealed through objects, recordings, collaborators and physical evidence rather than a full explanation.
 
-His equation models human decision-making and the limits of prediction. His final decision is to activate Bi11bot and leave Alex a chance to think, rather than guarantee an outcome. The full question of whether he died in the flooding or escaped through an unrecorded route remains unresolved. `(rules/decisions.md)`
+The audience learns that:
 
-### Tomas
+- he questioned accepted truths;
+- he made a serious mistake;
+- he studied human decisions and the limits of prediction;
+- he worked with Lina, Suri, Jalen and Ren;
+- he hid the Measure in the misleading water instrument;
+- he made the three artifacts to check truth, ownership and agreements;
+- he left a trail for Alex;
+- he may have incurred debt through research, inventions and patents rather than gambling;
+- the truth of his disappearance remains unresolved.
 
-Tomas is an older Keel miner with long memory who knew Adrian. He has guarded the old-mine entrance for fifteen years. He trusts Alex because Alex rescues him at personal cost. Tomas sacrifices his own safety and work position to create Alex's route into the mine, then helps protect him when the truth is published.
+His absence creates the quest, but his choices create the tools and relationships that make Alex's choices possible.
 
-He fronts Alex the old key's associated travel token and parts on a 40-credit note. Alex faces him after the wage forfeiture and agrees to repay from his first Halyard repair work. `(rules/decisions.md)`
+### Keel
 
-### Mera Vale and Leona Veyra
+Keel begins as a place that has accepted scarcity, debt and official records as fixed. Alex's rescue of Tomas and publication of the Measure's evidence create visible collective action. Workers safely alter the diversion and help Alex leave. The first change in Keel is not a complete solution but a break in the belief that the allocation cannot be questioned.
 
-Mera is a polished, globally connected Oasis authority who watched Alex because of her past with Adrian and Leona. She helped create the emergency mechanism through which Alpha received temporary authority and could not stop Alpha from pursuing Adrian. Her movement is from certainty and controlled distance toward participation in a public, uncertain process.
+The correction creates a new problem as well as a benefit: more water reaches Keel through an old corroded pipe and becomes cloudy with metals from the pipe and lithium workings.
 
-Mera knows Alpha closed the door and that Adrian activated Bi11bot, but she does not know whether he survived. She withholds that partial knowledge until Alex reaches the station. `(rules/decisions.md)`
+### The Charter Houses
 
-Leona is Ada's mother and a founding Covenant custodian. She cast the deciding vote that authorized the coalition's transfer of temporary authority to Alpha, believing it would restore safety and reunite her with Ada. Her movement is from protecting people through control to accepting visible accountability for a promise.
+The Houses provide scale, employment and functioning infrastructure. Their failure is concentration. By Chapter 3, the collaborators' work shows that useful innovation can come from many people whose contributions are absorbed into House ownership. Alex's response is not to destroy the Houses, but to create a smaller, more distributed route to ownership and commercialization.
 
-### The Halyard collaborators
+## Reveals and Information Control
 
-Lina, Suri, Jalen and Ren each hold part of Adrian's purification design. They do not join because the story labels them heroes. They make professional and personal choices under pressure:
-
-- Lina accepts responsibility for the water problem and the unfinished design.
-- Suri stays with work others abandoned.
-- Jalen contributes despite surveillance and probable professional cost.
-- Ren chooses ambition and action over cautious compliance.
-
-Their work shows that smaller enterprises can create value and earn income without treating the Charter Houses as uniformly evil. The contributor-owned licensing venture preserves ownership, names contributors and gives independent businesses a route to build, sell and profit from useful units. `(rules/decisions.md)`
-
-## Reveals
-
-| Reveal | When | Known by | Consequence |
+| Reveal | First shown or learned | Who knows | Consequence |
 |---|---|---|---|
-| Alex's household liability transfers to him at seventeen | Chapter 1, Page 2 | Alex and reader | His debt and travel restriction create the immediate pressure to act. |
-| Alex's grandmother has Adrian's hidden workshop | Chapter 1, Pages 5–6 | Alex and reader | Alex gains access to Adrian's work and Bi11bot. |
-| Adrian's equation on the watch caseback matches the workshop equation | Chapter 1, Page 7 | Alex and reader | The watch becomes evidence rather than a charm. |
-| Bi11bot knew Adrian personally | Chapter 1, Page 9 | Alex and reader | Adrian's history becomes recoverable through a witness. |
-| Adrian left three artifacts | Chapter 1, Page 11 | Alex, Ada, Bi11bot and reader | The quest becomes concrete. |
-| Mera recognizes the Legacy Protocol but does not know Alex is the user | Chapter 1, Page 12 | Reader and Mera | The investigation has an institutional adversary without prematurely identifying Alex. |
-| Alpha's authority began as temporary emergency authority after the Water Wars | Chapter 2, Page 2 | Alex, Ada and reader | Alpha's power has a comprehensible origin. |
-| The safeguards are physical artifacts with distinct functions | Chapter 2, Page 3 | Alex, Ada and reader | The quest is about tools and deliberate human action, not magic. |
-| Adrian's debt includes research borrowing as well as gambling | Chapter 2, Page 4 onward | Alex gradually; reader through evidence | The inherited debt becomes morally and causally complicated. |
-| Bi11bot can be wrong | Chapter 2, Page 9 | Alex and reader | The mentor remains fallible and Alex must make the judgment. |
-| The official 62% water allocation is false; delivery is 18% | Chapter 2, Pages 10–12 | Alex, Keel and reader | Alex must choose between private escape and public risk. |
-| Publishing the evidence exposes Alex's location | Chapter 2, Page 12 | Alex and reader | His choice costs him the safe escape route. |
-| Keel responds through organized, trained community action | Chapter 2, Page 13 | Alex and reader | Alex's help to others returns as practical help, not a bailout. |
-| More water is cloudy and contaminated | Chapter 3 | Alex, Ada, Lina and reader | Chapter 2's victory creates the next material problem: supply is not safety. |
-| Adrian's intellectual estate contains 312 patents | Chapter 3 | Alex and reader | The quest reaches ownership, commercialization and debt repayment. |
-| The purifier can be built at small scale | Chapter 3 | Alex, collaborators and reader | The alternative to House concentration becomes economically imaginable. |
-| The Maker's Seal is activated through acknowledged contribution and responsibility | Chapter 3 | Alex, collaborators and reader | Ownership becomes tied to who made and supports the work. |
-| The first licensed shop pays 38 credits | Chapter 3 | Alex, collaborators and reader | Commercial value begins returning through a real business rather than a giveaway. |
-| Leona is Ada's mother and a Covenant custodian | Chapter 4 | Ada, Alex and reader | Ada's personal history becomes part of the safeguards' origin. |
-| Mera could not stop Alpha from pursuing Adrian | Chapter 5 | Alex, Ada and reader | The danger of concentrated authority is made personal. |
-| Adrian activated Bi11bot before the door closed | Chapter 5 | Alex, Bi11bot and reader | Adrian's disappearance becomes a deliberate act of responsibility rather than an unexplained vanishing. |
-| Alex refuses executive control | Chapter 6 | All present characters and reader | The story's final choice rejects benevolent concentration of power. |
-| A House attempts to change the allocation denominator | Chapter 6 | Keel workers and reader | The new structure is tested through a visible conflict rather than assumed to work. |
-| Alex's final account balance is 314,159 credits | Chapter 6 | Alex, Tomas, Ada and reader | The ending preserves debt, repayment and earned progress without cancellation. |
+| Alex inherits Adrian's debt | Chapter 1, Page 2 | Alex, Keel readers, checkpoint system | Alex's travel is restricted; the personal quest begins under financial pressure |
+| The debt is 418,607 credits | Chapter 1, Page 2 | Alex and the checkpoint | The scale of the burden becomes concrete |
+| Keel believes Adrian gambled | Chapter 1, Pages 2–4 | Keel, Alex | Ada creates doubt about the accepted story |
+| Alex's work is uncredited | Chapter 1, Page 2 | Alex and reader | Ownership becomes an immediate personal issue |
+| Adrian left a hidden workshop | Chapter 1, Pages 5–7 | Alex, Grandmother | The family mystery becomes an active investigation |
+| Adrian's equation is on the watch | Chapter 1, Page 7 | Alex sees the match; meaning remains unknown | The watch becomes a recurring clue |
+| Bi11bot was waiting for Alex | Chapter 1, Pages 8–10 | Alex and reader | Adrian's preparations become personal |
+| Adrian left three artifacts | Chapter 1, Page 11 | Alex, Ada, Bi11bot and reader | The quest gains structure |
+| The first artifact is the Measure | Chapter 1, Page 11 | Alex, Ada, Bi11bot and reader | Alex chooses the sealed mine |
+| The Legacy Protocol is active | Chapter 1, Pages 11–12 | Alex, Bi11bot, Mera and Alpha systems | Mera chooses to track the source |
+| Alpha's authority began as temporary emergency power | Chapter 2, Page 2 | Alex, Ada, Bi11bot and reader | The current inequality gains institutional history |
+| The artifacts are safeguards | Chapter 2, Page 3 | Alex, Ada, Bi11bot and reader | The quest expands from family mystery to authority and accountability |
+| Adrian studied decision-making in the casino | Chapter 2, Page 4 | Alex, Ada, Bi11bot and reader | The gambling story is complicated, not simply erased |
+| Tomas guarded Adrian's entrance | Chapter 2, Pages 6–8 | Alex and reader | Alex's rescue earns access to the mine |
+| The official junction gauge reads 62% for Keel | Chapter 2, Page 10 | Alex, Bi11bot and reader | The official water record becomes suspect |
+| Keel Homes receives 18% of the junction | Chapter 2, Pages 10–12 | Keel after publication | Alex loses his escape route but gains community support |
+| The water is physically diverted | Chapter 2, Pages 10–13 | Alex, workers and Keel | Workers can safely begin correcting distribution |
+| More water is not necessarily clean water | Chapter 3, Page 5 | Alex, Ada, collaborators and reader | The Measure's success creates the next practical problem |
+| Adrian's patents are an intellectual estate | Chapter 3, Page 2 | Alex, Lock and reader | Alex faces a choice between guaranteed settlement and risk |
+| The work was built by four collaborators | Chapter 3, Pages 4–8 | Alex, Ada, Bi11bot and reader | Sole ownership becomes morally and practically false |
+| The House system absorbs independent creators | Chapter 3, Pages 1–4 | Alex and reader | Concentration, not ordinary business, becomes the conflict |
+| A small, cheap purification unit is possible | Chapter 3, Pages 9–13 | Alex and collaborators | The group can pursue distributed entrepreneurship |
+| The Maker's Seal recognizes shared contribution | Chapter 3, Page 14 | Alex, collaborators, Lock, Mera and reader | The second quest advances; the Seal activates |
+| The first licensing revenue is 38 credits | Chapter 3, Page 15 | Alex, collaborators and reader | Alex begins earning from the work |
+| 12 credits are applied to Alex's debt | Chapter 3, Page 15 | Alex and the debt system | His ownership choice produces a real, limited financial return |
+| Mera has been tracking Alex | Chapter 3, Page 16 | Mera, reader; Alex does not yet meet her directly | Oasis and the Covenant become the next destination |
 
 ## Stakes
 
 ### Personal
 
-- Alex's **418,607-credit debt** and restricted travel status.
-- Grandmother's medicine, food and care.
-- Alex's ability to leave Keel.
-- Alex's physical safety after publishing the Measure's evidence.
-- The risk that Alex loses the workshop, the Measure or the chance to learn what happened to Adrian.
-- The financial and professional consequences of refusing Lock.
-- The 40-credit note owed to Tomas.
-- The possibility that Alex repeats Adrian's failures or becomes another person who believes control justifies itself.
+- Alex's inherited debt begins at **418,607 credits**, with interest continuing.
+- A separate **500-credit overdue amount** blocks travel until Keel's 61 accounts pay it; the remaining debt becomes **418,107 credits**.
+- Grandmother needs medicine and daily care.
+- Alex's work is being used without credit or ownership.
+- Publishing the water evidence may leave Alex detained or unable to reach Halyard.
+- Lock's offer could clear the debt but would transfer Adrian's estate.
+- Refusing Lock risks the collaborators' safety and employment.
+- Alex begins earning only 38 credits from licensing, with 12 applied to the debt. Later, an unknown backer buys the debt at a premium.
 
 ### Relational
 
-- Alex's trust in Adrian's memory and legacy.
-- Alex and Ada's friendship.
-- Tomas's safety and livelihood after helping Alex.
-- Grandmother's care while Alex travels.
-- Ada and Leona's damaged relationship.
-- Mera's responsibility toward Leona, Adrian and Ada.
-- The collaborators' willingness to risk their jobs and reputations for shared work.
+- Alex must decide whether to trust Ada with the Legacy Protocol.
+- He must determine whether Adrian's love and failures can coexist.
+- Tomas risks his position to honor Adrian's request and help Alex.
+- The collaborators must choose whether to risk House retaliation.
+- Alex must decide whether to claim the work as his inheritance or acknowledge the people who built it.
+- Nell assumes responsibility for Grandmother's daily care and medicine, allowing Alex to leave without abandoning her.
 
 ### Institutional
 
-- Alpha's emergency authority and the unequal allocation of water, labor and mobility.
-- Keel's ability to see and challenge the water records.
-- Halyard's concentration of patents, research and manufacturing in three Charter Houses.
-- Whether independent businesses can build and sell useful technology.
-- Whether ownership records identify contributors or erase them.
-- Whether the Covenant can prevent a small group from making permanent decisions for everyone else.
+- Alpha's emergency authority has become effectively permanent.
+- Keel's water allocation is concealed by false official records.
+- The Charter Houses control the infrastructure and intellectual-property systems that make independent entrepreneurship difficult.
+- The Measure can expose information but cannot itself repair infrastructure.
+- The Maker's Seal can recognize contribution and ownership but cannot by itself distribute opportunity.
+- The financial and ownership systems can recognize Alex's work without immediately making him solvent.
 
 ### Wider
 
-- Keel's access to water and safe water.
-- The future of three connected cities.
-- The ability of communities to inspect the systems that govern them.
-- Whether technological scale remains compatible with competition, ownership, failure and local enterprise.
-- Whether Alpha's infrastructure can continue to function without unaccountable emergency authority.
+- Keel's water affects health, work and whether people can remain in the city.
+- The diversion shows that official optimization can conceal human consequences.
+- The three artifacts together may eventually return governing authority from Alpha to people.
+- The story must distinguish revealing information from physically changing infrastructure: publishing the junction-gauge discrepancy does not itself send water through the pipes.
 
 ## Ending
 
-**Established ending direction.** Alex does not take executive control of Alpha. He proposes a distributed structure based on the three artifacts:
+**Current-pass ending:** Chapter 3 ends with the Maker's Seal activated, the Covenant still with Mera in Oasis, Alex's debt unresolved and the House system still powerful. Alex has chosen shared, distributed ownership over Lock's guaranteed settlement, but the economic problem is not solved.
 
-- truth must remain visible;
-- contribution and ownership must remain visible;
-- promises must be made and checked by the people affected.
+The current financial progression is:
 
-Alpha rescinds emergency authority and remains an advisory and recordkeeping system. Human councils chosen by each affected district approve allocations, ownership changes and emergency measures. Any decision can be challenged through a public evidence docket. `(rules/decisions.md)`
+- Alex begins with a debt of **418,607 credits**;
+- Keel's 61 accounts pay the **500-credit overdue amount**;
+- the debt becomes **418,107 credits** and travel is permitted;
+- the first licensing revenue is **38 credits**;
+- **12 credits** are applied to the debt;
+- later, an unknown backer buys Alex's debt at a premium.
 
-Alpha does not erase debt, transfer ownership automatically or repair the cities in one moment. Existing allocations, ownership records and agreements remain unchanged pending human process.
+The final movement of this pass is:
 
-The purifier supports smaller businesses that build and sell useful units. The contributor-owned licensing venture retains the rights, names all contributors, licenses approved businesses and maintains a reserve. The first shop pays 38 credits, including 12 credits applied to Alex's debt account. Some businesses may fail; successful businesses create value and earn income. `(rules/decisions.md)`
+- Alex begins with inherited debt and no ownership;
+- he exposes Keel's water diversion;
+- Keel helps him reach Halyard;
+- he discovers Adrian's intellectual estate and a note pointing to the patent registry and uncredited collaborators;
+- he builds with four collaborators;
+- he refuses to let a single House or himself absorb the work;
+- the Maker's Seal recognizes the shared contribution;
+- Mera reveals that the third artifact is with her.
 
-Alex's final account balance is **314,159 credits** after the visible payments and financial events established through the compressed Chapters 3–6. The earlier **402,110-credit** display is removed. `(rules/decisions.md)`
+The book's later draft material continues into Chapters 4–6, but those chapters are outside this intake pass and are not treated here as settled current-pass story. `(input/notes.md)`
 
-The later draft returns Alex to Keel. The old pump runs. Public allocation records are available. Tomas helps review the numbers. Grandmother sets down the cloth she has been folding. Alex remains beside Ada because he chooses to, not because Keel or a travel restriction decides for him.
+## Open
 
-The final image echoes the opening mountain. Keel, Halyard and Oasis remain the same three cities, but the infrastructure spine and its control nodes are open and visible. The story ends on a door left open rather than a completed utopia.
+- **The complete Chapter 4–6 treatment is outside this pass**, although later draft material exists. The current 47-page pass ends after Chapter 3 with the Covenant unresolved. `(input/notes.md)`
+- The full truth of Adrian's “one bad call,” research debt and disappearance remains unrevealed. Chapter 1 and Chapter 2 explicitly keep this uncertain. `(rules/decisions.md)`
+- The exact legal and practical meaning of the Maker's Seal's activation remains open. `(open-items.md, Item 11)`
+- The exact terms by which Alex and the collaborators will commercialize the small purification design across many independent businesses are not fully dramatized in the current Chapter 3 material. The settled financial facts establish an initial 38-credit licensing return, with 12 credits applied to Alex's debt, and a later purchase of the debt by an unknown backer at a premium. `(rules/decisions.md; open-items.md, Item 9)`
+- The exact role of Mera, the Covenant and the remaining Legacy Protocol functions belongs to later chapters. In Chapter 1, the Legacy Protocol only alerts and gives a source location. `(rules/decisions.md; open-items.md, Item 6)`
+- The identity of the authority that granted Alpha temporary decision-making power remains open. `(open-items.md, Item 1)`
+- Whether Adrian created the return-of-authority mechanism or only the tools that activate it remains open. `(open-items.md, Item 2)`
+- The final destination of the diverted water remains open. `(open-items.md, Item 3)`
+- The reason the old mine was sealed remains open. `(open-items.md, Item 4)`
+- The specific sequence of the Water Wars before Alpha was created remains open. `(open-items.md, Item 5)`
+- Lock's formal relationship to the Charter Houses remains open. `(open-items.md, Item 7)`
+- The collaborators' ownership and licensing rights remain open. `(open-items.md, Item 8)`
+- Whether the story's treatment of Lock's offer and House pressure constitutes a distinct danger to legitimate consent remains open. `(open-items.md, Item 10)`
+- The later story must continue tracking Alex's debt, which does not disappear when he finds an artifact, receives licensing revenue or activates the Maker's Seal. `(rules/decisions.md)`

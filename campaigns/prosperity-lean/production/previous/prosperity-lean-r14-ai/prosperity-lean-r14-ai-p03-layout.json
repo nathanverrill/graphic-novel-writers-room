@@ -1,0 +1,155 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Late afternoon on the Keel pit rim. Keel lies in shadow, Halyard catches gold and Oasis remains bright. The sealed mine entrance is at far left. A WATER WARS MEMORIAL plaque stands above a dry cracked fountain. Alex sits on the railing with a packed lunch while Ada approaches carrying two battered metal mugs. Reserve the upper-left for the caption and upper-right for Ada\u2019s balloon."
+        },
+        {
+          "w": 1,
+          "shot": "close two-shot",
+          "angle": "eye",
+          "description": "Ada offers Alex one mug. His mug is halfway to his mouth; her ration card hangs at her hip with one day\u2019s mark punched out. Keep both faces and mugs unobstructed. Reserve separate upper and lower corners for the alternating dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "description": "Alex and Ada sit side by side on the railing with mugs in hand. Ada laughs; Alex gives a short dry laugh that does not reach his eyes. Leave negative space above each character for a clean alternating balloon path."
+        },
+        {
+          "w": 1,
+          "shot": "wide two-shot",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Split eyelines: Alex looks upward toward Oasis while Ada looks down toward Keel. The railing cuts diagonally between them. Place Alex\u2019s lines in the left-side sky pocket and Ada\u2019s lines in the right-side basin pocket, with enough vertical separation that no balloons overlap."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Later that afternoon...",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Thought you might need this.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The birthday special? Not sure I can afford it.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Where'd you get enough water for two?",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Saved some of my ration.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Ada, you didn't have to.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Not everything has a price, Alex.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Eighteen. Congratulations. You're officially old.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I'm officially broke.",
+      "x": 30.0,
+      "y": 18.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I heard about this morning.",
+      "x": 76.0,
+      "y": 22.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone did.",
+      "x": 28.0,
+      "y": 60.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Every birthday... I look up there... and wonder what it feels like to wake up somewhere you get to choose your own future.",
+      "x": 76.0,
+      "y": 84.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "I look down here... and wonder why everyone gave up trying to change it.",
+      "x": 76,
+      "y": 34
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Because nobody leaves.",
+      "x": 24,
+      "y": 58
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That's the problem. People stopped trying to make it worth staying.",
+      "x": 76,
+      "y": 82
+    }
+  ]
+}

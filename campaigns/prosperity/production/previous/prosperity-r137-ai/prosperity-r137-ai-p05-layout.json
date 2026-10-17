@@ -1,0 +1,51 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "horizon": 58,
+          "bleed": true,
+          "description": "Full-page 2043 view of Prosperity\u2019s Andean high-desert basin. Keel fills the basin floor around an exhausted lithium pit with stacked housing, patched machinery, rusted structures, dust and narrow water channels. Halyard climbs the middle slope with workshops, fabrication towers and elevated rail. Oasis sits above the cloud layer with pearl-white architecture, reservoirs and a distant launch structure. One infrastructure spine carries water, energy, transit and control signals through all three tiers; its conduit is broad at Oasis and narrows toward Keel. Use simple figures and only a few access gates and control nodes. Leave five separated caption zones: top-left, top-right, center-left, lower-left and lower-right. Generate no readable text."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Year 2043.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Oasis \u00b7 Halyard \u00b7 Keel",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "What if everyone you've trusted has a secret?",
+      "at": "middle"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Who really owns what we create?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Where does all our water go?",
+      "at": "bottom-right"
+    }
+  ]
+}

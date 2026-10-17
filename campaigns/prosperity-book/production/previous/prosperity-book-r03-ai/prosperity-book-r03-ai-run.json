@@ -1,0 +1,133 @@
+{
+  "id": "r03-ai",
+  "kind": "ai",
+  "started": "2026-10-15T21:26:05",
+  "finished": "2026-10-15T21:28:16",
+  "status": "done",
+  "files_written": [
+    "script.md",
+    "room-log.md",
+    "notes.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-book/drafts/00-prologue.md": "9041aec49357d153",
+    "prosperity-book/drafts/01-chapter-01.md": "fbea686c40482253",
+    "prosperity-book/drafts/02-chapter-02.md": "de59f9b05e0bd97c",
+    "prosperity-book/drafts/03-chapter-03.md": "17ba01e419def6c4",
+    "prosperity-book/drafts/alt/02-chapter-02-pipe-ending.md": "6316ff3bcdb913fc",
+    "prosperity-book/input/notes.md": "fa283bf54f891414",
+    "prosperity-book/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity-book/rules/characters.md": "fd828279ef4518bd",
+    "prosperity-book/rules/decisions.md": "0ce605b088cf7fad",
+    "prosperity-book/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity-book/rules/look.md": "3b9fcb3e7645b4ee",
+    "prosperity-book/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity-book/rules/showrunner-rules.md": "ae6a0fa2d2ba93c5",
+    "prosperity-book/rules/vocabulary.md": "128aac4bf1bb7842"
+  },
+  "usage": {
+    "total": {
+      "calls": 2,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.50466227,
+      "input_tokens": 275513,
+      "cached_tokens": 5671,
+      "image_input_tokens": 0,
+      "output_tokens": 19426,
+      "reasoning_tokens": 1578,
+      "total_tokens": 294939
+    },
+    "by_role": {
+      "writer_a": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.467404,
+        "input_tokens": 137726,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 15996,
+        "reasoning_tokens": 1077,
+        "total_tokens": 153722
+      },
+      "continuity": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.03725827,
+        "input_tokens": 137787,
+        "cached_tokens": 5671,
+        "image_input_tokens": 0,
+        "output_tokens": 3430,
+        "reasoning_tokens": 501,
+        "total_tokens": 141217
+      }
+    }
+  },
+  "run_id": "0efe55ca7932",
+  "note": "The room is in writing: The writer you picked writes the whole script.\n\nDrawability: Pages are drawn by an image model, one page per generation, from each character's and location's sheet, and a page drifts when it carries too much. So: at most 7 panels a page; at most 3 named characters in one panel; one location a page where the story allows (every new location needs its own sheet); no crowd that must be recognisable; a big moment gets a splash (one panel, the whole page). Count pages this way, not by comic convention. Every page you make keeps to it.\n\ndraft-final.md is the book: the showrunner's draft, edited to the canon and expanded, and approved. Script it, and do nothing else: break it into pages and panels, one page after another in its order, with panel descriptions an artist can draw and a balloon for each of its lines, word for word. No new beats, no new dialogue, nothing cut, nothing moved; [NEW] marks are the editor's and are not printed. Where there is no draft-final.md, script draft.md the same way. End each page's PAGE CHECK with `CHANGED: none`, or what you had to change to draw it and why. Continuity Editor: check script.md against draft-final.md. A dropped, merged or reordered beat, a line not word for word, or anything added that the draft does not have is a Blocker.\n\nThe book is exactly 62 pages: pages 1-62, no more, no fewer.",
+  "roles": [
+    "writer_a",
+    "continuity"
+  ],
+  "configs": {
+    "writer_a": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-3.1-pro-preview",
+      "temperature": 0.7,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 16,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    },
+    "continuity": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.1,
+      "max_tokens": 10000,
+      "thinking_budget": 0,
+      "max_steps": 12,
+      "timeout": 300,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "writing",
+  "pages": []
+}

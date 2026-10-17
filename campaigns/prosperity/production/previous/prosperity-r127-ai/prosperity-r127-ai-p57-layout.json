@@ -1,0 +1,55 @@
+{
+  "page": 57,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "description": "Civic hall: Keel, Halyard and Oasis representatives occupy separate stations around a central table. Use indistinct background figures; keep upper hall clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The Measure, Maker's Seal and Covenant circle rest on the central table beneath a waiting display. Keep upper table clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The display offers designated human authority while the three safeguards remain inert. Keep upper display clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera faces Alex across the table while Tomas, Ada and Leona remain visible as separate witnesses. Keep upper hall clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "THREE SAFEGUARDS PRESENT.\nAWAITING DESIGNATED HUMAN AUTHORITY.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Take the position. You can fix Keel today.",
+      "at": "top-left"
+    }
+  ]
+}

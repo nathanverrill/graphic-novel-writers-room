@@ -1,0 +1,41 @@
+{
+  "page": 64,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "bleed": true,
+          "description": "FULL-PAGE FINAL IMAGE, 2043. The old Keel pump runs beneath Alex's repaired bracket while measured water moves through an imperfect channel. In the foreground, a worker places a verified Measure record beside the public water terminal; it is a 2043 record, not the 2099 drone component. In Grandmother's apartment, Pilar closes the paper dose ledger and Grandmother sets down her folded cloth. Above Keel, Alex and Ada stand beneath the mountain sky as pipes, rails and white-and-amber nodes climb toward Halyard and Oasis. Leave quiet lettering space in the upper sky, around the pump channel and beside Alex and Ada."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THRUM",
+      "size": "medium",
+      "at": "middle-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You\u2019re staying?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I\u2019m showing up.",
+      "at": "bottom-right"
+    }
+  ]
+}

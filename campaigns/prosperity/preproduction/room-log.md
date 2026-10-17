@@ -119,3 +119,31 @@ Revised 5 files from 2 passes (6 model requests): 1 decision(s) and 0 note(s) ca
 ## Script Coordinator — r35-ai, 2026-10-14 19:58
 
 Revised 5 files from 2 passes (5 model requests): 1 decision(s) and 0 note(s) carried in, facts.md derived. 0 item(s) still open, 0 deferred.
+
+## Script Coordinator — r36-ai, 2026-10-15 12:53
+
+Intake: 4 files from 3 passes (5 model requests). 24 open items, each with options. Waiting on you: answer, defer or leave each one, add any notes, then run intake again. facts.md is derived after that.
+
+## Script Coordinator — r37-ai, 2026-10-15 12:57
+
+Revised 5 files from 2 passes (5 model requests): 3 decision(s) and 0 note(s) carried in, facts.md derived. 0 item(s) still open, 21 deferred.
+
+## Script Coordinator — r39-ai, 2026-10-15 15:51
+
+Intake: 4 files from 3 passes (5 model requests). 26 open items, each with options. Waiting on you: answer, defer or leave each one, add any notes, then run intake again. facts.md is derived after that.
+
+## Script Coordinator — r40-ai, 2026-10-15 16:03
+
+Revised 5 files from 2 passes (5 model requests): 10 decision(s) and 0 note(s) carried in, facts.md derived. 0 item(s) still open, 16 deferred.
+
+## Script Coordinator — r41-ai, 2026-10-15 20:21
+
+Intake: 4 files from 3 passes (5 model requests). 16 open items, each with options. Waiting on you: answer, defer or leave each one, add any notes, then run intake again. facts.md is derived after that.
+
+## Script Coordinator — r43-ai, 2026-10-15 20:28
+
+Revised 5 files from 2 passes (6 model requests): 5 decision(s) and 0 note(s) carried in, facts.md derived. 0 item(s) still open, 11 deferred.
+
+## Script Coordinator — r45-ai, 2026-10-15 20:42
+
+Revised 5 files from 2 passes (5 model requests): 0 decision(s) and 1 note(s) carried in, facts.md derived. 0 item(s) still open, 11 deferred.

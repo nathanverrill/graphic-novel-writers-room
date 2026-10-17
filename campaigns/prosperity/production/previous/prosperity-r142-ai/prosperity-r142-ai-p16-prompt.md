@@ -1,0 +1,232 @@
+## Page 16 of 47 — Prosperity
+_Copy everything under this heading and paste it into the image model._
+
+Draw one finished comic book page: a portrait page, 6.625 x 10.25 inches (about 2:3), the left-hand page of the book, with 5 panels. Fully inked and colored, clean panel borders with even white gutters. NO TEXT anywhere on the page.
+
+**Style (the same on every page):**
+
+Inked graphic-novel realism with heavy contour, tactile hatching, painterly digital color and expressive acting. Technology is layered and maintained: analogue gauges, physical keys and corroded pipes coexist with holograms, drones, automated transit and large-scale computation.
+
+Prosperity is one mixed Andean high-desert basin, not three ethnic enclaves. Ancestry cuts across every city. Class, access, occupation, health, clothing, grooming, speech, environment and institutional power create the primary visual differences.
+
+- **Keel:** rust, charcoal and oxidized orange; dust, crowding, stacked housing, narrow water channels, patched machinery and exhausted lithium workings. Worn but warm and inhabited.
+- **Halyard:** bronze, gold and engineered green; workshops, laboratories, fabrication towers, elevated rail and commercial infrastructure.
+- **Oasis:** pearl white, silver, controlled green and clean blue; reservoirs, curved architecture, gardens, quiet transit and administrative interiors. Privilege appears through space, maintenance, health and access, never ethnicity.
+- **Alpha:** no face or human body. Show it through white-and-amber control nodes, screens, gates, records, restrictions, drones and formal administrative language.
+- **Bi11bot:** 85 cm tall; segmented round faded industrial-blue head, warm amber eyes in heavy rings, side ear assemblies, chipped mustard-yellow paint, exposed steel, white **Bi11** chest mark and an old red scarf. His right eye ring clicks when he focuses. He is warm, precise, lightly amused and never menacing.
+- **Alex:** lean, work-rough and visibly related to Adrian while carrying substantial visible inheritance from his unrevealed Indigenous Andean mother. Do not explain that inheritance in dialogue.
+- **The prologue:** 2070 Oasis is ordinary, lived-in and economically successful, not dystopian or utopian. Alex remains dressed like a mechanic, with Adrian’s watch on his left wrist.
+
+**Characters — draw them exactly as described:**
+
+- **MERA** — Mera Vale is a woman in her early fifties, approximately 173 cm tall, slim and upright, with medium olive skin, a narrow controlled face, silver hair cut into a precise jaw-length bob, dark brown eyes and a restrained expression that gives little away. She wears a pearl-grey structured jacket over a graphite high-collared shirt, small silver earrings and no visible House insignia; her clothing is immaculate but not ornamental. Her silhouette is vertical, symmetrical and adminis
+
+**Reference images to attach** (if the model takes them): the character sheet (MERA); the location sheet (KEEL, OASIS); your approved style page. The descriptions below still win where the two differ.
+
+**Page layout, top to bottom** (the map is the page itself, panels to scale):
+
+```text
++-------------+----------------------------+
+|             |                            |
+|             |                            |
+|             |                            |
+|             |                            |
+|      1      |             2              |
+|             |                            |
+|             |                            |
+|             |                            |
+|             |                            |
++-------------+--------------+-------------+
+|                            |             |
+|                            |             |
+|             3              |      4      |
+|                            |             |
+|                            |             |
+|                            |             |
++----------------------------+-------------+
+|                                          |
+|                                          |
+|                                          |
+|                                          |
+|                                          |
+|                    5                     |
+|                                          |
+|                                          |
+|                                          |
+|                                          |
+|                                          |
+|                                          |
++------------------------------------------+
+```
+
+- Row 1 (top, a third of the page height): panel 1 (left, a third of the width); panel 2 (right, two thirds of the width)
+- Row 2 (middle, about 22% of the page height): panel 3 (left, two thirds of the width); panel 4 (right, a third of the width)
+- Row 3 (bottom, about 44% of the page height): panel 5 (full width)
+
+**Layout sketch at print scale** (one character cell is one letter of lettering; figures are the shaded shapes, and the boxed words are where balloons and captions will go - keep those areas clear):
+
+```text
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+        _______________________________    _________________________________________________________________        
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |_________________________________________________________________|       
+       |                               |  |                                                                 |       
+       |_______________________________|  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |                               |  |                                                                 |       
+       |_______________________________|  |_________________________________________________________________|       
+                                                                                                                    
+        _________________________________________________________________    _______________________________        
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |_________________________________________________________________|  |_______________________________|       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                                 |  |                               |       
+       |                                                       [=======] |  |                               |       
+       |                                                       [       ] |  |                               |       
+       |                                                       [=======] |  |                               |       
+       |_________________________________________________________________|  |_______________________________|       
+                                                                                                                    
+        ____________________________________________________________________________________________________        
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |____________________________________________________________________________________________________|       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                                                                                    |       
+       |                                     +========================+                                     |       
+       |                                     | I TOLD MYSELF I WAS    |                                     |       
+       |                                     | ONLY CHECKING. MOST OF |                                     |       
+       |                                     | THE TRUE THINGS IN MY  |                                     |       
+       |                                     | LIFE S+=========+ WAY. |                                     |       
+       |                                     +=======| END OF  |======+                                     |       
+       |                                             | CHAPTER |                                            |       
+       |                                             | ONE     |                                            |       
+       |____________________________________________________________________________________________________|       
+                                                                                                                    
+                                                                                                                    
+                                                                                                                    
+```
+
+### Panel 1 — ESTABLISHING, BIRD ANGLE
+
+**Scene:** Tall cutaway of the infrastructure spine from Keel to Oasis. A single amber alert pulse travels upward through existing water, energy and control infrastructure; nodes flicker in sequence. This is only a transmission alert, not artifact authentication or authority transfer. No lettering; keep the spine unobstructed.
+
+### Panel 2 — WIDE, EYE ANGLE
+
+**Scene:** Symmetrical Oasis control room with pearl-white and graphite surfaces and a wall-sized mountain display. One amber Keel point pulses. Mera sits small against it; her clean water glass is aligned with the desk edge. Leave upper-left clear.
+
+### Panel 3 — MEDIUM CLOSE, EYE ANGLE
+
+**Scene:** Cold-white monitor with a completely blank interface area reserved for lettering. Generate no text, buttons or duplicate selection graphics in the artwork.
+
+**Who and what is where:**
+
+- TRACK selection — bottom right
+
+### Panel 4 — EXTREME CLOSE, EYE ANGLE
+
+**Scene:** Mera nudges the clean water glass a few millimeters until it aligns with the desk edge and monitor frame. No lettering.
+
+### Panel 5 — WIDE, EYE ANGLE
+
+**Scene:** The amber Keel point continues pulsing as a thin cold-white ring closes around it. Mera is tiny in the display reflection. Reserve a clear lower-left zone for the retrospective caption and a separate clear lower-right zone for the chapter marker, with a wide gap between them.
+
+**Keep these areas clear — the lettering is added afterwards as a separate layer, so draw no words here, just uncluttered art with room for a balloon:**
+
+1. lower center — space for a caption box of about 18 words
+2. lower center — space for a caption box of about 4 words
+
+**Rules:** draw NO text anywhere on this page — no balloons, no captions, no sound effects, no page number, no titles, signatures or watermarks. The lettering is added afterwards on a transparent layer, so leave the areas listed under each panel uncluttered (sky, wall, shadow — nothing the reader needs to see). Keep the characters' looks identical to their descriptions.
+
+**Before you keep this image, check:**
+
+- [ ] 5 panels, shaped and ordered as the map shows; a left-hand page
+- [ ] Panel 1: Tall cutaway of the infrastructure spine from Keel to Oasis
+- [ ] Panel 2: Symmetrical Oasis control room with pearl-white and graphite surfaces and a wall-sized mountain display
+- [ ] Panel 3: Cold-white monitor with a completely blank interface area reserved for lettering
+- [ ] Panel 4: Mera nudges the clean water glass a few millimeters until it aligns with the desk edge and monitor frame
+- [ ] Panel 5: The amber Keel point continues pulsing as a thin cold-white ring closes around it
+- [ ] MERA: as described, same as the other pages
+- [ ] Clear, uncluttered space at: panel 5 lower center
+- [ ] No letters, numbers, balloons, captions, signatures or watermarks anywhere
+
+_One box fails: regenerate with the same packet. Then upload the page in the room and letter it._
+
+**The page's script, for reference:**
+
+```text
+## Page 16 (left) — Track
+
+**Panel 1.** Minimalist Oasis control room, pearl white and graphite, viewed wide and symmetrical. A wall-sized map shows the basin and infrastructure spine. One amber point pulses in the Keel sector. Mera is seated with her back to us. A glass of clean water is aligned exactly with the desk edge.
+
+**Panel 2.** Close on the control display. Administrative text appears:
+
+'''text
+LEGACY PROTOCOL DETECTED
+SOURCE: KEEL SECTOR
+'''
+
+Beneath it:
+
+'''text
+[ REPORT TO ALPHA ]    [ TRACK ]
+'''
+
+Mera’s hand hovers between the two choices. She recognizes Adrian’s protocol signature but has no identity for the Keel source.
+
+**Panel 3.** Mera presses **TRACK**. The **REPORT TO ALPHA** option remains unselected.
+
+**Panel 4.** Her other hand nudges the glass a few millimeters until it is perfectly aligned with the desk edge and the monitor frame.
+
+**Panel 5.** Dominant closing image. The wall display shows the amber Keel point. A thin cold-white ring closes around it. Mera is reflected faintly in the screen glass, small at the center. The amber point is the only warm light in the room.
+
+CAPTION: I told myself I was only checking. Most of the true things in my life started that way.
+
+LETTERING: END OF CHAPTER ONE
+
+**PAGE CHECK:** Mera chooses **TRACK**, making Alex’s private choice an observed event while preserving her uncertainty about his identity. The retrospective caption uses the established future-Alex treatment and is separated from the chapter marker.  
+CHANGED: Rebuilt the final lettering zones so the caption, alert choices and chapter marker remain distinct and legible.
+```

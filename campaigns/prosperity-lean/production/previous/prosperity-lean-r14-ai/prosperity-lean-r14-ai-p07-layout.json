@@ -1,0 +1,55 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "View from the threshold into the cold hidden workshop. Alex stands small at lower left. Dust hangs over blueprints, mechanical models, water-system diagrams and prototype devices. Riveted pre-Alpha pipes and analog gauges line the back wall. A chalkboard is dense with equations, including a distinctive looping form. An organized workbench sits under amber instrument light. A seated robot shape rests under a dust sheet with a faint amber pulse. An open box holds Adrian\u2019s worn steel watch beside a tag reading FOR ALEX. 18. Reserve separate clear pockets above the workbench and near the upper corners; keep the watch, tag and robot shape unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex lifts the watch from the box and turns it over. The looping equation engraved on its steel caseback catches amber light; his eyes move toward the chalkboard. Keep the watch and chalkboard clear."
+        },
+        {
+          "w": 1,
+          "shot": "close insert",
+          "angle": "eye",
+          "description": "The watch caseback is held beside the chalkboard. The looping equation is visibly identical in both places. No lettering over the equation."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "At the workbench, the seated robot remains under the dust sheet with a faint amber pulse. Alex holds the watch and reaches toward the sheet without touching. The FOR ALEX. 18. tag remains visible. Reserve the upper third for the page-turn beat."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "FOR ALEX. 18.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "FOR ALEX. 18.",
+      "at": "top-right"
+    }
+  ]
+}

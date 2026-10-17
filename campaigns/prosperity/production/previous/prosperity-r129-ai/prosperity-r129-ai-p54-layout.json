@@ -1,0 +1,70 @@
+{
+  "page": 54,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian appears in the recording beside a rising waterline. Keep upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian faces the recording lens as water rises behind him. Keep upper projection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Water climbs behind Adrian while his expression remains loving and frightened. Keep upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Adrian reaches toward the projector controls. Keep upper controls clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Alex. I don\u2019t know whether this reaches you.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I wanted to leave you a choice. I left you a burden instead.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Do not become me because I failed to be there.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "The rest is yours.",
+      "at": "top-left"
+    }
+  ]
+}

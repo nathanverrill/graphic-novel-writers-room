@@ -1,0 +1,80 @@
+{
+  "page": 42,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In a rented Halyard workroom, four components surround a cloudy Keel water sample while Alex stands with the collaborators. Keep the upper worktable clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Lina tests the cloudy sample and rejects a membrane. Keep the upper test apparatus clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The collaborators connect the remaining components; incompatible interfaces fail to communicate. Keep the upper apparatus clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The prototype readout drops to eleven percent simulated efficiency as vapor escapes. Keep the upper readout clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Keel has water now. It can\u2019t use it.",
+      "at": "top-left",
+      "tail_x": 23.4,
+      "tail_y": 30.9
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "Not that one. It lies under heat.",
+      "at": "top-left",
+      "tail_x": 55.5,
+      "tail_y": 37.1
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "11% SIMULATED EFFICIENCY.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CHUFF",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "Good. Now we know where it breaks.",
+      "at": "bottom-left"
+    }
+  ]
+}

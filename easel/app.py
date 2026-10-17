@@ -14,6 +14,7 @@ from fastapi import Body, FastAPI, HTTPException
 from fastapi.responses import HTMLResponse, Response
 
 OPENROUTER = "https://openrouter.ai/api/v1"
+MODEL = "openai/gpt-image-2.5-sunburst"    # the only image model Easel draws with
 app = FastAPI()
 INDEX = (Path(__file__).parent / "index.html").read_text()
 from store import bucket  # noqa: E402 - GCS when BUCKET is set, ./data files when not
@@ -53,7 +54,7 @@ def generate(d: dict = Body(...)):
     prompt = (d.get("prompt") or "").strip()
     if not prompt:
         raise HTTPException(400, "empty prompt")
-    payload = {"model": d.get("model"), "prompt": prompt}
+    payload = {"model": MODEL, "prompt": prompt}
     refs = [r for r in (d.get("refs") or []) if isinstance(r, str) and r.startswith("data:")][:3]
     if refs:
         payload["input_references"] = [{"type": "image_url", "image_url": {"url": r}} for r in refs]

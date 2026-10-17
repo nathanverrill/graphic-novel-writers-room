@@ -1,0 +1,54 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 3,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Adrian\u2019s hidden workshop with Alex small among blueprints, mechanical models, water diagrams, analog gauges and riveted pre-Alpha pipes. A perfectly organized workbench holds the covered dormant Bi11bot and Adrian\u2019s watch face down beside it. The robot has no amber pulse, no lit optics and no active display; only dust and ordinary warm workshop reflections. Keep upper-left open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex turns the worn steel watch over, revealing Adrian\u2019s engraved equation. Keep upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The chalkboard equation matches the watch engraving. Silent and unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The covered robot remains completely still. Alex\u2019s open hand reaches toward the sheet without touching it; the watch\u2019s display is still dark. Keep the workbench clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "Adrian's old steel wristwatch",
+      "w": 18,
+      "h": 12,
+      "at": "bottom-right"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "page": 34,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Public screens across Keel display the reported and delivered water figures. Keep the upper screens clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Residents gather around a public screen while Ada's voice comes through static. Use indistinct background figures only; keep the upper screen clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At Site 6, Tomas watches as Foreman-7 orders him back. Keep the upper worksite clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Workers open ledgers and old gauges on a communal table. Use indistinct hands and bodies only; keep the upper table clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "REPORTED TO KEEL: 62% \u2014 DELIVERED TO KEEL: 18%.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Check your pipes.",
+      "tail": "none",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Return to assigned zone.",
+      "at": "top-left",
+      "tail_x": 66.2,
+      "tail_y": 21.1
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "We\u2019re already in it.",
+      "at": "top-right",
+      "tail_x": 29.7,
+      "tail_y": 45.3
+    }
+  ]
+}

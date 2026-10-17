@@ -1,0 +1,71 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex scans his identity band at the checkpoint while Foreman-7 stands beside the node. Keep the upper checkpoint clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's band displays the debt transfer, Adrian's whereabouts unrecorded, 418,607-credit balance and 28.7-year clearance projection. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "description": "Alex covers Adrian's worn steel watch with his thumb. Keep the upper frame empty."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The checkpoint shutter opens toward the closed, dust-covered Last Chance bar. Keep the upper shutter area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Age verified. Seventeen.",
+      "at": "top-left",
+      "tail_x": 84.4,
+      "tail_y": 23.5
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE\nORIGINAL DEBTOR: ADRIAN PHANTUM \u2014 WHEREABOUTS UNRECORDED\nDEBT BALANCE: 418,607 CREDITS\nPROJECTED CLEARANCE: 28.7 YEARS",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Happy birthday, Phantum.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Twenty-eight point seven.",
+      "at": "bottom-right"
+    }
+  ]
+}

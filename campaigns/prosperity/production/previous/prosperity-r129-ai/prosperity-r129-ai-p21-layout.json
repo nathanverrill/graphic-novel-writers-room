@@ -1,0 +1,75 @@
+{
+  "page": 21,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex, Ada and folded B11 crawl through the unwired service passage behind the apartment wall. Keep upper conduit clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "B11 projects three mine markers while Alex studies a hand-drawn route scratched on the service wall. Keep upper projection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "The service passage emerges onto a lower maintenance lane leading toward Site 6; Alpha nodes remain dark along the old route. Keep upper lane clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex reaches the mine marker on B11's projection while Ada watches. Keep upper projection clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The first is below Site 6.",
+      "at": "top-left",
+      "tail_x": 15.5,
+      "tail_y": 42.5
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "We can reach it without the gate.",
+      "at": "top-left",
+      "tail_x": 45.9,
+      "tail_y": 37.4
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "NO AUTHORITY.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we start here.",
+      "at": "bottom-left",
+      "tail_x": 56.4,
+      "tail_y": 44.4
+    }
+  ]
+}

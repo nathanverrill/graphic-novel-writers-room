@@ -1,0 +1,77 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 4,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 45,
+          "bleed": true,
+          "description": "Full-page hidden-workshop message splash. Bi11bot\u2019s shoulder projector casts a soft-blue hologram above the workbench. Adrian appears waist-up with a narrow expressive face, steady tired eyes, restrained half-smile, practical lived-in inventor\u2019s work clothes and direct gaze into the recording lens. The hologram shifts toward burgundy as he speaks seriously. Alex stands frozen in the foreground with Adrian\u2019s watch glowing on his left wrist. Grandmother stands in the open bookshelf doorway with warm apartment light behind her. Use a descending staircase of isolated lettering zones from upper-left to upper-right, then middle-left, then middle-right, then lower-left, lower-center and lower-right. Keep all faces clear. At the bottom, show a visibly later aftermath: the hologram has faded into scan lines, Alex sits unfolding the photograph, and Grandmother watches."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Hello, Alex. If you're seeing this... then you found the workshop.",
+      "x": 22.0,
+      "y": 9.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Which means your grandmother still refuses to throw anything away.",
+      "x": 78.0,
+      "y": 17.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "I heard that.",
+      "x": 20.0,
+      "y": 31.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "If you're watching this, I wasn't there when you needed me. I'm sorry. To you, and to Mom.",
+      "x": 78.0,
+      "y": 42.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I got things wrong, Alex. More than once. But every failure taught me something.",
+      "x": 22.0,
+      "y": 57.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "You don't have to finish what I started. You may find a better way.",
+      "x": 52.0,
+      "y": 70.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Bi11bot has a map. What you do with it is up to you. And whatever he tells you... question everything. Especially me.",
+      "x": 78.0,
+      "y": 84.0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 4,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 62,
+          "bleed": true,
+          "description": "Full-page mine-regulator climax. Alex and Bi11bot wrench the manual wheel open together; the wheel and their joined effort form the central silhouette. A broad cold-water surge erupts toward Keel. Alex drops to one knee but keeps one hand on the wheel. Bi11bot anchors against the rail, rounded and protective without menace. The awakened white-and-amber node is a secondary focal point. Leave the upper-left dark and open for GO; reserve the lower water channel for the SFX without covering faces or wheel."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Go!",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRAK\u2014WHOOOOSH",
+      "size": "huge",
+      "at": "bottom"
+    }
+  ]
+}

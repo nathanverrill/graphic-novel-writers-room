@@ -1,0 +1,62 @@
+{
+  "page": 62,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The Caldera representative submits a polished allocation proposal with a clean diagram. Keep upper proposal clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The House diagram visibly omits the Keel residential branch while retaining industrial delivery. Keep upper diagram clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas places the old public baseline beside the House diagram and clips a physical gauge to the pipe. Keep upper comparison clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Keel workers compare the gauge, Measure and House proposal at the public table; use indistinct background bodies only. Keep upper table clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "CALDERA REPRESENTATIVE",
+      "text": "The revised denominator improves delivery.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "You counted the pipe after you stopped counting the homes.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "EVIDENCE CHALLENGE FILED.",
+      "at": "top"
+    }
+  ]
+}

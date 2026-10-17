@@ -1,0 +1,161 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 38,
+          "description": "Alex follows the live channel as an internal valve shifts pressure away from the old regulator. Two gauges show Keel\u2019s line dropping and the basin line rising; the node pulses. Reserve upper-left, upper-right, bottom-left, and bottom-right as distinct balloon zones; keep gauges unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex studies the manual wheel and newer housing. A worn physical plate beside the wheel reads MANUAL OVERRIDE \u2014 UNAUTHORIZED OPERATION REPORTS TO NETWORK. Keep the warning plate isolated in the lower-left mechanical area; reserve upper-left for Bi11bot and upper-right for Alex, with the final reply in bottom-right."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "low",
+          "description": "Alex reaches for the seized wheel; his watch slips against it. Bi11bot extends one hand but waits. Reserve top-left, top-right, bottom-left, and bottom-right for the exchange."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "low",
+          "description": "Alex and Bi11bot brace the wheel and housing as the node\u2019s amber indicator turns white. Keep the PIP\u2014PIP\u2014PIP SFX in a dedicated far-left mechanical zone, physically attached to the node and clear of all balloons. Reserve upper-right for Alex\u2019s command and bottom-right for Bi11bot\u2019s reply."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The water is leaving.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I can see that.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It is being told to.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "By what?",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That is the part I cannot see.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "MANUAL OVERRIDE \u2014 UNAUTHORIZED OPERATION REPORTS TO NETWORK",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "We can close the panel.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And leave the line open.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Yes.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Keel stays dry.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Is this the safe choice?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The familiar one?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Also no.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "PIP\u2014PIP\u2014PIP",
+      "size": "medium",
+      "at": "left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Hold it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I am holding it.",
+      "at": "bottom-right"
+    }
+  ]
+}

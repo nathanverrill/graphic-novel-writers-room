@@ -1,0 +1,62 @@
+{
+  "page": 58,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Projected possibilities surround Alex: clear water, Grandmother's supplied apartment and restored travel authorization. Keep upper projections clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The debt display offers executive clearance while Alex's balance remains visible. Keep upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada grips Alex's wrist beside the executive offer. Keep upper hands and display clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex looks from the debt display to a cloudy Keel water sample on the table. Keep upper table clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "DEBT BALANCE: 418,107 CREDITS.\nEXECUTIVE CLEARANCE AVAILABLE.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You could fix one house.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And leave the rest waiting.",
+      "at": "top-left"
+    }
+  ]
+}

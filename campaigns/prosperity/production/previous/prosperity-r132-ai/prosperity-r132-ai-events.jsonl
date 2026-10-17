@@ -1,0 +1,18 @@
+{"i": 0, "type": "run_start", "t": 1792081856.8670485, "roles": ["draft_editor"], "version": "r132-ai", "writing_round": "drafts", "max_passes": 0, "estimates": {"draft_editor": 219}, "pass_seconds": 0}
+{"i": 1, "type": "role_start", "t": 1792081856.8812075, "role": "draft_editor", "title": "Draft Editor", "pass_n": 1, "estimate": 219}
+{"i": 2, "type": "message", "t": 1792081857.0224757, "role": "draft_editor", "text": "Editing 00-prologue.md against the canon."}
+{"i": 3, "type": "message", "t": 1792081857.0238092, "role": "draft_editor", "text": "Editing 01-chapter-01.md against the canon."}
+{"i": 4, "type": "thinking", "t": 1792081857.0248704, "role": "draft_editor", "step": "00-prologue.md", "attempt": 1, "model": "openai/gpt-5.6-luna", "input_chars": 250133}
+{"i": 5, "type": "thinking", "t": 1792081857.0276365, "role": "draft_editor", "step": "01-chapter-01.md", "attempt": 1, "model": "openai/gpt-5.6-luna", "input_chars": 271782}
+{"i": 6, "type": "usage", "t": 1792081867.1274703, "role": "draft_editor", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 55521, "output_tokens": 1254, "cost_usd": 0.0153849, "cost_source": "provider", "status": 200, "log": "prosperity-r132-ai-call-0001-draft-editor-chat.json", "duration_ms": 10095, "error": null}
+{"i": 7, "type": "usage", "t": 1792081868.1942923, "role": "draft_editor", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 60756, "output_tokens": 1071, "cost_usd": 0.01647405, "cost_source": "provider", "status": 200, "log": "prosperity-r132-ai-call-0002-draft-editor-chat.json", "duration_ms": 11161, "error": null}
+{"i": 8, "type": "warn", "t": 1792081868.194705, "role": "draft_editor", "text": "01-chapter-01.md came back at 4% of the chapter; asking once more for all of it."}
+{"i": 9, "type": "thinking", "t": 1792081868.1953847, "role": "draft_editor", "step": "01-chapter-01.md", "attempt": 1, "model": "openai/gpt-5.6-luna", "input_chars": 271948}
+{"i": 10, "type": "usage", "t": 1792081919.841406, "role": "draft_editor", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 60793, "output_tokens": 7037, "cost_usd": 0.0236425, "cost_source": "provider", "status": 200, "log": "prosperity-r132-ai-call-0003-draft-editor-chat.json", "duration_ms": 51638, "error": null}
+{"i": 11, "type": "artifact", "t": 1792081919.8545096, "role": "draft_editor", "name": "draft-edited.md"}
+{"i": 12, "type": "artifact", "t": 1792081919.857493, "role": "draft_editor", "name": "draft-final.md"}
+{"i": 13, "type": "artifact", "t": 1792081919.858958, "role": "draft_editor", "name": "draft-changes.md"}
+{"i": 14, "type": "role_cost", "t": 1792081919.8655748, "role": "draft_editor", "calls": 3, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.05550145, "input_tokens": 177070, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 9362, "reasoning_tokens": 1023, "total_tokens": 186432}
+{"i": 15, "type": "role_done", "t": 1792081919.8660898, "role": "draft_editor", "note": "Edited 2 chapters to the canon: 6 change(s), 0 place(s) that do not fit. The book is 16 pages. Still to sheet: Alex Phantum, Ada Veyra, Bi11Bot, Adrian Phantum, Grandmother Phantum, Lina Vey, Suri Anik, Jalen Orr, Ren Okafor, Alpha. See draft-changes.md.", "seconds": 63}
+{"i": 16, "type": "run_done", "t": 1792081919.896632, "version": "r132-ai", "awaiting": false}
+{"i": 17, "type": "run_cost", "t": 1792081919.8975475, "calls": 3, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.05550145, "input_tokens": 177070, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 9362, "reasoning_tokens": 1023, "total_tokens": 186432}

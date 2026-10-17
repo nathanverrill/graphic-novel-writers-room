@@ -1,0 +1,1 @@
+Chapters 2–6 for review only; the room does not read this folder. This pass tunes only the prologue and Chapter 1 (rules/decisions.md, "Page budget for this pass"). Chapters 2–3 are v6 (Bob's v5 notes applied); 4–6 are his fifth draft as written, with Chapter 6's "chip" made the watch.

@@ -1,0 +1,77 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The granddaughter studies the component's maker's mark, then looks at Older Alex's worn steel watch. Keep upper dock clear."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "description": "Older Alex covers the watch with his thumb. Keep upper frame quiet."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Crooked TJ leans against Alex's boot; the missing leg lies on the dock. Keep upper lake clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter pockets the component while Alex looks across the lake. Keep upper dock sky clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Same mark.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Your eyes work.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "You\u2019re going to tell me someday.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Someday\u2019s crowded.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "I\u2019ll keep asking.",
+      "at": "top-left"
+    }
+  ]
+}

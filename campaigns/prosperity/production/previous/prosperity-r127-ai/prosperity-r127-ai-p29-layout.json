@@ -1,0 +1,85 @@
+{
+  "page": 29,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 projects the straight tunnel route while Alex and Ada stand at the branch. Keep the upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Drone beams sweep through the straight tunnel. Keep the upper tunnel clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex touches freshly repaired bolts on the left wall. Keep the upper wall clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 folds away the projection while Alex looks toward the left passage. Keep the upper passage clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Lower distance. Lower risk.",
+      "at": "top-left",
+      "tail_x": 29.5,
+      "tail_y": 52.2
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "WHIRR",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "This route\u2019s been used.",
+      "at": "top-left",
+      "tail_x": 76.6,
+      "tail_y": 30.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I read that wrong.",
+      "at": "top-left",
+      "tail_x": 24.0,
+      "tail_y": 46.3
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Keep reading.",
+      "at": "top-right",
+      "tail_x": 52.4,
+      "tail_y": 36.1
+    }
+  ]
+}

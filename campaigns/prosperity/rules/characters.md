@@ -8,11 +8,11 @@ give way where they disagree.
 - **Design (settled 11 October, from _morgue/billbot).** A rugged, weathered industrial robot: an
   oversized round head of segmented, faded industrial-blue panels with visible seams; two large
   round lenses glowing warm amber, recessed in heavy metal rings (they double as searchlights);
-  side-mounted round ear assemblies; broad rounded shoulder plates, angular chest armour with a white
+  side-mounted round ear assemblies; a small, child-sized body (about 85 cm) with slim jointed limbs, a chest plate with a white
   "Bi11" marking; exposed pistons, articulated metal fingers, compact legs and broad feet. Chipped
   mustard-yellow paint and stripe, exposed steel, dark joints, rivets, scratches and rust: years of
   service. Curious, dependable, a little worn out, still eager to help. Keep the round head, twin
-  amber eyes, side ear assemblies, blue-and-yellow chipped paint and broad shoulders in every image.
+  amber eyes, side ear assemblies, blue-and-yellow chipped paint and red scarf in every image. Lock: style/locks/b11-sunburst (2026-10-15).
   Reference: _morgue/billbot/billbot-character-sheet.png and bi11bot.md.
 - **The right eye ring.** The heavy ring around his right eye clicks or rotates when he focuses.
 - **Two eyes.** Both are expressive optical eyes.

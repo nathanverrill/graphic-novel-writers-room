@@ -1,0 +1,184 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Bi11bot projects a clean holographic mountain cross-section: Keel, Halyard and Oasis with three distinct unlettered markers. Only the Keel marker glows amber. Leave upper corners clear; generate no labels or text."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "The bright unlettered Keel marker sits beneath the sealed mine entrance. Leave upper-left clear for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex studies the sealed mine marker while Bi11bot stands beside him. Leave upper corners clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex looks toward the workbench where Adrian\u2019s hologram stood, holding the creased photograph. Bi11bot remains beside him. Leave upper corners clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex turns Adrian\u2019s watch over while Bi11bot\u2019s eye rings click toward him. Leave upper corners clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Alex presses his hand to the unlettered Keel marker. A thin amber line leaves the map and enters an existing infrastructure route, clearly reading as a simple Legacy Protocol alert transmission, not artifact activation or authority transfer. Leave lower-left open."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father left a trail. Three artifacts, in three places.",
+      "at": "top-left",
+      "tail_x": 15.7,
+      "tail_y": 57.0
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "He called it the Legacy Protocol.",
+      "tail_x": 18,
+      "tail_y": 50,
+      "place": "exact",
+      "x": 40,
+      "y": 40
+    },
+    {
+      "panel": 2,
+      "type": "screen",
+      "text": "THE MEASURE",
+      "place": "exact",
+      "x": 56,
+      "y": 42
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The first is called the Measure. It's somewhere inside the old mine.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That mine's been sealed since before I was born.",
+      "at": "top-left",
+      "tail_x": 36.3,
+      "tail_y": 44.4
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father knew.",
+      "at": "top-right",
+      "tail_x": 76.6,
+      "tail_y": 49.2
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And I can't leave Keel.",
+      "at": "bottom-left",
+      "tail_x": 36.3,
+      "tail_y": 44.4
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You don't need to. This one is under your feet.",
+      "at": "bottom-right",
+      "tail_x": 76.6,
+      "tail_y": 49.2
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And finding it tells me what happened to him?",
+      "at": "top-left",
+      "tail_x": 40.0,
+      "tail_y": 33.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It tells us where he wanted you to begin. The rest, we'll have to discover.",
+      "at": "top-right",
+      "tail_x": 84.9,
+      "tail_y": 56.0
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone says he gambled it all away.",
+      "at": "top-left",
+      "tail_x": 30.5,
+      "tail_y": 33.0
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That's a theory. The mine is evidence.",
+      "at": "top-right",
+      "tail_x": 80.7,
+      "tail_y": 42.2
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we start here.",
+      "at": "bottom-left"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+{
+  "id": "r01-ai",
+  "kind": "ai",
+  "started": "2026-10-11T21:23:38",
+  "finished": "2026-10-11T21:26:10",
+  "status": "done",
+  "files_written": [
+    "analysis.md",
+    "room-log.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-v6-ch1/input/pitch.md": "af21d565871e1373",
+    "prosperity-v6-ch1/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity-v6-ch1/rules/stakeholders.md": "586fb1c4a6ecaa3e"
+  },
+  "usage": {
+    "total": {
+      "calls": 1,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.345336,
+      "input_tokens": 14749,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 14317,
+      "reasoning_tokens": 6314,
+      "total_tokens": 29066
+    },
+    "by_role": {
+      "analyst": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.345336,
+        "input_tokens": 14749,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 14317,
+        "reasoning_tokens": 6314,
+        "total_tokens": 29066
+      }
+    }
+  },
+  "run_id": "4a3fa9271db4",
+  "note": "The room is in analysis: The Analyst reads the whole script, the pages only, as the book's audience, its partner and its backer would meet it, and as a comic writer, a game designer and a streaming showrunner would. It reports the political read, what might offend and whom, and whether it smells like schoolwork. It fixes nothing.\n\nThe book is exactly 12 pages: pages 1-12, no more, no fewer.",
+  "roles": [
+    "analyst"
+  ],
+  "configs": {
+    "analyst": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "anthropic/claude-opus-5.5",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 900,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "analysis",
+  "pages": []
+}

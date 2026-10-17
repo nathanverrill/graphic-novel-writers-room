@@ -1,0 +1,121 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Dusk inside the modest Keel apartment: handmade quilts, repaired furniture, shelves of old books, faded family photographs, potted plants in recycled containers and two ration-marked water jugs by the door. Grandmother sits in a worn chair folding and refolding a cloth. A tall bookshelf has one worn blue book isolated on its top shelf. Alex stands in the doorway with his backpack. Reserve the upper-left for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex kneels beside Grandmother at eye level. Her hands continue folding the cloth; his smile is gentle and tired. Keep the bookshelf and blue book visible. Reserve separate upper-left and upper-right zones for the exchange."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "tight close-up",
+          "angle": "eye",
+          "description": "Grandmother\u2019s fog clears. Her face becomes startlingly steady and deliberate while Alex remains softly out of focus behind her. Reserve the upper-left for her line."
+        },
+        {
+          "w": 1,
+          "shot": "medium-tall",
+          "angle": "low",
+          "description": "Grandmother points toward the isolated blue book. Its spine bears a faint balanced water-drop mark. Alex reaches up on his toes, puzzled, while warm room light falls behind him. Keep the book and pointing hand clear. Use a left vertical lettering column for Grandmother\u2019s instructions and a right column for Alex\u2019s response."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Adrian?",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No, Grandma. I'm Alex.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Of course. Alex. I knew that.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And today's my birthday.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Really? How old?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Eighteen.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Eighteen. Oh. Then there's something your father wanted you to have.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Get me the blue book, would you? Top shelf.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Your father never let anyone else touch it.",
+      "x": 22,
+      "y": 45
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He had opinions about everything.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Especially the things worth protecting.",
+      "at": "bottom-right"
+    }
+  ]
+}

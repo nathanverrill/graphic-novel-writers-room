@@ -1,0 +1,90 @@
+{
+  "page": 44,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A House review team enters the rented workroom while Alex stands with Lina, Suri, Jalen and Ren. Use no recognizable crowd; keep the upper room clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lock reviews the purifier's testing records across the worktable. Keep the upper records clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Lina gives Alex the worn bronze Maker's Seal; its open-hand mark projects contributor names and obligations. Keep the upper seal area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Weeks later, a small Keel shop licenses the tested unit. A House notice about a competing industrial unit hangs behind Lock. Keep the upper shop sign clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Lina made the membrane. Suri kept the biofilter alive. Jalen built the routing. Ren made it serviceable.",
+      "at": "top-left",
+      "tail_x": 70.4,
+      "tail_y": 34.1
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "House administration would make this easier.",
+      "at": "top-left",
+      "tail_x": 43.3,
+      "tail_y": 29.8
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "It would make the names disappear.",
+      "at": "bottom-left",
+      "tail_x": 80.0,
+      "tail_y": 38.4
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "If it fails, we answer for it.",
+      "at": "bottom-left",
+      "tail_x": 78.4,
+      "tail_y": 28.5
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "12 \u2014 ALEX DEBT ACCOUNT\n18 \u2014 CONTRIBUTOR VENTURE\n8 \u2014 MAINTENANCE / WARRANTY RESERVE\nFIRST LICENSED SHOP PAYMENT: 38 CREDITS",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "COMPETING INDUSTRIAL UNIT IN DEVELOPMENT.",
+      "at": "bottom-right"
+    }
+  ]
+}

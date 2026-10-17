@@ -1,0 +1,15 @@
+{"i": 0, "type": "run_start", "t": 1791828259.4344392, "roles": ["draft_editor"], "version": "r08-ai", "writing_round": "drafts", "max_passes": 0, "estimates": {"draft_editor": 120}, "pass_seconds": 0}
+{"i": 1, "type": "role_start", "t": 1791828259.4363873, "role": "draft_editor", "title": "Draft Editor", "pass_n": 1, "estimate": 120}
+{"i": 2, "type": "message", "t": 1791828259.4410481, "role": "draft_editor", "text": "Editing chapter-01-draft.md against the canon."}
+{"i": 3, "type": "thinking", "t": 1791828259.4416528, "role": "draft_editor", "step": "chapter-01-draft.md", "attempt": 1, "model": "openai/gpt-5.6-luna", "input_chars": 127531}
+{"i": 4, "type": "usage", "t": 1791828286.411219, "role": "draft_editor", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 28894, "output_tokens": 4613, "cost_usd": 0.01275895, "cost_source": "provider", "status": 200, "log": "prosperity-lean-r08-ai-call-0001-draft-editor-chat.json", "duration_ms": 26950, "error": null}
+{"i": 5, "type": "warn", "t": 1791828286.42019, "role": "draft_editor", "text": "chapter-01-draft.md came back at 53% of the chapter; asking once more for all of it."}
+{"i": 6, "type": "thinking", "t": 1791828286.4296255, "role": "draft_editor", "step": "chapter-01-draft.md", "attempt": 1, "model": "openai/gpt-5.6-luna", "input_chars": 127697}
+{"i": 7, "type": "usage", "t": 1791828327.4924676, "role": "draft_editor", "kind": "chat", "model": "openai/gpt-5.6-luna", "provider": "openrouter.ai", "input_tokens": 28931, "output_tokens": 7573, "cost_usd": 0.0163202, "cost_source": "provider", "status": 200, "log": "prosperity-lean-r08-ai-call-0002-draft-editor-chat.json", "duration_ms": 41056, "error": null}
+{"i": 8, "type": "artifact", "t": 1791828327.5002534, "role": "draft_editor", "name": "draft-edited.md"}
+{"i": 9, "type": "artifact", "t": 1791828327.5025, "role": "draft_editor", "name": "draft-final.md"}
+{"i": 10, "type": "artifact", "t": 1791828327.5047302, "role": "draft_editor", "name": "draft-changes.md"}
+{"i": 11, "type": "role_cost", "t": 1791828327.5383542, "role": "draft_editor", "calls": 2, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.02907915, "input_tokens": 57825, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 12186, "reasoning_tokens": 908, "total_tokens": 70011}
+{"i": 12, "type": "role_done", "t": 1791828327.5388255, "role": "draft_editor", "note": "Edited 1 chapters to the canon: 5 change(s), 0 place(s) that do not fit. The book is 12 pages. Still to sheet: Alex Phantum, Bi11bot, Adrian Phantum, Alex's Grandmother, Ada, Danny, Pump-Hall Supervisor, The Last Chance Shopkeeper, Oasis Control-Room Watcher. See draft-changes.md.", "seconds": 68}
+{"i": 13, "type": "run_done", "t": 1791828327.687021, "version": "r08-ai", "awaiting": false}
+{"i": 14, "type": "run_cost", "t": 1791828327.6880336, "calls": 2, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.02907915, "input_tokens": 57825, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 12186, "reasoning_tokens": 908, "total_tokens": 70011}

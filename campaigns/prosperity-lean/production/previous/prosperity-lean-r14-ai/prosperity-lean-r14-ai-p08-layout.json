@@ -1,0 +1,71 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex pulls the dust sheet away from the seated shape. Dust cascades through amber instrument light. Beneath it is Bi11bot, a companion-sized first-generation Alpha field unit approximately 75 cm tall, with faded industrial-blue segmented head, mustard-yellow stripe, large amber eyes in heavy metal rings, round ear assemblies, chest plate marked Bi11, slim repair arms, exposed pistons and cables, chipped surfaces, rust, rivets, scratches and a rust-red scarf. Alex holds the watch. Keep the robot fully readable and leave the upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex places his scarred palm flat against Bi11bot\u2019s chest and reads the vibration by touch. He buckles Adrian\u2019s watch onto his left wrist; the face draws the looping equation while a ring fills. Keep hand, watch face and chest plate unobstructed. Reserve the upper-left for the SFX."
+        },
+        {
+          "w": 1,
+          "shot": "low reveal",
+          "angle": "low",
+          "description": "The watch loading ring closes and Bi11bot\u2019s amber eyes ignite. Dust lifts from his shoulders as Alex steps back. Keep the eyes clear and reserve separate pockets for the rising SFX."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot unfolds and stretches stiff mechanical arms as dust falls. His right eye ring clicks and rotates. Alex remains out of focus behind him. A white-and-amber Alpha node high on the wall blinks once. Keep the eyes, chest plate, scarf and node free of lettering; reserve the upper-right for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TICK... TICK... TICK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "WHIRRR...",
+      "size": "large",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "...Well. That took longer than expected.",
+      "at": "bottom-right"
+    }
+  ]
+}

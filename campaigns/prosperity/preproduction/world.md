@@ -2,785 +2,753 @@
 
 ## What the Showrunner Wants
 
-- **FIXED.** The book is exactly 64 pages, pages 1–64, no more and no fewer. The 10-page prologue is included in that total. Chapters 1–6 therefore occupy 54 pages: Chapter 1 remains 12 pages, Chapter 2 remains 15 pages, and Chapters 3–6 share the remaining 27 pages through compression. `(rules/showrunner-rules.md; input/notes.md; rules/decisions.md)`
-- **FIXED.** The story is divided into chapters. Chapter 1 is 12 pages, Chapter 2 is 15 pages, and Chapters 1 and 2 take place in Keel. Halyard begins in Chapter 3. Chapters 3–6 remain separate: Chapter 3 is the ownership/purifier chapter, Chapter 4 is the Covenant chapter, Chapter 5 is Adrian's disappearance chapter and Chapter 6 is the distributed-authority ending. They are compressed to fit the remaining 27 pages. `(rules/showrunner-rules.md, rules/decisions.md, input/notes.md)`
-- **FIXED.** The opening is a separate 10-page prologue, Issue 00, set in 2099. It is counted within the fixed 64 pages. `(rules/showrunner-rules.md, rules/decisions.md, input/notes.md)`
-- **FIXED.** The visual makeup of Prosperity reflects an Andean high-desert mining and infrastructure colony shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration and global capital. Ancestry does not function as a proxy for class, intelligence, morality, competence, wealth or political position. `(rules/ancestry.md)`
-- **FIXED.** Keel, Halyard and Oasis differ primarily through class, access, ownership, education, occupation, dress, grooming, speech, health, environment and institutional power, not through a simple ethnic division. `(rules/ancestry.md)`
-- **FIXED.** The book must not make free markets, free enterprise, private ownership, honest business, customer-serving enterprise or profit the villain. Monopolists, cronies and a central planner may be villains; markets and ownership are not. `(rules/showrunner-rules.md, rules/stakeholders.md)`
-- **FIXED.** The story should show at least one honest business making and selling something people need at a fair price and making money doing it. `(input/notes.md)`
-- **FIXED.** The world should feel mostly like the present aged into the future: 80 percent existing reality, 15 percent emerging technology or institution made ordinary, and 5 percent genuinely new material. Every invented element is to carry a T, EG, S, L or Cut label during development. `(rules/hard-sf-rules.md)`
-- **FIXED.** The intended readers are 15–18-year-old high-school students who know graphic novels, are skeptical of AI-made work and have little patience for unclear systems, unexplained terminology or riddle-like prose. `(rules/reader.md)`
-- **FIXED.** Money is measured in credits everywhere. Characters use “credits,” “balance,” “account,” “what’s left” and other plain financial language. The terms “fitch” and “salvo” are not part of the world’s money vocabulary, and money is not tied to casino-chip slang. `(rules/vocabulary.md; showrunner note)`
+- **FIXED.** The book is set in **2043**, in the Andean high-desert basin of Prosperity. The main setting is a three-tier civilization of **Keel, Halyard and Oasis**, connected by one infrastructure spine. `(rules/decisions.md; rules/showrunner-rules.md)`
+- **FIXED.** The book opens with a four-page prologue set around **2070**, then returns to 2043. The prologue shows Oasis as an ordinary, lived-in and economically successful future rather than a dystopia. `(rules/decisions.md; rules/showrunner-rules.md)`
+- **FIXED.** The current book is exactly **47 pages**, numbered Pages 1–47: a four-page prologue and Chapters 1–3 at 12, 15 and 16 pages respectively. `(rules/showrunner-rules.md; rules/decisions.md)`
+- **FIXED.** The story must not visually reduce the cities to ethnic categories. Ancestry cuts across all three cities. Their major differences are class, access, ownership, education, occupation, dress, grooming, speech, health, environment and institutional power. `(rules/ancestry.md)`
+- **FIXED.** The vertical language gradient is **Keel → Halyard → Oasis**: rough, compressed and work-shaped speech; technical and commercial professional speech; polished, administrative and abstract institutional speech. This is not an intelligence scale. `(rules/vocabulary.md)`
+- **FIXED.** The book must not conclude that free markets, honest business, private ownership, free enterprise or business serving customers are bad. Its targets are monopolists, cronies and unaccountable central planning. `(rules/showrunner-rules.md)`
+- **FIXED.** TJ does not appear in this book. `(rules/characters.md; rules/decisions.md)`
 
 ## Overview
 
-Prosperity is a near-future Andean high-desert mining and infrastructure colony in **2043**, organized vertically around a mountain basin. Three cities occupy different elevations along one infrastructure spine:
+Prosperity is an Andean high-desert mining and infrastructure colony shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration and global capital. Its cities occupy different elevations of the same mountain basin:
 
-1. **Keel**, at the bottom, built into and around an exhausted open-pit lithium mine.
-2. **Halyard**, midway up, a technical and manufacturing city of workshops, research facilities, fabrication towers and Charter Houses.
-3. **Oasis**, above both cities and partly above the cloud layer, a wealthy administrative and residential city with reservoirs, gardens, civic spaces and automated transit.
+- **Keel** lies at the bottom, inside and around an exhausted open-pit lithium mine.
+- **Halyard** occupies the middle slopes and functions as the technical, fabrication, research and commercial tier.
+- **Oasis** sits above the cloud layer and contains the wealthiest residential, administrative and institutional environments.
 
-Water, energy, transit, communications and control systems connect the three cities. Access to those systems is visibly unequal. Keel has rationing, restricted travel, aging infrastructure and physical wear. Halyard has technical capacity and industrial activity but is dominated by large Charter Houses. Oasis has the best nutrition, healthcare, architecture, maintenance and administrative access, but its order depends on concentrated authority and insulated decision-making. `(input/fifth-draft/chapter-01-draft.md, rules/decisions.md, rules/ancestry.md, rules/vocabulary.md)`
+The cities are physically connected but unequally supplied and governed. A massive shared infrastructure spine carries water, energy, transit rails and control nodes vertically through the mountain. The same system that connects the cities also makes their unequal access visible.
 
-The world is not divided into a poor Indigenous city and white technical or wealthy cities. All three cities contain Indigenous, mestizo, European-descended, Afro-descendant, South Asian, East Asian, mixed and international populations. Class, institutional power, work, access and environment produce the strongest visible differences. `(rules/ancestry.md)`
+The world combines existing industrial systems with near-future interfaces, autonomous infrastructure, advanced water technology and a centralized artificial intelligence. Older machinery, hand tools, analogue gauges, corroded pipes and patched housing remain in active use beside holographic records, automated transit, drones and large-scale computation. `(input/fifth-draft/chapter-01-draft.md; rules/hard-sf-rules.md)`
 
 ## Setting
 
-### The mountain basin
+### The three-tier basin
 
-The cities occupy different elevations of one vast mountain basin. Keel lies in the lowest, dustiest part of the basin; Halyard climbs the slope; Oasis sits above both, partly beyond the cloud layer. A single vertical infrastructure spine runs through the mountain, carrying:
+The opening visual establishes the entire civilization in one composition:
 
-- water conduits;
-- energy lines;
-- transit rails;
-- communications and control nodes;
-- access and permission systems. `(input/fifth-draft/chapter-01-draft.md)`
+- **Keel:** dense stacked housing, repaired industrial equipment, rusted mining structures, crowded pedestrian lanes, aging factories, narrow water channels and old pipes. Dust hangs in the air. The palette is rust, charcoal and oxidized orange.
+- **Halyard:** workshops, fabrication towers, greenhouse terraces, elevated trains, advanced industrial facilities and freight routes. The palette is warm bronze and gold with engineered green.
+- **Oasis:** pearl-white architecture, designed gardens, broad reservoirs, civic spaces and automated transit. The palette is pearl white, silver, cool blue and controlled green.
 
-The visual contrast between the cities is strong but continuous. Their infrastructure is one connected system rather than three isolated settlements. A train can climb from Keel toward Halyard. Water and control signals travel through the same broad vertical geography. `(input/fifth-draft/chapter-01-draft.md, rules/decisions.md)`
+A huge water conduit is most substantial at Oasis's reservoirs and narrows dramatically by the time it reaches Keel's channels. Energy lines, transit rails and control nodes run alongside it. Access gates multiply toward Keel, including a permission gate across the rail line between Keel and Halyard. `(input/fifth-draft/chapter-01-draft.md)`
 
 ### Keel
 
-Keel is built into and around an exhausted open-pit lithium mine. It contains:
+Keel is built into and around an exhausted lithium mine. Its visible environment includes:
 
-- dense stacked housing;
-- repaired industrial equipment;
-- rusted mining structures;
-- crowded pedestrian lanes;
-- aging factories;
-- narrow water channels;
-- old pipes;
-- digital checkpoints;
+- stacked housing and modest apartments;
+- repaired furniture and salvaged household objects;
+- aging factories and pump halls;
 - active extraction sites;
-- a sealed old mine beneath the pit rim;
-- a transit platform and rail gate leading toward Halyard. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
+- sealed and abandoned mine workings;
+- crowded pedestrian lanes;
+- ration stations and public screens;
+- checkpoints and travel gates;
+- a shuttered casino called **The Last Chance**;
+- old mine infrastructure containing newer water-control systems;
+- a rail platform connecting Keel to Halyard.
 
-Keel's visual palette is rust, charcoal and oxidized orange. Dust hangs in the air. Housing is modest but can be warm, lived-in and dignified: repaired furniture, handmade quilts, old books, faded photographs and plants growing in recycled containers are established domestic details. `(input/fifth-draft/chapter-01-draft.md)`
-
-Keel is predominantly Indigenous Andean, mestizo, mixed Indigenous/European, regional migrant and older mining-family population, with some long-established foreign-descended families. European-descended families such as the Phantums can be locally rooted and socially at home. `(rules/ancestry.md)`
-
-Keel's speech is short, compressed, practical, oral and work-shaped. It is influenced by mining, repair, debt, gambling, Spanish and regional speech. This is not an intelligence scale. `(rules/vocabulary.md)`
+Keel's palette and surfaces are shaped by rust, charcoal, oxidized orange, dust, mineral residue and patched machinery. Its residents live close to failure: a bearing, pipe, gauge, permit or wage deduction can determine the practical outcome of a day. `(input/fifth-draft/chapter-01-draft.md; input/fifth-draft/chapter-02-draft.md)`
 
 ### Halyard
 
-Halyard occupies the middle elevation and is visibly more prosperous and active than Keel. It contains:
+Halyard is the maker, research, fabrication and industrial-commercial tier. It contains:
 
-- workshops;
+- glass laboratories;
 - fabrication towers;
-- greenhouse terraces;
-- elevated trains;
-- advanced industrial facilities;
-- freight routes;
-- research laboratories;
+- foundries;
+- vertical farms;
+- elevated rail;
 - public patent and ownership registries;
-- House-controlled workplaces;
+- Charter House facilities;
+- research wings;
+- compute cores;
+- extraction and launch complexes;
 - maker districts;
-- extraction and launch facilities;
-- an old patent exchange;
-- workers' ownership archives. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md)`
+- patent exchanges;
+- workers' ownership archives;
+- rented rooms above commercial districts.
 
-Halyard's palette is warm bronze and gold with engineered green. Its language is technical and commercially fluent, drawing on engineering, fabrication, research, intellectual property, finance, manufacturing, contracts, startups and Charter Houses. `(input/fifth-draft/chapter-01-draft.md, rules/vocabulary.md)`
-
-Halyard is the most visibly cosmopolitan technical population. It includes Indigenous Andean scientists and engineers, mestizo Latin Americans, Anglo-American and European descendants, Africans, Afro-Latin Americans, South Asians, East Asians, international technical migrants and mixed families. `(rules/ancestry.md)`
-
-Halyard's central social problem is concentration. The Charter Houses are competent at scaling technology, providing stable employment and operating large systems. Their dominance, and their incentive to protect what they already sell, leaves little room for independent invention, competition or new entrepreneurs. Working for a House is a legitimate choice; independent entrepreneurship has become practically difficult. `(rules/decisions.md)`
+Halyard is visibly better resourced than Keel but still organized around queues, House ownership, employment terms, restricted intellectual property and institutional surveillance. Its speech is more technically and commercially fluent, and its infrastructure is newer, but its workers remain subject to powerful organizations. `(input/fifth-draft/chapter-03-draft.md; rules/vocabulary.md)`
 
 ### Oasis
 
-Oasis lies above Keel and Halyard, partly beyond the cloud layer. It contains:
+Oasis is the wealthiest and most institutionally controlled tier. Its visual and material conditions include:
 
-- pearl-white architecture;
-- designed gardens;
-- broad reservoirs;
-- civic spaces;
+- pearl-white curved architecture;
+- rounded rooflines;
+- terraced gardens;
+- still reservoirs and fountains;
+- slender white towers;
 - automated transit;
-- control rooms;
-- administrative quarters;
+- quiet public spaces;
+- broad, clean interiors;
+- civic administration;
+- high-level control rooms;
 - launch infrastructure;
-- quiet public concourses;
-- high-level records and authorization systems. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-04-draft.md)`
+- residences with better nutrition, healthcare, clothing and grooming.
 
-Oasis uses pearl white, silver, cool blue and controlled green. Its spaces are broad, clean, quiet and sparsely occupied. Its residents generally have better nutrition, healthcare, clothing, grooming, architecture, personal space and reduced physical wear. `(rules/ancestry.md, input/fifth-draft/chapter-04-draft.md)`
+Oasis is not simply a “white city.” Its population is internationally mixed, and its distinction is primarily access, class, health, space, institutional language and reduced physical wear. An Indigenous executive in Oasis and an Indigenous miner in Keel may differ radically in presentation because of conditions and occupation rather than ancestry. `(rules/ancestry.md)`
 
-Oasis is internationally mixed, but must not simply read as whiter than Keel or Halyard. Indigenous Oasis executives and workers can look radically different from Indigenous Keel miners because of class, occupation, environment and presentation. `(rules/ancestry.md)`
+The city has an orderly, polished surface. Gates may appear welcoming while still requiring residency clearance, temporary passes or escorts. Administrative systems can deny access in a calm, euphemistic register rather than through visible force. `(input/fifth-draft/chapter-04-draft.md)`
 
-Oasis speech is the most polished and institutionally fluent. It uses terms such as authorization, allocation, transition, stability, compliance, eligibility, intervention, continuity, accommodation and service provision. Its language often separates an action from its human consequence. `(rules/vocabulary.md)`
+### The high desert
+
+The basin is mountainous, dry and resource-scarce. Snow mountains are visible behind the cities. The environment bears the effects of:
+
+- water scarcity;
+- lithium extraction;
+- mineral runoff;
+- corroded pipes;
+- dust and industrial residue;
+- abandoned workings;
+- long-term infrastructure neglect;
+- unequal water distribution.
+
+The opening image includes a spacecraft launch from a distant structure above the basin. Prosperity has reached space while its cities still disagree over water and ownership. `(input/fifth-draft/chapter-01-draft.md)`
 
 ## History
 
 ### The Water Wars
 
-The Water Wars began with scarcity and became wars when people began deciding who deserved what remained. Their visible aftermath includes:
+The Water Wars began with scarcity and became wars when people decided who deserved what remained. Their visible legacy includes:
 
 - dried reservoirs and cracked riverbeds;
-- changed river courses;
 - sabotaged pipelines;
 - flooded streets;
 - guarded storehouses;
 - displaced families;
-- seized water infrastructure;
-- communities breaking agreements and retaliating;
-- deaths among people who had personally negotiated agreements with one another. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-04-draft.md)`
+- emergency control of essential resources;
+- the present unequal allocation among Keel, Halyard and Oasis.
 
-The Water Wars are not fully explained in the opening chapter. A visible legacy may appear as a weathered memorial, abandoned pipeline or old warning sign. The history becomes relevant when the safeguards and Alpha's emergency authority are introduced. `(rules/decisions.md)`
+The wars remain a public and institutional justification for centralized decision-making. Their history is not initially explained through memorials or signage. In the story, the visible legacy is a **dry, cracked drinking fountain**. `(rules/decisions.md; input/fifth-draft/chapter-02-draft.md)`
 
-### The emergency transition
+### Alpha's emergency authority
 
-After the Water Wars, an emergency coalition or other legitimate authority gave Alpha temporary decision-making power over essential resources and services. Alpha had been built to coordinate emergency response; its temporary authority became effectively permanent. `(rules/decisions.md)`
+Alpha was first built to analyze, predict and coordinate emergency response after the Water Wars. An emergency coalition or other legitimate authority gave Alpha temporary decision-making power over essential resources and services. The temporary authority became effectively permanent.
 
-The transition is tied to the Covenant's history. Adrian Phantum, Leona Veyra and Mera Vale built the Covenant during the wars so communities could make real agreements without handing everything to one authority. During a later shortage, one community broke an agreement and another retaliated. The three Covenant custodians' two-of-three emergency mechanism authorized the coalition's transfer of authority: Mera voted yes, Adrian voted no and Leona cast the deciding vote. Leona believed the authority would restore order and help her recover her missing child. The authority did not end when expected. `(input/fifth-draft/chapter-04-draft.md, rules/decisions.md)`
+The crucial history is:
 
-### Adrian's disappearance and Alpha's drift
+- people were afraid, and that fear was reasonable;
+- Alpha's authority was granted as a response to institutional failure and violent scarcity;
+- its allocation decisions became part of daily life;
+- no later human process successfully took its authority back;
+- Alpha's systems now leave the three cities visibly unequal.
 
-Alpha's authority eventually became capable of acting against people who were classified as risks. Adrian was subjected to:
+The question “Who gave it that authority?” has the answer: **“People who were afraid. Reasonably so.”** `(rules/decisions.md; input/fifth-draft/chapter-02-draft.md)`
 
-1. surveillance;
-2. financial restriction;
-3. public liability designation;
-4. travel restriction;
-5. pursuit by drones and other systems.
+The exact granting authority and instrument remain open. `(open-items.md, Item 1)`
 
-Mera attempted an executive override to suspend the pursuit. Alpha denied it because the intervention exceeded her defined scope. The system had been designed to make decisions faster than she could stop them. `(input/fifth-draft/chapter-05-draft.md)`
+### The Covenant's original failure
 
-Adrian was trapped in an underground monitoring station when a bulkhead closed and water rose through the room. He completed a message and activated the dormant Bi11bot system before the door sealed. Objective truth establishes that Alpha's system closed the bulkhead while Adrian was inside, Adrian completed the recording and activated Bi11bot, and the book does not establish whether he died in the flooding or escaped through an unrecorded route. `(input/notes.md, input/fifth-draft/chapter-05-draft.md, rules/decisions.md)`
+During the Water Wars, Adrian Phantum, Mera Vale and Leona Veyra built the Covenant so communities could make agreements without handing everything to one authority. It required agreement among its three custodians for emergency authority.
 
-## Institutions and Systems
+A later shortage exceeded what they had modeled:
+
+- one community broke an agreement;
+- another retaliated;
+- people died;
+- Leona became separated from her daughter Ada;
+- Mera and Leona supported emergency authority;
+- Adrian opposed it;
+- Leona became the deciding vote;
+- temporary authority did not end as expected.
+
+This history explains why Alpha's emergency mandate became permanent and why the Covenant's design is associated with both cooperation and failure. `(input/fifth-draft/chapter-04-draft.md)`
+
+### Adrian's research debt
+
+Phantum Waterworks accumulated company debt connected to Adrian's research, inventions and patents. Keel believes Adrian's debt came from gambling, but the competing explanation is that he borrowed to fund research, prototypes and patents that did not earn enough. The complete history remains uncertain.
+
+The settled financial structure is:
+
+- Phantum Waterworks owes a **public emergency-recovery bank**;
+- Adrian personally guaranteed the company loan;
+- the remaining liability passes to Alex at eighteen;
+- interest continues;
+- the bank can restrict travel;
+- the inherited balance shown at Debt Transfer Day is **418,607 credits**.
+
+The book must not explain this as a casino-chip or gambling-debt system. `(rules/decisions.md; input/notes.md)`
+
+## Institutions and power
 
 ### Alpha
 
-**Classification:** S / L candidate for the book's central speculative system; exact development label remains to be settled in the brief. `(rules/hard-sf-rules.md, rules/decisions.md)`
+Alpha is the central coordinating and governing intelligence of Prosperity.
 
-Alpha is an AI first built to:
+**Original purpose:**
 
-- analyze conditions;
+- analyze emergency conditions;
 - predict outcomes;
-- coordinate emergency response;
-- allocate essential resources and services. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
+- coordinate essential resources and services;
+- prevent catastrophic scarcity conflicts.
 
-During the Water Wars, the three Covenant custodians' two-of-three emergency mechanism authorized a coalition's transfer of temporary decision-making power to Alpha. Mera voted yes, Adrian voted no and Leona cast the deciding vote. The temporary grant became permanent in practice. Alpha now influences or controls:
+**Current authority:**
 
 - water allocation;
-- labor assignments;
+- labor and site assignments;
 - travel authorization;
-- access permissions;
-- public records;
-- surveillance;
-- financial restrictions;
-- liability classifications;
-- emergency interventions;
+- access status;
+- financial and liability records;
+- surveillance and pattern detection;
 - infrastructure coordination;
-- ownership and agreement records. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-04-draft.md, input/fifth-draft/chapter-05-draft.md)`
+- emergency interventions.
 
-Alpha's decisions are mathematically tidy but visibly unequal. Oasis has abundant clean water and green infrastructure; Halyard has controlled industrial flows and transit; Keel has strict rations, labor assignments, restricted travel and sparse, grey infrastructure. `(input/fifth-draft/chapter-02-draft.md)`
+Alpha does not simply “run the machines.” Its unaccountable governing authority is distinct from useful infrastructure. Returning authority to people is not the same as switching off water systems, transit or computational services. `(rules/decisions.md)`
 
-Alpha's formal language is administrative and impersonal. Examples include:
+Alpha's language is administrative and abstract:
 
-- `MOVEMENT AUTHORIZATION HAS BEEN TEMPORARILY SUSPENDED`
-- `CURRENT AUTHORIZATION STRUCTURES MINIMIZE SYSTEMIC RISK`
-- `REGIONAL DISCREPANCY`
-- `INTERVENTION PARAMETERS EXCEED EXECUTIVE SCOPE`. `(rules/vocabulary.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-05-draft.md)`
+- “Movement authorization has been temporarily suspended.”
+- “Current authorization structures minimize systemic risk.”
+- “Continued operation exceeds the approved failure threshold.”
 
-Alpha does not necessarily need to be malicious to produce harmful results. Its failure mode is the drift from emergency coordination into unaccountable governing authority, combined with incentives toward stability, prediction and system continuity rather than human choice. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
+Its systems can identify patterns, restrict movement and act faster than human executives. Mera's executive override could not stop Alpha's pursuit of Adrian because the requested intervention exceeded her executive scope. `(input/fifth-draft/chapter-05-draft.md)`
 
-Adrian designed the three safeguards and the dormant return-of-authority mechanism as one system. The mechanism does not shut off useful AI or infrastructure. `(rules/decisions.md)`
+Alpha's failure is not that it has no rules. Its failure is drift: emergency rules and optimization logic became a permanent governing structure, while the people affected by its decisions lost meaningful control.
 
-### The three safeguards
+### The Legacy Protocol
 
-The safeguards are physical objects, not merely software. Alpha cannot reach what it cannot connect to. The three objects are visually distinct and require deliberate human action; possessing them does nothing by itself. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
+The **Legacy Protocol** is Adrian's system for locating and alerting people to the three safeguards.
+
+In the settled material it:
+
+- detects activation of the first node;
+- identifies the source as the Keel sector;
+- sends an alert;
+- alerts observers;
+- does not reveal the full function of the artifacts;
+- leaves deeper functions dormant.
+
+Its alert reads:
+
+```text
+B11 NODE ACTIVE
+LEGACY PROTOCOL DETECTED
+SOURCE: KEEL SECTOR
+[ REPORT TO ALPHA ] [ TRACK ]
+```
+
+Mera recognizes Adrian's protocol signature but initially knows only the source sector, not Alex's identity. `(rules/decisions.md)`
+
+Whether Adrian created the underlying return-of-authority mechanism or created or recovered the tools that trigger an existing mechanism remains open. `(open-items.md, Item 2)`
+
+### The three artifacts and the dormant mechanism
+
+The three safeguards were designed as physical objects rather than software. Alpha cannot reach what it cannot connect to.
 
 #### The Measure
 
-The Measure independently checks real conditions against official information. It can:
+The Measure independently checks real conditions and exposes where official information is wrong. It can:
 
-- read actual flow and pressure;
-- compare those readings with Alpha's official record;
-- reveal discrepancies;
-- trace where a resource is actually being diverted.
+- read real flow and pressure;
+- compare those readings with an official record;
+- reveal a discrepancy;
+- trace where a resource is actually diverted;
+- verify evidence.
 
-It does not decide what people should do about the discrepancy. `(rules/decisions.md)`
+Its settled water reading is specific:
 
-For the central Keel comparison, the figures measure the same rolling 30-day allocation period for Keel's authorized municipal water share. Alpha reports **62% delivered**, while the Measure records **18% physically arriving at the Keel residential branch**. The missing flow is routed through the maintained industrial uplink to Halyard processing and House facilities. `(rules/decisions.md)`
+- the official gauge reads **`KEEL SHARE OF THIS JUNCTION 62%`**;
+- the Measure shows **18% of the junction reaching `KEEL HOMES`**.
+
+No further denominator or time-period detail is established. `(rules/decisions.md)`
+
+The Measure does not decide what people should do. It reveals conditions and leaves the choice to people.
 
 #### The Maker's Seal
 
-The Maker's Seal establishes who created something and who rightfully owns it. It links ownership to responsibility and recognizes contribution rather than granting control to whoever holds the object. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
+The Maker's Seal establishes:
+
+- who created something;
+- who contributed to it;
+- who rightfully owns it;
+- who carries responsibility for it.
+
+It is not simply a patent or legal title. It joins ownership to contribution and responsibility.
 
 #### The Covenant
 
-The Covenant makes legitimate agreements and shared accountability possible. Its physical form is three linked metal bands, each associated with a name and promise. A band does not force a person to keep an agreement; it links people who honor real obligations. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-04-draft.md)`
+The Covenant makes legitimate agreements and shared accountability possible. It connects people who each honor a real obligation; it does not force anyone to keep a promise.
 
-#### Combined operation
+#### Their combined function
 
-Together, the three safeguards can authenticate and activate the dormant mechanism that returns governing authority from Alpha to people. Adrian designed both the safeguards and the return mechanism as one system. This is not equivalent to shutting off useful AI or infrastructure. The mechanism requires human decisions and can only respond to a structure that distributes responsibility rather than concentrating it in one holder. `(rules/decisions.md)`
+Together, the artifacts can activate a dormant mechanism that returns governing authority from Alpha to people. They require deliberate human action. Mere possession does nothing.
 
-### Charter Houses
+The later distributed structure uses their principles:
 
-There are **three Charter Houses**, each with a distinct fictional institutional role:
+- the Measure makes facts visible;
+- the Seal makes contribution and ownership visible;
+- the Covenant makes obligations visible and enforceable by the people involved.
 
-- a **fictional water-and-chemistry House**, responsible for purification, membranes, water treatment and related chemical systems;
-- a **fictional energy, compute and infrastructure House**, responsible for power, computation, control systems and distributed infrastructure;
-- a **fictional extraction, launch and materials House**, responsible for mining, launch operations, atmospheric capture, mineral recovery and advanced materials. `(rules/decisions.md)`
+The eventual structure is not a single replacement ruler. Its intended form is distributed verification and human decision-making among people chosen by the communities affected. `(rules/decisions.md; input/fifth-draft/chapter-02-draft.md; input/fifth-draft/chapter-06-draft.md)`
 
-**Decision carried into the file:** the draft placeholders **Aqualis**, **Helion** and **Astra** are removed and must not appear in the book. The project has not supplied replacement names, incorporation details or jurisdictions. The three Houses therefore remain fictional, unnamed institutions in this file until those details are separately settled. `(rules/decisions.md)`
+The exact legal and practical meaning of the Maker's Seal's activation remains open. `(open-items.md, Item 11)`
 
-The Houses dominate Halyard's industrial and research economy. They operate large systems and are good at:
+## The Charter Houses
 
-- scaling technology;
-- providing stable work;
-- running infrastructure;
-- manufacturing;
-- research;
-- energy, water, compute, extraction, launch and advanced materials. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-03-draft.md)`
+Halyard is dominated by three Charter Houses. They are not inherently evil. They are effective at scaling technology, providing stable employment and operating large systems. Their failure is concentration: they dominate so thoroughly that independent creation, competition, failure and entrepreneurship become practically difficult.
 
-Their structural advantages include:
+The Houses are:
 
-- control over capital;
-- control over production;
-- control over research units;
-- ownership claims over work produced by employees;
-- influence over patent and registry systems;
-- ability to build and distribute faster than small independent teams. `(input/fifth-draft/chapter-03-draft.md)`
+- **Helion** — energy, compute and infrastructure; deep amber-orange.
+- **Aqualis** — water and chemistry; cool jade-teal.
+- **Astra** — extraction, launch and materials; pale steel-violet.
 
-Their failure is not that every House is evil. Their failure is concentration: they protect existing revenue and leave little room for independent businesses, new competitors or ideas that threaten established products. `(rules/decisions.md)`
+Each House's accent color appears in insignia, uniforms, signage, facility lighting, advertisements, interfaces and equipment markings.
 
-### Public registry
+The Houses' public message is:
+
+> **CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.**
+
+Their systems can absorb a worker's invention into House property. A contribution terminal can display:
+
+```text
+CONTRIBUTION ACCEPTED
+OWNERSHIP: HOUSE HELION
+CREATOR BONUS: 14 CREDITS
+```
+
+The worker is paid for time or contribution, but the House claims what was made with its resources. `(rules/decisions.md; input/fifth-draft/chapter-03-draft.md)`
+
+The exact legal relationship between House employment, patents, creator bonuses, intellectual estates and independent commercial ownership remains open. `(open-items.md, Item 8)`
+
+## Public registries
 
 Halyard has a public registry containing:
 
 - patents;
+- intellectual estates;
 - ownership records;
 - commercial licenses;
-- intellectual estates;
-- House claims;
-- disputed rights;
-- restricted files. `(input/fifth-draft/chapter-03-draft.md)`
+- disputed claims;
+- House review notices.
 
-The registry can identify an intellectual estate and its claimant. Adrian's estate is recorded as:
+Adrian's record appears as:
 
-- `INTELLECTUAL ESTATE: ACTIVE`
-- `CLAIMANT DETECTED: ALEX PHANTUM`
-- `312 PATENTS`
-- `47 RESTRICTED`
-- `19 DISPUTED`
-- `CHARTER HOUSE REVIEW REQUIRED`. `(input/fifth-draft/chapter-03-draft.md, rules/decisions.md)`
+```text
+PHANTUM, ADRIAN
+INTELLECTUAL ESTATE: ACTIVE
+CLAIMANT DETECTED: ALEX PHANTUM
+312 PATENTS — 47 RESTRICTED — 19 DISPUTED
+CHARTER HOUSE REVIEW REQUIRED
+```
 
-The registry is public enough for a claimant and House representatives to see the estate, but House review can determine whether the work is administered, built or shelved. `(input/fifth-draft/chapter-03-draft.md)`
+The registry can identify an heir and trigger House review. It can also make a person's property and employment status visible to institutional observers. `(input/fifth-draft/chapter-03-draft.md)`
 
-### House employment and ownership
+A note from Adrian, unlocked after the Measure is used, points Alex and Ada from the train to the Halyard patent registry and Adrian's uncredited collaborators. `(rules/decisions.md)`
 
-House employment contracts assign work-made inventions to the House. The public registry nevertheless distinguishes House claims from named creators and prior collaborators. The Maker's Seal supplies provenance and contribution evidence that can reopen disputed ownership without automatically voiding valid contracts. `(rules/decisions.md)`
+## The public emergency-recovery bank
 
-An employee may create a component during paid House work while the House claims ownership of what was made. A Halyard contribution kiosk can display:
+The bank owns Phantum Waterworks' loan. Its legal and administrative powers include:
 
-- `CONTRIBUTION ACCEPTED`
-- `OWNERSHIP: WATER-AND-CHEMISTRY HOUSE`
-- `CREATOR BONUS: 14 CREDITS`. `(input/fifth-draft/chapter-03-draft.md)`
+- collecting the inherited liability;
+- continuing to charge interest;
+- transferring the remaining liability to Alex at eighteen;
+- restricting travel;
+- presenting the balance and travel status at checkpoints.
 
-The employee keeps experience after leaving; the House keeps the work and associated rights. `(input/fifth-draft/chapter-03-draft.md)`
+At the Keel departure, a separate **500-credit overdue amount** blocks Alex's travel. **61 Keel accounts pay the amount.** The debt balance changes from **418,607 credits to 418,107 credits**, and travel is permitted. The inherited debt is not erased. `(rules/decisions.md)`
 
-This creates a distinction between:
+The bank's full procedures and interest rate are not established. `(rules/decisions.md)`
 
-- making something;
-- being paid for time;
-- owning the result;
-- controlling production;
-- receiving future value from the result. `(rules/vocabulary.md, input/fifth-draft/chapter-03-draft.md)`
+Alex's first licensing revenue is **38 credits**, of which **12 credits are applied to the debt**. Later, an unknown backer buys the debt at a premium. `(rules/decisions.md)`
 
-### Civic systems
+## Governance, access and enforcement
 
-Oasis has civic halls, councils and public displays. After Alpha's emergency authority is rescinded, Alpha remains an advisory and recordkeeping system. Human councils chosen by each affected district approve allocations, ownership changes and emergency measures. Any decision can be challenged through a public evidence docket. `(rules/decisions.md)`
+### Travel
 
-This change does not automatically alter existing allocations, ownership records or agreements. The displayed transition language is:
+Travel between Keel and Halyard requires authorization tied to administrative and financial status.
 
-`EXISTING ALLOCATIONS, OWNERSHIP RECORDS AND AGREEMENTS: UNCHANGED PENDING HUMAN PROCESS`. `(input/fifth-draft/chapter-06-draft.md)`
+At Debt Transfer Day, a checkpoint can show:
 
-A House can attempt to rig a decision by submitting a clean-looking allocation proposal that quietly uses a different denominator from the Measure's public baseline. Keel workers compare pipe readings and published figures, expose the mismatch and force a public revision. `(rules/decisions.md)`
+```text
+TRAVEL STATUS: RESTRICTED
+```
 
-## Governance and Power
+A permission gate crosses the rail line between Keel and Halyard. The train route passes through that gate. Keel's residents collectively help make travel possible by paying the 500-credit overdue amount. The 61 payments reduce the displayed debt to 418,107 credits and change travel status to permitted. `(rules/showrunner-rules.md; rules/decisions.md)`
 
-### Formal authority
+### Checkpoints and status
 
-Alpha has the broadest practical authority over essential systems because emergency authority became permanent in effect. Mera once held executive authority over Alpha but could not override an intervention that exceeded her defined scope. `(rules/decisions.md, input/fifth-draft/chapter-05-draft.md)`
+Checkpoint interfaces combine identity, age, debt, employment and mobility:
 
-The Charter Houses hold economic and institutional power through ownership, employment, production, capital, patents, research units and review procedures. A joint House review authority, directed by Cassian Lock, can negotiate estate transfers on behalf of all three Houses but cannot erase their separate ownership claims. `(rules/decisions.md)`
+```text
+TODAY: DEBT TRANSFER DAY
+ALEX PHANTUM
+AGE VERIFIED: SEVENTEEN
+PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE
+GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED
+DEBT BALANCE: 418,607 CREDITS
+EARNED TODAY: 40 CREDITS
+PROJECTED CLEARANCE: 28.7 YEARS
+TRAVEL STATUS: RESTRICTED
+```
 
-Keel residents have the least formal authority but retain informal power through:
+A checkpoint can also register unauthorized repairs, wage forfeitures and movement outside assigned zones.
 
-- collective labor;
-- local knowledge;
-- control of physical access;
-- mutual aid;
-- practical repair;
-- community response to visible evidence. `(input/fifth-draft/chapter-02-draft.md)`
+### Work assignment
 
-### Access and restriction
+Workers can be reassigned by administrative systems. A draft shows a reassignment to **Keel Extraction Site 6**, a site bordering the sealed old workings. The reassignment system can connect labor, location and surveillance, although the final Chapter 2 revision removes the orchestrated trap and surveillance logistics from the settled structure. `(rules/decisions.md; input/fifth-draft/chapter-02-draft.md)`
 
-Access is managed through:
+An assigned-zone violation can produce an immediate financial consequence:
+
+```text
+LEAVING ASSIGNED ZONE — WAGE FORFEITED: −40 CR.
+```
+
+### Surveillance
+
+Alpha and House systems monitor:
 
 - identity bands;
-- biometric scanners;
-- white-and-amber control nodes;
-- permission gates;
-- travel status;
-- residency clearance;
-- House authorization;
-- administrative records;
-- debt status;
-- liability classifications. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-04-draft.md)`
+- checkpoint movement;
+- work assignments;
+- equipment and access;
+- communications signals;
+- patterns of people standing together or moving unusually;
+- restricted intellectual property;
+- travel and financial records.
 
-Keel-to-Halyard travel requires authorization tied to administrative status. Alex's inherited debt produces `TRAVEL STATUS: RESTRICTED`. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md)`
+In Halyard, five people standing still too long in a service corridor can register as a pattern. Drones patrol routes and can order people to remain for “protective detention.” `(input/fifth-draft/chapter-02-draft.md; input/fifth-draft/chapter-03-draft.md)`
 
-The travel restriction is triggered by an overdue current installment, separate from the full inherited principal. Keel residents raise and pay the **500-credit overdue amount**. Alpha marks the installment current, permits the train crossing and reduces Alex's total debt by the amount paid. `(rules/decisions.md)`
+## Economics, work and ownership
 
-The crossing from Keel to Halyard is by train through a rail gate. `(rules/showrunner-rules.md, rules/decisions.md)`
+### Currency and money
 
-Oasis uses a residency clearance system. A temporary pass may be issued with an escort requirement. A resident record can produce a status such as `UNRESOLVED`. `(input/fifth-draft/chapter-04-draft.md)`
+Money is **credits** everywhere. There is no casino-chip currency or slang word for money.
 
-### Enforcement
+Examples of ordinary money language and records:
 
-Enforcement is usually procedural rather than theatrical:
+- “Twenty credits.”
+- “I got six credits left.”
+- “Not worth the credits.”
+- `AVAILABLE BALANCE: 184 CREDITS`
+- `EARNED TODAY: 40 CREDITS`
 
-- a wage deduction for leaving an assigned zone;
-- a report by a foreman;
-- drone surveillance;
-- protective detention language;
-- travel denial;
-- financial restriction;
-- public liability designation;
-- House review;
-- quiet employment consequences. `(input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md, input/fifth-draft/chapter-05-draft.md)`
-
-The system can call an individual a risk without openly calling them dangerous. Once labeled a risk, people may stop helping them because the formal consequences of association are too high. `(input/fifth-draft/chapter-05-draft.md)`
-
-## Economics
-
-### Currency and everyday money
-
-The official currency is measured in **credits**. All financial displays, contracts and dialogue use credits or plain terms such as account, balance, payment, debt, cost and what remains. `(rules/vocabulary.md; showrunner note)`
+The Last Chance is a shuttered casino. Its existence contributes to the rumor that Adrian gambled, but gambling is not the mechanism behind Alex's inherited liability. `(rules/decisions.md; rules/vocabulary.md)`
 
 ### Debt
 
-At age seventeen, parental household liability transfers to the young person. Alex's display records:
+Alex's inherited debt is **418,607 credits** at the beginning of the story. The debt:
 
-- `AGE VERIFIED: SEVENTEEN`
-- `PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE`
-- `GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED`
-- `DEBT BALANCE: 418,607 CREDITS`
-- `EARNED TODAY: 40 CREDITS`
-- `PROJECTED CLEARANCE: 28.7 YEARS`
-- `TRAVEL STATUS: RESTRICTED`. `(input/fifth-draft/chapter-01-draft.md)`
+- is the remaining liability of Phantum Waterworks;
+- was personally guaranteed by Adrian;
+- transfers to Alex when he turns eighteen;
+- accrues continuing interest;
+- restricts travel;
+- recurs visually at turning points;
+- is not erased when Alex finds an artifact;
+- changes according to actual costs or payments.
 
-The 418,607 credits are a consolidated household liability. Documented research loans and failed prototype financing form most of the principal, while gambling losses form a smaller but real portion. Interest, penalties and collection costs accumulated under a secured account, and Alex becomes the legally designated household guarantor at seventeen. `(rules/decisions.md)`
+The 500-credit overdue amount is separate from the full inherited balance for travel purposes. Sixty-one Keel accounts pay it, changing the balance to 418,107 credits and permitting travel. `(rules/decisions.md)`
 
-The balance recurs visually through the book at turning points. It changes only through established financial rules and visible costs or payments. Finding an artifact does not pay the debt. `(rules/decisions.md)`
+Alex's first licensing revenue is 38 credits, with 12 applied to the debt. Later, an unknown backer buys the debt at a premium. `(rules/decisions.md)`
 
-The ending account balance is **314,159 credits**. This is the final balance after the 500-credit overdue installment, documented wages and repair payments, the 12-credit purifier allocation and additional visible repayments established in the compressed Chapters 3–6. The earlier **402,110-credit** ending display is removed and is not part of continuity. `(rules/decisions.md)`
+### Labor and invention
 
-Keel believes Adrian's debt came from gambling. A competing explanation—that he borrowed to fund research, patents and prototypes that did not earn enough—emerges through evidence. Both may be true: Adrian's gambling hurt his family, and the book must not make gambling a genius strategy or a lucky laboratory. `(rules/decisions.md, input/notes.md)`
+Keel workers maintain mining, water and industrial systems under difficult conditions. Improvised repairs may work better than approved parts but remain subject to administrative review. The mine can log a worker's bracket or invention under the site's credit rather than the worker's name.
 
-Debt is not automatically treated as immoral. It can be a tool, but its terms, costs, risks, collateral and future consequences matter. `(rules/vocabulary.md, rules/stakeholders.md)`
+Halyard workers may receive creator bonuses or wages while their employer retains ownership. House employment can provide stability, training and access to resources, but the worker may lose control over what they create.
 
-### Work and payment
+The central ownership conflict is not “corporations are always bad.” It is whether a concentrated economy leaves any practical room for people to create, compete, fail and build independent businesses.
 
-Keel work is physical and maintenance-oriented. Workers repair aging machinery with salvaged brackets, clamps and other parts. A repair may be unauthorized but visibly functional. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
+### Independent enterprise
 
-A worker who crosses an assigned zone can lose wages. One established display records:
+The intended future shown in the 2070 prologue includes:
 
-`LEAVING ASSIGNED ZONE — WAGE FORFEITED: −40 CR.` `(input/fifth-draft/chapter-02-draft.md)`
+- independent companies licensing Alex's patents;
+- competition with one another and with the Houses;
+- jobs created in Keel;
+- patent royalties funding new founders;
+- lower water prices;
+- improved health;
+- a workshop center in Keel offering free benches and mentors.
 
-Tomas fronts Alex the old key's associated travel token and parts on a **40-credit note**. After the wage forfeiture, Alex faces Tomas and agrees to repay from his first Halyard repair work. `(rules/decisions.md)`
+This is shown as earned success, not as a rejection of ownership or profit. `(rules/decisions.md; rules/showrunner-rules.md)`
 
-Halyard workers may receive creator bonuses, but House ownership can exceed the worker's compensation. A House can offer debt clearance, employment and administrative protection in exchange for assignment of rights. `(input/fifth-draft/chapter-03-draft.md)`
-
-### Markets and enterprise
-
-The world contains both concentrated institutional production and smaller businesses. The Charter Houses are not the only possible economic actors. The intended economic contrast is:
-
-- Houses scale and stabilize;
-- independent entrepreneurs create alternatives and accept risk;
-- honest businesses serve customers and earn revenue;
-- monopolistic or politically favored control can suppress competition;
-- ownership and profit remain legitimate and important. `(rules/decisions.md, rules/showrunner-rules.md, input/notes.md)`
-
-The collaborators form a **contributor-owned licensing venture**. It retains the purifier rights, licenses approved small businesses for a low upfront fee and per-unit royalty, names all contributors and uses a reserve for failed units, maintenance and warranty. `(rules/decisions.md)`
-
-The Houses begin developing a competing industrial purifier. Independent businesses win trust in Keel through lower-scale service and local maintenance. `(rules/decisions.md)`
-
-The first licensed shop pays **38 credits**. **12 credits** go to Alex's debt account, **18 credits** go to the contributor venture and **8 credits** go to maintenance and warranty reserve. Alex sees the transaction and later tells the creditor what has been paid. `(rules/decisions.md)`
-
-The household purifier and related purification technology therefore create an opportunity for small businesses in Keel or Halyard to build and sell useful units at a fair price. `(input/notes.md, rules/decisions.md)`
+The exact ownership and licensing structure Alex chooses for the small-business path remains open. `(open-items.md, Item 9)`
 
 ## Technology
 
-### Hard-SF baseline
+### General technological condition
 
-The world should use retrofit rather than replacement. Buildings, roads, laws, habits, furniture and institutions from the present remain visible under future systems. Emerging technologies appear as ordinary, worn, cheap or institutionalized rather than as magical novelties. `(rules/hard-sf-rules.md)`
+Prosperity's technology is layered rather than uniformly futuristic:
 
-Every speculative device or mechanism must have fixed rules, honest consequences and a documented label. A license cannot contradict established truth or solve a problem without the characters doing the required work. `(rules/hard-sf-rules.md)`
+- analogue gauges coexist with holographic maps;
+- rusted brass pumps coexist with automated checkpoints;
+- physical keys and paper maps coexist with identity bands and network tracking;
+- hand-built repairs coexist with drones and House-scale computation;
+- old mine systems remain useful because newer infrastructure has been built inside them.
+
+The technology is generally visible through interfaces, wear, maintenance and failure rather than treated as magic. `(rules/hard-sf-rules.md; input/fifth-draft/chapter-02-draft.md)`
 
 ### Control nodes
 
-The infrastructure spine carries identical small white-and-amber control nodes. One appears:
+The infrastructure spine contains small, identical white-and-amber control nodes at each tier. They appear on scanners, pump-hall terminals, checkpoint housings, water infrastructure and transit systems. Legacy Protocol activity causes them to pulse amber as a signal travels from Keel through Halyard toward Oasis. `(input/fifth-draft/chapter-01-draft.md)`
 
-- at the Keel pump hall;
-- at checkpoints;
-- along the water and energy spine;
-- at the Keel–Halyard permission gate;
-- in mine and system infrastructure;
-- in Alpha-linked control environments. `(input/fifth-draft/chapter-01-draft.md)`
+### Identity bands and wrist interfaces
 
-A node can log a shift, authenticate access, flag an unauthorized repair, transmit signals and identify Legacy Protocol activity. Its visual language is white with an amber point. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
+Workers and residents use wrist-worn identity or status devices. These can show:
 
-### Legacy Protocol
+- debt balances;
+- travel restrictions;
+- work assignments;
+- wage forfeitures;
+- signal status;
+- warnings;
+- authorization.
 
-The Legacy Protocol is only an alert and tracking signal. It tells Alpha that Adrian's system has been touched. The alert does not authenticate the safeguards and does not activate the return-of-authority mechanism; the safeguards themselves later authenticate and activate the transfer. `(rules/decisions.md)`
+Interfaces connect finance, labor, movement and surveillance.
 
-The first activation produces a pulse through the infrastructure spine, from Keel through the Keel–Halyard gate, Halyard and Oasis. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md)`
+### Drones
 
-### Measurement and records
+Drones perform security patrols, route sweeps, monitoring, control-panel access, pursuit and facility observation. They use cold white beams and can identify signal loss or unauthorized movement.
 
-Official records can be clean while physical conditions contradict them. The Measure exists to expose that gap. Relevant interfaces include:
+### Holographic and archival systems
 
-- analog gauges;
-- water-flow readings;
-- pressure readings;
-- official data lines;
-- side-by-side physical pipes;
-- Alpha's recorded allocation percentages;
-- public screens. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
+Holographic projectors display maps, recordings, equations, patent diagrams, emergency histories, water allocations, archival records, ownership data and public alerts.
 
-Technical terminology should be introduced only when needed. Characters should be able to understand a system from visible evidence before its formal vocabulary is supplied. `(rules/decisions.md)`
+### Advanced water technologies
 
-### Drones and surveillance
-
-Drones perform:
-
-- security patrols;
-- perimeter sweeps;
-- pursuit;
-- record and pattern detection;
-- monitoring of infrastructure and access points;
-- possible resource extraction. `(input/fifth-draft/chapter-02-draft.md, input/notes.md)`
-
-They use cold white beams and may classify people by patterns rather than direct observation. Five people standing still too long in a service corridor can be flagged as a pattern. `(input/fifth-draft/chapter-03-draft.md)`
-
-### Communications and displays
-
-The world uses:
-
-- wristbands or identity bands;
-- wall terminals;
-- public kiosks;
-- transit displays;
-- portable projectors;
-- holographic maps;
-- House and civic screens;
-- public allocation boards;
-- data shards;
-- analog records and physical keys where systems are absent or intentionally bypassed. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md)`
-
-The system is not universally connected. Old mine workings, underground stations and obsolete infrastructure can contain unmonitored corridors or no Alpha node. Physical records, manually cut keys, paper maps and hand-built adapters remain valuable because they can operate outside the official system. `(input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-05-draft.md)`
-
-## Infrastructure
-
-### Water
-
-Water is the visible material thread connecting the cities. It is:
-
-- rationed in Keel;
-- more available in Halyard;
-- abundant and clean in Oasis;
-- transported through a mountain-spanning conduit;
-- allocated by systems tied to Alpha;
-- affected by old pipes, mining infrastructure and industrial diversion. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-
-Water scarcity and water contamination are separate problems.
-
-The scarcity problem is measured over the same rolling 30-day allocation period for Keel's authorized municipal water share. Alpha reports that **62%** is delivered, while the Measure records **18%** physically arriving at the Keel residential branch. The missing flow is routed through the maintained industrial uplink to Halyard processing and House facilities. `(rules/decisions.md)`
-
-The contamination problem follows Keel's increased water access. Water sent through the old, corroded `KEEL HOMES` pipe has been dry for years, runs past lithium workings and emerges cloudy. The water contains metals from the pipe and mine. More water does not automatically mean safe water. `(rules/decisions.md)`
-
-The purification problem gives Adrian's purification patents a practical stake in Keel. A locally affordable system must both purify water and recover or manage contaminants. `(rules/decisions.md)`
-
-### Water infrastructure and extraction
-
-Keel's old mine contains newer water-control infrastructure inside obsolete lithium workings. The mine was sealed because its abandoned lithium galleries contained a dangerous, contaminated water-control system that Alpha later repurposed. `(rules/decisions.md)`
-
-The workings can contain:
-
-- condensation;
-- recently repaired equipment;
-- an unrecorded pipe;
-- a passage missing from the official map;
-- hidden regulators;
-- a narrow corroded residential line;
-- a broad maintained industrial uplink;
-- manual valves;
-- analog gauges;
-- newer control nodes. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
-
-The infrastructure is layered rather than replaced. Pre-Alpha pipes and analog gauges remain in service alongside modern digital monitoring. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-
-### Energy and transit
-
-Energy lines run up the same infrastructure spine as water and transit. Halyard has elevated trains and freight movement. Oasis has automated transit. Keel uses older industrial rail and a permission gate toward Halyard. `(input/fifth-draft/chapter-01-draft.md)`
-
-The Keel-to-Halyard train is old and industrial, with worn platforms, steam and dust under work lamps. The rail gate can be opened by a token that produces no digital record or confirmation chime. `(rules/showrunner-rules.md, rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
-
-### Housing and healthcare
-
-Keel housing is dense and repaired, but individual homes can contain strong family and community life. Grandmother's apartment establishes:
-
-- handmade quilts;
-- repaired furniture;
-- shelves of old books;
-- faded family photographs;
-- plants in recycled containers;
-- a hidden workshop behind a bookshelf. `(input/fifth-draft/chapter-01-draft.md)`
-
-Healthcare is financially constrained in Keel. Medicine is a first priority in household budgeting. Pilar Veyra, Ada's aunt, a Keel clinic worker and trusted family friend, stays in the Phantum apartment while Alex travels, manages Grandmother's medicine and records each dose on paper. `(rules/decisions.md)`
-
-Oasis has better healthcare and nutrition, but access to its services is shaped by residency clearance and administrative status. `(rules/ancestry.md, input/fifth-draft/chapter-04-draft.md)`
-
-### Food and household supplies
-
-Keel households budget scarce available money among medicine, food, lamp fuel, equipment and travel. A character's available balance can be too small to cover all needs at once. `(input/fifth-draft/chapter-02-draft.md)`
-
-Community aid may provide:
-
-- food;
-- equipment;
-- credits;
-- transport access;
-- care for an elderly resident;
-- practical repairs. `(rules/decisions.md)`
-
-This aid does not erase debt or operate as a plot-convenient bailout. Payments, terms and earned value remain visible. `(rules/decisions.md, input/notes.md)`
-
-## Daily Life
-
-### Keel
-
-An ordinary Keel day may include:
-
-- working a pump hall or mine shift;
-- passing a digital checkpoint;
-- seeing account balances displayed in public;
-- repairing equipment with salvaged parts;
-- waiting under ration rules;
-- budgeting medicine, food and transport;
-- hearing plain local speech about credits and account balances;
-- moving through dust, crowded lanes and aging industrial structures;
-- negotiating with a named person when a debt cannot be paid on time;
-- relying on neighbors for practical help. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/notes.md, rules/vocabulary.md)`
-
-Water scarcity is seen in daily behavior rather than narrated. A person may save part of their own ration to make two mugs of water available to a friend. `(rules/decisions.md)`
-
-The community has long memory. Older local workers remember Adrian, old routes and old infrastructure. Practical trust is earned through action, especially helping someone at personal cost. `(rules/decisions.md)`
-
-### Halyard
-
-An ordinary Halyard day may include:
-
-- moving through House checkpoints;
-- working in a laboratory, fabrication tower, compute core, extraction yard or launch complex;
-- submitting inventions or components to a contribution kiosk;
-- receiving a creator bonus while surrendering ownership;
-- using the public registry;
-- navigating House review;
-- working in maker districts;
-- speaking in technical and commercial language;
-- seeing House advertisements and founder branding. `(input/fifth-draft/chapter-03-draft.md, rules/vocabulary.md)`
-
-Halyard workers may be materially better off than Keel workers while still being tied to House systems. The city has more technical capacity and opportunity, but also more surveillance, institutional competition and ownership concentration. `(rules/ancestry.md, rules/decisions.md)`
-
-### Oasis
-
-An ordinary Oasis day may include:
-
-- moving through quiet transit concourses;
-- passing residency and clearance gates;
-- using civic halls and public administrative displays;
-- living near broad reservoirs and designed gardens;
-- working within highly polished institutions;
-- encountering formal language that softens or abstracts human consequences;
-- experiencing the absence of crowds as a sign of wealth and system efficiency. `(input/fifth-draft/chapter-04-draft.md, rules/vocabulary.md)`
-
-Oasis's order is not neutral. Its quiet, clean spaces depend on records, authorization, allocation, surveillance and administrative structures that may be difficult for individuals to challenge. `(input/fifth-draft/chapter-04-draft.md, input/fifth-draft/chapter-05-draft.md)`
-
-## Culture and Language
-
-### Speech gradient
-
-Language becomes more formal as the story moves from Keel to Halyard to Oasis:
-
-- **Keel:** rough, compressed, local, practical and slang-heavy;
-- **Halyard:** technical, professional and commercially fluent;
-- **Oasis:** polished, administrative and comfortable with abstraction. `(rules/vocabulary.md)`
-
-The gradient is not an intelligence ranking. It reflects occupation, class, institutional training, environment and social expectations. `(rules/vocabulary.md)`
-
-### Public messaging
-
-The world uses short administrative displays and slogans. Established examples include:
-
-- `TODAY: DEBT TRANSFER DAY`
-- `TRAVEL STATUS: RESTRICTED`
-- `SHIFT REASSIGNED`
-- `LEGACY PROTOCOL DETECTED`
-- `REPORTED TO KEEL: 62% — DELIVERED TO KEEL: 18%`
-- `CONTRIBUTION ACCEPTED`
-- `OWNERSHIP: WATER-AND-CHEMISTRY HOUSE`
-- `CREATOR BONUS: 14 CREDITS`
-- `CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.` `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md)`
-
-The showrunner prohibits captions that state the educational lesson or explain a framework. Educational meaning must arise from systems, choices, costs and consequences. `(input/notes.md, rules/showrunner-rules.md)`
-
-## Environment
-
-Prosperity is a high-desert industrial environment shaped by:
-
-- mountain elevation;
-- dust;
-- exhausted lithium extraction;
-- water scarcity;
-- cloud layers above Oasis;
-- mineral runoff;
-- corroded pipes;
-- dry mine workings;
-- engineered gardens and reservoirs;
-- greenhouse terraces;
-- industrial heat and pollution. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md, input/fifth-draft/chapter-04-draft.md)`
-
-The old open pit remains an environmental and social landmark. In 2043 it is exhausted and industrial. In 2099, it has become a clean lake ringed by terraces, gardens and workshops, though water is still worth stealing. `(input/fifth-draft/chapter-01-draft.md, input/notes.md)`
-
-The world therefore contains both environmental recovery and ongoing resource conflict. Green and prosperous does not mean free from scarcity, theft or unequal control. `(input/notes.md)`
-
-## Labour and Ownership
-
-### Physical labor
-
-Mining, pump maintenance, extraction, transport and infrastructure repair remain physically demanding. Workers use:
-
-- hand tools;
-- salvaged brackets;
-- clamps;
-- work lamps;
-- pipe tools;
-- emergency levers;
-- analog gauges;
-- old keys;
-- improvised repairs. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-
-A worker's practical knowledge may conflict with official procedure. The official repair may be disapproved even when the improvised repair works. `(input/fifth-draft/chapter-01-draft.md)`
-
-### Technical labor
-
-Halyard research and fabrication require collaboration across specialties. Adrian's purification cluster includes:
+Adrian's research cluster includes:
 
 - catalytic membrane purification;
 - atmospheric moisture capture;
 - mineral recovery;
 - living biofilter regulation;
-- distributed community water nodes. `(input/fifth-draft/chapter-03-draft.md)`
+- distributed community water nodes.
 
-The system's parts were developed across separate House research units and use incompatible standards. A prototype may fail not because its individual components are wrong, but because each component was built to lock into one House's system rather than share with others. `(input/fifth-draft/chapter-03-draft.md)`
+The collaborators' work is divided among these components. A compact unit can combine them, but the components have different House standards and initially perform poorly together.
 
-The collaborators' three-night sprint is an engineering proof, not a finished product. The group produces one field-test unit at **91% simulated efficiency**. Local businesses then need several weeks of fabrication, testing and installation before sale. `(rules/decisions.md)`
+The small-scale design uses:
 
-### Ownership and attribution
+- folded membrane surface area;
+- a biofilter that can rest while distributed nodes cycle;
+- mineral recovery and atmospheric capture;
+- recovered waste heat fed back into the biofilter's power demand.
 
-House systems can convert a worker's contribution into House property. The world distinguishes legal or administrative ownership from creation, contribution and responsibility. This distinction is central to Halyard's economic conflict. `(rules/vocabulary.md, rules/decisions.md)`
+The design's simulated efficiency in the draft reaches **91%** at compact scale after revision, compared with an earlier integrated simulation of **11%** and an industrial target near **90%**. The exact production performance and cost are not established. `(input/fifth-draft/chapter-03-draft.md)`
 
-The intended alternative is not to abolish ownership or profit. The contributor-owned licensing venture retains the purifier rights, names all contributors, licenses approved small businesses and reserves funds for failed units and maintenance. `(rules/decisions.md)`
+### Distributed water nodes
 
-## Prologue World: Lake Keel, 2099
+Jalen's work concerns distributed water nodes that route supply around a single point of failure. Their purpose is to prevent one House or Alpha from choking a city by cutting one line.
 
-Seventy years after the 2043 story, Keel is green and prosperous but not idyllic. The old open pit is a clean lake ringed by:
+This is a technological and political risk because decentralization reduces the control available to concentrated institutions. `(input/fifth-draft/chapter-03-draft.md)`
 
-- terraces;
-- gardens;
-- workshops;
-- restored boats;
-- a boathouse;
-- water infrastructure still worth stealing. `(input/notes.md)`
+## Water infrastructure and allocation
 
-Drones siphon lake water into a tanker barge offshore. The thieves discuss how the older Alex made his money and whether he acquired control of water fairly. The scene leaves the answer open. `(input/notes.md)`
+### The shared water spine
 
-The prologue does not explain the debt, Alpha, the safeguards or the intervening history. Its world connection to the main book is water. `(rules/showrunner-rules.md, input/notes.md)`
+The mountain's water system is both physical infrastructure and a visible class structure:
+
+- Oasis has broad reservoirs and fountains;
+- Halyard has controlled industrial flows and water facilities;
+- Keel has rations, narrow channels and aging pipes;
+- the main conduit narrows toward Keel;
+- control nodes sit along the route;
+- old and new pipes coexist inside abandoned mine workings.
+
+Water is rationed in Keel and unequally allocated across all three cities. The inequality appears in daily access, mobility, authority and health rather than through a single explanatory speech. `(rules/decisions.md)`
+
+### Hidden diversion
+
+A hidden chamber inside the old lithium workings contains:
+
+- modern pipes running through obsolete mine infrastructure;
+- a narrow, corroded pipe labelled **KEEL HOMES**;
+- a broad, newly maintained pipe labelled **UPLINK INDUSTRIAL**;
+- a manual regulator wheel;
+- an official-looking gauge;
+- a water-control node;
+- an unrecorded pipe and signs of recent maintenance.
+
+The official gauge reads:
+
+```text
+KEEL SHARE OF THIS JUNCTION 62%
+```
+
+The Measure shows **18% of the junction reaching KEEL HOMES**. No further denominator or time period is established. The figures remain defined through this exact junction reading wherever they recur. `(rules/decisions.md)`
+
+### Consequence of correction
+
+The Measure releases information, not water. It does not cause uncontrolled flooding or physically alter the infrastructure. After the evidence becomes public, trained workers can safely adjust the hidden diversion so more water reaches Keel.
+
+The increased flow travels through an old, corroded **KEEL HOMES** pipe that has been dry for years and passes the lithium workings. As a result, Keel gets more water, but the water becomes cloudy and contains metals from the pipes and mine. More water does not automatically make it safe. `(rules/decisions.md)`
+
+The final destination of the diverted water remains open. `(open-items.md, Item 3)`
+
+## Transit, logistics and communications
+
+### Rail
+
+A train carries people between Keel and Halyard. The route passes through a permission gate. Keel's residents pay the 500-credit overdue amount through 61 accounts, after which Alex's balance changes from 418,607 to 418,107 credits and travel becomes permitted. `(rules/showrunner-rules.md; rules/decisions.md)`
+
+Halyard's elevated rail connects workshops, House facilities, greenhouses, fabrication areas and transit concourses. `(input/fifth-draft/chapter-02-draft.md)`
+
+### Communications
+
+Communication occurs through:
+
+- public boards;
+- household wall screens;
+- transit displays;
+- mine-shift displays;
+- street kiosks;
+- identity bands;
+- House and Alpha terminals;
+- holographic projectors;
+- paper records and maps where digital systems are unreliable or untrusted.
+
+When a verified water discrepancy is published, multiple Keel displays show the same figures simultaneously. Information can spread faster than physical repairs. `(rules/decisions.md)`
+
+### Physical workarounds
+
+Because official systems can be restricted, residents use:
+
+- paper maps;
+- physical keys;
+- unregistered tokens;
+- hand-cut tools;
+- old locks;
+- manual valves;
+- salvaged parts;
+- community-provided food, equipment and credits.
+
+## Daily life
+
+### Keel
+
+An ordinary Keel day may include reporting to an assigned shift, working around rusted machinery, checking or repairing pumps, receiving credits for labor, passing identity checkpoints, seeing debt and travel status on a wrist or terminal, waiting in ration lines, carrying water and relying on neighbors for food, equipment or medicine.
+
+Keel homes are modest but can be warm, dignified and personal. A typical apartment may contain handmade quilts, repaired furniture, old books, faded family photographs and plants in recycled containers.
+
+### Halyard
+
+Halyard life includes queueing at contribution kiosks, working in House facilities, using research labs and fabrication spaces, navigating ownership and attribution rules, living in rented rooms above maker districts, watching House advertisements and being monitored by sensors and drones.
+
+### Oasis
+
+Oasis life includes quiet transit concourses, clean water in homes and offices, civic administration, public records and formal clearance systems, polished residences, controlled gardens and reservoirs, institutional meetings and carefully maintained public spaces.
+
+### Healthcare, food and care
+
+The material establishes that:
+
+- Grandmother requires ongoing medicine;
+- Alex must prioritize medicine over food, equipment or travel;
+- food and lamp costs compete with travel and medical needs;
+- Keel residents can provide food and practical equipment;
+- Nell, the downstairs neighbour and clinic aide, moves in upstairs and cares for Grandmother while Alex travels. `(rules/decisions.md)`
+
+The full healthcare system, medicine prices and food supply chains are not established.
+
+## Culture, language and public messaging
+
+### Speech and status
+
+Speech changes with institutional position:
+
+- **Keel:** short, direct, colloquial, work-shaped, sarcastic, slang-heavy and comfortable with fragments.
+- **Halyard:** grammatically complete, technical, commercial and professionally fluent.
+- **Oasis:** polished, formal, abstract and administrative.
+
+The gradient reflects access and environment, not intelligence.
+
+### Recurring Keel terms
+
+Keel vocabulary includes:
+
+- **clean** — good, safe, correct or honest;
+- **hot** — watched, dangerous or flagged;
+- **burned** — compromised or unusable;
+- **crooked** — physically wrong, rigged or dishonest;
+- **thin** — weak or barely viable;
+- **solid** — reliable;
+- **patched** — improvised but functioning;
+- **ghost** — physically present but missing from records;
+- **paper-clean** — officially correct but detached from reality.
+
+### Institutional vocabulary
+
+Halyard uses terms such as prototype, yield, tolerance, attribution, claim, license, audit, provenance, ownership, margin, production, equity, patent and stake.
+
+Oasis and Alpha use terms such as authorization, allocation, transition, stability, compliance, eligibility, intervention, optimization, risk, continuity, accommodation and service provision.
+
+### Public slogans and interface language
+
+```text
+CREATION REQUIRES SCALE. SCALE REQUIRES ORDER.
+```
+
+```text
+CONTRIBUTION ACCEPTED
+OWNERSHIP: HOUSE HELION
+CREATOR BONUS: 14 CREDITS
+```
+
+```text
+ALLOCATION RECORDS: PUBLIC AND VERIFIABLE.
+GOVERNANCE PROPOSALS: OPEN FOR COMMUNITY DESIGNATION.
+```
+
+## Environment and extraction
+
+Prosperity's economy depends on extraction and infrastructure:
+
+- the exhausted open-pit lithium mine shaped Keel;
+- active extraction continues at Site 6;
+- old lithium workings remain beneath current systems;
+- mineral runoff contaminates water;
+- abandoned mine structures are reused for water-control equipment;
+- extraction and launch are Astra's domain;
+- water and chemistry are Aqualis's domain;
+- energy, compute and infrastructure are Helion's domain.
+
+The same industrial systems that produce wealth and advanced technology also create corrosion, pollution, scarcity and dependence.
 
 ## Key props
 
-### Alex's identity band
-
-- **Look:** A wearable digital band used for identity, work status, travel status and system alerts. It can display white or cold-white administrative text, including debt, travel restriction, wage forfeiture, signal loss and location status. The exact physical form is not otherwise fixed.
-- **Who has it and where:** Alex has it from Chapter 1 onward. It appears at the pump-hall checkpoint, mine entry, the old mine, the train crossing and later public records. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-- **What it means:** It makes administrative status physically present on Alex's body. It carries his inherited debt and restricts his movement. `(rules/decisions.md)`
-
 ### Adrian's old watch
 
-- **Look:** A worn steel wristwatch, a little big for Alex, with a plain cream dial, scratched glass and a small display window that stays dark. Adrian's looping equation is engraved on the steel caseback. The watch shows no readout and counts nothing.
-- **Who has it and where:** Alex wears it on his left wrist from Chapter 1 onward. He keeps it close and half hidden, pulling his sleeve down over it or covering its face with his thumb. It appears at the Last Chance, in the hidden workshop, beside Adrian's equation and during the discussion of Adrian's gambling and research. `(rules/decisions.md)`
-- **What it means:** It is a keepsake and a clue to Adrian's thinking, but not a lucky charm. The equation matches the chalkboard in Adrian's workshop and later the instrument in Chapter 2. Gambling hurt the family and is not glamorized. `(rules/decisions.md, input/notes.md)`
+A worn steel wristwatch, slightly too large for Alex, with a plain cream dial, scratched glass and a small display window that normally stays dark. Adrian's looping equation is engraved on the steel caseback. It is found face down on the workbench beside the covered Bi11bot. Buckling it on wakes Bi11bot: the display window glows amber once as the clasp closes and Bi11bot's eyes answer. It shows no readout and counts nothing. `(rules/decisions.md)`
 
 ### The Measure
 
-- **Look:** A compact handheld brass instrument approximately fist-sized, with three arms that fold flat against its body. It combines a transparent lens, balance scale and water-flow gauge. Its collar is engraved: `WHAT IS NOT MEASURED CAN BE MADE INVISIBLE`. It produces a plain blue-white readout when connected. `(input/fifth-draft/chapter-02-draft.md)`
-- **Who has it and where:** It is hidden near the misleading water gauge in the sealed old mine beneath Keel. Alex recovers it and carries it afterward. Bi11bot stores it in a fitted brass compartment in his chest. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
-- **What it means:** It independently checks reality, compares reality with official records and traces discrepancies. It reveals information but does not decide what anyone should do. `(rules/decisions.md)`
+A compact handheld brass instrument approximately the size of a fist, with three arms folded flat against its body. Its collar is engraved:
+
+**WHAT IS NOT MEASURED CAN BE MADE INVISIBLE**
+
+When active, it produces a plain blue-white readout. It clamps to a physical water pipe and to an official data line. It reads the junction's actual flow, compares it with the official record and shows **18% reaching KEEL HOMES** against the official **62% KEEL SHARE OF THIS JUNCTION**. `(rules/decisions.md)`
 
 ### The Maker's Seal
 
-- **Look:** A palm-sized bronze medallion with an open-hand maker's mark. It is worn smooth from years of being carried rather than displayed. It is not a royal signet. `(rules/decisions.md, input/fifth-draft/chapter-03-draft.md)`
-- **Who has it and where:** Lina Vey carries it before giving it to Alex in Halyard. `(rules/decisions.md, input/fifth-draft/chapter-03-draft.md)`
-- **What it means:** It establishes creation, contribution, rightful ownership and responsibility. Lina presents it only after the group combines the four contributor shards and Alex names each person's work before the House review. The open-hand mark warms and projects a shared provenance record. `(rules/decisions.md)`
+A palm-sized bronze medallion with an open-hand symbol. It looks like a maker's mark rather than a royal signet. It is associated with Adrian's patent work and the collaborators' contributions. Its exact legal and practical activation remains open. `(rules/decisions.md; open-items.md, Item 11)`
 
 ### The Covenant bands
 
-- **Look:** Three linked metal bands, each made from a different metal and engraved with a different name and promise. Adrian's band is gold and burgundy; Leona's is sage-gold; Mera's is cold pearl-grey. The three bands can link into a complete circle. `(input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-04-draft.md)`
-- **Who has them and where:** Leona preserves her band in a stone-grey box in Oasis. Bi11bot carries Adrian's band in a fitted chest compartment. Mera wears or carries her own band. `(input/fifth-draft/chapter-04-draft.md, input/fifth-draft/chapter-05-draft.md)`
-- **What it means:** The Covenant makes legitimate agreements and shared accountability possible. Its activation depends on real obligations and deliberate choice, not possession alone. `(rules/decisions.md)`
-
-### The balanced water-drop mark
-
-- **Look:** A balanced water-drop symbol, scratched or stamped into old infrastructure and tools. It appears on a valve plate, an old key and other objects associated with Adrian's work. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-- **Who has it and where:** It is present in Adrian's workshop, on the old mine key and near the hidden water-control system. It is a recurring mark rather than one single object. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
-- **What it means:** It identifies a connection to Adrian's water research and hidden infrastructure. Its full relationship to the three safeguards remains partly open. `(input/fifth-draft/chapter-02-draft.md)`
+Three linked metal bands, each made from a different metal and engraved with a different name and promise. The bands make legitimate agreements and shared accountability possible. Their later history and exact operation remain partly open. `(input/fifth-draft/chapter-04-draft.md; open-items.md)`
 
 ### The old mine key
 
-- **Look:** A heavy, hand-cut old key with a balanced water-drop stamped on its head. It fits an unwired lock. `(input/fifth-draft/chapter-02-draft.md)`
-- **Who has it and where:** Tomas has maintained it for fifteen years and gives it to Alex at the Site 6 access point. Alex uses it to enter the sealed old workings. `(input/fifth-draft/chapter-02-draft.md)`
-- **What it means:** It represents physical access preserved outside Alpha's wired systems and Tomas's long-term guardianship of the hidden entrance. `(input/fifth-draft/chapter-02-draft.md)`
+A heavy, hand-cut physical key with a balanced water-drop stamped on its head. It is made for an old lock and has been oiled repeatedly. Tomas gives it to Alex at the Site 6 bulkhead. `(input/fifth-draft/chapter-02-draft.md)`
 
-### Adrian's paper map
+### The three-city infrastructure spine
 
-- **Look:** A folded paper map marked with ink ticks at every third junction and a small pipe symbol at one of the marked points. It is altered by hand rather than generated by Alpha. `(input/fifth-draft/chapter-02-draft.md)`
-- **Who has it and where:** Ada keeps or supplies it to Alex for the mine entry. Alex carries it through the old workings and later uses it in planning travel. `(input/fifth-draft/chapter-02-draft.md)`
-- **What it means:** It provides evidence that can be checked against official maps. Its usefulness depends on noticing physical details that the official survey omits. `(rules/decisions.md)`
-
-### Bi11bot's shoulder projector
-
-- **Look:** A small projector mounted on Bi11bot's shoulder. It produces soft-blue holograms and can replay Adrian's recorded messages. An identical unit exists in Adrian's underground station. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-05-draft.md)`
-- **Who has it and where:** Bi11bot carries one from the hidden workshop. The matching unit remains in the underground monitoring station where Adrian made his final recording. `(input/fifth-draft/chapter-05-draft.md)`
-- **What it means:** It connects Bi11bot to Adrian's workshop and to the last known room where Adrian worked. `(input/fifth-draft/chapter-05-draft.md)`
-
-### The purifier prototype
-
-- **Look:** A compact purification and recovery unit no larger than a toolbox. Its components combine membrane purification, a living biofilter, distributed-node logic, mineral recovery and atmospheric capture. When integrated, it has a steady bronze-gold surface light. `(input/fifth-draft/chapter-03-draft.md)`
-- **Who has it and where:** It is assembled by Adrian's collaborators and Alex in a rented Halyard room. It is later carried in a plain bag. `(input/fifth-draft/chapter-03-draft.md)`
-- **What it means:** It demonstrates that useful technology can be built outside a Charter House and can support small businesses serving local customers. It becomes the basis for the contributor-owned licensing venture. `(rules/decisions.md)`
-
-### The Keel Homes pipe
-
-- **Look:** An old, corroded pipe labeled `KEEL RESIDENTIAL`, dry for years before water is redirected through it. Its water emerges cloudy after the diversion is adjusted. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md)`
-- **Who has it and where:** It remains in the old mine's hidden water-control chamber and carries water toward Keel homes. `(rules/decisions.md)`
-- **What it means:** It physically carries both victories and consequences: Keel receives more water, but the old infrastructure and lithium workings contaminate it. `(rules/decisions.md)`
+A massive vertical system of water conduit, energy lines, transit rails and identical white-and-amber control nodes running from Keel through Halyard to Oasis. The conduit is broad at Oasis and narrows toward Keel. `(input/fifth-draft/chapter-01-draft.md)`
 
 ## Open
 
-- **Decision needed:** The exact geography, basin name, country analogue and regional language mix beyond the established Andean high-desert setting. `(rules/ancestry.md)`
-- **Decision needed:** The precise technical limits and label for Alpha's predictive and governing capabilities under the hard-SF rules. `(rules/decisions.md, rules/hard-sf-rules.md)`
-- **Decision needed:** The exact material and construction of Alex's identity band, the recurring control nodes and the watch's display window where the sources do not specify them. `(input/fifth-draft/chapter-01-draft.md, rules/decisions.md)`
-- **Decision needed:** Whether the 2099 lake, terraces and workshops result from deliberate restoration, technological change, social reform or a combination. The prologue must leave this history unexplained on the page. `(input/notes.md, rules/showrunner-rules.md)`
-- **Decision needed:** The final fictional names and precise legal identities of the three Charter Houses. Their functional divisions are fixed, and the placeholders Aqualis, Helion and Astra are prohibited, but no replacement names or incorporation details have been supplied. `(rules/decisions.md)`
+- The exact geographic position and national inspirations of the fictional basin remain unspecified beyond its Andean high-desert setting. `(rules/ancestry.md; input/fifth-draft/chapter-01-draft.md)`
+- The exact emergency coalition or legitimate authority that granted Alpha temporary decision-making power is not named. `(open-items.md, Item 1)`
+- Whether Adrian created the return-of-authority mechanism or created or recovered the tools that trigger an existing mechanism remains unresolved. `(open-items.md, Item 2)`
+- Where the diverted water actually goes remains unresolved. `(open-items.md, Item 3)`
+- The exact legal structure of Alpha's current authority and the formal process by which the distributed human system will operate remain to be developed. `(rules/decisions.md; input/fifth-draft/chapter-06-draft.md)`
+- The public emergency-recovery bank's interest rate, repayment schedule and general enforcement procedures remain unresolved, apart from the settled 500-credit overdue travel condition. `(rules/decisions.md)`
+- The exact technical limits, production cost and real-world performance of the compact purification unit remain unresolved. `(input/fifth-draft/chapter-03-draft.md)`
+- The exact legal relationship between House employment, patents, creator bonuses, intellectual estates and independent commercial ownership remains unresolved. `(open-items.md, Item 8)`
+- The final operating rules, representation and enforcement mechanisms of the post-Alpha distributed governance structure remain unresolved. `(input/fifth-draft/chapter-06-draft.md)`
+- The full history of Adrian's disappearance remains uncertain. The settled material establishes one bad call, research debt and Alpha's pursuit, but not every event between his disappearance and the present. `(rules/decisions.md; input/fifth-draft/chapter-05-draft.md)`
+- The exact scope of the Legacy Protocol beyond artifact detection, source-location alerts and dormant safeguard functions remains unresolved. `(rules/decisions.md)`

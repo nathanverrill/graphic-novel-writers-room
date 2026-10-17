@@ -1,0 +1,24 @@
+{
+ "cand-20261012-202227.png": {
+  "pass": true,
+  "problems": [
+   {
+    "panel": 1,
+    "kind": "hands",
+    "severity": "minor",
+    "what": "Alex's right hand has six fingers (a thumb and five fingers)",
+    "box": [
+     240,
+     420,
+     310,
+     510
+    ],
+    "unconfirmed": true
+   }
+  ],
+  "tries": 2,
+  "cost": 0.172884,
+  "note": "red hair",
+  "prompt": "A CHARACTER LOCK for a graphic novel: one full-body drawing of Alex Phantum, standing in a relaxed,\ncharacterful three-quarter pose, head to boots in frame, on a plain warm cream background. Portrait.\nThis image is the reference every page of the book is drawn from, so every detail must be clear.\n\nAlex Phantum: Alex Phantum is seventeen, lean, wiry, and mechanically capable, approximately 175 cm tall, with medium-brown skin, a narrow oval face, a strong jaw inherited from Adrian, dark almond-shaped eyes, thick dark hair cut short at the sides and left uneven on top, and a characteristic head tilt when thinking; he wears a faded charcoal work shirt under a patched rust-brown mining jacket, worn dark work trousers, scuffed steel-toe boots, a weathered canvas tool bag, and a simple metal wristband, with Adrian\u2019s worn casino chip etched with A = K + \u03c1U always carried in his pocket; his silhouette is narrow, angular, and practical, and his signature detail is the unconscious hand that turns the casino chip whenever he is uncertain or emotionally activated. Alex is mixed Indigenous Andean and European-descended; his mother\u2019s name, face, fate, community, language, occupation, and biography remain unrevealed, and only that she left Adrian after Adrian lost everything is known.\n\nDraw it exactly in the style of the style plate: the same line, color, light and rendering.\nThe second attached image is the current lock: keep the same person, and change only what the description above says differently.\nNote for this drawing: red hair\n\nNo text, no labels, no names, no numbers, no frame, no other people.\nThe attached images, in order: 1. the style plate - draw in exactly this style; 2. Alex Phantum's current lock - keep everything the words do not change"
+ }
+}

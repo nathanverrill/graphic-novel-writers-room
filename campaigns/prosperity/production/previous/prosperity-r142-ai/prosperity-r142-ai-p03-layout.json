@@ -1,0 +1,73 @@
+{
+  "page": 3,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A crumpled, grease-stained sheet shows a crude pencil pump-bracket sketch with fingerprints and no patent number. Keep it unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex\u2019s daughter studies the drawing while Alex stands beside her. Reserve upper-left for her balloon and lower-right for Alex\u2019s reply."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "The daughter beams at the drawing. Leave the upper third open for lettering."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex looks from the sketch down to Adrian\u2019s old steel wristwatch on his left wrist, thumb covering the watch face. Leave upper-left open."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DAUGHTER",
+      "text": "This one's just a drawing.",
+      "at": "top-left",
+      "tail_x": 30.4,
+      "tail_y": 59.3
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And the one I'm most proud of. It helped a lot of people.",
+      "at": "bottom-right",
+      "tail_x": 76.5,
+      "tail_y": 27.2
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "DAUGHTER",
+      "text": "That looks like a lot of fun!",
+      "at": "top-left",
+      "tail_x": 48.8,
+      "tail_y": 54.7
+    }
+  ]
+}

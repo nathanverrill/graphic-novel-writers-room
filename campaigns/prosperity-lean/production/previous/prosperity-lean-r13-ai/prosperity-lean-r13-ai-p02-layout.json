@@ -1,0 +1,238 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Just before dawn inside the Keel pump hall. Alex Phantum, eighteen, with brown skin, short dense black curls, dark eyes, lean build, scarred work-rough hands, dark rolled-sleeve work shirt over a black tee, rust-brown patched cargo trousers, heavy scuffed boots and a worn canvas backpack hanging from one straight shoulder strap, presses one palm flat to an aging pump housing. A salvaged bracket replaces the approved part. A projected maintenance procedure and white-and-amber Alpha node sit to one side. The supervisor watches with folded arms. Leave the upper third open for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "End-of-shift checkpoint. Alex places his hand on the scanner while non-recognizable workers queue behind him. Danny, lanky with a buzz cut and open grin, stands ahead. A large dedicated administrative display fills the right half of the panel with generous vertical line spacing. Keep the left third clear for BEEP, the guard, Alex and the caption; no lettering crosses the interface."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Morning street outside THE LAST CHANCE \u2014 PAWN & LOANS and NEXT LEVEL GAMES. The shopkeeper stands in the loan-shop doorway beside used goods and Adrian\u2019s torn default notice. Danny emerges with a used console and game-shop bag, waving a printed loan slip. Across the street, non-recognizable people queue at a public tap. Keep the shop sign at upper-left, Danny\u2019s balloon in upper-center, the loan slip beside Danny and the ration sign at far right, each in a separate clear zone."
+        },
+        {
+          "w": 1,
+          "shot": "split composition",
+          "angle": "eye",
+          "description": "At left, the supervisor alone in the pump hall selects ROUTINE MAINTENANCE beside the blinking Alpha node and scratched balanced water-drop mark. At right, Alex stands on the pit rim before the sealed mine entrance, looking toward sunlit Oasis while Keel remains in shadow. Reserve separate upper zones for the procedural balloon and Alex\u2019s line, and two separated bottom caption boxes."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SUPERVISOR",
+      "text": "That's not the approved repair.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then don't approve it.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Just notice it works.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "TODAY: DEBT TRANSFER DAY",
+      "x": 72,
+      "y": 8
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ALEX PHANTUM",
+      "x": 72,
+      "y": 18
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "AGE VERIFIED: EIGHTEEN",
+      "x": 72,
+      "y": 28
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE",
+      "x": 72,
+      "y": 38
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "GUARANTOR: ADRIAN PHANTUM \u2014 WHEREABOUTS UNRECORDED",
+      "x": 72,
+      "y": 49
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "DEBT BALANCE: 418,607 CREDITS",
+      "x": 72,
+      "y": 60
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "EARNED TODAY: 40 CREDITS",
+      "x": 72,
+      "y": 69
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "PROJECTED CLEARANCE: 28.7 YEARS",
+      "x": 72,
+      "y": 79
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "TRAVEL STATUS: RESTRICTED",
+      "at": "left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "BEEP",
+      "size": "small",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUARD",
+      "text": "Happy birthday, Phantum.",
+      "x": 14,
+      "y": 57
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I've had better surprises.",
+      "x": 14,
+      "y": 77
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "Eighteen: the age Keel decides you're old enough to owe.",
+      "x": 15,
+      "y": 94
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "DANNY",
+      "text": "Alex! Look what I got! Ten a week. That's nothing!",
+      "at": "right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SHOPKEEPER",
+      "text": "Care to see if your luck runs better than his?",
+      "at": "right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "SHOPKEEPER",
+      "text": "Your father always believed the next loan would change everything.",
+      "x": 82,
+      "y": 70
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "CASH TODAY \u00b7 EASY TERMS",
+      "x": 15,
+      "y": 9
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "RATION: 4 L",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "ADVANCE 120 CR \u00b7 REPAY 10 CR / WEEK \u00b7 31 WEEKS",
+      "at": "left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "UNAUTHORIZED REPAIR \u2014 REVIEW REQUIRED",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "ROUTINE MAINTENANCE",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SUPERVISOR",
+      "text": "...Works.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "One day... I'm leaving.",
+      "x": 82,
+      "y": 18
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "Everyone in Keel knew where they had been born.",
+      "x": 25,
+      "y": 88
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "Few believed they could choose where they belonged.",
+      "x": 74,
+      "y": 96
+    }
+  ]
+}
