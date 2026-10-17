@@ -1457,3 +1457,35 @@ def riff_propose(slug: str, body: RiffEdit, desk: str = projects.PRE):
 @app.post("/api/projects/{slug}/story-desk/riff/accept")
 def riff_accept(slug: str, body: RiffEdit, desk: str = projects.PRE):
     return _sd(riff.accept, slug, desk, body.file, body.hash, body.i, body.title, body.body, body.new, body.level, body.why)
+
+
+# ---- the easy desk: one campaign, what it can do next, in plain words (app/easy.py) ----------
+
+from . import easy  # noqa: E402 - kept with its routes, so the desk can be taken out in one piece
+
+
+@app.get("/easy")
+def easy_page():
+    """The easy desk: pick a campaign, see where it stands, and do the next thing - draw it, fix
+    a page, change a character's look and redraw their pages, edit the words, download."""
+    return FileResponse(STATIC / "easy.html")
+
+
+class EasyDraw(BaseModel):
+    pages: list[int] | None = None      # none = every page
+    again: bool = False                 # draw pages already drawn again (a copy is kept first)
+
+
+@app.get("/api/easy/{slug}")
+def easy_status(slug: str):
+    return not_found(easy.status, slug)
+
+
+@app.post("/api/easy/{slug}/draw")
+def easy_draw(slug: str, body: EasyDraw):
+    return not_found(easy.draw, slug, body.pages, body.again)
+
+
+@app.post("/api/easy/{slug}/restore/{page}")
+def easy_restore(slug: str, page: int):
+    return not_found(easy.restore, slug, page)

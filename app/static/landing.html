@@ -39,12 +39,21 @@
   .stage.s3 { border-top: 3px solid #0e7490; } .stage.s4 { border-top: 3px solid #be185d; }
   footer { margin-top: 2.2rem; font-size: .8rem; color: var(--muted); display: flex; gap: 1rem; }
   footer a { color: inherit; }
+  .easy { display: flex; flex-wrap: wrap; gap: .6rem 1.2rem; align-items: center; justify-content: space-between;
+          border: 2px solid var(--ink); border-radius: 10px; background: var(--panel); padding: 1rem 1.1rem;
+          color: var(--ink); text-decoration: none; }
+  .easy:hover { border-color: var(--accent); }
+  .easy b { font-size: 1.1rem; display: block; }
+  .easy span { color: var(--muted); font-size: .9rem; }
+  .easy i { font-style: normal; background: var(--ink); color: var(--bg); border-radius: 6px; padding: .45rem 1rem; font-size: .9rem; }
 </style>
 </head>
 <body>
 <main>
   <h1>Writers' Room</h1>
   <p class="lead">A graphic novel, from your material to page packets and lettered pages.</p>
+
+  <a class="easy" href="/easy"><div><b>Easy desk</b><span>See where your book stands, then draw it, fix a page, change a character or edit the words.</span></div><i>Open →</i></a>
 
   <h2>Campaigns</h2>
   <div class="camps" id="camps">

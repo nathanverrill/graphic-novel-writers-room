@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ee">
+<title>Easy Desk · Writers' Room</title>
+<link rel="stylesheet" href="/static/style.css">
+<style>
+  /* The easy desk: one campaign, where it stands, and the few things worth doing next.
+     Everything else in the room is one link away, never on this screen. */
+  body { margin: 0; }
+  main { max-width: 68rem; margin: 0 auto; padding: 1.25rem 16px 4rem; display: grid; gap: 1.4rem; }
+  .top { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; justify-content: space-between; }
+  .top h1 { font-size: 1.45rem; margin: 0; }
+  .top h1 a { color: inherit; text-decoration: none; }
+  .top h1 span { color: var(--muted); font-weight: 400; font-size: 1rem; }
+  .top label { display: flex; gap: .5rem; align-items: center; color: var(--muted); font-size: .9rem; }
+  select, input, textarea { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line);
+         border-radius: 6px; padding: .45rem .6rem; }
+  select { font-size: 1rem; min-width: 12rem; }
+  textarea { width: 100%; resize: vertical; line-height: 1.45; }
+  button, a.btn { font: inherit; font-size: .92rem; padding: .5rem 1rem; border-radius: 6px; cursor: pointer;
+         border: 1px solid var(--ink); background: var(--panel); color: var(--ink); text-decoration: none; display: inline-block; }
+  button.go, a.btn.go { background: var(--ink); color: var(--bg); }
+  button.warn { border-color: var(--bad); color: var(--bad); }
+  button.warn.sure { background: var(--bad); color: #fff; }
+  button:disabled { opacity: .45; cursor: default; }
+  .muted { color: var(--muted); }
+  .small { font-size: .82rem; }
+  h2 { font-size: 1.05rem; margin: 0 0 .5rem; }
+
+  .where { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 1rem 1.1rem; display: grid; gap: .6rem; }
+  .where p { margin: 0; font-size: 1.05rem; line-height: 1.5; }
+  .nums { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .nums span { border: 1px solid var(--line); border-radius: 999px; padding: .2rem .7rem; font-size: .85rem; background: var(--bg); }
+  .nums b { font-variant-numeric: tabular-nums; }
+  .bar { height: 8px; background: var(--line); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--work); transition: width .4s; }
+
+  .todo { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr)); gap: .8rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: .95rem 1rem;
+          display: grid; gap: .55rem; align-content: start; }
+  .card h3 { margin: 0; font-size: 1rem; text-transform: none; letter-spacing: 0; color: var(--ink); }
+  .card p { margin: 0; color: var(--muted); font-size: .88rem; line-height: 1.45; }
+  .card .row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .card.hot { border-color: var(--accent); }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: .7rem; }
+  .pg { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .35rem; cursor: pointer;
+        display: grid; gap: .3rem; text-align: left; font: inherit; color: var(--ink); }
+  .pg:hover { border-color: var(--accent); }
+  .pg .img { aspect-ratio: 2 / 3; background: var(--bg); border-radius: 4px; overflow: hidden; display: grid; place-items: center; color: var(--muted); font-size: .78rem; }
+  .pg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pg .cap { display: flex; justify-content: space-between; gap: .3rem; font-size: .78rem; align-items: center; }
+  .tag { font-size: .7rem; border-radius: 999px; padding: .05rem .45rem; white-space: nowrap; }
+  .tag.flag { background: #fdecea; color: var(--bad); }
+  .tag.work { background: #fdf3e1; color: var(--work); }
+  .tag.letters { background: #e9f1fb; color: #1d4f91; }
+
+  .chars { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: .7rem; }
+  .ch { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: .4rem; cursor: pointer; display: grid; gap: .3rem; font: inherit; color: var(--ink); text-align: left; }
+  .ch:hover { border-color: var(--accent); }
+  .ch .img { aspect-ratio: 3 / 4; background: var(--bg); border-radius: 4px; overflow: hidden; display: grid; place-items: center; color: var(--muted); font-size: .78rem; }
+  .ch img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+  .ch b { font-size: .88rem; }
+
+  dialog { border: 0; border-radius: 12px; padding: 0; width: min(64rem, calc(100vw - 32px)); max-height: calc(100vh - 32px);
+           background: var(--panel); color: var(--ink); box-shadow: 0 20px 60px rgba(0,0,0,.35); }
+  dialog::backdrop { background: rgba(20, 18, 15, .55); }
+  .dlg { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 1.2rem; padding: 1.1rem; }
+  @media (max-width: 760px) { .dlg { grid-template-columns: 1fr; } }
+  .dlg .pic img { width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); display: block; }
+  .dlg .side { display: grid; gap: .9rem; align-content: start; }
+  .dlg header { all: unset; display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .dlg header h2 { margin: 0; font-size: 1.2rem; }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+  .seg button { border: 0; border-radius: 0; padding: .3rem .7rem; font-size: .8rem; }
+  .seg button.on { background: var(--ink); color: var(--bg); }
+  .notes { background: #fdecea; color: #7a1b12; border-radius: 6px; padding: .6rem .8rem; font-size: .85rem; }
+  .notes ul { margin: .3rem 0 0; padding-left: 1.1rem; }
+  .words { display: grid; gap: .6rem; }
+  .words label { display: grid; gap: .2rem; font-size: .78rem; color: var(--muted); }
+  .cands { display: grid; grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr)); gap: .6rem; }
+  .cands figure { margin: 0; display: grid; gap: .3rem; font-size: .78rem; }
+  .cands img { width: 100%; border-radius: 4px; border: 1px solid var(--line); }
+  .msg { font-size: .85rem; min-height: 1.2em; }
+  .msg.bad { color: var(--bad); }
+  .msg.ok { color: var(--ok); }
+  .x { border: 0; background: none; font-size: 1.4rem; line-height: 1; padding: .2rem .5rem; color: var(--muted); }
+  footer { color: var(--muted); font-size: .85rem; display: flex; flex-wrap: wrap; gap: .5rem 1.2rem; }
+  footer a { color: inherit; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <h1><a href="/">Writers' Room</a> <span>· easy desk</span></h1>
+    <label>Book <select id="book"><option value="">Choose a book…</option></select></label>
+  </div>
+
+  <section class="where" id="where"><p class="muted">Choose a book to see where it stands.</p></section>
+
+  <section id="todo-wrap" hidden>
+    <h2>What would you like to do?</h2>
+    <div class="todo" id="todo"></div>
+  </section>
+
+  <section id="chars-wrap" hidden>
+    <h2>Characters</h2>
+    <p class="muted small" style="margin:0 0 .6rem">Every page is drawn from these pictures. Change one, and redraw the pages that character is on.</p>
+    <div class="chars" id="chars"></div>
+  </section>
+
+  <section id="pages-wrap" hidden>
+    <h2>Pages</h2>
+    <p class="muted small" style="margin:0 0 .6rem">Open a page to redraw it, bring back an earlier drawing, or change its words.</p>
+    <div class="grid" id="pages"></div>
+  </section>
+
+  <footer>
+    <span>Need more than this?</span>
+    <a id="ln-story" href="/story">Story desk</a>
+    <a id="ln-letter" href="/letter">Full lettering desk</a>
+    <a id="ln-renders" href="/renders">All renders</a>
+    <a href="/">Home</a>
+  </footer>
+</main>
+
+<dialog id="dlg"></dialog>
+
+<script>
+(() => {
+  const TAG = "sunburst";
+  const $ = (s, el = document) => el.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = (n) => "$" + (n >= 10 ? Math.round(n) : n.toFixed(2));
+  const S = { slug: "", st: null, locks: null, needs: null, timer: null, dlg: null };
+
+  const enc = encodeURIComponent;
+  const A = (path) => `/api/projects/${enc(S.slug)}${path}`;
+  async function api(url, opts = {}) {
+    const res = await fetch(url, { method: opts.method || "GET",
+      headers: opts.body ? { "content-type": "application/json" } : {},
+      body: opts.body ? JSON.stringify(opts.body) : undefined });
+    const text = await res.text();
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+    if (!res.ok) throw new Error((data && data.detail) ? (typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail)) : (text || res.statusText));
+    return data;
+  }
+  const art = (n, v) => A(`/render/${TAG}/art/p${String(n).padStart(2, "0")}.png?v=${v}`);
+  const lettered = (n, v) => A(`/render/${TAG}/lettered/p${String(n).padStart(2, "0")}.png?v=${v}`);
+  const lockImg = (folder, name, v) => A(`/story-desk/locks/${enc(folder)}/${enc(name)}`) + (v ? `?v=${v}` : "");
+
+  // a button that asks twice before it spends money or replaces work
+  function twoStep(btn, sureText, act) {
+    let armed = false, t;
+    const label = btn.innerHTML;
+    btn.addEventListener("click", async () => {
+      if (!armed) {
+        armed = true; btn.classList.add("sure"); btn.innerHTML = sureText;
+        t = setTimeout(() => { armed = false; btn.classList.remove("sure"); btn.innerHTML = label; }, 6000);
+        return;
+      }
+      clearTimeout(t); armed = false; btn.classList.remove("sure"); btn.innerHTML = label;
+      btn.disabled = true;
+      try { await act(); } finally { btn.disabled = false; }
+    });
+  }
+
+  // repaint a dialog only when what it shows changed, and keep anything typed into it
+  function repaint(dlg, sig, html) {
+    if (dlg.dataset.sig === sig) return false;
+    const typed = {};
+    dlg.querySelectorAll("textarea, input").forEach((t) => {
+      const k = t.id || "i" + t.dataset.i;
+      if (t.value !== t.defaultValue) typed[k] = t.value;
+    });
+    dlg.dataset.sig = sig;
+    dlg.innerHTML = html;
+    dlg.querySelectorAll("textarea, input").forEach((t) => {
+      const k = t.id || "i" + t.dataset.i;
+      if (k in typed) t.value = typed[k];
+    });
+    return true;
+  }
+
+  /* ---- campaigns ---------------------------------------------------------------------------- */
+  async function loadCampaigns() {
+    const { projects } = await api("/api/projects");
+    const sel = $("#book");
+    for (const p of projects) sel.insertAdjacentHTML("beforeend", `<option value="${esc(p)}">${esc(p)}</option>`);
+    const want = new URLSearchParams(location.search).get("p") || localStorage.getItem("wr.campaign") || "";
+    if (projects.includes(want)) { sel.value = want; choose(want); }
+    sel.onchange = () => choose(sel.value);
+  }
+
+  function choose(slug) {
+    S.slug = slug; S.locks = null; S.needs = null;
+    if (slug) {
+      try { localStorage.setItem("wr.campaign", slug); } catch {}
+      const u = new URL(location.href); u.searchParams.set("p", slug); history.replaceState(null, "", u);
+    }
+    for (const [id, path] of [["ln-story", "/story"], ["ln-letter", "/letter"], ["ln-renders", "/renders"]])
+      $("#" + id).href = slug ? `${path}?p=${enc(slug)}` : path;
+    refresh(true);
+  }
+
+  /* ---- where it stands ---------------------------------------------------------------------- */
+  async function refresh(full) {
+    clearTimeout(S.timer);
+    if (!S.slug) { $("#where").innerHTML = `<p class="muted">Choose a book to see where it stands.</p>`; hideAll(); return; }
+    try {
+      S.st = await api(`/api/easy/${enc(S.slug)}`);
+    } catch (e) {
+      $("#where").innerHTML = `<p class="msg bad">${esc(e.message)}</p>`; hideAll(); return;
+    }
+    if (full || !S.needs) {
+      S.needs = await api(A("/needs")).catch(() => null);
+      S.locks = await api(A(`/story-desk/locks?desk=${enc(S.st.desk)}`)).catch(() => null);
+    }
+    renderWhere(); renderTodo(); renderPages(); renderChars();
+    if (S.dlg) S.dlg();
+    const lockBusy = (S.locks?.people || []).some((p) => p.job?.state === "running");
+    if (S.st.running || lockBusy) S.timer = setTimeout(() => refresh(lockBusy), 4000);
+  }
+  function hideAll() { for (const id of ["todo-wrap", "pages-wrap", "chars-wrap"]) $("#" + id).hidden = true; }
+
+  function renderWhere() {
+    const { counts: c, stage, running, phase } = S.st;
+    let line;
+    if (stage === "write") line = `<b>${esc(S.slug)}</b> is still being written${phase ? ` (now: ${esc(phase)})` : ""}. It has no pages laid out yet, so there is nothing to draw.`;
+    else if (stage === "draw") line = `<b>${esc(S.slug)}</b> has ${c.pages} pages laid out and ready to draw. None are drawn yet.`;
+    else line = `<b>${esc(S.slug)}</b>: ${c.drawn} of ${c.pages} pages drawn` + (c.lettered ? `, ${c.lettered} with words on them.` : ".");
+    const pills = stage === "write" ? "" : `<div class="nums">
+        <span>Pages <b>${c.pages}</b></span><span>Drawn <b>${c.drawn}</b></span><span>With words <b>${c.lettered}</b></span>
+        ${c.flagged ? `<span>Need a second look <b>${c.flagged}</b></span>` : ""}
+        ${c.needs_letters ? `<span>Redrawn, words not back on <b>${c.needs_letters}</b></span>` : ""}</div>`;
+    const prog = running ? (() => {
+      const busy = S.st.pages.filter((p) => p.state === "drawing").length;
+      const done = c.drawn;
+      return `<p class="small"><b>Drawing now…</b> ${busy} page${busy === 1 ? "" : "s"} in progress. This page updates by itself; you can close it and come back.</p>
+        <div class="bar"><i style="width:${Math.round(100 * done / Math.max(1, c.pages))}%"></i></div>`;
+    })() : "";
+    $("#where").innerHTML = `<p>${line}</p>${pills}${prog}`;
+  }
+
+  /* ---- what to do, by where the book is ---------------------------------------------------- */
+  function card(title, text, hot = false) {
+    const el = document.createElement("div");
+    el.className = "card" + (hot ? " hot" : "");
+    el.innerHTML = `<h3>${title}</h3><p>${text}</p><div class="row"></div><div class="msg"></div>`;
+    $("#todo").append(el);
+    return el;
+  }
+  const say = (el, text, kind = "") => { const m = $(".msg", el); m.className = "msg " + kind; m.textContent = text; };
+
+  function renderTodo() {
+    const { stage, counts: c, running, cost_page: cp } = S.st;
+    const p = enc(S.slug);
+    $("#todo").innerHTML = "";
+    $("#todo-wrap").hidden = false;
+
+    if (stage === "write") {
+      const a = card("Work on the story", "Change the outline, the characters' looks and the structure.", true);
+      $(".row", a).innerHTML = `<a class="btn go" href="/story?p=${p}">Open the story desk</a>`;
+      const b = card("Answer the open questions", "Pre-production lists what is still undecided about the book.");
+      $(".row", b).innerHTML = `<a class="btn" href="/preproduction?p=${p}">Open pre-production</a>`;
+      const d = card("Write the pages", "Production turns the story into a script and page layouts. Then come back here to draw them.");
+      $(".row", d).innerHTML = `<a class="btn" href="/production?p=${p}">Open production</a>`;
+      return;
+    }
+
+    if (stage === "draw") {
+      const a = card("Draw the book", `All ${c.pages} pages, drawn and checked. About ${money(c.pages * cp)}, and roughly 10–20 minutes.`, true);
+      a.querySelector(".row").innerHTML = `<button class="warn go" ${running ? "disabled" : ""}>Draw all ${c.pages} pages</button>`;
+      twoStep($("button", a), `Yes, spend about ${money(c.pages * cp)}`, () => startDraw(a, null, false));
+      charCard();
+      return;
+    }
+
+    if (c.needs_letters) {
+      const a = card("Put the words back on", `${c.needs_letters} page${c.needs_letters === 1 ? " was" : "s were"} redrawn and ${c.needs_letters === 1 ? "has" : "have"} no words yet. Free.`, true);
+      a.querySelector(".row").innerHTML = `<button class="go">Letter ${c.needs_letters} page${c.needs_letters === 1 ? "" : "s"}</button>`;
+      $("button", a).onclick = async (e) => {
+        e.target.disabled = true; say(a, "Lettering…");
+        try {
+          const pages = S.st.pages.filter((x) => x.needs_letters).map((x) => x.page);
+          const r = await api(A(`/render/${TAG}/letter`), { method: "POST", body: { pages } });
+          say(a, `Done: ${r.lettered.length} lettered.`, "ok"); refresh();
+        } catch (err) { say(a, err.message, "bad"); e.target.disabled = false; }
+      };
+    }
+    if (c.flagged) {
+      const a = card("Check the flagged pages", `The art check found possible problems on ${c.flagged} page${c.flagged === 1 ? "" : "s"}. They're marked in red below. Open one to see what and redraw it.`);
+      a.querySelector(".row").innerHTML = `<button>Show me the first one</button>`;
+      $("button", a).onclick = () => openPage(S.st.pages.find((x) => x.flagged).page);
+    }
+    charCard();
+    if (c.drawn < c.pages) {
+      const n = c.pages - c.drawn;
+      const a = card("Draw the missing pages", `${n} page${n === 1 ? " isn't" : "s aren't"} drawn yet. About ${money(n * cp)}.`);
+      a.querySelector(".row").innerHTML = `<button class="warn" ${running ? "disabled" : ""}>Draw ${n} page${n === 1 ? "" : "s"}</button>`;
+      twoStep($("button", a), `Yes, spend about ${money(n * cp)}`, () => startDraw(a, null, false));
+    }
+    const all = card("Redraw the whole book", `Every page drawn again, from the current characters and script. A copy of each current page is kept. About ${money(c.pages * cp)}.`);
+    all.querySelector(".row").innerHTML = `<button class="warn" ${running ? "disabled" : ""}>Redraw all ${c.pages} pages</button>`;
+    twoStep($("button", all), `Yes, spend about ${money(c.pages * cp)}`, () => startDraw(all, null, true));
+
+    const dl = card("Download", "The finished pages, with words, as one PDF. Or every drawing without words, as a zip.");
+    dl.querySelector(".row").innerHTML = (c.lettered ? `<a class="btn go" href="${A(`/render/${TAG}/lettered.pdf`)}">PDF with words</a>` : "") +
+      `<a class="btn" href="${A(`/render/${TAG}/art.zip`)}">Drawings (zip)</a>`;
+  }
+
+  function charCard() {
+    const n = (S.locks?.people || []).length;
+    if (!n) return;
+    const a = card("Change how a character looks", `${n} characters. Draw a new picture of one, keep it if you like it, then redraw just the pages they're on.`);
+    a.querySelector(".row").innerHTML = `<button>Show the characters</button>`;
+    $("button", a).onclick = () => $("#chars-wrap").scrollIntoView({ behavior: "smooth" });
+  }
+
+  async function startDraw(el, pages, again) {
+    say(el, "Starting…");
+    try {
+      const r = await api(`/api/easy/${enc(S.slug)}/draw`, { method: "POST", body: { pages, again } });
+      say(el, `Drawing ${r.pages.length} page${r.pages.length === 1 ? "" : "s"}.` + (r.kept_copy.length ? " The current drawings are kept." : ""), "ok");
+      refresh();
+    } catch (e) { say(el, e.message, "bad"); }
+  }
+
+  /* ---- pages -------------------------------------------------------------------------------- */
+  function thumb(p) {
+    if (p.lettered && !p.needs_letters) return lettered(p.page, p.lettered);
+    if (p.art) return art(p.page, p.art);
+    return "";
+  }
+  function renderPages() {
+    const wrap = $("#pages-wrap");
+    if (S.st.stage === "write") { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    $("#pages").innerHTML = S.st.pages.map((p) => {
+      const src = thumb(p);
+      const tag = p.state === "drawing" ? `<span class="tag work">drawing</span>`
+        : p.state === "failed" ? `<span class="tag flag">failed</span>`
+        : p.flagged ? `<span class="tag flag">check</span>`
+        : p.needs_letters ? `<span class="tag letters">no words</span>` : "";
+      return `<button class="pg" data-page="${p.page}"><div class="img">${src ? `<img src="${src}" alt="Page ${p.page}" loading="lazy">` : "not drawn"}</div>
+        <div class="cap"><span>Page ${p.page}</span>${tag}</div></button>`;
+    }).join("");
+    $("#pages").onclick = (e) => { const b = e.target.closest(".pg"); if (b) openPage(+b.dataset.page); };
+  }
+
+  async function openPage(n) {
+    const dlg = $("#dlg");
+    let view = "words", L = null;
+    const words = async () => { try { L = await api(A(`/lettering/${n}`)); } catch { L = null; } };
+    await words();
+    const paint = () => {
+      const p = S.st.pages.find((x) => x.page === n);
+      if (!p) return;
+      const showWords = view === "words" && p.lettered && !p.needs_letters;
+      const src = showWords ? lettered(n, p.lettered) : p.art ? art(n, p.art) : "";
+      const items = (L?.items || []);
+      const busy = S.st.running;
+      const html = `<div class="dlg">
+        <div class="pic">${src ? `<img src="${src}" alt="Page ${n}">` : `<p class="muted">Not drawn yet.</p>`}</div>
+        <div class="side">
+          <header><h2>Page ${n}</h2><button class="x" aria-label="Close">×</button></header>
+          ${p.art ? `<div class="seg"><button data-v="words" class="${view === "words" ? "on" : ""}">With words</button><button data-v="art" class="${view === "art" ? "on" : ""}">Drawing only</button></div>` : ""}
+          ${p.state === "drawing" ? `<p class="msg"><b>Being drawn now…</b> it will appear here when it's done.</p>` : ""}
+          ${p.state === "failed" ? `<div class="notes">The last drawing failed: ${esc(p.error || "unknown error")}</div>` : ""}
+          ${p.flagged && p.problems.length ? `<div class="notes"><b>The art check noticed:</b><ul>${p.problems.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+          ${p.needs_letters ? `<p class="small muted">This drawing is newer than its words. Save the words below to put them back on.</p>` : ""}
+          <div class="card" style="padding:.8rem">
+            <h3>The drawing</h3>
+            <div class="row">
+              <button class="warn" id="d-redraw" ${busy ? "disabled" : ""}>${p.art ? "Redraw this page" : "Draw this page"}</button>
+              ${p.earlier ? `<button id="d-back" ${busy ? "disabled" : ""}>Bring back the earlier drawing</button>` : ""}
+            </div>
+            <p class="small">${p.art ? `About ${money(S.st.cost_page)}. The current drawing is kept, so you can bring it back.` : `About ${money(S.st.cost_page)}.`}</p>
+            <div class="msg" id="d-msg"></div>
+          </div>
+          <div class="card" style="padding:.8rem">
+            <h3>The words</h3>
+            ${items.length ? `<div class="words">${items.map((it) => `<label>${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}${it.panel ? ` · panel ${it.panel}` : ""}
+                <textarea rows="${Math.min(5, 1 + Math.ceil((it.text || "").length / 48))}" data-i="${it.i}">${esc(it.text)}</textarea></label>`).join("")}</div>
+              <div class="row"><button class="go" id="w-save">${p.art ? "Save words and letter the page" : "Save words"}</button></div>
+              <p class="small">Free. To move balloons or add new ones, use the <a href="/letter?p=${enc(S.slug)}&page=${n}">full lettering desk</a>.</p>`
+              : `<p class="small">No words on this page.</p>`}
+            <div class="msg" id="w-msg"></div>
+          </div>
+        </div></div>`;
+      if (!repaint(dlg, JSON.stringify(["page", n, view, p, busy, items]), html)) return;
+      $(".x", dlg).onclick = () => dlg.close();
+      dlg.querySelectorAll(".seg button").forEach((b) => b.onclick = () => { view = b.dataset.v; paint(); });
+      const rb = $("#d-redraw", dlg);
+      twoStep(rb, `Yes, spend about ${money(S.st.cost_page)}`, async () => {
+        const m = $("#d-msg", dlg);
+        try {
+          await api(`/api/easy/${enc(S.slug)}/draw`, { method: "POST", body: { pages: [n], again: !!p.art } });
+          m.className = "msg ok"; m.textContent = "Drawing… this takes a minute or two."; refresh();
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      });
+      const bb = $("#d-back", dlg);
+      if (bb) bb.onclick = async () => {
+        bb.disabled = true;
+        try { S.st = await api(`/api/easy/${enc(S.slug)}/restore/${n}`, { method: "POST" }); renderWhere(); renderTodo(); renderPages(); paint(); }
+        catch (e) { const m = $("#d-msg", dlg); m.className = "msg bad"; m.textContent = e.message; bb.disabled = false; }
+      };
+      const ws = $("#w-save", dlg);
+      if (ws) ws.onclick = async () => {
+        const m = $("#w-msg", dlg);
+        const changes = {};
+        dlg.querySelectorAll("textarea[data-i]").forEach((t) => {
+          const it = items.find((x) => String(x.i) === t.dataset.i);
+          if (it && t.value.trim() !== (it.text || "").trim()) changes[t.dataset.i] = { text: t.value };
+        });
+        ws.disabled = true; m.className = "msg"; m.textContent = "Saving…";
+        try {
+          if (Object.keys(changes).length) L = await api(A(`/lettering/${n}`), { method: "PUT", body: { changes } });
+          if (p.art) {
+            const r = await api(A(`/render/${TAG}/letter`), { method: "POST", body: { pages: [n] } });
+            if (!r.lettered.includes(n)) throw new Error(Object.values(r.skipped || {})[0] || "could not letter the page");
+          }
+          view = "words";
+          m.className = "msg ok"; m.textContent = Object.keys(changes).length ? "Saved." : "Nothing changed; lettered again.";
+          await refresh(); paint();
+          $("#w-msg", dlg).className = "msg ok"; $("#w-msg", dlg).textContent = "Saved.";
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; ws.disabled = false; }
+      };
+    };
+    S.dlg = () => { if (dlg.open) paint(); };
+    dlg.onclose = () => { S.dlg = null; };
+    dlg.dataset.sig = "";
+    paint();
+    if (!dlg.open) dlg.showModal();
+  }
+
+  /* ---- characters --------------------------------------------------------------------------- */
+  const sunLock = (p) => p.locks.find((l) => l.model === TAG);
+  function pagesOf(person) {
+    const want = [person.name, person.display].map((s) => s.toLowerCase());
+    const row = (S.needs?.characters || []).find((c) => want.includes(c.name.toLowerCase()));
+    return row ? row.pages : [];
+  }
+  function renderChars() {
+    // pictured characters first, then by how many pages they're on
+    const people = [...(S.locks?.people || [])].sort((a, b) =>
+      (!!sunLock(b)?.image - !!sunLock(a)?.image) || (pagesOf(b).length - pagesOf(a).length));
+    const wrap = $("#chars-wrap");
+    if (S.st.stage === "write" || !people.length) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    $("#chars").innerHTML = people.map((p, i) => {
+      const l = sunLock(p);
+      const n = pagesOf(p).length;
+      const job = p.job?.state === "running" ? `<span class="tag work">drawing</span>` : (l?.candidates?.length ? `<span class="tag letters">new picture</span>` : "");
+      return `<button class="ch" data-i="${i}"><div class="img">${l?.image ? `<img src="${lockImg(l.folder, l.image, l.version)}" alt="${esc(p.display)}" loading="lazy">` : "no picture yet"}</div>
+        <b>${esc(p.display)}</b><span class="small muted">${n ? `on ${n} page${n === 1 ? "" : "s"}` : "on no pages"} ${job}</span></button>`;
+    }).join("");
+    $("#chars").onclick = (e) => { const b = e.target.closest(".ch"); if (b) openChar(people[+b.dataset.i].name); };
+  }
+
+  function openChar(name) {
+    const dlg = $("#dlg");
+    let justKept = false;
+    const paint = () => {
+      const p = (S.locks?.people || []).find((x) => x.name === name);
+      if (!p) return;
+      const l = sunLock(p);
+      const pages = pagesOf(p);
+      const job = p.job || {};
+      const cp = S.st.cost_page;
+      const html = `<div class="dlg">
+        <div class="pic">${l?.image ? `<img src="${lockImg(l.folder, l.image, l.version)}" alt="${esc(p.display)}">` : `<p class="muted">No picture yet.</p>`}
+          <p class="small muted">The picture every page is drawn from.</p></div>
+        <div class="side">
+          <header><h2>${esc(p.display)}</h2><button class="x" aria-label="Close">×</button></header>
+          <p class="small muted">${pages.length ? `On page${pages.length === 1 ? "" : "s"} ${pages.join(", ")}.` : "Not on any laid-out page."}</p>
+          <div class="card" style="padding:.8rem">
+            <h3>How they look, in words</h3>
+            <textarea id="c-look" rows="6">${esc(p.look)}</textarea>
+            <div class="row"><button id="c-save">Save the words</button></div>
+            <p class="small">The words go into every page's drawing instructions. Free.</p>
+            <div class="msg" id="c-lmsg"></div>
+          </div>
+          <div class="card" style="padding:.8rem">
+            <h3>A new picture</h3>
+            <input id="c-note" placeholder="What to change (optional), e.g. shorter hair, a green jacket">
+            <div class="row"><button class="warn" id="c-draw" ${job.state === "running" ? "disabled" : ""}>Draw a new picture</button></div>
+            <p class="small">${job.state === "running" ? "<b>Drawing…</b> about a minute. This updates by itself." : `About ${money(cp)}. Nothing changes until you choose to use it.`}</p>
+            ${job.state === "failed" ? `<div class="notes">${esc(job.error || "The drawing failed.")}</div>` : ""}
+            ${l?.candidates?.length ? `<div class="cands">${l.candidates.map((c) => `<figure><img src="${lockImg(l.folder, c.file)}" alt="new picture">
+                ${c.check && c.check.pass === false ? `<span class="small" style="color:var(--bad)">Check: ${esc((c.check.problems || []).map((x) => x.what).join("; ").slice(0, 140))}</span>` : ""}
+                <span class="row"><button class="go" data-keep="${esc(c.file)}">Use this</button><button data-drop="${esc(c.file)}">Throw away</button></span></figure>`).join("")}</div>` : ""}
+            <div class="msg" id="c-msg"></div>
+          </div>
+          ${pages.length ? `<div class="card ${justKept ? "hot" : ""}" style="padding:.8rem">
+            <h3>Redraw their pages</h3>
+            <p class="small">${justKept ? "The new picture is in use. " : ""}Draw the ${pages.length} page${pages.length === 1 ? "" : "s"} ${esc(p.display)} is on again, from the current picture. The current drawings are kept. About ${money(pages.length * cp)}.</p>
+            <div class="row"><button class="warn" id="c-pages" ${S.st.running ? "disabled" : ""}>Redraw ${pages.length} page${pages.length === 1 ? "" : "s"}</button></div>
+            <div class="msg" id="c-pmsg"></div>
+          </div>` : ""}
+        </div></div>`;
+      if (!repaint(dlg, JSON.stringify(["char", name, p, pages, justKept, S.st.running]), html)) return;
+      $(".x", dlg).onclick = () => dlg.close();
+      const desk = enc(S.st.desk);
+      $("#c-save", dlg).onclick = async () => {
+        const m = $("#c-lmsg", dlg);
+        try {
+          S.locks = await api(A(`/story-desk/locks/look?desk=${desk}`), { method: "PUT", body: { name, hash: p.hash, text: $("#c-look", dlg).value } });
+          m.className = "msg ok"; m.textContent = "Saved.";
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      };
+      twoStep($("#c-draw", dlg), `Yes, spend about ${money(cp)}`, async () => {
+        const m = $("#c-msg", dlg);
+        try {
+          await api(A(`/story-desk/locks/redraw?desk=${desk}`), { method: "POST", body: { name, note: $("#c-note", dlg).value } });
+          await refresh(true);
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      });
+      dlg.querySelectorAll("[data-keep],[data-drop]").forEach((b) => b.onclick = async () => {
+        const keep = !!b.dataset.keep;
+        try {
+          await api(A(`/story-desk/locks/${keep ? "keep" : "discard"}`), { method: "POST", body: { name, folder: l.folder, file: b.dataset.keep || b.dataset.drop } });
+          justKept = keep || justKept;
+          await refresh(true);
+        } catch (e) { const m = $("#c-msg", dlg); m.className = "msg bad"; m.textContent = e.message; }
+      });
+      const pb = $("#c-pages", dlg);
+      if (pb) twoStep(pb, `Yes, spend about ${money(pages.length * cp)}`, async () => {
+        const m = $("#c-pmsg", dlg);
+        try {
+          const drawn = new Set(S.st.pages.filter((x) => x.art).map((x) => x.page));
+          await api(`/api/easy/${enc(S.slug)}/draw`, { method: "POST", body: { pages, again: pages.some((n) => drawn.has(n)) } });
+          m.className = "msg ok"; m.textContent = "Drawing. Watch the pages below; then put the words back on.";
+          refresh();
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      });
+    };
+    S.dlg = () => { if (dlg.open) paint(); };
+    dlg.onclose = () => { S.dlg = null; };
+    dlg.dataset.sig = "";
+    paint();
+    if (!dlg.open) dlg.showModal();
+  }
+
+  loadCampaigns().catch((e) => { $("#where").innerHTML = `<p class="msg bad">${esc(e.message)}</p>`; });
+})();
+</script>
+</body>
+</html>
