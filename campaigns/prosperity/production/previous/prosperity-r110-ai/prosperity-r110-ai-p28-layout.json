@@ -1,0 +1,69 @@
+{
+  "page": 28,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex presses VERIFY on the Measure; the instrument seals the reading. Keep the button, seal mark and hands clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex connects the verified Measure to the old-works node. White-and-amber lines carry the evidence outward; leave upper space for the confirmation sound."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Across Keel, public displays change to the verified water discrepancy while workers look up. Keep no crowd individually recognizable and leave display space clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "At Site 6, the gate slams shut around Tomas as enforcement beams converge. Keep Tomas isolated but visible and leave upper darkness for his final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CHK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "RECORD VERIFIED: 62% REPORTED / 18% DELIVERED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Hold on.",
+      "at": "top-left"
+    }
+  ]
+}

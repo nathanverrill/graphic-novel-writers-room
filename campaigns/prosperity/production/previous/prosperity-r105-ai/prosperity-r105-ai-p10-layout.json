@@ -1,0 +1,64 @@
+{
+  "page": 10,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter looks from the broken component to Alex. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex looks across Lake Keel toward the paling horizon. Leave upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A quiet beat on Alex's face as memory catches. Leave generous negative space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "bleed": true,
+          "description": "Lake Keel under first gray light, boathouse and figures small at the edge. No new threat or clue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Why were they stealing?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "When you don\u2019t have anything, some people take the easy way out.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It wasn\u2019t always easy for me, either...",
+      "at": "top-left"
+    }
+  ]
+}

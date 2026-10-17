@@ -320,6 +320,12 @@ class Agent:
         return name not in PRIVATE or name in self.role.reads + self.role.outputs
 
     def save(self, name, content):
+        kept_pages = []
+        if name == "layouts.md":
+            st = review.settings(self.slug)
+            if not st.get("scope"):        # a proof pass holds one page on purpose
+                content, kept_pages = thumbnails.keep_dropped_pages(
+                    projects.read_artifact(self.slug, name) or "", content, st.get("pages"))
         content, restored = review.enforce_locks(self.slug, name, content)
         content, kept_rules = rules.enforce_rules(self.slug, name, content)
         self.version.write(name, content)
@@ -332,6 +338,11 @@ class Agent:
             pages = ", ".join(map(str, restored))
             result += f" Page(s) {pages} are locked by the showrunner; your changes to them were discarded."
             self.emit("warn", text=f"{name}: kept locked page(s) {pages}")
+        if kept_pages:
+            pages = ", ".join(map(str, kept_pages))
+            result += (f" Your file had no layout block for page(s) {pages}; their previous blocks were kept. "
+                       "Write every page in full; never summarize a page as retained or unchanged.")
+            self.emit("warn", text=f"layouts.md: kept page(s) {pages} the rewrite dropped")
         if name == "layouts.md":
             result += self.render_thumbnails(content)
         return result

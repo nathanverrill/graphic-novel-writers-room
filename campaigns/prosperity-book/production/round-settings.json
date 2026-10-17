@@ -1,0 +1,92 @@
+{
+  "pages": 62,
+  "draft_mode": "edit",
+  "expand_pages": 0,
+  "max_panels": 7,
+  "max_characters": 3,
+  "phase": "execution",
+  "approved": {
+    "at": "2026-10-15T21:22:33",
+    "t": 1792099353.510772,
+    "round": "r02-ai"
+  },
+  "magic": {
+    "status": "page1",
+    "choices": [
+      {
+        "t": 1792099493.2929726,
+        "step": "development",
+        "what": "Approved the development files as written.",
+        "why": "The brief, story and people go forward as the Director's room left them.",
+        "round": "r01-ai"
+      },
+      {
+        "t": 1792099564.9037092,
+        "step": "audition",
+        "what": "No audition: Writer A edits the draft.",
+        "why": "The book is an edit of the showrunner's draft (draft_mode \"edit\").",
+        "round": "r02-ai"
+      },
+      {
+        "t": 1792099696.6384575,
+        "step": "writing",
+        "what": "Approved the script as written.",
+        "why": "The whole book, in the picked writer's voice.",
+        "round": "r03-ai"
+      }
+    ],
+    "log": [
+      {
+        "t": 1792099353.561957,
+        "text": "Production starts at Development, running to layouts."
+      },
+      {
+        "t": 1792099353.576735,
+        "text": "Production starts from intake's files: characters.md, world.md, story.md, facts.md, open-items.md, draft.md."
+      },
+      {
+        "t": 1792099353.7309442,
+        "text": "Round r01-ai: development, Director, Plotter, Character Designer, Continuity Editor."
+      },
+      {
+        "t": 1792099493.3760593,
+        "text": "Round r02-ai: draft edit, Draft Editor."
+      },
+      {
+        "t": 1792099554.7692928,
+        "text": "Your drafts are edited to the canon: every change and everything that does not fit is in draft-changes.md. Read them, then script them - or stop here."
+      },
+      {
+        "t": 1792099564.8945653,
+        "text": "Production starts at Audition, running to proof page."
+      },
+      {
+        "t": 1792099564.908385,
+        "text": "No audition in an edit: the writer scripts the drafts first, for the proof page to be laid out from."
+      },
+      {
+        "t": 1792099565.0277112,
+        "text": "Round r03-ai: writing, Writer A, Continuity Editor."
+      },
+      {
+        "t": 1792099696.7411356,
+        "text": "Round r04-ai: execution, Layout Agent, Continuity Editor."
+      },
+      {
+        "t": 1792099733.1810217,
+        "text": "The proof, page 1, is ready. Have a look: is this about right?"
+      }
+    ],
+    "step": "page1",
+    "until": "page1",
+    "error": null,
+    "stop": false,
+    "started": "2026-10-15T21:26:04",
+    "finished": "2026-10-15T21:28:53",
+    "written_for_page1": true,
+    "run": "ae235a2820c3",
+    "round": "r04-ai"
+  },
+  "scope": 1,
+  "writer": "writer_a"
+}

@@ -1,0 +1,62 @@
+{
+  "page": 50,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In the lower chamber, a civic display offers designated executive authority, direct water equalization and debt clearance. Keep upper display clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex sees projected images of Grandmother safe, Keel supplied and his debt erased. Keep upper projections clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada catches Alex's wrist beside the tempting authorization display. Keep upper hands and display clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex turns away; Mera's unlinked pearl-grey band remains beside the two linked bands. Keep upper table clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "DESIGNATED EXECUTIVE AUTHORITY: AVAILABLE.\nDIRECT WATER EQUALIZATION.\nDEBT CLEARANCE: AVAILABLE.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "If we hold all the keys, everyone waits for our hands.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we don\u2019t hold them.",
+      "at": "top-left"
+    }
+  ]
+}

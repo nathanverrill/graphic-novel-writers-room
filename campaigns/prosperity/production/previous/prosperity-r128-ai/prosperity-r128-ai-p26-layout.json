@@ -1,0 +1,85 @@
+{
+  "page": 26,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Tomas leads Alex and Ada to an older service wall marked with the balanced water-drop. Keep the upper wall clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Tomas fits the heavy key into an unwired lock. Keep the upper lock area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas looks at B11 while holding the key in the lock. Keep the upper wall clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex looks back toward the active worksite as Tomas remains beside the locked door. Keep the upper worksite clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Adrian asked me to keep this closed.",
+      "at": "top-left",
+      "tail_x": 29.8,
+      "tail_y": 34.7
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "From me?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "He said I\u2019d know you by what you did first.",
+      "at": "top-left",
+      "tail_x": 65.0,
+      "tail_y": 25.1
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You\u2019re coming with us.",
+      "at": "top-left",
+      "tail_x": 52.6,
+      "tail_y": 41.9
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "No. Someone has to look ordinary.",
+      "at": "top-right",
+      "tail_x": 78.7,
+      "tail_y": 46.1
+    }
+  ]
+}

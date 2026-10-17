@@ -1,0 +1,104 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "tall cutaway",
+          "angle": "high",
+          "horizon": 35,
+          "description": "Tall vertical cutaway echoing Page 1. A hairline amber pulse travels up the shared infrastructure spine from Keel along the water conduit, past identical white-and-amber Alpha nodes, through the Keel\u2013Halyard permission gate, up through Halyard and beyond the cloud layer into Oasis. Each node flickers full amber as the pulse passes. Keep all three tier palettes distinct and leave a clean vertical margin beside the pulse."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide symmetrical",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Oasis control room in pearl white and graphite. A wall-sized live display shows the mountain in cross-section with thousands of white points; one small amber point pulses in dark Keel. An unnamed woman sits alone with her back to the viewer. A glass of clean water rests precisely aligned on the desk. Reserve a large dedicated monitor area for the alert, with generous spacing and no figure over it."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Monitor and watcher\u2019s hand. The alert occupies a clean, vertically spaced interface block on the monitor. Her hand presses TRACK while REPORT remains dark. Keep the interface separate from all other lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Dominant wall-display view. The amber point in Keel continues pulsing while a thin cold-white ring slowly closes around it. The watcher leans forward and nudges the glass of clean water until it aligns exactly with the desk edge and monitor frame. Reserve separate lower-left, lower-center and bottom-right zones for acquisition status, the retrospective caption and chapter ending."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LEGACY DEVICE ONLINE",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "UNIT B-11 \u00b7 ALPHA FIELD UNIT, FIRST GENERATION",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "REGISTERED TO: A. PHANTUM \u2014 RECORD CLOSED",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LAST CHECK-IN: 16 YEARS AGO",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "HOLDS: MEASURE LOCATION",
+      "x": 25.0,
+      "y": 68.0
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "[ REPORT ]   [ TRACK ]",
+      "x": 50.0,
+      "y": 82.0
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "SIGNAL INTERMITTENT \u00b7 ACQUIRING",
+      "x": 20.0,
+      "y": 72.0
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "I told myself I was only checking. Most of the true things in my life started that way.",
+      "x": 52.0,
+      "y": 84.0
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "END OF CHAPTER ONE",
+      "x": 82.0,
+      "y": 94.0
+    }
+  ]
+}

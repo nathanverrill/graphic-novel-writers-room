@@ -1,0 +1,75 @@
+{
+  "page": 33,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Neighbors place credits on a communal table while Pilar keeps the clinic envelope beside her paper ledger. No recognizable crowd faces; leave upper table space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The count reaches five hundred credits. Keep the amount unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A payment terminal accepts the communal transfer. Leave upper terminal space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Inside the mine, Alex's band updates to current installment and authorized rail crossing. Leave upper display space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "PILAR",
+      "text": "Care stays funded.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "500 CREDITS \u2014 CURRENT INSTALLMENT OVERDUE.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "BEEP",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "INSTALLMENT CURRENT.\nDEBT BALANCE: 418,107 CREDITS.\nKEEL\u2013HALYARD RAIL: AUTHORIZED.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "They bought the gate.",
+      "at": "bottom-left"
+    }
+  ]
+}

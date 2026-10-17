@@ -1,0 +1,84 @@
+{
+  "page": 19,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 projects Adrian's route across the workshop wall while Alex stands beside it. Keep the route and both figures readable; leave upper projection space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex looks toward the apartment doorway and Grandmother's medicine, caught between escape and investigation. Leave upper space for his answer."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 folds the map with his brass eye ring rotated toward Alex. Leave upper space for his warning."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex opens the Measure case and tests one arm against a leaking workshop pipe. Keep the harmless test clear and leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "Do you want answers or an exit?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The exit.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Answers first.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "That costs more.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then I\u2019ll know what I\u2019m paying for.",
+      "at": "bottom-left"
+    }
+  ]
+}

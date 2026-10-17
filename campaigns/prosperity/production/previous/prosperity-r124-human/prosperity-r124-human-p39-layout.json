@@ -1,0 +1,74 @@
+{
+  "page": 39,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "A Halyard worker submits a repaired filtration component at a public contribution kiosk. Keep the upper kiosk clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The kiosk assigns ownership to Caldera House and displays a creator bonus while the worker's face remains visible beside it. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex and Ada open Adrian's public registry entry in a House archive. Keep the upper screen clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex and Ada face the locked registry display in the technical district. Keep the upper screen clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "CONTRIBUTION ACCEPTED.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "OWNERSHIP: CALDERA HOUSE.\nCREATOR BONUS: 14 CREDITS.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "INTELLECTUAL ESTATE: ACTIVE.\nCLAIMANT: ALEX PHANTUM.\n312 PATENTS \u2014 47 RESTRICTED \u2014 19 DISPUTED.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Your father left a lot of doors.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Most of them are locked.",
+      "at": "top-right"
+    }
+  ]
+}

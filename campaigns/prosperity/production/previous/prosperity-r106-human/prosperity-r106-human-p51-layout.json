@@ -1,0 +1,69 @@
+{
+  "page": 51,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona lifts the Covenant band while Ada remains across the room. Leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Ada places a public review notice between them on the table. Keep the notice unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Leona signs the notice. Leave upper area for the status text."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Leona leaves her seat empty and walks with Ada toward the civic hall. Keep the physical distance narrowing but not reconciled; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I can enter the review.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Then stay where people can answer you.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "No private promise.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "LEONA VEYRA \u2014 SUBJECT TO PUBLIC CHALLENGE",
+      "at": "top"
+    }
+  ]
+}

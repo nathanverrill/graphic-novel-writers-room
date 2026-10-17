@@ -1,0 +1,83 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "PRE-DAWN Keel pump hall. Alex crouches beside a trembling pump housing, surrounded by rusted machinery; leave upper third open for sound."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's scarred fingers find a damp seam while the analog gauge reads FLOW: NOMINAL. Keep the gauge and hand unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex wedges a salvaged bracket into the seam; the leak stops. Leave upper machinery space for the sound."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Foreman-7 approaches in a powered supervisory harness, tired human face visible through the visor. Alex remains beside the repaired pump; leave upper space for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "THUMM\u2014THUMM\u2014THUMM",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "FLOW: NOMINAL",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KCHK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Unauthorized bracket.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Working bracket.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Log it under you.",
+      "at": "bottom-left"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "page": 18,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex tests the covered machine with his palm and inserts the old connector. Keep the upper machine clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "The cloth drops and Bi11bot rises, showing rugged blue-and-mustard panels, scarf, pistons and warm amber eyes. Keep the upper workshop clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex studies Bi11bot while the robot tilts his head. Keep the upper space clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot's shoulder projector warms in the dark workshop. Keep the upper projection field clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CHK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Well. That took longer than expected.",
+      "at": "top-left",
+      "tail_x": 60.2,
+      "tail_y": 20.1
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You know me?",
+      "at": "top-left",
+      "tail_x": 35.9,
+      "tail_y": 30.4
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Adrian\u2019s jaw. His poorer timing.",
+      "at": "top-right",
+      "tail_x": 70.6,
+      "tail_y": 24.4
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Bi11bot. B11 if the room is on fire.",
+      "at": "top-left",
+      "tail_x": 15.5,
+      "tail_y": 26.4
+    }
+  ]
+}

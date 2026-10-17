@@ -1,0 +1,77 @@
+{
+  "page": 25,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex patches a ventilation line while Tomas coughs dust. Keep the upper pipe clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "B11's right eye ring rotates as he projects a route. Keep the upper projection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Foreman-7's supervisory harness flares at the worksite entrance. Keep the upper node area clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas closes his hand around the old key while indicating an older service wall. Keep the upper wall clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "My route assumed we left Tomas where he fell.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That was wrong.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Yes. What would you do?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Obstruction of an authority function is a household offense.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "I\u2019d use the door they forgot.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "page": 23,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "FRIDAY EVENING outside the Keel clinic. Tomas waits under a practical light as Alex arrives empty-handed. Leave upper clinic wall space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas faces Alex while Alex admits the missed payment. Keep both hands visible but no money present; leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex's identity band displays the forfeited shift and zero credits. Keep the screen unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Alex writes a revised 20-credit payment on the slip while Tomas holds the original terms. Leave upper space for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "You brought your face.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Lost the money.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "SHIFT FORFEITED \u2014 0 CREDITS",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Ten credits. Every week.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I know.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "20 CREDITS NEXT FRIDAY",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Then show me.",
+      "at": "top-right"
+    }
+  ]
+}

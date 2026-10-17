@@ -1,0 +1,42 @@
+{
+ "id": "40f042c1c03e",
+ "created": 1792086044.9907563,
+ "character": "bi11bot",
+ "name": "BI11BOT",
+ "as": "alex-phantum",
+ "as_name": "ALEX PHANTUM",
+ "moment": null,
+ "moment_label": null,
+ "model": "openai/gpt-5.6-luna-pro",
+ "cue": "(The scene opens. ALEX PHANTUM is here with you. You speak first.)",
+ "turns": [
+  {
+   "who": "character",
+   "text": "*My right eye ring clicks once as I focus on him.*\n\n\u201cAlex Phantum. Adrian left you a debt, a watch, and one badly concealed route. The debt is real. The route is worth checking.\u201d",
+   "t": 1792086055.1218674,
+   "verdict": "no"
+  },
+  {
+   "who": "you",
+   "text": "dude what the hell is in your arm?",
+   "t": 1792086169.2811797
+  },
+  {
+   "who": "character",
+   "text": "\u201cMostly old parts, two useful tools, and one spring that has exceeded its expected service life. Don\u2019t pull that.\u201d",
+   "t": 1792086231.7052393,
+   "verdict": "no"
+  },
+  {
+   "who": "you",
+   "text": "i'm a failure",
+   "t": 1792086530.6317565
+  },
+  {
+   "who": "character",
+   "text": "\u201cThat is a conclusion, not a measurement. You\u2019re tired, cornered, and carrying a debt you didn\u2019t make. Bad conditions. Not proof.\u201d",
+   "t": 1792086537.0370154,
+   "verdict": "no"
+  }
+ ]
+}

@@ -1,0 +1,70 @@
+{
+  "page": 39,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lina rejects an unsafe membrane claim at a Caldera bench. Leave upper bench space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri protects a living root filter from a disposal chute. Leave upper lab space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Jalen watches a surveillance reflection in his collar mirror and hands Alex a data shard. Leave upper corridor space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ren opens a scorched fabrication case and inspects a repairable component. Leave upper bay space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "I\u2019m not signing it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SURI",
+      "text": "It fails if the flow is wrong. I\u2019m taking it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "JALEN",
+      "text": "They\u2019ll flag the handoff.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "If the small shop can\u2019t service it, it isn\u2019t a product.",
+      "at": "top-left"
+    }
+  ]
+}

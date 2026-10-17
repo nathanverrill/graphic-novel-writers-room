@@ -1,0 +1,70 @@
+{
+  "page": 54,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Archive recording: Adrian stands in rising water before a transmission console. Leave upper space for his line."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian faces the archive camera, with water rising behind him. Keep his face and console clear; reserve upper area."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "The bulkhead closes as Adrian's hand disappears behind it. Leave upper area for the impact sound."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 watches the recording in the dark archive. His brass eye ring remains a quiet mechanical detail; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "B11, transmit the record.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Alex. The rest is yours to choose.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KUMM",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "I kept waiting for a better instruction.",
+      "at": "top-left"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "page": 46,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "The security barrier crushes Alex's wrist guard in the shutter track. Show the damaged guard and trapped hand without gore; leave upper space for the impact sound."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "A service shutter closes behind Lina as an institutional clerk forces her through the narrowing opening. Lina looks back toward Alex and Ada; leave upper-left clear for her warning."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada strikes the barrier glass from the opposite side while Alex reaches toward her. Keep the glass division and both faces clear; leave upper space for her cry."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The white-and-amber node above the barrier flashes the two status lines. Alex is trapped in foreground behind the barrier; leave the display unobstructed for lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CLANG",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "Don\u2019t sign anything.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Alex!",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "CONVENOR PASSAGE REQUIRED\nCOLLABORATOR STATUS: REVIEW PENDING",
+      "at": "top"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "page": 23,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "At Site 6, Ada studies the paper map while folded B11 sits in Alex's tool bag and Tomas approaches with the heavy old key. Keep the upper worksite clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's identity band displays the overdue installment and restricted travel status. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas holds out the old key to Alex beside the mine access. Keep the upper worksite clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "A hauling frame collapses behind them and pins Tomas. Keep the upper machinery clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Forty credits. Key, travel token and parts.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Separate from the household account?",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "CURRENT INSTALLMENT: OVERDUE\nTRAVEL: RESTRICTED\nAMOUNT REQUIRED TO RESTORE: 500 CREDITS",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Pay me from Halyard work.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I will.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

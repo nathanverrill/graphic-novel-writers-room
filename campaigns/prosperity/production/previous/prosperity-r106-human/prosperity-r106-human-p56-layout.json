@@ -1,0 +1,69 @@
+{
+  "page": 56,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "A civic status display changes from COLLABORATOR STATUS: REVIEW PENDING to PUBLIC REVIEW RELEASE AUTHORIZED as the public release record is entered. Leave display clear for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "A service door opens and Lina enters with a stamped release notice, bruised but upright. Ada turns toward her; reserve upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Lina places the release notice beside the purifier record and tears the unsigned House form in half. Keep both documents clear; leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "On the civic table: the sealed Measure reading, Maker's Seal record, Adrian's and Leona's linked bands, and Mera's dark band. Alex stops Mera's hand above the authority field. Keep the objects separated and legible."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "PUBLIC REVIEW RELEASE AUTHORIZED",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You all right?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "They wanted a signature.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not yours.",
+      "at": "top-left"
+    }
+  ]
+}

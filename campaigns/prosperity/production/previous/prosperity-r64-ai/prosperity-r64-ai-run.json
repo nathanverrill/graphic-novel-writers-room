@@ -1,0 +1,95 @@
+{
+  "id": "r64-ai",
+  "kind": "ai",
+  "started": "2026-10-11T00:28:41",
+  "finished": "2026-10-11T00:32:06",
+  "status": "done",
+  "files_written": [
+    "analysis.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "0f261409a757ac52",
+    "prosperity/drafts/chapter-02-draft.md": "9d172057fec98078",
+    "prosperity/drafts/chapter-03-draft.md": "23dc223856335076",
+    "prosperity/drafts/chapter-04-draft.md": "37ff4d8cde680374",
+    "prosperity/drafts/chapter-05-draft.md": "7f99396156f4a34f",
+    "prosperity/drafts/chapter-06-draft.md": "1c0d6c99b1adede4",
+    "prosperity/input/notes.md": "5bd350254d7cc507",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "913019e59ff89665",
+    "prosperity/rules/stakeholders.md": "7bf68df3cdafe266",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 1,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.470468,
+      "input_tokens": 21687,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 19186,
+      "reasoning_tokens": 10227,
+      "total_tokens": 40873
+    },
+    "by_role": {
+      "analyst": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.470468,
+        "input_tokens": 21687,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 19186,
+        "reasoning_tokens": 10227,
+        "total_tokens": 40873
+      }
+    }
+  },
+  "run_id": "e931a7544c10",
+  "note": "The room is in analysis: The Analyst reads the whole script, the pages only, as the book's audience, its partner and its backer would meet it, and as a comic writer, a game designer and a streaming showrunner would. It reports the political read, what might offend and whom, and whether it smells like schoolwork. It fixes nothing.\n\nThe book is exactly 54 pages: pages 1-54, no more, no fewer.",
+  "roles": [
+    "analyst"
+  ],
+  "configs": {
+    "analyst": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "anthropic/claude-opus-5.5",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 900,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "analysis",
+  "pages": [
+    46
+  ]
+}

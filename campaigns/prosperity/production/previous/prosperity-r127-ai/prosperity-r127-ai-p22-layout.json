@@ -1,0 +1,69 @@
+{
+  "page": 22,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "An amber Legacy Protocol signal pulses through Keel's pump hall, rail gate, Halyard and Oasis while Alex and Ada move along the unmonitored maintenance lane. Keep upper signal path clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "In an Oasis control room, Mera sees the Legacy Protocol alert on a cold display. Keep upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera aligns a glass of water with the desk edge, then stops correcting it. Keep upper desk clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex and Ada emerge from the service route at the perimeter of Site 6, small beneath the mine structures. Keep upper worksite clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "LEGACY PROTOCOL DETECTED \u2014 SOURCE: KEEL SECTOR.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Track.",
+      "at": "top-left",
+      "tail_x": 28.0,
+      "tail_y": 37.7
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "TRACKING ACTIVE.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "SITE 6 \u2014 UNAUTHORIZED ROUTE DETECTED.",
+      "at": "top"
+    }
+  ]
+}

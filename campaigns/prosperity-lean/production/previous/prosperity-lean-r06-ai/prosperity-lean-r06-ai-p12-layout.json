@@ -1,0 +1,112 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 50,
+          "description": "In the colder control chamber beyond the sealed shutter, Alex and fully unfolded Bi11bot stand among damp rock, rusted rails, and old manual pipes. The same awakened white-and-amber node remains behind the shutter grille. Alex holds Adrian\u2019s opened steel watch against the node\u2019s matching equation; the marks align visually but nothing opens. Bi11bot faces the dark tunnel with soft amber eyes. Leave upper-left for TIK\u2026 and upper-right for one balloon only."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "description": "The opened watch is held against the original node\u2019s matching looping pattern. A small edge status indicator reads UNAUTHORIZED MANUAL INTERVENTION in an isolated lower-left display zone. Keep the equation unobstructed; reserve upper-right for Alex\u2019s first balloon and bottom-right for Bi11bot\u2019s reply."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "deep",
+          "description": "A distant mechanical work-light sweeps once across the far tunnel wall without revealing its carrier. Bi11bot\u2019s right eye ring clicks toward the sound. Keep KLANG\u2026 KLANG\u2026 KLANG\u2026 in a dedicated far-left tunnel zone, physically attached to the approaching sound and clear of the upper-right balloon."
+        },
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "low",
+          "description": "Alex closes his fingers around the open watch but keeps it pressed against the matching equation. He turns from the sealed shutter toward the deeper tunnel, placing himself between Bi11bot and the approaching light. Keep the vanishing point ahead; place the final KLANG in the far-left tunnel zone and reserve upper-right for Alex\u2019s final balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TIK\u2026 TIK\u2026 TIK\u2026",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father knew this place.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "UNAUTHORIZED MANUAL INTERVENTION",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He worked here.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Is that better?",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It\u2019s evidence.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KLANG\u2026 KLANG\u2026 KLANG\u2026",
+      "size": "large",
+      "at": "left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "What do we do now?",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KLANG",
+      "size": "large",
+      "at": "left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "We find out what he was investigating.",
+      "at": "top-right"
+    }
+  ]
+}

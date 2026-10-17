@@ -1,0 +1,49 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "TJ reaches the boathouse, wet and crooked, while the granddaughter steadies him. Leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "TJ drops the broken drone component at older Alex's feet. Keep the component and wet dock dominant; leave upper space for the impact sound."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "description": "Older Alex and his granddaughter look down at the broken component between them. Keep their hands and the object clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The component lies between the granddaughter, Alex and TJ on the dock, forming a quiet triangle. Leave surrounding boards uncluttered."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLINK",
+      "size": "medium",
+      "at": "middle"
+    }
+  ]
+}

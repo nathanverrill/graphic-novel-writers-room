@@ -1,0 +1,77 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Night at Lake Keel's boathouse. Older Alex grips a mooring post as TJ steps from the dock and separates mid-stride; his granddaughter stands behind him in a blanket. Leave upper band clear for sound lettering."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Close on the granddaughter and Alex; across the lake, a tanker barge and two siphon drones work beneath white lamps. Leave upper corners clear for two balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "TJ's head glides ahead while his torso and legs travel independently toward the barge. Leave open water above for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter catches Alex's sleeve while he keeps watching the theft. Leave upper third clear for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KLAK\u2014KLAK\u2014KLAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Is TJ broken?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not usually.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Should we call someone?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Let\u2019s see what they came to take.",
+      "at": "top-right"
+    }
+  ]
+}

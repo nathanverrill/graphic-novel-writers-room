@@ -1,0 +1,63 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex stands before the bookcase; one narrow gap is empty behind technical manuals. Leave upper shelf space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The looping equation engraved on Adrian's watch caseback fills the panel. Leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex places the notebook in the gap. The shelf shifts. Leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The bookcase swings inward to reveal a dark workshop. Ada stands beside Alex. Leave upper doorway space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KLIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s one way to hide a room.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Badly, eventually.",
+      "at": "top-right"
+    }
+  ]
+}

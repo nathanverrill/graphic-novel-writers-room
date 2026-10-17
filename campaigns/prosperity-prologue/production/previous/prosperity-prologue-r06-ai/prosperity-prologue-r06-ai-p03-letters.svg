@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 3</text>
+<g data-item="0">
+<polygon points="111,1126 143,1114 189,1279" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="127" cy="1120" rx="93" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="127" y="1080" font-size="19" fill="#111">THIS ONE&#x27;S</text>
+<text x="127" y="1103" font-size="19" fill="#111">JUST A</text>
+<text x="127" y="1126" font-size="19" fill="#111">DRAWING. WHY</text>
+<text x="127" y="1150" font-size="19" fill="#111">ISN&#x27;T IT A</text>
+<text x="127" y="1173" font-size="19" fill="#111">PATENT?</text>
+</g>
+<g data-item="1">
+<polygon points="359,1114 391,1126 313,1279" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="375" cy="1120" rx="93" ry="52" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="375" y="1103" font-size="19" fill="#111">BECAUSE IT</text>
+<text x="375" y="1126" font-size="19" fill="#111">NEVER NEEDED</text>
+<text x="375" y="1150" font-size="19" fill="#111">TO BE.</text>
+</g>
+<g data-item="2">
+<polygon points="602,1115 637,1115 620,1277" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="619" cy="1115" rx="82" ry="75" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="619" y="1075" font-size="19" fill="#111">INVENTING</text>
+<text x="619" y="1098" font-size="19" fill="#111">STUFF MUST</text>
+<text x="619" y="1121" font-size="19" fill="#111">HAVE BEEN</text>
+<text x="619" y="1144" font-size="19" fill="#111">*SO* MUCH</text>
+<text x="619" y="1168" font-size="19" fill="#111">FUN.</text>
+</g>
+</g>
+</svg>

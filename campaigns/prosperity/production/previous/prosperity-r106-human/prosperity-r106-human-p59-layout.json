@@ -1,0 +1,76 @@
+{
+  "page": 59,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex withdraws his hand from the lever while Mera watches. Leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "description": "Ada keeps hold of Alex's wrist. Leave upper corners clear for their exchange."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Mera cancels the preview; debt remains active, ownership unchanged and review required. Keep the display unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Alex pushes the lever away. The affected residents and safeguards remain visible behind him; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I could fix what I see.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Quickly.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "And who checks what you miss?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "DEBT: ACTIVE\nOWNERSHIP: UNCHANGED\nREVIEW: REQUIRED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No executive designation.",
+      "at": "top-left"
+    }
+  ]
+}

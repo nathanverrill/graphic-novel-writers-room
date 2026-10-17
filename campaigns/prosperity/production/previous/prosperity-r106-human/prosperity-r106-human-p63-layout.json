@@ -1,0 +1,74 @@
+{
+  "page": 63,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Months later in a reopened Keel repair shop, a customer brings a damaged purifier casing to the counter. The sign reads MORROW & SONS; five maker names appear below. Leave upper area for the sign lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex tests the casing while Ren quotes a repair price; the customer counts credits and agrees. Keep the transaction physical and leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex hands Tomas a receipt marked medicine advance paid and weekly terms complete. Behind the receipt, a compact dated ledger shows repeated purifier repair work and credited debt payments without inventing a separate total. Keep the receipt and ledger distinct; leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex's public record shows the reduced debt and travel eligible for public review while the shop continues working behind him. Leave upper area for the record."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "MORROW & SONS\nLINA VEY \u00b7 SURI ANIK \u00b7 JALEN ORR \u00b7 REN OKAFOR \u00b7 ALEX PHANTUM",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "MEDICINE ADVANCE: PAID\nWEEKLY TERMS: COMPLETE",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Took you long enough.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You kept counting.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "DEBT BALANCE: 402,110 CREDITS\nTRAVEL: ELIGIBLE FOR PUBLIC REVIEW",
+      "at": "top"
+    }
+  ]
+}

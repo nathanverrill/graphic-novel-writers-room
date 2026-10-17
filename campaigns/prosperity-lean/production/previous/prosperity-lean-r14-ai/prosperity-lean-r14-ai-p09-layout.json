@@ -1,0 +1,112 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Alex jumps backward and knocks over a stool, hands half-raised. Bi11bot dusts off his shoulders in the foreground and turns toward him. Keep both silhouettes readable and reserve the upper third for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "tight close-up",
+          "angle": "eye",
+          "description": "Bi11bot\u2019s amber eyes narrow to focus; the heavy rings rotate with a click and his head tilts patiently. Keep the face clear and reserve separate upper-left and upper-right dialogue zones."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot looks toward the watch on Alex\u2019s left wrist. Alex briefly unfastens and rotates it to expose the looping equation on the caseback; Bi11bot\u2019s mustard hand hovers above it without touching. Show the strap still looped around Alex\u2019s left wrist. Keep equation and chalkboard unobstructed; reserve the upper third for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "short wide",
+          "angle": "eye",
+          "description": "Alex immediately refastens the watch on his left wrist as a small projector unfolds from Bi11bot\u2019s shoulder. Soft-blue light falls across Alex\u2019s face and the workshop drops into shadow. Reserve the upper-left for the projector SFX and upper-right for the final balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Okay. That's... new.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You're taller than your father predicted.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone in Keel claims they knew my father.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Most of them knew his reputation. I knew his mistakes.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Right on time.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You know about the watch?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "He wanted you to know the true cost of your decisions.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Now. Shall we say hello to your father?",
+      "at": "top-right"
+    }
+  ]
+}

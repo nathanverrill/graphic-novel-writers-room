@@ -1,0 +1,70 @@
+{
+  "page": 18,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Alex opens the sealed Measure case in the hidden workshop. B11 unfolds from inside, dust-covered and compact; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "B11's warm amber eyes activate and the brass ring around his right eye rotates. Keep his face-like optics nonhuman and leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex steps back while B11 faces him. Keep both silhouettes clear and leave upper third open for the exchange."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "B11 unfolds Adrian's physical map across the workbench; its route ends beneath the sealed old works. Keep the map readable and leave upper margin."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "Stored. Sleep is more comfortable.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "You are Adrian\u2019s son.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Problem?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "A fact with a poor record.",
+      "at": "bottom-left"
+    }
+  ]
+}

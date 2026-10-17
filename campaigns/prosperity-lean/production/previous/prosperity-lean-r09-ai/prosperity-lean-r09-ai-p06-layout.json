@@ -1,0 +1,126 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex opens Adrian\u2019s steel watch and holds its looping equation beside the etched housing pattern. Keep both clear; reserve upper third."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Alex moves his work light across three recessed ports, using the watch only as visual reference. Reserve upper-left and upper-right."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot braces the housing while Alex loosens the identified fasteners. Reserve upper-left, upper-right, and bottom-right; keep lower-left for SFX."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The panel comes loose, exposing an older maintenance mark beneath the newer assembly and a thin amber flicker. Keep the mark clear; reserve upper-left for SFX."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Same shape.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Similar.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You said same.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I changed my mind.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "This one. Then the lower port. Then the return.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "What happens then?",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "We find out what it\u2019s hiding.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KRRRNNK",
+      "size": "medium",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You are pulling too hard.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It\u2019s stuck.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Those are different things.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "PIP\u2026 PIP\u2026",
+      "size": "small",
+      "at": "top-left"
+    }
+  ]
+}

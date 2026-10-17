@@ -1,0 +1,63 @@
+{
+  "page": 45,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Security shutters descend through the Halyard maker district, cutting across bright fabrication corridors. Keep the moving shutters dominant and leave upper space for sound."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Alex, Ada and Lina are separated from Suri, Jalen and Ren by a closing barrier. Keep no more than three named figures on Alex's side and leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "Alex jams his damaged wrist guard into the shutter track to hold it open. Keep the guard and mechanism clear; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada catches an access tool and throws it across the gap toward Alex. Make the handoff unmistakable and leave open air around the tool."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRRRNNK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Move!",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You first.",
+      "at": "top-left"
+    }
+  ]
+}

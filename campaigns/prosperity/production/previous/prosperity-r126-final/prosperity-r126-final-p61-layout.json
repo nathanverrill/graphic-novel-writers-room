@@ -1,0 +1,60 @@
+{
+  "page": 61,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The Alpha display changes from emergency command status while the civic hall watches. Keep upper display clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Across the hall, white-and-amber nodes shift from command amber to steady white. Keep upper nodes clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "A maintenance node continues routing water and payroll without issuing a new allocation. Keep upper node clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Old ownership, allocation and debt ledgers remain on the wall beneath a new human-review marker. Keep upper ledgers clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "EMERGENCY AUTHORITY: RESCINDED.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "MEASUREMENT \u2014 ROUTING \u2014 PAYROLL \u2014 MAINTENANCE \u2014 RECORD PUBLICATION",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "OPEN TO HUMAN REVIEW.",
+      "at": "top"
+    }
+  ]
+}

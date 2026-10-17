@@ -1,0 +1,70 @@
+{
+  "page": 31,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "The group climbs the conduit while TJ's detached head slips beneath a low brace. Keep the head's route and the people above readable."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Water reaches a red flood mark on the conduit wall. Keep the mark and rising water dominant."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "B11 slips on the wet walkway and Alex catches his articulated arm. Keep their grip clear and leave upper tunnel space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex pulls B11 upward as the flood gate closes below them. Keep the closing gate visible in depth and leave upper space for the sound."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "I once mapped a flood route backward for six hours.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Did it work?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "It taught me to stop calling the wall a door.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KUMM",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

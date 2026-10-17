@@ -1,0 +1,68 @@
+{
+  "page": 57,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "White-and-amber nodes activate across the civic hall without forming a face or body. Leave upper space for the system tone."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A display requests a designated human authority. Keep the administrative text unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera opens a cabinet and removes an old authorization lever while Alex and Ada watch. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The lever plate reads SINGLE AUTHORITY. Alex looks toward the affected residents beyond it; leave upper area."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "PIP\u2014PIP\u2014PIP",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LEGACY AUTHORITY TRANSFER REQUIRED\nDESIGNATED HUMAN AUTHORITY: UNASSIGNED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "This is the old answer.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "EXECUTIVE DESIGNATION: SINGLE AUTHORITY",
+      "at": "top"
+    }
+  ]
+}

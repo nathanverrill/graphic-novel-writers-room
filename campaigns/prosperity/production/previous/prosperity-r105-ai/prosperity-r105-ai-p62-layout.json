@@ -1,0 +1,74 @@
+{
+  "page": 62,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The public record identifies the supply as Caldera House inventory. Keep the source field unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "In a storage yard, Caldera-marked purifier crates sit sealed behind a barrier; a label states HOUSE INVENTORY \u2014 NOT CONNECTED. Leave upper space for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Tomas compares the crate identifier with a physical Keel gauge that remains nearly dry. Keep his hands, identifier and gauge in one readable comparison; leave upper space for the sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Tomas pushes the allocation sheet back. The Keel representatives mark it CHALLENGED; approval visibly stops. Leave upper-left for his line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "COMMUNITY SUPPLY: 420 UNITS\nSOURCE: CALDERA HOUSE INVENTORY 420",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "HOUSE INVENTORY \u2014 NOT CONNECTED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "TIK\u2014TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "CHALLENGED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Inventory isn\u2019t delivery.",
+      "at": "top-left"
+    }
+  ]
+}

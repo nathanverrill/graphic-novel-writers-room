@@ -1,0 +1,62 @@
+{
+  "page": 21,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 projects three locations along the infrastructure spine; the lowest marker glows inside Keel's sealed mine. Keep the upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex reaches for the projected mine marker and the display rejects his hand. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Two dim markers glow higher in the basin on B11's projection. Keep the upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex presses the mine marker while Ada watches. Keep the upper projection clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "NO AUTHORITY.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The others are not here.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we start here.",
+      "at": "top-left"
+    }
+  ]
+}

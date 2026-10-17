@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 11</text>
+<g data-item="0">
+<text x="254" y="392" font-size="65" font-weight="bold" fill="#fff" stroke="#111" stroke-width="7.8" paint-order="stroke" transform="rotate(-6 254 392)">THUMM—THUMM—THUMM</text>
+</g>
+<g data-item="1">
+<rect x="789" y="135" width="166" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="872" y="159" font-size="18" fill="#111">FLOW: NOMINAL</text>
+</g>
+<g data-item="2">
+<text x="254" y="1155" font-size="30" font-weight="bold" fill="#fff" stroke="#111" stroke-width="3.6" paint-order="stroke" transform="rotate(-6 254 1155)">KCHK</text>
+</g>
+<g data-item="3">
+<polygon points="604,920 637,911 684,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="916" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="911" font-size="19" fill="#111">UNAUTHORIZED</text>
+<text x="621" y="934" font-size="19" fill="#111">BRACKET.</text>
+</g>
+<g data-item="4">
+<polygon points="856,911 889,920 809,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="872" cy="916" rx="70" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="872" y="911" font-size="19" fill="#111">WORKING</text>
+<text x="872" y="934" font-size="19" fill="#111">BRACKET.</text>
+</g>
+<g data-item="5">
+<polygon points="621,1411 621,1377 684,1394" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="1394" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="1389" font-size="19" fill="#111">LOG IT UNDER</text>
+<text x="621" y="1412" font-size="19" fill="#111">YOU.</text>
+</g>
+</g>
+</svg>

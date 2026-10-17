@@ -1,0 +1,63 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At a ration channel, Ada opens a food tin and gives Alex half. Keep the ration queue and narrow water channel visible; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex studies a route scratched into pump metal. Ada's hand enters frame as she notices; leave upper metal surface clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The nearly dry channel runs beside the ration queue, making the material shortage visible. Keep Alex and Ada small and separated by the channel."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada takes the route from Alex and marks a safer turn with the rivet on her shoulder strap. Leave upper space for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You\u2019re going.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I\u2019m getting out.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "If you run, don\u2019t run blind.",
+      "at": "top-left"
+    }
+  ]
+}

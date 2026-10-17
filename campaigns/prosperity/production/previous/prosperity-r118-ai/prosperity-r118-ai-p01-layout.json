@@ -1,0 +1,77 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Night at a lakeside boathouse in 2099. Older Alex grips a mooring post as TJ steps from the dock and separates mid-stride; Alex's granddaughter stands behind him in a blanket. Leave the upper third of the dock and lake clear for sound lettering."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Close on the granddaughter and older Alex, with a tanker barge and two siphon drones working beneath white lamps across Lake Keel. Keep their faces clear and leave the upper-left lake area open for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "TJ's head glides ahead while his torso and legs travel independently toward the barge along the dock edge. Keep the separated dog-shaped parts readable and leave sky and water space for sound lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter catches older Alex's sleeve; he keeps watching the distant tanker and drones instead of turning. Leave the upper third open for the exchange."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KLAK\u2014KLAK\u2014KLAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Is TJ broken?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not usually.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Should we call someone?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Let\u2019s see what they came to take.",
+      "at": "top-right"
+    }
+  ]
+}

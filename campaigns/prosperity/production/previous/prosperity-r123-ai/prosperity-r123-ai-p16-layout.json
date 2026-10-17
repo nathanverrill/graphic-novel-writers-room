@@ -1,0 +1,63 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex stands before a bookcase with one narrow gap behind technical manuals. Keep the upper shelves clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex turns Adrian's watch over to reveal the looping equation engraved on the caseback. Keep the upper frame clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex places the notebook in the gap; the shelf shifts inward. Keep the upper shelf clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The bookcase swings open to a dark hidden workshop as Ada stands beside Alex. Keep the upper doorway clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "KLIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s one way to hide a room.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Badly, eventually.",
+      "at": "top-right"
+    }
+  ]
+}

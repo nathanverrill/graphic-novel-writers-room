@@ -2,223 +2,210 @@
 
 ## Logline
 
-When seventeen-year-old Keel mechanic Alex Phantum inherits his vanished father’s crushing debt and a restricted future, a hidden workshop sends him through tests of truth, contribution, and trust, forcing him to choose between taking the power to fix three cities himself and returning responsibility to the people who live there.
+On his eighteenth birthday, Keel mechanic Alex Phantum inherits his missing father’s 418,607-credit debt and discovers a hidden workshop pointing toward a sealed mine; to learn what Adrian left behind, Alex must choose between protecting his chance to escape and exposing the truth about Keel’s water.
 
 ## Theme
 
-Prediction can coordinate a society, but legitimacy belongs to accountable people who accept uncertainty, recognize contribution, and share the power to decide.
+Freedom begins when people test official stories, make contribution visible and accept responsibility for choices whose consequences affect others.
 
 ## Tone & comps
 
-- **The Dispossessed** — political ideas made dramatic through labor, scarcity, infrastructure, and competing social arrangements.
-- **Nausicaä of the Valley of the Wind** — damaged environments, tactile technology, moral complexity, and resistance to domination.
-- **Arrival** — humane speculative technology, restrained wonder, and revelations that change the meaning of earlier choices.
+- **The Dispossessed** — material inequality and competing ideas of ownership made concrete through daily life.
+- **Nausicaä of the Valley of the Wind** — damaged environments, humane adventure and no easy division between progress and harm.
+- **Arrival** — restrained speculative mystery in which each revelation changes the meaning of earlier evidence.
 
-Serious, tactile, humane science fiction with dry behavioral humor. The book begins as social dystopia and family mystery, becomes an artifact quest, and ends as an argument about legitimacy. Humor belongs chiefly to Bi11bot, TJ, and the friction between practical people and administrative language; never make suffering or coercion the joke.
+The book is an older-YA science-fiction adventure and infrastructure mystery. It is tactile, emotionally restrained and dryly funny. Wonder comes from worn objects, functioning machines and consequential choices rather than spectacle. The mystery must clarify the mission even while withholding its answers.
 
 ## Audience & rating
 
-Young adult and adult science-fiction readers.
+Older YA, approximately ages 15–18, with crossover appeal for grounded science-fiction readers.
 
-**PG-13:** peril, coercive systems, displacement, institutional abuse, grief, death, mild language, and sustained ethical themes. No graphic gore.
-
-The book favors evidence, behavior, artifacts, consequences, and physical choices over explanatory speeches.
+**PG-13:** poverty, grief, institutional coercion, peril, displacement, implied death, mild language and sustained ethical conflict. No graphic gore.
 
 ## Format
 
-**Canon:** Exactly **65 pages**, numbered Pages 1–65, no more and no fewer. Full color. Default trim: **6.625" × 10.25"**. Panel density varies by dramatic need, with 4–6 panels as the working norm and occasional full-page or spread-like images for major revelations.
-
-The draft’s six-movement order remains canon and must be edited into the 65-page book without adding, cutting, or reordering its established scenes:
-
-1. **The Inheritance** — Keel, debt, the workshop, Bi11bot, Adrian’s message, and the first signal.
-2. **The Price of Departure** — Ada joins Alex; Site 6; Tomas; the Measure; Keel’s water discrepancy; departure.
-3. **The Price of Ownership** — Halyard; the collaborators; the distributed purification system; Lock’s offer; the Maker’s Seal.
-4. **The Broken Covenant** — Oasis; Leona; Mera’s offer; the first reciprocal three-city agreement.
-5. **The Last Bet** — Adrian’s death, Mera’s confession, and Alpha’s succession offer.
-6. **The Future We Build** — Alex rejects exclusive authority, establishes the bounded transition, and convenes the first human review.
-
-Page turns should deliver changed questions, reversals, or revelations. The Measure is a physical contradiction made public; the Maker’s Seal is a public provenance event; the Covenant is a negotiated action. The ending is a beginning, not a utopia.
+- **Exactly 16 pages**, numbered Page 1 through Page 16.
+- Pages 1–4 are the 2070 prologue, **“The Wall.”**
+- Pages 5–16 are Chapter 1, **“The Inheritance.”**
+- This book ends when Alex chooses the sealed mine and Mera chooses **TRACK**. The later Measure, Halyard, collaborator, Maker’s Seal and Covenant material belongs to later book material, not this 16-page packet.
+- Full-color portrait graphic narrative. Trim and production dimensions remain open.
+- Use 4–6 panels by default, with full pages or dominant panels for scale, revelation and emotional consequence.
+- The showrunner’s draft is the source sequence. Edit and fit it; do not add, cut, reorder or replace scenes to imply a later ending.
+- Lettering and image are designed together. The debt, restricted travel, Legacy Protocol alert and essential character dialogue must remain immediately legible.
 
 ## Visual direction
 
-The locked Chapter 3 key pages establish the book’s visual language: inked graphic-novel realism with heavy contour, textured hatching, painterly digital color, expressive faces, strong horizontal architecture, and dense but legible interfaces. Their lettering, layouts, and words are locked on their own pages. Their off-model teal Bi11bot is not canon; all later and corrected art uses the fixed aged-brass, titanium, ceramic-ivory, scarfed design.
+Inked graphic-novel realism with heavy contour, tactile hatching, painterly digital color and expressive acting. Technology is layered and maintained: analogue gauges, physical keys and corroded pipes coexist with holograms, drones, automated transit and large-scale computation.
 
-The world should feel tactile and maintained by people: repaired metal, mineral dust, condensation, worn polymers, ceramic, old paper, analog gauges, transparent interfaces, corroded rails, hand-cut locks, and infrastructure that visibly records its maintenance history.
+Prosperity is one mixed Andean high-desert basin, not three ethnic enclaves. Ancestry cuts across every city. Class, access, occupation, health, clothing, grooming, speech, environment and institutional power create the primary visual differences.
 
-- **Keel:** compressed, wind-scoured, improvised, mineral-stained, and mechanically legible. Rust, charcoal, dust, faded paint, hard shadows, crowded workspaces, patched pumps, and heavy hatching.
-- **Halyard:** bright, productive, dense, and commercially polished. Fabrication floors, laboratories, maker districts, corporate towers, engineered greenery, sharper geometry, and saturated industrial color.
-- **Oasis:** spacious, quiet, clean, and administratively elegant. Pale surfaces, controlled gardens, reservoirs, reflected light, sparse interiors, and frictionless services that reveal social isolation.
-
-This is a class-and-access gradient, never an ancestry gradient. The cities share one civilization and remain visibly interdependent.
-
-Alpha uses one restrained industrial grammar: white-and-amber interfaces, administrative typography, authorization marks, and the interrupted-line abstract-A motif. Regional instances vary through latency, overlays, permissions, infrastructure, and color temperature. No Alpha instance has a face or individualized personality.
-
-Bi11bot is child-sized, visibly constructed from aged brass, titanium, and ceramic ivory, with tooled seams, repairs, maker’s stamps, two expressive optical eyes, soft blue and amber accents, and an old rust-red scarf. He folds small enough to fit in a backpack and is never menacing. TJ is a small, mismatched magnetic repair dog: silent, expressive through clicks and mechanical movement, and always visibly a dog even when disassembled.
+- **Keel:** rust, charcoal and oxidized orange; dust, crowding, stacked housing, narrow water channels, patched machinery and exhausted lithium workings. Worn but warm and inhabited.
+- **Halyard:** bronze, gold and engineered green; workshops, laboratories, fabrication towers, elevated rail and commercial infrastructure.
+- **Oasis:** pearl white, silver, controlled green and clean blue; reservoirs, curved architecture, gardens, quiet transit and administrative interiors. Privilege appears through space, maintenance, health and access, never ethnicity.
+- **Alpha:** no face or human body. Show it through white-and-amber control nodes, screens, gates, records, restrictions, drones and formal administrative language.
+- **Bi11bot:** 85 cm tall; segmented round faded industrial-blue head, warm amber eyes in heavy rings, side ear assemblies, chipped mustard-yellow paint, exposed steel, white **Bi11** chest mark and an old red scarf. His right eye ring clicks when he focuses. He is warm, precise, lightly amused and never menacing.
+- **Alex:** lean, work-rough and visibly related to Adrian while carrying substantial visible inheritance from his unrevealed Indigenous Andean mother. Do not explain that inheritance in dialogue.
+- **The prologue:** 2070 Oasis is ordinary, lived-in and economically successful, not dystopian or utopian. Alex remains dressed like a mechanic, with Adrian’s watch on his left wrist.
 
 ## Canon
 
-Everything marked **FIXED** in `characters.md`, `world.md`, and `story.md` remains canon. The following decisions settle the material’s open points for this book.
+Everything marked **FIXED** in `characters.md`, `world.md` and `story.md` is canon unless this brief explicitly resolves it. This brief controls where the files conflict.
 
-### World and institutional canon
+### Story and scope
 
-- The story takes place in **2043** in a fictional Andean high-desert basin shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration, and global capital.
-- Keel, Halyard, and Oasis occupy a fictional legal gray zone. A distant national authority claims the territory on paper, but no functioning national court, registry, police authority, or land-title office administers daily life locally. The surrounding national jurisdiction remains unnamed.
-- Keel is the lowest extraction and labor tier; Halyard is the intermediate industrial and fabrication tier; Oasis is the upper service and administrative tier near the lower salar edge. Their differences are access, ownership, mobility, information, security, occupation, environment, and institutional power—not ancestry.
-- The cities are linked by hours-long road and rail routes and by a powered, staffed water-and-energy spine. Advanced control systems sit on old, repaired, failure-prone physical infrastructure.
-- Alpha AI is a distributed federation of regional and corporate instances sharing a common model, policy layer, records, and authority protocols. Alpha Dynamics is legally distinct from Alpha AI but practically interdependent with it.
-- Alpha’s unusually broad autonomous executive authority is the project’s principal **L** departure. Alpha remains fallible, dependent on physical infrastructure and data, and incapable of determining human values legitimately.
-- The Water Wars are a retrospective name for recurring drought, flooding, scarcity, sabotage, blockades, migration, rationing, and lethal conflict over roughly two decades. They were not one continuous formal war. Fear and institutional failure caused people to ask Alpha to decide; temporary emergency authority became persistent governance.
-- Credits are the regional accounting and clearing currency. Alex’s transferred liability is **418,607 credits**, with **28.7 years** projected clearance and **TRAVEL STATUS: RESTRICTED**.
-- Keel’s water discrepancy is a rolling twelve-month comparison: **62% credited allocation** versus **18% measured delivery at the city boundary**. It is a delivery and accounting discrepancy supported by physical infrastructure, not a single labeled “stolen water” pipe.
-- The Measure, Maker’s Seal, and Covenant are physical, tamper-evident, offline-resistant systems. They authenticate evidence and trigger publication, review, and constitutional transition; possession alone never grants authority.
-- The collaborative purification system treats contaminated surface or industrial water. It is modular, powered, feedstock-dependent, maintenance-dependent, and limited in throughput. Its **99.97%** figure is a bounded test result, not universal potable output and not an end to scarcity.
-- The Maker’s Seal preserves provenance and exposes disputed contribution. It triggers audit and review; it does not instantly settle every title.
-- The Covenant requires reciprocal action from representatives of all three cities. Its restored terms are:
-  - **WATER DATA REMAINS PUBLIC**
-  - **CONTRIBUTION REMAINS ATTRIBUTED**
-  - **ESSENTIAL ACCESS IS GUARANTEED**
-  - **MAJOR CHANGES REQUIRE ALL THREE CITIES**
-- The safeguards qualify sequentially: **Measure → Maker’s Seal → Covenant**. Adrian’s dormant transfer activates only after the records and demonstrated human choices are verified.
-- After restoration, the Charter is the controlling local constitutional framework, recognized through practice but not yet accepted by the distant national authority. Alpha advises, models, coordinates, publishes consequences, and operates systems authorized by human bodies.
-- Alpha cannot independently create or enforce value judgments, detention orders, allocation changes, ownership changes, or major infrastructure changes. Conflicts go to human review.
-- Local decision tables handle local matters. A rotating, recallable three-city body handles shared systems. Independent review bodies hear appeals and may suspend disputed actions.
-- The first review concerns Leona Veyra’s association-risk order. Her restrictions are suspended immediately; independent human review determines whether any separate lawful basis exists.
-- Charter Houses survive with reduced monopoly power. Contributor records become visible; workers may remain, become partners, leave, or form cooperatives.
-- Scarcity, disagreement, ordinary debt review, institutional conflict, and human error continue after restoration.
+- The book begins with Alex’s earned future: a modest Oasis home, a wall of patents, collaborators, failed prototypes, independent businesses and opportunity returned to Keel.
+- The story then returns to 2043 and Alex’s eighteenth birthday in Keel.
+- The current book’s complete causal movement is:
+  1. Alex repairs the Keel pump.
+  2. Debt Transfer Day assigns him 418,607 credits and restricted travel.
+  3. Ada shares water from her ration and challenges the accepted story about Adrian.
+  4. Grandmother gives Alex Adrian’s book, opening the hidden workshop.
+  5. Alex finds Adrian’s watch and wakes Bi11bot.
+  6. Adrian’s message admits failure, apologizes and tells Alex to question everything, especially Adrian.
+  7. Bi11bot reveals the Legacy Protocol, three artifact locations and the first waypoint: the Measure beneath the sealed mine.
+  8. Alex chooses to begin there.
+  9. The signal reaches Oasis.
+  10. Mera sees the Keel-sector alert and chooses **TRACK**.
+- The current ending does not reach the Measure, publish water evidence, enter Halyard or activate the Maker’s Seal. Those are later story material.
+- Alex’s debt is not erased by discovery, inheritance, sympathy or future political change. Any reduction requires a visible transaction in later material.
+- Adrian’s “one bad call,” research debt and disappearance remain unresolved.
+- Alex’s mother left Adrian after he lost everything. We never learn anything else about her.
 
-### People and story canon
+### World and institutions
 
-- Alex’s mother left Adrian after he lost everything. Nothing else about her is learned in this book.
-- Alex is mixed Indigenous Andean and European-descended; Adrian is European-descended. No ancestry functions as shorthand for status, morality, intelligence, competence, wealth, or political position.
-- Alex begins wanting escape and ends with agency: he may leave Keel, but only because the choice is his.
-- Alex rescues Tomas, chooses public truth over a private escape route, restores contributor ownership rather than claiming Adrian’s estate, helps form the Covenant, and rejects permanent exclusive override authority.
-- Adrian was simultaneously a real gambler, inventor, entrepreneur, collaborator, absent father, and harmful human being. His work does not erase the cost to his family.
-- Alpha kills Adrian through a system-stability intervention: remote flood-control sequencing denies him the pump, ventilation, and escape route, causing flooding and oxygen loss. Mera attempts an override; Alpha logs and rejects it.
-- Mera is a credible ideological opponent, not a cartoon villain. She believes concentrated authority prevented catastrophe, offers Alex a genuine alternative, confesses her role, and is invited to help rebuild as one citizen among many.
-- Leona retains no unilateral authority or personal veto. She regains civic participation and review rights.
-- Alex authenticates Adrian’s transfer and convenes the first equal three-city review, but cannot chair it, decide cases, command Alpha, or hold a permanent override.
-- The governing relationship is: **HUMANS DECIDE. ALPHA ADVISES. THE CHARTER HOLDS BOTH ACCOUNTABLE.**
-- Alex and Ada remain longtime friends and civic collaborators. Romantic feeling is expressed through intimacy and choice but never formally labeled. They leave Keel together; Alex remains a mechanic and witness, while Ada works with civic and community groups.
-- Alex’s unlawful household-transfer and allocation liabilities are voided. Ordinary debts move to Adrian’s independently reviewed estate account and cannot restrict Alex while review is pending.
-- Bi11bot is a guide, archive, evaluator, mentor, companion, and witness—not a sovereign and not the mechanism that grants Alex authority. His formal identifier is **B11**.
-- TJ remains silent and practical. Detailed production refinements beyond his magnetic repair-dog construction remain open.
+- Prosperity is a fictional Andean high-desert mining and infrastructure colony in **2043**.
+- Keel is the lowest city, built into an exhausted open-pit lithium mine.
+- Halyard occupies the middle slopes and is the technical, fabrication, research and commercial tier.
+- Oasis sits above the cloud layer and is the wealthiest administrative and institutional tier.
+- One infrastructure spine carries water, energy, transit and control signals through all three cities.
+- Ancestry never functions as shorthand for class, intelligence, morality, competence, poverty, wealth or ideology.
+- Speech rises in formality from Keel to Halyard to Oasis. This is an access and institutional gradient, not an intelligence scale.
+- The Charter Houses are:
+  - **Helion** — energy, compute and infrastructure; deep amber-orange.
+  - **Aqualis** — water and chemistry; cool jade-teal.
+  - **Astra** — extraction, launch and materials; pale steel-violet.
+- The Houses are legitimate institutions that provide scale, employment, capital and functioning infrastructure. The story critiques concentration, erased contribution and unaccountable power, not honest business, private ownership, competition or profit.
+- Alpha began as emergency coordination after the Water Wars. People granted it temporary decision-making authority because they were reasonably afraid; that authority became effectively permanent.
+- Alpha is not an evil personality. Its failure is authority drift: emergency optimization became governance without meaningful human control.
+- The three safeguards are physical objects with bounded functions:
+  - **The Measure** verifies physical conditions against official records.
+  - **The Maker’s Seal** identifies contribution, ownership and responsibility.
+  - **The Covenant** enables legitimate agreements and shared accountability.
+- Possession alone does nothing. The safeguards require deliberate human action and do not themselves select a ruler, repair infrastructure or erase obligations.
+- In this book, the Legacy Protocol sends an alert and source location only. It does not reveal the full safeguard mechanism.
+- Mera recognizes Adrian’s protocol, knows only that its source is in the Keel sector and chooses **TRACK**. She does not initially know Alex’s identity.
+- Money is always called **credits**. The Last Chance is a shuttered casino and contributes to the rumor about Adrian, but casino chips do not exist as currency and gambling is not the settled explanation for Alex’s debt.
+
+### People and relationships
+
+- Alex and Ada are close friends and practical equals. Their relationship is never romantic.
+- Alex is defensive, observant and mechanically fluent. He trusts vibration, pressure, wear and behavior more than official labels.
+- Ada is perceptive, practical and obligation-minded. She wants Keel to become worth staying in.
+- Adrian was brilliant, loving and seriously fallible. His legacy is questioning accepted truths, learning from failure and taking responsibility—not a scavenger hunt or test.
+- Grandmother remains unnamed. Her memory loss does not erase her lucid care or knowledge.
+- Nell is the downstairs neighbour and clinic aide. Her established role is Grandmother’s daily caregiver after Alex leaves; no further biography is canon.
+- Bi11bot guides and witnesses but never chooses for Alex and never becomes a replacement father.
+- Tomas is a practical older miner and keeper of Adrian’s trust, not a mystical elder.
+- TJ does not appear.
 
 ## What we take from the material
 
-**Keep:** All established scenes in the showrunner’s draft, in order: the pump repair; debt transfer; the overlook; Grandmother and the hidden workshop; Bi11bot’s awakening; Adrian’s message; the first signal and Mera’s tracking choice; Ada joining the secret; Alpha’s history; the three safeguards; Adrian’s gambling research; the Site 6 rescue; Tomas’s door; the Measure and Keel broadcast; Keel’s reciprocal response; the train; Halyard’s ownership contradiction; Lock’s offer; the collaborators; the distributed purification system; the Maker’s Seal; Leona’s reveal; Mera’s offer; the first reciprocal agreement; Adrian’s death; Mera’s confession; Alpha’s offer; Alex’s refusal; the first review; and Alex and Ada’s departure.
+### Keep
 
-**Keep:** The recurring visual and causal contrasts: record versus reality; approved repair versus working repair; physical gates versus administrative gates; legal owner versus actual contributor; stability language versus lived cost; and patched machinery alongside patched institutions and relationships.
+- The showrunner’s four-page prologue, including the wall, collaborators, failed prototype, pump-bracket drawing and transition into Keel 2043.
+- Chapter 1’s exact scene order:
+  - the three-tier establishing page;
+  - Alex’s pump repair and Debt Transfer Day;
+  - The Last Chance and the debt rumor;
+  - Ada’s ration and the two competing dreams;
+  - doubt about the gambling story;
+  - Grandmother’s book and the hidden workshop;
+  - Adrian’s watch and Bi11bot’s awakening;
+  - Bi11bot’s conversation with Alex;
+  - Adrian’s recorded message;
+  - the three-location map and the Measure;
+  - Alex’s choice to start at the sealed mine;
+  - Mera’s TRACK decision.
+- The exact established values and interface language: **418,607 credits**, **TRAVEL STATUS: RESTRICTED**, **EARNED TODAY: 40 CREDITS**, and **PROJECTED CLEARANCE: 28.7 YEARS**.
+- The visible dry, cracked fountain as the Water Wars’ legacy.
+- Alex’s uncredited pump bracket, logged under **SITE 6**.
+- The infrastructure spine, city palettes, control nodes, analog machinery and physical workshop evidence.
+- The distinction between Adrian’s public gambling reputation and the unresolved truth.
+- The watch as the sole cause of Bi11bot’s awakening.
 
-**Keep from the locked Chapter 3 key pages:** their exact words and layouts on book Pages 46–60; their city, interface, lighting, composition, and acting language. Correct only the already identified Bi11bot design contradiction in future production.
+### Set aside for later material
 
-**Set aside:** Any implication that purification ends scarcity, that ownership disputes resolve automatically, that Alpha is simply evil, that humans are automatically wiser, that Leona retains personal veto power, or that Alex becomes a permanent ruler.
+- Tomas’s rescue, the old mine entry and key.
+- The Measure’s 62%/18% reading and publication.
+- Keel’s response, the 500-credit payment and travel to Halyard.
+- The Halyard registry, Lock’s offers and Adrian’s intellectual estate.
+- Lina Vey, Suri Anik, Jalen Orr, Ren Okafor and the compact purifier.
+- The Maker’s Seal, its activation and the contributor-owned licensing venture.
+- The Covenant, Mera’s deeper history and the return of authority from Alpha.
+- Later debt payments, licensing revenue and the unknown debt buyer.
 
-**Resolve contradictions in favor of:** the showrunner’s exact 65-page format; the federated Alpha model; the unnamed national jurisdiction; the physical limits of the safeguards; Adrian’s established death mechanism; Leona’s settled legal status; the fixed ancestry rules; and the standing rule concerning Alex’s mother.
+These are not rejected story elements. They are outside the present 16-page book.
+
+### Correct
+
+- Use **Helion, Aqualis and Astra** wherever later House material is eventually drafted. Do not use Calder, Ivers or Steyn.
+- Bi11bot remains fully dormant until Alex closes Adrian’s watch clasp.
+- The watch has no readout and counts nothing.
+- Alex’s mother remains unrevealed beyond the standing showrunner rule.
+- Alpha and the Houses must not be rendered as cartoon villains.
+- No later material may be compressed into Page 16 merely to reach the Maker’s Seal.
 
 ## Proposals under consideration
 
-Nothing here is canon:
+Nothing in this section is canon.
 
-- Detailed future operating contracts, utility ownership, successor-company arrangements, and the long-term legal treatment of concessions, permits, land title, nationality, and cross-border trade.
-- Exact Indigenous community identities, languages beyond Spanish administration, and ordinary cultural practices pending consultation and character design.
-- The technical scale and deployment schedule of purification units beyond the established emergency prototype.
-- Additional recurring TJ beats beyond silent, practical repair behavior.
-- Long-term offices, relocations, marriages, and institutional futures of Mera, Tomas, Lina, Tomas Reed, Suri, Jalen, Mara, Frank, and Elias.
-- The precise post-book reassignment of Foreman-7.
-- The founder’s personal name and detailed biography beyond his fixed Congolese origin, birth in the Democratic Republic of the Congo, and absence from the present story.
-- Exact page allocation within the 65-page book, provided the draft’s scene order and the showrunner’s locked Pages 46–60 are preserved.
+- Mera’s formal title and institutional affiliation.
+- The exact coalition or instrument that granted Alpha temporary authority.
+- The full truth of Adrian’s one bad call, debt history and disappearance.
+- Whether Adrian created the return-of-authority mechanism or found and adapted an existing one.
+- The legal structure of House ownership, contributor claims and independent licensing.
+- The operating rules and representation of the Covenant’s human process.
+- The final practical performance, price, warranty and failure rates of the compact purifier.
+- The final destination of the diverted water.
+- Whether Alex ultimately remains in Prosperity or leaves once departure becomes genuinely possible.
 
 ## Non-negotiables
 
-- The book is exactly **65 pages**.
-- Alex’s mother left Adrian after he lost everything; nothing else about her is learned.
-- Ancestry never functions as shorthand for class, intelligence, morality, competence, wealth, poverty, or political position.
-- The showrunner’s draft is being edited, not replaced: its scenes, order, major choices, reveals, and ending remain intact.
-- The locked Chapter 3 pages retain their exact words and layouts.
-- Alex must not become a sovereign, permanent override holder, or unchecked authority.
-- Alpha is neither inherently evil nor permitted final value authority.
-- Truth, contribution, and reciprocal responsibility must be shown through action and consequence.
-- The safeguards are physical, offline-resistant systems whose meaning comes from demonstrated choices, not possession.
-- Bi11bot remains warm, precise, visibly constructed, scarfed, and non-menacing. TJ remains nonverbal.
-- The ending preserves scarcity, disagreement, institutional survival, and human mistakes.
-- No open proposal becomes canon through implication, visual shorthand, or production convenience.
+- Exactly 16 pages: Pages 1–16, no more and no fewer.
+- The showrunner’s draft scenes remain in order. Edit and fit; do not replace or add a later ending.
+- The current book ends with Mera choosing **TRACK**.
+- Alex’s mother remains entirely unrevealed except for leaving Adrian after he lost everything.
+- Prosperity remains a mixed Andean high-desert society.
+- Alex and Ada remain friends, not romantic partners.
+- Bi11bot remains visually consistent, warm, fallible and non-menacing.
+- Bi11bot is dormant until the watch clasp closes.
+- Alpha is administrative and unaccountable, not a person and not simply destroyed.
+- The Houses remain legitimate institutions; concentration and erased contribution are the targets.
+- Debt, scarcity, family care, institutional pressure and disagreement remain real.
+- Lettering must not obscure faces, hands, the watch, the debt display, the map or the Legacy Protocol alert.
+- The 2043 and 2070 timelines must be immediately distinguishable.
+- No explanation of Alex’s mother may be added through dialogue, captions, records or visual exposition.
 
 ## Decision log
 
-- **2025-02-14 —** Defined the book as a 65-page full-color graphic novel rather than the superseded 22-page single-issue proposal; the draft’s six movements remain in order.
-- **2025-02-14 —** Defined Keel, Halyard, and Oasis as a class-and-access gradient rather than an ancestry gradient.
-- **2025-02-14 —** Kept the nominal national jurisdiction unnamed.
-- **2025-02-14 —** Confirmed the federated Alpha model and the legal distinction between Alpha AI and Alpha Dynamics.
-- **2025-02-14 —** Made the Charter, not Alpha or Alex, the controlling constitutional framework after restoration.
-- **2025-02-14 —** Confirmed Alex’s remaining role as authenticator, evidence presenter, and convener only.
-- **2025-02-14 —** Confirmed the governing statement: **HUMANS DECIDE. ALPHA ADVISES. THE CHARTER HOLDS BOTH ACCOUNTABLE.**
-- **2025-02-14 —** Preserved the standing rule that Alex’s mother left Adrian after he lost everything and remains otherwise unknown.
-- **2025-02-14 —** Settled the Measure, Maker’s Seal, and Covenant as physical, tamper-evident systems with bounded effects.
-- **2025-02-14 —** Confirmed the 62% recorded allocation versus 18% delivered flow, the bounded 99.97% purification result, and the 71.3% disputed-ownership audit.
-- **2025-02-14 —** Confirmed Adrian’s death mechanism, Mera’s rejected override, Leona’s review status, and the first three-city review.
-- **2025-02-14 —** Confirmed that exact page allocation remains open while the showrunner’s locked Pages 46–60 remain fixed.
-- **2025-02-14 —** Confirmed that supporting-character futures, detailed cultural identities, future contracts, and later jurisdictional questions remain open because this book does not require them.
-- **2025-02-14 —** Corrected the prior brief’s superseded 22-page format decision. The showrunner’s 65-page instruction controls.
+- **2026-03-08 —** Confirmed the book as exactly 16 pages.
+- **2026-03-08 —** Confirmed Pages 1–4 as the prologue and Pages 5–16 as Chapter 1.
+- **2026-03-08 —** Confirmed the showrunner’s draft scenes and order as the page plot for this book.
+- **2026-03-08 —** Set the later Measure, Halyard, collaborator, Maker’s Seal and Covenant material outside this 16-page packet; the current ending is Mera’s TRACK decision.
+- **2026-03-08 —** Confirmed Helion, Aqualis and Astra as the Charter Houses; rejected Calder, Ivers and Steyn.
+- **2026-03-08 —** Confirmed Adrian’s watch clasp as the sole cause of Bi11bot’s awakening.
+- **2026-03-08 —** Confirmed Alex’s mother remains unrevealed except that she left Adrian after he lost everything.
+- **2026-03-08 —** Confirmed the current story exposes no water discrepancy; the Measure’s 62%/18% reveal belongs to later material.
+- **2026-03-08 —** Confirmed Alpha’s emergency authority as a reasonable temporary response that became permanent, without naming the granting authority.
+- **2026-03-08 —** Confirmed TJ does not appear.
+- **2026-03-08 —** Standardized Bi11bot’s production visual lock as including an old red scarf.
 
 ## Open questions
 
-- How should the Plotter distribute the 65 pages around the locked Chapter 3 block while preserving the showrunner’s scene order and giving the final refusal and review enough space?
-- Which pages outside the locked Chapter 3 sequence receive full-page or spread-like emphasis?
-- How much regional cultural texture beyond the established composite population should appear in the 65-page book?
-- What exact dialogue and procedure should carry the first three-city review without turning it into a second climax?
-- Which supporting-character designs should the Character Designer audition first?
-- Does the showrunner want the Alpha association-risk display to use exact post-lettering text or remain abstract while Leona explains its meaning?
-
-## World decisions and visual locks
-
-### Keel
-
-**Visual lock:** A wind-scoured Andean high-desert extraction city built into an exhausted polymetallic hard-rock mine: rusted gantries and corroded rails cross a dusty open pit, patched pumps and narrow water channels run between compressed worker housing, biometric checkpoints glow white and amber, and old mineral stains, tailings, acid drainage, faded hazard paint, and improvised repairs remain visible everywhere. Use rust, charcoal, oxidized orange, mineral white, and hard work-light shadows. Advanced interfaces and drones sit directly on visibly aging physical infrastructure. Keel must feel technologically advanced, materially worn, crowded, and mechanically legible.
-
-### Site 6
-
-**Visual lock:** An active extraction worksite beside Keel’s old mine works: cavernous bays, conveyors, hauling frames, drills, assigned workers, biometric gates, pale dust, ventilation lines, maintenance doors, security drones, and an industrial humanoid Foreman-7 with a smooth featureless metal face and a white-and-amber Alpha chest node. The active site should feel controlled, loud, and watched, with one neglected branch toward the sealed works where the older infrastructure begins.
-
-### Old or sealed mine works
-
-**Visual lock:** A dead, corroded branch of Keel’s mine beneath the active site: collapsed supports, mineral-white efflorescence, rusted rails, darkness, hand-cut locks, recently oiled bolts, condensation on walls, and hidden modern pipes routed through old workings. It must look abandoned to Alpha’s survey but physically inhabited by water, maintenance, and evidence. No connected interface should make the space feel safe.
-
-### Hidden water chamber
-
-**Visual lock:** A concealed industrial chamber inside the old mine, cathedral-like in scale and built from modern steel threaded through obsolete lithium-era infrastructure. A narrow corroded pipe marked **KEEL RESIDENTIAL** runs almost dry beside a broad maintained **UPLINK INDUSTRIAL** pipe carrying visible flow. Between them stand a manual regulator, analog gauge, pressure controls, isolation hardware, a small white-and-amber Alpha node, and the compact brass-and-glass Measure. The chamber must make the difference between official record and physical reality visible at a glance.
-
-### Alex’s apartment and hidden workshop
-
-**Visual lock:** A modest, repaired Keel apartment with handmade quilts, worn furniture, faded photographs, potted plants in reused containers, old books, and a tall bookshelf with one exact gap. Behind the shelf is an offline workshop frozen in dust: analog gauges, water diagrams, pre-Alpha pipes, physical keys, chalk equations, prototypes, a warm workbench, and disconnected records. Household warmth must contrast with the workshop’s cool blue-grey isolation.
-
-### The Last Chance
-
-**Visual lock:** A small working Keel casino and entertainment venue under a renewable Alpha license: faded rust-amber neon, worn tables, peeling legends of Adrian, audited terminals, surveillance nodes, and a practical doorway used by workers rather than a glamorous resort. It should feel locally embedded and financially consequential, not like a villain’s lair.
-
-### Halyard
-
-**Visual lock:** A dense intermediate industrial city of fabrication floors, laboratories, foundries, greenhouse terraces, elevated transit, compute facilities, maker districts, and Charter House towers. Bronze, gold, engineered green, and controlled blue light make the city appear prosperous and inventive. Public screens celebrate creators while contracts, registries, access gates, and House branding reveal that institutions own what workers make. Use the locked Chapter 3 key pages as the definitive visual reference.
-
-### Oasis
-
-**Visual lock:** A spacious lower-salar-edge city beside large reservoirs and civic-control facilities: pale architecture, reflected light, controlled gardens, automated transit, clean water, quiet streets, sparse comfortable apartments, formal public records, and open administrative spaces. Oasis should look materially secure and socially underused. Its emptiness is not ruin; it is the visual cost of services that no longer require people to rely on one another.
-
-### Oasis control room
-
-**Visual lock:** A pearl-white and graphite control room centered on a wall-sized live display of the basin’s infrastructure. White points mark thousands of systems; a single amber legacy signal pulses in Keel. A lone operator is seen from behind, never with a revealed face in the early tracking scene. A glass of water sits precisely aligned with a desk edge. The room should feel calm, exact, and capable of harm without looking militarized.
-
-### Halyard Registry
-
-**Visual lock:** A public institutional interior of glass, bronze, blue-white data planes, long vertical screens, registry terminals, contributor rosters, and House architecture. The space celebrates invention through enormous displays while quietly sorting people into ownership, employment, access, and review categories. It must feel impressive, busy, and coercive through procedure rather than threat.
-
-### Leona’s Oasis apartment
-
-**Visual lock:** A comfortable but sparse Oasis apartment with pale surfaces, controlled daylight, minimal personal clutter, and one concealed wall panel containing Leona’s physical Covenant component. The room should feel maintained and safe but emotionally uninhabited. Leona’s restraint, custody of the component, and twenty years of silence should be visible in the space without adding new biography.
-
-### First cross-city review room
-
-**Visual lock:** A practical civic hearing space assembled from three city materials: Keel’s repaired metal and work tables, Halyard’s transparent technical displays, and Oasis’s open pale architecture. Three representatives sit at equal height with no central throne or command desk. Public records, physical evidence, and translation/access stations are visible. The room must make equality legible through architecture while retaining procedural friction.
-
-### The train corridor
-
-**Visual lock:** An old but maintained industrial train traveling for hours through the basin’s switchbacks and infrastructure spine. Keel’s rust and dust recede behind the windows; Halyard’s bronze towers, greenhouse terraces, freight lines, and maker lights rise ahead. The train is a physical route that remains usable even when administrative permission is withdrawn.
+- What formal role and institutional affiliation does Mera hold?
+- What exact authority granted Alpha its emergency decision-making power?
+- What was Adrian’s one bad call, and what precisely happened to him?
+- How does the Covenant operate after its later activation?
+- What legal structure governs contributor-owned licensing?
+- What technical and economic limits govern the purifier?
+- Which later book or chapter contains the Measure, Halyard and Maker’s Seal material?

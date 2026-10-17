@@ -1,0 +1,97 @@
+{
+  "id": "r08-ai",
+  "kind": "ai",
+  "started": "2026-10-12T18:04:19",
+  "finished": "2026-10-12T18:05:27",
+  "status": "done",
+  "files_written": [
+    "draft-edited.md",
+    "draft-final.md",
+    "draft-changes.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-lean/drafts/chapter-01-draft.md": "5c0b900324a43fa8",
+    "prosperity-lean/input/world.md": "9b902deef7d7a77e",
+    "prosperity-lean/rules/characters.md": "bb31f41190b31356"
+  },
+  "usage": {
+    "total": {
+      "calls": 2,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.02907915,
+      "input_tokens": 57825,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 12186,
+      "reasoning_tokens": 908,
+      "total_tokens": 70011
+    },
+    "by_role": {
+      "draft_editor": {
+        "calls": 2,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.02907915,
+        "input_tokens": 57825,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 12186,
+        "reasoning_tokens": 908,
+        "total_tokens": 70011
+      }
+    }
+  },
+  "run_id": "a4b57dff6e09",
+  "note": "The room is in draft edit: Edit mode only. The Draft Editor goes through your drafts against the canon - changing only the scenes, details and dialogue the canon or the dialogue rules contradict - then grows them by the pages you set, inserting only, every addition marked [NEW]. Pages are counted for an image model to draw consistently, and the count becomes the book's.\n\ndraft.md is the showrunner's own draft. Edit it to the canon, chapter by chapter: change only what the canon contradicts, keep everything else word for word, and flag what no longer fits rather than rewriting it.\n\nThe book is exactly 12 pages: pages 1-12, no more, no fewer.\n\nShowrunner's note for this round: Chapter 1, 12 pages, from the showrunner's draft in drafts/. Edit it; do not rewrite it.",
+  "roles": [
+    "draft_editor"
+  ],
+  "configs": {
+    "draft_editor": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 16000,
+      "thinking_budget": 0,
+      "max_steps": 1,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "drafts",
+  "pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ]
+}

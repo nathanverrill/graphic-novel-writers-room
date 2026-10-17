@@ -1,0 +1,62 @@
+{
+  "page": 44,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The first licensed Keel shop pays for the tested installation. Keep the transaction terminal and unit clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The terminal divides thirty-eight credits into debt, venture and reserve. Leave upper display space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex watches the payment enter his debt account while the contributors' names remain on the shop record. Leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A House fabrication floor begins assembling a larger competing purifier. Leave upper industrial space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "38 CREDITS\n12 \u2014 ALEX DEBT ACCOUNT\n18 \u2014 CONTRIBUTOR VENTURE\n8 \u2014 MAINTENANCE / WARRANTY RESERVE",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "House administration would make this easier.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "It would make the names disappear.",
+      "at": "top-right"
+    }
+  ]
+}

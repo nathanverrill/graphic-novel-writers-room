@@ -1,0 +1,70 @@
+{
+  "page": 50,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada places the photographs on Leona's table. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Leona meets Ada's eyes across the photographs. Leave upper area for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada grips the table edge, holding herself upright. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona touches the dark band but leaves it on the table. Keep the band visible and reserve upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Did you know where I was?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "Within a year.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "And you didn\u2019t come.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I made the safer choice. It hurt you anyway.",
+      "at": "top-left"
+    }
+  ]
+}

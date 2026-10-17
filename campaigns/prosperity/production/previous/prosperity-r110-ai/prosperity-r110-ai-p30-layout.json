@@ -1,0 +1,63 @@
+{
+  "page": 30,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A broad service conduit beneath the old works. Alex, Ada and B11 stand on an inspection walkway while TJ tests the shallow channel. Show the large empty tunnel and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Water spills through a rear flood gate behind the group, spreading across the channel. Keep the direction of danger unmistakable and leave upper tunnel space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada points toward the distant Halyard outlet while Alex looks at the rising water. Keep the outlet visible in the background and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "Alex, Ada and B11 begin climbing the conduit walkway as water spreads behind them. TJ stays low near the channel; leave upper tunnel space for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "SHHHHH",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s not a route.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "It is. The destination objected.",
+      "at": "top-right"
+    }
+  ]
+}

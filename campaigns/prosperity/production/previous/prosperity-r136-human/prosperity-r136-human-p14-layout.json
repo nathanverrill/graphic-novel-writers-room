@@ -1,0 +1,119 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Adrian\u2019s hologram appears above the workbench and looks toward Alex, who is a silhouette in the foreground with thumb over the watch. Keep the upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Alex\u2019s set jaw and bright eyes in blue hologram light. No lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Adrian\u2019s hologram at left, Alex at center and Grandmother in the bookshelf doorway. Leave upper-left and upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Adrian turns serious as the hologram shifts burgundy; Grandmother\u2019s hand presses to her chest. Reserve separate upper-left and lower-left zones for two short apology balloons, keeping Adrian\u2019s face and Grandmother\u2019s reaction visible."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Adrian leans toward the lens as scan lines begin. Reserve upper-left for the first short instruction and lower-right for the second; keep his face visible."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The hologram is gone. Alex sits in blue-grey afterglow with Bi11bot\u2019s amber eyes at frame edge and unfolds Adrian\u2019s photograph. No lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Hello, Alex. If you're seeing this... then you found the workshop.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Which means your grandmother still refuses to throw anything away.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "I heard that.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I wasn't there when you needed me. I'm sorry.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I made one bad call. I was wrong.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "You don't have to finish what I started. Find a better way.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Bi11bot has a map. Question everything. Especially me.",
+      "at": "bottom-right"
+    }
+  ]
+}

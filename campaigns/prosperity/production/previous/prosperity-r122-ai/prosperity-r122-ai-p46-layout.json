@@ -1,0 +1,91 @@
+{
+  "page": 46,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "In a civic archive, Leona stands among quiet records as Ada stops several steps away. Leave upper archive space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Leona opens a stone-grey box containing a sage-gold Covenant band and old photographs. Leave upper table space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona looks at the child's object in the box while Ada remains rigid across from her. Leave upper archive space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada faces Leona directly; the distance between them remains visible. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "You\u2019re taller.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s what you have?",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "Ada. My daughter.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I knew where you were within a year.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Then you knew enough to come.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I believed you were safer not knowing I was looking.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Safe for whom?",
+      "at": "top-right"
+    }
+  ]
+}

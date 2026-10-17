@@ -1,0 +1,128 @@
+{
+  "page": 13,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex jumps back and knocks over a stool while Bi11bot dusts his shoulders. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Bi11bot\u2019s warm amber eyes narrow to focus and the right-eye ring clicks. Keep his face open and non-menacing."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "over shoulder",
+          "horizon": 45,
+          "description": "Over Bi11bot\u2019s shoulder, Alex stands with arms crossed. Leave upper-left and upper-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Bi11bot looks toward Alex\u2019s wrist as Alex pulls the sleeve over the watch. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Alex turns the watch in his palm, showing the engraved equation. Bi11bot\u2019s mustard hand hovers above it. Leave upper-left and lower-right clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A projector unfolds from Bi11bot\u2019s shoulder and soft-blue light falls across Alex. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Okay. That's... new.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You're taller than your father predicted.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Everyone in Keel claims they knew my father.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Most of them knew his reputation. I knew his mistakes.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "And you found the watch.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You know about the watch?",
+      "at": "top-right"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Your father bet me you'd leave it in the dust. I said you wouldn't.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "...I almost did.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Almost isn't doing it. Now, shall we say hello to your father?",
+      "at": "top-left"
+    }
+  ]
+}

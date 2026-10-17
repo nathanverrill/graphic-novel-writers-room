@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 22</text>
+<g data-item="0">
+<rect x="550" y="109" width="393" height="58" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="133" font-size="18" fill="#111">LEGACY PROTOCOL DETECTED — SOURCE:</text>
+<text x="746" y="155" font-size="18" fill="#111">KEEL SECTOR.</text>
+</g>
+<g data-item="1">
+<polygon points="111,920 144,911 191,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="916" rx="58" ry="29" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="922" font-size="19" fill="#111">TRACK.</text>
+</g>
+<g data-item="2">
+<rect x="647" y="882" width="198" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="907" font-size="18" fill="#111">TRACKING ACTIVE.</text>
+</g>
+</g>
+</svg>

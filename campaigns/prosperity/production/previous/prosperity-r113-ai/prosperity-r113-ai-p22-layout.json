@@ -1,0 +1,69 @@
+{
+  "page": 22,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Alex's identity band scans at a Keel assignment station. Keep his wrist and scanner clear; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The band displays reassignment to Site 6 and restricted travel. Keep the display unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Foreman-7 points toward the mine lift in his powered harness while Alex faces him. Leave upper lift space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Alex studies the route on his wristband, dryly unimpressed. Keep his hand and face clear; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "SHIFT REASSIGNED: SITE 6\nTRAVEL: RESTRICTED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Bay six. Immediately.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Convenient.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Assigned.",
+      "at": "top-right"
+    }
+  ]
+}

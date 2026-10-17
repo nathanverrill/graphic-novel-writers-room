@@ -1,0 +1,70 @@
+{
+  "page": 56,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera holds her pearl-grey band above the two linked Covenant bands. Keep upper bands clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera places her band beside the others on the station table. Keep upper table clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The three bands link into a complete circle without any command display activating. Keep upper circle clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada lifts the linked Covenant while B11 secures the Measure and Maker's Seal in fitted compartments. Keep upper objects clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "I know the door closed. I know B11 activated. I don\u2019t know what happened after.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Review my records. Remove me if I hide one.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "CHK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Let\u2019s see what it does.",
+      "at": "top-left"
+    }
+  ]
+}

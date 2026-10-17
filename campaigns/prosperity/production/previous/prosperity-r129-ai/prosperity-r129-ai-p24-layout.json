@@ -1,0 +1,82 @@
+{
+  "page": 24,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Foreman-7 stands behind an amber node while Tomas is pinned beneath the collapsed frame. Keep the upper node clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex steps beyond the marked work boundary; his identity band flashes. Keep the upper display clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Alex wedges a salvaged bracket beneath the heavy frame while Tomas watches. Keep the upper frame clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The frame lifts and Tomas pulls free as Alex braces the bracket. Keep the upper machinery clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Phantum. Return to your assigned zone.",
+      "at": "top-left",
+      "tail_x": 45.8,
+      "tail_y": 13.9
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "LEAVING ASSIGNED ZONE \u2014 WAGE FORFEITED: \u221240 CR.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "You know that costs you.",
+      "at": "top-left",
+      "tail_x": 88.6,
+      "tail_y": 44.2
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I noticed.",
+      "at": "top-right",
+      "tail_x": 56.1,
+      "tail_y": 26.0
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

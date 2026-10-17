@@ -1,0 +1,57 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Underwater, TJ's detached leg drags his head through old mine rails. The brass ring around his right eye is present but unaccented; leave upper area open."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The leg snaps back onto TJ's head underwater. Leave space above for the sound effect."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "TJ's torso and remaining legs arrive separately and reassemble crookedly at the dock ladder. Preserve a dog silhouette."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "low",
+          "description": "TJ climbs onto the dock carrying a broken drone component. Leave upper third clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLAK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "object",
+      "label": "broken drone component",
+      "at": "bottom-right",
+      "w": 28,
+      "h": 18
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "description": "Inside the opened Keel pump housing, patched wiring, a sinking pressure gauge, mineral-crusted fittings, and a narrow service channel surround Alex\u2019s testing fingers. Keep the distant normal-allocation display separate from the balloon zone."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex loosens a corroded fitting; a weak spit of water strikes his scarred knuckles. Leave top-left for the SFX and right side for the dialogue stack."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "low",
+          "description": "Alex wedges up the lining, revealing a cleaner newer pipe vibrating hard and carrying water away. Bi11bot\u2019s amber eye and finger emerge from the bag, pointing. Leave top-left for SFX and the right side for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "description": "The concealed pipe disappears through the wall gap; its valve pulses and water travels away from the dry public line. Alex\u2019s scarred hand and steel watch touch it. Leave top-left for SFX and bottom-right for Alex\u2019s balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The allocation\u2019s fine.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "AUTHORIZED ALLOCATION: NORMAL",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK\u2014TIK\u2014TIK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "QUEUE WORKER",
+      "text": "Then fix here.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I\u2019m looking.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "VVVVVV",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That pipe is full.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "THUMM\u2014THUMM\u2014THUMM",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That isn\u2019t a failure.",
+      "at": "bottom-right"
+    }
+  ]
+}

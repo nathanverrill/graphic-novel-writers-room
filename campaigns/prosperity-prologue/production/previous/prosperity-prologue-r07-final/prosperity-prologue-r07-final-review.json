@@ -1,0 +1,40 @@
+{
+  "round": "r07-final",
+  "reviewed_round": "r06-ai",
+  "action": "finalize",
+  "comment": "",
+  "pages": {
+    "1": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "2": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "3": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    },
+    "4": {
+      "kept": false,
+      "comment": "",
+      "edited": false,
+      "text_similarity": 1.0,
+      "art_similarity": 1.0,
+      "text_changes": []
+    }
+  }
+}

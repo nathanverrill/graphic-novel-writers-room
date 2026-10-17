@@ -1,0 +1,61 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "description": "DAY. Keel pump hall: rust, narrow channels, stacked housing and dust. Alex presses his palm to a vibrating pump; keep the upper machinery clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex bolts a salvaged bracket over a cracked mount as the pump steadies. Keep the upper panel clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A white-and-amber control node records the repair beside the pump. Keep the upper node area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex approaches a checkpoint beneath a sign reading TODAY: DEBT TRANSFER DAY. Keep the upper sign area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "THRUM",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "ROUTINE MAINTENANCE ACCEPTED.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "TODAY: DEBT TRANSFER DAY.",
+      "at": "top"
+    }
+  ]
+}

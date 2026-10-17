@@ -1,0 +1,101 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex shows Ada an old photograph of Grandmother, Adrian with his face folded away and two-year-old Alex. Keep the upper photograph area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's fingers hold Adrian's worn steel watch beside the photograph. Keep the upper frame clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada turns the photograph toward the dusty light. Keep the upper light field clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Wind lifts dust across the pit rim as Alex and Ada stand apart. Keep the upper sky clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I was two.",
+      "at": "top-left",
+      "tail_x": 33.6,
+      "tail_y": 50.1
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You remember nothing?",
+      "at": "top-right",
+      "tail_x": 70.0,
+      "tail_y": 54.7
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The watch.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Keel says he gambled.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Grandmother says he worked.",
+      "at": "top-left",
+      "tail_x": 57.2,
+      "tail_y": 42.9
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What are you looking for?",
+      "at": "top-left",
+      "tail_x": 77.0,
+      "tail_y": 37.5
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The part that costs.",
+      "at": "top-right",
+      "tail_x": 31.3,
+      "tail_y": 33.8
+    }
+  ]
+}

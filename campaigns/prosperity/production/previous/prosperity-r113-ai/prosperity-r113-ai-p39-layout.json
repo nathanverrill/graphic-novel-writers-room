@@ -1,0 +1,69 @@
+{
+  "page": 39,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Vector House service corridor. Jalen watches white-and-amber nodes change state while holding his data case. Leave upper corridor space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Jalen gives Alex a routing shard. Keep the shard and their hands clear; leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Jalen's copper three-node access tag flashes a pattern-deviation review. Keep the tag unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Jalen steps through the service door with Alex and the others. Keep the corridor behind him visible as the route he leaves; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "JALEN",
+      "text": "They watch patterns.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "JALEN",
+      "text": "This keeps one failure from choking the whole unit.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "PATTERN DEVIATION: REVIEW",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "JALEN",
+      "text": "Now I\u2019m in it.",
+      "at": "top-left"
+    }
+  ]
+}

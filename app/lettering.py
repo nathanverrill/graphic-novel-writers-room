@@ -26,16 +26,19 @@ GUTTER = 0.01        # between panels: the models draw thin gutters
 FONT = "'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif"   # Comic Neue: the server's, for renders
 LINE = 1.22          # line height, in em
 CHAR = 0.62          # average glyph width, in em — enough for wrapping
-SIZES = {"caption": 0.0175, "balloon": 0.019, "whisper": 0.018, "thought": 0.019, "shout": 0.023,
-         "location": 0.02}
-SFX_SIZES = {"small": 0.03, "medium": 0.045, "large": 0.065, "huge": 0.09}
-SFX_STYLES = ("classic", "impact", "quake", "boom")   # how dramatic the display lettering is
+GLYPH = 0.8          # widest-line width per glyph, in em: what the balloon must hold, capitals in the comic font
+SIZES = {"caption": 0.014, "balloon": 0.0148, "whisper": 0.014, "thought": 0.0148, "shout": 0.018,
+         "location": 0.015, "screen": 0.0115, "sign": 0.012, "headline": 0.0135}
+SFX_SIZES = {"small": 0.024, "medium": 0.036, "large": 0.055, "huge": 0.08}
+SFX_STYLES = ("drawn", "classic", "impact", "quake", "boom")   # how dramatic the display lettering is
 ANCHORS = {   # keyword -> (x, y) inside the panel
     "top-left": (0.24, 0.18), "top": (0.5, 0.16), "top-right": (0.76, 0.18),
     "left": (0.22, 0.5), "middle": (0.5, 0.5), "center": (0.5, 0.5), "right": (0.78, 0.5),
     "bottom-left": (0.24, 0.82), "bottom": (0.5, 0.84), "bottom-right": (0.76, 0.82),
 }
-KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "sfx")
+KINDS = ("balloon", "whisper", "thought", "shout", "caption", "location", "screen", "sign", "headline", "sfx")
+BOXED = ("caption", "location", "screen", "sign", "headline")   # headline = a newspaper headline on newsprint   # boxes, not balloons: screen = a device readout, sign = printed text
+YELLOW = "#f4d978"      # the place-and-time box ("KEEL. 2043."), dark letters on yellow
 
 
 def page_size():
@@ -78,7 +81,7 @@ def spot(item, rect):
 
 def balloon_wrap(text, limit):
     """Comic balloons are read in short lines: roughly as wide as they are tall."""
-    per_line = min(limit, max(12, round((len(text) * 2.1) ** 0.5)))
+    per_line = min(limit, max(14, round((len(text) * 3.2) ** 0.5)))
     return wrap(text, per_line)
 
 
@@ -101,7 +104,9 @@ def items(spec):
     out = []
     for i, item in enumerate(spec.get("items") or []):
         if item.get("type") in KINDS:
-            out.append({"i": i, **item})
+            # a writer's *emphasis* marks are not lettered: the words are, plain
+            text = re.sub(r"\*+([^*]+)\*+", r"\1", str(item.get("text", ""))).replace("*", "")
+            out.append({"i": i, **item, "text": text})
     return out
 
 
@@ -135,7 +140,7 @@ def layer(spec, ctx=None, rects=None):
     (x0, y0, x1, y1) for hit areas, and each tailed balloon's tail target (x, y).
     `rects` overrides the panel grid - detect_rects measures it from the drawn art."""
     ctx = ctx or {}
-    W, H = page_size()
+    W, H = ctx.get("page_size") or page_size()    # the drawn art's proportions, when lettering over it
     rects = rects or panel_rects(spec)
     number = spec.get("page", 0)
     chapter = ctx.get("chapter")
@@ -143,9 +148,10 @@ def layer(spec, ctx=None, rects=None):
            f'<g font-family="{FONT}" text-anchor="middle">']
     label = f"CHAPTER {chapter} — PAGE {number}" if chapter and number == 1 else f"PAGE {number}"
     placed, boxes, tails = [], {}, {}
-    out.append(f'<text x="{round(W * 0.015)}" y="{round(H * 0.012) + round(W * 0.016)}" text-anchor="start" '
-               f'font-size="{round(W * 0.016)}" fill="#7ec8ff" stroke="#10304a" '
-               f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
+    if ctx.get("page_label", True):     # a marker on the lettering screen; never on a finished page
+        out.append(f'<text x="{round(W * 0.015)}" y="{round(H * 0.012) + round(W * 0.016)}" text-anchor="start" '
+                   f'font-size="{round(W * 0.016)}" fill="#7ec8ff" stroke="#10304a" '
+                   f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
     for item in items(spec):
         kind = item["type"]
         start = len(out)      # everything this item draws is wrapped in <g data-item> below
@@ -158,8 +164,14 @@ def layer(spec, ctx=None, rects=None):
             text = text[len(speaker) + 1:].strip()
         if kind == "sfx":
             size = SFX_SIZES.get(item.get("size", "medium"), 0.045) * W
-            style = item.get("style") if item.get("style") in SFX_STYLES else "classic"
-            if style == "impact":
+            style = item.get("style") if item.get("style") in SFX_STYLES else "drawn"
+            if style == "drawn":   # drawn into the scene: warm hand-lettered caps in the scene's light, thin dark edge, slanted
+                color = item.get("color") or "#f4e3a1"
+                out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size:.0f}" '
+                           f'font-family="\'Impact\', \'Arial Narrow\', sans-serif" font-weight="900" letter-spacing="1" '
+                           f'fill="{color}" stroke="#2b1d0e" stroke-width="{size * 0.035:.1f}" paint-order="stroke" '
+                           f'transform="rotate(-4 {px:.0f} {py:.0f}) skewX(-10)">{html.escape(text)}</text>')
+            elif style == "impact":
                 out.append(f'<text x="{px:.0f}" y="{py:.0f}" font-size="{size * 1.1:.0f}" '
                            f'font-family="\'Arial Black\', \'Impact\', sans-serif" font-weight="900" '
                            f'fill="#fff" stroke="#111" stroke-width="{size * 0.17:.1f}" paint-order="stroke" '
@@ -190,19 +202,42 @@ def layer(spec, ctx=None, rects=None):
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
         size = SIZES.get(kind, 0.019) * W
-        width = min(rect[2] * 0.86, 0.6) * W
+        width = (float(item["w"]) / 100 * rect[2] if "w" in item else min(rect[2] * 0.86, 0.6)) * W   # "w": percent of the panel
         limit = max(8, int(width / (size * CHAR)))
-        lines = wrap(text, limit) if kind in ("caption", "location") else balloon_wrap(text, limit)
+        lines = wrap(text, limit) if kind in BOXED else balloon_wrap(text, limit)
         # a balloon must fit its panel: in a short strip tier, wrap flat and wide instead of tall
         max_lines = max(1, int((rect[3] * H * 0.62) / (size * LINE)))
         if len(lines) > max_lines:
             per_line = min(limit, max(10, -(-len(text) // max_lines)))
             lines = wrap(text, per_line)
-        box_w = max(len(l) for l in lines) * size * CHAR
+        box_w = max(len(l) for l in lines) * size * GLYPH
         box_h = len(lines) * size * LINE
-        rx = box_w / 2 + size * 1.2
-        ry = max(box_h / 2 + size * 0.9, rx * 0.45)
-        pad = size * 0.5
+        boxed = kind in BOXED
+        if boxed:              # a box is as tall as its lines, not as round as a balloon
+            rx = (box_w + size * (2.0 if kind == "location" else 1.4)) / 2
+            ry = (box_h + size * (1.1 if kind == "location" else 0.9)) / 2
+        else:
+            rx = box_w / 2 + size * 1.2
+            ry = max(box_h / 2 + size * 0.75, rx * 0.36)
+        pad = size * (0.3 if boxed else 0.5)
+        fy = float(item["y"]) / 100 if "y" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[1]
+        edge_x, edge_y = rect[2] * 0.02 * W, rect[3] * 0.015 * H
+        exact = item.get("place") == "exact"      # a cover or a designed page: the x/y given, nothing hugged
+        if exact:
+            pass
+        elif kind == "location":   # a place-and-time header always sits in the panel's top-left corner
+            px, py = rect[0] * W + edge_x + rx + pad, rect[1] * H + edge_y + ry + pad
+        else:
+            if boxed:              # a caption at a side of the panel sits against that side
+                fx = float(item["x"]) / 100 if "x" in item else ANCHORS.get(item.get("at", "middle"), (0.5, 0.5))[0]
+                if fx <= 0.3:
+                    px = rect[0] * W + edge_x + rx + pad
+                elif fx >= 0.7:
+                    px = (rect[0] + rect[2]) * W - edge_x - rx - pad
+            if fy <= 0.3:          # anything at the top of a panel sits against its top edge, as lettered books do
+                py = rect[1] * H + edge_y + ry + pad
+            elif fy >= 0.7:
+                py = (rect[1] + rect[3]) * H - edge_y - ry - pad
         bounds = (rect[0] * W, rect[1] * H, (rect[0] + rect[2]) * W, (rect[1] + rect[3]) * H)
         x0, y0, x1, y1 = nudge((px - rx - pad, py - ry - pad, px + rx + pad, py + ry + pad), placed, bounds)
         bw, bh = x1 - x0, y1 - y0        # keep the box inside its drawn panel when it fits
@@ -213,8 +248,16 @@ def layer(spec, ctx=None, rects=None):
         placed.append((x0, y0, x1, y1))
         boxes[item["i"]] = (x0 / W, y0 / H, x1 / W, y1 / H)
         px, py = (x0 + x1) / 2, (y0 + y1) / 2
-        dark = item.get("invert", kind == "location")   # location headers run dark by default
+        dark = item.get("invert", False)
         fill, ink = ("#111", "#fff") if dark else ("#fff", "#111")
+        if kind == "location" and not dark:    # place-and-time headers: the book's yellow box
+            fill = YELLOW
+        elif kind == "screen":                 # a device readout: pale cyan on near-black
+            fill, ink = "#0d1b24", "#a6ecff"
+        elif kind == "sign":                   # printed matter in the scene: dark ink on paper
+            fill, ink = "#f3ead6", "#2a2118"
+        elif kind == "headline":               # a newspaper headline: black condensed serif on newsprint
+            fill, ink = "#ece3c8", "#111"
         dash = ' stroke-dasharray="6 5"' if kind == "whisper" else ""
         if kind == "location":
             cw, ch = box_w + size * 2.0, box_h + size * 1.1
@@ -227,12 +270,10 @@ def layer(spec, ctx=None, rects=None):
                 y += size * LINE
             out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
             continue
-        if kind == "caption":
-            # action text: a bright box with a heavy border, so it reads against any art
-            fill, ink = ("#111", "#ffe14d") if dark else ("#ffe14d", "#111")
+        if kind in ("caption", "screen", "sign", "headline"):
             cw, ch = box_w + size * 1.4, box_h + size * 0.9
             out.append(f'<rect x="{px - cw / 2:.0f}" y="{py - ch / 2:.0f}" width="{cw:.0f}" '
-                       f'height="{ch:.0f}" rx="{size * 0.3:.0f}" fill="{fill}" stroke="{ink}" stroke-width="3"/>')
+                       f'height="{ch:.0f}" rx="{size * 0.3:.0f}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
         elif kind == "thought":
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2" stroke-dasharray="2 7"/>')
@@ -247,24 +288,35 @@ def layer(spec, ctx=None, rects=None):
                 pts.append(f"{px + math.cos(ang) * rx * rr * 1.15:.0f},{py + math.sin(ang) * ry * rr * 1.2:.0f}")
             out.append(f'<polygon points="{" ".join(pts)}" fill="{fill}" stroke="{ink}" stroke-width="2"/>')
         else:
-            if speaker and item.get("tail", "auto") != "none":
-                # the tail target is still tracked (the lettering desk drags it),
-                # but no pointer is drawn: against real art the arrows kept landing wrong
+            if speaker and item.get("tail", "auto") != "none":   # tail first: the balloon covers its base
                 if item.get("tail_x") is not None and item.get("tail_y") is not None:
                     tx = (rect[0] + rect[2] * float(item["tail_x"]) / 100) * W
                     ty = (rect[1] + rect[3] * float(item["tail_y"]) / 100) * H
                 else:
                     tx, ty = rect[0] * W + rect[2] * W / 2, (rect[1] + rect[3] * 0.82) * H
                 tails[item["i"]] = (round(tx / W, 4), round(ty / H, 4))
+                dx, dy = (tx - px), (ty - py)
+                norm = max((dx ** 2 + dy ** 2) ** 0.5, 1)
+                ux, uy = dx / norm, dy / norm
+                edge = 1 / max(((ux / rx) ** 2 + (uy / ry) ** 2) ** 0.5, 1e-6)   # the ellipse's radius that way
+                # a short tail that points at the speaker and stops well short of them
+                reach = edge + max(size * 0.9, min(norm - edge - size * 3, size * 2.2))
+                ox, oy = -uy * size * 0.9, ux * size * 0.9
+                out.append(f'<polygon points="{px + ox:.0f},{py + oy:.0f} {px - ox:.0f},{py - oy:.0f} '
+                           f'{px + ux * reach:.0f},{py + uy * reach:.0f}" fill="{fill}" stroke="{ink}" '
+                           f'stroke-width="2" stroke-linejoin="round"/>')
             out.append(f'<ellipse cx="{px:.0f}" cy="{py:.0f}" rx="{rx:.0f}" ry="{ry:.0f}" '
                        f'fill="{fill}" stroke="{ink}" stroke-width="2"{dash}/>')
-            if speaker:                 # the tail used to say who speaks; now a small name does
-                out.append(f'<text x="{px:.0f}" y="{py - ry - size * 0.35:.0f}" font-size="{size * 0.72:.0f}" '
-                           f'fill="{ink}" font-weight="bold" letter-spacing="1" stroke="{fill}" '
-                           f'stroke-width="3" paint-order="stroke">{html.escape(speaker)}</text>')
+            if item["i"] in tails:     # the balloon's outline crosses the tail's base: fill over the join
+                bx, by = px + ux * edge * 0.82, py + uy * edge * 0.82
+                out.append(f'<polygon points="{bx + ox * 0.8:.0f},{by + oy * 0.8:.0f} {bx - ox * 0.8:.0f},{by - oy * 0.8:.0f} '
+                           f'{px + ux * (reach - size * 0.35):.0f},{py + uy * (reach - size * 0.35):.0f}" '
+                           f'fill="{fill}" stroke="none"/>')
         y = py - box_h / 2 + size * 0.95
+        face = (' font-family="\'Oswald\', \'Bebas Neue\', \'Arial Narrow\', \'Georgia\', serif" font-weight="bold"'
+                if kind == "headline" else "")
         for line in lines:
-            out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}">'
+            out.append(f'<text x="{px:.0f}" y="{y:.0f}" font-size="{size:.0f}" fill="{ink}"{face}>'
                        f'{html.escape(line)}</text>')
             y += size * LINE
         out[start:] = [f'<g data-item="{item["i"]}">'] + out[start:] + ["</g>"]
@@ -480,8 +532,54 @@ def replace_block(markdown, page, spec):
 
 # ---- the drawn grid: detected from the art, because the model's page is the real page ----
 
+def gutter_rects(spec, art_bytes, white=232, cover=0.92):
+    """{panel: (x, y, w, h)} from the drawn page's white gutters, or None when the drawn grid
+    does not have the tiers and panels the spec asks for. A tier is a stretch between
+    full-width white bands; a panel, a stretch of its tier between full-height white bands."""
+    import io
+    from PIL import Image
+    tiers = spec.get("tiers") or []
+    if not tiers:
+        return None
+    im = Image.open(io.BytesIO(art_bytes)).convert("L")
+    im = im.resize((512, round(512 * im.height / im.width)))
+    W, H = im.size
+    px = im.load()
+
+    def bands(n, is_white, min_len):
+        """[(start, end)] of the stretches between white bands, each at least min_len long."""
+        out, s = [], None
+        for i in range(n + 1):
+            content = i < n and not is_white(i)
+            if content and s is None:
+                s = i
+            if not content and s is not None:
+                if i - s >= min_len:
+                    out.append((s, i))
+                s = None
+        return out
+
+    row_white = lambda y, x0=0, x1=W: sum(px[x, y] >= white for x in range(x0, x1)) >= cover * (x1 - x0)
+    tier_spans = bands(H, row_white, H * 0.06)
+    if len(tier_spans) != len(tiers):
+        return None
+    rects, n = {}, 0
+    for (y0, y1), tier in zip(tier_spans, tiers):
+        col_white = lambda x: sum(px[x, y] >= white for y in range(y0, y1)) >= cover * (y1 - y0)
+        cols = bands(W, col_white, W * 0.06)
+        if len(cols) != len(tier.get("panels") or [{}]):
+            return None
+        for x0, x1 in cols:
+            n += 1
+            rects[n] = (x0 / W, y0 / H, (x1 - x0) / W, (y1 - y0) / H)
+    return rects
+
+
 def detect_rects(spec, art_bytes):
     """{panel: (x, y, w, h)} measured from the drawn art, or None when there is no art.
+
+    The white gutters first (gutter_rects): exact when the drawn grid has the spec's tiers and
+    panels, which is nearly always. The measurement below is the fallback.
 
     The models draw their own margins and gutters - asymmetric ones, since the prompt names
     the page's side of the book - so the grid the lettering can trust is the one in the
@@ -493,6 +591,12 @@ def detect_rects(spec, art_bytes):
     tiers = spec.get("tiers") or []
     if not tiers:
         return None
+    try:
+        found = gutter_rects(spec, art_bytes)
+        if found:
+            return found
+    except Exception:      # noqa: BLE001 - an unreadable image falls through to the fallback
+        pass
     try:
         im = Image.open(io.BytesIO(art_bytes)).convert("L").resize((240, 360))
     except Exception:

@@ -1,0 +1,63 @@
+{
+  "page": 40,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Orbital materials bay. Ren examines a scarred heat exchanger on a workbench amid practical extraction hardware. Leave upper bay space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Ren cuts away the damaged end of the exchanger. Keep the tool, cut line and metal clear; leave upper space for the sound."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ren drops the repairable connector onto the bench beside Alex's salvaged sleeve. Keep the connector dominant and leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Ren hands the connector to Alex. Her bright blue glove patch is visible; leave upper space for her final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KRRK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "House standards don\u2019t fit.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "Build around the break. Customers should be able to fix it.",
+      "at": "top-left"
+    }
+  ]
+}

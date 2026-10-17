@@ -1,0 +1,63 @@
+{
+  "page": 17,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Dusty hidden workshop with chalkboard, analog gauges, brass plate, tools and a covered machine. Alex wipes dust from Adrian's equation. Leave upper board space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "A balanced water-drop mark is stamped into a brass plate beside an empty recess. Leave upper metal space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada finds Adrian's hand-drawn mine map with ink ticks and a pipe symbol. Leave upper map space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Beneath a cloth, one warm amber optical eye pulses in the darkness. Leave black negative space around it."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "This part\u2019s old.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The dust isn\u2019t.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TICK",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

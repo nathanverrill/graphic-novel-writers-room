@@ -1,0 +1,70 @@
+{
+  "page": 25,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Alex patches a ventilation line while Tomas coughs dust. Bi11bot projects a route beside them. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Bi11bot's amber eye and route projection show the safest path leaving Tomas behind. Leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex rejects the projected route while Tomas grips the old key. Leave upper worksite space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot faces Alex and admits the prediction failed. Keep his posture open and non-menacing; leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The safest route leaves Tomas where he fell.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then it isn\u2019t our route.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I read that wrong.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Keep reading.",
+      "at": "top-right"
+    }
+  ]
+}

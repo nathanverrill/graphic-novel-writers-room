@@ -1,0 +1,69 @@
+{
+  "page": 33,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "White-and-amber nodes activate along the chamber walls as Alex holds the Measure. Keep the upper wall clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada unfolds a transmitter beside the old water-control chamber. Keep the upper transmitter area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 projects a narrow private route toward the rail gate. Keep the upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex pushes the transmitter toward Ada while his band flashes a restriction. Keep the upper chamber clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "UNAUTHORIZED MEASUREMENT DETECTED.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "We can send it to Keel.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Private route remains open.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Send it.",
+      "at": "top-left"
+    }
+  ]
+}

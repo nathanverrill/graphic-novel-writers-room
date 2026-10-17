@@ -1,0 +1,69 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "description": "INTERIOR, GRANDMOTHER'S APARTMENT. Grandmother folds a cloth while Pilar checks a paper dose grid. Keep the upper room clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Grandmother looks toward Alex and briefly mistakes him for Adrian. Keep the upper room clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Grandmother offers Alex Adrian's hand-bound notebook. Keep the upper notebook area clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Ada sets food beside Grandmother's chair while Alex studies pump sketches and water-drop marks. Keep the upper wall clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "PILAR",
+      "text": "Next dose in four hours.",
+      "at": "top-left",
+      "tail_x": 66.0,
+      "tail_y": 23.0
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Alex.",
+      "at": "top-left",
+      "tail_x": 32.0,
+      "tail_y": 39.8
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He said you\u2019d know when you were ready.",
+      "at": "top-left",
+      "tail_x": 74.4,
+      "tail_y": 32.9
+    }
+  ]
+}

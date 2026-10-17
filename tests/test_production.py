@@ -125,9 +125,22 @@ ok, why = magic.analysis_verdict("VERDICT Young Americans Center: yes; Bill Reyn
 assert ok and "smells like school: no (2 pages)" in why, why
 assert magic.words("one two  three\nfour") == 4
 src = pathlib.Path("app/magic.py").read_text()
-assert 'if n > 1:\n            _round(slug, "coldread")' in src and "CUT PASS" in src, "the analysis loop reads cold again and cuts"
+assert 'only=["analyst"] if n == 1 else None' in src and "CUT PASS" in src, "the analysis loop cuts, and the readers read again with the Analyst"
+an = next(p for p in json.loads(pathlib.Path("agents/phases.json").read_text()) if p["id"] == "analysis")
+assert set(an["agents"]) == {"cold_reader", "cold_reader_b", "analyst"} and an["parallel"] == [an["agents"]], "readers and Analyst side by side"
 assert magic.STEPS.index("analysis") == magic.STEPS.index("coldread") + 1 and "analysis" in magic.STOPS
 print("3e. the Analyst reads the pages with its briefing; the verdict holds both partners and the smell of school: ok")
+# a rewrite of layouts.md that drops pages gets them back from the version before it
+from app import thumbnails
+_block = lambda n: f"## Page {n} (right)\n\n```layout\n{{\"page\": {n}}}\n```\n\n"
+_before = "# layouts.md\n\n" + "".join(_block(n) for n in range(1, 7))
+_after = "# layouts.md\n\n" + _block(1) + "## Pages 2-5 - retained four-panel layouts\n\n" + _block(6)
+_out, _kept = thumbnails.keep_dropped_pages(_before, _after, 6)
+assert _kept == [2, 3, 4, 5] and [s["page"] for s in thumbnails.parse_layouts(_out)[0]] == [1, 2, 3, 4, 5, 6]
+assert thumbnails.keep_dropped_pages(_before, _before, 6)[1] == []
+assert thumbnails.keep_dropped_pages(_before, _after, 3)[1] == [2, 3], "pages past the book's count stay dropped"
+print("3f. a layouts rewrite that drops pages keeps them from the version before: ok")
+
 print("3. the pick comes from the report alone: ok")
 
 # 4. the chain skips the page 1 proof unless asked for, and rounds of pages are a setting
@@ -422,3 +435,4 @@ assert kinds.count("role_start") == 4 and kinds.count("role_done") == 4 and "par
 assert all(e.get("seconds") is not None for e in run3.events if e["type"] == "role_done")
 print("9. a parallel group runs side by side (the barrier proves it) and the events are whole: ok")
 print("\nall checks ran")
+

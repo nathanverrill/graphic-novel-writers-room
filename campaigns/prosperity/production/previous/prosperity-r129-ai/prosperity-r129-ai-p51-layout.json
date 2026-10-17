@@ -1,0 +1,69 @@
+{
+  "page": 51,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Mera leads Alex, Ada and B11 through an underground archive lined with physical and digital records. Keep upper shelves clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Mera selects records marked surveillance, financial restriction, public liability and travel restriction. Keep upper records clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian's record shrinks as warning markers accumulate beside Alex's debt record. Keep upper displays clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A help-request log fills with refusals while Mera stands beside the display. Keep upper log clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "SURVEILLANCE ACTIVE.\nFINANCIAL RESTRICTION.\nPUBLIC LIABILITY.\nTRAVEL RESTRICTION.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It used the same shape.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Yes.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "People stopped helping when the record became more dangerous than the man.",
+      "at": "top-left"
+    }
+  ]
+}

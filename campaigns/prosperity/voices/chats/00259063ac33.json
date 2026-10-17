@@ -1,0 +1,29 @@
+{
+ "id": "00259063ac33",
+ "created": 1792107355.2559266,
+ "character": "bi11bot",
+ "name": "BI11BOT",
+ "as": "",
+ "as_name": "a stranger",
+ "moment": null,
+ "moment_label": null,
+ "model": "openai/gpt-5.6-luna-pro",
+ "cue": "(The scene opens. someone you do not know is here with you. You speak first.)",
+ "turns": [
+  {
+   "who": "character",
+   "text": "\u201cCareful where you step. The floor is patched, the lights are temperamental, and that red handle is not for pulling.\u201d *I point at it with one articulated finger.* \u201cWho are you?\u201d",
+   "t": 1792107362.144133
+  },
+  {
+   "who": "you",
+   "text": "\"Hi, who are you?\"",
+   "t": 1792107377.4247887
+  },
+  {
+   "who": "character",
+   "text": "\u201cBi11bot. Workshop companion, occasional repair specialist, and excellent judge of bad handles.\u201d *My amber eyes settle on you.* \u201cWho are you?\u201d",
+   "t": 1792107382.312276
+  }
+ ]
+}

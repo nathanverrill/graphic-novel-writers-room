@@ -1,0 +1,152 @@
+{
+  "page": 14,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Adrian\u2019s hologram appears above the workbench and looks toward Alex, who is a silhouette in the foreground with thumb over the watch. Keep upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Alex\u2019s set jaw and bright eyes in blue hologram light. No lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Adrian\u2019s hologram at left, Alex at center and Grandmother in the bookshelf doorway. Leave upper corners clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Adrian turns serious as the hologram shifts burgundy; Grandmother\u2019s hand presses to her chest. Reserve separate zones for two apology balloons, keeping both faces visible."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Adrian leans toward the lens as scan lines begin. Reserve upper-left and lower-right for two instruction balloons."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The hologram is gone. Alex sits in blue-grey afterglow with Bi11bot\u2019s amber eyes at frame edge and unfolds Adrian\u2019s photograph. No lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Hello, Alex. If you're seeing this... then you found the workshop.",
+      "at": "top-left",
+      "tail_x": 63.1,
+      "tail_y": 32.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Which means your grandmother still refuses to throw anything away.",
+      "at": "top-left",
+      "tail_x": 22.1,
+      "tail_y": 18.7
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "I heard that.",
+      "at": "top-right",
+      "tail_x": 81.0,
+      "tail_y": 32.8
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "If you're watching this, I wasn't there when you needed me. I'm sorry. To you, and to Mom.",
+      "tail_x": 46.3,
+      "tail_y": 49.1,
+      "place": "exact",
+      "x": 22,
+      "y": 14
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I made one bad call. I thought I was right. But I was wrong.",
+      "tail_x": 46.3,
+      "tail_y": 49.1,
+      "place": "exact",
+      "x": 76,
+      "y": 13
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I got things wrong, Alex. More than once. But every failure taught me something.",
+      "tail_x": 46.3,
+      "tail_y": 49.1,
+      "place": "exact",
+      "x": 24,
+      "y": 86
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "You don't have to finish what I started. You may find a better way.",
+      "tail_x": 48.6,
+      "tail_y": 57.8,
+      "place": "exact",
+      "x": 20,
+      "y": 18
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Bi11bot has a map. What you do with it is up to you. And whatever he tells you... question everything. Especially me.",
+      "tail_x": 48.6,
+      "tail_y": 57.8,
+      "place": "exact",
+      "x": 80,
+      "y": 80
+    }
+  ]
+}

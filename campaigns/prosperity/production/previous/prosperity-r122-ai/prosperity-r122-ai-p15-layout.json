@@ -1,0 +1,70 @@
+{
+  "page": 15,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Grandmother's apartment: repaired furniture, quilts, books, photographs and recycled plants. Grandmother folds her cloth while Pilar checks a paper dose grid. Leave upper room space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Pilar marks the next dose on the paper grid. Keep pencil and grid clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Grandmother calls Alex by Adrian's name, then corrects herself. Alex stands with Ada nearby. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex studies Adrian's notebook and pump sketches while Ada sets food beside Grandmother's chair. Leave upper room space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "PILAR",
+      "text": "Next dose in four hours.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Adrian.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Alex.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He said you\u2019d know when you were ready.",
+      "at": "top-left"
+    }
+  ]
+}

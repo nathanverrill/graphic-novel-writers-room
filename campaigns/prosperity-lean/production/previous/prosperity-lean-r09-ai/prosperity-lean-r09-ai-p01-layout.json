@@ -1,0 +1,105 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Keel public water point against patched mining infrastructure: rusted pump housings, narrow channels, stacked housing, dust, and three metered taps. A short non-recognizable queue waits with jugs. Alex approaches in dark work clothes, rust-brown patched cargo trousers, scuffed boots, canvas tool bag, and Adrian\u2019s oversized steel watch on his left wrist. One dim amber Bi11bot eye peers from the partly open bag. Keep the display high-right and leave upper-left and lower-right clear for lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "description": "Alex\u2019s scarred hand grips the patched housing as it shudders. Empty jugs blur behind him. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "high",
+          "description": "Alex kneels at the open pump with tools on concrete. Bi11bot\u2019s articulated finger widens the tool-bag zipper and his amber eye blinks. Leave upper-left for Bi11bot\u2019s small balloon and lower-right for Alex."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex looks toward the queue; a child\u2019s empty jug rests beneath the dead tap. His oversized watch slips down his left wrist. Keep the display unobstructed and reserve upper-left and upper-right for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "QUEUE WORKER",
+      "text": "It\u2019s gone dry again.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Move the jugs back.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "AUTHORIZED ALLOCATION: NORMAL",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Don\u2019t hit it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "whisper",
+      "speaker": "BI11BOT",
+      "text": "It is hurting.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "whisper",
+      "speaker": "ALEX",
+      "text": "Pumps don\u2019t hurt.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "whisper",
+      "speaker": "BI11BOT",
+      "text": "This one does.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Give me three minutes.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "QUEUE WORKER",
+      "text": "You have two.",
+      "at": "top-right"
+    }
+  ]
+}

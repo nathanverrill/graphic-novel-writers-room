@@ -1,0 +1,126 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Modest Keel apartment at dusk with quilts, repaired furniture, old books, family photographs, recycled-container plants and ration-marked water jugs. Grandmother folds a cloth; the tall bookshelf and its book-width gap dominate the wall. Alex stands in the doorway. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex stands in the doorway with eyes briefly closed, gently correcting Grandmother. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex kneels beside Grandmother\u2019s chair while she folds the cloth and looks at him as though seeing Adrian. Leave upper-left and upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Grandmother\u2019s face becomes suddenly precise and clear. Leave upper-left open."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "horizon": 38,
+          "description": "Grandmother\u2019s frail hand points toward the worn hand-bound book with a faint balanced water-drop symbol. Keep hand and book unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 35,
+          "description": "Alex reaches toward the book from behind the shelf, framed by warm apartment light. Grandmother remains seated below. Keep the book and Alex\u2019s face clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Adrian?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not today, Grandma. It's Alex.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Of course. Alex. Did your father come home yet?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not yet.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He's closer than you think.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Adrian, get down the book you put up there. The one you want Alex to have when he turns eighteen.",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I'm eighteen today, Grandma.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Careful. He said it was worth protecting.",
+      "at": "top-left"
+    }
+  ]
+}

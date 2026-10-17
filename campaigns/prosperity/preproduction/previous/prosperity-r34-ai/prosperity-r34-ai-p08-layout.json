@@ -1,0 +1,56 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The tanker disappears beyond the terraces. Older Alex lowers his hand; no alarm sounds. Leave the lake horizon open."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter kneels beside crooked TJ at the boathouse edge. Keep TJ's damaged leg visible and leave upper space for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "TJ drags his damaged leg toward the boathouse, wet parts clicking over the dock. Leave upper dock space for the soundless movement."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Older Alex turns toward TJ, his granddaughter behind the dog. Keep the emotional reaction quiet and leave upper third open."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Why let them leave?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Because I know what happens when people panic around water.",
+      "at": "top-right"
+    }
+  ]
+}

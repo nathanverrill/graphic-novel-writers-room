@@ -1,0 +1,69 @@
+{
+  "page": 42,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex cuts a smaller sleeve from salvaged pipe while Ren holds the damaged connector steady. Keep only Alex and Ren visible; leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri reconnects the protected biofilter while Jalen monitors the routing shard beside her. Keep only Suri and Jalen visible; leave upper third clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The toolbox-sized purifier now runs on the bench. Alex and Suri watch separate gauges from opposite sides; no other named figures visible. Leave the top of the machine clear for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Purifier display and warning plate fill the panel; show the machine's restrained indicator lights and serviceable casing. Leave display unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "House standards don\u2019t fit.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "REN",
+      "text": "Build around the break. Customers should be able to fix it.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "HMMMM",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "EFFICIENCY SIMULATION: 91%\nNOT A POTABLE-OUTPUT GUARANTEE",
+      "at": "top"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "pages": 12,
+  "execution_rounds": 1,
+  "cold_read_rounds": 1,
+  "models": {
+    "analyst": {
+      "model": "anthropic/claude-opus-5.5",
+      "thinking_budget": 0
+    },
+    "cold_reader": {
+      "model": "anthropic/claude-opus-5.5",
+      "thinking_budget": 0
+    },
+    "cold_reader_b": {
+      "model": "google/gemini-3.1-pro-preview",
+      "thinking_budget": 0
+    },
+    "first_reader": {
+      "model": "anthropic/claude-opus-5.5",
+      "thinking_budget": 0
+    },
+    "writer_b": {
+      "model": "openai/gpt-5.6-luna-pro",
+      "thinking_budget": 0
+    }
+  },
+  "phase": "presscheck",
+  "writer": "writer_b",
+  "draft_mode": "edit"
+}

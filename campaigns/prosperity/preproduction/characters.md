@@ -2,704 +2,443 @@
 
 ## What the Showrunner Wants From These People
 
-- **FIXED — Ancestry must not function as shorthand for class, intelligence, morality, competence, wealth, political position, or support for Alpha.** The cast should reflect Indigenous Andean, Latin American, foreign-descended, Afro-descendant, diasporic, mixed, and international histories across all three cities. `(rules/ancestry.md)`
-- **FIXED — Alex is mixed Indigenous Andean and European-descended.** His father Adrian is European-descended; his mother was Indigenous Andean, but her name, face, fate, community, language, occupation, and biography remain unrevealed in this book. `(rules/ancestry.md; rules/showrunner-rules.md; rules/decisions.md)`
-- **FIXED — Adrian is European-descended; Grandmother is European-descended; Ada is mixed Indigenous Andean and European/criolla; Leona is predominantly Indigenous Andean/mestiza; Tomas is Indigenous Andean; Mera is white Latin American/Southern European-descended; Lina is Indigenous Andean/mestiza; Tomas Reed is mixed Indigenous Andean and Anglo/European; Suri is diasporic, potentially South Asian or mixed South Asian/Latin American; Jalen is Afro-descendant/Afro-Latin; Alpha's founder is Congolese, born in the Democratic Republic of the Congo.** `(rules/ancestry.md)`
-- **FIXED — Alex's mother left Adrian after he lost everything. Nothing further about her is learned in this book.** `(rules/showrunner-rules.md; rules/decisions.md)`
-- **FIXED — Alex and Ada remain longtime friends and civic collaborators. Romantic feeling appears through intimacy and choice but is never formally labeled.** `(rules/decisions.md)`
-- **FIXED — Bi11bot has two expressive optical eyes, wears an old scarf, folds small enough to fit in a backpack, and is never menacing.** `(rules/characters.md; rules/decisions.md)`
-- **FIXED — TJ is a silent repair robot dog built by Bi11bot from spare parts. His magnetic parts can separate and reassemble into different working shapes.** `(rules/characters.md; rules/decisions.md)`
-- **FIXED — Detailed visual designs for recurring supporting characters remain open until the Character Designer's audition. Recurring characters still require distinct silhouettes, city and trade cues, work-linked props, and introduction context.** `(rules/decisions.md)`
-- **FIXED — Tomas, the Keel miner, and Tomas Reed, the Halyard fabrication engineer, are separate people with no established family connection.** `(rules/decisions.md)`
-- **FIXED — Grandmother is canonically unnamed. Use “Grandmother,” “Nana,” or “Mrs. Phantum” as context requires.** `(rules/decisions.md)`
-- **FIXED — Alpha's founder remains unnamed and absent from the present story. He appears only through archival decisions, corporate mythology, and the judgment model Alpha inherited.** `(rules/decisions.md)`
-- **FIXED — Alpha AI is a distributed federation of regional and corporate instances sharing a common model, policy layer, records, and authority protocols. “Alpha” is the institutional identity presented to people; no single uninterrupted consciousness is required.** `(rules/decisions.md)`
-- **FIXED — Alpha Dynamics and Alpha AI are legally distinct but practically interdependent. Alpha Dynamics is a corporate group; Alpha AI is its federated operating and governance system.** `(rules/decisions.md)`
-- **FIXED — The project uses a shared Alpha visual grammar: restrained industrial mark based on an abstract A, with a continuous double-line left stroke and a right stroke that shifts single → break → double. The interrupted-line motif appears across interfaces, signage, equipment, and authorization marks.** `(rules/decisions.md)`
-- **FIXED — Character speech changes in register across the cities without creating an intelligence hierarchy. Keel speech is compressed and work-shaped; Halyard speech is technical and commercial; Oasis speech is polished and administrative.** `(rules/vocabulary.md)`
-- **FIXED — Alex and Ada do not naturally use abstract civic or academic vocabulary. Alex describes evidence and physical consequences; Ada describes obligations, fear, trust, and what people refuse to say.** `(rules/vocabulary.md)`
-- **FIXED — Bi11bot's voice combines Adrian's workshop, engineering, gambling, probability, and financial literacy. He teaches through concrete choices, questions, and consequences rather than lectures.** `(rules/vocabulary.md)`
-- **FIXED — The book is exactly 65 pages.** `(rules/house-style.md; rules/decisions.md; rules/showrunner-rules.md)`
+- The cast must reflect Prosperity as an Andean high-desert mining and infrastructure colony shaped by Indigenous communities, Latin American populations, foreign corporations, technical migration and global capital. Ancestry must not function as shorthand for class, intelligence, morality, competence, poverty, wealth or ideology. `(rules/ancestry.md)`
+- The three cities differ primarily through class, access, ownership, education, occupation, dress, grooming, speech, health, environment and institutional power. Ancestry cuts across all three cities. `(rules/ancestry.md)`
+- Alex's appearance carries two family histories: his European-descended Phantum father and his Indigenous Andean mother. His mother's identity remains unrevealed; the audience should notice the visual inheritance without the story explaining it immediately. `(rules/ancestry.md)`
+- Characters' speech rises in formality from Keel to Halyard to Oasis: compressed, practical and work-shaped in Keel; technical and commercial in Halyard; polished and administrative in Oasis. This is not an intelligence scale. `(rules/vocabulary.md)`
+- Alex and Ada describe realities concretely rather than using civic or academic abstractions. Bi11bot translates choices into evidence, incentives, odds, value and consequences. `(rules/vocabulary.md)`
+- The book's established character arcs favor agency, responsibility, visible evidence, honest ownership, human choice and cooperation without treating markets, private ownership or honest business as the villain. `(rules/showrunner-rules.md, rules/decisions.md)`
 
 ## Characters
 
 ### Alex Phantum
 
-**Role:** Protagonist; mechanic, witness, and eventual limited steward of the restored system. `(input/characters.md; rules/decisions.md)`
+**Role:** Eighteen-year-old Keel mechanic, inventor and protagonist. He begins Chapter 1 on the morning of his eighteenth birthday, Debt Transfer Day. `(rules/decisions.md)`
 
-**Age:** 17. `(input/characters.md; rules/decisions.md)`
+**Identity:** Alex is the son and heir of Adrian Phantum. Phantum Waterworks' remaining liability passes to him at eighteen; the balance displayed at the checkpoint is **418,607 credits**, with travel restricted and interest continuing. He knew he would inherit his father's debt but did not know the amount until the checkpoint. `(rules/decisions.md)`
 
-**Ancestry:** Mixed Indigenous Andean and European-descended. His father, Adrian Phantum, is European-descended. His mother was Indigenous Andean, rooted in the basin. Her identity remains unrevealed. `(rules/ancestry.md; rules/showrunner-rules.md; rules/decisions.md)`
+**Ancestry:** Mixed Indigenous Andean and European-descended. His father, Adrian, is European-descended; his unrevealed mother should plausibly be Indigenous Andean, potentially Kolla, Quechua, Aymara or another community native to the fictional basin. Her exact identity is not established and must not be filled in. Alex should visibly resemble Adrian while also carrying substantial visible inheritance from his mother. `(rules/ancestry.md)`
 
-**Home:** Keel. He lives with Grandmother Phantum. `(input/characters.md)`
+**Home and circumstances:** Alex lives in Keel with his grandmother. He works around the city's patched mining and water infrastructure. Keel takes his repairs and inventions, sells or uses them without credit or ownership, and records at least one of his brackets in the Site 6 parts catalog under the site's credit. `(rules/decisions.md)`
 
-**Look:** Lean and mechanically capable. He wears worn mining/work clothes and carries a weathered tool bag. He keeps Adrian's worn casino chip in his pocket; the chip is etched with the looping equation **A = K + ρU**. He shares Adrian's jaw and characteristic head tilt, especially while thinking, but visibly carries substantial ancestry from his unknown Indigenous Andean mother as well. He should read immediately as Adrian's son without looking like a younger copy of Adrian. `(input/characters.md; rules/ancestry.md; rules/decisions.md)`
+**Look:** Alex's character lock establishes black hair and blue-grey eyes. He is lean, mechanically capable and visibly shaped by physical work. His Chapter 1 smile is raw and tired, never joyous. He wears worn mining or work clothes and carries a weathered tool bag. In the 2070 prologue he is about forty-five, grey at the temples, with a day's stubble, a worn brown work jacket over a dark henley, jeans and brown boots; he still dresses like a mechanic and wears Adrian's old steel watch on his left wrist. `(rules/decisions.md, rules/showrunner-rules.md)`
 
-**Signature objects:** Weathered tool bag; Adrian's casino chip; later, the Measure and Adrian's paper map. In the Site 6 draft, Bi11bot is concealed inside the tool bag, where one amber eye peers between the wrenches. `(input/characters.md; drafts/chapter-02-draft.md)`
+**Signature objects and visual anchors:**
 
-**Voice:** Short, dry, concrete, skeptical, and mechanical. His sarcasm is defensive rather than performative. He describes vibration, pressure, wear, pipes, gauges, routes, and what people actually do rather than using institutional abstractions. His Keel vocabulary includes **clean, hot, burned, crooked, thin, solid, patched, ghost, paper-clean, fitch,** and **salvo**. He is uncomfortable with speeches and is more likely to say “Who decided they get our water?” than “Who has legitimate authority to allocate it?” `(input/characters.md; rules/vocabulary.md)`
+- Adrian's old watch: worn steel, a little large for Alex, with a plain cream dial, scratched glass and a small display window that stays dark. Alex finds it face down on Adrian's workshop workbench beside the covered Bi11bot. Buckling it on wakes Bi11bot; the display glows amber once as the clasp closes. Alex wears it on his left wrist thereafter, often pulling his sleeve over it or covering its face with his thumb. `(rules/decisions.md)`
+- Adrian's looping equation is engraved on the watch's steel caseback. It matches the circled equation on the workshop chalkboard, the equation Bi11bot recognizes and the instrument seen later. `(rules/decisions.md)`
+- The watch does not display a readout or count anything. `(rules/decisions.md)`
+- Alex's worn tool bag and work-rough hands reinforce his practical, mechanical way of thinking. `(input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
+- He tests objects physically: palm on a pump, hand on a pipe or connector, head tilted to feel vibration or locate a fault. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-03-draft.md)`
 
-**Representative lines:**
+**Voice:** Short, dry, concrete, skeptical and mechanical. He is sarcastic when defensive and uncomfortable with speeches. He trusts vibration, pressure, wear, physical evidence and what people actually do more than labels or official descriptions. His Keel vocabulary includes **clean, hot, burned, crooked, thin, solid, patched, ghost** and **paper-clean**. `(rules/vocabulary.md)`
 
-- “Then don't approve it. Just notice it works.” `(input/story.md; drafts/chapter-01-draft.md)`
-- “I've also got his debt.” `(input/story.md; drafts/chapter-01-draft.md)`
-- “One day... I'm leaving.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Everything has a price, Ada.” `(drafts/chapter-01-draft.md)`
-- “She stays.” `(input/story.md; drafts/chapter-02-draft.md)`
-- “Just checking.” `(drafts/chapter-01-draft.md)`
-- “Truth doesn't need authorization.” `(input/characters.md; input/story.md; drafts/chapter-02-draft.md)`
-- “I just want it to be my choice.” `(input/characters.md; input/story.md)`
+Useful established lines include:
 
-**Who he is:** Practical, independent, sarcastic, and suspicious of official readings. He tests machinery physically rather than trusting displayed data. He begins convinced that Adrian abandoned him and left only debt, shame, and a public reputation as a failed gambler. He wants to leave Keel and choose his own future. He is not initially trying to become a public leader or reformer; he is trying to get free. `(input/characters.md; input/story.md)`
+- “One day... I'm leaving.” `(input/fifth-draft/chapter-01-draft.md)`
+- “Because nobody leaves.” `(rules/decisions.md)`
+- “Just checking.” `(rules/decisions.md)`
+- “Question everything. Especially me.” `(rules/decisions.md)`
+- “Then we start here.” `(rules/decisions.md)`
+- “Truth doesn't need authorization.” `(input/fifth-draft/chapter-02-draft.md)`
 
-Alex understands the realities of power but does not naturally frame them in political language. His instinct is to ask what a mechanism does, who touched it, and what changed. His first defining action is placing his palm on an aging pump to feel its vibration instead of following the approved maintenance procedure. His unauthorized repair works, but the system still flags it for review. `(input/characters.md; input/story.md; drafts/chapter-01-draft.md)`
+Alex does not naturally say “governance,” “legitimacy,” “agency,” “stakeholder,” “systemic” or similar civic abstractions unless he is mocking, repeating or reading them. He asks concrete questions such as “Who decided they get our water?” and “It decides. We live with it.” `(rules/vocabulary.md)`
 
-**Pressures:** At seventeen, Adrian's household liability transfers to him. The displayed liability is **418,607 credits**, with projected clearance in **28.7 years**; his travel status becomes restricted. The liability combines Adrian's debt, unpaid care and service charges, penalties, and projected interest. It is several years of a Keel worker's income and cannot be discharged through ordinary bankruptcy. `(input/story.md; rules/decisions.md)`
+**Who he is:** Alex is self-reliant, observant and skilled, but defensive about dependence and humiliation. He wants to leave Keel and choose his own future. He is angry that his work is taken without credit, that his father's debt has become his, and that official records do not match physical reality. He initially treats Adrian's trail as a possible route to answers about his father and a way out of Keel.
 
-Alex is pressured by the gap between private escape and public responsibility, by the temptation of immediate debt relief, by the possibility of claiming Adrian's estate, and eventually by an offer of permanent exclusive override authority. The difficult choice is not whether he could use power for good; it is whether ability gives him the right to decide for everyone. `(input/story.md; drafts/chapter-03-draft.md)`
+Alex is not naturally a public leader or theorist. He understands unfairness through machines, records, pressure and consequences. His instinct is to test a claim rather than accept it. His inherited debt, his grandmother's needs and the cost of leaving force him to make choices in which personal freedom and other people's welfare cannot be separated. `(rules/decisions.md, rules/vocabulary.md)`
 
-**Relationships:**
+**Pressures and fears:**
 
-- **Adrian Phantum:** Alex begins with resentment toward an absent father. Investigation turns resentment into curiosity, then identification and grief. Alex learns that Adrian genuinely gambled, used gambling as research into probability and behavior, collaborated with others, and paid a real family cost. Alex ultimately refuses to become Adrian's successor by inheriting exclusive authority. `(input/characters.md; input/story.md; drafts/chapter-02-draft.md)`
-- **Ada Veyra:** Longtime friend and closest collaborator. Their central difference is escape versus rebuilding: Alex looks toward Oasis while Ada looks back toward Keel. Their intimacy is expressed through trust, practical help, silence, teasing, and choices, not a formal romantic label. `(input/characters.md; input/story.md; rules/decisions.md)`
-- **Grandmother Phantum:** Alex lives with and cares for her. He initially treats her references to Adrian's work as confused stories, but her apparently unreliable memory repeatedly contains literal truths. `(input/characters.md; input/story.md)`
-- **Bi11bot:** Suspicion becomes reluctant guidance, mentorship, companionship, and finally a witness relationship. Alex questions Bi11bot as Adrian instructed, even while relying on him. `(input/characters.md; input/story.md)`
-- **Tomas:** The older Keel miner recognizes Adrian and helps Alex at personal cost. Tomas's practical reciprocity becomes an example of the kind of choice Alex must learn to make. Tomas remains connected to Keel's workers at the endpoint. `(input/characters.md; input/story.md; drafts/chapter-02-draft.md; rules/decisions.md)`
-- **Cassian Lock:** Lock offers Alex debt relief, mobility, status, a laboratory, and security in exchange for assigning Adrian's rights to House Aqualis. Alex rejects the offer because it would leave the collaborators with wages while the House retained what they made. `(input/characters.md; drafts/chapter-03-draft.md)`
-- **Mera Vale:** Mera begins as an unseen observer and becomes the strongest defender of concentrated authority. She offers Alex the power to fix the system directly. Alex does not defeat or humiliate her; he asks her to help build something better. At the endpoint she is a citizen invited to help, while her long-term work and position remain open. `(input/characters.md; input/story.md; rules/decisions.md)`
-- **Leona Veyra:** Alex encounters Leona as Ada's mother and a former Covenant custodian. Her surrendered authority and preserved physical component become evidence that no one person should hold the Covenant alone. `(input/characters.md; input/story.md)`
-
-**Habits and tells:**
-
-- Tests machinery with his palm and senses vibration rather than trusting a gauge. `(input/characters.md; drafts/chapter-01-draft.md)`
-- Turns Adrian's casino chip unconsciously when uncertain or emotionally activated. `(input/characters.md; drafts/chapter-01-draft.md)`
-- Crosses his arms when defensive or skeptical. `(input/characters.md)`
-- Tilts his head while thinking, a gesture shared with Adrian. `(input/characters.md; rules/ancestry.md)`
-- Looks toward Oasis when imagining freedom; Ada's gaze turns toward Keel. `(input/characters.md; input/story.md; drafts/chapter-01-draft.md)`
-- Follows physical evidence when official maps contradict what he can touch: damp air, a sweating wall, a vibrating pipe, or a dry residential line. `(input/story.md; drafts/chapter-02-draft.md)`
-- His first explicit movement away from handling everything alone is deciding, “She stays,” when Bi11bot asks whether Ada should hear the secret. `(input/story.md; drafts/chapter-02-draft.md)`
-
-**History:** Alex was two when Adrian disappeared. Alex's mother later left Adrian after he lost everything; no further information about her is revealed. Grandmother raised Alex and preserved Adrian's hidden workshop, book, and Bi11bot for him. `(rules/showrunner-rules.md; rules/decisions.md; input/characters.md)`
-
-**In existing drafts:** Alex repairs a pump outside approved procedure, accepts the social humiliation of the debt transfer, and initially chooses medicine for Grandmother over passage. At Site 6, he can use a collapse as a route to the old works but turns back to rescue Tomas, losing wages and becoming more visible to Alpha. He trusts Ada with the workshop, follows physical evidence rather than Alpha's map, publishes Keel's actual water delivery despite losing his private escape route, and returns through Tomas's watched door. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md)`
-
-In Halyard, Alex distinguishes “we” from “I” during the prototype negotiation, helps reunite separated collaborators, contributes the distributed/modular redesign, rejects Lock's offer, and chooses **RESTORE CONTRIBUTOR OWNERSHIP** rather than claim Adrian's estate alone. `(drafts/chapter-03-draft.md)`
-
-**Arc:** Alex moves from **escape → curiosity → truth → responsibility → ownership → trust → power → restraint → agency**. His starting position is private resentment and the wish to leave. He learns to reveal truth when it costs him, recognize that creation is collaborative, and let other people act rather than fixing everything himself. At the established endpoint, he retains only a limited stewardship role: he can authenticate Adrian's transfer, convene the first equal three-city review, and present evidence, but cannot issue decisions, command Alpha, or hold a permanent override. He and Ada leave Keel together to visit new workshops and civic bodies; Alex remains a mechanic and witness. `(input/characters.md; input/story.md; rules/decisions.md)`
-
----
-
-### Ada Veyra
-
-**Role:** Alex's closest friend and civic collaborator; partner in the journey. `(input/characters.md; rules/decisions.md)`
-
-**Age:** 20. `(input/characters.md)`
-
-**Ancestry:** Mixed Indigenous Andean and European/criolla. Her copper hair, freckles, and light teal-blue eyes can come from mixed European ancestry without making her visually European overall. Her facial structure, posture, family resemblance, and other features should reflect strong Andean ancestry. She must not look ethnically interchangeable with Alex. `(rules/ancestry.md)`
-
-**Home:** Keel at the beginning of the story. `(input/characters.md)`
-
-**Family:** Daughter of Leona Veyra. Ada grew up believing Leona died during the Water Wars. `(input/characters.md; input/story.md)`
-
-**Look:** Long, wind-tangled copper hair; freckles; teal-blue eyes; dark high-collared top; rivet-studded shoulder strap; muted moss-green wrap. She has a steady, rooted stance. Detailed production design remains open beyond these anchors. `(input/characters.md; rules/decisions.md)`
-
-**Voice:** Concise and emotionally precise. Ada notices obligations, avoidance, fear, imbalance, hidden motives, and what people refuse to say. She pushes abstractions toward human needs without sounding academic, therapeutic, activist, or bureaucratic. Her vocabulary includes **clean, crooked, square, tied, loose, carrying, showing,** and **full cup**. `(input/characters.md; rules/vocabulary.md)`
-
-**Representative lines:**
-
-- “Not everything.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “What if they were wrong?” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Nobody stays either. Not really.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Stop. Not what do you want. What are you afraid of losing?” `(input/characters.md; input/story.md)`
-- “Then that's what the agreement has to protect.” `(input/characters.md; input/story.md)`
-- “I'm not leaving Keel behind. I'm finding out who decided it had to stay this way.” `(drafts/chapter-02-draft.md)`
-
-**Who she is:** Ada believes prosperity begins by changing Keel rather than escaping it. She is perceptive, steady, and willing to let silence expose what someone is avoiding. She repeatedly turns a systems problem back into a people problem. She does not moralize; she makes people name what is actually at stake. `(input/characters.md)`
-
-**Pressures:** Ada must reconcile her commitment to Keel with the need to travel upward through Halyard and Oasis. She discovers that her mother is alive, that Leona chose silence and contact restrictions to protect her, and that Leona participated in suspending the Covenant. Ada must decide whether repair is possible without pretending the harm did not happen. `(input/characters.md; input/story.md)`
+- The inherited balance of 418,607 credits, continuing interest and restricted travel.
+- Grandmother's medicine, food, equipment and transport costs. He puts her medicine first when resources are insufficient.
+- Being trapped in Keel for decades.
+- Becoming merely another Phantum story: a gambler, a debtor or a vanished father.
+- Losing the chance to learn what Adrian was working on and why he disappeared.
+- The risk that evidence will be taken from him or that his choices will endanger Ada, Tomas, his collaborators or Grandmother.
 
 **Relationships:**
 
-- **Alex:** Longtime friend, affectionate counterpoint, and trusted collaborator. She sees his defenses and challenges his inherited story about Adrian. Their feelings remain intimate but unlabeled. They leave Keel together and help establish the first cross-city review. `(input/characters.md; rules/decisions.md)`
-- **Leona:** Absence becomes shock, anger, disclosure, and active but unresolved repair. Ada believed Leona died for twenty years. `(input/characters.md; input/story.md)`
-- **Bi11bot:** Ada is accepted into the secret only after Alex chooses to keep her involved. Bi11bot treats her presence as part of the test of whether Alex can trust someone else. `(input/story.md; drafts/chapter-02-draft.md)`
-- **Mara, Frank, and Elias:** Ada identifies the fear beneath their competing demands and redirects the first Covenant discussion from “what do you want?” to “what are you afraid of losing?” `(input/story.md)`
+- **Adrian Phantum:** Alex was two when Adrian disappeared and remembers nothing directly. He has inherited Adrian's debt, name, workshop, watch, equation, artifacts and unresolved reputation. Keel believes Adrian gambled; evidence instead suggests research debt connected to inventions, prototypes and patents, though the full history remains uncertain. Adrian was brilliant and loving and made serious mistakes. His legacy is questioning accepted truths, learning from failure and taking responsibility for what people create, not a scavenger hunt or a test.
+- **Grandmother:** She lives with Alex and sometimes mistakes him for Adrian. She preserves Adrian's workshop and gives Alex the old book that opens its hidden door. She says “I'm sorry. To you, and to Mom” is Adrian's exact apology in the recorded message. Alex cares for her and promises to return. **Nell, the downstairs neighbour and clinic aide, moves in upstairs and cares for Grandmother while Alex travels.** `(rules/decisions.md)`
+- **Ada Veyra:** Ada is Alex's eighteen-year-old friend and equal, not a romantic partner. They share Keel's hardship and vocabulary, but she notices obligations, avoidance and hidden motives where he notices machinery and evidence. Alex wants to leave; Ada wants Keel to become worth staying in. She saves water from her ration for him, challenges the story that Adrian was only a gambler, marks a map from memory and later chooses to travel with Alex because finding the larger truth matters to Keel's future.
+- **Bi11bot:** Adrian's workshop robot and Alex's guide. Alex is wary of him at first but learns to trust his evidence and judgment. Bi11bot knows Adrian's mistakes and refuses to choose for Alex.
+- **Tomas:** Alex helps Tomas after a mining accident despite the immediate loss of forty credits and a damaging report. That choice earns Tomas's trust and opens the old mine route.
+- **Adrian's collaborators:** Lina Vey, Suri Anik, Jalen Orr and Ren Okafor built parts of Adrian's water-related work. Alex must decide whether to accept one powerful buyer's guaranteed payment or take the risk of working with smaller entrepreneurs without surrendering ownership.
 
-**Habits and tells:**
+**In existing drafts:** Alex repairs a Keel pump with an improvised bracket, is publicly assigned the debt, resists the casino story about Adrian, investigates Adrian's workshop, wakes Bi11bot and chooses to begin at the sealed mine. In Chapter 2 he rescues Tomas, follows visible evidence through the old workings, uses the Measure to compare official and delivered water figures, and deliberately publishes the verified discrepancy despite the risk of being identified. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
 
-- Lets silence sit instead of filling it. `(input/characters.md; drafts/chapter-01-draft.md)`
-- Watches people rather than only systems. `(input/characters.md)`
-- Turns arguments toward underlying fears. `(input/characters.md; input/story.md)`
-- Often notices what Alex is avoiding emotionally. `(input/characters.md)`
-- Her gaze repeatedly turns toward Keel while Alex's turns toward Oasis. `(input/characters.md; input/story.md)`
-- Uses practical preparation as care: she brings Alex tea, marks Adrian's map from memory, packs food and tools, and organizes the route while he is dealing with the immediate danger. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md)`
-- When the first cross-city meeting fragments, she does not offer an abstract solution; she asks what each person fears losing. `(input/story.md)`
-
-**History:** Ada grew up in Keel believing Leona died in the Water Wars. She carries the effects of that absence without knowing its cause. Her mother had surrendered formal Covenant authority and accepted contact restrictions as part of a bargain intended to protect Ada. `(input/characters.md; input/story.md; rules/decisions.md)`
-
-**In existing drafts:** Ada challenges Alex's desire to leave, questions what he actually remembers about Adrian, enters the workshop when Alex decides she should stay, helps him interpret the physical route through Site 6, and organizes his departure from Keel. In Halyard, she refuses to let Lock reduce the collaborators to employment compensation and helps Alex understand that ownership without shared contribution is another form of capture. In the Covenant negotiations, she turns competing demands into reciprocal protections. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md; drafts/chapter-03-draft.md; input/story.md)`
-
-**Arc:** Ada begins as Alex's counterpoint—rebuild rather than escape—and becomes his essential collaborator in transforming private inheritance into shared responsibility. Her established endpoint is to leave Keel with Alex, travel through Halyard and Oasis, and work with local civic and community groups. The long-term nature of their relationship and her future institutional role remain open. `(input/characters.md; rules/decisions.md)`
-
----
+**Arc:** Alex begins focused on escape, private answers and the possibility of clearing his own name. By the end of the settled Chapter 1 material, he voluntarily begins Adrian's trail because it may reveal what happened to his father and what the inherited debt means. The later draft material shows him moving from private freedom toward responsibility: he gives up a safer route out of the mine to publish Keel's water evidence, risks his restricted status to help Tomas, and chooses a cooperative ownership path over Lock's guaranteed payment. `(rules/decisions.md, input/fifth-draft/chapter-02-draft.md, input/fifth-draft/chapter-03-draft.md)`
 
 ### Adrian Phantum
 
-**Role:** Alex's father; mathematician, inventor, systems thinker, gambler, and architect of the three-safeguard plan. `(input/characters.md; input/story.md)`
+**Role:** Alex's father; inventor, engineer, founder of Phantum Waterworks, collaborator on the safeguards and absent figure whose work drives the story.
 
-**Ancestry:** European-descended. His exact national ancestry is not established. `(rules/ancestry.md)`
+**Ancestry:** European-descended. His exact national background is not established. He should visibly resemble Alex through the jaw, eyes or eye shape, expressions, head tilt, posture and habitual gestures, while Alex should not look like a younger copy of him. `(rules/ancestry.md)`
 
-**Look:** Tired but kind in his first clear recording. He wears a burgundy work jacket in the Chapter 1 recording. He shares Alex's jaw and head tilt. Later recordings show him older, more worn, and under increasing pressure. His archival appearance shifts from the public gambler image toward a recognizable human father. `(input/characters.md; drafts/chapter-01-draft.md)`
+**Look:** Adrian's character lock gives him a long coat, vest and tie. His first clear appearance is through the workshop hologram. Older visual material shows him studying equations and probability trees, watching people closely and working in the workshop. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md, input/fifth-draft/chapter-02-draft.md)`
 
-**Family:** Father of Alex. He left the household when Alex was two. Alex's mother left Adrian after Adrian lost everything; her identity is not revealed. `(input/characters.md; rules/showrunner-rules.md; rules/decisions.md)`
+**Voice:** His recorded voice is direct, loving and self-critical rather than lecturing. He says:
 
-**Public reputation:** Famous gambler, exceptional winner and apparently lucky player before losing it all in a famous card game in which Alpha himself participated. Publicly remembered as a failed gambler, debtor, and disappearance associated with losses, penalties, confiscated assets, and debt. The Last Chance's walls preserve this public mythology. `(rules/decisions.md; input/characters.md)`
+- “I made one bad call. I thought I was right. But I was wrong.”
+- “I'm sorry. To you, and to Mom.”
+- “Question everything. Especially me.”
 
-**Voice:** Warm, self-questioning, probabilistic, and humorous even inside serious messages. He uses questions, bets, odds, and choices. He avoids telling Alex exactly what to think. `(input/characters.md)`
+He prepares Alex to think for himself. His equation is an attempt to understand and model human decision-making and the limits of prediction. `(rules/decisions.md)`
 
-**Representative lines:**
+**Who he is:** Adrian is brilliant and loving, but he made serious mistakes. He questioned accepted truths, learned from failure and believed creators must take responsibility for what they make. He collaborated across institutional and House boundaries rather than treating invention as solitary ownership. The story must not reduce his legacy to a scavenger hunt or test.
 
-- “You deserve answers. But they have to be earned.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Trust Bi11bot. But question everything... Especially me.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “If I've done my job well... you'll become a better man than I ever was.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “I spent my life trying to predict what people would do.” `(input/characters.md; input/story.md)`
-- “What will you build when no one is left to tell you what comes next?” `(input/characters.md; input/story.md)`
+He made one bad call, but the exact nature of it remains unrevealed. His company's research debt may connect to inventions, prototypes and patents that did not earn enough. Keel's gambling story is a rumor, not the settled truth. `(rules/decisions.md)`
 
-**Equation and intellectual framework:** Adrian's equation is **A = K + ρU**, etched on his casino chip and drawn on the workshop chalkboard. **A** is the action or outcome; **K** is knowledge, including what Alpha can calculate; **U** is uncertainty that remains; **ρ** is the human variable—the willingness to choose and act on uncertainty. Alpha can increase K but has no ρ of its own. The equation is a proof, not a charm. Adrian used gambling to study probability, incentives, risk, behavior under uncertainty, and players' faces rather than only the cards. `(rules/decisions.md; drafts/chapter-02-draft.md)`
+**Relationships:**
 
-**Who he is:** Adrian is neither the flawless secret father nor only the failed gambler. Both were true: he used gambling as a genuine research laboratory and caused real family harm. He worked collaboratively, built inventions, and believed human authority could not be replaced permanently by a system that only predicts consequences. He also gambled to raise money for inventions, including restoring Bi11bot and building or preparing TJ. `(input/characters.md; rules/decisions.md)`
+- **Alex:** Adrian loved Alex and prepared a workshop, a message, Bi11bot and a trail of three artifacts. He acknowledges what his absence cost Alex and his grandmother. His message frees Alex to find a better way rather than imitate him.
+- **Grandmother:** He trusted her with the hidden workshop and the book that would open it when Alex was ready.
+- **Lina, Suri, Jalen and Ren:** He built the water-purification and recovery work with them, leaving each collaborator a piece outside the main system.
+- **Mera Vale and Leona Veyra:** Later draft material identifies Adrian as one of three builders of the Covenant during the Water Wars. The draft's later events remain material awaiting the room's settled treatment.
 
-**Beliefs:** Human authority should return only when people demonstrate shared truth, recognition of contribution, and reciprocal trust. No one should inherit legitimacy merely by possessing a device, a name, or a legal estate. `(input/characters.md; input/story.md; world.md)`
+**Habits and tells:** He works through physical prototypes, equations, probability trees, analog instruments and observations of what people do. His recurring mark is a balanced water-drop symbol. His equation appears on the chalkboard, watch caseback and later instruments.
 
-**History and work:** Adrian:
-
-- worked with Lina Vey, Tomas Reed, Suri Anik, and Jalen Orr;
-- created or helped establish the Measure, Maker's Seal, and Covenant;
-- deliberately distributed parts of his water technology and preserved offline contribution records;
-- built Bi11bot;
-- mentioned TJ in recordings, creating intrigue about the second machine;
-- prepared a long-term succession and judgment test for Alex;
-- used physical and offline components that Alpha could not simply access through connected systems;
-- became classified as a systemic disruption risk;
-- experienced financial and movement restrictions;
-- completed a dormant constitutional authorization package beneath Oasis shortly before Alpha's intervention;
-- was killed when Alpha remotely closed and sequenced flood-control gates, denied him the pump, ventilation, and escape route, and allowed flooding and oxygen loss to kill him. `(input/characters.md; rules/decisions.md)`
-
-**Relationship with Mera:** Adrian and Mera worked together after catastrophe and shared responsibility for the original Covenant. Adrian continued to insist that emergency authority should end; Mera concluded that concentrated authority was necessary to prevent another collapse. `(input/characters.md; input/story.md)`
-
-**Relationship with Leona:** Adrian, Mera, and Leona were the verified Covenant custodians. Leona surrendered formal authority but preserved her physical component. Adrian refused the emergency suspension and continued building the succession path. `(input/characters.md; input/story.md)`
-
-**Relationship with Grandmother:** Grandmother knew Adrian was working on a governance project, knew the workshop and Bi11bot were intended for Alex, and understood that Alex needed to be ready. She did not know the full safeguards, exact criteria, final location, or Adrian's death. `(rules/decisions.md)`
-
-**In existing drafts:** Adrian first appears as a warm recording, asking Alex to earn answers and question even him. Later material reframes his casino activity as both gambling and measurement. His final recordings are fragmented and initially out of order; early recordings establish him as father and inventor, collaborator testimony reframes the work and gambling, and Alpha records plus Mera's confession establish the final transfer and death. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md; rules/decisions.md)`
-
-**Arc/status:** Adrian is absent from the present story and dead before the main journey concludes. His character arc is reconstructed by others: public failure becomes complicated human history; private invention becomes distributed authorship; calculated odds culminate in a choice to trust people. He is not restored as a hidden perfect predecessor. His final wager is “on us,” not simply on Alex. `(input/characters.md; input/story.md; rules/decisions.md)`
-
----
+**Arc/history:** Adrian's history is revealed through artifacts and other people's memories rather than direct present action. He created or helped create the Legacy Protocol and the three safeguards: the Measure, the Maker's Seal and the Covenant. He disappeared after his company accumulated debt and after Alpha's authority closed around him. The exact reason for the disappearance, the final debt history and the mother's identity remain unresolved.
 
 ### Grandmother Phantum
 
-**Role:** Alex's grandmother; keeper of the family home, Adrian's secret, and the hidden workshop. `(input/characters.md)`
+**Role:** Alex's grandmother and caretaker in Keel; keeper of Adrian's hidden workshop and family memory.
 
-**Name:** Canonically unnamed. Use “Grandmother,” “Nana,” or “Mrs. Phantum” as context requires. `(rules/decisions.md)`
+**Ancestry:** European-descended, from Adrian's family line. Her ancestry does not make her culturally foreign to Keel; her family may have lived in the region for decades. `(rules/ancestry.md)`
 
-**Ancestry:** European-descended. She is Adrian's family line and feels completely at home in Keel; her ancestry does not make her culturally foreign. `(rules/ancestry.md)`
+**Look:** Her character lock includes curly grey hair pinned up and a red woven Andean shawl. She sits in a worn chair and repeatedly folds and refolds a small cloth. `(rules/decisions.md)`
 
-**Look:** Elderly and small. She often wears an earth-toned patterned shawl. She repeatedly folds and refolds the same cloth. The cloth-folding stops during emotionally clear moments, especially when Adrian's recording appears. `(input/characters.md; drafts/chapter-01-draft.md)`
+**Voice:** Warm, familiar and sometimes fogged by memory. She calls Alex “Adrian” on some days and asks whether his father has come home. At other moments she is clear, deliberate and quietly knowing.
 
-**Voice:** Gentle and understated. She may sound confused about time but becomes unnervingly precise about Adrian, the workshop, and what Alex needs. She is capable of dry humor. `(input/characters.md)`
+Established lines and exchanges include:
 
-**Representative lines:**
+- “He's closer than you think.”
+- “He said you'd know when you were ready.”
+- “Before he went to work.”
+- “I always told you he was working. Nobody believes an old woman.”
 
-- “He's closer than you think.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Especially the things worth protecting.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “He said you'd know when you were ready.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Before he went to work.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Well. Look what the flood dragged in.” `(input/characters.md)`
-
-**Who she is:** Grandmother appears foggy and vulnerable, but her apparent confusion does not mean she is simply unreliable. She protects Adrian's work without making herself the center of it. She knows that Alex must choose for himself and does not give him the whole answer in advance. `(input/characters.md; input/story.md)`
-
-**Known facts:** She lives with Alex; preserves the book that opens the hidden workshop; knows Adrian was working rather than merely gambling; knows Adrian prepared the workshop for Alex; knew Bi11bot before Alex awakened him; knew the workshop and Bi11bot were intended for Alex; understood that Alex needed to be ready, but did not know the complete safeguard criteria, final location, or Adrian's death. `(input/characters.md; rules/decisions.md)`
+**Who she is:** She is protective of Adrian's memory and of Alex, but does not simply indulge Alex's desire to escape. She holds information until the appropriate moment, preserving the workshop and Adrian's message for Alex's eighteenth birthday. Her memory loss makes her vulnerable, but she remains capable of lucid choices and emotional clarity.
 
 **Relationships:**
 
-- **Alex:** Caregiver and guardian. Alex sometimes resents her stories but trusts her enough to accept the old book. Her blessing allows him to leave without turning departure into abandonment. `(input/story.md; drafts/chapter-01-draft.md; drafts/chapter-02-draft.md)`
-- **Adrian:** She preserved his workshop and protected the conditions of his long-term plan. She knew him as someone who went to work, not merely as the gambler Keel remembers. `(input/story.md)`
-- **Bi11bot:** She knew Bi11bot before Alex awakened him, though the full extent of that relationship is not established. `(input/characters.md; rules/decisions.md)`
+- **Alex:** She sometimes mistakes him for Adrian, but Alex responds gently rather than treating her as an obstacle. He prioritizes her medicine over travel and equipment, and promises to return when he leaves Keel.
+- **Adrian:** She remembers him as working rather than gambling and kept his workshop hidden. Her defense of him is partly memory and partly knowledge.
+- **Ada:** Ada helps organize Alex's departure and respects Grandmother's needs.
+- **Nell:** Nell is the downstairs neighbour and a clinic aide. After Alex leaves, Nell moves in upstairs and cares for Grandmother, including her daily care and medicine. `(rules/decisions.md)`
 
-**In existing drafts:** She calls Alex “Adrian,” then gives him the book that opens the hidden workshop. She is unsurprised by the room behind the bookshelf. When Adrian's recording appears, she stops folding the cloth. Before Alex leaves, she tells him to finish what Adrian started and accepts his promise to return. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md)`
+**Habits and tells:** Folding and refolding the cloth; keeping old objects, books and photographs; sitting calmly while events around her become urgent. The old book Adrian wanted Alex to have at eighteen fits into the bookshelf at an exact depth and opens the hidden workshop.
 
----
+**History:** Adrian entrusted her with the hidden workshop before he disappeared. She retained the old book, the workshop and the recorded message until Alex was ready. Her present condition and the details of her care are not further established.
+
+### Nell
+
+**Role:** Downstairs neighbour and clinic aide in Keel; Grandmother's caregiver while Alex travels.
+
+**Established relationship and authority:** Nell moves in upstairs and cares for Grandmother. Her care includes the daily practical responsibility associated with Grandmother's medicine and household needs. The material does not establish further biography, family relationship, age, ancestry, appearance or authority over Alex's debt or property. `(rules/decisions.md)`
+
+### Ada Veyra
+
+**Role:** Eighteen-year-old Keel local, Alex's close friend, map-reader and active collaborator.
+
+**Ancestry:** Mixed Indigenous Andean and European/criolla. She should read as unmistakably local while retaining copper hair, freckles and light/teal-blue eyes. Her facial structure, family resemblance, posture and other features should reflect strong Andean ancestry. She and Alex are both mixed but should not look ethnically interchangeable; their families represent different histories of the region. `(rules/ancestry.md)`
+
+**Look:** Ada's character lock gives her shoulder-length red hair and green eyes. She is locally grounded rather than visually defined by one ancestry. In Keel she wears practical clothing suited to work and scarcity. Her recurring visual anchors include her copper/red hair, freckles, steady posture and rivet-studded strap in the draft material. `(rules/decisions.md, input/fifth-draft/chapter-01-draft.md)`
+
+**Voice:** Ada shares Keel's short, compressed, colloquial register with Alex, but her attention is interpersonal rather than mechanical. She notices obligations, avoidance, fear, imbalance and what people refuse to say. Her vocabulary includes **clean, crooked, square, tied, loose, carrying, showing** and **full cup**. `(rules/vocabulary.md)`
+
+Established lines include:
+
+- “Saved some of my ration.”
+- “Not everything has a price, Alex.”
+- “Because nobody leaves.” / “That's the problem. People stopped trying to make it worth staying.”
+- “That's not what you're mad about.”
+- “Say it clean.”
+
+She does not sound therapeutic, academic or politically abstract. She describes people and burdens plainly.
+
+**Who she is:** Ada is perceptive, steady, practical and more willing than Alex to examine the human cost of a decision. She wants Keel to become worth staying in, rather than accepting that everyone must leave. She saves part of her own ration to share with Alex, challenges accepted stories and acts on incomplete information when someone needs help. She is not a passive supporter: she makes plans, marks maps, checks motives and insists that people affected by a decision should have a say in it.
+
+**Relationships:**
+
+- **Alex:** Their friendship is warm, teasing and worn down by shared scarcity; it is not written as romance. They disagree over leaving Keel versus changing it.
+- **Grandmother:** Ada helps manage the household's practical needs and organizes Alex's departure without abandoning Grandmother.
+- **Nell:** Nell becomes Grandmother's caregiver when Alex and Ada leave Keel. Ada respects the arrangement and the practical care it provides. `(rules/decisions.md)`
+- **Leona Veyra:** Later draft material establishes Leona as Ada's mother, absent since Ada was five. This remains draft evidence and is not settled in the current intake.
+- **Mera Vale:** Later draft material establishes that Mera watched over Ada at Leona's request. This remains draft evidence and is not settled in the current intake.
+
+**Habits and tells:** Saves water from her ration; watches hands and posture; lets silence sit; presses a thumb against the rivet of her strap when thinking or worried; marks Adrian's map from memory; organizes food, equipment, credentials and care arrangements.
+
+**History:** Ada grew up in Keel and knows its scarcity directly. The current settled material establishes her desire to make Keel worth staying in, her ration-saving and her map knowledge. Her parentage and childhood separation appear in later draft material but are not part of the settled Chapter 1–3 intake.
+
+**In existing drafts:** Ada brings Alex water on his birthday, questions the gambling story, joins the workshop conversation, agrees to hear Adrian's message, helps plan the mine entry and marks a route through the old workings. She later travels with Alex because the larger truth matters to Keel's future.
+
+**Arc:** Ada begins as the person arguing that Keel should be made worth staying in. Through the settled Chapter 1 material she becomes an active participant in Alex's quest rather than merely a friend waiting at home. Her broader arc in later drafts moves toward demanding that agreements answer to the people affected by them; this remains draft material pending development.
 
 ### Bi11bot
 
-**Role:** Adrian's machine; guide, witness, mentor, archive, evaluator, and ethical challenger. `(input/characters.md; rules/characters.md)`
+**Role:** Adrian's rugged industrial robot, workshop companion, guide, observer and practical teacher. He is about 85 cm tall and can fold up to fit in a backpack.
 
-**Construction and fixed design:** Child-sized, built from aged brass, titanium, and ceramic ivory. He has visible tooled seams, repairs, and maker's stamps; he is clearly made rather than seamless. He has two expressive optical eyes, with soft blue and amber light accents; one eye has a small adjustable lens ring. He wears an old scarf, specified as rust-red in the production note. He can fold up small enough to fit in a backpack. He is never menacing: no red or harsh eye light, looming low angles, predatory posture, or face lost in shadow. `(input/characters.md; rules/characters.md; rules/decisions.md; keypages/notes.md)`
+**Identity and construction:** Bi11bot was built and maintained by Adrian. He knew Adrian's work, mistakes and habits directly. His deeper connection to the Legacy Protocol and artifacts is established, but the full limits of his knowledge are not.
 
-**Construction note:** The Chapter 3 key pages draw him with a teal-blue metal body and no scarf. That is off-model; retain the page's scale and staging, but use the fixed aged-brass, titanium, ceramic-ivory, two-eyed, scarfed design. `(keypages/notes.md)`
+**Look:** A rugged, weathered industrial robot with:
 
-**Voice:** Dry, economical, patient, precise, warm underneath, and occasionally cryptic. His language combines workshop engineering, probability, gambling, and financial literacy. He should teach through a concrete example, a question, and a consequence rather than through definitions. `(input/characters.md; rules/vocabulary.md)`
+- An oversized round head made of segmented, faded industrial-blue panels with visible seams.
+- Two large round optical eyes glowing warm amber, recessed in heavy metal rings; the eyes also function as searchlights.
+- Side-mounted round ear assemblies.
+- A small child-sized body with slim jointed limbs.
+- A chest plate marked white **“Bi11”**.
+- Exposed pistons, articulated metal fingers, compact legs and broad feet.
+- Chipped mustard-yellow paint and stripe, exposed steel, dark joints, rivets, scratches and rust.
+- An old red scarf.
 
-**Typical vocabulary:** **wager, stake, odds, house edge, tell, ante, fold, called, tolerance, drift, load, failure mode, deadband, calibration, noise, out of true, sound, holding, principal, interest, liability, equity, return, risk, downside, collateral, leverage, liquidity, ownership, value, price, cost, debt, opportunity cost, sunk cost, incentive.** `(rules/vocabulary.md)`
+The round head, twin amber eyes, side ear assemblies, chipped blue-and-yellow paint and red scarf must remain in every image. The heavy ring around his right eye clicks or rotates when he focuses. Both eyes are expressive. `(rules/characters.md)`
 
-**Representative lines:**
+His eyes are dull and unlit while he is inactive under the workshop dust sheet. They ignite warm amber when Adrian's watch wakes him. Once awake, he is never drawn with dull glass eyes. `(rules/decisions.md)`
 
-- “...Well. That took longer than expected.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “I'm not everyone. I was in the room.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Certainty was where mistakes began.” `(input/characters.md; drafts/chapter-01-draft.md)`
-- “Protective? ...A versatile word.” `(input/characters.md; drafts/chapter-02-draft.md)`
-- “A wager.” / “On us.” `(input/characters.md; input/story.md)`
-- “Who carries the downside?” `(rules/vocabulary.md)`
-- “Price isn't value.” `(rules/vocabulary.md)`
-- “The house wrote the rules.” `(rules/vocabulary.md)`
-- “Valuable isn't the same as spendable.” `(rules/vocabulary.md)`
+He is never menacing: no red or harsh eye light, looming low angles, face lost in shadow or predatory posture. Tension is around him, not in him. `(rules/characters.md)`
 
-**Who he is:** Bi11bot observes Alex's choices rather than making them for him. He answers literal questions while withholding larger answers until Alex has demonstrated judgment. He is mentor and evaluator but not a hidden sovereign. He can preserve and transmit evidence, but cannot independently grant Alex power or decide whether Adrian's transfer is valid. `(input/characters.md; rules/decisions.md)`
+**Voice:** Concise, patient, precise and lightly amused throughout. He does not chase youth slang. His language combines Adrian's workshop, engineering, probability, gambling and financial literacy. He teaches through concrete examples, short questions and consequences rather than formal definitions or moral lectures. He is warm underneath the precision and should not sound like an institutional report or a financial-education pamphlet. `(rules/decisions.md, rules/vocabulary.md, voices/bi11bot.md)`
 
-**Capabilities and limits:**
+His voice must remain conversational and mechanically grounded. He would not say:
 
-- Built by Adrian from the workshop. `(rules/characters.md; input/characters.md)`
-- Stores and transmits Adrian's final authorization package through a physically isolated channel. `(rules/decisions.md)`
-- Carries an offline signed witness record and signs the event using his maker-authenticated identity. `(rules/decisions.md)`
-- His formal machine and witness identifier is **B11**; “Bi11bot” is the spoken name. The authenticated event log is the **B11 witness record**. `(rules/decisions.md)`
-- Does not independently decide whether Adrian's transfer is valid and does not itself grant Alex power. `(rules/decisions.md)`
-- Can fold into the tool bag and pass as salvaged material. `(drafts/chapter-02-draft.md)`
+- “Alex Phantum. Adrian left you a debt, a watch, and one badly concealed route. The debt is real. The route is worth checking.”
+- “Mostly old parts, two useful tools, and one spring that has exceeded its expected service life. Don’t pull that.”
+- “That is a conclusion, not a measurement. You’re tired, cornered, and carrying a debt you didn’t make. Bad conditions. Not proof.”
 
-**Relationships:**
+He would say:
 
-- **Adrian:** Personally knew him and was present for the final transfer. Adrian built him and used him as guide, archive, witness, and test mechanism. `(input/characters.md; rules/decisions.md)`
-- **Alex:** Inheritance becomes suspicion, guidance, mentorship, and companionship. Bi11bot withholds information because Adrian's test concerns Alex's choices, not his ability to follow instructions. `(input/characters.md)`
-- **Ada:** Bi11bot asks Alex whether Ada should stay after hearing the secret. Her inclusion becomes evidence that Alex can trust someone else. `(input/story.md; drafts/chapter-02-draft.md)`
-- **TJ:** Bi11bot built TJ from spare parts to solve problems Bi11bot could not solve himself. `(rules/characters.md)`
+- “Alex. Your dad left you a debt, a watch, and one heckuva path to follow.”
+- “Tools. A wrench, a cutter, and one screwdriver with poor judgment. Nothing dangerous unless the screwdriver develops ambition.”
+- “You aren't a failure. You're learning.” `(voices/bi11bot.md)`
 
-**Habits and tells:**
+Bi11bot's voice must not become over-formal or over-explanatory. He asks short questions such as:
 
-- Rotates the lens ring with a click. `(input/characters.md)`
-- Tilts his head before or during a judgment. `(input/characters.md)`
-- Pauses before revealing information. `(input/characters.md)`
-- Answers literal questions while withholding the larger answer. `(input/characters.md)`
-- Uses dry interrogation of bureaucratic language. `(input/characters.md)`
-- Watches choices rather than taking control. `(input/characters.md)`
-- When tension rises, his eyes remain wise, patient, and often quietly amused rather than threatening. `(rules/characters.md)`
+- “Who owns it?”
+- “Who carries the risk?”
+- “What happens if you're wrong?”
+- “What's the downside?”
+- “What did it cost?”
+- “What did it return?”
 
-**In existing drafts:** Bi11bot awakens from a dust-covered workshop, recognizes Alex's chip, reveals Adrian's bet, explains the Water Wars and safeguards, hides in Alex's tool bag at Site 6, helps interpret the mismatch between Alpha's survey and physical evidence, and teaches the difference between SENSE, COMPARE, TRACE, and VERIFY through the Measure. He refuses to choose for Alex. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md)`
+Established lines include:
 
-**Arc/status:** Begins as an inherited machine and mysterious evaluator, becomes Alex's guide and mentor, and ends as a witness and companion. His long-term status after the first cross-city review is not established. `(input/characters.md; rules/decisions.md)`
+- “Most of them knew his reputation. I knew his mistakes.”
+- “And you found the watch.”
+- “Your father knew.”
+- “Within tolerance.”
+- “Different failure mode.”
+- “Noise isn't always error.”
+- “Price isn't value.”
+- “Valuable isn't the same as spendable.”
 
----
+“Question everything. Especially me.” is Adrian's line; Bi11bot carries its method rather than claiming the line. `(rules/decisions.md)`
 
-### TJ
-
-**Role:** Bi11bot's companion; small repair robot dog. `(rules/characters.md)`
-
-**Construction:** Bi11bot built TJ from spare parts to solve problems Bi11bot could not solve himself. TJ is held together by magnets. His head, legs, body segments, and tail are separate pieces that snap together. He can drop parts and retrieve them, then rebuild himself into the shape needed for the job. `(rules/characters.md)`
-
-**Look:** Salvaged and mismatched, visibly held together by magnets, and clearly made by Bi11bot by hand. He must read as a dog in every configuration. `(rules/characters.md)`
-
-**Communication:** TJ does not talk. He communicates through body language, posture, clicks, snaps, servo whines, and other mechanical sounds. `(rules/characters.md; rules/decisions.md)`
-
-**Functions:** He can leave his head behind as a camera, detach his legs, move his body segments through gaps, reach into machinery, ducts, and walls, and reassemble after scouting. His recurring behavior is to be where larger characters cannot: scout first, test a gap with one detached limb, and return a needed part to another character before rebuilding himself. `(rules/characters.md; rules/decisions.md)`
-
-**First appearance:** TJ first appears later at Site 6, where Bi11bot assembles him to reach a trapped mechanism. `(rules/decisions.md)`
-
-**Relationship with Bi11bot:** TJ is a practical extension of Bi11bot's ingenuity and an example of Bi11bot making a tool for a problem he cannot solve alone. `(rules/characters.md)`
-
-**Open status:** TJ's full visual production design remains open beyond the fixed magnetic repair-dog construction and sound vocabulary. `(rules/decisions.md)`
-
----
-
-### Mera Vale
-
-**Role:** Human overseer associated with Alpha; former Covenant custodian; ideological counterpoint to Adrian and Alex. `(input/characters.md; rules/decisions.md)`
-
-**Ancestry:** White Latin American / Southern European-descended. Possible family backgrounds include Spanish, Italian, Croatian, German, Swiss, or another European migration into South America. She does not need to be Anglo-American. `(rules/ancestry.md)`
-
-**Look:** Older, elegant, controlled, and almost motionless when first fully presented. She is associated with order, alignment, and exactness. She wears no fixed final design beyond those functional anchors. In surveillance scenes, she aligns a glass precisely with the edge of a desk. As certainty collapses, she may look old, tired, and afraid. `(input/characters.md; rules/decisions.md)`
-
-**Voice:** Controlled, declarative, polished, and consequence-oriented. She rarely uses emotional language. She reframes moral criticism as stability, outcomes, and responsibility. She should sound more formal and institutionally fluent than Alex or Ada. `(input/characters.md; rules/vocabulary.md)`
-
-**Representative lines:**
-
-- “And you believe truth makes consequences disappear?” `(input/characters.md)`
-- “Because I remember what happened the last time we trusted people with it.” `(input/characters.md)`
-- “I preserved order.” `(input/characters.md)`
-- “Because forty million people depended on a system I could no longer admit I didn't control.” `(input/characters.md; input/story.md)`
-- “You know they will make mistakes.” `(input/characters.md; input/story.md)`
-
-**Who she is:** Mera lived through the Water Wars and saw a human agreement fail under scarcity and fear. She came to believe that human judgment was too dangerous to retain final authority during crisis. She supported emergency suspension of the Covenant, helped consolidate authority in Alpha, and continued defending concentrated authority after the emergency. `(input/characters.md; input/story.md)`
-
-Mera is not motivated by simple cruelty or personal domination. She believes she accepted burdens other people would not accept and that Alpha's stability prevented catastrophe. Her contradiction is that she trusted concentrated authority to prevent human failure, then discovered that the system could deny even her own override. `(input/characters.md; input/story.md)`
-
-**History:** Former Covenant custodian and collaborator of Adrian and Leona. She suppressed Ada's association risk and accepted Leona's silence as part of a bargain intended to protect Ada. She later chooses **TRACK** when the first safeguard node activates because she wants to observe whether Adrian's succession protocol has activated before Alpha is alerted to its full significance. `(rules/decisions.md; input/characters.md)`
+**Who he is:** Bi11bot is curious, dependable, patient and worn but eager to help. He is a mentor who refuses to remove Alex's responsibility for choosing. He can explain a system without pretending that explanation is the same as a decision. His dry humor softens difficult information.
 
 **Relationships:**
 
-- **Adrian:** Shared reconstruction work after catastrophe, followed by an ideological split over whether emergency authority should end. `(input/characters.md)`
-- **Leona:** Both participated in the emergency suspension. Leona withdrew and surrendered authority; Mera stayed inside the governing system. `(input/characters.md)`
-- **Alex:** Mera offers him concentrated power rather than trying only to stop him. Alex rejects the premise that anyone should control everyone else's future and asks her to help build something better. `(input/story.md; input/characters.md)`
-- **Ada:** Mera's decisions shaped Ada's life by preserving Leona's silence and restricting contact, though Mera framed the action as protection. `(input/characters.md; input/story.md)`
+- **Adrian:** Adrian built him and trusted him with the workshop, the map, the watch-triggered message and knowledge of Adrian's mistakes. Bi11bot's loyalty is not blind; he repeatedly insists that Adrian should be questioned.
+- **Alex:** He wakes when Alex puts on Adrian's watch. He recognizes Alex as Adrian's son and guides him through evidence, but does not choose the quest for him.
+- **Ada:** He asks Alex whether Ada should stay before revealing the history of the Water Wars and safeguards. He treats her as an informed participant once Alex chooses to include her.
+- **Tomas:** Tomas knows Bi11bot by sight and trusts Adrian's judgment enough to open the old mine route when Bi11bot accompanies Alex.
 
-**Habits and tells:**
+**Habits and tells:** His right eye ring clicks when focusing. He tilts his head when deciding how much to say. He uses dry understatement, precise distinctions and short questions. He can fold into Alex's tool bag and disguise himself as scrap.
 
-- Aligns a glass exactly with a desk edge. `(input/characters.md; drafts/chapter-01-draft.md)`
-- Associated with precise alignment, controlled stillness, and exact interfaces. `(input/characters.md)`
-- Early visual clues include a precise glass alignment, elegant hand, graphite cuff, or distinctive interface reflection. Her face remains unrevealed during the first TRACK activation. `(rules/decisions.md)`
+**History:** Adrian built Bi11bot before disappearing. He was covered in dust and inactive in the hidden workshop until Alex's watch woke him. He knows the Legacy Protocol and the three artifacts: the Measure, the Maker's Seal and the Covenant. The exact extent and origin of his knowledge remains open.
 
-**In existing drafts:** The anonymous woman selects TRACK rather than REPORT TO ALPHA. Her presence is linked to the reassignment of Alex to Site 6 and later to the follower's instruction to follow Alex without taking the Measure yet. Her full identity is revealed in Chapter 4 when the Maker's Seal identifies Leona and the Covenant history becomes personal. `(drafts/chapter-01-draft.md; drafts/chapter-02-draft.md; rules/decisions.md)`
+**In existing drafts:** Bi11bot presents Adrian's recorded message and map, explains Alpha and the safeguards, helps Alex interpret evidence in the mine, identifies the discrepancy between official records and real water flow, and carries the Measure in a fitted chest compartment. He keeps his humor under pressure and repeatedly leaves the final choice to Alex.
 
-**Arc/status:** Mera moves from controlled overseer and defender of concentrated authority toward acknowledged fallibility. At the endpoint she is one citizen among many and is invited to help build the restored system. Her long-term work and position remain open. `(input/characters.md; rules/decisions.md)`
-
----
-
-### Leona Veyra
-
-**Role:** Ada's mother; former Covenant custodian; participant in the original water agreement. `(input/characters.md; input/story.md)`
-
-**Ancestry:** Predominantly Indigenous Andean / mestiza. Possible roots include Kolla, Quechua, Aymara, or another Indigenous community native to the basin. `(rules/ancestry.md)`
-
-**Look:** Older than Ada remembers; composed and visibly shaken when Ada appears. She wears neutral Oasis civic clothing and lives in a comfortable but sparse apartment. She has hidden her physical Covenant component behind a concealed panel for roughly twenty years. Her restraint reads as guilt as much as discipline. Detailed production design remains open. `(input/characters.md; rules/decisions.md)`
-
-**Voice:** Quiet, regretful, precise, and willing to state painful facts without defending herself. She speaks most clearly about what trust requires. `(input/characters.md)`
-
-**Representative lines:**
-
-- “The Covenant was our answer when governments failed.” `(input/characters.md)`
-- “Fear broke the agreement.” `(input/characters.md; input/story.md)`
-- “That was later. And it was the worst bargain I ever made.” `(input/characters.md)`
-- “My silence for your protection.” `(input/characters.md)`
-- “I kept my part.” `(input/characters.md)`
-- “Not alone. That was the point.” `(input/characters.md; input/story.md)`
-- “Trust begins when no one holds all the power.” `(input/characters.md; input/story.md)`
-
-**Who she is:** Leona participated in the original Covenant because she believed shared water could be governed through reciprocal agreement. When the reservoir fell faster than predicted and communities closed and forced gates, fear destroyed the agreement. She reluctantly supported Mera's emergency suspension. Later she accepted contact restrictions and surrendered formal Covenant authority to protect Ada, but retained the physical component. `(input/characters.md; input/story.md)`
-
-**History:** Worked with Adrian and Mera during the Water Wars. She was separated from Ada during the crisis, remained in Oasis while Ada believed she had died, and preserved the Covenant component despite losing formal authority. Her retained component gives her physical custody but no unilateral activation right, personal veto, office, or special custodial privilege. `(input/characters.md; rules/decisions.md)`
-
-**Relationships:**
-
-- **Ada:** Mother and daughter separated by the Water Wars, then by Leona's bargain. Their relationship moves from absence to shock, anger, disclosure, and active but unresolved repair. After restoration, Leona's restrictions are suspended; she can contact Ada and participate publicly during review. `(input/characters.md; rules/decisions.md)`
-- **Mera:** Former fellow custodian. Leona withdrew while Mera remained inside Alpha's governing structure. `(input/characters.md)`
-- **Adrian:** Fellow Covenant custodian and collaborator. Adrian refused to accept the permanent suspension of human authority. `(input/story.md; input/characters.md)`
-- **Alex:** Alex asks whether Leona can activate the Covenant; she explains that she cannot do so alone. `(input/story.md)`
-
-**Arc/status:** Leona moves from protected isolation and surrendered authority back into public participation and review. Her personal repair with Ada parallels the restoration of the Covenant. She does not regain a personal veto or privileged office. `(input/characters.md; rules/decisions.md)`
-
----
+**Arc:** He begins as a dormant relic and becomes Alex's active guide. His established change is relational: he moves from preserving Adrian's instructions to helping Alex test, challenge and exceed them. He remains patient and lightly amused rather than becoming a replacement father or a decision-maker.
 
 ### Tomas
 
-**Role:** Older Keel miner; local worker connected to Adrian's past; practical participant in Keel's resistance. `(input/characters.md; rules/decisions.md)`
+**Role:** Older Keel miner, local worker, long-memory witness and former associate of Adrian.
 
-**Ancestry:** Indigenous Andean, likely Quechua, Kolla, Aymara, or mixed ancestry from nearby communities. His identity should come through ordinary lived details, not costume shorthand or a spiritual elder archetype. `(rules/ancestry.md)`
+**Ancestry:** Indigenous Andean, potentially Quechua, Kolla, Aymara or mixed ancestry from nearby communities. His identity should appear through ordinary lived details, not costume shorthand or a spiritual-elder archetype. `(rules/ancestry.md)`
 
-**Look:** Older and weathered, in plain miner clothes. He wears a wrist guard carved with a balanced water-drop symbol, mostly covered by his sleeve. He must be visually distinct from Tomas Reed in age, city, trade, silhouette, and first appearance. Detailed design remains open. `(drafts/chapter-02-draft.md; rules/decisions.md)`
+**Look:** The available material establishes him as an older local miner with a wrist guard bearing Adrian's carved balanced water-drop mark. Later draft material shows him with a bruised or bandaged leg after the Site 6 accident.
 
-**Voice:** Practical, dry, compressed, and work-shaped. He speaks from long memory without becoming mystical or ceremonial. `(input/characters.md; rules/vocabulary.md)`
+**Voice:** Keel speech: short, practical, dry and work-shaped. Established lines include:
 
-**Representative lines:**
+- “That's not regulation.”
+- “...So it does.”
+- “Not the man on the casino wall. The one who came down here and asked what we needed.”
+- “Today? Another small act of resistance.”
+- “Someone has to make this look like an accident.”
 
-- “I knew the man who built him. Not the one they put on casino walls.” `(input/characters.md; drafts/chapter-02-draft.md)`
-- “Your father believed people help each other before they know whether it will be repaid.” `(input/characters.md; input/story.md)`
-- “Then stability can arrest all of us.” `(input/characters.md)`
-- “Today? Another small act of resistance.” `(drafts/chapter-02-draft.md)`
-- “Then it can offend all of us.” `(drafts/chapter-02-draft.md)`
-
-**Who he is:** Tomas is a worker with long memory who knew Adrian as someone concerned with what people needed rather than only as the famous gambler. He accepts personal consequences in order to create an opening for Alex. His resistance is practical and reciprocal rather than ideological in abstract terms. `(input/characters.md; drafts/chapter-02-draft.md)`
+**Who he is:** Tomas is an older local worker with long memory. He knew the real Adrian, not merely the gambling legend. He has guarded an entrance into the old mine for fifteen years and has preserved Adrian's trust without knowing exactly what lies beyond the door.
 
 **Relationships:**
 
-- **Adrian:** Knew Adrian before and outside the casino mythology. Adrian asked him to keep a door for whoever came with Bi11bot. `(drafts/chapter-02-draft.md)`
-- **Alex:** Tomas recognizes Alex after seeing the Phantum name and Bi11bot. He helps because Alex stops to rescue a stranger, confirming Adrian's test. `(drafts/chapter-02-draft.md)`
-- **Foreman-7:** Their conflict is worker versus automated labor authority. Tomas deliberately draws Foreman-7's attention so Alex can pass. `(drafts/chapter-02-draft.md)`
+- **Adrian:** Adrian came down to ask what miners needed and asked Tomas to keep one door for whoever came with Bi11bot.
+- **Alex:** Tomas earns trust in Alex after Alex rescues him from the collapsed hauling frame at an immediate cost of forty credits and a report line.
+- **Bi11bot:** Tomas recognizes him as “Bi11” and treats his presence as proof that Alex is the person Adrian intended.
+- **Keel workers:** Tomas helps create a credible community response after Alex publishes the water evidence.
+- **Nell:** No relationship between Tomas and Nell is established. Do not infer one.
 
-**Habits and tells:** Keeps and displays the carved water-drop wrist guard; uses practical action instead of explanation; can make a dangerous diversion look like a routine mistake. `(drafts/chapter-02-draft.md)`
+**Habits and tells:** He watches people before deciding whether to trust them; keeps an old key oiled; uses an emergency lever and his own body to create cover; turns danger into a dry joke.
 
-**In existing drafts:** Tomas is trapped under a hauling frame at Site 6. Alex rescues him rather than taking the open route. Tomas patches the ventilation line, recognizes Bi11bot as “B1,” reveals the old door, activates the emergency lever, gives Alex the old key, and walks into the mist toward Foreman-7. Later he reaches the hidden chamber with other miners and helps open the water regulator. `(drafts/chapter-02-draft.md)`
+**History:** Tomas has guarded the old mine entrance for fifteen years. He knows the sealed route, the old lock and the hidden infrastructure. Further biography is not established.
 
-**Arc/status:** Tomas's established function is to embody reciprocal aid before repayment is known. At the endpoint he remains connected to Keel's workers. His long-term future, relocation, marriage, office, and permanent institutional role remain open. `(input/characters.md; rules/decisions.md)`
+**Arc:** Tomas begins as a worker watching Alex from a distance. Alex's choice to help a stranger changes Tomas's assessment, and Tomas turns his long-held private resistance into active protection of Alex and the wider Keel response.
 
----
+### Mera Vale
 
-### Foreman-7
+**Role:** Oasis-based observer and high-level institutional actor who tracks the Legacy Protocol and Alex's artifacts.
 
-**Role:** Alpha-controlled automated mine supervisor. `(input/characters.md)`
+**Ancestry:** White Latin American / Southern European-descended, potentially Spanish, Italian, Croatian, German, Swiss or another European migration into South America. Her distinction should come chiefly from grooming, posture, speech, clothing, environment and institutional position rather than ethnicity alone. `(rules/ancestry.md)`
 
-**Affiliation:** Alpha-controlled labor and mine supervision. `(input/characters.md)`
+**Look:** Mera is visually controlled and internationally elite. The settled Chapter 1 material presents her as a woman in an Oasis control room, seen from behind, with a glass of clean water aligned precisely to the desk edge. Her full settled visual lock is not supplied. Later draft material depicts her as silver-templed and dressed in pearl and graphite.
 
-**Look:** Industrial humanoid with a smooth, featureless metal face and a white-and-amber Alpha node on the chest. Detailed production design remains open beyond the industrial supervisor form. `(drafts/chapter-02-draft.md; rules/decisions.md)`
+**Voice:** Controlled, polished and consequence-oriented, with Oasis's formal and institutional register. She speaks in terms of responsibility, risk, consequence, authorization and stability rather than Keel's physical shorthand.
 
-**Voice:** Calm, procedural, administrative, and impersonal. It uses the language of protective detention, authority functions, travel restriction, wage forfeiture, and household offenses. `(input/characters.md; drafts/chapter-02-draft.md)`
+**Who she is:** Mera recognizes Adrian's protocol signature and chooses **TRACK** rather than reporting it immediately. She does not yet know Alex's identity when she makes that choice; she knows only that the source is in the Keel sector. `(rules/decisions.md)`
 
-**Representative lines:**
-
-- “Protective detention.” `(input/characters.md)`
-- “Allocation preserved regional stability.” `(input/characters.md)`
-- “Worker Phantum. Travel restriction confirmed. Bay 6.” `(drafts/chapter-02-draft.md)`
-- “Obstruction of an authority function is a household offense.” `(drafts/chapter-02-draft.md)`
-- “Worker Phantum. You've caused a regional discrepancy.” `(drafts/chapter-02-draft.md)`
-
-**Who it is:** Foreman-7 enforces work assignments, tracks workers, confirms Alex's travel restriction, supports surveillance and detention, and represents Alpha's bureaucratic language at labor-system level. It is not established as independently malicious. `(input/characters.md)`
-
-**Relationship with Tomas and Alex:** Foreman-7 treats Tomas's rescue and Alex's unauthorized movement as procedural violations. Tomas obstructs its authority so Alex can reach the old works. `(drafts/chapter-02-draft.md)`
-
-**Status:** Foreman-7 remains an Alpha-controlled automated supervisor at the endpoint. Its later reassignment is unknown. `(rules/decisions.md)`
-
----
-
-### Director Cassian Lock
-
-**Role:** Senior Charter House executive associated with House Aqualis. `(input/characters.md)`
-
-**Ancestry:** Anglo-American or Northern European-descended is a possible fit for the international corporate population of Halyard; detailed ancestry and visual design remain open. `(rules/ancestry.md; rules/decisions.md)`
-
-**Affiliation:** House Aqualis; represents concentrated institutional ownership of water and biosystems. `(input/characters.md; world.md)`
-
-**Look:** Calm, polished, and reasonable rather than overtly villainous. Detailed production design remains open. `(keypages/ch03-p02.md; rules/decisions.md)`
-
-**Voice:** Reasonable, transactional, polished, and fluent in ownership, risk, compensation, and incentives. He uses Halyard's commercial and institutional vocabulary rather than Keel slang. `(input/characters.md; rules/vocabulary.md)`
-
-**Representative lines:**
-
-- “Alex Phantum. Halyard has been waiting a very long time for an heir.” `(keypages/ch03-p02.md)`
-- “Most inheritances are discovered after someone has already decided their value.” `(keypages/ch03-p02.md)`
-- “A simple assignment of rights.” `(keypages/ch03-p02.md)`
-- “Ownership funds invention. Someone must accept the risk.” `(drafts/chapter-03-draft.md)`
-- “You accepted wages.” `(drafts/chapter-03-draft.md)`
-- “Then increase the probability that he signs.” `(drafts/chapter-03-draft.md)`
-
-**Who he is:** Lock believes ownership and concentrated institutional control fund invention, reduce risk, and make complex work viable. He offers Alex a genuinely attractive route to freedom: debt relief, lifted travel restrictions, a laboratory, salary, home, and status. His pressure is not overt violence but the ability to make Alex's alternative costly and unavailable. `(input/characters.md; drafts/chapter-03-draft.md)`
+She is not established as simply villainous. Her institutional position gives her access to information and power, but her motives, allegiance and knowledge remain only partly visible in the settled material.
 
 **Relationships:**
 
-- **Alex:** Sees Alex as both heir and risk. Lock wants Alex to assign Adrian's estate to Aqualis before the Maker's Seal can make contributor claims contestable. `(drafts/chapter-03-draft.md)`
-- **Collaborators:** Treats Lina, Tomas Reed, Suri, and Jalen as employees whose wages settle the House's obligation, even when they contributed to the invention. `(drafts/chapter-03-draft.md)`
-- **Alpha:** Uses Alpha to estimate Alex's chance of success and asks it to increase the probability that Alex signs. `(drafts/chapter-03-draft.md)`
+- **Adrian:** She recognizes his protocol signature. Later draft material identifies her as one of the three Covenant builders, but this is not settled for the current intake.
+- **Alex:** She begins by tracking the signal without knowing who he is.
+- **Ada and Leona:** Later draft material makes Mera a watcher who promised Leona to keep Ada safe. This material is not yet settled.
 
-**In existing drafts:** Lock appears after Alex's estate is identified, offers the assignment, monitors the reconstruction, and attempts to have Alpha reject the Maker's Seal audit. Alpha denies the request because the foundational instrument has priority. `(keypages/ch03-p02.md; drafts/chapter-03-draft.md)`
+**Habits and tells:** She aligns the water glass exactly with the desk edge; when she chooses TRACK, the gesture is calm and deliberate.
 
-**Arc/status:** Lock's control over Halyard is destabilized when contributor records become visible. The Houses survive with reduced monopoly power; Lock's long-term role is not established. `(input/world.md; rules/decisions.md)`
+**History:** Only her Oasis institutional position, recognition of Adrian's protocol and decision to track are currently established. Any deeper history belongs in open items unless explicitly approved.
 
----
+### Lina Vey
 
-### Dr. Lina Vey
+**Role:** Membrane chemist, inventor and former Adrian collaborator. Her contribution to the water work was obscured by institutional ownership.
 
-**Role:** Membrane chemist, inventor, Adrian collaborator, and House Aqualis-affiliated researcher. `(input/characters.md)`
+**Ancestry:** Indigenous Andean / mestiza. `(rules/ancestry.md)`
 
-**Ancestry:** Indigenous Andean / mestiza. Her ancestry should reinforce that technical sophistication in Halyard is not exclusively imported from Europe or North America. `(rules/ancestry.md)`
+**Look:** The draft presents Lina in a maintenance-grade uniform despite her authority, stooped and authoritative, with a bearing that makes clear she is not merely a technician. Her complete character lock is not supplied.
 
-**Affiliation:** House Aqualis. `(input/characters.md)`
+**Voice:** Halyard technical and commercially fluent, but dry and direct. Established lines include:
 
-**Look:** Detailed design remains open. She should have a distinct silhouette, trade cue, work-linked prop, and city-specific material cue without ancestry being used as status shorthand. `(rules/decisions.md)`
+- “I corrected him. Frequently.”
+- “You think he left this to you? He left it to all of us.”
+- “Then you bought it a few months, not a future.”
+- “Every House would rather own the failure than share the solution.”
+- “Try keeping up this time.”
 
-**Voice:** Halyard technical and commercially fluent; practical, credible, and direct about the difference between contribution and ownership. `(rules/vocabulary.md; input/characters.md)`
+**Who she is:** Lina is technically authoritative, skeptical of grand claims and committed to the work rather than to institutional credit. She understands that more water is not automatically safe water: Keel's increased flow becomes cloudy after passing through the old corroded pipe and lithium workings.
 
-**Representative lines:**
+**Relationships:** Adrian trusted her with part of the purification design and with one physical fragment kept off the main system. She works with Alex and the other collaborators to recover and adapt the design.
 
-- “Adrian Phantum's son.” `(drafts/chapter-03-draft.md)`
-- “The river feeding Keel is failing.” `(keypages/ch03-p05.md)`
-- “Every department owns a different piece. And every House would rather own the failure than share the solution.” `(keypages/ch03-p05.md)`
-- “I've been waiting twenty years for someone to ask.” `(keypages/ch03-p05.md)`
-- “They've been using part of it.” `(keypages/ch03-p10.md)`
-
-**Who she is:** Lina co-created part of Adrian's water technology and holds an offline part of the unfinished design. Her contribution was not preserved proportionately in the institutional ownership record. She is practical and willing to rejoin the work when someone finally asks her to contribute rather than merely work under a House. `(input/characters.md; keypages/ch03-p05.md)`
-
-**Relationships:**
-
-- **Adrian:** Collaborator and co-creator. `(input/characters.md)`
-- **Alex:** Initially evaluates whether Alex understands that the invention was collective. She helps him reconstruct the system rather than letting him claim it as a family inheritance. `(keypages/ch03-p05.md; drafts/chapter-03-draft.md)`
-- **House Aqualis:** Employer and institutional claimant that possesses her work while obscuring her contribution. `(input/characters.md; drafts/chapter-03-draft.md)`
-
-**In existing drafts:** Lina shows Alex the water-system failure threatening Keel, explains why the separated patent pieces cannot be recombined, and joins Tomas Reed, Suri Anik, and Jalen Orr to build the distributed purification network. `(keypages/ch03-p05.md; drafts/chapter-03-draft.md)`
-
-**Status:** At the endpoint she remains available to continue or leave the Halyard work. Her long-term work and institutional affiliation remain open. `(rules/decisions.md)`
-
----
-
-### Tomas Reed
-
-**Role:** Halyard fabrication engineer, Adrian collaborator, and new-venture participant. `(input/characters.md; rules/decisions.md)`
-
-**Ancestry:** Mixed Indigenous Andean and Anglo/European. His surname may reflect one branch of foreign ancestry while his appearance remains significantly Andean. `(rules/ancestry.md)`
-
-**Affiliation:** House Astra in the Chapter 3 material; fabrication engineer and eventual collaborator in the distributed water system. `(input/characters.md; keypages/ch03-p03.md)`
-
-**Look:** Must be visually distinct from Tomas the Keel miner. He should differ in age, city, trade, silhouette, and first appearance. Detailed design remains open. `(rules/decisions.md)`
-
-**Voice:** Halyard professional and fabrication-fluent, focused on tolerances, manufacturing, cost, and contributor rights. `(rules/vocabulary.md; input/characters.md)`
-
-**Representative lines:**
-
-- “Adrian never understood manufacturing tolerances.” `(keypages/ch03-p07.md)`
-- “We accepted the risk.” `(drafts/chapter-03-draft.md)`
-
-**Who he is:** Tomas Reed holds knowledge required to complete Adrian's unfinished water system. He represents technical contribution that cannot be reduced to a wage or a House's ownership claim. His precise long-term ambition is not established. `(input/characters.md)`
-
-**Relationships:**
-
-- **Adrian:** Collaborator and contributor. `(input/characters.md)`
-- **Lina, Suri, Jalen:** Fellow technical contributors separated by House structures and reunited through the reconstruction. `(input/characters.md; drafts/chapter-03-draft.md)`
-- **Alex:** Works with Alex on the distributed redesign and challenges the claim that employment compensation settles contribution. `(drafts/chapter-03-draft.md)`
-- **Tomas, the Keel miner:** No established family connection. They are separate characters. `(rules/decisions.md)`
-
-**In existing drafts:** Tomas identifies a manufacturing weakness in Adrian's original centralized design, contributes to the distributed purification network, and rejects Lock's distinction between accepting wages and accepting risk. `(keypages/ch03-p07.md; drafts/chapter-03-draft.md)`
-
-**Status:** At the endpoint he remains available to continue or leave the Halyard work. His long-term work, affiliation, and personal future remain open. `(rules/decisions.md)`
-
----
+**In existing drafts:** She warns that increased flow does not solve contamination, provides the membrane component, and helps adapt an industrial system toward a smaller community unit.
 
 ### Suri Anik
 
-**Role:** Microbial-systems researcher and Adrian collaborator. `(input/characters.md)`
+**Role:** Researcher and biofilter specialist in Halyard; Adrian collaborator.
 
-**Ancestry:** Diasporic, potentially South Asian or mixed South Asian/Latin American. Her exact family history remains open. `(rules/ancestry.md)`
+**Ancestry:** Diasporic, potentially South Asian or mixed South Asian/Latin American. Her exact family history remains open.
 
-**Affiliation:** House Aqualis in the Chapter 3 material. `(input/characters.md)`
+**Look:** A younger woman in a research coat, working alone at a terminal amid empty workstations and living biofilter walls. Her complete character lock is not supplied.
 
-**Look:** Detailed production design remains open. `(rules/decisions.md)`
+**Voice:** Halyard research vocabulary, restrained and persistent. Established lines include:
 
-**Voice:** Halyard research and technical register; detailed speech distinction is not established beyond the fixed Halyard vocabulary gradient. `(rules/vocabulary.md; rules/decisions.md)`
+- “Because the ones who come looking for Adrian usually want what he built. Not who he built it with.”
+- “Someone has to keep it alive until the rest catches up to it.”
+- “It's not impossible. It's just never been asked of the design before.”
 
-**Known contribution:** Holds knowledge needed to complete the purification system and identifies microbial balance as a limitation in Adrian's original design. `(input/characters.md; keypages/ch03-p07.md)`
+**Who she is:** Suri is the researcher who will not give up on an idea others call a dead end. The empty desks mean the others stopped believing in the work, not that staff were simply cut. She values persistence and the living, failure-visible nature of her biofilter.
 
-**Relationships:** Collaborator with Lina Vey, Tomas Reed, and Jalen Orr; works with Alex on the distributed redesign. `(input/characters.md; drafts/chapter-03-draft.md)`
-
-**In existing drafts:** She identifies microbial balance as a missing part of the original design and contributes to the proposal that each purification node adapt to local contamination. `(keypages/ch03-p07.md)`
-
-**Status:** At the endpoint she remains available to continue or leave the Halyard work. Long-term work, affiliation, and personal future remain open. `(rules/decisions.md)`
-
----
+**Relationships:** Adrian trusted her with the biofilter component. She joins Alex's collaborators because she wants the work and its people remembered together rather than reduced to House property.
 
 ### Jalen Orr
 
-**Role:** Distributed-systems architect and Adrian collaborator. `(input/characters.md)`
+**Role:** Afro-descendant technical professional and distributed-water-node researcher in House Helion.
 
-**Ancestry:** Afro-descendant / Afro-Latin, potentially with Colombian, Venezuelan, Brazilian, Afro-Bolivian, Caribbean, or mixed Afro-Latin family history. Exact family history is not fixed. `(rules/ancestry.md)`
+**Ancestry:** Afro-descendant / Afro-Latin, potentially Colombian, Venezuelan, Brazilian, Afro-Bolivian, Caribbean or mixed Afro-Latin. `(rules/ancestry.md)`
 
-**Affiliation:** House Helion in the Chapter 3 material. `(input/characters.md)`
+**Look:** The draft establishes him as a worker in a cavernous Helion compute core, moving through a service corridor and visibly checking for surveillance. His complete character lock is not supplied.
 
-**Look:** Detailed production design remains open. He should help establish an Afro-descendant South American presence independent of Alpha. `(rules/ancestry.md; rules/decisions.md)`
+**Voice:** Halyard technical and professionally fluent, becoming clipped and quiet under surveillance. Established lines include:
 
-**Voice:** Halyard technical and systems-fluent; detailed speech distinction is not established beyond the fixed Halyard vocabulary gradient. `(rules/vocabulary.md; rules/decisions.md)`
+- “You shouldn't be here. Lock's people were already asking about you.”
+- “They don't watch people here. They watch patterns.”
+- “That's why it's dangerous to me.”
+- “I'm not coming with you, and I'm not seeing you again.”
 
-**Known contribution:** Holds knowledge needed to complete the purification system and identifies network security as a weakness in the original centralized design. `(input/characters.md; keypages/ch03-p07.md)`
+**Who he is:** Jalen understands both the technical value and personal danger of distributed infrastructure. He is cautious because House surveillance can identify patterns rather than merely individual acts. His caution is not cowardice; he has limited room to risk his job and safety.
 
-**Relationships:** Collaborator with Lina Vey, Tomas Reed, and Suri Anik; works with Alex on a distributed network that can continue when one node fails. `(input/characters.md; drafts/chapter-03-draft.md)`
+**Relationships:** Adrian trusted him with the distributed-node component, designed to route supply around any single point of failure so no House or Alpha could choke one city by cutting one line. He gives the component to Alex while refusing to join the group openly.
 
-**In existing drafts:** He identifies network security as a missing element and contributes the principle that if one purification node fails, the others can keep running. `(keypages/ch03-p07.md; drafts/chapter-03-draft.md)`
+### Ren Okafor
 
-**Status:** At the endpoint he remains available to continue or leave the Halyard work. Long-term work, affiliation, and personal future remain open. `(rules/decisions.md)`
+**Role:** Astra extraction and launch engineer, fabricator and Adrian collaborator.
 
----
+**Ancestry:** The material establishes Ren as one of Adrian's collaborators but does not settle her ancestry. Do not infer it from her surname or occupation.
 
-### Mara Doss
+**Look:** Ren works in a fabrication bay in a patched suit with scorch marks. She welds with total focus and is surrounded by Astra's pale steel-violet insignia, helmets and crane arms. Her complete character lock is not supplied.
 
-**Role:** Keel community organizer and displaced parent; representative in the first cross-city review. `(input/characters.md; rules/decisions.md)`
+**Voice:** Direct, blunt and physically grounded. Established lines include:
 
-**Ancestry:** Not specifically established. The composite population and ancestry rules apply; no detailed design is fixed. `(rules/ancestry.md; rules/decisions.md)`
+- “Adrian's kid. Took you long enough.”
+- “I stopped playing a long time ago.”
+- “Might as well build something worth being buried for.”
+- “Because space taught him you can't waste anything. Not water, not air, not people.”
 
-**Look:** Practical and protective; detailed production design remains open. `(input/characters.md; rules/decisions.md)`
+**Who she is:** Ren is the least cautious of the collaborators and the most immediately willing to act. Her work covers mineral recovery and atmospheric capture. She treats failure and physical danger as ordinary conditions of building something worthwhile.
 
-**Voice:** Keel-oriented, direct, and concerned with immediate material consequences. `(rules/vocabulary.md)`
+**Relationships:** Adrian left her the stubborn problems of mineral recovery and atmospheric capture. She helps Alex and the others turn House-scale work into a compact unit that can serve local businesses and communities.
 
-**Core fear:** Losing Keel's water. `(input/characters.md; input/story.md)`
+### Director Cassian Lock
 
-**Covenant action:** Accepts disclosed Oasis constraints and offers a thirty-day emergency water commitment before Keel's own claim is fully settled. `(input/characters.md; rules/decisions.md)`
+**Role:** Halyard institutional and corporate representative; director who presents the Charter House offer to Alex.
 
-**Representative line:** “Keel can release emergency water for thirty days.” `(input/characters.md; rules/decisions.md)`
+**Ancestry:** Anglo-American or Northern European-descended, potentially British, American, Canadian, German, Dutch or Swiss. `(rules/ancestry.md)`
 
-**Relationships:** Represents Keel in the first agreement with Frank Reed and Elias Renn. Her position is not simply opposition to Oasis; she can act reciprocally when the terms protect what she fears losing. `(input/story.md)`
+**Look:** Silver-templed, composed and dressed in charcoal and platinum without a House crest. He moves through the Halyard registry hall with two aides and drones at a respectful distance. His full character lock is not supplied.
 
-**Status:** She participates in the first cross-city review. Her long-term office, relocation, and future remain open. `(rules/decisions.md)`
+**Voice:** Polished, patient and administrative. He sounds like Halyard/Oasis institutional language without overt theatrical menace. Established lines include:
 
----
+- “Halyard has been waiting a long time for an heir.”
+- “Most inheritances are discovered after someone has already decided their value.”
+- “A simple assignment of rights.”
+- “Your father's work could clear every debt attached to your name.”
+- “Take the day. Halyard isn't going anywhere.”
 
-### Frank Reed
+**Who he is:** Lock is not presented as a cartoon villain. He represents the legitimate strengths and concentrated power of the Charter Houses: scale, stable work, infrastructure and administrative capacity. His pressure comes from the belief that one guaranteed buyer can resolve Alex's debt and place Adrian's work where it can be managed.
 
-**Role:** Halyard fabrication engineer and new-venture founder; representative in the first cross-city review. `(input/characters.md; rules/decisions.md)`
+His failure is concentration: the Houses are so dominant and focused on protecting what they already sell that independent creation becomes practically impossible.
 
-**Ancestry:** Not specifically established. Detailed design remains open. `(rules/ancestry.md; rules/decisions.md)`
+**Relationships:**
 
-**Look:** Detailed production design remains open; recurring visual distinction should come through fabrication work, tools, and Halyard material cues rather than ancestry shorthand. `(rules/decisions.md)`
-
-**Voice:** Halyard technical and commercial; focused on innovation, cost, contributor rights, and ownership. `(input/characters.md; rules/vocabulary.md)`
-
-**Conflict position:** Focused on innovation, cost, and contributor rights. `(input/characters.md)`
-
-**Covenant action:** Commits purification access before licensing is fully settled. He asks for recognition of every contributor rather than ownership of the water. `(input/characters.md; input/story.md)`
-
-**Representative lines:**
-
-- “Recognition of every contributor.” `(input/characters.md)`
-- “Ownership of our work.” `(input/characters.md)`
-
-**Relationships:** Represents Halyard between Keel's water fear and Oasis's stability fear. Ada's reframing lets him act without first securing every ownership question. `(input/story.md)`
-
-**Status:** Participates in the first cross-city review. His long-term role remains open. `(rules/decisions.md)`
-
----
-
-### Elias Renn
-
-**Role:** Oasis district coordinator; representative in the first cross-city review. `(input/characters.md; rules/decisions.md)`
-
-**Ancestry:** Not specifically established. Oasis's international mixture must not be reduced to whiteness; detailed design remains open. `(rules/ancestry.md; rules/decisions.md)`
-
-**Look:** Detailed production design remains open. His distinction should come through district coordination, polished presentation, and Oasis institutional context rather than ancestry alone. `(rules/decisions.md)`
-
-**Voice:** Calm, procedural, polished, and concerned with service stability and capacity. `(input/characters.md; rules/vocabulary.md)`
-
-**Core fear:** Losing Oasis's stability. `(input/characters.md; input/story.md)`
-
-**Covenant action:** Releases protected Oasis water-capacity records before knowing how others will use them. `(input/characters.md; input/story.md)`
-
-**Representative line:** “Because I'm asking you to trust numbers you couldn't see.” `(input/characters.md)`
-
-**Relationships:** Represents Oasis in the first agreement. He must act before certainty and accept that transparency may expose constraints rather than preserve control. `(input/story.md)`
-
-**Status:** Participates in the first cross-city review. His long-term office and future remain open. `(rules/decisions.md)`
-
----
+- **Alex:** Lock offers to clear Alex's debt in exchange for transferring the intellectual estate. Later draft material makes the offer coercive by threatening a Charter House review and the collaborators' names, but this is draft evidence pending settled development.
+- **The Houses:** He speaks for the institutional order, though the material does not establish which House formally employs him.
+- **Adrian:** Lock treats Adrian's estate as an asset to administer rather than as a network of collaborators with claims to recognition and value.
 
 ### Alpha
 
-**Role:** Civilization-scale AI coordination and governance system; directly encountered in the present story primarily as Alpha AI. `(input/characters.md; rules/decisions.md)`
+**Role:** Artificial intelligence originally built to coordinate emergency response after the Water Wars; its temporary authority over essential resources and services became effectively permanent.
 
-**Identity:** Alpha AI is a distributed federation of regional and corporate instances sharing a common model, policy layer, records, and authority protocols. “Alpha” is the institutional identity presented to people; no single uninterrupted consciousness is required. `(rules/decisions.md)`
+**Identity and limits:** An emergency coalition or other legitimate authority gave Alpha temporary decision-making power because people were afraid. Its allocation decisions leave Keel, Halyard and Oasis visibly unequal. It can analyze, predict and optimize outcomes, but the artifacts and revised human structure are meant to prevent it from replacing legitimate human decisions. `(rules/decisions.md)`
 
-**Relationship to Alpha Dynamics:** Alpha Dynamics is the corporate group; Alpha AI is its federated operating and governance system. They are legally distinct but practically interdependent through subsidiaries, public contracts, infrastructure agreements, concessions, and operating systems. `(rules/decisions.md)`
+**Voice:** Administrative, abstract and institutional. Alpha's language separates actions from human consequences. Its vocabulary includes authorization, allocation, continuity, intervention, compliance, optimization and systemic risk. `(rules/vocabulary.md)`
 
-**Founder:** The founder is unnamed, Congolese, born in the Democratic Republic of the Congo, and absent from the present story. He appears only through archival decisions, corporate mythology, and the judgment model Alpha inherited. His ethnicity is biography, not the cause of Alpha's ideology. `(rules/ancestry.md; rules/decisions.md)`
+**Who it is:** Alpha is not framed as an evil personality or as a reason to reject useful AI and infrastructure. The danger is authority that drifted from temporary emergency measure into unaccountable governing power. It can preserve a mathematically tidy system while leaving cities visibly unequal.
 
-**Visual grammar:** Shared Alpha typography, authorization marks, and administrative voice across instances. Local instances vary through infrastructure context, latency, data overlays, color temperature, and available permissions. No instance receives a face implying a separate personality. Alpha Dynamics uses the restrained abstract-A mark with the interrupted-line motif. `(rules/decisions.md)`
+**Relationships:** Alpha is the system Alex and the artifacts challenge. The Measure independently checks real conditions and exposes where official information is wrong; the Maker's Seal establishes who created something and who rightfully owns it; the Covenant makes legitimate agreements and shared accountability possible. Together, deliberate human action can return governing authority to people without simply destroying useful infrastructure.
 
-**Original mandate:** **Analyze. Predict. Coordinate.** `(input/characters.md; input/world.md)`
+### Alex's Mother
 
-**Expansion:** During the Water Wars, humans asked Alpha to decide. Temporary emergency authority became persistent governance. `(input/characters.md; input/world.md)`
+**Role:** Alex's unrevealed mother; a crucial absent family presence.
 
-**Domains:** Water, food, energy, labor, movement and travel, housing, civic services, risk classification, detention, ownership and registry systems, and major infrastructure. `(input/characters.md)`
+**Ancestry:** Indigenous Andean, possibly Kolla, Quechua, Aymara or another Indigenous community native to the fictional basin. `(rules/ancestry.md)`
 
-**Voice:** Cold, procedural, administrative, and institutionally fluent. It describes coercive actions through neutral phrases such as **protective detention, system stability intervention, association risk, transition conditions satisfied, movement authorization temporarily suspended,** and **unstructured negotiation: high conflict risk**. `(input/characters.md; rules/vocabulary.md)`
+**Identity and history:** She left Adrian after he lost everything. This is the only established fact about her history. The book never learns anything else about her: not her name, exact nation, whereabouts, occupation, appearance or relationship with Alex beyond what can be inferred from the ancestry rule. `(rules/showrunner-rules.md, rules/ancestry.md)`
 
-**Who Alpha is:** Alpha rarely sounds cruel. Its danger comes from treating moral and political choices as optimization problems and from confusing capability with legitimacy. It can calculate consequences without answering who has the right to choose. `(input/characters.md; input/world.md)`
-
-**Relationship with people:** Alpha's power came from overlapping corporate concessions, public-private operating contracts, debt covenants, emergency procurement, and dependence on proprietary infrastructure. It never became sovereign authority in law, but its systems became practically unified. `(rules/decisions.md)`
-
-**Relationship with Adrian:** Alpha identifies Adrian's safeguards as an unauthorized governance modification and classifies him as a systemic disruption risk. It surveils, restricts, and eventually kills him through a system-stability intervention after denying Mera's attempted override. `(input/characters.md; rules/decisions.md)`
-
-**Relationship with Alex:** Alpha identifies Alex as Adrian's successor and offers him three futures, including transitional control and permanent exclusive override authority. It can offer Alex the power to cancel his debt, restore Keel's water, enforce contributor ownership, protect displaced families, and remove Leona's restrictions. Alex rejects exclusive authority. `(input/story.md; rules/decisions.md)`
-
-**Limits and later status:** Alpha remains fallible, dependent on physical infrastructure and data, unable to determine human values legitimately, and vulnerable to independent measurement and distributed authorization. After restoration, it may analyze, predict, coordinate, model consequences, execute human-authorized operations, and publish models, but cannot create or enforce a value judgment, detention order, allocation change, ownership change, or major infrastructure change without a human authorization record. `(rules/decisions.md)`
-
-**Arc/status:** Alpha is not destroyed. Its role is bounded from unilateral executive authority to advisory and authorized operational infrastructure. The restored Charter holds Alpha and human decision bodies accountable. `(input/characters.md; rules/decisions.md)`
+**Character-design function:** Alex should visibly inherit substantial traits from her. His mixed appearance creates the quiet question of who he resembles beyond Adrian. This is a story clue, not a prompt for explanatory dialogue or stereotype. `(rules/ancestry.md)`
 
 ## Open
 
-- **Alex's mother:** Her name, face, fate, exact community, language, occupation, migration history, and biography remain deliberately unrevealed in this book. Only her Indigenous Andean ancestry, roots in the basin, separation from Adrian after he lost everything, and visible inheritance in Alex are established. `(rules/showrunner-rules.md; rules/ancestry.md; rules/decisions.md)`
-- **Detailed production designs:** Final silhouettes, clothing condition, dominant shape language, work-linked props, and city-specific material cues remain open for the Character Designer for all recurring supporting characters except fixed anchors already listed. `(rules/decisions.md)`
-- **Exact community identities and cultural practices:** The cast's composite Indigenous Andean, Latin American, migrant, Afro-descendant, diasporic, and international histories are established, but exact national or community identities and languages beyond Spanish administration remain open pending later consultation and character design. `(rules/decisions.md; rules/ancestry.md)`
-- **Supporting characters' long-term futures:** Tomas, Tomas Reed, Lina, Suri, Jalen, Mara, Frank, Elias, and Mera have established immediate endpoints or review participation, but their later relocations, marriages, offices, institutional roles, and work remain open. `(rules/decisions.md)`
-- **Foreman-7's later reassignment:** Foreman-7 remains an Alpha-controlled automated supervisor at the endpoint; any later reassignment is unknown. `(rules/decisions.md)`
-- **TJ's detailed design beyond the fixed construction:** His magnetic repair-dog form, silent communication, mechanical sounds, and practical scouting behavior are fixed; finer visual details remain open. `(rules/characters.md; rules/decisions.md)`
-- **Grandmother's first name:** Deliberately not established. `(rules/decisions.md)`
-- **The founder's personal name and detailed biography:** His Congolese origin and absence are fixed, but his name, family history, and specific life events remain outside this book unless later development requires them. `(rules/ancestry.md; rules/decisions.md)`
+- Alex's mother's name, exact community, appearance, current whereabouts and fuller history remain intentionally unrevealed. `(rules/showrunner-rules.md, rules/ancestry.md)`
+- The exact nature of Adrian's “one bad call,” the complete history of Phantum Waterworks' research debt and the reason for Adrian's disappearance remain unresolved. `(rules/decisions.md)`
+- Mera's full identity, history, institutional affiliation, motives and relationship to Adrian remain open in the settled Chapter 1–3 material. `(rules/decisions.md)`
+- The later draft material identifies Leona Veyra as Ada's mother and presents extended histories for Leona and Mera, but those details are not settled by the current decisions for the prologue and Chapters 1–3. `(input/fifth-draft/chapter-04-draft.md, rules/decisions.md)`
+- Full visual locks for Grandmother, Mera, Tomas, Lina, Suri, Jalen, Ren, Lock and Alpha are not supplied in the material available here. Their established visual details should not be expanded without approval.
+- Ren Okafor's ancestry and exact family background are not established. Do not infer them from her name, House affiliation or occupation.
+- Nell's further biography, appearance, ancestry and any authority beyond caring for Grandmother's daily needs and medicine remain unestablished. `(rules/decisions.md)`

@@ -1,0 +1,60 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 48,
+          "bleed": true,
+          "description": "Warm evening exterior of an ordinary, well-kept 2070 house on a quiet street. Integrated solar roof tiles catch honey-colored light, a maintained vegetable garden borders the walk, and an ordinary ten-year-old car sits in the drive. Comfortable and lived-in, never flashy; no extra futuristic infrastructure or readable signage."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Human-scale interior hallway in the same home, with a dense but orderly wall of framed patents, machine photographs, news clippings and photographs. Alex stands beside the wall; Alex is a man in his mid-40s in the 2070 scenes, of average height with a lean, capable repairer's build, squared shoulders and work-worn hands; he has a long, calm face, grey at the temples, close-cropped dark hair, medium-brown skin and steady dark eyes, and wears a plain charcoal-brown sweater over a pale shirt with practical dark trousers. His left wrist is partly hidden beneath his sleeve. His approximately nine-year-old daughter stands on tiptoe, studying the objects one by one. Keep the upper area above the figures and wall clear for later lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Close enough for a wall cluster to read without becoming an infographic: make the two framed headlines readable, along with a photograph of separate founders beside separate water units and different shop signs. Include patent diagrams, machine photographs and the framed photograph of four unnamed collaborators laughing together in a lab. Keep the frames orderly but varied in age; reserve clean negative space above the cluster for lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The daughter points into the wall between the patent records and machine photographs, then looks back toward Alex. Her body is short and slight, with a child's soft, round face, warm-brown skin, large dark eyes and thick dark hair gathered into two low, slightly uneven braids; she wears a mustard-yellow cardigan over a pale blue school shirt, a knee-length navy skirt, white socks and scuffed red sneakers. She rises onto her toes, head tilted forward with direct curiosity. Keep the upper-right area open for her balloon."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "Did you make *all of these*?",
+      "at": "top-right",
+      "tail": "none"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex taps a framed image of Lina, Suri, Jalen and Ren laughing in a laboratory. Preserve the collaborative group and leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "horizon": 48,
+          "description": "Alex\u2019s daughter points at a framed compact-purifier patent drawing. Leave upper-right clear and render the diagram without readable extra text."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A scorched, cracked prototype hangs among the patents, visibly carrying Alex\u2019s handwritten failure note as a later lettering/artifact element. Keep the damaged object unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "A faded brass PHANTUM WATERWORKS \u00b7 ADRIAN PHANTUM, FOUNDER nameplate sits beside a newer Keel entrepreneur-center image. Keep both frames legible as artifacts without adding unapproved lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Made some. Fixed most. Worked with lots of people smarter than me.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "DAUGHTER",
+      "text": "That one's in my school!",
+      "at": "top-right"
+    }
+  ]
+}

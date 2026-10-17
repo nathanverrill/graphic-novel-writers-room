@@ -1,0 +1,94 @@
+{
+  "page": 40,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Director Cassian Lock approaches Alex in the registry hall, examining the record before looking at Alex. Keep the upper registry clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Three House emblems\u2014Caldera, Vector and Orbital\u2014divide the registry screen behind Lock. Keep the upper screen clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex and Lock face one another across the registry terminal. Keep the upper terminal clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex closes the registry and Lock taps the display, freezing the estate. Keep the upper display clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Assign the estate to House administration. Your debt clears. Halyard access becomes permanent.",
+      "at": "top-left",
+      "tail_x": 70.3,
+      "tail_y": 29.1
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Refuse, and immediate commercial rights freeze pending review.",
+      "at": "top-left",
+      "tail_x": 78.4,
+      "tail_y": 23.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You\u2019re asking me to sell work I didn\u2019t make.",
+      "at": "bottom-left",
+      "tail_x": 35.8,
+      "tail_y": 32.7
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "I\u2019m offering scale, employment and a clean account.",
+      "at": "bottom-right",
+      "tail_x": 78.4,
+      "tail_y": 23.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "top-left",
+      "tail_x": 29.7,
+      "tail_y": 13.3
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Then find the people who made it.",
+      "at": "top-right"
+    }
+  ]
+}

@@ -1,0 +1,324 @@
+{
+  "id": "r02-ai",
+  "kind": "ai",
+  "started": "2026-10-12T17:59:05",
+  "finished": "2026-10-12T18:02:01",
+  "status": "awaiting_showrunner_decisions",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-lean/drafts/chapter-01-draft.md": "5c0b900324a43fa8",
+    "prosperity-lean/input/world.md": "9b902deef7d7a77e",
+    "prosperity-lean/rules/characters.md": "bb31f41190b31356"
+  },
+  "usage": {
+    "total": {
+      "calls": 5,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.07250028,
+      "input_tokens": 134405,
+      "cached_tokens": 15154,
+      "image_input_tokens": 0,
+      "output_tokens": 35321,
+      "reasoning_tokens": 755,
+      "total_tokens": 169726
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 5,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.07250028,
+        "input_tokens": 134405,
+        "cached_tokens": 15154,
+        "image_input_tokens": 0,
+        "output_tokens": 35321,
+        "reasoning_tokens": 755,
+        "total_tokens": 169726
+      }
+    }
+  },
+  "run_id": "ad5f64d08aaa",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.\n\nThe book is exactly 12 pages: pages 1-12, no more, no fewer.\n\nShowrunner's note for this round: Chapter 1, 12 pages, from the showrunner's draft in drafts/. Edit it; do not rewrite it.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "synthesis",
+    "status": "awaiting_showrunner_decisions",
+    "use_references_during_synthesis": true,
+    "calls": [
+      {
+        "call": "1B",
+        "pass": "synthesis",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "872b19073bca8195",
+        "input_chars": 78707,
+        "input_tokens_est": 19676,
+        "inputs": [
+          "prosperity-lean/drafts/chapter-01-draft.md",
+          "prosperity-lean/input/world.md",
+          "prosperity-lean/rules/characters.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 29291,
+        "preservation": {
+          "source_chars": 37246,
+          "output_chars": 116145,
+          "mass": 3.118,
+          "terms": 91,
+          "missing": 5,
+          "coverage": 0.945,
+          "substantive_terms": 89,
+          "substantive_coverage": 0.944,
+          "dropped_by_kind": {
+            "named entities": [
+              "Bob's"
+            ],
+            "names and terms": [
+              "Colours",
+              "Extreme",
+              "Hook",
+              "Inset"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Bob's",
+            "Colours",
+            "Extreme",
+            "Hook",
+            "Inset"
+          ]
+        }
+      },
+      {
+        "call": "1C",
+        "pass": "synthesis",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "872b19073bca8195",
+        "input_chars": 80056,
+        "input_tokens_est": 20014,
+        "inputs": [
+          "prosperity-lean/drafts/chapter-01-draft.md",
+          "prosperity-lean/input/world.md",
+          "prosperity-lean/rules/characters.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 50398,
+        "preservation": {
+          "source_chars": 37246,
+          "output_chars": 116145,
+          "mass": 3.118,
+          "terms": 91,
+          "missing": 5,
+          "coverage": 0.945,
+          "substantive_terms": 89,
+          "substantive_coverage": 0.944,
+          "dropped_by_kind": {
+            "named entities": [
+              "Bob's"
+            ],
+            "names and terms": [
+              "Colours",
+              "Extreme",
+              "Hook",
+              "Inset"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Bob's",
+            "Colours",
+            "Extreme",
+            "Hook",
+            "Inset"
+          ]
+        }
+      },
+      {
+        "call": "1A",
+        "pass": "synthesis",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "872b19073bca8195",
+        "input_chars": 77962,
+        "input_tokens_est": 19490,
+        "inputs": [
+          "prosperity-lean/drafts/chapter-01-draft.md",
+          "prosperity-lean/input/world.md",
+          "prosperity-lean/rules/characters.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 36454,
+        "preservation": {
+          "source_chars": 37246,
+          "output_chars": 116145,
+          "mass": 3.118,
+          "terms": 91,
+          "missing": 5,
+          "coverage": 0.945,
+          "substantive_terms": 89,
+          "substantive_coverage": 0.944,
+          "dropped_by_kind": {
+            "named entities": [
+              "Bob's"
+            ],
+            "names and terms": [
+              "Colours",
+              "Extreme",
+              "Hook",
+              "Inset"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 4
+          },
+          "dropped": [
+            "Bob's",
+            "Colours",
+            "Extreme",
+            "Hook",
+            "Inset"
+          ]
+        }
+      },
+      {
+        "call": "2",
+        "pass": "open items",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "872b19073bca8195",
+        "input_chars": 182381,
+        "input_tokens_est": 45595,
+        "inputs": [
+          "characters.md",
+          "prosperity-lean/input/open-items.md",
+          "prosperity-lean/rules/characters.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [
+          "added a '# Open Items' title"
+        ],
+        "notes": [],
+        "output_chars": 12203
+      },
+      {
+        "call": "3",
+        "pass": "options",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "872b19073bca8195",
+        "input_chars": 174691,
+        "input_tokens_est": 43672,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity-lean/rules/characters.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 27382
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md"
+    ],
+    "carried_forward": [
+      "room-log.md"
+    ],
+    "human_modified": [],
+    "failed": [],
+    "snapshot": "872b19073bca8195"
+  },
+  "pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+  ]
+}

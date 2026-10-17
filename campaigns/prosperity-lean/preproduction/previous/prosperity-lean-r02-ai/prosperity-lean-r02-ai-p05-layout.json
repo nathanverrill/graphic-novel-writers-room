@@ -1,0 +1,119 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex presses his scarred palm to a wet riveted pipe while Bi11bot compares an adjacent dry line. Reserve upper-right for Alex\u2019s balloon and lower-right for Bi11bot\u2019s reply, with separate vertical zones; keep the lower-left pipe area clear for the vibration SFX."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Old gauges and manual wheels fill the regulator gallery. A clean cable and control line graft into a compact white-and-amber node, with matching cable architecture continuing toward the basin infrastructure spine. Reserve the upper band."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "low",
+          "description": "Alex follows the clean line into the newer housing bolted over an old valve plate while Bi11bot leans close. Reserve upper-left, upper-right, and lower-right."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex scrapes mineral crust away, revealing repeating loops around the node. His watch hangs beside the etched pattern. Keep the pattern and watch unobstructed; reserve upper-left for SFX."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "HMMMMM",
+      "size": "medium",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "This line carries the pressure.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The newer one?",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Newer doesn\u2019t mean stronger.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Someone fed a new control into an old regulator.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Is that allowed?",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It\u2019s installed.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "PIP",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It is listening.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It\u2019s measuring.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "To what?",
+      "at": "bottom-left"
+    }
+  ]
+}

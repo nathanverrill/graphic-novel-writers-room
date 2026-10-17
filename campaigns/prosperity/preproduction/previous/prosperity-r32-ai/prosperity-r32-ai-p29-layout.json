@@ -1,0 +1,69 @@
+{
+  "page": 29,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Site 6. Tomas stands before Foreman-7 while miners gather behind him; the verified discrepancy glows on the wall. Keep the workers as indistinct silhouettes and leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Foreman-7's harness displays an active irregularity review as he raises one procedural hand. Leave upper space for his order."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Tomas faces Foreman-7 alone for one beat, square and calm. Leave upper space for his answer."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Workers close ranks around Tomas without individual recognizability. Foreman-7 remains on the opposite side of the frame; leave upper space for Tomas's final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "IRREGULARITY REVIEW: ACTIVE",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Disperse.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "We\u2019re already dispersed.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "This is just where we stand.",
+      "at": "top-left"
+    }
+  ]
+}

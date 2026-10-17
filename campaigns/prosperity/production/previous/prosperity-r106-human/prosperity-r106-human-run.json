@@ -1,0 +1,52 @@
+{
+  "id": "r106-human",
+  "kind": "human",
+  "started": "2026-10-11T05:17:06",
+  "finished": "2026-10-11T05:17:07",
+  "status": "done",
+  "files_written": [
+    "review.md",
+    "thumbnails.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/input/fifth-draft/chapter-01-draft.md": "0f261409a757ac52",
+    "prosperity/input/fifth-draft/chapter-02-draft.md": "9d172057fec98078",
+    "prosperity/input/fifth-draft/chapter-03-draft.md": "23dc223856335076",
+    "prosperity/input/fifth-draft/chapter-04-draft.md": "37ff4d8cde680374",
+    "prosperity/input/fifth-draft/chapter-05-draft.md": "7f99396156f4a34f",
+    "prosperity/input/fifth-draft/chapter-06-draft.md": "1c0d6c99b1adede4",
+    "prosperity/input/notes.md": "cee8bc60845a6ddf",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "b9d9ab799eab5195",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "6f344da29da4e7f5",
+    "prosperity/rules/stakeholders.md": "b171bf16e8c49f2d",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 0,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {}
+  },
+  "reviewed_round": "r105-ai",
+  "action": "send",
+  "method": "layout",
+  "counts": {
+    "kept": 0,
+    "edited": 0,
+    "noted": 0
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex draws a worn photograph from his jacket; Grandmother smiles while Adrian\u2019s face is folded and creased. Ada notices Alex\u2019s clenched hand. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex studies the photograph while Ada\u2019s hand stops before touching his shoulder. Leave upper-left and upper-right clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Sunset over the basin, Oasis brightening as Keel dims. Ada faces Alex. Leave upper sky open."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Ada\u2019s steady face with Alex\u2019s tightening fist in foreground. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "high",
+          "horizon": 55,
+          "description": "Alex and Ada stand small against the darkening basin, separated by open space but still together. Leave lower corners clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex walks ahead while Ada looks back toward Oasis. Leave top-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "How's your grandma?",
+      "at": "top-left",
+      "tail_x": 15.1,
+      "tail_y": 31.2
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Some days she knows me. Other days she calls me Adrian...",
+      "tail_x": 76,
+      "tail_y": 45,
+      "place": "exact",
+      "x": 70,
+      "y": 12
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The hardest part isn't that she forgets. It's that she makes up crazy stories about him.",
+      "tail_x": 72,
+      "tail_y": 50,
+      "place": "exact",
+      "x": 24,
+      "y": 82
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What kind of stories?",
+      "at": "top-left",
+      "tail_x": 25.0,
+      "tail_y": 40.0
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That he wasn't gambling. That he was working.",
+      "at": "top-right",
+      "tail_x": 57.4,
+      "tail_y": 40.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What do you actually remember about him?",
+      "at": "top-left",
+      "tail_x": 28.1,
+      "tail_y": 40.0
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Nothing. I was two.",
+      "at": "bottom-right",
+      "tail_x": 85,
+      "tail_y": 28
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "So everything else is what people told you. What if they were wrong?",
+      "at": "bottom-left",
+      "tail_x": 30.8,
+      "tail_y": 29.9
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Maybe\u2026Or maybe they're right. Either way... he's gone.",
+      "at": "bottom-right",
+      "tail_x": 45.9,
+      "tail_y": 27.0
+    },
+    {
+      "panel": 6,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "He wouldn't just leave.",
+      "at": "top-left",
+      "tail_x": 14.9,
+      "tail_y": 27.0
+    }
+  ]
+}

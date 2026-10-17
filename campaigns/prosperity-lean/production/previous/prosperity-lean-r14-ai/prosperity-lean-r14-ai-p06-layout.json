@@ -1,0 +1,85 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex\u2019s scarred fingers pull the worn blue book from the top shelf. It tips like a lever and stops. Dust puffs from the shelf edge. Keep the book and mechanism clear. Place CLICK beside Alex\u2019s fingers and RUMBLE beside the shifting shelf, at distinct heights."
+        },
+        {
+          "w": 1,
+          "shot": "wide reveal",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The bookshelf swings outward like a door, revealing a black rectangle. Warm apartment light spills across the dusty floor into cold darkness. Alex steps back; Grandmother remains calm in her chair. Reserve the upper-right for Alex\u2019s balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Grandmother sits calmly and faintly smiles as Alex turns from the opening toward her. Keep the open bookshelf visible and reserve the upper third for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "low close-up",
+          "angle": "low",
+          "description": "Alex\u2019s heavy scuffed boot crosses from warm apartment light into cold workshop darkness. Grandmother and the open bookshelf remain visible. No lettering over the boot or threshold."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "RUMBLE",
+      "size": "medium",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "...Grandma?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "He said you'd be ready at eighteen.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "When did he say that?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDMOTHER",
+      "text": "Before he disappeared.",
+      "at": "bottom-left"
+    }
+  ]
+}

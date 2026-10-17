@@ -1,0 +1,69 @@
+{
+  "page": 43,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex cuts a physical sleeve to bridge incompatible standards while B11 watches from a shelf. Keep the upper workbench clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri installs a bounded bypass around the living filter. Keep the upper filter apparatus clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Lina marks testing limits, Ren adds service panels and Jalen records failure conditions around the prototype. Keep the upper workboard clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A dated work board advances through fabrication, testing and installation weeks as the compact purifier runs steadily. Keep the upper board clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Who carries the downside?",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The people who sign it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SURI",
+      "text": "If this fails, the unit stops.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "91% SIMULATED EFFICIENCY.\nFIELD TEST \u2014 NOT POTABLE-OUTPUT GUARANTEE.",
+      "at": "top"
+    }
+  ]
+}

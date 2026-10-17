@@ -1,0 +1,67 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex answers quietly while looking toward the sketch. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "The daughter waits attentively. Leave the upper third clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex continues while looking toward the sketch and watch. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 48,
+          "bleed": true,
+          "description": "The grease-stained sketch dissolves into the rust, charcoal and oxidized-orange Keel pump hall in 2043. Eighteen-year-old Alex has one palm on the pump housing. Leave upper-left machinery haze clear for the caption."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not in the beginning.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "When I was a teenager, I had nothing. We hardly had any water...",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "KEEL. 2043.",
+      "at": "top-left"
+    }
+  ]
+}

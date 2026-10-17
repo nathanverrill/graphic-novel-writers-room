@@ -1,0 +1,56 @@
+{
+  "page": 48,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Ada climbs a service stair above the clouds using the access tool Alex threw to her. She follows her own previously marked route; Oasis opens beyond the stairwell. Leave upper area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada's old route mark aligns with a maintenance map leading to a pale civic apartment. The physical mark, map and her hand remain clear; do not include Lina or any Lina-associated route."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "An escort drone turns toward Ada on the service stair. Leave upper space for its alert sound."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Ada covers her identity band with the access tool as the drone passes. Leave upper-left clear for her line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "PIP",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Not today.",
+      "at": "top-left"
+    }
+  ]
+}

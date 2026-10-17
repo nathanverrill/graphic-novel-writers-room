@@ -1,0 +1,404 @@
+{
+  "id": "r24-ai",
+  "kind": "ai",
+  "started": "2026-10-10T23:52:11",
+  "finished": "2026-10-10T23:56:47",
+  "status": "ready_for_review",
+  "files_written": [
+    "characters.md",
+    "world.md",
+    "story.md",
+    "open-items.md",
+    "facts.md",
+    "room-log.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity/drafts/chapter-01-draft.md": "0f261409a757ac52",
+    "prosperity/drafts/chapter-02-draft.md": "9d172057fec98078",
+    "prosperity/drafts/chapter-03-draft.md": "23dc223856335076",
+    "prosperity/drafts/chapter-04-draft.md": "37ff4d8cde680374",
+    "prosperity/drafts/chapter-05-draft.md": "7f99396156f4a34f",
+    "prosperity/drafts/chapter-06-draft.md": "1c0d6c99b1adede4",
+    "prosperity/input/notes.md": "5bd350254d7cc507",
+    "prosperity/rules/ancestry.md": "ef7e2fee2e749838",
+    "prosperity/rules/characters.md": "7526e4f259ba2f57",
+    "prosperity/rules/hard-sf-rules.md": "2777d08a8eaa996b",
+    "prosperity/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity/rules/showrunner-rules.md": "913019e59ff89665",
+    "prosperity/rules/stakeholders.md": "7bf68df3cdafe266",
+    "prosperity/rules/vocabulary.md": "53e2d644384ed781"
+  },
+  "usage": {
+    "total": {
+      "calls": 6,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1608784,
+      "input_tokens": 387014,
+      "cached_tokens": 27500,
+      "image_input_tokens": 0,
+      "output_tokens": 58709,
+      "reasoning_tokens": 1101,
+      "total_tokens": 445723
+    },
+    "by_role": {
+      "script_coordinator": {
+        "calls": 6,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.1608784,
+        "input_tokens": 387014,
+        "cached_tokens": 27500,
+        "image_input_tokens": 0,
+        "output_tokens": 58709,
+        "reasoning_tokens": 1101,
+        "total_tokens": 445723
+      }
+    }
+  },
+  "run_id": "6ff48624c10d",
+  "note": "The room is in intake: The Script Coordinator, the Director's assistant, goes through everything you put in \u2014 notes, references, any drafts \u2014 and writes down what it establishes in the three files the room works from: the people, the world, the story. Then, in passes of their own, it lists what is still open and offers you options for each.\n\nThe book is exactly 54 pages: pages 1-54, no more, no fewer.",
+  "roles": [
+    "script_coordinator"
+  ],
+  "configs": {
+    "script_coordinator": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "openai/gpt-5.6-luna",
+      "temperature": 0.2,
+      "max_tokens": 64000,
+      "thinking_budget": 0,
+      "max_steps": 60,
+      "timeout": 900,
+      "send_images": true,
+      "extra": {},
+      "references": "full",
+      "tools": null,
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "intake",
+  "intake": {
+    "mode": "revision",
+    "status": "ready_for_review",
+    "use_references_during_synthesis": false,
+    "calls": [
+      {
+        "call": "4A",
+        "pass": "revision",
+        "destination": "characters.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 304905,
+        "input_tokens_est": 76226,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 76682,
+        "preservation": {
+          "source_chars": 178660,
+          "output_chars": 162942,
+          "mass": 0.912,
+          "terms": 263,
+          "missing": 6,
+          "coverage": 0.977,
+          "substantive_terms": 261,
+          "substantive_coverage": 0.977,
+          "dropped_by_kind": {
+            "named entities": [
+              "Helion's"
+            ],
+            "names and terms": [
+              "Astra",
+              "Aymara",
+              "Kolla",
+              "Quechua",
+              "Switzerland"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 5
+          },
+          "dropped": [
+            "Astra",
+            "Aymara",
+            "Helion's",
+            "Kolla",
+            "Quechua",
+            "Switzerland"
+          ]
+        }
+      },
+      {
+        "call": "4B",
+        "pass": "revision",
+        "destination": "world.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 304895,
+        "input_tokens_est": 76223,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 46783,
+        "preservation": {
+          "source_chars": 178660,
+          "output_chars": 162942,
+          "mass": 0.912,
+          "terms": 263,
+          "missing": 6,
+          "coverage": 0.977,
+          "substantive_terms": 261,
+          "substantive_coverage": 0.977,
+          "dropped_by_kind": {
+            "named entities": [
+              "Helion's"
+            ],
+            "names and terms": [
+              "Astra",
+              "Aymara",
+              "Kolla",
+              "Quechua",
+              "Switzerland"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 5
+          },
+          "dropped": [
+            "Astra",
+            "Aymara",
+            "Helion's",
+            "Kolla",
+            "Quechua",
+            "Switzerland"
+          ]
+        }
+      },
+      {
+        "call": "4C",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 304895,
+        "input_tokens_est": 76223,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 39475,
+        "preservation": {
+          "source_chars": 178660,
+          "output_chars": 162942,
+          "mass": 0.912,
+          "terms": 263,
+          "missing": 6,
+          "coverage": 0.977,
+          "substantive_terms": 261,
+          "substantive_coverage": 0.977,
+          "dropped_by_kind": {
+            "named entities": [
+              "Helion's"
+            ],
+            "names and terms": [
+              "Astra",
+              "Aymara",
+              "Kolla",
+              "Quechua",
+              "Switzerland"
+            ]
+          },
+          "dropped_counts": {
+            "named entities": 1,
+            "names and terms": 5
+          },
+          "dropped": [
+            "Astra",
+            "Aymara",
+            "Helion's",
+            "Kolla",
+            "Quechua",
+            "Switzerland"
+          ]
+        }
+      },
+      {
+        "call": "4C-again",
+        "pass": "revision",
+        "destination": "story.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 305219,
+        "input_tokens_est": 76304,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 61749
+      },
+      {
+        "call": "4D",
+        "pass": "revision",
+        "destination": "open-items.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 311436,
+        "input_tokens_est": 77859,
+        "inputs": [
+          "characters.md",
+          "open-items.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 358
+      },
+      {
+        "call": "5",
+        "pass": "facts",
+        "destination": "facts.md",
+        "model": "openai/gpt-5.6-luna",
+        "snapshot": "9bc96f367105da70",
+        "input_chars": 265490,
+        "input_tokens_est": 66372,
+        "inputs": [
+          "characters.md",
+          "prosperity/rules/ancestry.md",
+          "prosperity/rules/characters.md",
+          "prosperity/rules/hard-sf-rules.md",
+          "prosperity/rules/reader.md",
+          "prosperity/rules/showrunner-rules.md",
+          "prosperity/rules/stakeholders.md",
+          "prosperity/rules/vocabulary.md",
+          "story.md",
+          "world.md"
+        ],
+        "references_included": false,
+        "attempts": 1,
+        "status": "ok",
+        "problems": [],
+        "repairs": [],
+        "notes": [],
+        "output_chars": 42276
+      }
+    ],
+    "generated_this_run": [
+      "characters.md",
+      "world.md",
+      "story.md",
+      "open-items.md",
+      "facts.md"
+    ],
+    "carried_forward": [
+      "page-prompts.md",
+      "room-log.md"
+    ],
+    "human_modified": [
+      "open-items.md"
+    ],
+    "failed": [],
+    "snapshot": "9bc96f367105da70",
+    "kept_previous": [],
+    "decisions_integrated": [],
+    "recommendations_taken": [],
+    "notes_applied": [
+      "[MEDIUM] The material is the author's fifth draft and the standing rules, nothing else. W"
+    ],
+    "deferred": []
+  },
+  "pages": [
+    46
+  ]
+}

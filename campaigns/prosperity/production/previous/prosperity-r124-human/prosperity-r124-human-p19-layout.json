@@ -1,0 +1,70 @@
+{
+  "page": 19,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian's blue recording projection appears above the workbench. Keep the upper projection field clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Adrian looks directly toward Alex through the projection. Keep the upper projection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex grips the old watch while Adrian's projection flickers. Keep the upper frame empty."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The projection destabilizes above the workshop equipment. Keep the upper machinery clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Alex. If you\u2019re seeing this, I failed to come back.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I borrowed too much. I gambled some of it. I hurt you and Grandmother.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "The work was shared. The mistakes were mine.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Question everything. Especially me.",
+      "at": "top-left"
+    }
+  ]
+}

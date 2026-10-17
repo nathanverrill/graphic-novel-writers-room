@@ -1,0 +1,62 @@
+{
+  "page": 47,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "At a Halyard junction, Alex and B11 face the uphill route marked OASIS REVIEW while TJ waits at Alex's feet. Leave upper space for the route signage."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's identity band displays CONVENOR PASS: CONDITIONAL and COLLABORATOR ACCESS: REVIEW PENDING. Keep the band unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "B11 points uphill while Alex looks toward the public route. Leave upper-left and upper-right clear for their exchange."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "high",
+          "description": "Behind the barrier, Ada opens the access tool Alex threw across the gap on Page 45. She compares its physical notch with the route she marked earlier on the pump metal, then turns toward a service passage. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "CONVENOR PASS: CONDITIONAL\nCOLLABORATOR ACCESS: REVIEW PENDING",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "B11",
+      "text": "It wants a convenor.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "It can wait for one.",
+      "at": "top-right"
+    }
+  ]
+}

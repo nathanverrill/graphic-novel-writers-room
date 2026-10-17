@@ -1,0 +1,62 @@
+{
+  "page": 31,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex removes a corroded cover beneath the misleading gauge. Keep the upper cover area clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Inside rests the compact brass Measure, its engraved collar visible. Keep the upper instrument area clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex lifts the Measure and its three arms unfold. Keep the upper chamber clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The Measure rejects the official data line and locks onto the analog gauge while B11 watches. Keep the upper gauge clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "WHAT IS NOT MEASURED CAN BE MADE INVISIBLE",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It needs both.",
+      "at": "top-left"
+    }
+  ]
+}

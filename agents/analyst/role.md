@@ -60,6 +60,13 @@ The pages where a character explains something so the reader can learn it, where
 states the lesson, where a scene exists to define a term. Count them. Then the pages that teach
 without smelling of it, because people need the thing and pay for it.
 
+### The partner's last read
+Only when `rules/stakeholders.md` quotes the partner's reaction to an earlier draft. Take each
+concern they named that falls within the pages you were given, and say whether this script
+fixes it, fixes it in part, or does not, with the page. Concerns about pages you were not given
+are out of scope: list them in one line and judge nothing from them. Then whether this script
+would change their answer.
+
 ### What would change the verdicts
 At most five changes, each a page or a scene, not a wording, each tied to the person it would
 satisfy. Never "add a speech."

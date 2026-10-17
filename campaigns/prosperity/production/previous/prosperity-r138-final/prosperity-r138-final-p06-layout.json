@@ -1,0 +1,175 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Keel pump hall before dawn. Alex tests an aging pump by touch; a salvaged bracket replaces the approved part, a white-and-amber node logs his shift and a supervisor watches. Leave upper machinery space clear for two balloons."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "Alex touches an exit checkpoint scanner while workers queue behind him. Keep one large vertical display block centered: banner at top, identity and debt facts in the middle, guarantor and restriction below. Reserve a separate right-side zone for the guard balloon, a lower-right zone for Alex\u2019s reply and a small lower scanner zone for the SFX."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 3,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Keel street: Alex passes the shuttered Last Chance casino while a bouncer leans in the doorway; a small rationed water queue is visible across the street without recognisable faces. Leave upper corners open."
+        },
+        {
+          "w": 2,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Empty pump hall terminal with three distinct, widely separated horizontal interface rows: unauthorized-repair alert at top, routine-maintenance reclassification in the middle and lost Site 6 credit at bottom. Reserve uncontested lower-right space for the supervisor balloon."
+        },
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 38,
+          "description": "At sunrise on the exhausted pit rim, Alex faces Oasis while Keel remains in shadow. Keep the restricted status visible and leave lower-left open."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "SUPERVISOR",
+      "text": "That's not the approved repair.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then don't approve it. Just notice it works.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "TODAY: DEBT TRANSFER DAY",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "ALEX PHANTUM\nAGE VERIFIED: EIGHTEEN\nPARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "DEBT BALANCE: 418,607 CREDITS\nPROJECTED CLEARANCE: 28.7 YEARS\nTRAVEL STATUS: RESTRICTED",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "GUARANTOR: ADRIAN PHANTUM \u2014 WHEREABOUTS UNRECORDED",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "BEEP",
+      "size": "medium",
+      "at": "bottom"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GUARD",
+      "text": "Happy birthday, Phantum.",
+      "at": "right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I've had better surprises.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "Eighteen: the age Keel decides you're old enough to owe.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BOUNCER",
+      "text": "Care to see if luck runs in the family?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BOUNCER",
+      "text": "Your father always believed the next hand would change everything.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "UNAUTHORIZED REPAIR \u2014 REVIEW REQUIRED",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "ROUTINE MAINTENANCE",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "NEW PART ADDED \u2014 DESIGN CREDIT: SITE 6",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "SUPERVISOR",
+      "text": "...Works.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 5,
+      "type": "caption",
+      "text": "TRAVEL STATUS: RESTRICTED",
+      "at": "top-right"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "One day... I'm leaving.",
+      "at": "bottom-left"
+    }
+  ]
+}

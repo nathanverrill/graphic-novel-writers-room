@@ -1,0 +1,68 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Keel checkpoint. Alex stands before a scanner while Ada waits beyond the gate holding food and his spare wrench. Leave upper checkpoint space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The scanner display shows Alex's age verification and parental liability transfer. Keep the display unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The display changes to the debt balance, projected clearance and travel restriction. Keep all lettering area unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Foreman-7 looks from the public screen to Alex. Alex remains still and compact; leave upper space for their exchange."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "AGE VERIFIED: SEVENTEEN\nPARENTAL LIABILITY TRANSFER: COMPLETE\nGUARANTOR: ADRIAN PHANTUM \u2014 WHEREABOUTS UNRECORDED",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "DEBT: 418,607 CREDITS\nPROJECTED CLEARANCE: 28.7 YEARS\nTRAVEL: RESTRICTED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "FOREMAN-7",
+      "text": "Happy birthday, Phantum.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Twenty-eight point seven.",
+      "at": "top-right"
+    }
+  ]
+}

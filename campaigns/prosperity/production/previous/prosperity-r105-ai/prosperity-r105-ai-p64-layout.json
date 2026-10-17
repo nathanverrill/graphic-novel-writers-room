@@ -1,0 +1,62 @@
+{
+  "page": 64,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Dawn at the Keel overlook. The raised transit gate frames routes toward Halyard and Oasis; Alex and Ada stand apart with TJ between them. Leave upper sky open."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex holds a completed travel application with a public queue receipt. Keep the receipt unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium two-shot",
+          "angle": "eye",
+          "description": "Ada holds her own application beside a signed Morrow & Sons work-share agreement. Neither paper is folded; leave upper space for her line."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "TJ stands silently between Alex and Ada. Alex looks toward the gate while Ada looks toward the shop and opens both papers flat in her hands. Leave upper third clear for the final question."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "APPLICATION RECEIVED \u2014 REVIEW QUEUE 18",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "You could go.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "And you?",
+      "at": "top-left"
+    }
+  ]
+}

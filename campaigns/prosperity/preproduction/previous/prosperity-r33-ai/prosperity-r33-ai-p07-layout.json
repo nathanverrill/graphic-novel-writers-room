@@ -1,0 +1,49 @@
+{
+  "page": 7,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Underwater, TJ's detached leg drags his head through old mine rails toward the pulsing magnet. Keep the route readable in murky lake water."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The leg snaps back onto TJ's head through magnetic force. Keep the joining parts dominant and leave upper water space for the sound."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "TJ's torso and remaining legs arrive from separate directions through the water and dock shadows. Keep his dog silhouette readable despite the mismatched parts."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "low",
+          "description": "TJ climbs the dock crookedly carrying a broken drone component in his mouth-like front assembly. Leave upper dock space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLAK",
+      "size": "medium",
+      "at": "middle"
+    }
+  ]
+}

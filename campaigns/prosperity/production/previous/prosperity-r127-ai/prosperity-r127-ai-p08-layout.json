@@ -1,0 +1,77 @@
+{
+  "page": 8,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "The granddaughter points toward a service boat while Older Alex steadies TJ against the dock rail. Keep upper dock clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The public terminal records the reduced withdrawal while Alex steadies crooked TJ beside it. Keep upper terminal clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The granddaughter holds up the recovered component beside the terminal. Keep upper dock clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "She places the component beside the terminal as the record closes around the theft. Keep upper terminal clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "We can still catch them.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Across open water? With one good leg?",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Then this stays?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Where the next person can find it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CHK",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

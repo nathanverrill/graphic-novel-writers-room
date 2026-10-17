@@ -1,0 +1,67 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 4,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "horizon": 40,
+          "bleed": true,
+          "description": "Full-page distant elevated view of the 2043 mountain basin, composed vertically so Oasis, Halyard and Keel read immediately. Oasis occupies the upper cloud-bright tier with pearl-white architecture, broad reservoirs, fountains, gardens, quiet automated transit and a distant spacecraft carrying the space-and-mining insignia. Halyard occupies the middle slope with bronze-and-gold fabrication towers, greenhouse terraces, elevated rail, cargo movement, engineered green and three restrained sector insignias. Keel fills the bottom around an exhausted open-pit lithium mine with dense stacked housing, rusted structures, patched pumps, aging factories, dusty lanes, narrow water channels, workers with jugs at a metered tap, checkpoints and a sealed hazard-striped mine entrance. One vertical spine connects all tiers with a huge water conduit, power lines, rail and repeated white-and-amber Alpha nodes. Keep three separate negative-space pockets beside the cities: upper-left for the year caption, upper-right for the Oasis label and question; middle-left for the Halyard label and question below it; bottom-left for the Keel label and bottom-right for its question. Do not place lettering over city details."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Year 2043.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Oasis",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "What if everyone you've trusted has a secret?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Halyard",
+      "x": 16,
+      "y": 42
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Who really owns what we create?",
+      "x": 68,
+      "y": 51
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Keel",
+      "x": 16,
+      "y": 76
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "Where does all our water go?",
+      "x": 72,
+      "y": 88
+    }
+  ]
+}

@@ -1,0 +1,132 @@
+{
+  "page": 11,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "At Keel\u2019s pump station, restored water bursts into waiting jugs. Show only hands, containers, and water, never a recognizable crowd. Keep the normal-allocation display high-left, SPLASH\u2014SPLASH low-left, and the queue worker\u2019s balloon upper-right."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "low",
+          "description": "In the mine gallery, the original node pulses down its cable while a local shutter descends. Keep WHUM\u2026 WHUM\u2026 in a dedicated far-left mechanical zone attached to the shutter, clearly separated from the dialogue. Place Bi11bot\u2019s first balloon upper-right, Alex\u2019s reply bottom-right, and Bi11bot\u2019s final balloon bottom-left."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Alex runs through the narrowing shutter gap with the tool bag over one shoulder and folded Bi11bot as a clearly separate bundle beneath the other arm. Keep the original node behind the grille. Put GRRRAAAK vertically along the far-left shutter edge; reserve dialogue upper-right and lower-right."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex reaches the colder side chamber as the shutter slams. Bi11bot unfolds against his chest; the same original node pulses behind the grille. Put CLANG on the far-left metal edge, separate from the dialogue in upper-right and lower-right."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "SPLASH\u2014SPLASH",
+      "size": "large",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "QUEUE WORKER",
+      "text": "Fill them! Move!",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "AUTHORIZED ALLOCATION: NORMAL",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "WHUM\u2026 WHUM\u2026",
+      "size": "medium",
+      "at": "left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It is closing.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I see that too.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You say that often.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "GRRRAAAK",
+      "size": "large",
+      "at": "left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Hold on.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I am.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLANG",
+      "size": "large",
+      "at": "left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Someone heard it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not someone.",
+      "at": "bottom-right"
+    }
+  ]
+}

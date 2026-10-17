@@ -1,0 +1,69 @@
+{
+  "page": 47,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada reaches for the archive terminal; Leona stops her hand. Leave upper terminal space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The public archive opens to a recorded emergency vote: Leona, Adrian and Mera beside the three bands while damaged reservoirs and locked stores appear behind them. Leave upper archive space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Adrian's band remains dark while Mera's band glows. Keep both bands clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Leona places her hand on the deciding record and accepts the public archive. Leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "If I open it, it stays open.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Good.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "TEMPORARY EMERGENCY AUTHORITY \u2014 APPROVED.",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LEONA",
+      "text": "I cast the vote.",
+      "at": "bottom-left"
+    }
+  ]
+}

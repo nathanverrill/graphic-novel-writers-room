@@ -1,0 +1,70 @@
+{
+  "page": 5,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ wedges the pump rotor; one magnetic leg tears free and drops into the lake. Keep upper machinery clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Voss swings his lamp toward the water as Nera sees TJ's amber lens. Keep upper deck clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The siphon collapses and a reduced stream pours back into the lake. Keep upper water clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "TJ's head sinks briefly while his remaining pieces move toward it beneath dark water. Keep upper water clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TINK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "That\u2019s not driftwood.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "Pull him out.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "FWOOOSH",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

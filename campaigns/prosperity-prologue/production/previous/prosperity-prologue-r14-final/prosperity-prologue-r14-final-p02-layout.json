@@ -1,0 +1,72 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "In the warm 2070 hallway, Alex reaches up and taps the framed photograph of four former lab collaborators laughing together in a lab. The photograph remains an inked graphic-novel image behind glass; the four people stay confined to the frame and are not active characters. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. Leave clean upper-left space for his balloon."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 46,
+          "description": "The daughter has moved one step along the hallway wall and places her fingertip directly on the compact purifier diagram inside a framed patent. The adjacent clipping is secondary evidence. Alex stands just behind her, following the point of her finger. Keep her fingertip and face unobstructed. Leave clean upper space for one balloon from the daughter; do not reserve or add a second speech balloon."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "A scorched, cracked prototype fills the foreground among cleaner patent records and machine photographs. Its casing is visibly blackened, warped and damaged, with partial silhouettes of Alex and his daughter at the edge so it remains part of the hallway wall. Reserve a stable blank label area beside or beneath the object for later lettering of the exact artifact label. Do not generate words. Keep the upper third silent and clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "horizon": 52,
+          "description": "The daughter\u2019s movement ends at a visibly mismatched frame holding a crumpled, grease-stained pump-bracket sketch with smudged fingerprints and crude pencil geometry. She looks only at the sketch while Alex watches from the edge of the panel. In a separate neighboring frame, show the paid-in-full account statement as a smaller, cleaner document with a stable blank lettering area; it is visible to the reader but not a visual destination for the daughter. Do not generate text. Leave the upper area clear and silent."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Made some. Fixed most. Worked with some people smarter than me.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "That one's in my school!",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "v1 - didn't work",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "PAID IN FULL \u00b7 BALANCE 0 CREDITS",
+      "at": "bottom-right"
+    }
+  ]
+}

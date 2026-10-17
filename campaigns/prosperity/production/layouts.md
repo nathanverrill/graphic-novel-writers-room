@@ -1,20 +1,539 @@
-## Page 46 (left) — 4 panels, grid: four equal vertical beats
+# Prosperity — Layouts
 
-**Status:** Canon — execution proof for script Page 46.
+**Canon:** This execution pass covers exactly Pages 1–16: the four-page prologue and Chapter 1. Western left-to-right reading; portrait print format; no readable text is generated in artwork. All captions, balloons and sound effects are lettering-layer elements supplied below. Maximum six panels per page; maximum three named characters per panel.
 
-**Reading path:** The eye enters at the upper-left through the imposed association-risk record, moves to Mera’s controlling hand and Leona’s confession, then follows Leona’s physical contact with the Covenant component, and ends on Ada’s contained anger. Keep the apartment’s quiet geometry consistent across all four panels; the administrative overlays should feel like an intrusion into the domestic space.
+**Base grid:** Variable three-tier layouts, generally 4–6 panels per page. Page 5 is a full-page establishing splash. Major reveals are protected on left-hand pages.
 
-**Dominant beat/image:** Panel 4 — Ada facing Leona with anger held in her posture while Leona states the cost of the bargain.
+## Page 1 (right) — 4 panels, future opener
 
-- **P1 (top-left, one-quarter page): MEDIUM-WIDE, eye level.** In Leona Veyra’s sparse Oasis apartment, Leona stands beside the concealed Covenant panel and looks toward a hovering Alpha association-risk record. The record’s abstract geometric fields surround her without readable text in the art. Keep the room’s pale stone-gray surfaces, narrow wall shelf, and controlled emptiness visible. Leona’s body is still and guarded, showing that the record has made her private space administrative. Leave the upper third open as quiet breathing room; this panel has no lettering.
-- **P2 (top-right, one-quarter page): MEDIUM TWO-SHOT, slight low angle.** Mera Vale stands across the apartment table from Leona Veyra. Mera’s hand hovers over the projected association-risk record while Leona watches, rigid and silent between lines. The record remains an abstract interface with no readable text in the art. Stack two speech balloons in the upper portion in script order, with a clear gap between them; keep Mera’s hand and the projected record unobstructed.
-- **P3 (bottom-left, one-quarter page): MEDIUM CLOSE, eye level.** Leona Veyra touches the physical Covenant component mounted inside the narrow wall panel, but does not activate it. Her expression is precise and regretful; the separated bands and mechanical restraint of the object must be clearly visible. Reserve the upper third for one speech balloon, leaving the Covenant component and Leona’s hand unobstructed. No other named character appears.
-- **P4 (bottom-right, one-quarter page): MEDIUM TWO-SHOT, eye level.** Ada Veyra faces Leona Veyra across the small apartment space. Ada’s posture is rigid with contained anger, one thumb pressed against the largest rivet on her shoulder strap; Leona stands opposite her, shoulders lowered but not reaching out. Reserve the upper-left for Leona’s final balloon and keep both faces, Ada’s hands, and the wall shelf clear. The emotional endpoint is the distance between them, not a physical embrace.
+Reading path: neighborhood → hallway → evidence wall → daughter’s question.  
+Dominant image: Alex’s lived-in 2070 future.  
+Page-turn hook: The daughter’s question pulls the story backward.
 
-**Page-turn hook:** Ada’s anger remains unresolved and carries into the next page, where the Covenant’s inability to act alone becomes explicit.
-
-**Lettering note:** All lettering is added after the art. Keep every balloon contained within its panel; no breakout lettering. Use a compact administrative projection with no readable interface text in the generated art. Panel 1 remains silent. Panel 2 carries Leona’s two confession balloons in order; Panel 3 carries the explanation of her surrendered authority and contact restrictions; Panel 4 carries the single final line.
+- **P1:** Full-width establishing view; reserve upper-left sky and lower corners for captions.
+- **P2:** Medium-wide hallway; reserve upper-left wall for Alex’s balloon.
+- **P3:** Close evidence wall; use three separated artifact zones for the exact clippings.
+- **P4:** Medium close daughter and Alex; reserve upper third.
 
 ```layout
-{"page":46,"side":"left","tiers":[{"h":1,"panels":[{"w":1,"shot":"medium-wide","angle":"eye","horizon":48,"description":"Inside Leona Veyra's sparse Oasis apartment, Leona stands beside the concealed Covenant panel and looks toward a hovering Alpha association-risk record made of abstract geometric fields, with no readable text in the artwork. Pale stone-gray walls, a narrow wall shelf, and controlled empty space make the apartment feel quiet and administratively exposed. Leona's posture is still and guarded. Leave the entire upper third clear as silent breathing room; this panel has no lettering."},{"w":1,"shot":"medium","angle":"low","horizon":46,"description":"Mera Vale stands across the apartment table from Leona Veyra. Mera's hand hovers over the abstract association-risk projection while Leona watches rigidly. Mera is slender and controlled, with medium olive skin, a long composed face, dark gray-green eyes, straight dark hair cut to jaw length with a precise silver streak at the right temple, and a graphite cuff on her left wrist; she wears an immaculate pearl-gray Oasis jacket over a black high-collared shirt, narrow graphite trousers, and low polished shoes. Keep the projection abstract with no readable text. Reserve the upper portion for two stacked Leona balloons in script order, with a clear gap between them; keep Mera's hand and the projection visible."}]},{"h":1,"panels":[{"w":1,"shot":"medium-close","angle":"eye","horizon":50,"description":"Leona Veyra touches the physical Covenant component mounted inside the narrow wall panel, but does not activate it. She has medium-brown skin, a broad oval face, dark brown eyes, thick black hair threaded with silver and worn in a low braid, and a still guarded posture; she wears sparse Oasis civic clothing: a pale stone-gray overshirt, a dark blue undershirt, straight trousers, and soft indoor shoes, with no visible jewelry. Show the separated Covenant bands and their mechanical restraint clearly. Leave the upper third open for one speech balloon and keep Leona's hand and the component unobstructed."},{"w":1,"shot":"medium","angle":"eye","horizon":50,"description":"Ada Veyra faces Leona Veyra across the small Oasis apartment. Ada is lean and strong, with warm brown skin, a broad oval face, a straight nose, freckles across her cheeks, teal-blue eyes, and long copper hair wind-tangled and braided at the nape; she wears a dark high-collared work shirt, a faded slate utility vest, patched brown trousers, sturdy boots, a rivet-studded shoulder strap, and a muted moss-green wrap at her neck. Ada's posture is rigid with contained anger, one thumb pressed against the strap's largest rivet. Leona stands opposite her with lowered shoulders but does not reach out. Leave the upper-left open for Leona's final balloon; keep both faces, Ada's hands, and the wall shelf clear."}]}],"items":[{"panel":1,"type":"figure","label":"Leona Veyra","x":45,"y":73,"size":64,"pose":"standing","facing":"right"},{"panel":1,"type":"object","label":"abstract Alpha association-risk projection","x":72,"y":38,"w":38,"h":27},{"panel":2,"type":"figure","label":"Mera Vale","x":25,"y":74,"size":70,"pose":"standing","facing":"right"},{"panel":2,"type":"figure","label":"Leona Veyra","x":76,"y":76,"size":66,"pose":"standing","facing":"left"},{"panel":2,"type":"object","label":"abstract association-risk record projection","x":52,"y":34,"w":52,"h":30},{"panel":2,"type":"balloon","speaker":"LEONA","text":"Alpha was tracing people connected to Adrian.","at":"top-left"},{"panel":2,"type":"balloon","speaker":"LEONA","text":"Mera suppressed Ada's association risk.","at":"top-right"},{"panel":3,"type":"figure","label":"Leona Veyra","x":52,"y":73,"size":72,"pose":"standing","facing":"right"},{"panel":3,"type":"object","label":"physical Covenant component","x":72,"y":58,"w":30,"h":34},{"panel":3,"type":"balloon","speaker":"LEONA","text":"In exchange, I surrendered Covenant authority and accepted contact restrictions.","at":"top-left"},{"panel":4,"type":"figure","label":"Ada Veyra","x":27,"y":74,"size":70,"pose":"standing","facing":"right"},{"panel":4,"type":"figure","label":"Leona Veyra","x":75,"y":75,"size":68,"pose":"standing","facing":"left"},{"panel":4,"type":"balloon","speaker":"LEONA","text":"My silence for your protection.","at":"top-left"}]}
+{"page": 1, "side": "right", "tiers": [{"h": 31, "panels": [{"w": 1, "shot": "establishing", "angle": "high", "horizon": 48, "bleed": true, "description": "2070 evening in a lived-in Oasis neighborhood: pearl-white curved architecture, rounded rooflines, terraced gardens, a still reservoir with fountains, slender white towers, a white monorail viaduct, snow mountains, a delivery drone and a distant rocket launch. Alex’s modest terrace workbench and plants needing water occupy the foreground. Keep upper-left sky and lower corners clear for lettering; generate no readable text."}]}, {"h": 23, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "Pearl-white curved hallway with warm wood floor, tall terrace window and a wall covered in framed patents, machine images and clippings. Mid-forties Alex stands beside his daughter. Keep upper-left wall clear for lettering; generate no readable text."}]}, {"h": 21, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 42, "description": "Close view of framed patents, photographs and collaborative machine images. Leave three separate clean artifact zones: upper-left, upper-right and lower-left. Keep the founders’ photograph visible and generate no readable text in the art."}]}, {"h": 24, "panels": [{"w": 1, "shot": "medium close", "angle": "eye", "horizon": 52, "description": "Alex’s daughter looks up at Alex beneath the framed wall. Keep both faces unobstructed and leave the upper third open for her balloon."}]}], "items": [{"panel": 3, "type": "sign", "text": "PHANTUM WATERWORKS: 4,000 KEEL JOBS CREATED", "at": "top-left", "w": 44}, {"panel": 3, "type": "sign", "text": "PATENT ROYALTIES FUND 300 NEW FOUNDERS", "at": "top-right", "w": 44}, {"panel": 3, "type": "sign", "text": "CLEAN-WATER PRICES DROP 60% AND HEALTH IMPROVED", "at": "bottom-left", "w": 56}, {"panel": 4, "type": "balloon", "speaker": "DAUGHTER", "text": "Did you make all of these?", "at": "top-left", "tail_x": 120, "tail_y": 120}]}
+```
+
+## Page 2 (left) — 4 panels, collaboration and inheritance
+
+Reading path: Alex’s answer → purifier → failed prototype → Adrian’s shadow.  
+Dominant image: The paired Adrian nameplate and Keel entrepreneur-center image.
+
+```layout
+{"page": 2, "side": "left", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Alex taps a framed image of Lina, Suri, Jalen and Ren laughing in a laboratory. Leave upper-left clear for lettering."}, {"w": 1, "shot": "medium", "angle": "low", "horizon": 48, "description": "Alex’s daughter points at a framed compact-purifier diagram. Leave upper-right clear for lettering; generate no readable diagram text."}]}, {"h": 1, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 45, "description": "A scorched, cracked prototype hangs among the patents. Leave a clear area beside it for the failure note."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 43, "description": "A faded brass Adrian Phantum founder nameplate sits beside a newer clipping showing Alex at a busy Keel workshop hall. Keep both artifacts unobstructed and leave separate lettering zones."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "ALEX", "text": "Made some. Fixed most. Worked with lots of people smarter than me.", "at": "top-left", "tail_x": 28.2, "tail_y": 30.9}, {"panel": 2, "type": "balloon", "speaker": "DAUGHTER", "text": "That one's in my school!", "at": "top-right", "tail_x": 47.7, "tail_y": 64.2}, {"panel": 3, "type": "sign", "text": "v1 - didn't work", "at": "bottom-right"}, {"panel": 4, "type": "sign", "text": "PHANTUM WATERWORKS · ADRIAN PHANTUM, FOUNDER", "place": "exact", "x": 30, "y": 60, "w": 40}, {"panel": 4, "type": "sign", "text": "PHANTUM WATERWORKS CENTER FOR ENTREPRENEURS OPENS IN KEEL · FREE BENCHES AND MENTORS FOR NEW FOUNDERS", "place": "exact", "x": 62, "y": 82, "w": 62}]}
+```
+
+## Page 3 (right) — 4 panels, drawing and watch callback
+
+Reading path: drawing → daughter’s question → answer → watch.  
+Dominant image: The grease-stained pump-bracket drawing.
+
+```layout
+{"page": 3, "side": "right", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "extreme close", "angle": "eye", "horizon": 45, "description": "A crumpled, grease-stained sheet shows a crude pencil pump-bracket sketch with fingerprints and no patent number. Keep it unobstructed."}, {"w": 1, "shot": "medium two-shot", "angle": "eye", "horizon": 45, "description": "Alex’s daughter studies the drawing while Alex stands beside her. Reserve upper-left for her balloon and lower-right for Alex’s reply."}, {"w": 1, "shot": "medium close", "angle": "eye", "horizon": 42, "description": "The daughter beams at the drawing. Leave the upper third open for lettering."}]}, {"h": 2, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 45, "description": "Alex looks from the sketch down to Adrian’s old steel wristwatch on his left wrist, thumb covering the watch face. Leave upper-left open."}]}], "items": [{"panel": 2, "type": "balloon", "speaker": "DAUGHTER", "text": "This one's just a drawing.", "at": "top-left", "tail_x": 30.4, "tail_y": 59.3}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "And the one I'm most proud of. It helped a lot of people.", "at": "bottom-right", "tail_x": 76.5, "tail_y": 27.2}, {"panel": 3, "type": "balloon", "speaker": "DAUGHTER", "text": "That looks like a lot of fun!", "at": "top-left", "tail_x": 48.8, "tail_y": 54.7}]}
+```
+
+## Page 4 (left) — 4 panels, transition to Keel
+
+Reading path: correction → waiting daughter → confession → dissolve.  
+Dominant image: The full-width transition into 2043.
+
+```layout
+{"page": 4, "side": "left", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "medium close", "angle": "eye", "horizon": 45, "description": "Alex answers quietly while looking toward the sketch. Leave upper-left clear."}, {"w": 1, "shot": "medium close", "angle": "eye", "horizon": 44, "description": "The daughter waits attentively. Leave the upper third clear."}, {"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Alex continues while looking toward the sketch and watch. Leave upper-left clear."}]}, {"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 48, "bleed": true, "description": "The grease-stained sketch dissolves into the rust, charcoal and oxidized-orange Keel pump hall in 2043. Eighteen-year-old Alex has one palm on the pump housing. Leave upper-left machinery haze clear for the caption."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "ALEX", "text": "Not in the beginning.", "at": "top-left", "tail_x": 45, "tail_y": 38}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "When I was a teenager, I had nothing. We hardly had any water...", "at": "top-left", "tail_x": 62, "tail_y": 38, "x": 28, "y": 14, "w": 55}, {"panel": 4, "type": "location", "text": "KEEL. 2043.", "at": "top-left"}]}
+```
+
+## Page 5 (right) — 1 panel, full-page establishing splash
+
+Reading path: Keel upward through Halyard to Oasis, then back down the spine.  
+Dominant image: The three-city hierarchy and infrastructure connection.
+
+```layout
+{"page": 5, "side": "right", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "establishing", "angle": "high", "horizon": 58, "bleed": true, "description": "Full-page 2043 view of Prosperity’s Andean high-desert basin. Keel fills the basin floor around an exhausted lithium pit with stacked housing, patched machinery, rusted structures, dust and narrow water channels. Halyard climbs the middle slope with workshops, fabrication towers and elevated rail. Oasis sits above the cloud layer with pearl-white architecture, reservoirs and a distant launch structure. One infrastructure spine carries water, energy, transit and control signals through all three tiers; its conduit is broad at Oasis and narrows toward Keel. Use simple figures and only a few access gates and control nodes. Leave five separated caption zones: top-left, top-right, center-left, lower-left and lower-right. Generate no readable text."}]}], "items": [{"panel": 1, "type": "location", "text": "Year 2043.", "at": "top-left"}, {"panel": 1, "type": "caption", "text": "Oasis · Halyard · Keel", "at": "top-right"}, {"panel": 1, "type": "caption", "text": "What if everyone you've trusted has a secret?", "place": "exact", "x": 30, "y": 13}, {"panel": 1, "type": "caption", "text": "Who really owns what we create?", "place": "exact", "x": 70, "y": 35}, {"panel": 1, "type": "caption", "text": "Where does all our water go?", "place": "exact", "x": 50, "y": 95}]}
+```
+
+## Page 6 (left) — 5 panels, repair and debt
+
+Reading path: repair → debt transfer → street rumor → erased credit → restricted horizon.  
+Dominant image: Alex’s debt and restricted travel.
+
+```layout
+{"page": 6, "side": "left", "tiers": [{"h": 24, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "Keel pump hall before dawn. Alex tests an aging pump by touch; a salvaged bracket replaces the approved part, a white-and-amber node logs his shift and a supervisor watches. Leave upper machinery space clear for two balloons."}]}, {"h": 29, "panels": [{"w": 1, "shot": "medium wide", "angle": "eye", "horizon": 46, "description": "Alex touches an exit checkpoint scanner while workers queue behind him. Keep one large vertical display block centered: banner at top, identity and debt facts in the middle, guarantor and restriction below. Reserve a separate right-side zone for the guard balloon, a lower-right zone for Alex’s reply and a small lower scanner zone for the SFX."}]}, {"h": 47, "panels": [{"w": 3, "shot": "wide", "angle": "eye", "horizon": 44, "description": "Keel street: Alex passes the shuttered Last Chance casino while a bouncer leans in the doorway; a small rationed water queue is visible across the street without recognisable faces. Leave upper corners open."}, {"w": 2, "shot": "close", "angle": "eye", "horizon": 45, "description": "Empty pump hall terminal with three distinct, widely separated horizontal interface rows: unauthorized-repair alert at top, routine-maintenance reclassification in the middle and lost Site 6 credit at bottom. Reserve uncontested lower-right space for the supervisor balloon."}, {"w": 2, "shot": "wide", "angle": "low", "horizon": 38, "description": "At sunrise on the exhausted pit rim, Alex faces Oasis while Keel remains in shadow. Keep the restricted status visible and leave lower-left open."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "SUPERVISOR", "text": "That's not the approved repair.", "at": "top-left", "tail_x": 76.4, "tail_y": 31.2}, {"panel": 1, "type": "balloon", "speaker": "ALEX", "text": "Then don't approve it. Just notice it works.", "at": "top-right", "tail_x": 42.4, "tail_y": 43.7}, {"panel": 2, "type": "screen", "text": "TODAY: DEBT TRANSFER DAY · ALEX PHANTUM · AGE VERIFIED: EIGHTEEN · PARENTAL HOUSEHOLD LIABILITY TRANSFER: COMPLETE · DEBT BALANCE: 418,607 CREDITS · PROJECTED CLEARANCE: 28.7 YEARS · TRAVEL STATUS: RESTRICTED · GUARANTOR: ADRIAN PHANTUM — WHEREABOUTS UNRECORDED", "at": "top-right", "w": 46}, {"panel": 2, "type": "sfx", "text": "BEEP", "size": "medium", "at": "bottom"}, {"panel": 2, "type": "balloon", "speaker": "GUARD", "text": "Happy birthday, Phantum.", "at": "right", "tail_x": 85.6, "tail_y": 36.7}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "I've had better surprises.", "tail_x": 36, "tail_y": 32, "x": 45, "y": 55}, {"panel": 2, "type": "caption", "text": "Eighteen: the age Keel decides you're old enough to owe.", "at": "bottom-left", "w": 50}, {"panel": 3, "type": "balloon", "speaker": "BOUNCER", "text": "Care to see if luck runs in the family?", "at": "top-left", "tail_x": 82.8, "tail_y": 38.5}, {"panel": 3, "type": "balloon", "speaker": "BOUNCER", "text": "Your father always believed the next hand would change everything.", "at": "top-right", "tail_x": 82.8, "tail_y": 38.5}, {"panel": 4, "type": "screen", "text": "UNAUTHORIZED REPAIR — REVIEW REQUIRED", "x": 50, "y": 4}, {"panel": 4, "type": "screen", "text": "ROUTINE MAINTENANCE", "x": 50, "y": 40}, {"panel": 4, "type": "screen", "text": "NEW PART ADDED — DESIGN CREDIT: SITE 6", "x": 50, "y": 80, "place": "exact"}, {"panel": 4, "type": "balloon", "speaker": "SUPERVISOR", "text": "...Works.", "tail_x": 80, "tail_y": 45, "x": 38, "y": 90, "place": "exact"}, {"panel": 5, "type": "screen", "text": "TRAVEL STATUS: RESTRICTED", "at": "top-right"}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "One day... I'm leaving.", "at": "bottom-left", "tail_x": 80.5, "tail_y": 34.2}]}
+```
+
+## Page 7 (right) — 6 panels, ration and opposing goals
+
+Reading path: water handoff → birthday exchange → credit grievance → divided gazes.  
+Dominant image: Ada’s saved ration.
+
+```layout
+{"page": 7, "side": "right", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 44, "description": "Late afternoon on Keel’s pit rim. Keel lies in shadow, Halyard catches gold and Oasis remains in sunlight. A dry fountain stands nearby as Ada approaches with two battered mugs. Leave upper-left clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Ada offers Alex a mug, her ration card visible at her hip. Leave upper-left and upper-right clear."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 48, "description": "Close on the ration card, Ada’s hand and Alex’s hands around the mugs. Keep four lettering zones separate."}]}, {"h": 1, "panels": [{"w": 1, "shot": "medium two-shot", "angle": "eye", "horizon": 46, "description": "Alex and Ada sit side by side on the railing, laughing briefly. Reserve upper-left for Ada and upper-right for Alex, with no overlap."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 43, "description": "Ada watches Alex while he looks away, his frustration over Site 6’s credit visible in his clenched posture. Reserve separate upper-left and lower-left balloon zones."}, {"w": 1, "shot": "wide", "angle": "over shoulder", "horizon": 43, "description": "Alex looks upward toward Oasis while Ada looks down toward Keel, wind lifting her red hair. Reserve a clean upper-left zone for Alex’s short balloon and lower-right for Ada’s short balloon."}]}], "items": [{"panel": 1, "type": "location", "text": "Later that afternoon...", "at": "top-left"}, {"panel": 2, "type": "balloon", "speaker": "ADA", "text": "Thought you might need this.", "tail_x": 41.0, "tail_y": 19.6, "x": 14, "y": 10}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "The birthday special? Not sure I can afford it.", "at": "top-right", "tail_x": 71.3, "tail_y": 47.3}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "Where'd you get enough water for two?", "at": "top-left"}, {"panel": 3, "type": "balloon", "speaker": "ADA", "text": "Saved some of my ration.", "at": "top-right"}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "Ada, you didn't have to.", "at": "bottom-left"}, {"panel": 3, "type": "balloon", "speaker": "ADA", "text": "Not everything has a price, Alex.", "at": "bottom-right"}, {"panel": 4, "type": "balloon", "speaker": "ADA", "text": "Eighteen. Congratulations. You're officially old.", "tail_x": 28, "tail_y": 32, "x": 50, "y": 10}, {"panel": 4, "type": "balloon", "speaker": "ALEX", "text": "I'm officially broke.", "tail_x": 70, "tail_y": 28, "x": 72, "y": 50}, {"panel": 5, "type": "balloon", "speaker": "ADA", "text": "I heard about this morning.", "at": "top-left", "tail_x": 28.5, "tail_y": 32.1}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "Everyone did.", "tail_x": 70, "tail_y": 37, "x": 76, "y": 45}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "And my bracket's in the Site 6 catalog now. Their name on it. Not mine.", "at": "bottom-right", "tail_x": 70.6, "tail_y": 37.2}, {"panel": 6, "type": "balloon", "speaker": "ALEX", "text": "Every birthday... I look up there... and wonder what it feels like to wake up somewhere you get to choose your own future.", "tail_x": 32, "tail_y": 45, "place": "exact", "x": 52, "y": 18, "w": 55}, {"panel": 6, "type": "balloon", "speaker": "ADA", "text": "I look down here... and wonder why everyone gave up trying to change it.", "tail_x": 76, "tail_y": 55, "place": "exact", "x": 66, "y": 48, "w": 45}, {"panel": 6, "type": "balloon", "speaker": "ALEX", "text": "Because nobody leaves.", "tail_x": 32, "tail_y": 45, "place": "exact", "x": 28, "y": 72}, {"panel": 6, "type": "balloon", "speaker": "ADA", "text": "That's the problem. People stopped trying to make it worth staying.", "tail_x": 76, "tail_y": 55, "place": "exact", "x": 66, "y": 84, "w": 45}]}
+```
+
+## Page 8 (left) — 6 panels, dialogue grid
+
+Reading path: grandmother → rumor → memory gap → challenge → walk home.  
+Dominant image: “What if they were wrong?”
+
+```layout
+{"page": 8, "side": "left", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Alex draws a worn photograph from his jacket; Grandmother smiles while Adrian’s face is folded and creased. Ada notices Alex’s clenched hand. Leave upper-left clear."}, {"w": 1, "shot": "medium two-shot", "angle": "eye", "horizon": 45, "description": "Alex studies the photograph while Ada’s hand stops before touching his shoulder. Leave upper-left and upper-right clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 46, "description": "Sunset over the basin, Oasis brightening as Keel dims. Ada faces Alex. Leave upper sky open."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 44, "description": "Ada’s steady face with Alex’s tightening fist in foreground. Leave upper-left clear."}]}, {"h": 1, "panels": [{"w": 2, "shot": "wide", "angle": "high", "horizon": 55, "description": "Alex and Ada stand small against the darkening basin, separated by open space but still together. Leave lower corners clear."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 44, "description": "Alex walks ahead while Ada looks back toward Oasis. Leave top-left clear."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "ADA", "text": "How's your grandma?", "at": "top-left", "tail_x": 15.1, "tail_y": 31.2}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "Some days she knows me. Other days she calls me Adrian...", "tail_x": 76, "tail_y": 45, "place": "exact", "x": 70, "y": 12}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "The hardest part isn't that she forgets. It's that she makes up crazy stories about him.", "tail_x": 72, "tail_y": 50, "place": "exact", "x": 24, "y": 82}, {"panel": 3, "type": "balloon", "speaker": "ADA", "text": "What kind of stories?", "at": "top-left", "tail_x": 25.0, "tail_y": 40.0}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "That he wasn't gambling. That he was working.", "at": "top-right", "tail_x": 57.4, "tail_y": 40.0}, {"panel": 4, "type": "balloon", "speaker": "ADA", "text": "What do you actually remember about him?", "at": "top-left", "tail_x": 28.1, "tail_y": 40.0}, {"panel": 4, "type": "balloon", "speaker": "ALEX", "text": "Nothing. I was two.", "at": "bottom-right", "tail_x": 85, "tail_y": 28}, {"panel": 5, "type": "balloon", "speaker": "ADA", "text": "So everything else is what people told you. What if they were wrong?", "at": "bottom-left", "tail_x": 30.8, "tail_y": 29.9}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "Maybe…Or maybe they're right. Either way... he's gone.", "at": "bottom-right", "tail_x": 45.9, "tail_y": 27.0}, {"panel": 6, "type": "balloon", "speaker": "ADA", "text": "He wouldn't just leave.", "at": "top-left", "tail_x": 14.9, "tail_y": 27.0}]}
+```
+
+## Page 9 (right) — 6 panels, apartment clue
+
+Reading path: apartment → mistaken recognition → memory clears → book → reach.
+
+```layout
+{"page": 9, "side": "right", "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "Modest Keel apartment at dusk with quilts, repaired furniture, old books, family photographs, recycled-container plants and ration-marked water jugs. Grandmother folds a cloth; the tall bookshelf and its book-width gap dominate the wall. Alex stands in the doorway. Leave upper-left clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 44, "description": "Alex stands in the doorway with eyes briefly closed, gently correcting Grandmother. Leave upper-left clear."}, {"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Alex kneels beside Grandmother’s chair while she folds the cloth. Leave upper corners clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "extreme close", "angle": "eye", "horizon": 43, "description": "Grandmother’s face becomes suddenly precise and clear. Leave upper-left open."}, {"w": 1, "shot": "close", "angle": "low", "horizon": 38, "description": "Grandmother’s frail hand points toward the worn hand-bound book with a faint balanced water-drop symbol. Keep hand and book unobstructed."}]}, {"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "low", "horizon": 35, "description": "Alex reaches toward the book from behind the shelf, framed by warm apartment light. Grandmother remains seated below. Keep book and face clear."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "GRANDMOTHER", "text": "Adrian?", "tail_x": 49, "tail_y": 32, "x": 62, "y": 12}, {"panel": 2, "type": "balloon", "speaker": "ALEX", "text": "Not today, Grandma. It's Alex.", "tail_x": 44, "tail_y": 38, "x": 78, "y": 15}, {"panel": 3, "type": "balloon", "speaker": "GRANDMOTHER", "text": "Of course. Alex. I knew that. Did your father come home yet?", "at": "top-left", "tail_x": 62.2, "tail_y": 29.8}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "Not yet.", "at": "top-right", "tail_x": 29.7, "tail_y": 34.4}, {"panel": 4, "type": "balloon", "speaker": "GRANDMOTHER", "text": "He's closer than you think.", "at": "top-left", "tail_x": 51.6, "tail_y": 48.2}, {"panel": 5, "type": "balloon", "speaker": "GRANDMOTHER", "text": "Adrian, get down the book you put up there. The one you want Alex to have when he turns eighteen.", "at": "top-left"}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "...I'm eighteen today, Grandma.", "at": "bottom-right"}, {"panel": 6, "type": "balloon", "speaker": "GRANDMOTHER", "text": "Careful. He said it was worth protecting.", "tail_x": 76, "tail_y": 72, "x": 76, "y": 45}]}
+```
+
+## Page 10 (left) — 5 panels, hidden workshop reveal
+
+Reading path: book trigger → shelf movement → passage → confirmation → threshold.
+
+```layout
+{"page": 10, "side": "left", "tiers": [{"h": 1, "panels": [{"w": 1, "shot": "extreme close", "angle": "eye", "horizon": 44, "description": "Alex pulls the old book; it stops like a lever and dust puffs from the shelf. Keep mechanism clear."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 43, "description": "The bookshelf shifts by a fraction and dust sifts down. Keep the moving edge clear."}]}, {"h": 3, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "The bookshelf swings outward on a concealed vertical pivot with floor clearance, revealing a black passage. Golden room light spills across the floor. Alex steps back; Grandmother remains seated. Preserve the passage as the dominant shape and leave upper-left clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "medium", "angle": "eye", "horizon": 46, "description": "Grandmother smiles calmly as Alex turns from the passage toward her. Leave upper corners clear."}, {"w": 1, "shot": "close", "angle": "low", "horizon": 32, "description": "Alex’s boot crosses from warm light into darkness. No lettering."}]}], "items": [{"panel": 1, "type": "sfx", "text": "CLICK", "size": "medium", "at": "middle"}, {"panel": 2, "type": "sfx", "text": "RUMBLE", "size": "medium", "x": 72, "y": 82}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "...Grandma?", "at": "top-left", "tail_x": 40.8, "tail_y": 10.6}, {"panel": 4, "type": "balloon", "speaker": "GRANDMOTHER", "text": "He said you'd know when you were ready.", "at": "top-left", "tail_x": 32.9, "tail_y": 30.9}, {"panel": 4, "type": "balloon", "speaker": "ALEX", "text": "When did he say that?", "at": "top-right", "tail_x": 66.7, "tail_y": 23.9}, {"panel": 4, "type": "balloon", "speaker": "GRANDMOTHER", "text": "Before he went to work.", "at": "bottom-left", "tail_x": 32.9, "tail_y": 30.9}]}
+```
+
+## Page 11 (right) — 4 panels, dormant workshop evidence
+
+Reading path: workshop → watch → equation → dormant robot.  
+Dominant image: Bi11bot remains inactive until Page 12.
+
+```layout
+{"page": 11, "side": "right", "tiers": [{"h": 3, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 44, "description": "Adrian’s hidden workshop with Alex small among blueprints, mechanical models, water diagrams, analog gauges and riveted pre-Alpha pipes. A perfectly organized workbench holds the covered, completely dormant Bi11bot and Adrian’s watch face down beside it. Bi11bot has dark optics, a dark chest seam and no amber pulse; only dust and ordinary warm workshop reflections are visible. Keep upper-left open."}]}, {"h": 1, "panels": [{"w": 1, "shot": "medium close", "angle": "eye", "horizon": 44, "description": "Alex turns the worn steel watch over, revealing Adrian’s engraved equation. The watch has no glow. Keep upper-right clear."}, {"w": 1, "shot": "close", "angle": "eye", "horizon": 42, "description": "The chalkboard equation matches the watch engraving. Silent and unobstructed."}, {"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "The covered robot remains completely still. Alex’s open hand reaches toward the sheet without touching it; the watch lies face down with its dark display visible. No amber reflection, pulse or activation cue. Keep the workbench clear."}]}], "items": [{"panel": 4, "type": "object", "label": "Adrian's old steel wristwatch", "w": 18, "h": 12, "at": "bottom-right"}]}
+```
+
+## Page 12 (left) — 5 panels, Bi11bot activation
+
+Reading path: sheet → tactile test → watch clasp → eyes ignite → first line.  
+Dominant image: The watch wakes Bi11bot.
+
+```layout
+{
+ "page": 12,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 2,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 44,
+     "description": "Alex pulls away the dust sheet, revealing Bi11bot: rugged weathered industrial blue and chipped mustard yellow, broad shoulders, dark optical eyes, rust-red scarf and angular chest armor marked clearly with a white Bi11 designation. Dust falls through warm workshop light. Leave upper-left clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "extreme close",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Alex presses his palm to Bi11bot\u2019s chest and feels for vibration. The robot remains dormant until the watch activation; keep the hand and white Bi11 mark visible."
+    },
+    {
+     "w": 1,
+     "shot": "medium close",
+     "angle": "eye",
+     "horizon": 44,
+     "description": "Alex buckles Adrian\u2019s watch onto his left wrist. The display window glows amber as the clasp closes. Leave upper-left clear."
+    }
+   ]
+  },
+  {
+   "h": 2,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The watch\u2019s amber pulse answers through Bi11bot. His two optical eyes ignite warm amber, dust lifts and his rust-red scarf shifts. Alex steps back. Keep Bi11bot\u2019s open face at eye level, both eyes visible and never looming."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Bi11bot stretches stiff mechanical arms as dust falls; the right-eye ring clicks and rotates. Alex remains out of focus behind him. Leave upper-left clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 3,
+   "type": "sfx",
+   "text": "CLICK",
+   "size": "medium",
+   "at": "top-left"
+  },
+  {
+   "panel": 4,
+   "type": "sfx",
+   "text": "WHIRRR...",
+   "size": "large",
+   "at": "top-left"
+  },
+  {
+   "panel": 5,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "...Well. That took longer than expected.",
+   "at": "top-left",
+   "tail_x": 120,
+   "tail_y": 120
+  }
+ ]
+}
+```
+
+## Page 13 (right) — 6 panels, surprise and evidence
+
+Reading path: surprise → focus → mistakes → watch → wager → greeting.
+
+```layout
+{
+ "page": 13,
+ "side": "right",
+ "tiers": [
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Alex jumps back and knocks over a stool while Bi11bot dusts his shoulders. Leave upper-left clear."
+    },
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 43,
+     "description": "Bi11bot\u2019s warm amber eyes narrow to focus and the right-eye ring clicks. Keep his face open and non-menacing."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "over shoulder",
+     "horizon": 45,
+     "description": "Over Bi11bot\u2019s shoulder, Alex stands with arms crossed. Leave upper corners clear."
+    },
+    {
+     "w": 1,
+     "shot": "medium",
+     "angle": "eye",
+     "horizon": 44,
+     "description": "Bi11bot looks toward Alex\u2019s wrist as Alex pulls the sleeve over the watch. Leave upper-left clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 43,
+     "description": "Alex turns the watch in his palm, showing the engraved equation. Bi11bot\u2019s mustard hand hovers above it. Leave lettering zones clear."
+    },
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "A projector unfolds from Bi11bot\u2019s shoulder and soft-blue light falls across Alex. Leave upper-left clear."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "Okay. That's... new.",
+   "at": "top-left",
+   "tail_x": 35.6,
+   "tail_y": 18.0
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "You're taller than your father predicted.",
+   "at": "top-left",
+   "tail_x": 21.5,
+   "tail_y": 49.2
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "Everyone in Keel claims they knew my father.",
+   "tail_x": 61.9,
+   "tail_y": 22.8,
+   "x": 76,
+   "y": 62,
+   "place": "exact"
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "Most of them knew his reputation. I knew his mistakes.",
+   "tail_x": 21.5,
+   "tail_y": 49.2,
+   "place": "exact",
+   "x": 30,
+   "y": 86
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "And you found the watch.",
+   "at": "top-left",
+   "tail_x": 21.9,
+   "tail_y": 45.9
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "You know about the watch?",
+   "tail_x": 72.5,
+   "tail_y": 16.2,
+   "place": "exact",
+   "x": 82,
+   "y": 86
+  },
+  {
+   "panel": 5,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "Your father bet me you'd leave it in the dust. I said you wouldn't.",
+   "x": 30,
+   "y": 14
+  },
+  {
+   "panel": 5,
+   "type": "balloon",
+   "speaker": "ALEX",
+   "text": "...I almost did.",
+   "at": "bottom-right"
+  },
+  {
+   "panel": 6,
+   "type": "balloon",
+   "speaker": "BI11BOT",
+   "text": "Almost isn't doing it. Now, shall we say hello to your father?",
+   "tail_x": 11.9,
+   "tail_y": 40.1,
+   "x": 30,
+   "y": 14
+  }
+ ]
+}
+```
+
+## Page 14 (left) — 6 panels, hologram and apology
+
+Reading path: Adrian appears → Alex reacts → family frame → apology → instruction → photograph.  
+Dominant image: Adrian gives Alex permission to question him.
+
+```layout
+{
+ "page": 14,
+ "side": "left",
+ "tiers": [
+  {
+   "h": 2,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "medium wide",
+     "angle": "eye",
+     "horizon": 44,
+     "description": "Adrian\u2019s hologram appears above the workbench and looks toward Alex, who is a silhouette in the foreground with thumb over the watch. Keep upper-left clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 43,
+     "description": "Alex\u2019s set jaw and bright eyes in blue hologram light. No lettering."
+    },
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "Adrian\u2019s hologram at left, Alex at center and Grandmother in the bookshelf doorway. Leave upper corners clear."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 43,
+     "description": "Adrian turns serious as the hologram shifts burgundy; Grandmother\u2019s hand presses to her chest. Reserve separate zones for two apology balloons, keeping both faces visible."
+    },
+    {
+     "w": 1,
+     "shot": "close",
+     "angle": "eye",
+     "horizon": 44,
+     "description": "Adrian leans toward the lens as scan lines begin. Reserve upper-left and lower-right for two instruction balloons."
+    }
+   ]
+  },
+  {
+   "h": 1,
+   "panels": [
+    {
+     "w": 1,
+     "shot": "wide",
+     "angle": "eye",
+     "horizon": 45,
+     "description": "The hologram is gone. Alex sits in blue-grey afterglow with Bi11bot\u2019s amber eyes at frame edge and unfolds Adrian\u2019s photograph. No lettering."
+    }
+   ]
+  }
+ ],
+ "items": [
+  {
+   "panel": 1,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "Hello, Alex. If you're seeing this... then you found the workshop.",
+   "at": "top-left",
+   "tail_x": 63.1,
+   "tail_y": 32.0
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "Which means your grandmother still refuses to throw anything away.",
+   "at": "top-left",
+   "tail_x": 22.1,
+   "tail_y": 18.7
+  },
+  {
+   "panel": 3,
+   "type": "balloon",
+   "speaker": "GRANDMOTHER",
+   "text": "I heard that.",
+   "at": "top-right",
+   "tail_x": 81.0,
+   "tail_y": 32.8
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "If you're watching this, I wasn't there when you needed me. I'm sorry. To you, and to Mom.",
+   "tail_x": 46.3,
+   "tail_y": 49.1,
+   "place": "exact",
+   "x": 22,
+   "y": 14
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "I made one bad call. I thought I was right. But I was wrong.",
+   "tail_x": 46.3,
+   "tail_y": 49.1,
+   "place": "exact",
+   "x": 76,
+   "y": 13
+  },
+  {
+   "panel": 4,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "I got things wrong, Alex. More than once. But every failure taught me something.",
+   "tail_x": 46.3,
+   "tail_y": 49.1,
+   "place": "exact",
+   "x": 24,
+   "y": 86
+  },
+  {
+   "panel": 5,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "You don't have to finish what I started. You may find a better way.",
+   "tail_x": 48.6,
+   "tail_y": 57.8,
+   "place": "exact",
+   "x": 20,
+   "y": 18
+  },
+  {
+   "panel": 5,
+   "type": "balloon",
+   "speaker": "ADRIAN",
+   "text": "Bi11bot has a map. What you do with it is up to you. And whatever he tells you... question everything. Especially me.",
+   "tail_x": 48.6,
+   "tail_y": 57.8,
+   "place": "exact",
+   "x": 80,
+   "y": 80
+  }
+ ]
+}
+```
+
+## Page 15 (right) — 6 panels, map and first objective
+
+Reading path: three markers → Measure → sealed mine → uncertainty → evidence → decision.  
+Dominant image: Alex chooses to begin beneath Keel.  
+Page-turn hook: His touch sends only a simple Legacy Protocol alert.
+
+```layout
+{"page": 15, "side": "right", "tiers": [{"h": 2, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 45, "description": "Bi11bot projects a clean holographic mountain cross-section: Keel, Halyard and Oasis with three distinct unlettered markers. Only the Keel marker glows amber. Leave upper corners clear; generate no labels or text."}]}, {"h": 1, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 43, "description": "The bright unlettered Keel marker sits beneath the sealed mine entrance. Leave upper-left clear for lettering."}, {"w": 1, "shot": "medium", "angle": "eye", "horizon": 45, "description": "Alex studies the sealed mine marker while Bi11bot stands beside him. Leave upper corners clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "medium", "angle": "eye", "horizon": 44, "description": "Alex looks toward the workbench where Adrian’s hologram stood, holding the creased photograph. Bi11bot remains beside him. Leave upper corners clear."}, {"w": 1, "shot": "medium two-shot", "angle": "eye", "horizon": 45, "description": "Alex turns Adrian’s watch over while Bi11bot’s eye rings click toward him. Leave upper corners clear."}]}, {"h": 1, "panels": [{"w": 1, "shot": "close", "angle": "eye", "horizon": 43, "description": "Alex presses his hand to the unlettered Keel marker. A thin amber line leaves the map and enters an existing infrastructure route, clearly reading as a simple Legacy Protocol alert transmission, not artifact activation or authority transfer. Leave lower-left open."}]}], "items": [{"panel": 1, "type": "balloon", "speaker": "BI11BOT", "text": "Your father left a trail. Three artifacts, in three places.", "at": "top-left", "tail_x": 15.7, "tail_y": 57.0}, {"panel": 1, "type": "balloon", "speaker": "BI11BOT", "text": "He called it the Legacy Protocol.", "tail_x": 18, "tail_y": 50, "place": "exact", "x": 40, "y": 40}, {"panel": 2, "type": "screen", "text": "THE MEASURE", "place": "exact", "x": 56, "y": 42}, {"panel": 2, "type": "balloon", "speaker": "BI11BOT", "text": "The first is called the Measure. It's somewhere inside the old mine.", "at": "bottom-left"}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "That mine's been sealed since before I was born.", "at": "top-left", "tail_x": 36.3, "tail_y": 44.4}, {"panel": 3, "type": "balloon", "speaker": "BI11BOT", "text": "Your father knew.", "at": "top-right", "tail_x": 76.6, "tail_y": 49.2}, {"panel": 3, "type": "balloon", "speaker": "ALEX", "text": "And I can't leave Keel.", "at": "bottom-left", "tail_x": 36.3, "tail_y": 44.4}, {"panel": 3, "type": "balloon", "speaker": "BI11BOT", "text": "You don't need to. This one is under your feet.", "at": "bottom-right", "tail_x": 76.6, "tail_y": 49.2}, {"panel": 4, "type": "balloon", "speaker": "ALEX", "text": "And finding it tells me what happened to him?", "at": "top-left", "tail_x": 40.0, "tail_y": 33.0}, {"panel": 4, "type": "balloon", "speaker": "BI11BOT", "text": "It tells us where he wanted you to begin. The rest, we'll have to discover.", "at": "top-right", "tail_x": 84.9, "tail_y": 56.0}, {"panel": 5, "type": "balloon", "speaker": "ALEX", "text": "Everyone says he gambled it all away.", "at": "top-left", "tail_x": 30.5, "tail_y": 33.0}, {"panel": 5, "type": "balloon", "speaker": "BI11BOT", "text": "That's a theory. The mine is evidence.", "at": "top-right", "tail_x": 80.7, "tail_y": 42.2}, {"panel": 6, "type": "balloon", "speaker": "ALEX", "text": "Then we start here.", "at": "bottom-left"}]}
+```
+
+## Page 16 (left) — 5 panels, alert and TRACK decision
+
+Reading path: alert climbs the spine → control room → monitor → TRACK → closing ring.  
+Dominant image: Mera’s TRACK decision.  
+Page-turn hook: End of Chapter One.
+
+```layout
+{"page": 16, "side": "left", "tiers": [{"h": 3, "panels": [{"w": 1, "shot": "establishing", "angle": "bird", "horizon": 55, "description": "Tall cutaway of the infrastructure spine from Keel to Oasis. A single amber alert pulse travels upward through existing water, energy and control infrastructure; nodes flicker in sequence. This is only a transmission alert, not artifact authentication or authority transfer. No lettering; keep the spine unobstructed."}, {"w": 2, "shot": "wide", "angle": "eye", "horizon": 45, "description": "Symmetrical Oasis control room with pearl-white and graphite surfaces and a wall-sized mountain display. One amber Keel point pulses. Mera sits small against it; her clean water glass is aligned with the desk edge. Leave upper-left clear."}]}, {"h": 2, "panels": [{"w": 2, "shot": "medium close", "angle": "eye", "horizon": 43, "description": "Cold-white monitor with a completely blank interface area reserved for lettering. Generate no text, buttons or duplicate selection graphics in the artwork."}, {"w": 1, "shot": "extreme close", "angle": "eye", "horizon": 44, "description": "Mera nudges the clean water glass a few millimeters until it aligns with the desk edge and monitor frame. No lettering."}]}, {"h": 4, "panels": [{"w": 1, "shot": "wide", "angle": "eye", "horizon": 48, "description": "The amber Keel point continues pulsing as a thin cold-white ring closes around it. Mera is tiny in the display reflection. Reserve a clear lower-left zone for the retrospective caption and a separate clear lower-right zone for the chapter marker, with a wide gap between them."}]}], "items": [{"panel": 3, "type": "screen", "text": "LEGACY PROTOCOL DETECTED · SOURCE: KEEL SECTOR · [ REPORT TO ALPHA ] [ TRACK ]", "place": "exact", "x": 62, "y": 25, "w": 90}, {"panel": 3, "type": "object", "label": "TRACK selection", "w": 14, "h": 8, "at": "bottom-right"}, {"panel": 5, "type": "caption", "text": "I told myself I was only checking. Most of the true things in my life started that way.", "place": "exact", "x": 50, "y": 86, "w": 92}, {"panel": 5, "type": "caption", "text": "END OF CHAPTER ONE", "place": "exact", "x": 50, "y": 96}]}
 ```

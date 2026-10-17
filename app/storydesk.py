@@ -23,7 +23,7 @@ import threading
 import time
 from pathlib import Path
 
-from . import artcheck, projects, render
+from . import artcheck, projects, render, usage
 
 TEXT_MODEL = "anthropic/claude-opus-5.5"
 LOCK_MODEL = "sunburst"          # locks are drawn with GPT Image 2.5 Sunburst only
@@ -277,7 +277,9 @@ def check_structure(slug, desk=projects.PRE, framework="hero"):
         try:
             ask = STRUCTURE_ASK.format(title=f["title"], story=text,
                                        stages="\n".join(f'- "{i}" {n}: {j}' for i, n, j in f["stages"]))
+            t0 = time.time()
             answer, cost = artcheck._ask([{"type": "text", "text": ask}], key, TEXT_MODEL)
+            usage.ledger(slug, "story_desk", f"structure-{framework}", TEXT_MODEL, cost, time.time() - t0, desk=desk)
             data = artcheck._json(answer)
             if not data or not isinstance(data.get("stages"), list):
                 raise RuntimeError("the model's answer could not be read")
@@ -465,7 +467,9 @@ def compare(slug, desk, name, folder):
         {"type": "image_url", "image_url": {"url": render.data_url(img)}}]
     if plate:
         content.append({"type": "image_url", "image_url": {"url": render.data_url(plate)}})
+    t0 = time.time()
     answer, cost = artcheck._ask(content, key, TEXT_MODEL)
+    usage.ledger(slug, "story_desk", "lock-compare", TEXT_MODEL, cost, time.time() - t0, desk=desk, character=name)
     data = artcheck._json(answer)
     if not data:
         raise RuntimeError("the model's answer could not be read")
@@ -520,10 +524,13 @@ def redraw(slug, desk, name, note=""):
 
     def work():
         try:
+            t0 = time.time()
             art, report, cost = artcheck.draw_checked(
                 lambda text, r: render.generate(render.MODELS[LOCK_MODEL], text, r, key), prompt, refs, key,
                 script=f"A character lock: one full-body figure of {person['display']}, no text.\n\n"
                        f"Visual lock: {look}", lettered=False)
+            usage.ledger(slug, "story_desk", "lock-redraw", render.MODELS[LOCK_MODEL], cost, time.time() - t0,
+                         character=name, tries=len(report["attempts"]), check_pass=report["pass"])
             (d / "candidates").mkdir(parents=True, exist_ok=True)
             fname = f"cand-{time.strftime('%Y%m%d-%H%M%S')}.png"
             (d / "candidates" / fname).write_bytes(art)

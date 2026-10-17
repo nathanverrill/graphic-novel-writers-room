@@ -1,0 +1,62 @@
+{
+  "page": 37,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Caldera fabrication floor. Lina folds a membrane fragment into a transparent sleeve beside a technical bench. Keep the sleeve and her hands clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A reassignment notice flashes beside Lina's work station. Keep the notice unobstructed."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lina hides the sleeve inside her stained technical coat while Alex approaches. Keep only Lina and Alex visible; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-close",
+          "angle": "eye",
+          "description": "Lina hands Alex the sleeve and tears down the reassignment notice. Keep the handoff dominant and leave upper space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "CREATOR REVIEW \u2014 PENDING",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You came for the build?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "LINA",
+      "text": "I came before they came for it.",
+      "at": "top-right"
+    }
+  ]
+}

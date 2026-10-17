@@ -1,0 +1,98 @@
+{
+  "page": 2,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "On the tanker barge, Nera in a red hood checks the siphon while Voss in a lamp helmet watches the shore. Leave upper deck space clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Voss studies the distant boathouse beyond the water. Keep the upper horizon clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "TJ's head glides beneath the tanker; one magnetic leg hooks a submerged brace. Keep upper water clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Nera looks toward the old mine walls as the siphon continues drawing water. Keep upper barge space clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "Lower the pull.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "We\u2019re late.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "That\u2019s Phantum\u2019s lake.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "It\u2019s a lake.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "It\u2019s clean.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "TIK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "VOSS",
+      "text": "Nobody gets water that clean by being polite.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "NERA",
+      "text": "Then he took it first.",
+      "at": "top-right"
+    }
+  ]
+}

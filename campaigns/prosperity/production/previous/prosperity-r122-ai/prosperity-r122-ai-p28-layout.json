@@ -1,0 +1,56 @@
+{
+  "page": 28,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The passage opens into old lithium workings. A broad maintained industrial uplink crosses above a narrow pipe labeled KEEL RESIDENTIAL. Leave upper chamber space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The residential pipe is nearly dry, stained orange and white. Leave upper pipe space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "A newer white-and-amber control node glows beside an analog gauge. Adrian's equation is scratched into the housing. Leave upper machinery space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex presses his palm to the broad uplink while Ada watches. Leave upper pipe space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Feel that.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Flow toward Halyard.",
+      "at": "top-right"
+    }
+  ]
+}

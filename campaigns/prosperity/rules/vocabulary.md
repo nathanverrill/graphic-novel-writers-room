@@ -177,7 +177,7 @@ Grammar can compress:
 
 > "You going?"
 
-> "Ain't worth the fitch."
+> "Ain't worth it."
 
 > "Already checked it."
 
@@ -491,7 +491,7 @@ Obligated, indebted, compromised, or beholden.
 
 > "He's tied to the House."
 
-> "Take their fitch and you're tied."
+> "Take their credits and you're tied."
 
 ---
 
@@ -539,68 +539,14 @@ Use sparingly so it feels like a real expression rather than a catchphrase.
 
 # Keel Money Vocabulary
 
-Official systems call the currency:
+Money is **credits**, everywhere and for everyone. There is no slang word for money and none
+for a balance, and nothing about money is tied to casino chips or gambling.
 
-**credits**
+> "Twenty credits."
 
-Keel does not usually say "credits" in casual conversation.
+> "I got six credits left."
 
-Two slang terms dominate.
-
----
-
-## fitch
-
-Derived from **fichas**.
-
-Everyday slang for units of money or individual credits.
-
-Comparable to:
-
-* bucks
-* quid
-* pesos
-* chips
-
-Singular and plural can remain **fitch**.
-
-> "Twenty fitch."
-
-> "I got six fitch left."
-
-> "Not worth the fitch."
-
-> "You paid how much fitch for that?"
-
-Because of the Last Chance casino and the region's linguistic history, the word also carries a faint association with chips, wagers, and money that can disappear quickly.
-
-Do not explain this etymology in dialogue.
-
-It should simply be ordinary speech.
-
----
-
-## salvo
-
-Derived from **saldo**.
-
-Refers primarily to someone's available balance, remaining money, account position, or financial breathing room.
-
-It is not interchangeable with fitch in every situation.
-
-**Fitch = units of money.**
-
-**Salvo = how much you have available.**
-
-> "What's your salvo?"
-
-> "My salvo's dead."
-
-> "That'll wipe your salvo."
-
-> "I've got enough salvo for medicine. That's it."
-
-This distinction gives the fictional economy useful everyday texture.
+> "Not worth the credits."
 
 An official display might read:
 
@@ -608,11 +554,11 @@ An official display might read:
 
 Alex says:
 
-> "Hundred eighty-four salvo."
+> "Hundred eighty-four credits."
 
 or simply:
 
-> "That's my whole salvo."
+> "That's everything I've got."
 
 ---
 
@@ -620,9 +566,9 @@ or simply:
 
 Keel:
 
-> "How much fitch?"
+> "How much?"
 
-> "What's left in your salvo?"
+> "What've you got left?"
 
 Halyard:
 
@@ -877,15 +823,11 @@ Or:
 
 The current amount in an account.
 
-Bi11bot may occasionally use the official term while Alex uses **salvo**.
+Bi11bot uses the official term; Alex just says what he has.
 
 > "Your balance."
 
-> "My salvo."
-
-> "Yes. Your salvo."
-
-That interaction can make the vocabulary feel lived-in.
+> "What's left of it."
 
 ---
 
@@ -1287,8 +1229,6 @@ Typical language:
 * patched
 * ghost
 * paper-clean
-* fitch
-* salvo
 
 ---
 
@@ -1308,8 +1248,6 @@ Typical language:
 * carrying
 * showing
 * full cup
-* fitch
-* salvo
 
 ---
 

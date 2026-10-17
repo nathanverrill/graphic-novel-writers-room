@@ -1,0 +1,140 @@
+{
+  "page": 9,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Alex strains against the seized wheel while the gauge climbs and water trembles on the housing. Bi11bot braces against the rail. Keep far-left for SFX; reserve upper-right, lower-right, and bottom-left for dialogue in that order."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "low",
+          "description": "Bi11bot wedges a finger beneath the locking tooth; his right eye ring clicks rapidly. Keep upper-left for SFX and upper-right for dialogue."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "description": "The node flashes white and amber; a light travels down the cable and the gauge needle hits its stop. Reserve far-left for SFX and right side for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "The wheel shifts; Alex\u2019s boots slide and Bi11bot catches the housing as cold water sprays across both. Make their shared grip central. Reserve far-left for SFX and stagger dialogue on the right."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "KRRRNNK",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The pressure is rising.",
+      "at": "top-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I know.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The wheel does not.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then make it listen.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "CLICK-CLICK-CLICK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Now.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "BEEP\u2014BEEP\u2014BEEP",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "It noticed.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Let it.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CHK-KK",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Again.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Together?",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Together.",
+      "at": "bottom-right"
+    }
+  ]
+}

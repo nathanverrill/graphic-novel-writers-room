@@ -1,0 +1,76 @@
+{
+  "page": 38,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "Director Cassian Lock approaches Alex and Ada at the registry, examining the record before looking at Alex. Leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Lock places a formal assignment document on the registry table. Leave upper document space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "The offer shows debt clearance, employment and House administration of Adrian's estate. Leave upper document space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex closes the registry while Lock taps the screen and freezes immediate rights. Leave upper display space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Assign the estate to House administration. Your debt clears. Halyard access becomes permanent.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Refuse, and immediate commercial rights freeze pending review.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "You\u2019re asking me to sell work I didn\u2019t make.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "LOCK",
+      "text": "Then find the people who made it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "IMMEDIATE COMMERCIAL RIGHTS: FROZEN",
+      "at": "bottom"
+    }
+  ]
+}

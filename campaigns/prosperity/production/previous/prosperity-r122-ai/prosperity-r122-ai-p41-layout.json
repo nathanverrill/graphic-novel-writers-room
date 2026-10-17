@@ -1,0 +1,69 @@
+{
+  "page": 41,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex cuts a physical sleeve to bridge incompatible standards while Ren holds the connector. Leave upper bench space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Suri installs a bounded bypass around the living filter. Leave upper machine space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Jalen records failure conditions beside the routing shard while Lina marks testing limits. Leave upper workboard space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The joined purifier runs steadily with service panels and a restrained bronze-gold light. Leave upper display space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "Who carries the downside?",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The people who sign it.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "SURI",
+      "text": "If this fails, the unit stops.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "FIELD TEST \u2014 NOT POTABLE-OUTPUT GUARANTEE",
+      "at": "top"
+    }
+  ]
+}

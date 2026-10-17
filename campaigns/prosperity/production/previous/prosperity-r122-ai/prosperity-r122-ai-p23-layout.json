@@ -1,0 +1,83 @@
+{
+  "page": 23,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Site 6 worksite. Tomas approaches Alex with the heavy old key while Ada studies the paper map. Leave upper worksite space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Tomas holds the key and Alex's band shows the separate forty-credit note. Leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's band displays the overdue installment and restricted rail status. Leave display unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "A hauling frame collapses behind them and pins Tomas. Alex turns toward the impact. Leave upper machinery space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Forty credits. Key, travel token and parts.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Separate from the household account?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Separate.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "CURRENT INSTALLMENT: OVERDUE\nTRAVEL: RESTRICTED\nAMOUNT REQUIRED TO RESTORE: 500 CREDITS",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "TOMAS",
+      "text": "Pay me from Halyard work.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KRAK",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

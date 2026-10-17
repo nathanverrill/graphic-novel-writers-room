@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1547" width="1000" height="1547">
+<g font-family="'Comic Sans MS', 'Comic Neue', 'Chalkboard', 'Segoe Print', sans-serif" text-anchor="middle">
+<text x="15" y="35" text-anchor="start" font-size="16" fill="#7ec8ff" stroke="#10304a" stroke-width="2.5" paint-order="stroke">PAGE 23</text>
+<g data-item="0">
+<polygon points="111,157 144,149 191,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="128" cy="153" rx="88" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="128" y="148" font-size="19" fill="#111">YOU BROUGHT</text>
+<text x="128" y="171" font-size="19" fill="#111">YOUR FACE.</text>
+</g>
+<g data-item="1">
+<polygon points="363,149 396,157 316,392" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="379" cy="153" rx="70" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="379" y="148" font-size="19" fill="#111">LOST THE</text>
+<text x="379" y="171" font-size="19" fill="#111">MONEY.</text>
+</g>
+<g data-item="2">
+<rect x="588" y="120" width="317" height="37" rx="5" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="746" y="144" font-size="18" fill="#111">SHIFT FORFEITED — 0 CREDITS</text>
+</g>
+<g data-item="3">
+<polygon points="605,286 637,274 684,456" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="280" rx="93" ry="42" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="275" font-size="19" fill="#111">TEN CREDITS.</text>
+<text x="621" y="298" font-size="19" fill="#111">EVERY WEEK.</text>
+</g>
+<g data-item="4">
+<polygon points="856,261 888,272 809,449" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="872" cy="267" rx="64" ry="29" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="872" y="273" font-size="19" fill="#111">I KNOW.</text>
+</g>
+<g data-item="5">
+<polygon points="604,920 637,911 684,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="621" cy="916" rx="88" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="621" y="911" font-size="19" fill="#111">20 CREDITS</text>
+<text x="621" y="934" font-size="19" fill="#111">NEXT FRIDAY</text>
+</g>
+<g data-item="6">
+<polygon points="856,911 889,920 809,1155" fill="#fff" stroke="#111" stroke-width="2" stroke-linejoin="round"/>
+<ellipse cx="872" cy="916" rx="76" ry="40" fill="#fff" stroke="#111" stroke-width="2"/>
+<text x="872" y="911" font-size="19" fill="#111">THEN SHOW</text>
+<text x="872" y="934" font-size="19" fill="#111">ME.</text>
+</g>
+</g>
+</svg>

@@ -1,0 +1,112 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "low",
+          "horizon": 58,
+          "description": "Alex climbs from the breach into a cold, spacious mine tunnel. Rusted rails, damp rock, riveted pipes, condensation, and a distant amber gauge dwarf him. Leave upper-left darkness for the SFX."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex sets down the tool bag. Bi11bot unfolds onto the rails, blue segmented head, mustard stripe, rust-red scarf, and soft amber eyes readable. Reserve top-left and top-right."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex looks back toward the breach and faint distant allocation display, then turns toward the amber gauge. Keep the display separate; reserve top-right and lower-left."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Bi11bot\u2019s right eye ring clicks toward a warmer pipe and he points down the rails. Reserve upper-left for the SFX and upper-right for dialogue."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "DRIP\u2026 DRIP\u2026",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "We are inside.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Don\u2019t announce it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "I was informing you.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "AUTHORIZED ALLOCATION: NORMAL",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Find the pipe.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "You said stay quiet.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "I changed my mind.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "small",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "That one is warmer.",
+      "at": "top-right"
+    }
+  ]
+}

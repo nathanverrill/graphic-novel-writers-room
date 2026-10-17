@@ -1,0 +1,54 @@
+{
+  "page": 60,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Alex places the sealed Measure beside the water record, the Maker's Seal beside the maker record and Leona's band beside the public review notice. Arrange each pair distinctly on the table; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Tomas's stamped Keel mandate, Lina's Halyard release notice and an Oasis resident's signed strip join the table. Keep only the three documents dominant; leave upper area."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex signs the public review process field while Ada signs beside him; Leona remains seated among affected residents in the background. Leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "White-and-amber nodes across the basin display registration and rescinded emergency authority. No face or avatar; leave upper area for lettering."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "PUBLIC REVIEW PROCESS REGISTERED",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "DESIGNATED STRUCTURE REGISTERED\nEMERGENCY AUTHORITY: RESCINDED",
+      "at": "top"
+    }
+  ]
+}

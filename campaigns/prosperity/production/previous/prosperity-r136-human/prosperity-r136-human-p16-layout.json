@@ -1,0 +1,86 @@
+{
+  "page": 16,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 4,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "bird",
+          "horizon": 55,
+          "description": "Tall cutaway of the infrastructure spine from Keel to Oasis. A single amber alert pulse travels upward through existing water, energy and control infrastructure; nodes flicker in sequence. This is only a transmission alert, not artifact authentication or authority transfer. No lettering; keep the spine unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Symmetrical Oasis control room with pearl-white and graphite surfaces and a wall-sized mountain display. One amber Keel point pulses. Mera sits small against it; her clean water glass is aligned with the desk edge. Leave upper-left clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 43,
+          "description": "Cold-white monitor with a completely blank interface area reserved for lettering. The artwork must generate no text, buttons, labels or duplicate selection graphics."
+        },
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Mera nudges the clean water glass a few millimeters until it aligns with the desk edge and monitor frame. No lettering."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "The amber Keel point continues pulsing as a thin cold-white ring closes around it. Mera is tiny in the display reflection. Reserve a clear lower-left caption zone and a separate clear lower-right end-marker zone; keep both away from the display and reflection."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "LEGACY PROTOCOL DETECTED",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "SOURCE: KEEL SECTOR",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "[ REPORT TO ALPHA ] [ TRACK ]",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 3,
+      "type": "object",
+      "label": "TRACK selection",
+      "w": 14,
+      "h": 8,
+      "at": "bottom-right"
+    },
+    {
+      "panel": 5,
+      "type": "caption",
+      "text": "I told myself I was only checking. Most of the true things in my life started that way.",
+      "at": "bottom-left"
+    },
+    {
+      "panel": 5,
+      "type": "caption",
+      "text": "LETTERING: END OF CHAPTER ONE",
+      "at": "bottom-right"
+    }
+  ]
+}

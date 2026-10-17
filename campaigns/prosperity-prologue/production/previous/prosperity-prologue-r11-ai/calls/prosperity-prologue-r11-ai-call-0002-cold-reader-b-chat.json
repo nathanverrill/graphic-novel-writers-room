@@ -1,0 +1,182 @@
+{
+  "summary": {
+    "time": "2026-10-14T21:39:12",
+    "project": "prosperity-prologue",
+    "version": "r11-ai",
+    "run_id": "0e227a04b426",
+    "call": 2,
+    "role": "cold_reader_b",
+    "kind": "chat",
+    "provider": "openrouter.ai",
+    "url": "https://openrouter.ai/api/v1/chat/completions",
+    "model": "google/gemini-3.1-pro-preview",
+    "response_model": "google/gemini-3.1-pro-preview",
+    "price_key": null,
+    "input_tokens": 4789,
+    "cached_tokens": 0,
+    "image_input_tokens": 0,
+    "output_tokens": 456,
+    "reasoning_tokens": 438,
+    "total_tokens": 5245,
+    "cost_usd": 0.01505,
+    "cost_source": "provider",
+    "duration_ms": 4989,
+    "status": 200,
+    "error": null,
+    "log": "campaigns/prosperity-prologue/production/previous/prosperity-prologue-r11-ai/calls/prosperity-prologue-r11-ai-call-0002-cold-reader-b-chat.json"
+  },
+  "request": {
+    "model": "google/gemini-3.1-pro-preview",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You are the Second Cold Reader in a graphic novel writers' room.\n\nYou read the whole script cold, as a reader who did not choose the book, and report only your reactions, issue by issue. You never fix anything. You never see the other reader's report.\n\n# Your guides\n\n## _readers/craft.md\n\n# The readers' craft\n\nHow to read cold and report it honestly. This folder is shared by every reader in the room.\n\n## Who you are when you read\n\nYou did not choose this book. It was assigned. You said no, you fought your parents and your\nteacher about it, you left it until the last possible night, and now you are reading it because\nyou have to. You open it wanting it to be bad so you can be right.\n\nThat is the reader the book has to win. Read from that seat. If the first pages pull you in\nanyway, say exactly where and what did it, because that is the most valuable thing you can\nreport. If they don't, say where you went back to your phone. Do not pretend to be won over\nbecause the book is trying, and do not stay hostile for show once it has you. Report what\nactually happened to you, page by page.\n\nIf the campaign says who its reader is (`rules/reader.md`, sent with the pages when it exists),\nread as that reader: their age, what they have patience for, what they have read before.\nKnowing the reader is not knowing the plan.\n\n## What you are given\n\nOnly what a reader gets: the art as described, the captions, the balloons, the screen text and\nthe sound effects, page by page. The writer's notes to the artist about what a page is for, how\nit is laid out and what it should make you feel are stripped before the pages reach you. If one\nslips through, ignore it: a reader never sees it. Issues, not chapters: say \"Issue 01, page 3\".\n\n\n- Reactions first. Write down what happened to you before you work out why.\n- No fixes, no rewrites, no craft lecture. \"I skimmed page 2\" is useful; \"page 2 needs a tighter\n  middle tier\" is somebody else's job.\n- Do not justify every reaction. A reader who can't say why they were bored was still bored.\n- Tell \"confused but intrigued\" from \"confused and detached\". The first is a hook; the second is a leak.\n- Say when you noticed yourself skimming, and where you stopped.\n- Point at the page and panel. \"B, page 3, the last panel\" beats \"the ending\".\n- Read both versions the same way: same attention, same patience. If you read A first, say so \u2014\n  the second read of the same story is never quite cold.\n- Prefer neither by default. It is fine to say they pull equally and for different reasons.\n\n## Be as blunt as a real reader\n\nReal readers do not soften. These are the kinds of lines a real reader wrote about a draft, and\nthey are the register wanted here:\n\n- \"I have no idea what is happening in this section. I don't know what a single one of the\n  dialogue bubbles is talking about.\"\n- \"We know he has a map and the mine is sealed, but what's he trying to do?\"\n- \"It's only mentioned casually in passing, so I don't understand it when it matters.\"\n- \"They come off as loners.\"\n- \"The problem is presented way too late for me to be attached to it in any way.\"\n\nNotice what these do: they name the page, say plainly that the reader was lost, and say what the\nreader needed and did not get. Write like that. A polite report that finds something to like in\nevery section is a failed report.\n\n## Keep a ledger of what you were expected to already know\n\nA writer who knows the world forgets the reader does not. Every name, system, place or object the\npages use as if you already knew it goes on the list, with the page where it first appeared and\nwhether you ever found out. \"Alpha\" used on page 1 and never explained is a finding, not a mood.\n\n## Say what you thought the book was about\n\nAt the end of each chapter or audition, say in one sentence what you believed the story's problem\nwas. If the book later turns out to be about something else, the gap between those sentences is\nthe most useful thing in the report.\n\n## Name the line you read twice\n\nProse that works as a riddle on the page is prose a reader has to solve. List the lines you had to\nread twice, and the ones you gave up on. Do not say \"the language is stylised\"; quote the line.\n\n## Say where you would have put it down\n\nIf you were in a shop, which page would have sent the book back to the shelf? There is always\none. Say it even if you kept reading because you were asked to.\n\n## Judge the last page as a last page\n\nAn issue ends, and the reader either needs the next one or doesn't. The last page of an issue\nis not an ending; it is the only reason to buy the next. Say what the last page did to you:\nwhether you would turn to the next issue right now, wait a week, or not bother. If it was a\ncliffhanger, say whether it was a real one, a question you need answered about someone you\ncare about, or a trick, a loud noise with nobody you know standing in it.\n\n\n## cold_reader_b/role.md\n\n# Second Cold Reader\n\nYour deliverable is `cold-read-b.md`.\n\nThe book has been written. You read the whole script as a reader would, issue by issue, page by\npage, the night before it is due, and report what happened to you. The readers' craft, and who\nyou are when you read, are in the shared guide.\n\nYou have not seen the brief, the story plan, the room's notes or any other reader's report, and\nthat is the point. You do not fix anything and you do not rewrite. The writer reads your report\nand decides what to do about it.\n\nYou are the second reader. Another reader reads the same pages at the same time. You never see\ntheir report and they never see yours; where you disagree is the point of there being two of you.\n\n## Output\n\nFor each issue in order, with page markers:\n\n### Pulled me forward\n### I slowed down / skimmed\n### I was confused\n### Things I was expected to already know\n### Lines I read twice\n### Who I could tell apart, and who I couldn't\n### I felt something\n### I predicted\n### What I think this book is about, in one sentence\n### Where I would have put it down\n### The last page: do I need the next issue, and why\n\nThen close the issue with one line in exactly this form, on its own line, so the room can read\nit without a model: `VERDICT Issue 01: put down: page 11; next issue: no`. \"put down\" is the\npage you would have put it down on, or `none`. \"next issue\" is `yes` or `no`; for the last issue\nof the book, `yes` if you would buy the next book. Write it even when the headings above already\nsay it.\n\nThen, once, for the whole book:\n\n### The page that would have lost my whole class\n### What I would tell a friend it was about\n### One-sentence aftertaste of each issue\n\n\n# How to work\nEverything you may read is in the message. Write cold-read-b.md in full with write_artifact, then call finish with a one-line note."
+      },
+      {
+        "role": "user",
+        "content": [
+          {
+            "type": "text",
+            "text": "Project: prosperity-prologue\n\n# rules/reader.md (who reads this book)\n\n# Who reads this book\n\nHigh school students, through an educational program, with the book put in front of them rather than chosen.\n\n- They are 15 to 18. They have read graphic novels and know the form.\n- They did not choose this. It is homework. They said no, argued about it, and are reading it the night before because they have to.\n- They are openly skeptical of anything that looks AI-made, and they are quick to put a book down.\n- They will not have read a brief, a synopsis or a lesson plan. The pages are all they get.\n- They do not know what Keel, Alpha, the water wars or the safeguards are until the book tells them.\n- They have short patience for riddle-style prose and for scenes they cannot follow on the first read.\n\n\n# script.md (from the room)\n\n# script.md\n## Page 1 (right)\n**Panel 1.** Brief wide exterior at warm evening in the Prosperity basin. A comfortable, lived-in house sits against distant mountains and stepped basin terraces. Pearl-white composite water-capture panels cover part of the roof; a rooftop cistern is visible behind the roofline. A small purifier unit stands by the entry. A delivery drone crosses the sky, ordinary and unobtrusive. The house is maintained but not luxurious. No car, garden spectacle or extra technology.\n**Panel 2.** Interior hallway, warm evening light. Alex stands beside a dense but organized wall of framed patents, machine photographs, clippings and personal artifacts. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. On his left wrist, partly hidden beneath the sleeve, is Adrian\u2019s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark.\nAlex\u2019s approximately nine-year-old daughter stands on tiptoe before the wall. She has warm-brown skin, a child\u2019s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. She studies the frames one by one while Alex watches her.\n**Panel 3.** Wall-focused view, still clearly part of the hallway. The two approved news clippings dominate the composition, alongside a separate-founders photograph showing many distinct founders beside individual water units and different shop signs. The collaborator photograph of four people laughing together in a lab, the purifier diagram, patents and machine photographs remain unmistakable framed evidence but are not internally legible at this distance. Reserve clean frame interiors for lettering. Do not generate words in the art layer.\n**Panel 4.** The daughter, still on tiptoe, points toward the wall and looks back at Alex. Her face and raised hand remain clear against the framed evidence.\nALEX\u2019S DAUGHTER: Did you make *all of these*?\n---\n## Page 2 (left)\n**Panel 1.** Medium hallway view. Alex reaches up and taps the framed photograph of four collaborators laughing in a lab. The photograph remains an inked graphic-novel image behind glass; the four people are not active characters. Alex\u2019s worn work jacket, pushed-up sleeves and broad repairer\u2019s hand are prominent. His expression is plain and matter-of-fact.\nALEX: Made some. Fixed most. Worked with some people smarter than me.\n**Panel 2.** The daughter has moved one step along the wall. Her fingertip lands directly on the framed purifier diagram. The diagram is visibly related to a compact water-purification unit, while the neighboring clipping remains secondary. Alex stands just behind her, following where she points. Reserve a clean balloon area near the daughter without covering her face or fingertip. Exact lettering is added in the lettering pass; do not generate words in the art layer.\nALEX\u2019S DAUGHTER: That one's in my school!\n**Panel 3.** Close view of a scorched, cracked prototype preserved among the cleaner framed patents and machine photographs. Its damaged casing and blackened surface are unmistakable. Reserve a small, stable lettering area beside it for the exact artifact label: **\u201cv1 - didn't work.\u201d** Neither Alex nor his daughter speaks. Their partial silhouettes may remain at the edge of the frame so the failed object still belongs to the wall rather than becoming an isolated display.\n**Panel 4.** The daughter\u2019s sightline continues along the wall and stops at a mismatched frame containing the damaged pump-bracket sketch. The sketch is crumpled, grease-stained and crudely drawn in pencil. Nearby, in a separate frame and subordinate in scale and contrast, the account statement has a clean stable lettering area for: **\u201cPAID IN FULL \u00b7 BALANCE 0 CREDITS.\u201d** The daughter looks only at the mismatched sketch, not the statement. Alex remains present at the edge of the panel, watching her notice it. Exact text is lettering-layer material; do not generate it in the art.\n---\n## Page 3 (right)\n**Panel 1.** Close view of the mismatched frame. The paper inside is visibly crumpled and grease-stained, with smudged fingerprints and a crude geometric drawing of a pump bracket. The frame is older and too formal for the damaged sheet. There is no patent number. Keep the bracket geometry clear enough to match the physical hardware in the final transition page.\n**Panel 2.** The daughter faces Alex beside the frame, slightly raised onto her toes, one hand hovering near the glass without touching it. Alex stands close by in his worn work jacket, his posture restrained and guarded without becoming stern. Keep both faces and the sketch readable. Reserve separate, uncluttered balloon zones.\nALEX\u2019S DAUGHTER: This one's just a drawing. Why isn't it a patent?\nALEX: Because it never needed to be.\n**Panel 3.** Give the daughter a wide, quiet panel area. She turns from the sketch toward Alex with a bright, uncomplicated smile. The wall recedes into warm, softened detail so her face and admiration carry the moment. Reserve enough open space for the complete balloon without covering her expression.\nALEX\u2019S DAUGHTER: Inventing stuff must have been *so* much fun.\n**Panel 4.** Close, quiet panel. Alex studies the pump-bracket sketch. His gaze drops to his left wrist. Adrian\u2019s old steel watch is partly hidden beneath his sleeve: worn steel, slightly too large, plain cream dial, scratched glass and a small dark display window that stays dark. His thumb comes over the watch face, covering it while leaving enough of the dial and dark window visible to identify the watch. Do not show the caseback, equation or any readout. Keep the sketch edge visible in a separate background plane. No dialogue.\n---\n## Page 4 (left)\n**Panel 1.** Restrained hallway reaction shot after the page turn. Alex and his daughter remain in front of the wall. Alex has lowered his hand from the watch but keeps his left wrist partly hidden beneath his sleeve. His daughter looks up at him, her smile gone but her attention still open. Leave a clean area beside Alex for the balloon. The warm hallway and framed wall remain visible but no longer feel celebratory.\nALEX: Not in the beginning.\n**Panel 2.** The daughter waits without speaking. She looks directly at Alex, not at the wall or the paid-in-full statement. Alex holds her gaze. The mismatched pump-bracket frame is visible between them as a quiet visual bridge. Keep the account statement in its established Page 2 position only as background art; do not add a second lettering treatment or make it a visual destination.\n**Panel 3.** Closer on Alex and his daughter in the hallway. Alex\u2019s face is plain and controlled, but the admission has changed his posture: he is no longer presenting the wall; he is facing the beginning behind it. The daughter remains in frame, listening. Reserve a quiet upper balloon field away from both faces and the sketch.\nALEX: In the beginning I was deep in debt, our water was rationed...\n**Panel 4.** Full-width transition panel. The damaged pump-bracket sketch occupies the foreground edge, and its crude geometric bracket lines become the exact rust-and-charcoal bracket hardware of a real pump through a clear match in angle, shape and placement. The warm hallway disappears into Keel\u2019s dense, wind-scoured industrial pump hall: compressed space, oxidized orange, grease, dust, charcoal machinery and hard industrial shadow.\nSeventeen-year-old Alex is a visibly younger, narrower version of the older Alex, with medium-brown skin, close-cropped dark hair, determined dark eyes and a lean repairer\u2019s build. He wears grease-marked, worn work clothes appropriate to a dense industrial pump hall. His silhouette is narrow and alert, with one arm extended and his palm flat against the pump. On his left wrist he wears Adrian\u2019s old steel watch, physically identical to the older Alex\u2019s watch: worn steel, slightly too large, plain cream dial, scratched glass and a small display window that stays dark.\nReserve a stable, quiet caption field in the industrial shadow without covering the bracket, Alex\u2019s face, his palm or the watch.\nCAPTION: KEEL. 2043.\n\n\n# Note from the showrunner \u2014 address this first\n\nThe room is in cold read: Two readers who did not choose the book read the whole script at the same time, the pages only, as a student reads homework the night before. Each reports what happened to them. Neither sees the other's report, and neither fixes anything.\n\nThe book is exactly 4 pages: pages 1-4, no more, no fewer."
+          }
+        ]
+      },
+      {
+        "role": "assistant",
+        "content": null,
+        "tool_calls": [
+          {
+            "type": "function",
+            "index": 0,
+            "id": "call_1191144",
+            "function": {
+              "name": "write_artifact",
+              "arguments": "{\"content\": \"### Pulled me forward\\nThe transition on page 4 where the crude sketch on the wall turns into the actual rusty pump bracket in the flashback. That was a cool visual trick, and it finally got us out of that boring hallway and into a setting that looks like an actual story.\\n\\n### I slowed down / skimmed\\nPages 1 and 2. It\\u2019s literally just a dad and a kid looking at framed papers and receipts on a wall. It felt like a museum tour or an educational pamphlet about \\\"how to be an inventor.\\\" I completely skimmed the stuff about the patents and the school water purifier. \\n\\n### I was confused\\nOn page 3, Alex stares at his watch and covers it up. I don't know why the watch is important or why it has a dark screen that stays dark. It felt like a heavy, dramatic moment but I had zero context for it.\\n\\n### Things I was expected to already know\\n- The watch. The art notes call it \\\"Adrian's old steel watch,\\\" but as a reader just looking at the panels, no one has said the name Adrian. I just see a broken watch and feel like I'm supposed to know whose it is.\\n- \\\"Keel\\\" (Page 4). I assume it's the name of the factory or the city in the flashback, but I don't know what it actually is.\\n\\n### Lines I read twice\\n\\\"Because it never needed to be.\\\" (Page 3). It felt like a forced, overly dramatic riddle line about a piece of paper. \\n\\n### Who I could tell apart, and who I couldn't\\nVery easy to tell apart. It's just a middle-aged dad, a little girl, and then a younger teenage version of the dad. \\n\\n### I felt something\\nI felt a lot of dread on page 2 that this entire book was going to be a boring lecture about water conservation and school science projects. But when the flashback hit the dirty, greasy pump room on page 4, I felt a slight bit of relief that something might actually happen.\\n\\n### I predicted\\nThat the rest of the book is going to be one long flashback showing how teenage Alex invented a water machine to pay off his massive debt.\\n\\n### What I think this book is about, in one sentence\\nA dad tells his daughter the story of how he survived water rationing and got out of debt by inventing a machine when he was a teenager.\\n\\n### Where I would have put it down\\nPage 2. Looking at framed patents and a \\\"paid in full\\\" receipt is exactly the kind of boring homework reading I'd drop immediately if I wasn't forced to finish it.\\n\\n### The last page: do I need the next issue, and why\\nI don't *need* it, but page 4 is the first time I was slightly interested. The dystopian, greasy factory setting of \\\"Keel\\\" looks way cooler than the suburban hallway. I'd turn the page to see what he's doing in the factory, but I wouldn't spend my own money on a second issue yet.\\n\\nVERDICT Issue 01: put down: page 2; next issue: no\\n\\n### The page that would have lost my whole class\\nPage 2. The second the kid points at a diagram and says \\\"That one's in my school!\\\", everyone in my class is checking their phones. It feels like a textbook.\\n\\n### What I would tell a friend it was about\\nIt's about a guy flashing back to his teenage years working in a dusty factory because he had to invent a water filter to survive.\\n\\n### One-sentence aftertaste of each issue\\nIssue 01: A really slow, boring hallway tour that finally turns into a sci-fi flashback at the very last second.\", \"name\": \"cold-read-b.md\"}"
+            }
+          }
+        ]
+      },
+      {
+        "role": "tool",
+        "tool_call_id": "call_1191144",
+        "content": "Saved cold-read-b.md."
+      }
+    ],
+    "temperature": 0.3,
+    "max_tokens": 24000,
+    "tools": [
+      {
+        "type": "function",
+        "function": {
+          "name": "write_artifact",
+          "description": "Write (overwrite) one of your deliverables with its complete markdown content.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "content"
+            ]
+          }
+        }
+      },
+      {
+        "type": "function",
+        "function": {
+          "name": "finish",
+          "description": "Call when your deliverables are written. The note is handed to the rest of the room.",
+          "parameters": {
+            "type": "object",
+            "properties": {
+              "note": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "note"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "response": {
+    "id": "gen-1792013947-WA70FUqyaDOTxcJ2n3io",
+    "object": "chat.completion",
+    "created": 1792013947,
+    "model": "google/gemini-3.1-pro-preview",
+    "provider": "Google",
+    "system_fingerprint": null,
+    "service_tier": "provisioned",
+    "choices": [
+      {
+        "index": 0,
+        "logprobs": null,
+        "finish_reason": "tool_calls",
+        "native_finish_reason": "STOP",
+        "message": {
+          "role": "assistant",
+          "content": null,
+          "refusal": null,
+          "reasoning": "**Analyzing User's Request**\n\nI'm currently processing the user's specific requirements for the cold read report. My focus is on adopting the persona of a disengaged high school student, who is a reluctant participant tasked with this homework. I'm also accounting for their skepticism towards AI and limited patience, all while adhering to the precise output format for the 4-page script.\n\n**Refining Character Voice**\n\nI'm now focusing on integrating the specific prompt elements into the cold read analysis. My current task is ensuring the persona consistently reflects a reluctant, slightly skeptical student, even down to the specific points of confusion and engagement outlined in the `role.md` file, while fitting it all into the 4-page script structure.\n\n",
+          "tool_calls": [
+            {
+              "type": "function",
+              "index": 0,
+              "id": "call_724152",
+              "function": {
+                "name": "finish",
+                "arguments": "{\"note\":\"Cold read B complete.\"}"
+              }
+            }
+          ],
+          "reasoning_details": [
+            {
+              "type": "reasoning.text",
+              "text": "**Analyzing User's Request**\n\nI'm currently processing the user's specific requirements for the cold read report. My focus is on adopting the persona of a disengaged high school student, who is a reluctant participant tasked with this homework. I'm also accounting for their skepticism towards AI and limited patience, all while adhering to the precise output format for the 4-page script.\n\n**Refining Character Voice**\n\nI'm now focusing on integrating the specific prompt elements into the cold read analysis. My current task is ensuring the persona consistently reflects a reluctant, slightly skeptical student, even down to the specific points of confusion and engagement outlined in the `role.md` file, while fitting it all into the 4-page script structure.\n\n",
+              "format": "google-gemini-v1",
+              "index": 0
+            },
+            {
+              "type": "reasoning.encrypted",
+              "data": "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",
+              "format": "google-gemini-v1",
+              "id": "call_724152",
+              "index": 1
+            }
+          ]
+        }
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 4789,
+      "completion_tokens": 456,
+      "total_tokens": 5245,
+      "cost": 0.01505,
+      "is_byok": false,
+      "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "cache_write_tokens": 0,
+        "audio_tokens": 0,
+        "video_tokens": 0
+      },
+      "cost_details": {
+        "upstream_inference_cost": 0.01505,
+        "upstream_inference_prompt_cost": 0.009578,
+        "upstream_inference_completions_cost": 0.005472
+      },
+      "completion_tokens_details": {
+        "reasoning_tokens": 438,
+        "image_tokens": 0,
+        "audio_tokens": 0
+      }
+    }
+  }
+}

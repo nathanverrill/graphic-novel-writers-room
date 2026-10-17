@@ -1,0 +1,70 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "TJ's lost leg sinks among old mine rails beneath the lake. Leave center clear for the sound effect."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The barge becomes a distant light and the damaged drone sparks above the water. Leave upper area open."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex stands rigid while the granddaughter looks from him to TJ's head. Leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "extreme-close",
+          "angle": "eye",
+          "description": "The detached leg's magnet pulses in dark water among rails. Leave negative space for the sound effect."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TINK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "You could stop them.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not without making the lake a battlefield.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TIK\u2026 TIK\u2026",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

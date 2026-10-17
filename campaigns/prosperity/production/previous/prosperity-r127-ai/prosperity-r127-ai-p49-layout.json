@@ -1,0 +1,70 @@
+{
+  "page": 49,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Mera enters the civic archive holding her pearl-grey Covenant band. Keep upper entrance clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Mera projects Keel's cloudy water, halted production and rising allocation alerts over the archive table. Keep upper projection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex faces Mera across the projected evidence. Keep upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "low",
+          "description": "Mera opens a lower transit door toward a civic systems chamber. Keep upper doorway clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Stability is not a crime.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Someone must answer before this spreads.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Answer to whom?",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "MERA",
+      "text": "Come see what happens when nobody can decide.",
+      "at": "top-left"
+    }
+  ]
+}

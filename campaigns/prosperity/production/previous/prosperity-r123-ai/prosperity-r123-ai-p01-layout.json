@@ -1,0 +1,92 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "high",
+          "bleed": false,
+          "description": "Night over restored Lake Keel in 2099: terraces, gardens and workshops ring the water while a tanker barge waits offshore. Two drones lower siphons into the lake; keep the upper sky clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "At the dock, TJ springs toward the lake, his mismatched magnetic head, body and legs separating in midair. Keep the upper dock space clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "TJ's separate pieces skim toward the barge as siphons lift bright columns of water. Keep the upper lake surface clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "A drone beam sweeps the boathouse while the granddaughter catches Older Alex's sleeve. Keep the upper beam area clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Grandpa. That\u2019s not a fishing boat.",
+      "at": "top-left"
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "No.",
+      "at": "top-right"
+    },
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "KLAK-KLAK-KLAK",
+      "size": "large",
+      "at": "middle"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "Is TJ broken?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not usually.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "They\u2019re taking it.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Watch.",
+      "at": "top-right"
+    }
+  ]
+}

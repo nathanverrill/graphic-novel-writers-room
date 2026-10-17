@@ -1,0 +1,70 @@
+{
+  "page": 6,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "TJ's lost leg sinks among old mine rails beneath Lake Keel. Keep the leg isolated against dark water; leave upper water clear for the sound."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The tanker becomes a distant light while the damaged drone sparks above the water. Leave open darkness around both objects."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Older Alex stands rigid at the shore while his granddaughter looks from him toward TJ's head. Keep the boathouse wall behind them as shelter and leave upper space for dialogue."
+        },
+        {
+          "w": 1,
+          "shot": "extreme-close",
+          "angle": "eye",
+          "description": "The lost leg's magnet pulses in the darkness among the rails. Keep the small light isolated and leave black negative space around it."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "sfx",
+      "text": "TINK",
+      "size": "small",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "GRANDDAUGHTER",
+      "text": "You could stop them.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Not without making the lake a battlefield.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "TIK\u2026 TIK\u2026",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

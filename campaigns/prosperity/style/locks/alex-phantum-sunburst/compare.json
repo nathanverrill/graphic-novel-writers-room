@@ -1,0 +1,73 @@
+{
+ "match": 58,
+ "differences": [
+  {
+   "what": "Hair texture and color",
+   "drawing": "Tight black curls, short at the sides with a curly mop on top and curls falling onto the forehead",
+   "words": "Thick dark brown hair, short at the sides, uneven on top, with one stubborn lock toward the forehead",
+   "fix": "words",
+   "why": "The curly black hair is specific, distinctive and consistent with the style plate; the words should follow it."
+  },
+  {
+   "what": "Shirt and trousers colors",
+   "drawing": "Charcoal-black overshirt worn open over a black T-shirt, with rust-brown cargo trousers",
+   "words": "Rust-orange work shirt with charcoal mining trousers",
+   "fix": "words",
+   "why": "The drawing has the colors swapped and its palette is consistent across the plate, so the words should match it."
+  },
+  {
+   "what": "Jacket",
+   "drawing": "Open charcoal work overshirt with sleeves rolled to the forearm, a chest pocket and a stitched patch on the sleeve",
+   "words": "Patched dark utility jacket",
+   "fix": "words",
+   "why": "Close in spirit, but the words should name an overshirt with rolled sleeves so pages don't add a heavier jacket."
+  },
+  {
+   "what": "Trousers detail",
+   "drawing": "Baggy rust-brown cargo trousers with stitched dark patches at the knee and shin, cuffs bunched over the boots, worn with a dark leather belt",
+   "words": "Worn mining trousers, no patches or belt mentioned",
+   "fix": "words",
+   "why": "The patches and belt are strong, specific visual anchors."
+  },
+  {
+   "what": "Gloves",
+   "drawing": "Bare hands",
+   "words": "Fingerless work gloves",
+   "fix": "words",
+   "why": "No story need is stated for the gloves, and the drawing reads cleanly without them."
+  },
+  {
+   "what": "Adrian's steel watch",
+   "drawing": "A yellow-and-white band, like tape or a cloth wristband, on the left wrist; no steel watch",
+   "words": "Worn, oversized steel watch with a cream dial and an engraved caseback on the left wrist",
+   "fix": "drawing",
+   "why": "The watch is a key story object; the drawing lost it and must show the steel watch."
+  },
+  {
+   "what": "Skin marks",
+   "drawing": "Clean, even skin",
+   "words": "Skin marked by dust, grease and small work scratches",
+   "fix": "drawing",
+   "why": "The grime is part of his mechanic identity; the drawing can add light smudges. Dirt already shows on the clothes and boots."
+  },
+  {
+   "what": "Silhouette and posture",
+   "drawing": "Relaxed, hip-shifted stance with hands in pockets; the tool bag hangs on a crossbody strap at his left hip",
+   "words": "Narrow, forward-leaning silhouette, one shoulder weighted by the tool bag",
+   "fix": "words",
+   "why": "Keep 'narrow', but describe the crossbody bag at the hip as drawn."
+  },
+  {
+   "what": "Tool bag",
+   "drawing": "Olive canvas bag on a crossbody strap, with a wrench and tool handles sticking out",
+   "words": "Weathered tool bag",
+   "fix": "words",
+   "why": "Add the color and the visible tools for consistency."
+  }
+ ],
+ "revised": "Alex Phantum is seventeen years old, lean, wiry and approximately average height, with a compact mechanic's build shaped by lifting tools and working around machinery. He has mixed Indigenous Andean and European-descended features: a strong brow, wide-set dark brown eyes, a straight nose, a firm mouth and a jaw that recalls Adrian without making Alex a younger copy of him; his warm medium-brown skin is usually marked by dust, grease and small work scratches. His thick black hair is tightly curled, cut short at the sides and left full on top, with curls falling onto his forehead. He wears an open charcoal-black work overshirt with rolled sleeves and a stitched patch on one sleeve over a black T-shirt, a dark leather belt, baggy rust-brown cargo trousers with stitched dark patches at the knee and shin, heavy scuffed dark work boots, and a weathered olive canvas tool bag with wrench handles showing. His silhouette is narrow and practical, with the tool bag on a crossbody strap at his left hip. He wears Adrian's old steel watch on his left wrist: a worn steel wristwatch, slightly too large for him, with a plain cream dial, scratched glass and a small display window that stays dark; Adrian's looping equation is engraved on the steel caseback. Alex keeps the watch half hidden under his sleeve or covers its face with his thumb. His signature detail is the habit of placing his palm against machinery to feel vibration before he trusts a gauge. In the 2070 prologue, Alex is in his mid-40s, his curls grey at the temples, lightly stubbled, and he still wears a worn work jacket over a T-shirt with scuffed boots and Adrian's old steel watch on his left wrist.",
+ "look_hash": "86ee9de1499c",
+ "image_version": 1792008448,
+ "cost": 0.06586,
+ "checked": 1792077362.9765415
+}

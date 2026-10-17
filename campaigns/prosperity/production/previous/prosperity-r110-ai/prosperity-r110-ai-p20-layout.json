@@ -1,0 +1,61 @@
+{
+  "page": 20,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex connects Adrian's white-and-amber control node to the hidden workshop socket. Keep the physical connection clear."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Amber points travel through the workshop wall and along old infrastructure lines. No face or avatar; leave upper wall space for sound."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Across Keel, a public display changes to show Alex's travel restriction and Tomas's active Site 6 assignment. Keep the display unobstructed."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A surveillance drone turns toward the sealed old works while a nearby node displays legacy detection. Keep the drone faceless and leave upper space for system text."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "sfx",
+      "text": "TIK\u2014TIK\u2014TIK",
+      "size": "medium",
+      "at": "middle"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "PHANTUM, ALEX \u2014 TRAVEL RESTRICTION CONFIRMED\nTOMAS \u2014 SITE 6 ASSIGNMENT ACTIVE",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "LEGACY PROTOCOL DETECTED\nALPHA TRACE INITIATED",
+      "at": "top"
+    }
+  ]
+}

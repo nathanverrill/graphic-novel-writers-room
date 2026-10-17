@@ -1,0 +1,86 @@
+{
+  "page": 12,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex pulls away the dust sheet, revealing Bi11bot: rugged weathered industrial blue and chipped mustard yellow, broad shoulders, dark optical eyes, rust-red scarf and angular chest armor marked clearly with a white Bi11 designation. Dust falls through warm workshop light. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "extreme close",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Alex presses his palm to Bi11bot\u2019s chest and feels for vibration. The robot remains dormant until the watch activation; keep the hand and white Bi11 mark visible."
+        },
+        {
+          "w": 1,
+          "shot": "medium close",
+          "angle": "eye",
+          "horizon": 44,
+          "description": "Alex buckles Adrian\u2019s watch onto his left wrist. The display window glows amber as the clasp closes. Leave upper-left clear."
+        }
+      ]
+    },
+    {
+      "h": 2,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The watch\u2019s amber pulse answers through Bi11bot. His two optical eyes ignite warm amber, dust lifts and his rust-red scarf shifts. Alex steps back. Keep Bi11bot\u2019s open face at eye level, both eyes visible and never looming."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Bi11bot stretches stiff mechanical arms as dust falls; the right-eye ring clicks and rotates. Alex remains out of focus behind him. Leave upper-left clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "sfx",
+      "text": "CLICK",
+      "size": "medium",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "WHIRRR...",
+      "size": "large",
+      "at": "top-left"
+    },
+    {
+      "panel": 5,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "...Well. That took longer than expected.",
+      "at": "top-left",
+      "tail_x": 120,
+      "tail_y": 120
+    }
+  ]
+}

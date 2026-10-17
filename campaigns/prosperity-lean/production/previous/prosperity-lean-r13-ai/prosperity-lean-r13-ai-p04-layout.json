@@ -1,0 +1,119 @@
+{
+  "page": 4,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Evening on the pit rim. Alex draws a worn photograph halfway from his jacket; Grandmother smiles in it while Adrian\u2019s face is folded and creased. Alex\u2019s other hand is clenched in his pocket. Ada notices both. Keep the photograph and fist unobstructed; reserve three separated lettering pockets: Ada upper-left, Alex middle-left, Alex lower-right."
+        },
+        {
+          "w": 1,
+          "shot": "wide two-shot",
+          "angle": "eye",
+          "description": "Ada faces Alex rather than the view as Oasis brightens and Keel dims. Keep the photograph visible between them. Reserve the upper-left for Ada\u2019s question and upper-right for Alex\u2019s answer, with open basin space carrying the silence."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "tight close-up",
+          "angle": "eye",
+          "description": "Ada\u2019s steady face fills the panel while Alex\u2019s clenched hand occupies the foreground. Reserve the upper-left for her question and lower-right for his answer."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 48,
+          "description": "Alex and Ada stand small against the darkening basin and begin walking home at dusk. Alex stares toward the horizon; Ada lingers and looks back toward Oasis. Keep the bottom caption band clear and place Ada\u2019s final small balloon near her without covering either figure."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "How's your grandma?",
+      "x": 18,
+      "y": 12
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Some days she knows me. Other days she calls me Adrian...",
+      "x": 22,
+      "y": 43
+    },
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "The hardest part isn't that she forgets. It's that she makes up crazy stories about him.",
+      "x": 72.0,
+      "y": 70.0
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What kind of stories?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "That he wasn't wasting it. That he was working.",
+      "at": "top-right"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "What do you actually remember about him?",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Nothing. I was two.",
+      "at": "bottom-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "So everything else is what people told you. What if they were wrong?",
+      "x": 20,
+      "y": 14
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Maybe\u2026 Or maybe they're right. Either way... he's gone.",
+      "x": 78,
+      "y": 34
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "He wouldn't just leave.",
+      "x": 22.0,
+      "y": 18.0
+    }
+  ]
+}

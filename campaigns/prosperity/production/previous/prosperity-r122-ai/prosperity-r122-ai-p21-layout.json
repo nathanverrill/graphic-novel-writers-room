@@ -1,0 +1,62 @@
+{
+  "page": 21,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Bi11bot projects three locations along the infrastructure spine: Keel mine, Halyard and Oasis. Leave upper projection space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex reaches for the mine marker; the projection rejects his hand. Leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Bi11bot projects the two higher markers while Alex and Ada watch. Leave upper wall space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex presses the mine marker. Ada stands beside him, committed. Leave upper projection space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "caption",
+      "text": "NO AUTHORITY.",
+      "at": "top"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The others are not here.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Then we start here.",
+      "at": "top-left"
+    }
+  ]
+}

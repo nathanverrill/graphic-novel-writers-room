@@ -1,0 +1,55 @@
+{
+  "page": 27,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Inside the old works, a nearly dry residential pipe runs beside a full industrial uplink and its data line. Alex, Ada and B11 stand on the inspection walkway; leave upper pipe space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex clamps the Measure to the residential pipe. Keep the transparent lens, folded arms and physical pipe connection clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Alex clamps the Measure's second arm to the data line beside the industrial uplink. Ada watches the physical connection; leave upper space."
+        },
+        {
+          "w": 1,
+          "shot": "medium-wide",
+          "angle": "eye",
+          "description": "The Measure compares the physical flow and official reading while Alex, Ada and B11 look at the same device. Keep the discrepancy display unobstructed."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 4,
+      "type": "caption",
+      "text": "REPORTED TO KEEL: 62%\nPHYSICAL DELIVERY: 18%",
+      "at": "top"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "That\u2019s not a rounding error.",
+      "at": "bottom-left"
+    }
+  ]
+}

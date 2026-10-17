@@ -1,0 +1,65 @@
+{
+  "page": 28,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "The mine branches in darkness; Alpha's projection shows a straight route. Keep the upper projection clear."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "high",
+          "description": "Ada's paper map shows ink ticks and a leftward pipe mark in her hands. Keep the upper map clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex presses his palm to the wall as a faint vibration answers. Keep the upper wall clear."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Fresh bolts and condensation lead left through the mine. Keep the upper passage clear."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Your father marked the bends.",
+      "at": "top-left",
+      "tail_x": 78.8,
+      "tail_y": 120
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "He marked what survived them.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "DRIP",
+      "size": "small",
+      "at": "middle"
+    }
+  ]
+}

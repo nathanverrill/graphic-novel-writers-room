@@ -1,0 +1,56 @@
+{
+  "page": 32,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "A missing section of conduit walkway opens above the shallow channel. Alex, Ada and B11 stop at the edge; leave upper tunnel space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "low",
+          "description": "Ada throws a rope around a structural brace and tests the span. Keep her planted stance and the anchor clear."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "description": "Ada crosses the gap first using the rope while Alex waits with B11 and TJ behind her. Leave upper space for her warning."
+        },
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "The lower walkway tears loose and disappears beneath the rising water after the group crosses. Keep the destruction contained and leave upper darkness."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "Don\u2019t trust the rail.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "sfx",
+      "text": "KLANG",
+      "size": "large",
+      "at": "middle"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "page": 19,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Adrian's blue projection appears above the workbench. Alex and Bi11bot face it. Leave upper projection space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Adrian's projected face admits failure; keep the image restrained and leave upper space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex grips Adrian's watch while the recording continues. Leave upper workshop space."
+        },
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "The projection flickers beside the empty workshop doorway. Leave upper space for the final line."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Alex. If you\u2019re seeing this, I failed to come back.",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "I borrowed too much. I gambled some of it. I hurt you and Grandmother.",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "The work was shared. The mistakes were mine.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADRIAN",
+      "text": "Question everything. Especially me.",
+      "at": "top-left"
+    }
+  ]
+}

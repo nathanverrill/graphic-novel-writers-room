@@ -16,7 +16,7 @@ import re
 import urllib.error
 import urllib.request
 
-MODEL = "google/gemini-3.1-pro-preview"
+MODEL = "google/gemini-4-argon"    # the art reviewer (was gemini-3.1-pro-preview until 2026-10-15)
 URL = "https://openrouter.ai/api/v1/chat/completions"
 TRIES = 3          # the first drawing and two redraws
 TIMEOUT = 300
@@ -59,6 +59,22 @@ lettering, craft, script. "box" is where the problem is, as [ymin, xmin, ymax, x
 scale of the whole page:
 {"problems": [{"panel": 1, "kind": "hands", "severity": "major", "what": "Alex's left hand has six fingers", "box": [120, 300, 180, 380]}]}
 An empty list when the page is clean."""
+
+# The showrunner's standing checks (2026-10-15): every one is MAJOR when you can see it, on every page.
+ALWAYS = """
+ALWAYS CHECK, EVERY PAGE - each of these is MAJOR when you can see it:
+- Hands: every person has one LEFT hand on the left arm and one RIGHT hand on the right arm (thumb on the correct side). Two right hands, two left hands, or a hand on the wrong arm is major. A pointing arm must end in its own hand. Five fingers on every readable hand.
+- Poses and physics: nobody sits or stands balanced on top of a thin railing, floats, or passes through an object. People sit on solid ledges, steps, crates or chairs.
+- Eyelines: a speaker faces and looks at the person they are talking to; nobody looks at someone awkwardly, sideways, or at the wrong thing. Two people in conversation face each other.
+- Objects a character looks at (a photo, paper, sketch, screen, watch) face THE CHARACTER, not the reader.
+- No body part (crotch, elbow, back) beside another character's face; close two-shots are face to face at eye level.
+- People who are together in the script stay together: nobody walks away with their back to the person they are with.
+- Continuity: lighting, place and mood stay the same across adjacent panels of one continuous moment.
+- Setting: each panel is in the place the script says (a scene in a home stays in that home; no stray outdoor or industrial background).
+- Tone: the expressions match the script (hard times are not drawn as happy or celebratory).
+- Characters match their locks exactly; one character is never drawn with another's design (Alex's daughter is never drawn as Ada).
+- Lettering, when there is lettering: every balloon tail points at the character who speaks that line; no balloon or caption covers ANY part of a face; no text that is not in the script (no invented captions, titles or place names); every word spelled and punctuated exactly.
+"""
 
 CONFIRM = """This is a close-up from a graphic novel page. Look for drawing mistakes in the {kind} here:
 for hands, count the fingers you can clearly see on each hand (a finger hidden by an object or the
@@ -132,7 +148,7 @@ UNLETTERED = ("\n\nTHIS PAGE IS ART ONLY: the lettering is added later on its ow
 
 
 def check(art, script, refs, key, model=MODEL, lettered=True):
-    ask = ASK + ("" if lettered else UNLETTERED)
+    ask = ASK + ALWAYS + ("" if lettered else UNLETTERED)
     content = [{"type": "text", "text": ask + "\n\n=== THE SCRIPT FOR THIS PAGE ===\n\n" + (script or "(none)")}]
     for label, path in refs or []:
         content += [{"type": "text", "text": f"Reference: {label}"},

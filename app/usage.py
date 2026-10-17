@@ -308,3 +308,20 @@ class LedgerLogger:
                 f.write(json.dumps(summary) + "\n")
         add_to(self.totals, summary)
         return summary
+
+
+def ledger(project, role, kind, model, cost=None, seconds=None, **extra):
+    """One line in logs/usage.jsonl for work done outside a round: a drawn page, a Story desk
+    check, a Riff message. Never raises: a full disk must not stop a drawing."""
+    row = {"time": time.strftime("%Y-%m-%dT%H:%M:%S"), "project": project, "version": "none",
+           "role": role, "kind": kind, "model": model,
+           "cost_usd": round(cost, 6) if isinstance(cost, (int, float)) else None,
+           "cost_source": "provider" if cost is not None else None,
+           "duration_ms": round(seconds * 1000) if seconds is not None else None, **extra}
+    try:
+        with _lock:
+            LOGS_DIR.mkdir(exist_ok=True)
+            with LEDGER.open("a") as f:
+                f.write(json.dumps(row) + "\n")
+    except OSError:
+        pass

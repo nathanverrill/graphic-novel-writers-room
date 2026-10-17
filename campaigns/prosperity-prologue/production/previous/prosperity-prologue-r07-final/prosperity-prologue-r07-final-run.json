@@ -1,0 +1,46 @@
+{
+  "id": "r07-final",
+  "kind": "final",
+  "started": "2026-10-14T21:13:04",
+  "finished": "2026-10-14T21:13:04",
+  "status": "done",
+  "files_written": [
+    "review.md",
+    "thumbnails.md",
+    "page-prompts.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-prologue/input/notes.md": "367224ca739d0f00",
+    "prosperity-prologue/input/pitch.md": "964f9a0ea9fbe503",
+    "prosperity-prologue/rules/characters.md": "03dc2439c5c2cd3c",
+    "prosperity-prologue/rules/decisions.md": "409b56457da81b57",
+    "prosperity-prologue/rules/reader.md": "382464b4ba2ff6ac",
+    "prosperity-prologue/rules/showrunner-rules.md": "1bda4622b5c1a375",
+    "prosperity-prologue/rules/stakeholders.md": "03929e0519af09bb",
+    "prosperity-prologue/rules/vocabulary.md": "128aac4bf1bb7842"
+  },
+  "usage": {
+    "total": {
+      "calls": 0,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.0,
+      "input_tokens": 0,
+      "cached_tokens": 0,
+      "image_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_tokens": 0,
+      "total_tokens": 0
+    },
+    "by_role": {}
+  },
+  "reviewed_round": "r06-ai",
+  "action": "finalize",
+  "method": "layout",
+  "counts": {
+    "kept": 0,
+    "edited": 0,
+    "noted": 0
+  }
+}

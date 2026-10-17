@@ -1,0 +1,71 @@
+{
+  "page": 1,
+  "side": "right",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "establishing",
+          "angle": "eye",
+          "horizon": 48,
+          "bleed": true,
+          "description": "Warm evening exterior of a comfortable, lived-in house in the Prosperity basin, with distant mountains and stepped basin terraces behind it. Pearl-white composite water-capture panels cover part of the roof, a rooftop cistern rises behind the roofline, and a small purifier unit stands beside the entry. A delivery drone crosses the sky, ordinary and unobtrusive. The house is maintained but not luxurious. No car, garden spectacle, extra technology or readable signage. Leave quiet sky space for no lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "Warm evening hallway inside the same lived-in 2070 home, with a dense but organized wall of framed patents, machine photographs, clippings and personal artifacts. Alex is a man in his mid-40s with medium-brown skin, a practical mechanic\u2019s build, average height and broad, work-hardened hands. He has a broad, tired face, close-cropped dark hair grey at the temples, dark eyes, and day-old stubble. He wears a worn charcoal-brown work jacket over a pale T-shirt, sleeves pushed up, practical dark trousers and scuffed work boots; his silhouette is compact, useful and slightly stooped from years of hands-on repair. On his left wrist he wears Adrian\u2019s old steel watch, slightly too large for him, with a plain cream dial, scratched glass and a small dark display window that stays dark; it has no readout and counts nothing. He keeps the watch partly hidden beneath his sleeve. His approximately nine-year-old daughter stands on tiptoe before the wall. She has warm-brown skin, a child\u2019s compact build and an energetic, forward-reaching posture. She has an open, expressive face, bright attentive eyes and two low uneven braids. She wears a mustard cardigan over a pale blue school shirt, a navy skirt, white socks and red sneakers. She studies the frames one by one while Alex watches her. Keep the upper area above the daughter clear for later lettering."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 2,
+          "shot": "wide",
+          "angle": "eye",
+          "horizon": 42,
+          "description": "Wall-focused view that remains clearly part of the warm hallway. Make the two approved news clippings visually dominant through large clean headline-shaped lettering areas, beside a separate-founders photograph showing many distinct founders with individual water units and different shop signs. Include the collaborator photograph of four people laughing together in a lab, the purifier diagram, patents and machine photographs as unmistakable framed evidence. Do not generate words or legible text in the art layer; reserve clean frame interiors and stable areas for exact lettering."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "horizon": 45,
+          "description": "The daughter remains on tiptoe, points toward the framed wall evidence and looks back toward Alex with direct curiosity. Keep her expressive face and raised hand unobstructed against the frames. Leave the upper-right area clear for her balloon, with the tail aimed at her mouth."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "40TH INDEPENDENT SHOP LICENSES PHANTUM PURIFIER",
+      "at": "top-left"
+    },
+    {
+      "panel": 3,
+      "type": "caption",
+      "text": "SMALL MAKERS AND THE HOUSES RACE FOR THE NEXT DESIGN",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ALEX'S DAUGHTER",
+      "text": "Did you make *all of these*?",
+      "at": "top-right"
+    }
+  ]
+}

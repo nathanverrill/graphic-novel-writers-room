@@ -1,0 +1,76 @@
+{
+  "page": 20,
+  "side": "left",
+  "tiers": [
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "close",
+          "angle": "eye",
+          "description": "Alex's identity band flashes while the apartment door node turns amber. Leave upper display space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Alex tries the door; it remains locked. Bi11bot stands behind him. Leave upper door space."
+        }
+      ]
+    },
+    {
+      "h": 1,
+      "panels": [
+        {
+          "w": 1,
+          "shot": "wide",
+          "angle": "high",
+          "description": "Bi11bot projects the infrastructure spine connecting Keel, Halyard and Oasis: water, rail and data lines share one route. Leave upper projection space."
+        },
+        {
+          "w": 1,
+          "shot": "medium",
+          "angle": "eye",
+          "description": "Ada tries the locked door, then turns toward the node. Leave upper door space."
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "panel": 1,
+      "type": "caption",
+      "text": "MOVEMENT AUTHORIZATION: TEMPORARILY SUSPENDED.",
+      "at": "top"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "ALEX",
+      "text": "Because the band stopped reporting?",
+      "at": "top-left"
+    },
+    {
+      "panel": 2,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "The workshop woke. The system noticed.",
+      "at": "top-right"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "ADA",
+      "text": "It listens to a screen.",
+      "at": "top-left"
+    },
+    {
+      "panel": 4,
+      "type": "balloon",
+      "speaker": "BI11BOT",
+      "text": "To whoever writes the screen.",
+      "at": "top-right"
+    }
+  ]
+}

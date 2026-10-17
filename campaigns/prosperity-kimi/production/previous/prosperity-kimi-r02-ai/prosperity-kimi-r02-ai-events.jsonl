@@ -1,0 +1,10 @@
+{"i": 0, "type": "run_start", "t": 1791651862.2115858, "roles": ["writer_a", "writer_b", "first_reader"], "version": "r02-ai", "writing_round": "audition", "max_passes": 0, "estimates": {"writer_a": 30, "writer_b": 120, "first_reader": 82}, "pass_seconds": 0}
+{"i": 1, "type": "parallel", "t": 1791651862.2124383, "roles": ["writer_a", "writer_b"], "titles": ["Writer A", "Writer B"]}
+{"i": 2, "type": "role_start", "t": 1791651862.2144153, "role": "writer_b", "title": "Writer B", "pass_n": 1, "estimate": 120}
+{"i": 3, "type": "role_start", "t": 1791651862.2148788, "role": "writer_a", "title": "Writer A", "pass_n": 1, "estimate": 30}
+{"i": 4, "type": "context", "t": 1791651862.2676423, "role": "writer_b", "minimal": false, "guides": ["_shared/craft.md", "_shared/house-style.md", "_writers/role.md", "_writers/craft.md", "_writers/actual-script-writing.md", "writer_b/voice.md"], "images": [], "model": "moonshotai/kimi-k3", "temperature": 1.0, "image_model": null}
+{"i": 5, "type": "usage", "t": 1791652077.7947223, "role": "writer_b", "kind": "chat", "model": "moonshotai/kimi-k3", "provider": "openrouter.ai", "input_tokens": 157603, "output_tokens": 16000, "cost_usd": 0.2948015, "cost_source": "provider", "status": 200, "log": "prosperity-kimi-r02-ai-call-0001-writer-b-chat.json", "duration_ms": 215453, "error": null}
+{"i": 6, "type": "role_cost", "t": 1791652077.7987323, "role": "writer_b", "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.2948015, "input_tokens": 157603, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 16000, "reasoning_tokens": 16000, "total_tokens": 173603}
+{"i": 7, "type": "role_done", "t": 1791652077.7991035, "role": "writer_b", "note": "", "seconds": 216}
+{"i": 8, "type": "error", "t": 1791652077.7996304, "text": "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"}
+{"i": 9, "type": "run_cost", "t": 1791652077.801361, "calls": 1, "errors": 0, "unpriced_calls": 0, "cost_usd": 0.2948015, "input_tokens": 157603, "cached_tokens": 0, "image_input_tokens": 0, "output_tokens": 16000, "reasoning_tokens": 16000, "total_tokens": 173603}

@@ -1,0 +1,121 @@
+{
+  "id": "r04-ai",
+  "kind": "ai",
+  "started": "2026-10-12T16:48:25",
+  "finished": "2026-10-12T16:48:59",
+  "status": "done",
+  "files_written": [
+    "cold-read-b.md",
+    "room-log.md",
+    "cold-read.md"
+  ],
+  "images": [],
+  "references": {
+    "prosperity-lean/input/world.md": "138d70e3c598cb31",
+    "prosperity-lean/rules/characters.md": "029ab330a0c5c85e"
+  },
+  "usage": {
+    "total": {
+      "calls": 3,
+      "errors": 0,
+      "unpriced_calls": 0,
+      "cost_usd": 0.1341266,
+      "input_tokens": 22597,
+      "cached_tokens": 3983,
+      "image_input_tokens": 0,
+      "output_tokens": 4448,
+      "reasoning_tokens": 871,
+      "total_tokens": 27045
+    },
+    "by_role": {
+      "cold_reader_b": {
+        "calls": 2,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.0368666,
+        "input_tokens": 13042,
+        "cached_tokens": 3983,
+        "image_input_tokens": 0,
+        "output_tokens": 1496,
+        "reasoning_tokens": 871,
+        "total_tokens": 14538
+      },
+      "cold_reader": {
+        "calls": 1,
+        "errors": 0,
+        "unpriced_calls": 0,
+        "cost_usd": 0.09726,
+        "input_tokens": 9555,
+        "cached_tokens": 0,
+        "image_input_tokens": 0,
+        "output_tokens": 2952,
+        "reasoning_tokens": 0,
+        "total_tokens": 12507
+      }
+    }
+  },
+  "run_id": "873d714014b9",
+  "note": "The room is in cold read: Two readers who did not choose the book read the whole script at the same time, the pages only, as a student reads homework the night before. Each reports what happened to them. Neither sees the other's report, and neither fixes anything.\n\nThe book is exactly 12 pages: pages 1-12, no more, no fewer.\n\nShowrunner's note for this round: Chapter 1 of the book, 12 pages.",
+  "roles": [
+    "cold_reader",
+    "cold_reader_b"
+  ],
+  "configs": {
+    "cold_reader": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "anthropic/claude-opus-5.5",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 600,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    },
+    "cold_reader_b": {
+      "base_url": "https://openrouter.ai/api/v1",
+      "api_key_env": null,
+      "model": "google/gemini-3.1-pro-preview",
+      "temperature": 0.3,
+      "max_tokens": 24000,
+      "thinking_budget": null,
+      "max_steps": 4,
+      "timeout": 900,
+      "send_images": false,
+      "extra": {},
+      "references": "full",
+      "tools": [],
+      "min_density": null,
+      "refine_passes": null,
+      "parallel": null,
+      "generate_images": false,
+      "image_base_url": "https://openrouter.ai/api/v1",
+      "image_api_key_env": null,
+      "image_model": "gpt-image-1",
+      "image_size": "1024x1024",
+      "image_extra": {},
+      "key_source": "saved",
+      "image_key_source": "saved",
+      "api_key_set": true,
+      "image_api_key_set": true
+    }
+  },
+  "writing_round": "coldread",
+  "pages": []
+}
