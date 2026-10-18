@@ -57,6 +57,18 @@ async def lifespan(_app):
 app = FastAPI(title="Graphic Novel Writers' Room", lifespan=lifespan)
 STATIC = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=STATIC), name="static")
+
+
+@app.middleware("http")
+async def revalidate_pages(request: Request, call_next):
+    """Pages and their scripts are checked with the server on every load (a 304 when unchanged),
+    so a deploy shows up without a hard refresh. Images and downloads keep their own caching."""
+    response = await call_next(request)
+    path = request.url.path
+    if "cache-control" not in response.headers and (
+            path.endswith((".js", ".css", ".html")) or "text/html" in response.headers.get("content-type", "")):
+        response.headers["Cache-Control"] = "no-cache"
+    return response
 app.mount("/mcp", room_mcp.streamable_http_app(streamable_http_path="/"))   # POST http://host/mcp
 
 
