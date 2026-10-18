@@ -439,6 +439,14 @@ ANALYSIS_RE = re.compile(r"VERDICT\s+Young\s+Americans(?:\s+Center)?\s*:\s*(yes|
                          r"[^;\n]*;\s*smells?\s+like\s+school(?:work)?\s*:\s*(yes|no)\b(?:[^;\n]*;\s*school\s+pages\s*:\s*(\d+))?", re.I)
 
 
+def partner_checks(slug):
+    """Whether the analysis step runs: it reads the book as Prosperity's partner (Young Americans
+    Center) and backer (Bill Reynolds) would, so it is Prosperity's alone. Any other book skips it,
+    unless its round settings say partner_checks: true."""
+    st = review.settings(slug).get("partner_checks")
+    return bool(st) if st is not None else slug.startswith("prosperity")
+
+
 def max_analyses(slug):
     """Analyses of the script before it is taken as it is (the analysis_rounds setting)."""
     return max(1, int(review.settings(slug).get("analysis_rounds") or 2))
@@ -473,6 +481,11 @@ def _analysis(slug, note):
     the readers. A revision here is a cut pass: the writer takes out the pages that teach and may not
     grow the script, because every pass that answered an objection with more words added a lesson.
     As with the cold read, the last analysis is not followed by a revision nobody would read."""
+    if not partner_checks(slug):
+        _choice(slug, "analysis", "Skipped the analysis: its partner and backer checks are Prosperity's.",
+                "This book has no partner checks.", (review.latest_round(slug) or {}).get("id"))
+        _log(slug, "Analysis skipped: the partner and backer checks belong to Prosperity, not this book.")
+        return None
     review.save_settings(slug, scope=0)
     most = max_analyses(slug)
     for n in range(1, most + 1):
@@ -577,6 +590,8 @@ def plan(slug):
             continue                # an edit has no audition (see _audition)
         if step == "drafts" and not edit:
             continue                # only an edit has a draft edit
+        if step == "analysis" and not partner_checks(slug):
+            continue                # the partner checks are Prosperity's
         phase = phases.get(PHASE_OF[step])
         ids = [st["writer"] or "writer_a" if a == phases.WRITER else a for a in phase["agents"]]
         if step == "layouts":

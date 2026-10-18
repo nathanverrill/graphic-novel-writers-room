@@ -473,11 +473,33 @@ class Agent:
         self.emit("warn", text=f"Stopped after {self.cfg.max_steps} steps.")
         return self.wrap_up("(ran out of steps)")
 
+    CONTINUATIONS = 6      # a reply cut at max_tokens is asked to go on, up to this many times
+
     def run_without_tools(self, guides, task):
+        """One reply is the deliverable. A reply cut off at the output limit (a long book's script
+        or layouts) is asked to carry on from the exact point it stopped, and the parts are joined,
+        so a 150-page book is not delivered as 150 pages of a 176-page plan."""
         messages = [{"role": "system", "content": self.system_prompt(guides, False)}, task]
         reply = llm.chat(self.cfg, messages, log=self.log)
         self.keep_reply_images(reply)
-        return self.wrap_up(llm.text_of(reply))
+        text = llm.text_of(reply)
+        for n in range(self.CONTINUATIONS):
+            if reply.get("finish_reason") != "length" or not text.strip():
+                break
+            if self.should_stop():
+                raise Stopped()
+            self.emit("warn", text=f"The reply hit the output limit; asking it to go on ({n + 1}).")
+            messages += [{"role": "assistant", "content": text},
+                         {"role": "user", "content": "Your reply was cut off by the output limit. Continue exactly "
+                          "where it stopped - mid-word or mid-line if that is where it ended. Do not repeat anything "
+                          "already written and do not add any preamble: your next words are joined straight onto it."}]
+            reply = llm.chat(self.cfg, messages, log=self.log)
+            more = llm.text_of(reply)
+            if not more.strip():
+                break
+            text += more
+            messages = messages[:-2]
+        return self.wrap_up(text)
 
     def wrap_up(self, text):
         """If the model answered in prose without saving, keep the prose as the deliverable."""
