@@ -1,8 +1,8 @@
 {
-  "_why": "Three families, one each: Writer A on Gemini Pro, Writer B on a top OpenAI model, the First Reader on Opus. The audition is a real contrast and the reader is a stranger to both writers.",
-  "_help": "Committed. Provider and model are usually set in the UI (\u2699 Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
+  "_why": "Three families, one each: Writer A on Llama 4 Maverick (Gemini dropped 2026-10-17 by the showrunner), Writer B on a top OpenAI model, the First Reader on Opus. The audition is a real contrast and the reader is a stranger to both writers. Maverick writes at most 16,384 tokens a reply.",
+  "_help": "Committed. Provider and model are usually set in the UI (⚙ Model). null = the .env default. API keys never go here: they're saved per provider in secrets/keys.json.",
   "base_url": "https://openrouter.ai/api/v1",
-  "model": "google/gemini-3.1-pro-preview",
+  "model": "meta-llama/llama-4-maverick",
   "api_key_env": null,
   "temperature": 0.7,
   "max_tokens": 16000,
@@ -17,5 +17,5 @@
   "image_size": null,
   "image_extra": {},
   "tools": [],
-  "thinking_budget": 0
+  "thinking_budget": null
 }
