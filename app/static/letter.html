@@ -149,7 +149,7 @@ async function boot() {
 async function loadBook() {
   const r = await api("GET", `/api/projects/${slug}/render`);
   pages = r.pages || [];
-  const all = [...new Set(["sunburst", "gemini", ...Object.keys(r.state || {})])];
+  const all = Object.keys(r.models || { sunburst: 1 });     // the drawing models the room offers
   $("#tag").innerHTML = all.map(t => `<option value="${t}">${t} art</option>`).join("");
   if (!all.includes(tag)) tag = all[0];
   $("#tag").value = tag;

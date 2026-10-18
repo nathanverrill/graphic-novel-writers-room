@@ -43,14 +43,13 @@
   <div class="card">
     <div class="controls">
       <label>Campaign <select id="camp"></select></label>
-      <label><input type="checkbox" class="m" value="gemini" checked> Gemini 3.1 Flash Image</label>
       <label><input type="checkbox" class="m" value="sunburst" checked> GPT Image 2.5 Sunburst</label>
       <label>Pages <input type="text" id="pages" placeholder="all, or 1-9, 28"></label>
       <label><input type="checkbox" id="redo"> draw again if drawn</label>
       <button class="go" id="go">Render</button>
       <span class="hint" id="said" style="margin:0"></span>
     </div>
-    <p class="hint">Each page is drawn from its packet with the style plate, the page's key art if it has one, and each model's own locks of the characters on it (Sheets: <code>alex-phantum-gemini</code>, <code>alex-phantum-sunburst</code>, kept). The lettered version is the room's lettering over the same art.</p>
+    <p class="hint">Each page is drawn from its packet with the style plate, the page's key art if it has one, and each model's own locks of the characters on it (Sheets: <code>alex-phantum-sunburst</code>, kept). The lettered version is the room's lettering over the same art.</p>
   </div>
   <div class="models" id="models"></div>
   <div class="grid" id="grid"></div>
@@ -60,8 +59,8 @@
 <script src="/static/desk.js"></script>
 <script>
 const state = { slug: null, data: null, poll: null };
-const TAGS = ["gemini", "sunburst"];
-const NAMES = { gemini: "Gemini 3.1 Flash Image", sunburst: "GPT Image 2.5 Sunburst" };
+const TAGS = ["sunburst"];
+const NAMES = { sunburst: "GPT Image 2.5 Sunburst" };
 
 function pagesWanted() {
   const t = $("#pages").value.trim();

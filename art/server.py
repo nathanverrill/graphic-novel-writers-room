@@ -21,7 +21,7 @@ The simple way to lock a book's visuals, starting fresh:
    and key scenes    a key frame: the scene's one moment, drawn from the kept sheets of whoever,
                      wherever and whatever it names.
 
-Pick the models each roll. What is kept is per model: a Gemini sheet and a Sunburst sheet are
+Pick the models each roll. What is kept is per model: a Sunburst sheet and a GPT Image 2 sheet are
 two sheets, because each model follows its own drawings best.
 
     data/<project>/project.json                  the cast, in order
@@ -261,6 +261,7 @@ def prompt_for(p, target, refs, notes):
 
 
 def roll(p, target, models, each, notes):
+    models = [m for m in models if not core.excluded(m)]     # never a model the showrunner has ruled out
     if not models:
         raise ValueError("pick at least one model")
     each = max(1, min(4, int(each or 1)))

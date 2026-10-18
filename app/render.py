@@ -34,7 +34,7 @@ import urllib.request
 
 from . import artcheck, keypages, keys, lettering, projects, prompts, thumbnails, usage
 
-MODELS = {"gemini": "google/gemini-3.1-flash-image", "sunburst": "openai/gpt-image-2.5-sunburst"}
+MODELS = {"sunburst": "openai/gpt-image-2.5-sunburst"}   # the only drawing model (Gemini dropped 2026-10-17: its pages looked cheap)
 OPENROUTER = "https://openrouter.ai/api/v1"
 MAX_REFS = 6            # the plate, then the page's key art, then up to four locks
 WORKERS = int(os.getenv("RENDER_WORKERS") or 8)   # pages at a time, per model; the provider's rate limit is the ceiling
