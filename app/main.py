@@ -185,7 +185,32 @@ def config():
     """The .env defaults, as a role with no agent.json would see them."""
     d = AgentConfig().resolve().public()
     d["storage"] = objectstore.describe()
+    d["openrouter_key_set"] = bool(render.api_key())      # what every role, drawing and check here uses
     return d
+
+
+class OpenRouterKey(BaseModel):
+    key: str
+
+
+@app.post("/api/keys/openrouter")
+def save_openrouter_key(body: OpenRouterKey):
+    """Save the OpenRouter key from the bar at the top of the room: checked with OpenRouter
+    first, then kept in secrets/keys.json for every role, the renderer, Art and Sheets."""
+    key = body.key.strip()
+    if not key:
+        raise HTTPException(400, "paste a key first")
+    req = urllib.request.Request(f"{render.OPENROUTER}/key", headers={"Authorization": f"Bearer {key}"})
+    try:
+        with urllib.request.urlopen(req, timeout=20) as r:
+            r.read()
+    except urllib.error.HTTPError as e:
+        raise HTTPException(400, "OpenRouter didn't accept that key" if e.code in (401, 403)
+                            else f"couldn't check the key with OpenRouter (HTTP {e.code})")
+    except (urllib.error.URLError, OSError) as e:
+        raise HTTPException(502, f"couldn't reach OpenRouter to check the key: {e}")
+    keys.put(render.OPENROUTER, key)
+    return {"saved": True}
 
 
 # ---- agents -----------------------------------------------------------------

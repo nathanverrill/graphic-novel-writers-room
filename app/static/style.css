@@ -29,6 +29,10 @@ h3 { font-size: .85rem; margin: 0 0 .5rem; text-transform: uppercase; letter-spa
 .config { font-family: ui-monospace, monospace; font-size: .75rem; color: var(--muted); }
 .config b { color: var(--ink); }
 .config .bad { color: var(--bad); }
+.config .keyfix { font: inherit; color: var(--bad); background: none; border: 1px solid var(--bad); border-radius: 4px; padding: .1rem .45rem; cursor: pointer; }
+.config .keyfix:hover { background: var(--bad); color: var(--panel); }
+.config .keyform { display: inline-flex; flex-wrap: wrap; gap: .4rem; align-items: center; }
+.config .keyform input { font: inherit; padding: .2rem .4rem; min-width: 16rem; border: 1px solid var(--line); border-radius: 4px; }
 
 .layout {
   display: grid; min-height: calc(100vh - 52px);
