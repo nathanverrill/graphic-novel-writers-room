@@ -44,9 +44,31 @@ async function loadConfig() {
   state.defaults = c;
   $("#config").innerHTML =
     `defaults: <b>${esc(c.model)}</b> @ ${esc(c.base_url)} · ` +
-    (c.api_key_set ? "key set" : `<span class="bad">no API key</span>`) +
+    (c.openrouter_key_set || c.api_key_set ? "key set"
+      : `<button type="button" class="keyfix" id="key-add">no API key: add one</button>`) +
     ` · image model ${c.image_model ? `<b>${esc(c.image_model)}</b>` : "none"}` +
     ` · data: ${c.storage ? `<b>${esc(c.storage)}</b>` : "local files"}`;
+  const add = $("#key-add");
+  if (add) add.onclick = keyForm;
+}
+
+// the OpenRouter key, pasted once at the top of the room: every role and tool uses it
+function keyForm() {
+  $("#config").innerHTML = `<form id="key-form" class="keyform" autocomplete="off">
+      <label>OpenRouter API key <input id="key-value" type="password" autocomplete="new-password" placeholder="sk-or-…" required></label>
+      <button type="submit">Save</button> <button type="button" class="ghost" id="key-cancel">Cancel</button>
+      <span id="key-msg"></span></form>`;
+  $("#key-value").focus();
+  $("#key-cancel").onclick = loadConfig;
+  $("#key-form").onsubmit = async (e) => {
+    e.preventDefault();
+    const m = $("#key-msg");
+    m.className = ""; m.textContent = "Checking with OpenRouter…";
+    try {
+      await api("/api/keys/openrouter", { method: "POST", body: { key: $("#key-value").value } });
+      await loadConfig(); await loadRoles();
+    } catch (err) { m.className = "bad"; m.textContent = String(err.message || err); }
+  };
 }
 
 async function loadRoles() {
