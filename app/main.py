@@ -1236,7 +1236,7 @@ def voices_forget(slug: str, character: str, entry: str):
 # ---- the renderer: the book drawn by each image model, lettered by the room (app/render.py) --------
 
 class RenderStart(BaseModel):
-    models: list[str] | None = None     # gemini, sunburst; none = both
+    models: list[str] | None = None     # sunburst; none = sunburst
     pages: list[int] | None = None      # none = every page in layouts.md
     redo: bool = False                  # draw pages that are already drawn again
 

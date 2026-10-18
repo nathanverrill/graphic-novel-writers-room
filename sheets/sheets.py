@@ -23,7 +23,7 @@ A subject, a character or a place, is a folder:
       lineage.jsonl     one line per candidate: step, model, prompt, parent, picked or not
 
 Run:   python3 sheets/sheets.py ada
-       python3 sheets/sheets.py ada --models google/gemini-3.1-flash-image,openai/gpt-image-2 --each 2
+       python3 sheets/sheets.py ada --models openai/gpt-image-2.5-sunburst,openai/gpt-image-2 --each 2
        python3 sheets/sheets.py ada --step face-angry        # redo one step
        python3 sheets/sheets.py ada --dry                    # no model: fakes candidates, to see the flow
 
@@ -49,15 +49,15 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 OPENROUTER = "https://openrouter.ai/api/v1"
-DEFAULT_MODELS = ["google/gemini-3.1-flash-image", "openai/gpt-image-2", "openai/gpt-image-2.5-flare", "openai/gpt-image-2.5-sunburst",
+DEFAULT_MODELS = ["openai/gpt-image-2", "openai/gpt-image-2.5-flare", "openai/gpt-image-2.5-sunburst",
                   "microsoft/mai-image-2.6-flash"]
 # Never offered, whatever OpenRouter lists: a trailing "/" or "-" is a prefix. Design and vector
 # models, previews of models that have shipped, and generations a newer model here replaces.
 # Everything left takes at least three reference images, so a lock from a reference with the
 # style plate (two images) works on all of them.
 EXCLUDED = ["recraft/", "inclusionai/", "sourceful/", "krea/",
-            "qwen/", "bytedance/", "bytedance-seed/", "x-ai/", "google/gemini-3-pro-image",   # the showrunner's call
-            "google/gemini-3.1-flash-image-preview", "google/gemini-3-pro-image-preview", "google/gemini-2.5-flash-image",
+            "qwen/", "bytedance/", "bytedance-seed/", "x-ai/",   # the showrunner's call
+            "google/",   # no Gemini drawing, any version (the showrunner, 2026-10-17: its pages look cheap)
             "openai/gpt-image-1", "openai/gpt-image-1-mini", "openai/gpt-5-image", "openai/gpt-5-image-mini",
             "microsoft/mai-image-2.5", "microsoft/mai-image-2.5-pro",
             "black-forest-labs/flux.2-klein-4b"]

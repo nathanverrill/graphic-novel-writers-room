@@ -1,6 +1,6 @@
 # Art checklist (always checked)
 
-The showrunner's standing checks, from the feedback of 2026-10-15. The art reviewer (Gemini 4 Argon, app/artcheck.py ALWAYS) treats every one as major, and every page prompt carries them.
+The showrunner's standing checks, from the feedback of 2026-10-15. The art reviewer (Llama 4 Maverick, with Claude Opus 5.5 confirming close-ups; app/artcheck.py ALWAYS) treats every one as major, and every page prompt carries them.
 
 ALWAYS CHECK, EVERY PAGE - each of these is MAJOR when you can see it:
 - Hands: every person has one LEFT hand on the left arm and one RIGHT hand on the right arm (thumb on the correct side). Two right hands, two left hands, or a hand on the wrong arm is major. A pointing arm must end in its own hand. Five fingers on every readable hand.

@@ -98,9 +98,9 @@ async function loadModels() {
   try {
     const m = await (await fetch("/sheets/api/models")).json();
     state.models = m.models || [];
-    state.chosen = new Set(pref("models") || (m.default || []).filter((x) => /gemini-3\.1-flash-image$|sunburst$/.test(x)));
+    state.chosen = new Set((pref("models") || (m.default || []).filter((x) => /sunburst$/.test(x))).filter((x) => state.models.includes(x)));
     if (!state.chosen.size) state.chosen = new Set((m.default || state.models).slice(0, 2));
-  } catch { state.models = ["google/gemini-3.1-flash-image", "openai/gpt-image-2.5-sunburst"]; state.chosen = new Set(state.models); }
+  } catch { state.models = ["openai/gpt-image-2.5-sunburst"]; state.chosen = new Set(state.models); }
 }
 
 async function loadProjects(pick) {
