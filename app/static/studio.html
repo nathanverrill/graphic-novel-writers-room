@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f3ee">
+<title>Studio · Writers' Room</title>
+<style>
+  /* The studio: the shelf of books, and one book at a time - create, run, pages, versions.
+     None of the room's machinery shows here: no agents, rounds or files beyond the book's own. */
+  :root { --bg: #f6f3ee; --panel: #fffdf9; --ink: #1d1b18; --muted: #7a7266; --line: #e2dcd2;
+          --bad: #b42318; --good: #2f7d4f; --work: #b7791f; --soft: #efe9df; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #171614; --panel: #201e1b; --ink: #ece7df; --muted: #a39b8f;
+          --line: #3a3631; --bad: #f0786d; --good: #6cc391; --work: #e0a94a; --soft: #2a2724; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 16px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  a { color: inherit; }
+  button, input, textarea, select { font: inherit; color: var(--ink); }
+  button { padding: .5rem 1rem; border-radius: 7px; border: 1px solid var(--ink); background: var(--panel); cursor: pointer; }
+  button.go { background: var(--ink); color: var(--bg); }
+  button.warn { border-color: var(--bad); color: var(--bad); }
+  button.warn.sure { background: var(--bad); color: #fff; }
+  button.quiet { border-color: var(--line); color: var(--muted); padding: .3rem .7rem; font-size: .85rem; }
+  button:disabled { opacity: .45; cursor: default; }
+  input, textarea, select { background: var(--panel); border: 1px solid var(--line); border-radius: 7px; padding: .5rem .65rem; }
+  textarea { width: 100%; resize: vertical; line-height: 1.45; }
+  .muted { color: var(--muted); } .small { font-size: .84rem; }
+  .bad { color: var(--bad); } .ok { color: var(--good); }
+  header.top { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; padding: .8rem 16px;
+               border-bottom: 2px solid var(--ink); background: var(--panel); position: sticky; top: 0; z-index: 5; }
+  header.top h1 { font-size: 1.2rem; margin: 0; }
+  header.top h1 a { text-decoration: none; }
+  header.top .crumb { color: var(--muted); text-decoration: none; }
+  nav.tabs { display: flex; gap: .25rem; margin-left: auto; flex-wrap: wrap; }
+  nav.tabs a { text-decoration: none; padding: .35rem .85rem; border-radius: 999px; color: var(--muted); }
+  nav.tabs a.on { background: var(--ink); color: var(--bg); }
+  nav.tabs a .dot { display: inline-block; width: .5rem; height: .5rem; border-radius: 50%; background: var(--work); margin-left: .35rem; animation: pulse 1.4s infinite; }
+  @keyframes pulse { 50% { opacity: .3; } }
+  main { max-width: 74rem; margin: 0 auto; padding: 1.25rem 16px 4rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; }
+  .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 1rem 1.1rem; }
+  .row { display: flex; gap: .6rem; flex-wrap: wrap; align-items: center; }
+  .msg { font-size: .9rem; min-height: 1.2em; }
+
+  /* shelf */
+  .shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 1.2rem; }
+  .book { text-decoration: none; display: grid; gap: .4rem; }
+  .cover { aspect-ratio: 6.625 / 10.25; border-radius: 6px; overflow: hidden; background: var(--soft);
+           border: 1px solid var(--line); display: grid; place-items: center; text-align: center; padding: .6rem;
+           box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+  .cover img { width: 100%; height: 100%; object-fit: cover; }
+  .cover b { font-size: 1.15rem; }
+  .book .meta { display: flex; justify-content: space-between; gap: .4rem; font-size: .84rem; color: var(--muted); }
+  .chip { font-size: .75rem; padding: .1rem .55rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .chip.run { border-color: var(--work); color: var(--work); }
+  .new .cover { border-style: dashed; background: transparent; box-shadow: none; }
+  .new form { display: grid; gap: .5rem; width: 100%; }
+
+  /* create */
+  .create { display: grid; grid-template-columns: minmax(0, 1fr) 18rem; gap: 1.2rem; align-items: start; }
+  @media (max-width: 52rem) { .create { grid-template-columns: 1fr; } }
+  .chat { display: grid; gap: .8rem; min-height: 60vh; align-content: end; }
+  .chat.drag { outline: 2px dashed var(--work); outline-offset: 6px; border-radius: 10px; }
+  .m { padding: .75rem .95rem; border-radius: 12px; max-width: 100%; overflow-wrap: anywhere; }
+  .m.user { background: var(--soft); justify-self: end; max-width: 85%; white-space: pre-wrap; }
+  .m.assistant { background: var(--panel); border: 1px solid var(--line); }
+  .m.assistant p { margin: .4rem 0; } .m.assistant h3, .m.assistant h4 { margin: .7rem 0 .3rem; font-size: 1rem; }
+  .m.assistant ul { margin: .3rem 0; padding-left: 1.2rem; }
+  .m .saves { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .55rem; align-items: center; }
+  .m .saves input { padding: .25rem .5rem; font-size: .85rem; width: 12rem; }
+  .composer { position: sticky; bottom: 0; background: var(--bg); padding: .8rem 0 .4rem; display: grid; gap: .5rem; }
+  .composer textarea { min-height: 5.5rem; max-height: 40vh; }
+  .side { display: grid; gap: 1rem; position: sticky; top: 4.5rem; }
+  .side ul { list-style: none; margin: 0; padding: 0; display: grid; gap: .25rem; }
+  .side li { display: flex; justify-content: space-between; gap: .4rem; align-items: center; font-size: .9rem; }
+  .side li a { cursor: pointer; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .side li a:hover { text-decoration: underline; }
+  .side li button { padding: 0 .4rem; border: none; color: var(--muted); background: none; }
+  .thinking { color: var(--muted); font-style: italic; }
+  .locks { display: grid; grid-template-columns: repeat(auto-fill, minmax(6.5rem, 1fr)); gap: .6rem; }
+  .lk { display: grid; gap: .2rem; align-content: start; }
+  .lkimg { padding: 0; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; aspect-ratio: 3 / 4; background: var(--soft); display: grid; place-items: center; }
+  .lkimg img, .cand img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cand { display: grid; gap: .2rem; border: 1px dashed var(--work); border-radius: 6px; padding: .25rem; }
+  .cand img { aspect-ratio: 3 / 4; border-radius: 4px; }
+
+  /* run */
+  .run { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 1.2rem; align-items: start; }
+  @media (max-width: 52rem) { .run { grid-template-columns: 1fr; } }
+  .bar { height: 14px; background: var(--line); border-radius: 7px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--work); transition: width .6s; }
+  .nums { display: flex; gap: 1.2rem; flex-wrap: wrap; font-variant-numeric: tabular-nums; }
+  .nums div b { display: block; font-size: 1.35rem; }
+  .steps { list-style: none; padding: 0; margin: .8rem 0 0; display: grid; gap: .3rem; }
+  .steps li { display: flex; gap: .55rem; align-items: center; color: var(--muted); }
+  .steps li.now { color: var(--ink); font-weight: 600; }
+  .steps li.done { color: var(--ink); }
+  .steps li i { width: 1.1rem; text-align: center; font-style: normal; }
+  .preview .cover { box-shadow: 0 4px 18px rgba(0,0,0,.12); }
+  .strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(5rem, 1fr)); gap: .5rem; margin-top: .8rem; }
+  .field { display: grid; gap: .25rem; } .field input { width: 9rem; }
+
+  /* pages */
+  .pagebar { display: flex; justify-content: space-between; gap: .8rem; flex-wrap: wrap; align-items: center; margin-bottom: 1rem; }
+  .pages { display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: 1.1rem; }
+  .pg { border: none; padding: 0; background: none; text-align: left; display: grid; gap: .3rem; cursor: pointer; color: var(--ink); }
+  .pg .cap { display: flex; justify-content: space-between; font-size: .84rem; color: var(--muted); }
+  .pg .cap .flag { color: var(--bad); }
+  .scriptpage { aspect-ratio: 6.625 / 10.25; background: var(--panel); border: 1px solid var(--line); border-radius: 6px;
+                padding: .45rem; display: flex; flex-direction: column; gap: .35rem; overflow: hidden; font-size: .66rem; line-height: 1.3; }
+  .scriptpage .pn { flex: 1 1 0; min-height: 0; border: 1.5px solid var(--ink); border-radius: 2px; padding: .3rem .35rem; overflow: hidden; display: flex; flex-direction: column; gap: .2rem; }
+  .scriptpage .pn em { color: var(--muted); }
+  .scriptpage .bl { background: #fff; color: #111; border: 1px solid #111; border-radius: 9px; padding: .1rem .35rem; align-self: flex-start; max-width: 92%; }
+  .scriptpage .bl b { font-size: .58rem; letter-spacing: .03em; }
+  .scriptpage .cp { background: #fbf3c8; color: #111; border: 1px solid #111; padding: .1rem .3rem; align-self: flex-start; }
+  .scriptpage.big { font-size: .95rem; padding: .8rem; gap: .6rem; aspect-ratio: auto; min-height: 60vh; }
+  .scriptpage.big .pn { flex: 1 0 auto; overflow: visible; }
+  .scriptpage.big .bl b { font-size: .8rem; }
+  .pg img, .shot img { width: 100%; aspect-ratio: 6.625 / 10.25; object-fit: cover; border-radius: 6px; border: 1px solid var(--line); background: var(--soft); display: block; }
+  .pg.drawing img, .pg.drawing .scriptpage { outline: 2px solid var(--work); animation: pulse 1.4s infinite; }
+
+  dialog { border: none; border-radius: 14px; padding: 0; max-width: min(72rem, 96vw); width: 96vw; background: var(--panel); color: var(--ink); }
+  dialog::backdrop { background: rgba(0,0,0,.55); }
+  .dlg { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); max-height: 92vh; }
+  @media (max-width: 52rem) { .dlg { grid-template-columns: 1fr; overflow: auto; } }
+  .dlg .pic { background: var(--soft); padding: 1rem; overflow: auto; display: grid; place-items: start center; }
+  .dlg .pic img { max-width: 100%; max-height: 86vh; border-radius: 6px; }
+  .dlg .pic .scriptpage { width: min(32rem, 100%); }
+  .dlg .sidepane { padding: 1rem 1.1rem; overflow: auto; display: grid; gap: .9rem; align-content: start; }
+  .dlg header { display: flex; justify-content: space-between; align-items: center; }
+  .dlg header button { border: none; font-size: 1.5rem; padding: 0 .4rem; background: none; }
+  .words { display: grid; gap: .5rem; } .words label { font-size: .8rem; color: var(--muted); display: grid; gap: .2rem; }
+  .notes { border-left: 3px solid var(--bad); padding: .3rem .7rem; font-size: .88rem; }
+  .doc { white-space: pre-wrap; font-size: .9rem; max-height: 70vh; overflow: auto; padding: 1rem; }
+
+  /* versions */
+  .vers { display: grid; gap: .6rem; }
+  .ver { display: flex; justify-content: space-between; gap: .8rem; align-items: center; flex-wrap: wrap; }
+  .compare { display: grid; grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr)); gap: 1rem; margin-top: 1rem; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+  .pair figure { margin: 0; } .pair figcaption { font-size: .78rem; color: var(--muted); }
+  .empty { padding: 3rem 1rem; text-align: center; color: var(--muted); }
+</style>
+</head>
+<body>
+<header class="top">
+  <h1><a href="/studio">Studio</a></h1>
+  <span id="crumb"></span>
+  <nav class="tabs" id="tabs" hidden></nav>
+</header>
+<main id="main"></main>
+<dialog id="dlg"></dialog>
+
+<script>
+(() => {
+  const $ = (s, el = document) => el.querySelector(s);
+  const enc = encodeURIComponent;
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const money = (n) => "$" + (Number(n) || 0).toFixed(2);
+  const pad = (n) => String(n).padStart(2, "0");
+  const mins = (s) => s < 90 ? `${Math.max(1, Math.round(s))} sec` : s < 5400 ? `${Math.round(s / 60)} min` : `${(s / 3600).toFixed(1)} hr`;
+  async function api(url, opts = {}) {
+    const res = await fetch(url, { method: opts.method || "GET",
+      headers: opts.body ? { "content-type": "application/json" } : {},
+      body: opts.body ? JSON.stringify(opts.body) : undefined });
+    const text = await res.text();
+    let data = null;
+    try { data = text ? JSON.parse(text) : null; } catch { data = text; }
+    if (!res.ok) throw new Error((data && data.detail) ? (typeof data.detail === "string" ? data.detail : JSON.stringify(data.detail)) : (text || res.statusText));
+    return data;
+  }
+  // a button that asks twice before it spends money or replaces work
+  function twoStep(btn, sure, act) {
+    if (!btn) return;
+    let armed = false, t;
+    const label = btn.innerHTML;
+    btn.onclick = async () => {
+      if (!armed) { armed = true; btn.classList.add("sure"); btn.innerHTML = sure; t = setTimeout(() => { armed = false; btn.classList.remove("sure"); btn.innerHTML = label; }, 5000); return; }
+      clearTimeout(t); armed = false; btn.classList.remove("sure"); btn.innerHTML = label; btn.disabled = true;
+      try { await act(); } finally { btn.disabled = false; }
+    };
+  }
+  function md(text) {          // just enough markdown for chat replies
+    const lines = esc(text).split("\n"), out = [];
+    let list = false;
+    for (const raw of lines) {
+      let l = raw.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/(^|\W)\*(?!\s)(.+?)\*(?=\W|$)/g, "$1<i>$2</i>");
+      const li = l.match(/^\s*(?:[-*•]|\d+\.)\s+(.*)/);
+      if (li) { if (!list) { out.push("<ul>"); list = true; } out.push(`<li>${li[1]}</li>`); continue; }
+      if (list) { out.push("</ul>"); list = false; }
+      const h = l.match(/^(#{1,4})\s+(.*)/);
+      if (h) out.push(`<h${h[1].length < 3 ? 3 : 4}>${h[2]}</h${h[1].length < 3 ? 3 : 4}>`);
+      else if (l.trim()) out.push(`<p>${l}</p>`);
+    }
+    if (list) out.push("</ul>");
+    return out.join("");
+  }
+
+  const q = new URLSearchParams(location.search);
+  const S = { slug: q.get("b") || "", mode: q.get("m") || "", st: null, chat: [], timer: null, cmp: null, sending: false };
+  const B = (p) => `/api/studio/${enc(S.slug)}${p}`;
+  const P = (p) => `/api/projects/${enc(S.slug)}${p}`;
+  const img = (n, kind, v) => B(`/page/p${pad(n)}.png?kind=${kind}&v=${v}`);
+  const pageImg = (p) => p.lettered && p.lettered >= p.art ? img(p.page, "lettered", p.lettered) : p.art ? img(p.page, "art", p.art) : "";
+
+  function go(params) {
+    const u = new URL(location.href);
+    for (const [k, v] of Object.entries(params)) v ? u.searchParams.set(k, v) : u.searchParams.delete(k);
+    history.pushState(null, "", u);
+    S.slug = u.searchParams.get("b") || ""; S.mode = u.searchParams.get("m") || "";
+    show();
+  }
+  window.onpopstate = () => { const u = new URLSearchParams(location.search); S.slug = u.get("b") || ""; S.mode = u.get("m") || ""; show(); };
+
+  // ---- the shelf ------------------------------------------------------------------------
+  async function shelf() {
+    $("#tabs").hidden = true; $("#crumb").innerHTML = ""; document.title = "Studio · Writers' Room";
+    clearInterval(S.timer);
+    const main = $("#main");
+    main.innerHTML = `<p class="muted">Loading the books…</p>`;
+    let books;
+    try { books = (await api("/api/studio/books")).books; }
+    catch (e) { main.innerHTML = `<p class="bad">${esc(e.message)}</p>`; return; }
+    const label = { create: "Creating", run: "Running", pages: "Pages" };
+    main.innerHTML = `<div class="shelf">
+      <div class="book new"><div class="cover"><form id="newbook"><b>New book</b>
+        <input name="title" placeholder="Title" required maxlength="80"><button class="go">Start</button>
+        <span class="msg small bad"></span></form></div></div>
+      ${books.map((b) => `<a class="book" href="?b=${enc(b.slug)}" data-slug="${esc(b.slug)}">
+        <div class="cover">${b.cover ? `<img src="${b.cover}" alt="" loading="lazy">` : `<b>${esc(b.title)}</b>`}</div>
+        <div><b>${esc(b.title)}</b></div>
+        <div class="meta"><span class="chip ${b.mode === "run" ? "run" : ""}">${label[b.mode]}</span>
+          <span>${b.pages ? `${b.drawn}/${b.pages} drawn` : ""}${b.spent ? ` · ${money(b.spent)}` : ""}</span></div></a>`).join("")}
+    </div>`;
+    main.querySelectorAll("a.book").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ b: a.dataset.slug, m: "" }); });
+    $("#newbook").onsubmit = async (e) => {
+      e.preventDefault();
+      const t = e.target.title.value.trim();
+      try { const r = await api("/api/projects", { method: "POST", body: { title: t, pitch: "" } }); go({ b: r.slug, m: "create" }); }
+      catch (err) { $(".msg", e.target).textContent = err.message; }
+    };
+  }
+
+  // ---- one book ----------------------------------------------------------------------------
+  async function load() { S.st = await api(B("")); return S.st; }
+
+  async function book() {
+    $("#main").innerHTML = `<p class="muted">Opening…</p>`;
+    try { await load(); } catch (e) { $("#main").innerHTML = `<p class="bad">${esc(e.message)}</p>`; return; }
+    if (!S.mode) S.mode = S.st.mode;
+    document.title = `${S.st.title} · Studio`;
+    $("#crumb").innerHTML = `<span class="muted">/</span> <b>${esc(S.st.title)}</b>`;
+    tabs();
+    ({ create, run: runView, pages: pagesView, versions: versionsView }[S.mode] || create)();
+    clearInterval(S.timer);
+    S.timer = setInterval(tick, 4000);
+  }
+
+  function tabs() {
+    const t = $("#tabs");
+    t.hidden = false;
+    t.innerHTML = [["create", "Create"], ["run", "Run"], ["pages", "Pages"], ["versions", "Versions"]].map(([m, l]) =>
+      `<a href="?b=${enc(S.slug)}&m=${m}" data-m="${m}" class="${S.mode === m ? "on" : ""}">${l}${m === "run" && S.st.running ? `<span class="dot"></span>` : ""}</a>`).join("");
+    t.querySelectorAll("a").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ m: a.dataset.m }); });
+  }
+
+  async function tick() {
+    if (!S.slug || document.hidden) return;
+    const was = S.st && S.st.running;
+    const drawingLock = (S.st?.locks || []).some((l) => l.job && l.job.state === "running");
+    if (!was && S.mode !== "run" && !drawingLock) return;           // nothing moves unless something is running
+    try { await load(); } catch { return; }
+    if (S.mode === "create" && (drawingLock || was)) sidebar();
+    tabs();
+    if (S.mode === "run") runView(true);
+    if (S.mode === "pages") pagesView(true);
+    if (was && !S.st.running && S.mode === "pages") pagesView();
+  }
+
+  // ---- create: the chat ---------------------------------------------------------------------
+  async function create() {
+    const main = $("#main");
+    main.innerHTML = `<div class="create">
+      <section><div class="chat" id="chat"></div>
+        <div class="composer">
+          <textarea id="say" placeholder="Paste or type anything: a scene, a character, notes, research. Drop files here too."></textarea>
+          <div class="row">
+            <button class="go" id="send">Send</button>
+            <span class="muted small">or save what you typed straight away:</span>
+            <button class="quiet" data-raw="material">Material</button>
+            <button class="quiet" data-raw="research">Research</button>
+            <button class="quiet" data-raw="lock">Character lock</button>
+            <button class="quiet" id="newchat" style="margin-left:auto">New chat</button>
+          </div>
+          <div class="msg" id="cmsg"></div>
+        </div></section>
+      <aside class="side" id="side"></aside></div>`;
+    sidebar();
+    try { S.chat = (await api(B("/chat"))).messages; } catch { S.chat = []; }
+    drawChat();
+    const ta = $("#say");
+    ta.onkeydown = (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } };
+    $("#send").onclick = send;
+    main.querySelectorAll("[data-raw]").forEach((b) => b.onclick = () => saveRaw(b.dataset.raw));
+    $("#newchat").onclick = async () => { S.chat = (await api(B("/chat"), { method: "DELETE" })).messages; drawChat(); };
+    const zone = $(".create section");
+    zone.ondragover = (e) => { e.preventDefault(); $("#chat").classList.add("drag"); };
+    zone.ondragleave = () => $("#chat").classList.remove("drag");
+    zone.ondrop = (e) => { e.preventDefault(); $("#chat").classList.remove("drag"); dropFiles(e.dataTransfer.files); };
+  }
+
+  const KIND = { material: "Material", research: "Research", rule: "Rules" };
+  const HINT = { material: "Your story, characters, ideas. The room reads it.", research: "Facts about the real world. Suggestions, never canon.",
+                 rule: "What the room must keep. Binding." };
+  const lockImg = (folder, name, v) => P(`/story-desk/locks/${enc(folder)}/${enc(name)}`) + (v ? `?v=${v}` : "");
+  function locksCard() {
+    const L = S.st.locks || [];
+    return `<div class="card"><h2>Character locks <span class="muted small">${L.length || ""}</span></h2>
+      <p class="small muted" style="margin:0 0 .5rem">The drawing every page draws that character from. Save a look from the chat, or drop a picture.</p>
+      <div class="locks">${L.map((l) => {
+        const job = l.job || {};
+        return `<div class="lk"><button class="lkimg" data-look="${esc(l.folder)}">${l.image ? `<img src="${lockImg(l.folder, l.image, l.version)}" alt="${esc(l.name)}">` : `<span class="muted small">${job.state === "running" ? "drawing…" : "no drawing"}</span>`}</button>
+          <b class="small">${esc(l.name)}</b>
+          ${job.state === "running" ? `<span class="small muted">Drawing…</span>` : ""}
+          ${job.state === "failed" ? `<span class="small bad">${esc(job.error || "failed")}</span>` : ""}
+          ${l.candidate ? `<div class="cand"><img src="${lockImg(l.folder, l.candidate)}" alt="new drawing"><span class="small">New drawing:</span>
+            <span class="row"><button class="quiet" data-keep="${esc(l.folder)}" data-file="${esc(l.candidate)}">Keep</button><button class="quiet" data-drop="${esc(l.folder)}" data-file="${esc(l.candidate)}">Discard</button></span></div>` : ""}
+        </div>`; }).join("") || `<span class="muted small">None yet.</span>`}</div></div>`;
+  }
+  function sidebar() {
+    const side = $("#side");
+    if (!side) return;
+    const f = S.st.files;
+    side.innerHTML = locksCard() + Object.keys(KIND).map((k) => {
+      const mine = f.filter((x) => x.kind === k);
+      if (k === "rule" && !mine.length) return "";
+      return `<div class="card"><h2>${KIND[k]} <span class="muted small">${mine.length || ""}</span></h2>
+        <p class="small muted" style="margin:0 0 .4rem">${HINT[k]}</p>
+        <ul>${mine.map((x) => `<li><a data-path="${esc(x.path)}" title="${esc(x.name)}">${x.image ? "🖼 " : ""}${esc(x.name.replace(/\.md$/, ""))}</a>
+          <button data-rm="${esc(x.path)}" title="Remove (kept aside, not deleted)">×</button></li>`).join("") || `<li class="muted small">Nothing yet.</li>`}</ul></div>`;
+    }).join("") + `<div class="card small"><b>Ready?</b> <a href="?b=${enc(S.slug)}&m=run" id="torun">Run the book →</a></div>`;
+    side.querySelectorAll("a[data-path]").forEach((a) => a.onclick = () => viewFile(a.dataset.path));
+    side.querySelectorAll("[data-rm]").forEach((b) => twoStep(b, "remove?", async () => {
+      S.st.files = (await api(B(`/file?path=${enc(b.dataset.rm)}`), { method: "DELETE" })).files; sidebar();
+    }));
+    $("#torun").onclick = (e) => { e.preventDefault(); go({ m: "run" }); };
+    side.querySelectorAll("[data-look]").forEach((b) => b.onclick = () => viewLock(b.dataset.look));
+    side.querySelectorAll("[data-keep]").forEach((b) => b.onclick = async () => {
+      S.st.locks = (await api(B(`/locks/${enc(b.dataset.keep)}/keep`), { method: "POST", body: { file: b.dataset.file } })).locks; sidebar(); });
+    side.querySelectorAll("[data-drop]").forEach((b) => b.onclick = async () => {
+      S.st.locks = (await api(B(`/locks/${enc(b.dataset.drop)}/discard`), { method: "POST", body: { file: b.dataset.file } })).locks; sidebar(); });
+  }
+
+  function viewLock(folder) {
+    const l = S.st.locks.find((x) => x.folder === folder), dlg = $("#dlg");
+    dlg.innerHTML = `<div class="dlg"><div class="pic">${l.image ? `<img src="${lockImg(l.folder, l.image, l.version)}" alt="">` : `<p class="muted">Not drawn yet.</p>`}</div>
+      <div class="sidepane"><header><h2 style="margin:0">${esc(l.name)}</h2><button id="x" aria-label="Close">×</button></header>
+        <label class="small muted">The look, in words. Pages and redraws follow these.</label>
+        <textarea id="lk-look" rows="8">${esc(l.look)}</textarea>
+        <input id="lk-note" placeholder="Note for this drawing only (optional)">
+        <div class="row"><button class="warn" id="lk-draw">Save words and redraw</button><button id="lk-save">Save words only</button></div>
+        <p class="small muted">Redrawing is about ${money(S.st.cost_page)}. The new drawing waits beside the old one until you keep it.</p>
+        <div class="msg" id="lk-msg"></div></div></div>`;
+    $("#x", dlg).onclick = () => dlg.close();
+    const save = async (draw) => {
+      const m = $("#lk-msg", dlg), look = $("#lk-look", dlg).value.trim();
+      try {
+        if (look !== l.look) await api(B("/locks"), { method: "POST", body: { name: l.name, look, draw: false } });
+        if (draw) await api(B(`/locks/${enc(l.folder)}/redraw`), { method: "POST", body: { note: $("#lk-note", dlg).value } });
+        await load(); sidebar(); m.className = "msg ok"; m.textContent = draw ? "Drawing… a minute or two. It shows beside the lock." : "Saved.";
+      } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+    };
+    twoStep($("#lk-draw", dlg), `Yes, about ${money(S.st.cost_page)}`, () => save(true));
+    $("#lk-save", dlg).onclick = () => save(false);
+    dlg.showModal();
+  }
+
+  function saveLock(text, data, fileName) {
+    const name = prompt(data ? `${fileName}: whose lock is this? Character name:` : `Draw this as a character lock with Sunburst (about ${money(S.st.cost_page)}). Character name:`, data ? "" : guessCharacter(text));
+    if (!name || !name.trim()) return Promise.resolve(null);
+    return api(B("/locks"), { method: "POST", body: { name: name.trim(), look: data ? null : text, data: data || null } })
+      .then(async (r) => { await load(); sidebar(); return r; });
+  }
+  function guessCharacter(text) {
+    const m = (text || "").match(/\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)?)\b/);
+    return m ? m[1] : "";
+  }
+
+  async function viewFile(path) {
+    const dlg = $("#dlg");
+    const url = B(`/file?path=${enc(path)}`);
+    const isImg = /\.(png|jpe?g|webp)$/i.test(path);
+    const body = isImg ? `<img src="${url}" style="max-width:100%">` : `<div class="doc">${esc(await (await fetch(url)).text())}</div>`;
+    dlg.innerHTML = `<div style="padding:1rem"><div class="row" style="justify-content:space-between"><b>${esc(path)}</b>
+      <button class="quiet" id="x">Close</button></div>${body}</div>`;
+    $("#x", dlg).onclick = () => dlg.close();
+    dlg.showModal();
+  }
+
+  function guessName(text) {
+    const first = (text || "").split("\n").map((l) => l.replace(/^[#*\s>-]+|[*#:]+$/g, "").trim()).find((l) => l.length > 2) || "notes";
+    return first.split(/\s+/).slice(0, 6).join(" ").slice(0, 50);
+  }
+
+  function drawChat() {
+    const c = $("#chat");
+    if (!c) return;
+    c.innerHTML = S.chat.length ? S.chat.map((m, i) => `<div class="m ${m.role}">${m.role === "assistant" ? md(m.content) : esc(m.content)}
+        <div class="saves"><span class="small muted">Save as</span>
+          <button class="quiet" data-i="${i}" data-k="material">material</button>
+          <button class="quiet" data-i="${i}" data-k="research">research</button>
+          <button class="quiet" data-i="${i}" data-k="lock">character lock</button></div></div>`).join("")
+      : `<div class="empty">Paste what you have, or ask for help with an idea.<br>Anything here can be saved as <b>material</b>, <b>research</b> or a character's <b>art lock</b>.</div>`;
+    if (S.sending) c.insertAdjacentHTML("beforeend", `<div class="m assistant thinking">Thinking…</div>`);
+    c.querySelectorAll("[data-k]").forEach((b) => b.onclick = async () => {
+      const text = S.chat[+b.dataset.i].content;
+      if (b.dataset.k !== "lock") return askName(b, text, b.dataset.k);
+      try { const r = await saveLock(text); if (r) b.parentElement.innerHTML = `<span class="small ok">Saved as a character lock. Drawing… it shows on the right.</span>`; }
+      catch (e) { b.parentElement.insertAdjacentHTML("beforeend", `<span class="small bad">${esc(e.message)}</span>`); }
+    });
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+
+  function askName(btn, text, kind) {
+    const box = btn.parentElement;
+    box.innerHTML = `<span class="small muted">Save as ${kind}, named</span><input value="${esc(guessName(text))}">
+      <button class="go quiet" style="color:var(--bg)">Save</button><button class="quiet">Cancel</button>`;
+    const [inp] = box.querySelectorAll("input"), [ok, no] = box.querySelectorAll("button");
+    inp.focus(); inp.select();
+    no.onclick = drawChat;
+    const doit = async () => {
+      try { const r = await api(B("/save"), { method: "POST", body: { kind, name: inp.value, text } });
+            S.st.files = r.files; sidebar(); box.innerHTML = `<span class="small ok">Saved as ${esc(r.path)}</span>`; }
+      catch (e) { box.insertAdjacentHTML("beforeend", `<span class="small bad">${esc(e.message)}</span>`); }
+    };
+    ok.onclick = doit; inp.onkeydown = (e) => { if (e.key === "Enter") doit(); if (e.key === "Escape") drawChat(); };
+  }
+
+  async function send() {
+    const ta = $("#say"), m = $("#cmsg");
+    const text = ta.value.trim();
+    if (!text || S.sending) return;
+    S.sending = true; S.chat.push({ role: "user", content: text }); ta.value = ""; m.textContent = ""; drawChat();
+    try { const r = await api(B("/chat"), { method: "POST", body: { text } }); S.chat = r.messages; }
+    catch (e) { m.className = "msg bad"; m.textContent = e.message; ta.value = text; S.chat.pop(); }
+    S.sending = false; drawChat();
+  }
+
+  async function saveRaw(kind) {
+    const ta = $("#say"), m = $("#cmsg");
+    const text = ta.value.trim();
+    if (!text) { m.className = "msg muted"; m.textContent = "Type or paste something first."; return; }
+    if (kind === "lock") {
+      try { const r = await saveLock(text); if (r) { ta.value = ""; m.className = "msg ok"; m.textContent = "Saved as a character lock. Drawing… it shows on the right."; } }
+      catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      return;
+    }
+    const name = prompt(`Save as ${kind}, named:`, guessName(text));
+    if (name === null) return;
+    try { const r = await api(B("/save"), { method: "POST", body: { kind, name, text } });
+          S.st.files = r.files; sidebar(); ta.value = ""; m.className = "msg ok"; m.textContent = `Saved as ${r.path}`; }
+    catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+  }
+
+  async function dropFiles(list) {
+    const m = $("#cmsg");
+    for (const f of list) {
+      const isImg = /^image\//.test(f.type);
+      if (!isImg && !/\.(md|txt|markdown)$/i.test(f.name) && !/^text\//.test(f.type)) { m.className = "msg bad"; m.textContent = `${f.name}: only text and image files.`; continue; }
+      if (isImg) {
+        const data = await new Promise((ok) => { const r = new FileReader(); r.onload = () => ok(r.result); r.readAsDataURL(f); });
+        const kind = (prompt(`${f.name}: save as a character lock, or as research?  (lock / research)`, "lock") || "").trim().toLowerCase();
+        if (!kind) continue;
+        try {
+          if (kind.startsWith("lock") || kind.startsWith("char")) { if (await saveLock("", data, f.name)) { m.className = "msg ok"; m.textContent = `${f.name} is now that character's lock.`; } }
+          else { const r = await api(B("/save"), { method: "POST", body: { kind: kind.startsWith("mat") ? "material" : "research", name: f.name, data } });
+                 S.st.files = r.files; sidebar(); m.className = "msg ok"; m.textContent = `Saved ${r.path}`; }
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      } else {
+        const text = await f.text();
+        S.chat.push({ role: "user", content: `${f.name}\n\n${text}` });
+        try { await api(B("/save"), { method: "POST", body: { kind: "material", name: f.name.replace(/\.[^.]+$/, ""), text } }); }
+        catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+        await load(); sidebar();
+        m.className = "msg ok"; m.textContent = `${f.name} saved as material. Ask about it, or save parts of it elsewhere.`;
+      }
+    }
+    // a dropped text file is in the chat so it can be talked about; it is not sent until you say something
+    drawChat();
+  }
+
+  // ---- run -----------------------------------------------------------------------------------
+  function runView(update) {
+    const st = S.st, r = st.run || {}, main = $("#main");
+    const going = r.status === "running";
+    const drawn = st.pages.filter((p) => p.art);
+    const prev = drawn.find((p) => p.page === (r.preview || 1)) || drawn[0];
+    const recent = [...drawn].sort((a, b) => b.art - a.art).slice(0, 12);
+    const stepsHtml = (r.steps || []).map((s) => `<li class="${s.end ? "done" : s.start ? "now" : ""}"><i>${s.end ? "✓" : s.start ? "●" : "○"}</i>${esc(s.title)}</li>`).join("");
+    const last = { done: `<p class="ok"><b>Done.</b> ${money(r.spent)} spent. <a href="?b=${enc(S.slug)}&m=pages" data-go="pages">See the pages →</a></p>`,
+                   stopped: `<p><b>Stopped.</b> ${esc(r.error || "")}</p>`,
+                   failed: `<p class="bad"><b>It stopped on a problem:</b> ${esc(r.error || "")}</p>` }[r.status] || "";
+    const html = `<div class="run">
+      <section class="card" style="display:grid;gap:1rem">
+        ${going ? `
+          <h2>${esc((r.steps || []).find((s) => s.start && !s.end)?.title || "Working")}…</h2>
+          <div class="bar"><i style="width:${Math.round((r.progress || 0) * 100)}%"></i></div>
+          <div class="nums"><div><b>${Math.round((r.progress || 0) * 100)}%</b><span class="small muted">done</span></div>
+            <div><b>${mins(r.eta || 0)}</b><span class="small muted">about left</span></div>
+            <div><b>${money(r.spent)}</b><span class="small muted">of ${money(r.budget)}</span></div></div>
+          <div class="row"><button class="warn" id="stop">Stop</button><span class="small muted">Finished pages are kept.</span></div>
+          <ul class="steps">${stepsHtml}</ul>`
+        : `
+          ${last}
+          <h2>Run the book</h2>
+          <p class="muted small" style="margin:0">Next: ${esc(st.next.join(" → "))}. It takes the room's suggested answer to any open question, shows a preview page as soon as it can, then draws the pages in order.</p>
+          <div class="row">
+            <label class="field"><span class="small muted">Pages in the book</span><input id="pages" type="number" min="1" max="200" value="${st.settings.pages || ""}" placeholder="the plan's"></label>
+            <label class="field"><span class="small muted">Max budget ($)</span><input id="budget" type="number" min="1" step="1" value="${r.budget || 25}"></label>
+          </div>
+          ${st.next[0] !== "Reading your material" ? `<label class="small"><input type="checkbox" id="fresh"> Rewrite from the plan instead of going on from where it stopped</label>` : ""}
+          <p class="small muted" style="margin:0">Drawing is about ${money(st.cost_page)} a page. It stops itself before going over the budget.</p>
+          ${st.has_key ? "" : `<p class="bad small">No OpenRouter key on this server. Add one in <a href="/room">the room</a>.</p>`}
+          <div class="row"><button class="go" id="run" ${st.has_key ? "" : "disabled"}>Run</button><span class="msg" id="rmsg"></span></div>
+          ${r.steps ? `<details><summary class="small muted">Last run's steps</summary><ul class="steps">${stepsHtml}</ul></details>` : ""}`}
+      </section>
+      <section class="preview">
+        <h2>${prev ? `Preview · page ${prev.page}` : "Preview"}</h2>
+        ${prev ? `<a class="shot" href="?b=${enc(S.slug)}&m=pages" data-go="pages"><img src="${pageImg(prev)}" alt="Page ${prev.page}"></a>`
+               : `<div class="cover"><span class="muted">The first finished page shows here as soon as it is drawn.</span></div>`}
+        ${recent.length > 1 ? `<h2 style="margin-top:1rem">As they're made</h2><div class="strip">${recent.map((p) => `<a class="shot" href="?b=${enc(S.slug)}&m=pages" data-go="pages" title="Page ${p.page}"><img src="${pageImg(p)}" alt="Page ${p.page}" loading="lazy"></a>`).join("")}</div>` : ""}
+      </section></div>`;
+    const sig = JSON.stringify([going, r.status, r.progress, r.spent, r.eta, r.step, drawn.map((p) => [p.page, p.art, p.lettered])]);
+    if (update && main.dataset.sig === sig) return;
+    if (update && !going && main.dataset.going === "false" && $("#budget")) return;   // leave the form alone while it's being filled
+    main.dataset.sig = sig; main.dataset.going = String(going);
+    main.innerHTML = html;
+    main.querySelectorAll("[data-go]").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ m: a.dataset.go }); });
+    twoStep($("#stop"), "Yes, stop", async () => { await api(B("/stop"), { method: "POST" }); await load(); runView(); });
+    const rb = $("#run");
+    if (rb) twoStep(rb, "Yes, run it", async () => {
+      const m = $("#rmsg"), budget = +$("#budget").value, pages = +$("#pages").value || null;
+      try {
+        if (pages !== (st.settings.pages || null)) await api(B("/pages"), { method: "PUT", body: { pages } });
+        await api(B("/run"), { method: "POST", body: { budget, fresh: !!($("#fresh") && $("#fresh").checked) } });
+        await load(); tabs(); main.dataset.sig = ""; runView();
+      } catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+    });
+  }
+
+  // ---- pages ---------------------------------------------------------------------------------
+  function scriptPage(text, big) {
+    const panels = [];
+    let cur = null;
+    for (const line of (text || "").split("\n")) {
+      const p = line.match(/^\s*\*\*Panel\s+(\d+)\.?\*\*\.?\s*(.*)/i);
+      if (p) { cur = { n: p[1], desc: p[2], lines: [] }; panels.push(cur); continue; }
+      if (!cur || !line.trim() || /^PAGE CHECK/i.test(line) || /^##/.test(line)) continue;
+      const d = line.match(/^\s*([A-Z][A-Z0-9 .'’()\-]{1,40}?)(?:\s*\(([^)]*)\))?:\s*(.+)/);
+      if (d) cur.lines.push({ who: d[1].trim(), text: d[3].replace(/\*+/g, ""), cap: /CAPTION|NARRAT/i.test(d[1]) });
+      else cur.desc += " " + line.trim();
+    }
+    if (!panels.length) return `<div class="scriptpage ${big ? "big" : ""}"><div class="pn"><em>${esc((text || "Not written yet.").slice(0, 600))}</em></div></div>`;
+    const cut = (s, n) => big || s.length <= n ? s : s.slice(0, n) + "…";
+    return `<div class="scriptpage ${big ? "big" : ""}">${panels.map((p) => `<div class="pn"><em>${esc(cut(p.desc.replace(/\*\*/g, ""), 110))}</em>
+      ${p.lines.map((l) => l.cap ? `<span class="cp">${esc(cut(l.text, 90))}</span>` : `<span class="bl"><b>${esc(l.who)}</b> ${esc(cut(l.text, 90))}</span>`).join("")}</div>`).join("")}</div>`;
+  }
+
+  function pagesView(update) {
+    const st = S.st, main = $("#main");
+    const sig = JSON.stringify(st.pages.map((p) => [p.page, p.art, p.lettered, p.state]));
+    if (update && main.dataset.psig === sig) return;
+    main.dataset.psig = sig; main.dataset.sig = "";
+    if (!st.pages.length) {
+      main.innerHTML = `<div class="empty">No pages yet. <a href="?b=${enc(S.slug)}&m=run" data-go="run">Run the book</a> to write and draw it.</div>`;
+      main.querySelector("[data-go]").onclick = (e) => { e.preventDefault(); go({ m: "run" }); };
+      return;
+    }
+    const drawn = st.pages.filter((p) => p.art).length;
+    main.innerHTML = `<div class="pagebar"><span class="muted">${st.pages.length} pages · ${drawn} drawn${st.running ? " · <b>working…</b>" : ""}</span>
+        <div class="row"><input id="vname" placeholder="Version name" style="width:12rem"><button id="vsave">Save as version</button><span class="msg small" id="vmsg"></span></div></div>
+      <div class="pages">${st.pages.map((p) => `<button class="pg ${p.state === "drawing" ? "drawing" : ""}" data-page="${p.page}">
+        ${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" loading="lazy">` : scriptPage(p.script)}
+        <div class="cap"><span>Page ${p.page}</span>${p.problems.length ? `<span class="flag">check</span>` : p.art ? "" : `<span>script</span>`}</div></button>`).join("")}</div>`;
+    main.querySelectorAll(".pg").forEach((b) => b.onclick = () => openPage(+b.dataset.page));
+    $("#vsave").onclick = async () => {
+      const m = $("#vmsg");
+      try { const v = await api(B("/versions"), { method: "POST", body: { name: $("#vname").value } }); m.className = "msg small ok"; m.textContent = `Saved “${v.name}”.`; $("#vname").value = ""; }
+      catch (e) { m.className = "msg small bad"; m.textContent = e.message; }
+    };
+  }
+
+  async function openPage(n) {
+    const dlg = $("#dlg");
+    const p = S.st.pages.find((x) => x.page === n);
+    let view = p.art ? "page" : "script", L = null;
+    try { L = await api(P(`/lettering/${n}`)); } catch { L = null; }
+    const items = L?.items || [];
+    const paint = () => {
+      const busy = S.st.running;
+      dlg.innerHTML = `<div class="dlg">
+        <div class="pic">${view === "page" && p.art ? `<img src="${pageImg(p)}" alt="Page ${n}">` : scriptPage(p.script, true)}</div>
+        <div class="sidepane">
+          <header><h2 style="margin:0">Page ${n}</h2><span class="row">
+            ${n > 1 ? `<button class="quiet" id="prev">←</button>` : ""}<button class="quiet" id="next">→</button><button id="x" aria-label="Close">×</button></span></header>
+          ${p.art ? `<div class="row"><button class="quiet ${view === "page" ? "go" : ""}" data-v="page">Drawn</button><button class="quiet ${view === "script" ? "go" : ""}" data-v="script">Script</button></div>` : ""}
+          ${p.problems.length ? `<div class="notes"><b>The art check noticed:</b><ul>${p.problems.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
+          <div class="card"><h2>Drawing</h2><div class="row">
+            <button class="warn" id="redraw" ${busy || !p.script ? "disabled" : ""}>${p.art ? "Redraw this page" : "Draw this page"}</button>
+            ${p.art ? `<button id="back" ${busy ? "disabled" : ""}>Bring back the earlier drawing</button>` : ""}</div>
+            <p class="small muted">About ${money(S.st.cost_page)}. The current drawing is kept.</p><div class="msg" id="dmsg"></div></div>
+          ${items.length ? `<div class="card"><h2>Words</h2><div class="words">${items.map((it) => `<label>${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}${it.panel ? ` · panel ${it.panel}` : ""}
+              <textarea rows="${Math.min(5, 1 + Math.ceil((it.text || "").length / 48))}" data-i="${it.i}">${esc(it.text)}</textarea></label>`).join("")}</div>
+            <div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words${p.art ? " and letter the page" : ""}</button></div>
+            <p class="small muted">Free.</p><div class="msg" id="wmsg"></div></div>` : ""}
+          <div class="card"><h2>Change something else</h2>
+            <textarea id="note" rows="3" placeholder="Say what should change on this page, plainly. The room picks it up on the next run."></textarea>
+            <div class="row" style="margin-top:.5rem"><button id="nsave">Save note</button></div><div class="msg" id="nmsg"></div></div>
+        </div></div>`;
+      $("#x", dlg).onclick = () => dlg.close();
+      const nb = $("#next", dlg), pb = $("#prev", dlg);
+      const idx = S.st.pages.findIndex((x) => x.page === n);
+      if (nb) nb.onclick = () => S.st.pages[idx + 1] && openPage(S.st.pages[idx + 1].page);
+      if (pb) pb.onclick = () => S.st.pages[idx - 1] && openPage(S.st.pages[idx - 1].page);
+      dlg.querySelectorAll("[data-v]").forEach((b) => b.onclick = () => { view = b.dataset.v; paint(); });
+      twoStep($("#redraw", dlg), `Yes, about ${money(S.st.cost_page)}`, async () => {
+        const m = $("#dmsg", dlg);
+        try { await api(`/api/easy/${enc(S.slug)}/draw`, { method: "POST", body: { pages: [n], again: !!p.art } });
+              m.className = "msg ok"; m.textContent = "Drawing… a minute or two."; await load(); tabs(); }
+        catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      });
+      const bb = $("#back", dlg);
+      if (bb) bb.onclick = async () => {
+        try { await api(`/api/easy/${enc(S.slug)}/restore/${n}`, { method: "POST" }); await load(); Object.assign(p, S.st.pages.find((x) => x.page === n)); paint(); pagesView(); }
+        catch (e) { const m = $("#dmsg", dlg); m.className = "msg bad"; m.textContent = e.message; }
+      };
+      const ws = $("#wsave", dlg);
+      if (ws) ws.onclick = async () => {
+        const m = $("#wmsg", dlg), changes = {};
+        dlg.querySelectorAll("textarea[data-i]").forEach((t) => {
+          const it = items.find((x) => String(x.i) === t.dataset.i);
+          if (it && t.value.trim() !== (it.text || "").trim()) changes[t.dataset.i] = { text: t.value };
+        });
+        ws.disabled = true; m.className = "msg"; m.textContent = "Saving…";
+        try {
+          if (Object.keys(changes).length) await api(P(`/lettering/${n}`), { method: "PUT", body: { changes } });
+          if (p.art) await api(P(`/render/sunburst/letter`), { method: "POST", body: { pages: [n] } });
+          await load(); Object.assign(p, S.st.pages.find((x) => x.page === n)); view = "page"; paint(); pagesView();
+          $("#wmsg", dlg).className = "msg ok"; $("#wmsg", dlg).textContent = "Saved.";
+        } catch (e) { m.className = "msg bad"; m.textContent = e.message; ws.disabled = false; }
+      };
+      $("#nsave", dlg).onclick = async () => {
+        const m = $("#nmsg", dlg), text = $("#note", dlg).value.trim();
+        if (!text) return;
+        try { await api(P("/notes"), { method: "POST", body: { text, page: n } }); $("#note", dlg).value = ""; m.className = "msg ok"; m.textContent = "Saved for the next run."; }
+        catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+      };
+    };
+    paint();
+    if (!dlg.open) dlg.showModal();
+  }
+
+  // ---- versions ------------------------------------------------------------------------------
+  function versionsView() {
+    const st = S.st, main = $("#main");
+    const when = (t) => new Date(t * 1000).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+    main.innerHTML = `<div style="display:grid;gap:1rem">
+      <div class="card"><h2>Save this version</h2><div class="row"><input id="vname" placeholder="A short name, e.g. “first full draw”" style="flex:1;min-width:12rem">
+        <button class="go" id="vsave">Save</button></div><p class="small muted">Keeps the material, script and every drawn page as they are now.</p><div class="msg" id="vmsg"></div></div>
+      <div class="vers">${st.versions.map((v) => `<div class="card ver"><div><b>${esc(v.name)}</b> <span class="muted small">${when(v.t)} · ${v.drawn} pages drawn${v.auto ? " · saved automatically" : ""}</span></div>
+        <div class="row"><button class="quiet" data-cmp="${esc(v.id)}">Compare with now</button><button class="warn" data-back="${esc(v.id)}">Bring back</button></div></div>`).join("")
+        || `<div class="empty">No versions yet.</div>`}</div>
+      <div id="cmp"></div></div>`;
+    $("#vsave").onclick = async () => {
+      const m = $("#vmsg");
+      try { await api(B("/versions"), { method: "POST", body: { name: $("#vname").value } }); await load(); versionsView(); }
+      catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+    };
+    main.querySelectorAll("[data-cmp]").forEach((b) => b.onclick = () => compare(st.versions.find((v) => v.id === b.dataset.cmp)));
+    main.querySelectorAll("[data-back]").forEach((b) => twoStep(b, "Yes, bring it back", async () => {
+      try { await api(B(`/versions/${enc(b.dataset.back)}/restore`), { method: "POST" }); await load(); versionsView(); }
+      catch (e) { $("#vmsg").className = "msg bad"; $("#vmsg").textContent = e.message; }
+    }));
+  }
+
+  function compare(v) {
+    const pages = S.st.pages.filter((p) => p.art || p.page <= (v.pages || 0)).map((p) => p.page);
+    $("#cmp").innerHTML = `<h2>${esc(v.name)} ↔ now</h2><div class="compare">${pages.map((n) => {
+      const p = S.st.pages.find((x) => x.page === n);
+      return `<div class="pair"><figure><img src="${B(`/versions/${enc(v.id)}/page/${n}`)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'cover',innerHTML:'<span class=muted>not drawn</span>'}))" style="width:100%;aspect-ratio:6.625/10.25;object-fit:cover;border-radius:6px">
+        <figcaption>p${n} · ${esc(v.name)}</figcaption></figure>
+        <figure>${p && p.art ? `<img src="${pageImg(p)}" alt="" loading="lazy" style="width:100%;aspect-ratio:6.625/10.25;object-fit:cover;border-radius:6px">` : `<div class="cover"><span class="muted">not drawn</span></div>`}
+        <figcaption>p${n} · now</figcaption></figure></div>`;
+    }).join("") || `<p class="muted">No drawn pages to compare.</p>`}</div>`;
+    $("#cmp").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function show() { $("#main").dataset.sig = ""; $("#main").dataset.psig = ""; S.slug ? book() : shelf(); }
+  show();
+})();
+</script>
+</body>
+</html>

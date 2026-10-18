@@ -1526,3 +1526,159 @@ def easy_draw(slug: str, body: EasyDraw):
 @app.post("/api/easy/{slug}/restore/{page}")
 def easy_restore(slug: str, page: int):
     return not_found(easy.restore, slug, page)
+
+
+# ---- the studio: every book on a shelf, and one book in create, run, pages or versions (app/studio.py) ----
+
+from . import studio  # noqa: E402 - kept with its routes, so the studio can be taken out in one piece
+
+
+def _st(fn, *args):
+    try:
+        return not_found(fn, *args)
+    except RuntimeError as e:
+        raise HTTPException(409, str(e))
+
+
+@app.get("/studio")
+def studio_page():
+    """The studio: the shelf of books; open one in the mode it is at - create, run, pages, versions."""
+    return FileResponse(STATIC / "studio.html")
+
+
+class StudioSay(BaseModel):
+    text: str
+
+
+class StudioSave(BaseModel):
+    kind: str                   # material, research or rule
+    name: str = ""
+    text: str | None = None
+    data: str | None = None     # an image, base64 or a data: URL
+
+
+class StudioLock(BaseModel):
+    name: str
+    look: str | None = None     # words Sunburst draws the character from
+    data: str | None = None     # or an image that is the lock as it is
+    draw: bool = True           # words: draw them now, or only save them
+
+
+class StudioLockAct(BaseModel):
+    note: str = ""
+    file: str = ""
+
+
+class StudioRun(BaseModel):
+    budget: float
+    fresh: bool = False         # rewrite from the plan, rather than going on from where it stopped
+
+
+class StudioName(BaseModel):
+    name: str = ""
+
+
+class StudioPages(BaseModel):
+    pages: int | None = None
+
+
+@app.get("/api/studio/books")
+def studio_books():
+    return {"books": studio.books()}
+
+
+@app.get("/api/studio/{slug}")
+def studio_state(slug: str):
+    return _st(studio.state, slug)
+
+
+@app.get("/api/studio/{slug}/chat")
+def studio_chat(slug: str):
+    return {"messages": _st(studio.chat_history, slug)}
+
+
+@app.post("/api/studio/{slug}/chat")
+def studio_say(slug: str, body: StudioSay):
+    return _st(studio.say, slug, body.text)
+
+
+@app.delete("/api/studio/{slug}/chat")
+def studio_clear(slug: str):
+    return _st(studio.clear_chat, slug)
+
+
+@app.post("/api/studio/{slug}/save")
+def studio_save(slug: str, body: StudioSave):
+    if body.data:
+        return _st(studio.save_image, slug, body.kind, body.name, body.data)
+    return _st(studio.save_text, slug, body.kind, body.name, body.text)
+
+
+@app.post("/api/studio/{slug}/locks")
+def studio_save_lock(slug: str, body: StudioLock):
+    return _st(studio.save_lock, slug, body.name, body.look, body.data, body.draw)
+
+
+@app.post("/api/studio/{slug}/locks/{folder}/redraw")
+def studio_redraw_lock(slug: str, folder: str, body: StudioLockAct):
+    return _st(studio.redraw_lock, slug, folder, body.note)
+
+
+@app.post("/api/studio/{slug}/locks/{folder}/keep")
+def studio_keep_lock(slug: str, folder: str, body: StudioLockAct):
+    return _st(studio.keep_lock, slug, folder, body.file)
+
+
+@app.post("/api/studio/{slug}/locks/{folder}/discard")
+def studio_discard_lock(slug: str, folder: str, body: StudioLockAct):
+    return _st(studio.discard_lock, slug, folder, body.file)
+
+
+@app.get("/api/studio/{slug}/file")
+def studio_file(slug: str, path: str):
+    return FileResponse(_st(studio.read_file, slug, path))
+
+
+@app.delete("/api/studio/{slug}/file")
+def studio_remove(slug: str, path: str):
+    return _st(studio.remove_file, slug, path)
+
+
+@app.put("/api/studio/{slug}/pages")
+def studio_set_pages(slug: str, body: StudioPages):
+    return _st(studio.set_pages, slug, body.pages)
+
+
+@app.post("/api/studio/{slug}/run")
+def studio_run(slug: str, body: StudioRun):
+    return _st(studio.start_run, slug, body.budget, body.fresh)
+
+
+@app.post("/api/studio/{slug}/stop")
+def studio_stop(slug: str):
+    return _st(studio.stop_run, slug)
+
+
+@app.get("/api/studio/{slug}/page/{name}")
+def studio_page_image(slug: str, name: str, kind: str = "lettered"):
+    if kind not in ("art", "lettered") or not re.fullmatch(r"p\d{2,3}\.png", name):
+        raise HTTPException(404)
+    p = render.folder(slug, studio.TAG, kind) / name
+    if not p.is_file():
+        raise HTTPException(404)
+    return FileResponse(p, headers={"Cache-Control": "no-cache"})
+
+
+@app.post("/api/studio/{slug}/versions")
+def studio_save_version(slug: str, body: StudioName):
+    return _st(studio.save_version, slug, body.name)
+
+
+@app.get("/api/studio/{slug}/versions/{vid}/page/{n}")
+def studio_version_page(slug: str, vid: str, n: int):
+    return FileResponse(_st(studio.version_page, slug, vid, n))
+
+
+@app.post("/api/studio/{slug}/versions/{vid}/restore")
+def studio_restore_version(slug: str, vid: str):
+    return _st(studio.restore_version, slug, vid)
