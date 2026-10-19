@@ -965,6 +965,10 @@ def page_say(slug, n, text, texts=None, delete=None):
         return save_words(slug, n, texts, delete)
     _check_free(slug, n)
     key = riff._key()
+    from . import easy
+    kept = _art(slug, "art", n).is_file()
+    if kept:
+        easy._keep_copy(slug, [n])      # before any word changes: the copy has the words it showed
     fnote = _apply_words(slug, n, fields)[1] if fields else ""
     hist = page_chat(slug, n)
     hist.append({"role": "user", "content": text[:8000] + (f"\n\n(Changed in the word fields already, exactly as typed:\n{fnote})" if fnote else ""),
@@ -1006,19 +1010,19 @@ def page_say(slug, n, text, texts=None, delete=None):
                     done.append(f"words not changed: {e}")
             if (act.get("art") or "").strip():
                 try:
-                    fix_page(slug, n, act["art"].strip(), note)
+                    fix_page(slug, n, act["art"].strip(), note, kept=kept)
                     done.append("redrawing the page")
                 except ValueError as e:
                     done.append(f"not redrawn: {e}")
             elif note and _art(slug, "art", n).is_file():
                 try:
-                    reletter(slug, n, note)
+                    reletter(slug, n, note, kept=kept)
                     done.append("lettering the page again")
                 except ValueError as e:
                     done.append(f"not lettered: {e}")
     if fnote and not done and _art(slug, "art", n).is_file():
         try:
-            reletter(slug, n, fnote)
+            reletter(slug, n, fnote, kept=kept)
             done.append("lettering the page again")
         except ValueError as e:
             done.append(f"not lettered: {e}")
@@ -1079,9 +1083,13 @@ def save_words(slug, n, texts, delete):
     if not words:
         return page_state(slug, n)
     _check_free(slug, n)
+    from . import easy
+    drawn = _art(slug, "art", n).is_file()
+    if drawn:
+        easy._keep_copy(slug, [n])      # before the words change, so the copy has the words it showed
     _, note = _apply_words(slug, n, words)
-    if note and _art(slug, "art", n).is_file():
-        reletter(slug, n, note)
+    if note and drawn:
+        reletter(slug, n, note, kept=True)
     return page_state(slug, n)
 
 
@@ -1138,14 +1146,15 @@ def _letter_with_model(slug, n, note, key):
             base.unlink(missing_ok=True)
 
 
-def reletter(slug, n, note):
+def reletter(slug, n, note, kept=False):
     """Letter page n again with Sunburst after its words changed, in the background."""
     from . import easy
     key = render.api_key()
     if not key:
         raise ValueError("no OpenRouter key")
     jk = (slug, n)
-    easy._keep_copy(slug, [n])
+    if not kept:
+        easy._keep_copy(slug, [n])
     _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": note}
     render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="letter", started=time.time())
 
@@ -1165,7 +1174,7 @@ def reletter(slug, n, note):
 _fix_jobs = {}
 
 
-def fix_page(slug, n, note, letter_note=""):
+def fix_page(slug, n, note, letter_note="", kept=False):
     """Redraw page n from its own drawing with one change, art-checked; the drawing before is kept."""
     from . import easy, prompts
     key = render.api_key()
@@ -1180,7 +1189,8 @@ def fix_page(slug, n, note, letter_note=""):
     jk = (slug, n)
     if (_fix_jobs.get(jk) or {}).get("state") == "running" or easy.running(slug):
         raise ValueError("this book is being drawn - wait for it to finish")
-    easy._keep_copy(slug, [n])
+    if not kept:
+        easy._keep_copy(slug, [n])
     ctx = {**prompts.context(slug), "slug": slug, "lettering": "layer"}
     base = art.parent / f".fix-p{n:02d}.png"      # the drawing being fixed, kept still while the new one lands
     shutil.copyfile(art, base)

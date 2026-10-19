@@ -8,6 +8,7 @@ is a copy of every drawing before it is drawn again:
     campaigns/<slug>/renders/sunburst/previous/<time>/lettered/p01.png
 
 so "bring back the earlier drawing" is always one button away."""
+import json
 import shutil
 import time
 
@@ -75,10 +76,16 @@ KINDS = ("art", "lettered", "lettered-model")     # a page's art and its two kin
 
 
 def _keep_copy(slug, pages):
-    """Copy the current art and lettering of these pages aside before they are drawn again."""
+    """Copy the current art and lettering of these pages aside before they are drawn again, with
+    each page's layout block - its words - so bringing a page back brings back its words too."""
+    from . import lettering
     to = render.folder(slug, TAG) / "previous" / (time.strftime("%Y%m%d-%H%M%S") + f"-{int(time.time() * 1000) % 1000:03d}")
     kept = []
     for n in pages:
+        spec = lettering.page_spec(slug, n)
+        if spec:
+            (to / "layout").mkdir(parents=True, exist_ok=True)
+            (to / "layout" / f"p{n:02d}.json").write_text(json.dumps(spec, ensure_ascii=False, indent=1))
         for kind in KINDS:
             src = _png(render.folder(slug, TAG, kind), n)
             if src.is_file():
@@ -121,9 +128,14 @@ def restore(slug, n):
         d = render.folder(slug, TAG, kind)
         d.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(_png(src / kind, n), _png(d, n))
+    words = src / "layout" / f"p{n:02d}.json"
+    if words.is_file():
+        from . import lettering
+        lettering.write_spec(slug, n, json.loads(words.read_text()))
+        words.unlink()
     for kind in KINDS:     # this page's copy is back in place; the one just kept
         _png(src / kind, n).unlink(missing_ok=True)    # replaces it. Other pages' copies stay
-    for d in (*(src / k for k in KINDS), src):
+    for d in (*(src / k for k in (*KINDS, "layout")), src):
         if d.is_dir() and not any(d.iterdir()):
             d.rmdir()
     return status(slug)
