@@ -831,6 +831,10 @@ Two kinds of fix:
   itself can change for free, at once.
 - ART: anything in the drawing - hands, fingers, poses, faces, props, who is where. The page is then
   redrawn from itself with only that change, about ${cost:.2f}, and the drawing before is kept.
+- SOUND EFFECTS: any redraw draws every sound effect into the art, big and hand-lettered, spelled as
+  the layout has it, and takes it off the lettering layer. So to make a sound effect bigger, bolder or
+  move it, send an ART fix and keep the item (change its "text" if the spelling changes) - never
+  delete it.
 
 Look at the page yourself. When the showrunner's ask is clear, apply it - don't ask for permission.
 When it is not clear which character, panel or hand they mean, ask one short question. Never change
@@ -967,6 +971,12 @@ def page_say(slug, n, text):
             act = None
             done.append("couldn't read the change - say it again")
         if isinstance(act, dict):
+            if act.get("words") and (act.get("art") or "").strip():
+                # a redraw draws the sound effects into the art, so a sound effect the chat moves there stays
+                # in the layout (the drawing prompt lists it, the overlay then leaves it out)
+                sfx = {it["i"] for it in lettering.items(lettering.page_spec(slug, n) or {}) if it["type"] == "sfx"}
+                act["words"] = {k: v for k, v in act["words"].items()
+                                if not (isinstance(v, dict) and v.get("delete") and str(k).isdigit() and int(k) in sfx)}
             if act.get("words"):
                 try:
                     done.append(_apply_words(slug, n, act["words"]))

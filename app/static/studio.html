@@ -312,13 +312,14 @@
     const drawingLock = (S.st?.locks || []).some((l) => l.job && l.job.state === "running");
     const fixing = S.page && S.pg && (S.pg.fix.state === "running" || S.pg.state === "drawing");
     if (fixing) { pageView(true); return; }
-    if (!was && S.mode !== "run" && !drawingLock) return;           // nothing moves unless something is running
+    const drawingPage = S.mode === "pages" && !S.page && (S.st?.pages || []).some((p) => p.state === "drawing");
+    if (!was && S.mode !== "run" && !drawingLock && !drawingPage) return;           // nothing moves unless something is running
     try { await load(); } catch { return; }
     if (S.mode === "create" && (drawingLock || was)) sidebar();
     tabs();
     if (S.mode === "run") runView(true);
     if (S.mode === "pages" && !S.page) pagesView(true);
-    if (was && !S.st.running && S.mode === "pages" && !S.page) pagesView();
+    if ((was && !S.st.running || drawingPage) && S.mode === "pages" && !S.page) pagesView(true);
   }
 
   // ---- create: the chat ---------------------------------------------------------------------
