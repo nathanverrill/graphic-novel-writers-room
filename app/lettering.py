@@ -13,6 +13,7 @@ what you typed. Everything is in page fractions (0-1), so the overlay fits any r
 """
 import html
 import json
+import os
 import math
 import re
 
@@ -510,10 +511,15 @@ def delete_item(slug, page, index):
 
 
 def write_spec(slug, page, spec):
-    """Save the page's layout block, and redraw the sketch, which is drawn from it."""
+    """Save the page's layout block, and redraw the sketch, which is drawn from it. layouts.md keeps
+    its time: a lettering edit is not a new layout, so a run must not redraw the drawn pages for it."""
     md = projects.read_artifact(slug, "layouts.md") or ""
     layouts = replace_block(md, page, spec)
+    path = projects.project_dir(slug) / "layouts.md"
+    times = path.stat() if path.is_file() else None
     projects.write_artifact(slug, "layouts.md", layouts)
+    if times:
+        os.utime(path, (times.st_atime, times.st_mtime))
     drawn, _, _ = thumbnails.render_layouts(layouts, projects.read_artifact(slug, "thumbnails.md"))
     projects.write_artifact(slug, "thumbnails.md", drawn)
 
