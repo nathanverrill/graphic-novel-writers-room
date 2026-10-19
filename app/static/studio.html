@@ -707,12 +707,12 @@
             ${prev ? `<a class="quiet btn" href="?b=${enc(S.slug)}&m=pages&p=${prev.page}" data-p="${prev.page}" title="Page ${prev.page}">‹</a>` : ""}
             ${next ? `<a class="quiet btn" href="?b=${enc(S.slug)}&m=pages&p=${next.page}" data-p="${next.page}" title="Page ${next.page}">›</a>` : ""}</span></div>
         ${pg.words.length ? `<section><div class="words" id="words">${wordFields(pg)}</div>
-          <div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words</button><span class="msg small" id="wmsg"></span></div></section>` : ""}
+          ${pg.art ? "" : `<div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words</button><span class="msg small" id="wmsg"></span></div>`}</section>` : ""}
         ${startBox(pg)}
         <section class="pchat" ${pg.art ? "" : "hidden"}>
           <div class="thread" id="thread">${thread(pg)}</div>
-          <textarea id="say" rows="3" placeholder="What should change? “Remove the sixth finger on her left hand” · “She points with her right hand” · “The bubble in panel 2 points at the wrong person”"></textarea>
-          <div class="row"><button class="go" id="send">Send</button><span class="small muted">Words change free. A drawing change redraws the page, about ${money(pg.cost_page)}.</span></div>
+          <textarea id="say" rows="3" placeholder="${pg.words.length ? "Change the words above, and/or say what else should change. " : "What should change? "}“Remove the sixth finger on her left hand” · “She points with her right hand” · “The bubble in panel 2 points at the wrong person”"></textarea>
+          <div class="row"><button class="go" id="send">Update page</button><span class="small muted">A word change letters the page again, about ${money(pg.cost_page)}. A drawing change redraws and letters it, about ${money(2 * pg.cost_page)}.</span></div>
           <div class="msg small" id="cmsg"></div>
           <div class="row"><button class="quiet" id="back" ${pg.earlier ? "" : "hidden"}>Bring back the drawing before</button></div>
         </section>
@@ -721,26 +721,33 @@
     bindStart(n);
     main.querySelectorAll("[data-p]").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ p: a.dataset.p }); });
     bindWords();
-    const ws = $("#wsave");
-    if (ws) ws.onclick = async () => {
-      const texts = {}, del = [], m = $("#wmsg");
+    const edits = () => {      // the word fields: new words by item number, and the ones struck out
+      const texts = {}, del = [];
       main.querySelectorAll(".word").forEach((w) => {
         const i = w.dataset.i, t = $("textarea", w), it = pg.words.find((x) => String(x.i) === i);
         if (w.classList.contains("struck")) del.push(+i);
         else if (it && t.value.trim() !== it.text.trim()) texts[i] = t.value;
       });
+      return { texts, del };
+    };
+    const ws = $("#wsave");
+    if (ws) ws.onclick = async () => {
+      const { texts, del } = edits(), m = $("#wmsg");
       if (!del.length && !Object.keys(texts).length) { m.className = "msg small muted"; m.textContent = "Nothing changed."; return; }
-      ws.disabled = true; m.className = "msg small"; m.textContent = "Lettering the page…";
-      try { await api(B(`/pages/${n}/words`), { method: "PUT", body: { texts, delete: del } }); S.wordsDirty = false; await load(); await pageView(true); m.className = "msg small ok"; m.textContent = "Saved."; ws.disabled = false; }
+      ws.disabled = true; m.className = "msg small"; m.textContent = "Saving…";
+      try { await api(B(`/pages/${n}/words`), { method: "PUT", body: { texts, delete: del } }); S.wordsDirty = false; await load(); await pageView(); }
       catch (e) { m.className = "msg small bad"; m.textContent = e.message; ws.disabled = false; }
     };
     const send = async () => {
-      const t = $("#say").value.trim(), m = $("#cmsg");
-      if (!t || S.sending) return;
+      const t = $("#say").value.trim(), m = $("#cmsg"), { texts, del } = edits();
+      const changed = del.length + Object.keys(texts).length;
+      if (S.sending) return;
+      if (!t && !changed) { m.className = "msg small muted"; m.textContent = "Change some words or say what should change."; return; }
       S.sending = true; $("#send").disabled = true;
-      $("#thread").insertAdjacentHTML("beforeend", `<div class="m user pending">${esc(t)}</div><div class="m assistant thinking">Looking at the page…</div>`);
+      const said = t || `${changed} word change${changed > 1 ? "s" : ""}`;
+      $("#thread").insertAdjacentHTML("beforeend", `<div class="m user pending">${esc(said)}</div><div class="m assistant thinking">${t ? "Looking at the page…" : "Starting…"}</div>`);
       $("#say").value = ""; m.textContent = "";
-      try { await api(B(`/pages/${n}/chat`), { method: "POST", body: { text: t } }); await load(); await pageView(true); const th = $("#thread"); th.scrollTop = th.scrollHeight; }
+      try { await api(B(`/pages/${n}/chat`), { method: "POST", body: { text: t, texts, delete: del } }); S.wordsDirty = false; await load(); await pageView(); const th = $("#thread"); th.scrollTop = th.scrollHeight; }
       catch (e) { $("#thread .thinking")?.remove(); $("#thread .pending")?.remove(); $("#say").value = t; m.className = "msg small bad"; m.textContent = e.message; }
       finally { S.sending = false; const b = $("#send"); if (b) b.disabled = false; }
     };
@@ -755,8 +762,12 @@
   }
 
   const STAGES = [["drawing", "Draw"], ["checking", "Check"], ["placing", "Balloons"], ["lettering", "Letter"]];
+  const LETTER_STEPS = [["drawing", "Letter"], ["checking", "Check every word"]];
+  const lettering = (p) => p.job === "letter" || p.job === "fix-letter";
   function stageLabel(p) {
     if (p.stage === "layout") return "Laying out the page from the script";
+    const tryN = p.attempt > 1 ? ` · try ${p.attempt} of ${p.tries}` : "";
+    if (lettering(p)) return (p.stage === "checking" ? "Checking every word" : "Lettering the page") + tryN;
     if (p.stage === "checking") return "Checking hands, faces and words" + (p.attempt > 1 ? ` · try ${p.attempt} of ${p.tries}` : "");
     if (p.stage === "placing") return "Placing the balloons";
     if (p.stage === "lettering") return "Lettering";
@@ -765,19 +776,21 @@
 
   // a page being drawn or laid out: p carries stage, attempt, tries, started, est; panels are page fractions
   function drawing(p, panels, base) {
-    const at = STAGES.findIndex(([k]) => k === p.stage);
+    const steps = p.job === "letter" ? LETTER_STEPS : STAGES;
+    const at = p.job === "fix-letter" ? 3 : steps.findIndex(([k]) => k === p.stage);
+    const band = p.job === "fix-letter" ? "fixletter" : p.stage || "";
     const tiles = (panels || []).map(([x, y, w, h], i) =>
       `<div class="tile" style="left:${x * 100}%;top:${y * 100}%;width:${w * 100}%;height:${h * 100}%;animation-delay:${(i * .25).toFixed(2)}s,${(i * .12).toFixed(2)}s"></div>`).join("");
-    return `<div class="drawbox ${esc(p.stage || "")} ${base ? "redo" : ""}" data-prog data-started="${p.started || 0}" data-est="${p.est || 120}" data-stage="${esc(p.stage || "")}" data-attempt="${p.attempt || 1}">
+    return `<div class="drawbox ${esc(p.stage || "")} ${base ? "redo" : ""}" data-prog data-started="${p.started || 0}" data-est="${p.est || 120}" data-stage="${esc(band)}" data-attempt="${p.attempt || 1}">
       ${base ? `<img class="base" src="${base}" alt="">` : ""}${tiles}
       <div class="status" role="status" aria-live="polite"><b>${esc(stageLabel(p))}</b>
         <div class="bar"><i></i></div>
-        ${p.stage === "layout" ? "" : `<div class="steps">${STAGES.map(([k, l], i) => `<span class="${i < at ? "done" : i === at ? "now" : ""}">${l}</span>`).join("")}</div>`}
+        ${p.stage === "layout" ? "" : `<div class="steps">${steps.map(([k, l], i) => `<span class="${i < at ? "done" : i === at ? "now" : ""}">${l}</span>`).join("")}</div>`}
         <div class="time"></div></div></div>`;
   }
 
   // where the bar sits: time against the book's usual page time, held inside the band of the step it is on
-  const BANDS = { layout: [0, 95], drawing: [0, 62], checking: [62, 78], placing: [78, 93], lettering: [93, 98] };
+  const BANDS = { layout: [0, 95], fixletter: [80, 98], drawing: [0, 62], checking: [62, 78], placing: [78, 93], lettering: [93, 98] };
   function progTick() {
     const now = Date.now() / 1000 + (S.skew || 0);
     document.querySelectorAll("[data-prog]").forEach((el) => {

@@ -726,7 +726,8 @@ def pages(slug):
                     "state": st.get("state") or "", "problems": [p.get("what", "") for p in (st.get("check") or {}).get("problems") or []][:6],
                     "laid_out": n in laid,
                     **({"stage": st.get("stage") or "drawing", "attempt": st.get("attempt") or 1, "tries": artcheck.TRIES,
-                        "started": st.get("started") or 0, "est": est} if st.get("state") == "drawing" else {})})
+                        "job": st.get("job") or "", "started": st.get("started") or 0,
+                        "est": est * (2 if st.get("job") in ("fix", "fix-letter") else 1)} if st.get("state") == "drawing" else {})})
     return out
 
 
@@ -834,10 +835,11 @@ PAGE_SYSTEM = """You help the showrunner of {title} fix one finished comic page:
 now is attached: drawn art with the lettering over it.
 
 Two kinds of fix:
-- WORDS: the lettering is a separate layer, so a balloon's words, its spot, its tail, or the balloon
-  itself can change for free, at once.
+- WORDS: a balloon's words, its spot, its tail, or the balloon itself. The page is then lettered
+  again by the artist from the clean art, keeping the other balloons, about ${cost:.2f}.
 - ART: anything in the drawing - hands, fingers, poses, faces, props, who is where. The page is then
-  redrawn from itself with only that change, about ${cost:.2f}, and the drawing before is kept.
+  redrawn from itself with only that change, then lettered again, about ${cost2:.2f}, and the page
+  before is kept. Words and art in one reply cost the same as the art alone.
 - SOUND EFFECTS: any redraw draws every sound effect into the art, big and hand-lettered, spelled as
   the layout has it, and takes it off the lettering layer. So to make a sound effect bigger, bolder or
   move it, send an ART fix and keep the item (change its "text" if the spelling changes) - never
@@ -950,15 +952,24 @@ def _script_of(slug, n):
     return m.group(0).strip() if m else "(no script for this page)"
 
 
-def page_say(slug, n, text):
+def page_say(slug, n, text, texts=None, delete=None):
+    """One update of the page: the words changed in the fields, exactly as typed, and whatever the
+    message asks. Both go into one redraw - the lettering, or the art and then its lettering."""
     from . import lettering
     text = (text or "").strip()
-    if not text:
+    fields = {str(i): {"text": t} for i, t in (texts or {}).items()}
+    fields.update({str(i): {"delete": True} for i in delete or []})
+    if not text and not fields:
         raise ValueError("say what should change")
+    if not text:
+        return save_words(slug, n, texts, delete)
+    _check_free(slug, n)
     key = riff._key()
+    fnote = _apply_words(slug, n, fields)[1] if fields else ""
     hist = page_chat(slug, n)
-    hist.append({"role": "user", "content": text[:8000], "t": time.time()})
-    system = PAGE_SYSTEM.format(title=title(slug), n=n, cost=COST_PAGE, spots=", ".join(lettering.ANCHORS),
+    hist.append({"role": "user", "content": text[:8000] + (f"\n\n(Changed in the word fields already, exactly as typed:\n{fnote})" if fnote else ""),
+                 "t": time.time()})
+    system = PAGE_SYSTEM.format(title=title(slug), n=n, cost=COST_PAGE, cost2=2 * COST_PAGE, spots=", ".join(lettering.ANCHORS),
                                 items=_items_text(slug, n), script=_script_of(slug, n)[:12000])
     msgs = [{"role": m["role"], "content": m["content"]} for m in hist[-20:]]
     pic = _page_image(slug, n)
@@ -984,17 +995,33 @@ def page_say(slug, n, text):
                 sfx = {it["i"] for it in lettering.items(lettering.page_spec(slug, n) or {}) if it["type"] == "sfx"}
                 act["words"] = {k: v for k, v in act["words"].items()
                                 if not (isinstance(v, dict) and v.get("delete") and str(k).isdigit() and int(k) in sfx)}
+            note = fnote
             if act.get("words"):
                 try:
-                    done.append(_apply_words(slug, n, act["words"]))
+                    _check_free(slug, n)
+                    said, more = _apply_words(slug, n, act["words"])
+                    note = "\n".join(x for x in (note, more) if x)
+                    done.append(said)
                 except ValueError as e:
                     done.append(f"words not changed: {e}")
             if (act.get("art") or "").strip():
                 try:
-                    fix_page(slug, n, act["art"].strip())
+                    fix_page(slug, n, act["art"].strip(), note)
                     done.append("redrawing the page")
                 except ValueError as e:
                     done.append(f"not redrawn: {e}")
+            elif note and _art(slug, "art", n).is_file():
+                try:
+                    reletter(slug, n, note)
+                    done.append("lettering the page again")
+                except ValueError as e:
+                    done.append(f"not lettered: {e}")
+    if fnote and not done and _art(slug, "art", n).is_file():
+        try:
+            reletter(slug, n, fnote)
+            done.append("lettering the page again")
+        except ValueError as e:
+            done.append(f"not lettered: {e}")
     hist.append({"role": "assistant", "content": shown or "Done.", "t": time.time(), "cost": cost, "done": done,
                  "art": (act.get("art") if m and isinstance(act, dict) else None)})
     _page_file(slug, n).write_text(json.dumps(hist, indent=1))
@@ -1002,27 +1029,35 @@ def page_say(slug, n, text):
 
 
 def _apply_words(slug, n, words):
-    """The chat's lettering changes: text, a tail aimed at a spot on the page, a spot, a deletion."""
+    """The chat's or the fields' lettering changes - text, a tail aimed at a spot on the page, a
+    spot, a deletion - into the layout. Returns (summary, note): the note tells the lettering
+    redraw what changed. The page itself is lettered again by Sunburst (reletter)."""
     from . import lettering
     spec, rects, _, _ = _geometry(slug, n)
     items = {it["i"]: it for it in lettering.items(spec)}
-    changes, drop = {}, []
+    changes, drop, notes = {}, [], []
     for k, ch in (words or {}).items():
         i = int(k)
         if i not in items or not isinstance(ch, dict):
             raise ValueError(f"no item {k} on this page")
+        old = items[i]["text"]
         if ch.get("delete"):
             drop.append(i)
+            notes.append(f'remove the {items[i]["type"]} "{old}" entirely')
             continue
         c = {}
-        if "text" in ch:
+        if "text" in ch and " ".join(str(ch["text"]).split()) != " ".join(str(old).split()):
             c["text"] = str(ch["text"])
+            notes.append(f'the {items[i]["type"]} that read "{old}" now reads "{" ".join(str(ch["text"]).split())}"')
         if ch.get("at"):
             c["at"] = ch["at"]
+            notes.append(f'move "{old}" to the {ch["at"]} of its panel')
         t = ch.get("tail")
         if t == "none":
             c["tail"] = "none"
+            notes.append(f'"{old}" has no tail (the speaker is off panel)')
         elif isinstance(t, (list, tuple)) and len(t) == 2:
+            notes.append(f'point the tail of "{old}" at the spot {round(float(t[0]))}% across and {round(float(t[1]))}% down the page')
             r = rects.get(items[i].get("panel")) or (0, 0, 1, 1)
             c["tail_x"] = (float(t[0]) / 100 - r[0]) / r[2] * 100      # page percent to panel percent
             c["tail_y"] = (float(t[1]) / 100 - r[1]) / r[3] * 100
@@ -1032,9 +1067,8 @@ def _apply_words(slug, n, words):
         lettering.set_items(slug, n, changes)
     for i in sorted(drop, reverse=True):
         lettering.delete_item(slug, n, i)
-    if _art(slug, "art", n).is_file():
-        render.letter_pages(slug, TAG, [n])
-    return f"changed {len(changes) + len(drop)} balloon{'s' if len(changes) + len(drop) != 1 else ''}"
+    k = len(changes) + len(drop)
+    return f"changed {k} balloon{'s' if k != 1 else ''}", "\n".join(f"- {x}" for x in notes)
 
 
 def save_words(slug, n, texts, delete):
@@ -1044,14 +1078,94 @@ def save_words(slug, n, texts, delete):
         words[str(i)] = {"delete": True}
     if not words:
         return page_state(slug, n)
-    _apply_words(slug, n, words)
+    _check_free(slug, n)
+    _, note = _apply_words(slug, n, words)
+    if note and _art(slug, "art", n).is_file():
+        reletter(slug, n, note)
     return page_state(slug, n)
+
+
+def _check_free(slug, n):
+    from . import easy
+    if (_fix_jobs.get((slug, n)) or {}).get("state") == "running" or easy.running(slug):
+        raise ValueError("this page is being drawn - wait for it to finish")
+
+
+def _letter_lines(slug, n):
+    from . import lettering
+    spec = lettering.page_spec(slug, n) or {}
+    drawn = _sfx_drawn(slug, n)
+    return "\n".join(f'- Panel {i.get("panel")}, {i["type"]}' + (f' ({i["speaker"]})' if i.get("speaker") else "") + f': "{i["text"]}"'
+                     for i in lettering.items(spec) if i.get("text") and not (drawn and i["type"] == "sfx"))
+
+
+LETTER_PROMPT = """Letter this comic page. Image 1 is the finished art: keep every line of it EXACTLY the same and change nothing in the drawing. {now}
+Add only the lettering below, designed into the panels{ref}: clean white speech balloons with short tails and thin outlines, in calm space beside the speaker, the tail pointing at the speaker's mouth, never over a face, a hand or the key object; captions as small cream boxes with dark text in panel corners; place-and-time captions as small yellow boxes top-left. Use exactly these words, spelled and punctuated exactly, in uppercase comic lettering, in reading order. ADD NO OTHER TEXT: no captions, titles, place names, dates or words that are not in this list.
+{lines}"""
+
+
+def _letter_with_model(slug, n, note, key):
+    """Sunburst letters the clean art whole - the balloons drawn into the page - checked word for
+    word, into lettered-model/, which the page then shows. Returns the cost."""
+    art = _art(slug, "art", n)
+    shown = _shown(slug, n)
+    refs = [("the finished art: keep it exactly, add only the lettering", art)]
+    if shown:
+        base = art.parent / f".letter-p{n:02d}.png"
+        shutil.copyfile(shown, base)
+        refs.append(("the page as lettered now: keep each balloon's spot, size and look unless the changes say otherwise", base))
+    lref = projects.campaign_dir(slug) / "style" / "lettering-reference.png"
+    if lref.is_file():
+        refs.append(("lettering reference: letter in exactly this style", lref))
+    lines = _letter_lines(slug, n)
+    prompt = LETTER_PROMPT.format(
+        now=("Image 2 is the page as lettered now: keep its balloons where they are and as they look, and make only these changes:\n" + note + "\n") if shown and note
+        else ("Image 2 is the page as lettered now: keep its balloons where they are and as they look.\n" if shown else ""),
+        ref=" like the lettering reference" if lref.is_file() else "", lines=lines)
+    try:
+        t0 = time.time()
+        img, report, cost = artcheck.draw_checked(
+            lambda text, r: render.generate(render.MODELS[TAG], text, r, key), prompt, refs, key,
+            script=lines, lettered=True, stage=render.stager(slug, TAG, n))
+        d = render.folder(slug, TAG, "lettered-model")
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"p{n:02d}.png").write_bytes(img)
+        usage.ledger(slug, "studio", "page-letter", render.MODELS[TAG], cost, time.time() - t0, page=n,
+                     tries=len(report["attempts"]), check_pass=report["pass"])
+        return cost
+    finally:
+        if shown:
+            base.unlink(missing_ok=True)
+
+
+def reletter(slug, n, note):
+    """Letter page n again with Sunburst after its words changed, in the background."""
+    from . import easy
+    key = render.api_key()
+    if not key:
+        raise ValueError("no OpenRouter key")
+    jk = (slug, n)
+    easy._keep_copy(slug, [n])
+    _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": note}
+    render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="letter", started=time.time())
+
+    def work():
+        try:
+            cost = _letter_with_model(slug, n, note, key)
+            render._update(slug, TAG, n, state="done", stage=None, error=None)
+            _fix_jobs[jk] = {"state": "done", "cost": cost}
+        except Exception as e:      # noqa: BLE001 - shown on the page
+            render._update(slug, TAG, n, state="done", stage=None, error=str(e)[:400])
+            _fix_jobs[jk] = {"state": "failed", "error": str(e)[:300]}
+
+    threading.Thread(target=work, daemon=True).start()
+    return _fix_jobs[jk]
 
 
 _fix_jobs = {}
 
 
-def fix_page(slug, n, note):
+def fix_page(slug, n, note, letter_note=""):
     """Redraw page n from its own drawing with one change, art-checked; the drawing before is kept."""
     from . import easy, prompts
     key = render.api_key()
@@ -1078,7 +1192,7 @@ def fix_page(slug, n, note):
               f"\n\n**THE FIX.** Image 1 is this page as drawn now. Redraw it the same - same panels, "
               f"compositions, characters, colours and style - and change only this:\n{note}\n")
     _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": note}
-    render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, started=time.time())
+    render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="fix", started=time.time())
 
     def work():
         t0 = time.time()
@@ -1092,7 +1206,9 @@ def fix_page(slug, n, note):
                            check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
             usage.ledger(slug, "studio", "page-fix", render.MODELS[TAG], cost, time.time() - t0, page=n,
                          tries=len(report["attempts"]), check_pass=report["pass"])
-            render.after_drawing(slug, TAG, n)      # balloons the user placed stay where they are
+            render.after_drawing(slug, TAG, n)      # the overlay files, balloons where the user placed them
+            render._update(slug, TAG, n, stage="drawing", attempt=1, job="fix-letter")
+            cost += _letter_with_model(slug, n, letter_note, key)      # and the page lettered whole
             render._update(slug, TAG, n, state="done", stage=None, seconds=round(time.time() - t0))
             _fix_jobs[jk] = {"state": "done", "cost": cost}
         except Exception as e:      # noqa: BLE001 - shown on the page

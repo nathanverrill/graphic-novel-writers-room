@@ -71,13 +71,16 @@ def status(slug):
                        "drawing": sum(1 for p in pages if p["state"] == "drawing")}}
 
 
+KINDS = ("art", "lettered", "lettered-model")     # a page's art and its two kinds of lettering
+
+
 def _keep_copy(slug, pages):
     """Copy the current art and lettering of these pages aside before they are drawn again."""
-    art, let = render.folder(slug, TAG, "art"), render.folder(slug, TAG, "lettered")
     to = render.folder(slug, TAG) / "previous" / (time.strftime("%Y%m%d-%H%M%S") + f"-{int(time.time() * 1000) % 1000:03d}")
     kept = []
     for n in pages:
-        for src, kind in ((_png(art, n), "art"), (_png(let, n), "lettered")):
+        for kind in KINDS:
+            src = _png(render.folder(slug, TAG, kind), n)
             if src.is_file():
                 (to / kind).mkdir(parents=True, exist_ok=True)
                 shutil.copy2(src, to / kind / src.name)
@@ -111,15 +114,16 @@ def restore(slug, n):
     if not src:
         raise FileNotFoundError(f"no earlier drawing of page {n}")
     _keep_copy(slug, [n])
-    art, let = render.folder(slug, TAG, "art"), render.folder(slug, TAG, "lettered")
-    art.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(_png(src / "art", n), _png(art, n))          # copyfile: the art is new, so
-    if _png(src / "lettered", n).is_file():                       # its lettering, copied after,
-        let.mkdir(parents=True, exist_ok=True)                    # is newer still
-        shutil.copyfile(_png(src / "lettered", n), _png(let, n))
-    for kind in ("art", "lettered"):     # this page's copy is back in place; the one just kept
+    # copyfile gives each a new time: the art first, then its lettering oldest first, so the page
+    # shows the same lettering it showed when it was kept
+    lets = sorted((k for k in KINDS[1:] if _png(src / k, n).is_file()), key=lambda k: _png(src / k, n).stat().st_mtime)
+    for kind in ("art", *lets):
+        d = render.folder(slug, TAG, kind)
+        d.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(_png(src / kind, n), _png(d, n))
+    for kind in KINDS:     # this page's copy is back in place; the one just kept
         _png(src / kind, n).unlink(missing_ok=True)    # replaces it. Other pages' copies stay
-    for d in (src / "art", src / "lettered", src):
+    for d in (*(src / k for k in KINDS), src):
         if d.is_dir() and not any(d.iterdir()):
             d.rmdir()
     return status(slug)

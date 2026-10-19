@@ -1547,7 +1547,9 @@ def studio_page():
 
 
 class StudioSay(BaseModel):
-    text: str
+    text: str = ""
+    texts: dict[str, str] = {}      # the page editor's word fields, by item number
+    delete: list[int] = []
 
 
 class StudioSave(BaseModel):
@@ -1697,7 +1699,7 @@ def studio_page_state(slug: str, n: int):
 
 @app.post("/api/studio/{slug}/pages/{n}/chat")
 def studio_page_chat(slug: str, n: int, body: StudioSay):
-    return _st(studio.page_say, slug, n, body.text)
+    return _st(studio.page_say, slug, n, body.text, body.texts, body.delete)
 
 
 @app.post("/api/studio/{slug}/pages/{n}/layout")

@@ -212,7 +212,7 @@ def page(slug, tag, spec, ctx, key):
     n = spec["page"]
     refs = references(slug, tag, spec, ctx)
     sfx = sfx_words(spec, ctx)
-    _update(slug, tag, n, state="drawing", stage="drawing", attempt=1, refs=[str(p.name) for _, p in refs],
+    _update(slug, tag, n, state="drawing", stage="drawing", attempt=1, job="", refs=[str(p.name) for _, p in refs],
             started=time.time())
     try:
         art, report, cost = artcheck.draw_checked(lambda text, r: generate(MODELS[tag], text, r, key),
