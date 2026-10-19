@@ -1661,7 +1661,7 @@ def studio_stop(slug: str):
 
 @app.get("/api/studio/{slug}/page/{name}")
 def studio_page_image(slug: str, name: str, kind: str = "lettered"):
-    if kind not in ("art", "lettered") or not re.fullmatch(r"p\d{2,3}\.png", name):
+    if kind not in ("art", "lettered", "lettered-model") or not re.fullmatch(r"p\d{2,3}\.png", name):
         raise HTTPException(404)
     p = render.folder(slug, studio.TAG, kind) / name
     if not p.is_file():
@@ -1682,3 +1682,24 @@ def studio_version_page(slug: str, vid: str, n: int):
 @app.post("/api/studio/{slug}/versions/{vid}/restore")
 def studio_restore_version(slug: str, vid: str):
     return _st(studio.restore_version, slug, vid)
+
+
+class StudioWords(BaseModel):
+    texts: dict[str, str] = {}
+    delete: list[int] = []
+
+
+@app.get("/api/studio/{slug}/pages/{n}")
+def studio_page_state(slug: str, n: int):
+    """One page for the editor: its words, its chat, whether a fix is drawing."""
+    return _st(studio.page_state, slug, n)
+
+
+@app.post("/api/studio/{slug}/pages/{n}/chat")
+def studio_page_chat(slug: str, n: int, body: StudioSay):
+    return _st(studio.page_say, slug, n, body.text)
+
+
+@app.put("/api/studio/{slug}/pages/{n}/words")
+def studio_page_words(slug: str, n: int, body: StudioWords):
+    return _st(studio.save_words, slug, n, body.texts, body.delete)

@@ -324,6 +324,15 @@ def panel_block(n, panel_spec, items, page_spec):
             else:
                 lines.append(f"- {label} — {where(f)}")
     lettering = [i for i in items if i.get("type") in KIND or i.get("type") == "sfx"]
+    if page_spec.get("text_layer") and page_spec.get("sfx_art"):
+        sfx = [i for i in lettering if i.get("type") == "sfx"]
+        lettering = [i for i in lettering if i.get("type") != "sfx"]
+        if sfx:     # the one text the art carries: sound effects, drawn into the scene
+            lines += ["", "**Sound effects — draw these into the art** as bold, hand-drawn comic sound-effect "
+                      "lettering in the scene's light and perspective, part of the action, spelled exactly as written:", ""]
+            for item in sfx:
+                text = " ".join(str(item.get("text", "")).split()).upper()
+                lines.append(f"- \"{text}\" — {SFX_SIZE.get(item.get('size', 'medium'), 'medium')}, {where(item)}")
     if lettering and page_spec.get("text_layer"):
         lines += ["", "**Keep these areas clear — the lettering is added afterwards as a separate layer, "
                   "so draw no words here, just uncluttered art with room for a balloon:**", ""]
@@ -355,6 +364,13 @@ def panel_block(n, panel_spec, items, page_spec):
             extra = f" ({'; '.join(extras)})" if extras else ""
             lines.append(f"{i}. {desc}, {where(item)}{extra}: \"{text.upper()}\"")
     return "\n".join(lines)
+
+
+def sfx_in_art(ctx):
+    """Sound effects are drawn into the art (the default), where the image model makes them part
+    of the scene; balloons and captions stay on the lettering layer, exact and free to change.
+    The round setting "sfx": "layer" puts sound effects back on the layer."""
+    return (ctx or {}).get("sfx", "art") != "layer"
 
 
 def page_cast(spec, ctx):
@@ -399,8 +415,10 @@ def page_prompt(spec, ctx):
         ctx["style"] or "(no visual direction in the brief yet)",
     ]
     layer = ctx.get("lettering") == "layer"
+    sfx_art = layer and sfx_in_art(ctx) and any(i.get("type") == "sfx" for i in items)
     if layer:                    # the art is drawn with no text: say so where the model reads first
-        out[2] = out[2].replace(", and professional comic lettering.", ". NO TEXT anywhere on the page.")
+        out[2] = out[2].replace(", and professional comic lettering.",
+                                ". NO TEXT on the page except the sound effects listed." if sfx_art else ". NO TEXT anywhere on the page.")
     out.insert(1, PAGE_HEAD)
     if names:
         out += ["", "**Characters — draw them exactly as described:**", ""]
@@ -423,11 +441,14 @@ def page_prompt(spec, ctx):
     for item in items:
         by_panel.setdefault(item.get("panel"), []).append(item)
     for n, p in enumerate(panel_specs, 1):
-        out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer)), ""]
+        out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer, sfx_art=sfx_art)), ""]
     if layer:
         out += [
-            "**Rules:** draw NO text anywhere on this page — no balloons, no captions, no sound "
-            "effects, no page number, no titles, signatures or watermarks. The lettering is added "
+            ("**Rules:** draw NO text anywhere on this page except the sound effects listed, lettered exactly "
+             "as written — no balloons, no captions, no other words, no page number, no titles, signatures or watermarks."
+             if sfx_art else
+             "**Rules:** draw NO text anywhere on this page — no balloons, no captions, no sound "
+             "effects, no page number, no titles, signatures or watermarks.") + " The lettering is added "
             "afterwards on a transparent layer, so leave the areas listed under each panel "
             "uncluttered (sky, wall, shadow — nothing the reader needs to see). Keep the "
             "characters' looks identical to their descriptions.",
@@ -563,6 +584,7 @@ def context(slug, version=None):
         "pages": settings.get("pages"),
         "chapter": chapter,
         "lettering": settings.get("lettering") or "layer",
+        "sfx": settings.get("sfx") or "art",
         "style": section(read("brief.md"), "visual", "style", "look"),
         # straight apostrophes, so "ALEX'S DAUGHTER" in a layout finds "### ALEX’S DAUGHTER" in the bible
         "bible": read("characters.md").replace("\u2019", "'").replace("\u2018", "'"),

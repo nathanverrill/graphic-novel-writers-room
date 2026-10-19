@@ -147,8 +147,17 @@ UNLETTERED = ("\n\nTHIS PAGE IS ART ONLY: the lettering is added later on its ow
               "signs and screens are fine if spelled correctly.")
 
 
+UNLETTERED_SFX = ("\n\nTHIS PAGE IS ART PLUS SOUND EFFECTS: balloons and captions are added later on their own layer. "
+                  "Don't check for script lines. The only lettering drawn into the art should be these sound effects, "
+                  "each spelled exactly: {sfx}. A sound effect misspelled, missing or doubled is a major problem; any "
+                  "balloon, caption or lettered dialogue drawn into the art is a major problem; in-world signs and "
+                  "screens are fine if spelled correctly.")
+
+
 def check(art, script, refs, key, model=MODEL, lettered=True):
-    ask = ASK + ALWAYS + ("" if lettered else UNLETTERED)
+    """lettered: True (the page carries all its lettering), False (art only), or the sound
+    effects, as text, when the art carries those and nothing else."""
+    ask = ASK + ALWAYS + ("" if lettered is True else UNLETTERED_SFX.format(sfx=lettered) if lettered else UNLETTERED)
     content = [{"type": "text", "text": ask + "\n\n=== THE SCRIPT FOR THIS PAGE ===\n\n" + (script or "(none)")}]
     for label, path in refs or []:
         content += [{"type": "text", "text": f"Reference: {label}"},

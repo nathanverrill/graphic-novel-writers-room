@@ -154,6 +154,8 @@ def layer(spec, ctx=None, rects=None):
                    f'stroke-width="2.5" paint-order="stroke">{html.escape(label)}</text>')
     for item in items(spec):
         kind = item["type"]
+        if kind == "sfx" and ctx.get("skip_sfx"):     # this page's art carries its sound effects
+            continue
         start = len(out)      # everything this item draws is wrapped in <g data-item> below
         rect = rects.get(item.get("panel"), (MARGIN, MARGIN, 1 - 2 * MARGIN, 1 - 2 * MARGIN))
         cx, cy = (v for v in spot(item, rect))

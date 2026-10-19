@@ -136,6 +136,37 @@
   .notes { border-left: 3px solid var(--bad); padding: .3rem .7rem; font-size: .88rem; }
   .doc { white-space: pre-wrap; font-size: .9rem; max-height: 70vh; overflow: auto; padding: 1rem; }
 
+
+  /* pages: one long scroll, and a page's editor at its own address */
+  .reading { max-width: 880px; margin: 0 auto; display: grid; gap: 28px; }
+  .leaf { display: grid; gap: 6px; text-decoration: none; color: var(--ink); }
+  .leaf img { width: 100%; height: auto; display: block; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.25); background: var(--soft); }
+  .leaf .scriptpage { font-size: 1rem; padding: 1rem; gap: .8rem; box-shadow: 0 10px 30px rgba(0,0,0,.12); }
+  .leaf .scriptpage .bl b { font-size: .8rem; }
+  .leaf .cap { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+  .leaf .cap span:last-child { margin-left: auto; }
+  .leaf .flag { color: var(--bad); }
+  .leaf.drawing img, .leaf.drawing .scriptpage { outline: 2px solid var(--work); animation: pulse 1.4s infinite; }
+  .editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); gap: 1.4rem; align-items: start; }
+  @media (max-width: 56rem) { .editor { grid-template-columns: 1fr; } }
+  .editor .pic { position: sticky; top: 4.2rem; display: grid; justify-items: center; gap: .6rem; }
+  .editor .pic img { max-width: 100%; max-height: calc(100vh - 5.5rem); width: auto; height: auto; border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
+  .editor .pic .scriptpage { width: min(40rem, 100%); }
+  @media (max-width: 56rem) { .editor .pic { position: static; } .editor .pic img { max-height: none; } }
+  .fixing { font-size: .9rem; color: var(--work); }
+  .pane { display: grid; gap: 1.2rem; align-content: start; }
+  .ehead { display: flex; justify-content: space-between; align-items: center; gap: .6rem; }
+  .ehead a { text-decoration: none; }
+  a.btn { border: 1px solid var(--line); border-radius: 7px; padding: .1rem .6rem; color: var(--muted); }
+  .word { display: grid; grid-template-columns: 1fr auto; gap: .35rem; align-items: start; }
+  .word textarea { resize: vertical; }
+  .word.struck textarea { text-decoration: line-through; color: var(--muted); background: var(--soft); }
+  .word .x { padding: .3rem .55rem; }
+  .pchat { display: grid; gap: .6rem; }
+  .thread { display: grid; gap: .6rem; max-height: 50vh; overflow: auto; }
+  .thread .m.user { max-width: 92%; }
+  .done { margin-top: .4rem; display: flex; gap: .3rem; flex-wrap: wrap; }
+
   /* versions */
   .vers { display: grid; gap: .6rem; }
   .ver { display: flex; justify-content: space-between; gap: .8rem; align-items: center; flex-wrap: wrap; }
@@ -200,20 +231,25 @@
   }
 
   const q = new URLSearchParams(location.search);
-  const S = { slug: q.get("b") || "", mode: q.get("m") || "", st: null, chat: [], timer: null, cmp: null, sending: false };
+  const S = { slug: q.get("b") || "", mode: q.get("m") || "", page: q.get("p") || "", st: null, chat: [], timer: null, cmp: null, sending: false };
   const B = (p) => `/api/studio/${enc(S.slug)}${p}`;
   const P = (p) => `/api/projects/${enc(S.slug)}${p}`;
   const img = (n, kind, v) => B(`/page/p${pad(n)}.png?kind=${kind}&v=${v}`);
-  const pageImg = (p) => p.lettered && p.lettered >= p.art ? img(p.page, "lettered", p.lettered) : p.art ? img(p.page, "art", p.art) : "";
+  // the newest lettering made since the art: the room's layer, or a page Sunburst lettered whole
+  const pageImg = (p) => {
+    if (!p.art) return "";
+    const l = p.lettered >= p.art ? p.lettered : 0, m = p.model >= p.art ? p.model : 0;
+    return m > l ? img(p.page, "lettered-model", m) : l ? img(p.page, "lettered", l) : img(p.page, "art", p.art);
+  };
 
   function go(params) {
     const u = new URL(location.href);
     for (const [k, v] of Object.entries(params)) v ? u.searchParams.set(k, v) : u.searchParams.delete(k);
     history.pushState(null, "", u);
-    S.slug = u.searchParams.get("b") || ""; S.mode = u.searchParams.get("m") || "";
+    S.slug = u.searchParams.get("b") || ""; S.mode = u.searchParams.get("m") || ""; S.page = u.searchParams.get("p") || "";
     show();
   }
-  window.onpopstate = () => { const u = new URLSearchParams(location.search); S.slug = u.get("b") || ""; S.mode = u.get("m") || ""; show(); };
+  window.onpopstate = () => { const u = new URLSearchParams(location.search); if (S.page && !u.get("p")) S.from = +S.page; S.slug = u.get("b") || ""; S.mode = u.get("m") || ""; S.page = u.get("p") || ""; show(); };
 
   // ---- the shelf ------------------------------------------------------------------------
   async function shelf() {
@@ -254,7 +290,10 @@
     document.title = `${S.st.title} · Studio`;
     $("#crumb").innerHTML = `<span class="muted">/</span> <b>${esc(S.st.title)}</b>`;
     tabs();
-    ({ create, run: runView, pages: pagesView, versions: versionsView }[S.mode] || create)();
+    if (S.mode !== "pages") S.page = "";
+    window.scrollTo(0, 0);
+    if (S.mode === "pages" && S.page) pageView();
+    else ({ create, run: runView, pages: pagesView, versions: versionsView }[S.mode] || create)();
     clearInterval(S.timer);
     S.timer = setInterval(tick, 4000);
   }
@@ -271,13 +310,15 @@
     if (!S.slug || document.hidden) return;
     const was = S.st && S.st.running;
     const drawingLock = (S.st?.locks || []).some((l) => l.job && l.job.state === "running");
+    const fixing = S.page && S.pg && (S.pg.fix.state === "running" || S.pg.state === "drawing");
+    if (fixing) { pageView(true); return; }
     if (!was && S.mode !== "run" && !drawingLock) return;           // nothing moves unless something is running
     try { await load(); } catch { return; }
     if (S.mode === "create" && (drawingLock || was)) sidebar();
     tabs();
     if (S.mode === "run") runView(true);
-    if (S.mode === "pages") pagesView(true);
-    if (was && !S.st.running && S.mode === "pages") pagesView();
+    if (S.mode === "pages" && !S.page) pagesView(true);
+    if (was && !S.st.running && S.mode === "pages" && !S.page) pagesView();
   }
 
   // ---- create: the chat ---------------------------------------------------------------------
@@ -569,9 +610,10 @@
       ${p.lines.map((l) => l.cap ? `<span class="cp">${esc(cut(l.text, 90))}</span>` : `<span class="bl"><b>${esc(l.who)}</b> ${esc(cut(l.text, 90))}</span>`).join("")}</div>`).join("")}</div>`;
   }
 
+  // The book as one long scroll; a page opens at its own address (&p=N) as the editor.
   function pagesView(update) {
     const st = S.st, main = $("#main");
-    const sig = JSON.stringify(st.pages.map((p) => [p.page, p.art, p.lettered, p.state]));
+    const sig = JSON.stringify(st.pages.map((p) => [p.page, p.art, p.lettered, p.model, p.state]));
     if (update && main.dataset.psig === sig) return;
     main.dataset.psig = sig; main.dataset.sig = "";
     if (!st.pages.length) {
@@ -579,88 +621,127 @@
       main.querySelector("[data-go]").onclick = (e) => { e.preventDefault(); go({ m: "run" }); };
       return;
     }
+    const keep = update ? window.scrollY : null;
     const drawn = st.pages.filter((p) => p.art).length;
-    main.innerHTML = `<div class="pagebar"><span class="muted">${st.pages.length} pages · ${drawn} drawn${st.running ? " · <b>working…</b>" : ""}</span>
+    main.innerHTML = `<div class="reading">
+      <div class="pagebar"><span class="muted">${st.pages.length} pages · ${drawn} drawn${st.running ? " · <b>working…</b>" : ""}</span>
         <div class="row"><input id="vname" placeholder="Version name" style="width:12rem"><button id="vsave">Save as version</button><span class="msg small" id="vmsg"></span></div></div>
-      <div class="pages">${st.pages.map((p) => `<button class="pg ${p.state === "drawing" ? "drawing" : ""}" data-page="${p.page}">
-        ${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" loading="lazy">` : scriptPage(p.script)}
-        <div class="cap"><span>Page ${p.page}</span>${p.problems.length ? `<span class="flag">check</span>` : p.art ? "" : `<span>script</span>`}</div></button>`).join("")}</div>`;
-    main.querySelectorAll(".pg").forEach((b) => b.onclick = () => openPage(+b.dataset.page));
+      ${st.pages.map((p) => `<a class="leaf ${p.state === "drawing" ? "drawing" : ""}" id="p${p.page}" href="?b=${enc(S.slug)}&m=pages&p=${p.page}" data-page="${p.page}">
+        ${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" width="1024" height="1536" loading="${p.page <= 2 ? "eager" : "lazy"}">` : scriptPage(p.script, false)}
+        <span class="cap">${p.problems.length ? `<span class="flag">the art check noticed something</span>` : p.art ? "" : `<span>script, not drawn yet</span>`}<span>${p.page}</span></span></a>`).join("")}
+    </div>`;
+    main.querySelectorAll("a.leaf").forEach((a) => a.onclick = (e) => {
+      if (e.metaKey || e.ctrlKey) return;
+      e.preventDefault(); S.from = +a.dataset.page; S.scroll = window.scrollY; go({ p: a.dataset.page });
+    });
     $("#vsave").onclick = async () => {
       const m = $("#vmsg");
       try { const v = await api(B("/versions"), { method: "POST", body: { name: $("#vname").value } }); m.className = "msg small ok"; m.textContent = `Saved “${v.name}”.`; $("#vname").value = ""; }
       catch (e) { m.className = "msg small bad"; m.textContent = e.message; }
     };
+    if (keep !== null) window.scrollTo(0, keep);
+    else if (S.from) { const el = $(`#p${S.from}`); if (el) el.scrollIntoView({ block: "center" }); S.from = 0; }
   }
 
-  async function openPage(n) {
-    const dlg = $("#dlg");
-    const p = S.st.pages.find((x) => x.page === n);
-    let view = p.art ? "page" : "script", L = null;
-    try { L = await api(P(`/lettering/${n}`)); } catch { L = null; }
-    const items = L?.items || [];
-    const paint = () => {
-      const busy = S.st.running;
-      dlg.innerHTML = `<div class="dlg">
-        <div class="pic">${view === "page" && p.art ? `<img src="${pageImg(p)}" alt="Page ${n}">` : scriptPage(p.script, true)}</div>
-        <div class="sidepane">
-          <header><h2 style="margin:0">Page ${n}</h2><span class="row">
-            ${n > 1 ? `<button class="quiet" id="prev">←</button>` : ""}<button class="quiet" id="next">→</button><button id="x" aria-label="Close">×</button></span></header>
-          ${p.art ? `<div class="row"><button class="quiet ${view === "page" ? "go" : ""}" data-v="page">Drawn</button><button class="quiet ${view === "script" ? "go" : ""}" data-v="script">Script</button></div>` : ""}
-          ${p.problems.length ? `<div class="notes"><b>The art check noticed:</b><ul>${p.problems.map((x) => `<li>${esc(x)}</li>`).join("")}</ul></div>` : ""}
-          <div class="card"><h2>Drawing</h2><div class="row">
-            <button class="warn" id="redraw" ${busy || !p.script ? "disabled" : ""}>${p.art ? "Redraw this page" : "Draw this page"}</button>
-            ${p.art ? `<button id="back" ${busy ? "disabled" : ""}>Bring back the earlier drawing</button>` : ""}</div>
-            <p class="small muted">About ${money(S.st.cost_page)}. The current drawing is kept.</p><div class="msg" id="dmsg"></div></div>
-          ${items.length ? `<div class="card"><h2>Words</h2><div class="words">${items.map((it) => `<label>${esc(it.type)}${it.speaker ? ` · ${esc(it.speaker)}` : ""}${it.panel ? ` · panel ${it.panel}` : ""}
-              <textarea rows="${Math.min(5, 1 + Math.ceil((it.text || "").length / 48))}" data-i="${it.i}">${esc(it.text)}</textarea></label>`).join("")}</div>
-            <div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words${p.art ? " and letter the page" : ""}</button></div>
-            <p class="small muted">Free.</p><div class="msg" id="wmsg"></div></div>` : ""}
-          <div class="card"><h2>Change something else</h2>
-            <textarea id="note" rows="3" placeholder="Say what should change on this page, plainly. The room picks it up on the next run."></textarea>
-            <div class="row" style="margin-top:.5rem"><button id="nsave">Save note</button></div><div class="msg" id="nmsg"></div></div>
-        </div></div>`;
-      $("#x", dlg).onclick = () => dlg.close();
-      const nb = $("#next", dlg), pb = $("#prev", dlg);
-      const idx = S.st.pages.findIndex((x) => x.page === n);
-      if (nb) nb.onclick = () => S.st.pages[idx + 1] && openPage(S.st.pages[idx + 1].page);
-      if (pb) pb.onclick = () => S.st.pages[idx - 1] && openPage(S.st.pages[idx - 1].page);
-      dlg.querySelectorAll("[data-v]").forEach((b) => b.onclick = () => { view = b.dataset.v; paint(); });
-      twoStep($("#redraw", dlg), `Yes, about ${money(S.st.cost_page)}`, async () => {
-        const m = $("#dmsg", dlg);
-        try { await api(`/api/easy/${enc(S.slug)}/draw`, { method: "POST", body: { pages: [n], again: !!p.art } });
-              m.className = "msg ok"; m.textContent = "Drawing… a minute or two."; await load(); tabs(); }
-        catch (e) { m.className = "msg bad"; m.textContent = e.message; }
+  // ---- one page: the editor --------------------------------------------------------------------
+  async function pageView(update) {
+    const n = +S.page, main = $("#main");
+    let pg;
+    try { pg = await api(B(`/pages/${n}`)); } catch (e) { main.innerHTML = `<p class="bad">${esc(e.message)}</p>`; return; }
+    S.pg = pg;
+    const fixing = pg.fix.state === "running" || pg.state === "drawing";
+    if (update) {           // a fix finished or moved on: repaint the picture and chat, keep what's being typed
+      const sig = [pg.art, pg.lettered, pg.model, pg.state, pg.fix.state, pg.chat.length].join();
+      if (main.dataset.esig === sig) return;
+      main.dataset.esig = sig;
+      $("#pic").innerHTML = picture(pg, fixing);
+      $("#thread").innerHTML = thread(pg);
+      $("#back") && ($("#back").hidden = !pg.earlier);
+      if (!S.wordsDirty && $("#words")) { $("#words").innerHTML = wordFields(pg); bindWords(); }
+      return;
+    }
+    S.wordsDirty = false;
+    main.dataset.esig = [pg.art, pg.lettered, pg.model, pg.state, pg.fix.state, pg.chat.length].join();
+    main.dataset.psig = "";
+    const list = S.st.pages, idx = list.findIndex((x) => x.page === n);
+    const prev = list[idx - 1], next = list[idx + 1];
+    main.innerHTML = `<div class="editor">
+      <div class="pic" id="pic">${picture(pg, fixing)}</div>
+      <div class="pane">
+        <div class="ehead"><a href="?b=${enc(S.slug)}&m=pages" id="tolist">← All pages</a>
+          <span class="row"><b>Page ${n}</b>
+            ${prev ? `<a class="quiet btn" href="?b=${enc(S.slug)}&m=pages&p=${prev.page}" data-p="${prev.page}" title="Page ${prev.page}">‹</a>` : ""}
+            ${next ? `<a class="quiet btn" href="?b=${enc(S.slug)}&m=pages&p=${next.page}" data-p="${next.page}" title="Page ${next.page}">›</a>` : ""}</span></div>
+        ${pg.words.length ? `<section><div class="words" id="words">${wordFields(pg)}</div>
+          <div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words</button><span class="msg small" id="wmsg"></span></div></section>` : ""}
+        <section class="pchat">
+          <div class="thread" id="thread">${thread(pg)}</div>
+          <textarea id="say" rows="3" placeholder="What should change? “Remove the sixth finger on her left hand” · “She points with her right hand” · “The bubble in panel 2 points at the wrong person”"></textarea>
+          <div class="row"><button class="go" id="send">Send</button><span class="small muted">Words change free. A drawing change redraws the page, about ${money(pg.cost_page)}.</span></div>
+          <div class="msg small" id="cmsg"></div>
+          <div class="row"><button class="quiet" id="back" ${pg.earlier ? "" : "hidden"}>Bring back the drawing before</button></div>
+        </section>
+      </div></div>`;
+    $("#tolist").onclick = (e) => { e.preventDefault(); S.from = n; go({ p: "" }); };
+    main.querySelectorAll("[data-p]").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ p: a.dataset.p }); });
+    bindWords();
+    const ws = $("#wsave");
+    if (ws) ws.onclick = async () => {
+      const texts = {}, del = [], m = $("#wmsg");
+      main.querySelectorAll(".word").forEach((w) => {
+        const i = w.dataset.i, t = $("textarea", w), it = pg.words.find((x) => String(x.i) === i);
+        if (w.classList.contains("struck")) del.push(+i);
+        else if (it && t.value.trim() !== it.text.trim()) texts[i] = t.value;
       });
-      const bb = $("#back", dlg);
-      if (bb) bb.onclick = async () => {
-        try { await api(`/api/easy/${enc(S.slug)}/restore/${n}`, { method: "POST" }); await load(); Object.assign(p, S.st.pages.find((x) => x.page === n)); paint(); pagesView(); }
-        catch (e) { const m = $("#dmsg", dlg); m.className = "msg bad"; m.textContent = e.message; }
-      };
-      const ws = $("#wsave", dlg);
-      if (ws) ws.onclick = async () => {
-        const m = $("#wmsg", dlg), changes = {};
-        dlg.querySelectorAll("textarea[data-i]").forEach((t) => {
-          const it = items.find((x) => String(x.i) === t.dataset.i);
-          if (it && t.value.trim() !== (it.text || "").trim()) changes[t.dataset.i] = { text: t.value };
-        });
-        ws.disabled = true; m.className = "msg"; m.textContent = "Saving…";
-        try {
-          if (Object.keys(changes).length) await api(P(`/lettering/${n}`), { method: "PUT", body: { changes } });
-          if (p.art) await api(P(`/render/sunburst/letter`), { method: "POST", body: { pages: [n] } });
-          await load(); Object.assign(p, S.st.pages.find((x) => x.page === n)); view = "page"; paint(); pagesView();
-          $("#wmsg", dlg).className = "msg ok"; $("#wmsg", dlg).textContent = "Saved.";
-        } catch (e) { m.className = "msg bad"; m.textContent = e.message; ws.disabled = false; }
-      };
-      $("#nsave", dlg).onclick = async () => {
-        const m = $("#nmsg", dlg), text = $("#note", dlg).value.trim();
-        if (!text) return;
-        try { await api(P("/notes"), { method: "POST", body: { text, page: n } }); $("#note", dlg).value = ""; m.className = "msg ok"; m.textContent = "Saved for the next run."; }
-        catch (e) { m.className = "msg bad"; m.textContent = e.message; }
-      };
+      if (!del.length && !Object.keys(texts).length) { m.className = "msg small muted"; m.textContent = "Nothing changed."; return; }
+      ws.disabled = true; m.className = "msg small"; m.textContent = "Lettering the page…";
+      try { await api(B(`/pages/${n}/words`), { method: "PUT", body: { texts, delete: del } }); S.wordsDirty = false; await load(); await pageView(true); m.className = "msg small ok"; m.textContent = "Saved."; ws.disabled = false; }
+      catch (e) { m.className = "msg small bad"; m.textContent = e.message; ws.disabled = false; }
     };
-    paint();
-    if (!dlg.open) dlg.showModal();
+    const send = async () => {
+      const t = $("#say").value.trim(), m = $("#cmsg");
+      if (!t || S.sending) return;
+      S.sending = true; $("#send").disabled = true;
+      $("#thread").insertAdjacentHTML("beforeend", `<div class="m user pending">${esc(t)}</div><div class="m assistant thinking">Looking at the page…</div>`);
+      $("#say").value = ""; m.textContent = "";
+      try { await api(B(`/pages/${n}/chat`), { method: "POST", body: { text: t } }); await load(); await pageView(true); const th = $("#thread"); th.scrollTop = th.scrollHeight; }
+      catch (e) { $("#thread .thinking")?.remove(); $("#thread .pending")?.remove(); $("#say").value = t; m.className = "msg small bad"; m.textContent = e.message; }
+      finally { S.sending = false; const b = $("#send"); if (b) b.disabled = false; }
+    };
+    $("#send").onclick = send;
+    $("#say").onkeydown = (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) send(); };
+    $("#back").onclick = async () => {
+      try { await api(`/api/easy/${enc(S.slug)}/restore/${n}`, { method: "POST" }); await load(); pageView(); }
+      catch (e) { const m = $("#cmsg"); m.className = "msg small bad"; m.textContent = e.message; }
+    };
+    const t = $("#thread"); t.scrollTop = t.scrollHeight;
+  }
+
+  function picture(pg, fixing) {
+    const p = { ...pg };
+    return `${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}">` : scriptPage(p.script, true)}
+      ${fixing ? `<div class="fixing">Redrawing… a minute or two. The page updates here.</div>` : ""}
+      ${pg.fix.state === "failed" ? `<div class="fixing bad">The redraw failed: ${esc(pg.fix.error || "")}</div>` : ""}`;
+  }
+
+  function wordFields(pg) {
+    return pg.words.map((w) => `<div class="word" data-i="${w.i}">
+      <textarea rows="${Math.min(4, 1 + Math.floor((w.text || "").length / 44))}" aria-label="Words">${esc(w.text)}</textarea>
+      <button class="quiet x" title="Remove these words" aria-label="Remove">✕</button></div>`).join("");
+  }
+
+  function bindWords() {
+    document.querySelectorAll(".word").forEach((w) => {
+      const t = $("textarea", w), x = $(".x", w);
+      t.oninput = () => { S.wordsDirty = true; };
+      x.onclick = () => { S.wordsDirty = true; const on = w.classList.toggle("struck"); t.readOnly = on; x.textContent = on ? "↺" : "✕"; x.title = on ? "Keep these words" : "Remove these words"; };
+    });
+  }
+
+  function thread(pg) {
+    if (!pg.chat.length) return `<p class="small muted">Say what's wrong with the page. It looks at the page, asks if it needs to, then makes the change.</p>`;
+    return pg.chat.map((m) => m.role === "user" ? `<div class="m user">${esc(m.content)}</div>`
+      : `<div class="m assistant">${md(m.content)}${(m.done || []).length ? `<div class="done">${m.done.map((d) => `<span class="chip">${esc(d)}</span>`).join(" ")}</div>` : ""}</div>`).join("");
   }
 
   // ---- versions ------------------------------------------------------------------------------

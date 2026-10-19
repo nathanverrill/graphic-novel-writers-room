@@ -74,6 +74,17 @@ def _art(slug, kind, n):
     return render.folder(slug, TAG, kind) / f"p{n:02d}.png"
 
 
+def _shown(slug, n):
+    """The page as a reader sees it: the newest lettering made since the art was drawn - the
+    room's layer (lettered/) or a page Sunburst lettered whole (lettered-model/) - else None."""
+    a = _art(slug, "art", n)
+    if not a.is_file():
+        return None
+    done = [p for p in (_art(slug, "lettered", n), _art(slug, "lettered-model", n))
+            if p.is_file() and p.stat().st_mtime >= a.stat().st_mtime]
+    return max(done, key=lambda p: p.stat().st_mtime) if done else None
+
+
 def running(slug):
     t = _threads.get(slug)
     return bool(t and t.is_alive()) or magic.state(slug)["active"] or bool(room.active_run(slug)) \
@@ -702,11 +713,12 @@ def pages(slug):
     nums = sorted(set(texts) | {s["page"] for s in render.book(slug)})
     out = []
     for n in nums:
-        a, l = _art(slug, "art", n), _art(slug, "lettered", n)
+        a, l, m = _art(slug, "art", n), _art(slug, "lettered", n), _art(slug, "lettered-model", n)
         st = checks.get(str(n), {})
         out.append({"page": n, "script": texts.get(n, ""),
                     "art": int(a.stat().st_mtime) if a.is_file() else 0,
                     "lettered": int(l.stat().st_mtime) if l.is_file() else 0,
+                    "model": int(m.stat().st_mtime) if m.is_file() else 0,
                     "state": st.get("state") or "", "problems": [p.get("what", "") for p in (st.get("check") or {}).get("problems") or []][:6]})
     return out
 
@@ -730,7 +742,7 @@ def set_pages(slug, n):
 # ---- versions ------------------------------------------------------------------------------
 
 SNAP_DIRS = (projects.INPUT, projects.REFERENCES, projects.RULES, projects.DRAFTS,
-             f"renders/{TAG}/art", f"renders/{TAG}/lettered", "style/locks")
+             f"renders/{TAG}/art", f"renders/{TAG}/lettered", f"renders/{TAG}/lettered-model", f"renders/{TAG}/overlay", "style/locks")
 SNAP_FILES = (projects.PRE, projects.PROD)      # their top-level files, not their rounds
 
 
@@ -802,3 +814,282 @@ def restore_version(slug, vid):
         for p in (src / sub).glob("*") if (src / sub).is_dir() else []:
             shutil.copy2(p, base / sub / p.name)
     return meta
+
+
+# ---- one page: its words, and a chat that fixes it ---------------------------------------------
+#
+# The page editor: the page full size, its words as plain fields, and a chat. The chat sees the
+# page as drawn and lettered, asks what it needs to, and when the change is clear applies it: a
+# lettering change at once (free), an art change by redrawing this page from itself (Sunburst,
+# art-checked), the drawing before kept so it can be brought back.
+
+PAGE_SYSTEM = """You help the showrunner of {title} fix one finished comic page: page {n}. The page as it is
+now is attached: drawn art with the lettering over it.
+
+Two kinds of fix:
+- WORDS: the lettering is a separate layer, so a balloon's words, its spot, its tail, or the balloon
+  itself can change for free, at once.
+- ART: anything in the drawing - hands, fingers, poses, faces, props, who is where. The page is then
+  redrawn from itself with only that change, about ${cost:.2f}, and the drawing before is kept.
+
+Look at the page yourself. When the showrunner's ask is clear, apply it - don't ask for permission.
+When it is not clear which character, panel or hand they mean, ask one short question. Never change
+the script's words unless the showrunner asks for new words.
+
+To apply, end your reply with one fenced block, and say in one plain line before it what you did:
+
+```apply
+{{"words": {{"<item number>": {{"text": "new words"}} | {{"delete": true}} | {{"tail": [x, y]}} | {{"tail": "none"}} | {{"at": "<spot>"}}}},
+ "art": "for the artist: exactly what to change, where (panel, character, which hand), and what to keep"}}
+```
+
+Use only the keys you need ("words", "art" or both). "tail": [x, y] points the tail at that spot,
+in percent of the whole page (0,0 top-left; 100,100 bottom-right) - aim at the speaker's mouth or head.
+A spot is one of: {spots}. Keep "art" concrete and visual: "Panel 3: Min points with her RIGHT index finger;
+her left hand rests on the table, five fingers" - never a story note.
+
+The lettering on the page, by item number (positions in percent of the page):
+{items}
+
+The script for this page:
+{script}"""
+
+
+def _page_file(slug, n):
+    d = _dir(slug) / "pages"
+    d.mkdir(exist_ok=True)
+    return d / f"p{n:02d}.json"
+
+
+def page_chat(slug, n):
+    try:
+        return json.loads(_page_file(slug, n).read_text())
+    except (OSError, ValueError):
+        return []
+
+
+def _geometry(slug, n):
+    """(spec, rects, boxes, tails) for page n, the panels measured from its drawn art."""
+    from . import lettering, prompts
+    spec = lettering.page_spec(slug, n)
+    if not spec:
+        raise ValueError(f"page {n} has no layout yet, so its words can't be edited here")
+    rects = lettering.panel_rects(spec)
+    art = _art(slug, "art", n)
+    if art.is_file():
+        rects = lettering.detect_rects(spec, art.read_bytes()) or rects
+    _, boxes, tails = lettering.layer(spec, prompts.context(slug), rects)
+    return spec, rects, boxes, tails
+
+
+def page_words(slug, n):
+    """The page's words in reading order, for the editor's fields."""
+    from . import lettering
+    spec = lettering.page_spec(slug, n)
+    drawn = _sfx_drawn(slug, n)
+    return [{"i": it["i"], "text": it["text"], "type": it["type"]} for it in lettering.items(spec)
+            if not (drawn and it["type"] == "sfx")] if spec else []
+
+
+def _sfx_drawn(slug, n):
+    return bool(render.status(slug)["models"].get(TAG, {}).get("pages", {}).get(str(n), {}).get("sfx_art"))
+
+
+def _items_text(slug, n):
+    from . import lettering
+    try:
+        spec, rects, boxes, tails = _geometry(slug, n)
+    except ValueError:
+        return "(this page isn't laid out yet, so it has no lettering to change)"
+    pc = lambda v: round(v * 100)
+    drawn = _sfx_drawn(slug, n)
+    lines = []
+    for it in lettering.items(spec):
+        i, r = it["i"], rects.get(it.get("panel"))
+        where = f"panel {it.get('panel')}" + (f" (page x {pc(r[0])}-{pc(r[0] + r[2])}, y {pc(r[1])}-{pc(r[1] + r[3])})" if r else "")
+        box = boxes.get(i)
+        at = f"; box x {pc(box[0])}-{pc(box[2])}, y {pc(box[1])}-{pc(box[3])}" if box else ""
+        tail = f"; tail points at x {pc(tails[i][0])}, y {pc(tails[i][1])}" if i in tails else ""
+        who = f" {it['speaker']}" if it.get("speaker") else ""
+        if it["type"] == "sfx" and drawn:
+            lines.append(f"{i}. sound effect, {where}, drawn into the art (change it with an art fix, not words): \"{it['text']}\"")
+            continue
+        lines.append(f"{i}. {it['type']}{who}, {where}{at}{tail}: \"{it['text']}\"")
+    return "\n".join(lines) or "(no lettering)"
+
+
+def _page_image(slug, n):
+    """The page as the showrunner sees it, small enough to send: a JPEG data URL, or None."""
+    import io
+    from PIL import Image
+    a = _art(slug, "art", n)
+    src = _shown(slug, n) or a
+    if not src.is_file():
+        return None
+    im = Image.open(src).convert("RGB")
+    im.thumbnail((1100, 1650))
+    buf = io.BytesIO()
+    im.save(buf, "JPEG", quality=85)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
+
+
+def _script_of(slug, n):
+    script = projects.read_artifact(slug, "script.md") or ""
+    m = re.search(rf"^##\s*Page\s+{n}\b.*?(?=^##\s*Page\s+\d+|\Z)", script, re.M | re.S | re.I)
+    return m.group(0).strip() if m else "(no script for this page)"
+
+
+def page_say(slug, n, text):
+    from . import lettering
+    text = (text or "").strip()
+    if not text:
+        raise ValueError("say what should change")
+    key = riff._key()
+    hist = page_chat(slug, n)
+    hist.append({"role": "user", "content": text[:8000], "t": time.time()})
+    system = PAGE_SYSTEM.format(title=title(slug), n=n, cost=COST_PAGE, spots=", ".join(lettering.ANCHORS),
+                                items=_items_text(slug, n), script=_script_of(slug, n)[:12000])
+    msgs = [{"role": m["role"], "content": m["content"]} for m in hist[-20:]]
+    pic = _page_image(slug, n)
+    if pic:      # the page as it is now, with the newest message
+        msgs[-1] = {"role": "user", "content": [{"type": "image_url", "image_url": {"url": pic}},
+                                               {"type": "text", "text": msgs[-1]["content"]}]}
+    t0 = time.time()
+    reply, cost = riff._ask([{"role": "system", "content": system}] + msgs, key, max_tokens=3000)
+    usage.ledger(slug, "studio", "page-chat", riff.MODEL, cost, time.time() - t0, page=n)
+    shown, done = reply, []
+    m = re.search(r"```apply\s*(\{.*?\})\s*```", reply, re.S)
+    if m:
+        shown = (reply[:m.start()] + reply[m.end():]).strip()
+        try:
+            act = json.loads(m.group(1))
+        except ValueError:
+            act = None
+            done.append("couldn't read the change - say it again")
+        if isinstance(act, dict):
+            if act.get("words"):
+                try:
+                    done.append(_apply_words(slug, n, act["words"]))
+                except ValueError as e:
+                    done.append(f"words not changed: {e}")
+            if (act.get("art") or "").strip():
+                try:
+                    fix_page(slug, n, act["art"].strip())
+                    done.append("redrawing the page")
+                except ValueError as e:
+                    done.append(f"not redrawn: {e}")
+    hist.append({"role": "assistant", "content": shown or "Done.", "t": time.time(), "cost": cost, "done": done,
+                 "art": (act.get("art") if m and isinstance(act, dict) else None)})
+    _page_file(slug, n).write_text(json.dumps(hist, indent=1))
+    return page_state(slug, n)
+
+
+def _apply_words(slug, n, words):
+    """The chat's lettering changes: text, a tail aimed at a spot on the page, a spot, a deletion."""
+    from . import lettering
+    spec, rects, _, _ = _geometry(slug, n)
+    items = {it["i"]: it for it in lettering.items(spec)}
+    changes, drop = {}, []
+    for k, ch in (words or {}).items():
+        i = int(k)
+        if i not in items or not isinstance(ch, dict):
+            raise ValueError(f"no item {k} on this page")
+        if ch.get("delete"):
+            drop.append(i)
+            continue
+        c = {}
+        if "text" in ch:
+            c["text"] = str(ch["text"])
+        if ch.get("at"):
+            c["at"] = ch["at"]
+        t = ch.get("tail")
+        if t == "none":
+            c["tail"] = "none"
+        elif isinstance(t, (list, tuple)) and len(t) == 2:
+            r = rects.get(items[i].get("panel")) or (0, 0, 1, 1)
+            c["tail_x"] = (float(t[0]) / 100 - r[0]) / r[2] * 100      # page percent to panel percent
+            c["tail_y"] = (float(t[1]) / 100 - r[1]) / r[3] * 100
+        if c:
+            changes[str(i)] = c
+    if changes:
+        lettering.set_items(slug, n, changes)
+    for i in sorted(drop, reverse=True):
+        lettering.delete_item(slug, n, i)
+    if _art(slug, "art", n).is_file():
+        render.letter_pages(slug, TAG, [n])
+    return f"changed {len(changes) + len(drop)} balloon{'s' if len(changes) + len(drop) != 1 else ''}"
+
+
+def save_words(slug, n, texts, delete):
+    """The editor's fields: new words by item number, and the items struck out."""
+    words = {str(i): {"text": t} for i, t in (texts or {}).items()}
+    for i in delete or []:
+        words[str(i)] = {"delete": True}
+    if not words:
+        return page_state(slug, n)
+    _apply_words(slug, n, words)
+    return page_state(slug, n)
+
+
+_fix_jobs = {}
+
+
+def fix_page(slug, n, note):
+    """Redraw page n from its own drawing with one change, art-checked; the drawing before is kept."""
+    from . import easy, prompts
+    key = render.api_key()
+    if not key:
+        raise ValueError("no OpenRouter key")
+    art = _art(slug, "art", n)
+    if not art.is_file():
+        raise ValueError("the page isn't drawn yet")
+    spec = next((s for s in render.book(slug) if s["page"] == n), None)
+    if not spec:
+        raise ValueError("the page has no layout")
+    jk = (slug, n)
+    if (_fix_jobs.get(jk) or {}).get("state") == "running" or easy.running(slug):
+        raise ValueError("this book is being drawn - wait for it to finish")
+    easy._keep_copy(slug, [n])
+    ctx = {**prompts.context(slug), "slug": slug, "lettering": "layer"}
+    base = art.parent / f".fix-p{n:02d}.png"      # the drawing being fixed, kept still while the new one lands
+    shutil.copyfile(art, base)
+    refs = [("this page as drawn now - redraw this same page, changing only what the fix says", base)]
+    refs += [r for r in render.references(slug, TAG, spec, ctx) if "as drawn before" not in r[0]]
+    refs = refs[:render.MAX_REFS]
+    sfx = render.sfx_words(spec, ctx)
+    prompt = (render.prompt_for(spec, ctx, refs) +
+              f"\n\n**THE FIX.** Image 1 is this page as drawn now. Redraw it the same - same panels, "
+              f"compositions, characters, colours and style - and change only this:\n{note}\n")
+    _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": note}
+    render._update(slug, TAG, n, state="drawing", started=time.time())
+
+    def work():
+        t0 = time.time()
+        try:
+            img, report, cost = artcheck.draw_checked(
+                lambda text, r: render.generate(render.MODELS[TAG], text, r, key), prompt, refs, key,
+                script=f"{_script_of(slug, n)}\n\nThis drawing is a fix of the page: {note}", lettered=sfx or False)
+            art.write_bytes(img)
+            render._update(slug, TAG, n, state="done", cost=cost, error=None, sfx_art=bool(sfx),
+                           check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
+            usage.ledger(slug, "studio", "page-fix", render.MODELS[TAG], cost, time.time() - t0, page=n,
+                         tries=len(report["attempts"]), check_pass=report["pass"])
+            render.after_drawing(slug, TAG, n)      # balloons the user placed stay where they are
+            _fix_jobs[jk] = {"state": "done", "cost": cost}
+        except Exception as e:      # noqa: BLE001 - shown on the page
+            render._update(slug, TAG, n, state="failed", error=str(e)[:400])
+            _fix_jobs[jk] = {"state": "failed", "error": str(e)[:300]}
+        finally:
+            base.unlink(missing_ok=True)
+
+    threading.Thread(target=work, daemon=True).start()
+    return _fix_jobs[jk]
+
+
+def page_state(slug, n):
+    p = next((x for x in pages(slug) if x["page"] == n), None)
+    if not p:
+        raise FileNotFoundError(f"no page {n}")
+    from . import easy
+    return {**p, "words": page_words(slug, n), "chat": page_chat(slug, n),
+            "fix": _fix_jobs.get((slug, n)) or {}, "earlier": bool(easy._earlier(slug, n)), "cost_page": COST_PAGE}

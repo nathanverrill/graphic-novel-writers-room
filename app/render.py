@@ -2,16 +2,21 @@
 
 For each model and each page of layouts.md:
 
-    art        the page packet's prompt (no text on the page), sent with reference images:
-               the style plate (the book's look), the model's own lock of every character on
-               the page, and - for a key page - the key page's art, to be close to it
+    art        the page packet's prompt, sent with reference images: the style plate (the
+               book's look), the model's own lock of every character on the page, and - for a
+               key page - the key page's art, to be close to it. No balloons or captions; the
+               sound effects are drawn in, part of the scene (unless the book's "sfx" is "layer")
     checked    every drawing is looked over by artcheck (fingers, limbs, faces, clones, text,
-               characters off their locks) and redrawn with the problems named, up to three tries
-    lettered   written only when asked (letter_pages, from /letter or the renders screen):
-               the room's lettering layer (lettering.py) composited over that same art, so
-               the words are exactly what the showrunner placed and art never changes
+               characters off their locks, sound effects spelled right) and redrawn with the
+               problems named, up to three tries
+    placed     one look at the drawn page (place_lettering) puts each balloon and caption in
+               calm space and points each tail at its speaker, saved in layouts.md
+    overlay    the lettering alone, as SVG and as a transparent PNG (letter_pages)
+    lettered   the overlay composited over the art: the words exactly the script's, the art
+               unchanged. Editing words letters the page again, free
 
     campaigns/<slug>/renders/<model>/art/p01.png
+    campaigns/<slug>/renders/<model>/overlay/p01.svg, p01.png
     campaigns/<slug>/renders/<model>/lettered/p01.png
     campaigns/<slug>/renders/status.json      page by page: done, failed, how long, what it cost
 
@@ -169,36 +174,55 @@ def prompt_for(spec, ctx, refs):
     return text
 
 
-def letter(art_bytes, spec, ctx):
-    """The room's lettering drawn over the art: the same drawing, the script's exact words."""
+def overlay(art_bytes, spec, ctx):
+    """(svg, png): the lettering alone - balloons, captions, tails, the script's exact words -
+    as SVG and as a transparent PNG the size of the art, to lay over it."""
     import cairosvg
     from PIL import Image
-    art = Image.open(io.BytesIO(art_bytes)).convert("RGBA")
+    art = Image.open(io.BytesIO(art_bytes))
     rects = lettering.detect_rects(spec, art_bytes)   # the drawn grid, not the assumed one
     size = (1000, round(1000 * art.height / art.width))   # the layer in the art's own proportions
-    layer = cairosvg.svg2png(bytestring=lettering.svg(spec, {**ctx, "page_label": False, "page_size": size}, rects).encode(),
-                             output_width=art.width, output_height=art.height)
+    svg = lettering.svg(spec, {**ctx, "page_label": False, "page_size": size}, rects)
+    return svg, cairosvg.svg2png(bytestring=svg.encode(), output_width=art.width, output_height=art.height)
+
+
+def letter(art_bytes, spec, ctx, layer=None):
+    """The room's lettering drawn over the art: the same drawing, the script's exact words."""
+    from PIL import Image
+    art = Image.open(io.BytesIO(art_bytes)).convert("RGBA")
+    layer = layer or overlay(art_bytes, spec, ctx)[1]
     out = Image.alpha_composite(art, Image.open(io.BytesIO(layer)).convert("RGBA").resize(art.size))
     buf = io.BytesIO()
     out.convert("RGB").save(buf, "PNG")
     return buf.getvalue()
 
 
+def sfx_words(spec, ctx):
+    """The sound effects this page's art draws in, as text for the art check - "" when the art
+    carries no text (no sound effects, or the book letters them on the layer)."""
+    if ctx.get("lettering") != "layer" or not prompts.sfx_in_art(ctx):
+        return ""
+    return ", ".join(f'"{" ".join(str(i.get("text", "")).split()).upper()}"'
+                     for i in spec.get("items") or [] if i.get("type") == "sfx" and i.get("text"))
+
+
 def page(slug, tag, spec, ctx, key):
-    """Draw the art alone. Lettering is a second step: place and edit the text layer at
-    /letter, then letter_pages() composites it over this art on demand."""
+    """Draw the art - with its sound effects drawn in, unless the book letters those on the
+    layer - then place the balloons on the drawn page (place_lettering) and letter it."""
     n = spec["page"]
     refs = references(slug, tag, spec, ctx)
+    sfx = sfx_words(spec, ctx)
     _update(slug, tag, n, state="drawing", refs=[str(p.name) for _, p in refs], started=time.time())
     try:
         art, report, cost = artcheck.draw_checked(lambda text, r: generate(MODELS[tag], text, r, key),
-                                                  prompt_for(spec, ctx, refs), refs, key, lettered=False)
+                                                  prompt_for(spec, ctx, refs), refs, key, lettered=sfx or False)
         d = folder(slug, tag, "art")
         d.mkdir(parents=True, exist_ok=True)
         (d / f"p{n:02d}.png").write_bytes(art)
         seconds = round(time.time() - _page_started(slug, tag, n))
-        _update(slug, tag, n, state="done", cost=cost, seconds=seconds, error=None,
+        _update(slug, tag, n, state="done", cost=cost, seconds=seconds, error=None, sfx_art=bool(sfx),
                 check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
+        after_drawing(slug, tag, n, redo=True)
         usage.ledger(slug, "renderer", "page", MODELS[tag], cost, seconds, page=n,
                      tries=len(report["attempts"]), check_pass=report["pass"],
                      problems=[p.get("what", "")[:120] for p in report["problems"]])
@@ -207,13 +231,29 @@ def page(slug, tag, spec, ctx, key):
         usage.ledger(slug, "renderer", "page", MODELS[tag], None, None, page=n, error=str(e)[:300])
 
 
+def after_drawing(slug, tag, n, redo=False):
+    """A page was just drawn: place its balloons and tails on the drawing, then letter it.
+    Never fails the drawing - a page that can't be placed is lettered where the layout says."""
+    try:
+        place_lettering(slug, tag, [n], redo=redo)
+    except Exception:      # noqa: BLE001
+        pass
+    try:
+        letter_pages(slug, tag, [n])
+    except Exception:      # noqa: BLE001
+        pass
+
+
 def letter_pages(slug, tag, pages=None):
     """The second step: the current text layer composited over the drawn art, one lettered PNG
-    per page. Only pages whose art exists are lettered; returns {page: "ok" | why not}."""
+    per page. Only pages whose art exists are lettered; returns {page: "ok" | why not}.
+    A page whose art carries its sound effects gets only its balloons and captions."""
+    drawn_sfx = {k for k, v in status(slug)["models"].get(tag, {}).get("pages", {}).items() if v.get("sfx_art")}
     ctx = prompts.context(slug)
     specs = {s["page"]: s for s in book(slug)}
     art_dir = folder(slug, tag, "art")
     out_dir = folder(slug, tag, "lettered")
+    ov_dir = folder(slug, tag, "overlay")
     results = {}
     for n in sorted(int(p) for p in (pages or specs)):
         src = art_dir / f"p{n:02d}.png"
@@ -224,7 +264,12 @@ def letter_pages(slug, tag, pages=None):
         else:
             try:
                 out_dir.mkdir(parents=True, exist_ok=True)
-                (out_dir / f"p{n:02d}.png").write_bytes(letter(src.read_bytes(), specs[n], ctx))
+                ov_dir.mkdir(parents=True, exist_ok=True)
+                art = src.read_bytes()
+                svg, layer = overlay(art, specs[n], {**ctx, "skip_sfx": str(n) in drawn_sfx})
+                (ov_dir / f"p{n:02d}.svg").write_text(svg)     # the three files of a finished page:
+                (ov_dir / f"p{n:02d}.png").write_bytes(layer)  # art/, overlay/ and lettered/
+                (out_dir / f"p{n:02d}.png").write_bytes(letter(art, specs[n], ctx, layer))
                 results[n] = "ok"
             except Exception as e:      # noqa: BLE001
                 results[n] = str(e)[:200]
@@ -305,64 +350,95 @@ def start(slug, tags=None, pages=None, redo=False):
     return {"started": started, "pages": [s["page"] for s in specs], **status(slug)}
 
 
-# ---- where each speaker is: the tails, from the drawn page -----------------------------------
+# ---- where the balloons go: placed on the drawn page ------------------------------------------
 
-SPEAKERS_ASK = """This is one drawn page of a graphic novel, with no lettering on it yet. Balloons will be
-added for the lines below. For each one, find the speaker in that panel and give where their
-mouth or head is, as fractions of the WHOLE PAGE: x from 0 (left edge) to 1 (right edge), y
-from 0 (top) to 1 (bottom). Panels are numbered left to right, top to bottom. If the speaker is
-not visible in that panel (off panel, behind a door, a voice on a screen nobody shows), say so.
+PLACE_MODEL = artcheck.CONFIRM_MODEL     # Opus: placing balloons is judging space, faces and gaze
+PLACE_ASK = """This is one drawn page of a graphic novel, with no balloons or captions on it yet. A letterer
+will add the ones below. Place each one the way a good comic letterer would.
+
+The panels, as fractions of the WHOLE PAGE (x from 0 at the left edge to 1 at the right; y from 0 at
+the top to 1 at the bottom):
+{panels}
+
+For each item give "spot": the centre of where it should sit, inside its own panel, as page fractions.
+Its size is given: the whole box must fit inside the panel. Put it in calm space - sky, wall, shadow,
+floor - near its speaker, never over a face, a hand, or the thing the panel is about. In each panel,
+the line read first sits higher and further left. A caption goes against a panel corner or edge.
+For each speech balloon also give "speaker": where the speaker's mouth is (or their head, if the
+mouth isn't visible), as page fractions; or "offpanel": true if they aren't drawn in that panel.
 
 {lines}
 
-Reply with ONLY JSON: {{"items": [{{"item": <number>, "x": <0-1>, "y": <0-1>}} or {{"item": <number>, "offpanel": true}}]}}"""
+Reply with ONLY JSON: {{"items": [{{"item": <number>, "spot": [x, y], "speaker": [x, y]}} or {{"item": <number>, "spot": [x, y], "offpanel": true}}]}}"""
 
 TAILED = ("balloon", "whisper", "shout", "thought")
+PLACED = TAILED + ("caption", "screen", "sign", "headline")     # the location header always sits top-left
 
 
-def place_tails(slug, tag, pages=None, redo=False):
-    """Point every speech balloon's tail at its speaker: one look at each drawn page by the art
-    check's model, which marks where each speaker's head is. Written into layouts.md as
-    tail_x / tail_y (percent of the panel), so lettering again costs nothing. {page: result}."""
+def place_lettering(slug, tag, pages=None, redo=False):
+    """One look at each drawn page places its balloons and captions in the drawing's calm space
+    and points each tail at its speaker. Written into layouts.md as x/y and tail_x/tail_y
+    (percent of the panel), so lettering again costs nothing and the editor can still move them.
+    redo=False leaves items already placed. {page: result}."""
     key = api_key()
     specs = {s["page"]: s for s in book(slug)}
     todo = sorted(int(p) for p in (pages or specs))
+    ctx = prompts.context(slug)
 
     def one(n):
         spec, art = specs.get(n), folder(slug, tag, "art") / f"p{n:02d}.png"
         if not spec or not art.is_file():
             return n, "no art"
-        want = [i for i in lettering.items(spec) if i["type"] in TAILED and i.get("speaker")
-                and i.get("tail") != "none" and (redo or i.get("tail_x") is None)]
+        want = [i for i in lettering.items(spec) if i["type"] in PLACED and (redo or "x" not in i)]
         if not want:
             return n, "nothing to place"
         rects = lettering.detect_rects(spec, art.read_bytes()) or lettering.panel_rects(spec)
-        lines = "\n".join(f'- item {i["i"]}: panel {i.get("panel")}, {i["speaker"]}: "{i.get("text", "")[:90]}"' for i in want)
+        _, boxes, _ = lettering.layer(spec, ctx, rects)
+        f = lambda v: f"{v:.2f}"
+        panels = "\n".join(f"- panel {k}: x {f(r[0])} to {f(r[0] + r[2])}, y {f(r[1])} to {f(r[1] + r[3])}" for k, r in sorted(rects.items()))
+        lines = []
+        for i in want:
+            b = boxes.get(i["i"])
+            size = f", size {f(b[2] - b[0])} wide x {f(b[3] - b[1])} tall" if b else ""
+            who = f' {i["speaker"]}' if i.get("speaker") and i["type"] in TAILED else ""
+            lines.append(f'- item {i["i"]}: {i["type"]}{who}, panel {i.get("panel")}{size}: "{i.get("text", "")[:120]}"')
         t0 = time.time()
-        answer, cost = artcheck._ask([{"type": "text", "text": SPEAKERS_ASK.format(lines=lines)},
-                                      {"type": "image_url", "image_url": {"url": data_url(art)}}], key, artcheck.MODEL)
-        usage.ledger(slug, "letterer", "speakers", artcheck.MODEL, cost, time.time() - t0, page=n)
+        answer, cost = artcheck._ask([{"type": "text", "text": PLACE_ASK.format(panels=panels, lines="\n".join(lines))},
+                                      {"type": "image_url", "image_url": {"url": data_url(art)}}], key, PLACE_MODEL)
+        usage.ledger(slug, "letterer", "place", PLACE_MODEL, cost, time.time() - t0, page=n)
         found = {int(r["item"]): r for r in ((artcheck._json(answer) or {}).get("items") or [])
-                 if isinstance(r, dict) and "item" in r}
+                 if isinstance(r, dict) and str(r.get("item", "")).isdigit()}
         changes = {}
         for i in want:
             r = found.get(i["i"])
-            if not r or r.get("offpanel") or "x" not in r or "y" not in r:
-                continue
             x0, y0, w, h = rects.get(i.get("panel"), (0, 0, 1, 1))
-            changes[i["i"]] = {"tail_x": round((float(r["x"]) - x0) / w * 100, 1),
-                               "tail_y": round((float(r["y"]) - y0) / h * 100, 1)}
+            pct = lambda pt: (round((float(pt[0]) - x0) / w * 100, 1), round((float(pt[1]) - y0) / h * 100, 1))
+            c = {}
+            try:
+                if r and isinstance(r.get("spot"), list) and len(r["spot"]) == 2:
+                    c["x"], c["y"] = pct(r["spot"])
+                if r and i["type"] in TAILED and i.get("speaker") and i.get("tail") != "none" and not r.get("offpanel") \
+                        and isinstance(r.get("speaker"), list) and len(r["speaker"]) == 2:
+                    c["tail_x"], c["tail_y"] = pct(r["speaker"])
+            except (TypeError, ValueError):
+                continue
+            if c:
+                changes[i["i"]] = c
         if changes:
             with _write_lock:      # every page's pass rewrites the one layouts.md
                 lettering.set_items(slug, n, changes)
         return n, f"{len(changes)} of {len(want)} placed"
 
     out = {}
-    with _lock_tails:
-        with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
-            for n, r in pool.map(lambda n: _safe(one, n), todo):
-                out[n] = r
+    with concurrent.futures.ThreadPoolExecutor(max_workers=WORKERS) as pool:
+        for n, r in pool.map(lambda n: _safe(one, n), todo):
+            out[n] = r
     return out
+
+
+def place_tails(slug, tag, pages=None, redo=False):
+    """Kept for callers of the old pass: placing the lettering points the tails too."""
+    return place_lettering(slug, tag, pages, redo)
 
 
 _lock_tails = threading.Lock()     # one pass at a time
