@@ -212,17 +212,20 @@ def page(slug, tag, spec, ctx, key):
     n = spec["page"]
     refs = references(slug, tag, spec, ctx)
     sfx = sfx_words(spec, ctx)
-    _update(slug, tag, n, state="drawing", refs=[str(p.name) for _, p in refs], started=time.time())
+    _update(slug, tag, n, state="drawing", stage="drawing", attempt=1, refs=[str(p.name) for _, p in refs],
+            started=time.time())
     try:
         art, report, cost = artcheck.draw_checked(lambda text, r: generate(MODELS[tag], text, r, key),
-                                                  prompt_for(spec, ctx, refs), refs, key, lettered=sfx or False)
+                                                  prompt_for(spec, ctx, refs), refs, key, lettered=sfx or False,
+                                                  stage=stager(slug, tag, n))
         d = folder(slug, tag, "art")
         d.mkdir(parents=True, exist_ok=True)
         (d / f"p{n:02d}.png").write_bytes(art)
-        seconds = round(time.time() - _page_started(slug, tag, n))
-        _update(slug, tag, n, state="done", cost=cost, seconds=seconds, error=None, sfx_art=bool(sfx),
+        _update(slug, tag, n, cost=cost, error=None, sfx_art=bool(sfx),
                 check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
         after_drawing(slug, tag, n, redo=True)
+        seconds = round(time.time() - _page_started(slug, tag, n))
+        _update(slug, tag, n, state="done", stage=None, seconds=seconds)
         usage.ledger(slug, "renderer", "page", MODELS[tag], cost, seconds, page=n,
                      tries=len(report["attempts"]), check_pass=report["pass"],
                      problems=[p.get("what", "")[:120] for p in report["problems"]])
@@ -231,13 +234,20 @@ def page(slug, tag, spec, ctx, key):
         usage.ledger(slug, "renderer", "page", MODELS[tag], None, None, page=n, error=str(e)[:300])
 
 
+def stager(slug, tag, n):
+    """A draw_checked stage callback that records where page n's drawing is, for the progress shown."""
+    return lambda name, attempt: _update(slug, tag, n, stage=name, attempt=attempt)
+
+
 def after_drawing(slug, tag, n, redo=False):
     """A page was just drawn: place its balloons and tails on the drawing, then letter it.
     Never fails the drawing - a page that can't be placed is lettered where the layout says."""
+    _update(slug, tag, n, stage="placing")
     try:
         place_lettering(slug, tag, [n], redo=redo)
     except Exception:      # noqa: BLE001
         pass
+    _update(slug, tag, n, stage="lettering")
     try:
         letter_pages(slug, tag, [n])
     except Exception:      # noqa: BLE001

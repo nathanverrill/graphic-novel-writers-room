@@ -1700,6 +1700,18 @@ def studio_page_chat(slug: str, n: int, body: StudioSay):
     return _st(studio.page_say, slug, n, body.text)
 
 
+@app.post("/api/studio/{slug}/pages/{n}/layout")
+def studio_page_layout(slug: str, n: int):
+    """Lay out a page that has a script but no layout yet."""
+    return _st(studio.lay_out_page, slug, n)
+
+
+@app.post("/api/studio/{slug}/pages/{n}/draw")
+def studio_page_draw(slug: str, n: int):
+    """Draw one laid-out page that isn't drawn yet."""
+    return _st(studio.draw_page, slug, n)
+
+
 @app.put("/api/studio/{slug}/pages/{n}/words")
 def studio_page_words(slug: str, n: int, body: StudioWords):
     return _st(studio.save_words, slug, n, body.texts, body.delete)

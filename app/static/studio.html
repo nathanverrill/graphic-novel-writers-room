@@ -146,7 +146,37 @@
   .leaf .cap { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
   .leaf .cap span:last-child { margin-left: auto; }
   .leaf .flag { color: var(--bad); }
-  .leaf.drawing img, .leaf.drawing .scriptpage { outline: 2px solid var(--work); animation: pulse 1.4s infinite; }
+  /* a page being drawn: the page's panels shimmer in, blurred where a drawing is being redone, with
+     the step it is on and the time left - no picture until the real one arrives */
+  .drawbox { position: relative; width: 100%; aspect-ratio: 1024 / 1536; overflow: hidden; background: var(--soft);
+             border: 1px solid var(--line); box-shadow: 0 10px 30px rgba(0,0,0,.18); }
+  .editor .pic .drawbox { width: min(100%, calc((100vh - 5.5rem) * 2 / 3)); }
+  .drawbox .base { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: blur(14px) saturate(.6); transform: scale(1.06); opacity: .75; }
+  .drawbox .tile { position: absolute; border-radius: 3px; overflow: hidden;
+                   background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.22) 50%, transparent 70%) var(--line);
+                   background-size: 300% 100%; outline: 3px solid var(--panel); animation: sheen 2.4s ease-in-out infinite, rise .8s ease-out both; }
+  .drawbox.redo .tile { background-color: transparent; outline: none; }
+  .pchat[hidden] { display: none; }
+  .drawbox.checking .tile { animation: sheen 1.1s linear infinite; }
+  .drawbox.placing .tile::after, .drawbox.lettering .tile::after { content: ""; position: absolute; top: 9%; left: 10%; width: 38%; height: 16%;
+                   border-radius: 50%; background: var(--panel); opacity: .85; animation: rise .5s ease-out both; }
+  @keyframes sheen { from { background-position: 100% 0; } to { background-position: -200% 0; } }
+  @keyframes rise { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+  .drawbox .status { position: absolute; left: 50%; bottom: 5%; transform: translateX(-50%); width: min(88%, 22rem);
+                     background: color-mix(in srgb, var(--panel) 92%, transparent); backdrop-filter: blur(8px); border: 1px solid var(--line);
+                     border-radius: 12px; padding: .7rem .85rem; display: grid; gap: .45rem; box-shadow: 0 6px 24px rgba(0,0,0,.18); }
+  .drawbox .status b { font-weight: 600; font-size: .92rem; }
+  .drawbox .bar { height: 4px; border-radius: 4px; background: var(--line); overflow: hidden; }
+  .drawbox .bar i { display: block; height: 100%; width: 0; background: var(--work); border-radius: 4px; transition: width 1s linear; }
+  .drawbox .steps { display: flex; gap: .7rem; font-size: .72rem; color: var(--muted); }
+  .drawbox .steps span { display: inline-flex; align-items: center; }
+  .drawbox .steps span::before { content: ""; display: inline-block; width: .45rem; height: .45rem; border-radius: 50%; margin-right: .3rem; background: var(--line); vertical-align: .05rem; }
+  .drawbox .steps .done::before { background: var(--good); }
+  .drawbox .steps .now { color: var(--ink); } .drawbox .steps .now::before { background: var(--work); animation: pulse 1.4s infinite; }
+  .drawbox .time { font-size: .75rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .leaf .drawbox .status { width: min(80%, 20rem); }
+  @media (prefers-reduced-motion: reduce) { .drawbox .tile, .drawbox .steps .now::before { animation: none; } }
+  .start { display: grid; gap: .5rem; border: 1px solid var(--line); border-radius: 10px; padding: .9rem; background: var(--panel); }
   .editor { display: grid; grid-template-columns: minmax(0, 1fr) minmax(20rem, 26rem); gap: 1.4rem; align-items: start; }
   @media (max-width: 56rem) { .editor { grid-template-columns: 1fr; } }
   .editor .pic { position: sticky; top: 4.2rem; display: grid; justify-items: center; gap: .6rem; }
@@ -310,7 +340,7 @@
     if (!S.slug || document.hidden) return;
     const was = S.st && S.st.running;
     const drawingLock = (S.st?.locks || []).some((l) => l.job && l.job.state === "running");
-    const fixing = S.page && S.pg && (S.pg.fix.state === "running" || S.pg.state === "drawing");
+    const fixing = S.page && S.pg && (S.pg.fix.state === "running" || S.pg.state === "drawing" || (S.pg.layout_job || {}).state === "running");
     if (fixing) { pageView(true); return; }
     const drawingPage = S.mode === "pages" && !S.page && (S.st?.pages || []).some((p) => p.state === "drawing");
     if (!was && S.mode !== "run" && !drawingLock && !drawingPage) return;           // nothing moves unless something is running
@@ -614,7 +644,7 @@
   // The book as one long scroll; a page opens at its own address (&p=N) as the editor.
   function pagesView(update) {
     const st = S.st, main = $("#main");
-    const sig = JSON.stringify(st.pages.map((p) => [p.page, p.art, p.lettered, p.model, p.state]));
+    const sig = JSON.stringify(st.pages.map((p) => [p.page, p.art, p.lettered, p.model, p.state, p.stage, p.attempt]));
     if (update && main.dataset.psig === sig) return;
     main.dataset.psig = sig; main.dataset.sig = "";
     if (!st.pages.length) {
@@ -628,7 +658,7 @@
       <div class="pagebar"><span class="muted">${st.pages.length} pages · ${drawn} drawn${st.running ? " · <b>working…</b>" : ""}</span>
         <div class="row"><input id="vname" placeholder="Version name" style="width:12rem"><button id="vsave">Save as version</button><span class="msg small" id="vmsg"></span></div></div>
       ${st.pages.map((p) => `<a class="leaf ${p.state === "drawing" ? "drawing" : ""}" id="p${p.page}" href="?b=${enc(S.slug)}&m=pages&p=${p.page}" data-page="${p.page}">
-        ${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" width="1024" height="1536" loading="${p.page <= 2 ? "eager" : "lazy"}">` : scriptPage(p.script, false)}
+        ${p.state === "drawing" ? drawing(p, null, p.art ? pageImg(p) : "") : p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" width="1024" height="1536" loading="${p.page <= 2 ? "eager" : "lazy"}">` : scriptPage(p.script, false)}
         <span class="cap">${p.problems.length ? `<span class="flag">the art check noticed something</span>` : p.art ? "" : `<span>script, not drawn yet</span>`}<span>${p.page}</span></span></a>`).join("")}
     </div>`;
     main.querySelectorAll("a.leaf").forEach((a) => a.onclick = (e) => {
@@ -640,6 +670,7 @@
       try { const v = await api(B("/versions"), { method: "POST", body: { name: $("#vname").value } }); m.className = "msg small ok"; m.textContent = `Saved “${v.name}”.`; $("#vname").value = ""; }
       catch (e) { m.className = "msg small bad"; m.textContent = e.message; }
     };
+    progTick();
     if (keep !== null) window.scrollTo(0, keep);
     else if (S.from) { const el = $(`#p${S.from}`); if (el) el.scrollIntoView({ block: "center" }); S.from = 0; }
   }
@@ -649,20 +680,22 @@
     const n = +S.page, main = $("#main");
     let pg;
     try { pg = await api(B(`/pages/${n}`)); } catch (e) { main.innerHTML = `<p class="bad">${esc(e.message)}</p>`; return; }
-    S.pg = pg;
+    S.pg = pg; S.skew = pg.now - Date.now() / 1000;
     const fixing = pg.fix.state === "running" || pg.state === "drawing";
+    const esig = [pg.art, pg.lettered, pg.model, pg.state, pg.stage, pg.attempt, pg.fix.state, pg.chat.length, pg.laid_out, (pg.layout_job || {}).state].join();
     if (update) {           // a fix finished or moved on: repaint the picture and chat, keep what's being typed
-      const sig = [pg.art, pg.lettered, pg.model, pg.state, pg.fix.state, pg.chat.length].join();
-      if (main.dataset.esig === sig) return;
-      main.dataset.esig = sig;
-      $("#pic").innerHTML = picture(pg, fixing);
+      if (main.dataset.esig === esig) return;
+      if ((main.dataset.estart || "") !== [pg.art ? 1 : 0, pg.state, pg.laid_out, (pg.layout_job || {}).state].join()) return pageView();
+      main.dataset.esig = esig;
+      $("#pic").innerHTML = picture(pg, fixing); progTick();
       $("#thread").innerHTML = thread(pg);
       $("#back") && ($("#back").hidden = !pg.earlier);
       if (!S.wordsDirty && $("#words")) { $("#words").innerHTML = wordFields(pg); bindWords(); }
       return;
     }
     S.wordsDirty = false;
-    main.dataset.esig = [pg.art, pg.lettered, pg.model, pg.state, pg.fix.state, pg.chat.length].join();
+    main.dataset.esig = esig;
+    main.dataset.estart = [pg.art ? 1 : 0, pg.state, pg.laid_out, (pg.layout_job || {}).state].join();
     main.dataset.psig = "";
     const list = S.st.pages, idx = list.findIndex((x) => x.page === n);
     const prev = list[idx - 1], next = list[idx + 1];
@@ -675,7 +708,8 @@
             ${next ? `<a class="quiet btn" href="?b=${enc(S.slug)}&m=pages&p=${next.page}" data-p="${next.page}" title="Page ${next.page}">›</a>` : ""}</span></div>
         ${pg.words.length ? `<section><div class="words" id="words">${wordFields(pg)}</div>
           <div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words</button><span class="msg small" id="wmsg"></span></div></section>` : ""}
-        <section class="pchat">
+        ${startBox(pg)}
+        <section class="pchat" ${pg.art ? "" : "hidden"}>
           <div class="thread" id="thread">${thread(pg)}</div>
           <textarea id="say" rows="3" placeholder="What should change? “Remove the sixth finger on her left hand” · “She points with her right hand” · “The bubble in panel 2 points at the wrong person”"></textarea>
           <div class="row"><button class="go" id="send">Send</button><span class="small muted">Words change free. A drawing change redraws the page, about ${money(pg.cost_page)}.</span></div>
@@ -684,6 +718,7 @@
         </section>
       </div></div>`;
     $("#tolist").onclick = (e) => { e.preventDefault(); S.from = n; go({ p: "" }); };
+    bindStart(n);
     main.querySelectorAll("[data-p]").forEach((a) => a.onclick = (e) => { e.preventDefault(); go({ p: a.dataset.p }); });
     bindWords();
     const ws = $("#wsave");
@@ -716,13 +751,80 @@
       catch (e) { const m = $("#cmsg"); m.className = "msg small bad"; m.textContent = e.message; }
     };
     const t = $("#thread"); t.scrollTop = t.scrollHeight;
+    progTick();
   }
+
+  const STAGES = [["drawing", "Draw"], ["checking", "Check"], ["placing", "Balloons"], ["lettering", "Letter"]];
+  function stageLabel(p) {
+    if (p.stage === "layout") return "Laying out the page from the script";
+    if (p.stage === "checking") return "Checking hands, faces and words" + (p.attempt > 1 ? ` · try ${p.attempt} of ${p.tries}` : "");
+    if (p.stage === "placing") return "Placing the balloons";
+    if (p.stage === "lettering") return "Lettering";
+    return p.attempt > 1 ? `Redrawing what the check found · try ${p.attempt} of ${p.tries}` : (p.art ? "Redrawing the page" : "Drawing the page");
+  }
+
+  // a page being drawn or laid out: p carries stage, attempt, tries, started, est; panels are page fractions
+  function drawing(p, panels, base) {
+    const at = STAGES.findIndex(([k]) => k === p.stage);
+    const tiles = (panels || []).map(([x, y, w, h], i) =>
+      `<div class="tile" style="left:${x * 100}%;top:${y * 100}%;width:${w * 100}%;height:${h * 100}%;animation-delay:${(i * .25).toFixed(2)}s,${(i * .12).toFixed(2)}s"></div>`).join("");
+    return `<div class="drawbox ${esc(p.stage || "")} ${base ? "redo" : ""}" data-prog data-started="${p.started || 0}" data-est="${p.est || 120}" data-stage="${esc(p.stage || "")}" data-attempt="${p.attempt || 1}">
+      ${base ? `<img class="base" src="${base}" alt="">` : ""}${tiles}
+      <div class="status" role="status" aria-live="polite"><b>${esc(stageLabel(p))}</b>
+        <div class="bar"><i></i></div>
+        ${p.stage === "layout" ? "" : `<div class="steps">${STAGES.map(([k, l], i) => `<span class="${i < at ? "done" : i === at ? "now" : ""}">${l}</span>`).join("")}</div>`}
+        <div class="time"></div></div></div>`;
+  }
+
+  // where the bar sits: time against the book's usual page time, held inside the band of the step it is on
+  const BANDS = { layout: [0, 95], drawing: [0, 62], checking: [62, 78], placing: [78, 93], lettering: [93, 98] };
+  function progTick() {
+    const now = Date.now() / 1000 + (S.skew || 0);
+    document.querySelectorAll("[data-prog]").forEach((el) => {
+      const started = +el.dataset.started, est = +el.dataset.est || 120, stage = el.dataset.stage || "drawing", tries = +el.dataset.attempt || 1;
+      if (!started) return;
+      const t = Math.max(0, now - started), [lo, hi] = BANDS[stage] || BANDS.drawing;
+      const want = 100 * (1 - Math.exp(-1.4 * t / (est * (1 + .6 * (tries - 1)))));
+      const pct = Math.max(lo + (stage === "drawing" && tries > 1 ? 4 : 0), Math.min(hi, want));
+      const bar = el.querySelector(".bar i"), tm = el.querySelector(".time");
+      if (bar) bar.style.width = pct.toFixed(1) + "%";
+      const left = Math.max(0, Math.round(est * (1 + .6 * (tries - 1)) - t));
+      const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+      if (tm) tm.textContent = `${mmss(t)}` + (left > 5 ? ` · about ${left >= 60 ? Math.round(left / 60) + " min" : left + " s"} left` : " · nearly there");
+    });
+  }
+  setInterval(progTick, 1000);
 
   function picture(pg, fixing) {
     const p = { ...pg };
+    if (pg.layout_job && pg.layout_job.state === "running")
+      return drawing({ stage: "layout", started: pg.layout_job.started, est: 50 }, [], "");
+    if (pg.state === "drawing") return drawing(pg, pg.panels, p.art ? pageImg(p) : "");
     return `${p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}">` : scriptPage(p.script, true)}
-      ${fixing ? `<div class="fixing">Redrawing… a minute or two. The page updates here.</div>` : ""}
+      ${fixing ? `<div class="fixing">Starting the redraw…</div>` : ""}
       ${pg.fix.state === "failed" ? `<div class="fixing bad">The redraw failed: ${esc(pg.fix.error || "")}</div>` : ""}`;
+  }
+
+  function startBox(pg) {
+    if (pg.art || pg.state === "drawing") return "";
+    const job = pg.layout_job || {};
+    if (job.state === "running") return `<div class="start"><b>Laying out page ${pg.page}…</b><span class="small muted">Its panels, and the script's words in place. The words show here when it's done.</span></div>`;
+    if (!pg.laid_out) return `<div class="start"><b>This page has no layout yet</b>
+      <span class="small muted">A layout writes the page's panels and places the script's words, word for word, in the manner of the pages around it. It costs a few cents. You can check the words before anything is drawn.</span>
+      <div class="row"><button class="go" id="layout">Lay out this page</button></div>
+      ${job.state === "failed" ? `<span class="msg small bad">${esc(job.error || "")}</span>` : ""}<span class="msg small" id="smsg"></span></div>`;
+    return `<div class="start"><b>Draw this page</b>
+      <span class="small muted">Drawn from the style plate and the character locks like every page, so it matches the rest. Then checked for hands, faces and words, the balloons placed and lettered. About ${money(pg.cost_page)}.</span>
+      <div class="row"><button class="go" id="draw">Draw this page</button></div><span class="msg small" id="smsg"></span></div>`;
+  }
+
+  function bindStart(n) {
+    const run = (id, path) => { const b = $(id); if (b) b.onclick = async () => {
+      b.disabled = true;
+      try { await api(B(`/pages/${n}/${path}`), { method: "POST" }); await load(); pageView(); }
+      catch (e) { b.disabled = false; const m = $("#smsg"); m.className = "msg small bad"; m.textContent = e.message; }
+    }; };
+    run("#layout", "layout"); run("#draw", "draw");
   }
 
   function wordFields(pg) {

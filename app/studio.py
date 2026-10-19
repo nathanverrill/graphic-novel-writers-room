@@ -20,12 +20,13 @@ its own state under campaigns/<slug>/studio/:
 import base64
 import concurrent.futures
 import json
+import os
 import re
 import shutil
 import threading
 import time
 
-from . import artcheck, magic, openitems, phases, projects, render, review, riff, room, storydesk, usage
+from . import artcheck, config, magic, openitems, phases, projects, render, review, riff, room, storydesk, thumbnails, usage
 from .agents import load_roles
 
 TAG = "sunburst"
@@ -706,6 +707,9 @@ def _draw_pages(slug, pages, redo=False):
 def pages(slug):
     """The book page by page: art, lettering, the script text, and the art check."""
     checks = render.status(slug)["models"].get(TAG, {}).get("pages", {})
+    took = [v["seconds"] for v in checks.values() if v.get("state") == "done" and v.get("seconds")]
+    est = round(sum(took) / len(took)) if took else DRAW_SECONDS
+    laid = {s["page"] for s in render.book(slug)}
     script = projects.read_artifact(slug, "script.md") or ""
     texts = {}
     for m in re.finditer(r"^##\s+Page\s+(\d+)\b[^\n]*\n(.*?)(?=^##\s+Page\s+\d+|\Z)", script, re.M | re.S):
@@ -719,7 +723,10 @@ def pages(slug):
                     "art": int(a.stat().st_mtime) if a.is_file() else 0,
                     "lettered": int(l.stat().st_mtime) if l.is_file() else 0,
                     "model": int(m.stat().st_mtime) if m.is_file() else 0,
-                    "state": st.get("state") or "", "problems": [p.get("what", "") for p in (st.get("check") or {}).get("problems") or []][:6]})
+                    "state": st.get("state") or "", "problems": [p.get("what", "") for p in (st.get("check") or {}).get("problems") or []][:6],
+                    "laid_out": n in laid,
+                    **({"stage": st.get("stage") or "drawing", "attempt": st.get("attempt") or 1, "tries": artcheck.TRIES,
+                        "started": st.get("started") or 0, "est": est} if st.get("state") == "drawing" else {})})
     return out
 
 
@@ -1071,20 +1078,22 @@ def fix_page(slug, n, note):
               f"\n\n**THE FIX.** Image 1 is this page as drawn now. Redraw it the same - same panels, "
               f"compositions, characters, colours and style - and change only this:\n{note}\n")
     _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": note}
-    render._update(slug, TAG, n, state="drawing", started=time.time())
+    render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, started=time.time())
 
     def work():
         t0 = time.time()
         try:
             img, report, cost = artcheck.draw_checked(
                 lambda text, r: render.generate(render.MODELS[TAG], text, r, key), prompt, refs, key,
-                script=f"{_script_of(slug, n)}\n\nThis drawing is a fix of the page: {note}", lettered=sfx or False)
+                script=f"{_script_of(slug, n)}\n\nThis drawing is a fix of the page: {note}", lettered=sfx or False,
+                stage=render.stager(slug, TAG, n))
             art.write_bytes(img)
-            render._update(slug, TAG, n, state="done", cost=cost, error=None, sfx_art=bool(sfx),
+            render._update(slug, TAG, n, cost=cost, error=None, sfx_art=bool(sfx),
                            check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
             usage.ledger(slug, "studio", "page-fix", render.MODELS[TAG], cost, time.time() - t0, page=n,
                          tries=len(report["attempts"]), check_pass=report["pass"])
             render.after_drawing(slug, TAG, n)      # balloons the user placed stay where they are
+            render._update(slug, TAG, n, state="done", stage=None, seconds=round(time.time() - t0))
             _fix_jobs[jk] = {"state": "done", "cost": cost}
         except Exception as e:      # noqa: BLE001 - shown on the page
             render._update(slug, TAG, n, state="failed", error=str(e)[:400])
@@ -1101,5 +1110,132 @@ def page_state(slug, n):
     if not p:
         raise FileNotFoundError(f"no page {n}")
     from . import easy
-    return {**p, "words": page_words(slug, n), "chat": page_chat(slug, n),
-            "fix": _fix_jobs.get((slug, n)) or {}, "earlier": bool(easy._earlier(slug, n)), "cost_page": COST_PAGE}
+    from . import lettering
+    spec = lettering.page_spec(slug, n)
+    panels = [[round(v, 4) for v in r] for _, r in sorted(lettering.panel_rects(spec).items())] if spec else []
+    return {**p, "words": page_words(slug, n), "chat": page_chat(slug, n), "panels": panels,
+            "fix": _fix_jobs.get((slug, n)) or {}, "earlier": bool(easy._earlier(slug, n)), "cost_page": COST_PAGE,
+            "layout_job": _layout_jobs.get((slug, n)) or {}, "now": time.time()}
+
+
+# ---- an undrawn page: lay it out, then draw it -------------------------------------------------
+
+DRAW_SECONDS = 120      # a page's draw, check and lettering when the book has no timings yet
+_layout_jobs = {}
+
+LAYOUT_ASK = """You are the layout artist of {title}. Lay out page {n} only, as one ```layout block of JSON.
+
+{rules}
+
+Hard rules:
+- Every balloon, caption and sound effect carries the script's words EXACTLY - same spelling, punctuation
+  and capitals. Never add, cut, merge or reword a line. Speakers are the names the script uses.
+- Every line of dialogue and caption on the script's page appears, in the script's order.
+- "page": {n}, "side": "{side}".
+- Match the neighbouring pages' manner: the same kind of panel descriptions, the same characters' looks.
+- Reply with the block only."""
+
+
+def _layout_rules():
+    role = (config.ROOT / "agents" / "layout" / "role.md").read_text() if (config.ROOT / "agents" / "layout" / "role.md").is_file() else ""
+    i = role.find("# The layout block")
+    rules = role[i:] if i >= 0 else role
+    return rules.split('- "file" is one of')[0].strip()
+
+
+def _norm(t):
+    t = str(t).replace("\u2019", "'").replace("\u2018", "'").replace("\u201c", '"').replace("\u201d", '"')
+    return " ".join(t.lower().split())
+
+
+def _layout_block(md, n):
+    for m in thumbnails.LAYOUT_RE.finditer(md or ""):
+        try:
+            if int(json.loads(re.sub(r",(\s*[\]}])", r"\1", m.group(1))).get("page", 0)) == n:
+                return m.group(1).strip()
+        except ValueError:
+            continue
+    return ""
+
+
+def lay_out_page(slug, n):
+    """Write page n's layout from its script page, in the manner of the pages around it, and add it
+    to layouts.md. The words are checked against the script; a layout that changes them is not kept."""
+    if any(s["page"] == n for s in render.book(slug)):
+        raise ValueError(f"page {n} is already laid out")
+    script = _script_of(slug, n)
+    if script.startswith("(no script"):
+        raise ValueError(f"page {n} has no script yet")
+    jk = (slug, n)
+    if (_layout_jobs.get(jk) or {}).get("state") == "running":
+        raise ValueError("this page is already being laid out")
+    key = riff._key()
+    _layout_jobs[jk] = {"state": "running", "started": time.time()}
+    md = projects.read_artifact(slug, "layouts.md") or ""
+    near = sorted({s["page"] for s in render.book(slug)}, key=lambda p: abs(p - n))[:2]
+    side = "right" if n % 2 else "left"
+    system = LAYOUT_ASK.format(title=title(slug), n=n, side=side, rules=_layout_rules())
+    parts = [f"## The script's page {n}\n\n{script}"]
+    parts += [f"## Page {p}'s layout, for its manner\n\n```layout\n{_layout_block(md, p)}\n```" for p in sorted(near)]
+    for name in ("characters.md", "world.md"):
+        text = projects.read_artifact(slug, name, desk=projects.PRE) or projects.read_artifact(slug, name) or ""
+        if text:
+            parts.append(f"## {name}\n\n{text[:12000]}")
+    msgs = [{"role": "system", "content": system}, {"role": "user", "content": "\n\n".join(parts)}]
+    threading.Thread(target=_lay_out, args=(slug, n, script, msgs, key, side), daemon=True).start()
+    return page_state(slug, n)
+
+
+def _lay_out(slug, n, script, msgs, key, side):
+    jk, t0, spent = (slug, n), time.time(), 0.0
+    try:
+        for _ in range(2):
+            reply, cost = riff._ask(msgs, key, max_tokens=6000)
+            spent += cost or 0
+            specs, errors = thumbnails.parse_layouts(reply if "```layout" in reply else f"```layout\n{reply}\n```")
+            if not specs:
+                problem = "; ".join(errors) or "no layout block"
+            else:
+                spec = {**specs[0], "page": n, "side": specs[0].get("side") or side}
+                said = _norm(script)
+                changed = [i.get("text", "") for i in spec.get("items") or []
+                           if i.get("type") in thumbnails.LETTERING and _norm(i.get("text", "")) not in said]
+                problem = ("these words aren't the script's: " + " | ".join(changed)) if changed else ""
+            if not problem:
+                break
+            msgs += [{"role": "assistant", "content": reply},
+                     {"role": "user", "content": f"Not kept - {problem}. Write the block again with the script's exact words."}]
+        else:
+            raise ValueError(f"the layout wasn't kept: {problem}")
+        _add_layout(slug, n, spec)
+        usage.ledger(slug, "studio", "page-layout", riff.MODEL, spent, time.time() - t0, page=n)
+        _layout_jobs[jk] = {"state": "done", "cost": spent}
+    except Exception as e:      # noqa: BLE001 - shown on the page
+        _layout_jobs[jk] = {"state": "failed", "error": str(e)[:300]}
+
+
+def _add_layout(slug, n, spec):
+    """Page n's block into layouts.md, in page order. The file keeps its time, so a run does not
+    take the new page for a change to every drawn page and redraw them."""
+    path = projects.project_dir(slug) / "layouts.md"
+    md = path.read_text() if path.is_file() else f"# {title(slug)} — Layouts\n"
+    section = f"## Page {n} ({spec['side']})\n\n```layout\n{json.dumps(spec, ensure_ascii=False, indent=1)}\n```\n\n"
+    later = [m for m in re.finditer(r"^## Page (\d+)\b", md, re.M) if int(m.group(1)) > n]
+    md = md[:later[0].start()] + section + md[later[0].start():] if later else md.rstrip("\n") + "\n\n" + section
+    times = path.stat() if path.is_file() else None
+    projects.write_artifact(slug, "layouts.md", md)
+    if times:
+        os.utime(path, (times.st_atime, times.st_mtime))
+
+
+def draw_page(slug, n):
+    """Draw one laid-out page that isn't drawn yet - the same draw, check and lettering as a run."""
+    from . import easy
+    if _art(slug, "art", n).is_file():
+        raise ValueError("the page is drawn - say what should change in the chat instead")
+    if not any(s["page"] == n for s in render.book(slug)):
+        raise ValueError(f"page {n} isn't laid out yet")
+    if (_fix_jobs.get((slug, n)) or {}).get("state") == "running":
+        raise ValueError("this page is being drawn")
+    easy.draw(slug, [n])
+    return page_state(slug, n)

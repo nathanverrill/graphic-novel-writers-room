@@ -189,12 +189,16 @@ def fix_note(problems):
             + "\nEvery visible hand has a thumb and four fingers. Every word is spelled exactly as written.")
 
 
-def draw_checked(generate, prompt, refs, key, script=None, tries=TRIES, lettered=True):
-    """Draw, check, redraw with the problems named. Keeps the drawing with the fewest major problems."""
+def draw_checked(generate, prompt, refs, key, script=None, tries=TRIES, lettered=True, stage=None):
+    """Draw, check, redraw with the problems named. Keeps the drawing with the fewest major problems.
+    stage(name, attempt), if given, hears "drawing" and "checking" as each try moves on."""
     best, total, history = None, 0.0, []
     note = ""
+    stage = stage or (lambda name, attempt: None)
     for attempt in range(1, tries + 1):
+        stage("drawing", attempt)
         art, cost = generate(prompt + note, refs)
+        stage("checking", attempt)
         report = check(art, script or prompt, refs, key, lettered=lettered)
         total += (cost or 0) + (report.get("cost") or 0)
         majors = sum(p.get("severity") == "major" for p in report["problems"])
