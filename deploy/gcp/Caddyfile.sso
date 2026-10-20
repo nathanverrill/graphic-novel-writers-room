@@ -1,0 +1,35 @@
+# HTTPS, with Keycloak sign-in in front of the room and the file manager (see keycloak.yml).
+# Copy to deploy/gcp/Caddyfile on the VM; ROOM_HOST comes from .env.
+
+(signed_in) {
+	handle /oauth2/* {
+		reverse_proxy oauth2-proxy:4180 {
+			header_up X-Real-IP {remote_host}
+			header_up X-Forwarded-Uri {uri}
+		}
+	}
+	handle {
+		forward_auth oauth2-proxy:4180 {
+			uri /oauth2/auth
+			header_up X-Real-IP {remote_host}
+			copy_headers X-Auth-Request-User X-Auth-Request-Email
+			@out status 401
+			handle_response @out {
+				redir * /oauth2/sign_in?rd={scheme}://{host}{uri}
+			}
+		}
+		reverse_proxy {args[0]}
+	}
+}
+
+{$ROOM_HOST} {
+	import signed_in app:8000
+}
+
+files.{$ROOM_HOST} {
+	import signed_in filebrowser:8080
+}
+
+auth.{$ROOM_HOST} {
+	reverse_proxy keycloak:8080
+}

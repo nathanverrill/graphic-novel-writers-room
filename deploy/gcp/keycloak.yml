@@ -1,0 +1,82 @@
+# Keycloak sign-in in front of the room and the file manager, in place of Basic Auth.
+# Each person has their own login; you add people in Keycloak's admin screen at auth.<host>/admin.
+#
+#   docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml -f deploy/gcp/keycloak.yml up -d
+#
+# .env carries ROOM_HOST (e.g. 34-123-63-255.sslip.io) and the secrets below, made once on the VM:
+#   KC_DB_PASSWORD, KC_ADMIN_PASSWORD, OAUTH2_PROXY_CLIENT_SECRET, OAUTH2_PROXY_COOKIE_SECRET
+# Caddy reads deploy/gcp/Caddyfile: copy Caddyfile.sso there (it uses {$ROOM_HOST}).
+services:
+  kc-db:
+    image: postgres:16.6-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${KC_DB_PASSWORD:?}
+    volumes:
+      - kc-db:/var/lib/postgresql/data
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.0.7
+    restart: unless-stopped
+    command: ["start", "--import-realm"]     # the realm and its one client, made on first start
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://kc-db:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: ${KC_DB_PASSWORD:?}
+      KC_HOSTNAME: https://auth.${ROOM_HOST:?}
+      KC_HTTP_ENABLED: "true"                # Caddy does HTTPS in front
+      KC_PROXY_HEADERS: xforwarded
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: ${KC_ADMIN_PASSWORD:?}
+      JAVA_OPTS_KC_HEAP: "-Xms256m -Xmx768m"
+      # read by the realm import (writers-room-realm.json)
+      ROOM_HOST: ${ROOM_HOST}
+      OAUTH2_PROXY_CLIENT_SECRET: ${OAUTH2_PROXY_CLIENT_SECRET:?}
+    volumes:
+      - ./deploy/gcp/keycloak:/opt/keycloak/data/import:ro
+    depends_on:
+      - kc-db
+
+  # the door: Caddy asks it whether a request is signed in; it sends people to Keycloak when not
+  oauth2-proxy:
+    image: quay.io/oauth2-proxy/oauth2-proxy:v7.7.1
+    restart: unless-stopped
+    environment:
+      OAUTH2_PROXY_PROVIDER: keycloak-oidc
+      OAUTH2_PROXY_OIDC_ISSUER_URL: https://auth.${ROOM_HOST}/realms/writers-room
+      OAUTH2_PROXY_CLIENT_ID: room
+      OAUTH2_PROXY_CLIENT_SECRET: ${OAUTH2_PROXY_CLIENT_SECRET:?}
+      OAUTH2_PROXY_COOKIE_SECRET: ${OAUTH2_PROXY_COOKIE_SECRET:?}
+      OAUTH2_PROXY_COOKIE_DOMAINS: .${ROOM_HOST}         # one sign-in for the room and files.
+      OAUTH2_PROXY_WHITELIST_DOMAINS: .${ROOM_HOST}
+      OAUTH2_PROXY_COOKIE_SECURE: "true"
+      OAUTH2_PROXY_COOKIE_EXPIRE: 168h
+      OAUTH2_PROXY_COOKIE_REFRESH: 1h
+      OAUTH2_PROXY_EMAIL_DOMAINS: "*"                    # anyone with a login in the realm
+      OAUTH2_PROXY_INSECURE_OIDC_ALLOW_UNVERIFIED_EMAIL: "true"
+      OAUTH2_PROXY_CODE_CHALLENGE_METHOD: S256
+      OAUTH2_PROXY_SKIP_PROVIDER_BUTTON: "true"
+      OAUTH2_PROXY_REVERSE_PROXY: "true"
+      OAUTH2_PROXY_SET_XAUTHREQUEST: "true"
+      OAUTH2_PROXY_UPSTREAMS: static://202
+      OAUTH2_PROXY_HTTP_ADDRESS: 0.0.0.0:4180
+    depends_on:
+      - keycloak
+
+  caddy:
+    environment:
+      ROOM_HOST: ${ROOM_HOST}
+    networks:
+      default:
+        aliases:
+          - auth.${ROOM_HOST}      # oauth2-proxy reaches Keycloak through Caddy's HTTPS, inside the VM
+    depends_on:
+      - app
+      - keycloak
+      - oauth2-proxy
+
+volumes:
+  kc-db:
