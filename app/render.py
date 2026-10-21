@@ -71,7 +71,9 @@ def _update(slug, tag, page=None, **changes):
         else:
             m["pages"].setdefault(str(page), {}).update(changes)
         folder(slug).mkdir(parents=True, exist_ok=True)
-        (folder(slug) / "status.json").write_text(json.dumps(st, indent=1))
+        f = folder(slug) / "status.json"      # swapped in whole: a reader never sees half a file
+        f.with_suffix(".tmp").write_text(json.dumps(st, indent=1))
+        f.with_suffix(".tmp").replace(f)
 
 
 # ---- references ------------------------------------------------------------------------------
