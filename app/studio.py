@@ -1174,6 +1174,20 @@ def reletter(slug, n, note, kept=False):
 _fix_jobs = {}
 
 
+def fix_from_layout(slug, n, note="", letter_note=""):
+    """The page drawn again to match its layout after an edit made outside the editor: with a note,
+    the art redrawn and lettered; without one, lettered only. The page before is kept."""
+    from . import easy
+    _check_free(slug, n)
+    kept = bool(easy._keep_copy(slug, [n]))
+    letter = letter_note or "Letter the page with exactly the words listed, in the order listed."
+    if (note or "").strip():
+        fix_page(slug, n, note.strip(), letter, kept=kept)
+    else:
+        reletter(slug, n, letter, kept=kept)
+    return page_state(slug, n)
+
+
 def fix_page(slug, n, note, letter_note="", kept=False):
     """Redraw page n from its own drawing with one change, art-checked; the drawing before is kept."""
     from . import easy, prompts

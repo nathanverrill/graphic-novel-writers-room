@@ -1714,6 +1714,18 @@ def studio_page_draw(slug: str, n: int):
     return _st(studio.draw_page, slug, n)
 
 
+class StudioFix(BaseModel):
+    note: str = ""          # what changes in the art; empty letters the page again only
+    letter_note: str = ""   # what changes in the lettering
+
+
+@app.post("/api/studio/{slug}/pages/{n}/fix")
+def studio_page_fix(slug: str, n: int, body: StudioFix):
+    """Redraw a page from its layout as it is now (the art with a note, then the lettering), or with
+    no note letter it again - for layout edits made outside the page editor. A copy is kept first."""
+    return _st(studio.fix_from_layout, slug, n, body.note, body.letter_note)
+
+
 @app.put("/api/studio/{slug}/pages/{n}/words")
 def studio_page_words(slug: str, n: int, body: StudioWords):
     return _st(studio.save_words, slug, n, body.texts, body.delete)
