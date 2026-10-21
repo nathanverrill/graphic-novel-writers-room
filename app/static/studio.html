@@ -269,7 +269,7 @@
   const pageImg = (p) => {
     if (!p.art) return "";
     const l = p.lettered >= p.art ? p.lettered : 0, m = p.model >= p.art ? p.model : 0;
-    return m > l ? img(p.page, "lettered-model", m) : l ? img(p.page, "lettered", l) : img(p.page, "art", p.art);
+    return m && m >= l ? img(p.page, "lettered-model", m) : l ? img(p.page, "lettered", l) : img(p.page, "art", p.art);
   };
 
   function go(params) {

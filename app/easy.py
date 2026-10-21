@@ -9,6 +9,7 @@ is a copy of every drawing before it is drawn again:
 
 so "bring back the earlier drawing" is always one button away."""
 import json
+import os
 import shutil
 import time
 
@@ -121,13 +122,15 @@ def restore(slug, n):
     if not src:
         raise FileNotFoundError(f"no earlier drawing of page {n}")
     _keep_copy(slug, [n])
-    # copyfile gives each a new time: the art first, then its lettering oldest first, so the page
-    # shows the same lettering it showed when it was kept
+    # the art first, then its lettering oldest first, a second apart (the page list compares whole
+    # seconds), so the page shows the same lettering it showed when it was kept
     lets = sorted((k for k in KINDS[1:] if _png(src / k, n).is_file()), key=lambda k: _png(src / k, n).stat().st_mtime)
-    for kind in ("art", *lets):
+    t = int(time.time()) - len(lets)
+    for i, kind in enumerate(("art", *lets)):
         d = render.folder(slug, TAG, kind)
         d.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(_png(src / kind, n), _png(d, n))
+        os.utime(_png(d, n), (t + i, t + i))
     words = src / "layout" / f"p{n:02d}.json"
     if words.is_file():
         from . import lettering
