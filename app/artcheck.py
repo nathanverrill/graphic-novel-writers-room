@@ -16,7 +16,7 @@ import re
 import urllib.error
 import urllib.request
 
-MODEL = "meta-llama/llama-4-maverick"    # the art reviewer, the page sent as image bytes (gemini-3.1-pro-preview to 2026-10-15, gemini-4-argon to 10-17, opus-5.5 briefly)
+MODEL = "anthropic/claude-opus-5.5"    # the art reviewer, the page sent as image bytes (gemini-3.1-pro-preview to 2026-10-15, gemini-4-argon to 10-17, llama-4-maverick to 10-21)
 URL = "https://openrouter.ai/api/v1/chat/completions"
 TRIES = 3          # the first drawing and two redraws
 TIMEOUT = 300
