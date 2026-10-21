@@ -96,7 +96,10 @@ def full_name(name, bible):
     if exact:
         return exact[0]
     starts = [e for e in entries if e.lower().split()[0] == low]
-    return starts[0] if len(starts) == 1 else name
+    if len(starts) == 1:
+        return starts[0]
+    ends = [e for e in entries if e.lower().split()[-1] == low]     # "DAUGHTER" is ALEX'S DAUGHTER,
+    return ends[0] if len(ends) == 1 else name                      # "SUPERVISOR" SITE 6 SUPERVISOR
 
 
 def lock_for(slug, name, tag, bible=""):
@@ -125,7 +128,19 @@ def references(slug, tag, spec, ctx):
     if key and key["art"]:
         out.append((f"this page as drawn before - stay close to its composition", key["art"]))
     names, _, _ = prompts.page_cast(spec, ctx)
+    # a page can name its own lock folders for a character - {"ALEX": ["alex-2070"]} on the prologue,
+    # where Alex is in his forties; a list when the page shows him at two ages
+    pins = {k.upper(): [v] if isinstance(v, str) else v for k, v in (spec.get("locks") or {}).items()}
+    base = projects.campaign_dir(slug) / "style" / "locks"
     for n in names:
+        if n.upper() in pins:
+            for f in pins[n.upper()]:
+                d = base / f"{f}-{tag}"
+                lock = next((p for p in sorted(d.glob("lock.*")) if p.suffix.lower() in MIME), None)
+                who = (d / "name.txt").read_text().strip() if (d / "name.txt").is_file() else f.replace("-", " ").title()
+                if lock and all(p != lock for _, p in out):
+                    out.append((f"{n} as {who}: draw this character exactly as this lock wherever the page shows {who}", lock))
+            continue
         lock = lock_for(slug, n, tag, ctx.get("bible"))
         if lock and all(p != lock for _, p in out):
             out.append((f"{n}: draw this character exactly as this lock", lock))
