@@ -947,6 +947,18 @@ def _page_image(slug, n):
 
 
 def _script_of(slug, n):
+    """What page n should show, for the art check: its layout when it has one - the same spec the
+    page is drawn from (script.md's page numbers drift from the layouts after edits) - else script.md."""
+    spec = next((s for s in render.book(slug) if s["page"] == n), None)
+    if spec:
+        out = [f"## Page {n}"]
+        for t in spec.get("tiers") or []:
+            for p in t.get("panels") or []:
+                out.append(f"\n**{p.get('label') or 'Panel'}.** {p.get('description') or ''}")
+        for it in spec.get("items") or []:
+            who = it.get("speaker") or it.get("type", "").upper()
+            out.append(f"panel {it.get('panel')}, {it.get('type')}: {who}: {it.get('text')}")
+        return "\n".join(out)
     script = projects.read_artifact(slug, "script.md") or ""
     m = re.search(rf"^##\s*Page\s+{n}\b.*?(?=^##\s*Page\s+\d+|\Z)", script, re.M | re.S | re.I)
     return m.group(0).strip() if m else "(no script for this page)"
