@@ -146,6 +146,8 @@
   .leaf .cap { display: flex; justify-content: space-between; gap: 1rem; color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
   .leaf .cap span:last-child { margin-left: auto; }
   .leaf .flag { color: var(--bad); }
+  .notes .flag { color: var(--bad); }
+  .notes ul { margin: .3rem 0 .5rem; padding-left: 1.1rem; font-size: .9em; }
   /* a page being drawn: the page's panels shimmer in, blurred where a drawing is being redone, with
      the step it is on and the time left - no picture until the real one arrives */
   .drawbox { position: relative; width: 100%; aspect-ratio: 1024 / 1536; overflow: hidden; background: var(--soft);
@@ -376,6 +378,8 @@
     const ta = $("#say");
     ta.onkeydown = (e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) { e.preventDefault(); send(); } };
     $("#send").onclick = send;
+    const un = $("#usenotes");
+    if (un) un.onclick = () => { const b = $("#say"); b.value = "Fix these:\n" + notes.map((t) => "- " + t).join("\n"); b.focus(); };
     main.querySelectorAll("[data-raw]").forEach((b) => b.onclick = () => saveRaw(b.dataset.raw));
     $("#newchat").onclick = async () => { S.chat = (await api(B("/chat"), { method: "DELETE" })).messages; drawChat(); };
     const zone = $(".create section");
@@ -659,7 +663,7 @@
         <div class="row"><input id="vname" placeholder="Version name" style="width:12rem"><button id="vsave">Save as version</button><span class="msg small" id="vmsg"></span></div></div>
       ${st.pages.map((p) => `<a class="leaf ${p.state === "drawing" ? "drawing" : ""}" id="p${p.page}" href="?b=${enc(S.slug)}&m=pages&p=${p.page}" data-page="${p.page}">
         ${p.state === "drawing" ? drawing(p, null, p.art ? pageImg(p) : "") : p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" width="1024" height="1536" loading="${p.page <= 2 ? "eager" : "lazy"}">` : scriptPage(p.script, false)}
-        <span class="cap">${p.problems.length ? `<span class="flag">the art check noticed something</span>` : p.art ? "" : `<span>script, not drawn yet</span>`}<span>${p.page}</span></span></a>`).join("")}
+        <span class="cap">${p.problems.length ? `<span class="flag" title="${esc(p.problems.join("\n"))}">art check: ${p.problems.length} note${p.problems.length > 1 ? "s" : ""}</span>` : p.art ? "" : `<span>script, not drawn yet</span>`}<span>${p.page}</span></span></a>`).join("")}
     </div>`;
     main.querySelectorAll("a.leaf").forEach((a) => a.onclick = (e) => {
       if (e.metaKey || e.ctrlKey) return;
@@ -699,6 +703,7 @@
     main.dataset.psig = "";
     const list = S.st.pages, idx = list.findIndex((x) => x.page === n);
     const prev = list[idx - 1], next = list[idx + 1];
+    const notes = (list[idx] || {}).problems || [];
     main.innerHTML = `<div class="editor">
       <div class="pic" id="pic">${picture(pg, fixing)}</div>
       <div class="pane">
@@ -709,6 +714,8 @@
         ${pg.words.length ? `<section><div class="words" id="words">${wordFields(pg)}</div>
           ${pg.art ? "" : `<div class="row" style="margin-top:.5rem"><button class="go" id="wsave">Save words</button><span class="msg small" id="wmsg"></span></div>`}</section>` : ""}
         ${startBox(pg)}
+        ${pg.art && notes.length ? `<section class="notes"><b class="flag">The art check noticed</b><ul>${notes.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+          <button class="quiet" id="usenotes">Put these in the box below</button></section>` : ""}
         <section class="pchat" ${pg.art ? "" : "hidden"}>
           <div class="thread" id="thread">${thread(pg)}</div>
           <textarea id="say" rows="3" placeholder="${pg.words.length ? "Change the words above, and/or say what else should change. " : "What should change? "}“Remove the sixth finger on her left hand” · “She points with her right hand” · “The bubble in panel 2 points at the wrong person”"></textarea>
