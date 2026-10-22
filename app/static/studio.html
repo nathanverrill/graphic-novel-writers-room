@@ -661,6 +661,8 @@
     main.innerHTML = `<div class="reading">
       <div class="pagebar"><span class="muted">${st.pages.length} pages · ${drawn} drawn${st.running ? " · <b>working…</b>" : ""}</span>
         <div class="row"><input id="vname" placeholder="Version name" style="width:12rem"><button id="vsave">Save as version</button><span class="msg small" id="vmsg"></span></div></div>
+      <div class="pagebar small"><span class="muted">Download as shown:</span><div class="row">${(st.chapters || []).map((c) =>
+        `<a href="${B(`/pages.zip?first=${c.first}&last=${c.last}&name=${enc(c.name)}`)}" download>${esc(c.name)}</a>`).join("")}<a href="${B("/pages.zip?name=book")}" download>Whole book</a></div></div>
       ${st.pages.map((p) => `<a class="leaf ${p.state === "drawing" ? "drawing" : ""}" id="p${p.page}" href="?b=${enc(S.slug)}&m=pages&p=${p.page}" data-page="${p.page}">
         ${p.state === "drawing" ? drawing(p, null, p.art ? pageImg(p) : "") : p.art ? `<img src="${pageImg(p)}" alt="Page ${p.page}" width="1024" height="1536" loading="${p.page <= 2 ? "eager" : "lazy"}">` : scriptPage(p.script, false)}
         <span class="cap">${p.problems.length ? `<span class="flag" title="${esc(p.problems.join("\n"))}">art check: ${p.problems.length} note${p.problems.length > 1 ? "s" : ""}</span>` : p.art ? "" : `<span>script, not drawn yet</span>`}<span>${p.page}</span></span></a>`).join("")}

@@ -1671,6 +1671,17 @@ def studio_page_image(slug: str, name: str, kind: str = "lettered"):
     return FileResponse(p, headers={"Cache-Control": "no-cache"})
 
 
+@app.get("/api/studio/{slug}/pages.zip")
+def studio_pages_zip(slug: str, first: int = 1, last: int = 999, name: str = "pages"):
+    """Pages first..last as shown in the studio, for download: a chapter, or the whole book."""
+    try:
+        data = studio.pages_zip(slug, first, last)
+    except ValueError as e:
+        raise HTTPException(404, str(e))
+    fn = re.sub(r"[^a-z0-9]+", "-", f"{slug}-{name}".lower()).strip("-") + ".zip"
+    return Response(data, media_type="application/zip", headers={"Content-Disposition": f'attachment; filename="{fn}"'})
+
+
 @app.post("/api/studio/{slug}/versions")
 def studio_save_version(slug: str, body: StudioName):
     return _st(studio.save_version, slug, body.name)

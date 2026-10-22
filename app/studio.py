@@ -736,7 +736,7 @@ def state(slug):
     return {"slug": slug, "title": title(slug), "mode": mode(slug), "running": running(slug),
             "files": files(slug), "locks": locks(slug), "run": run_state(slug), "next": [TITLES[s] for s in where(slug)],
             "pages": pages(slug), "settings": {"pages": review.settings(slug).get("pages")},
-            "versions": versions(slug), "cost_page": COST_PAGE,
+            "versions": versions(slug), "chapters": chapters(slug), "cost_page": COST_PAGE,
             "has_key": bool(render.api_key())}
 
 
@@ -801,6 +801,32 @@ def version_page(slug, vid, n):
         if p.is_file():
             return p
     raise FileNotFoundError(f"page {n}")
+
+
+def chapters(slug):
+    """The book's parts for downloads, from production/chapters.json: [{"name", "first", "last"}]."""
+    p = projects.campaign_dir(slug) / "production" / "chapters.json"
+    try:
+        return [c for c in json.loads(p.read_text()) if c.get("name") and int(c["first"]) <= int(c["last"])]
+    except (OSError, ValueError, TypeError, KeyError):
+        return []
+
+
+def pages_zip(slug, first, last):
+    """Pages first..last as a reader sees them (the newest lettering, else the art), zipped."""
+    import io
+    import zipfile
+    buf = io.BytesIO()
+    k = 0
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_STORED) as z:
+        for n in range(first, last + 1):
+            f = _shown(slug, n) or _art(slug, "art", n)
+            if f.is_file():
+                z.write(f, f"{slug}-p{n:02d}.png")
+                k += 1
+    if not k:
+        raise ValueError("no pages drawn in that range")
+    return buf.getvalue()
 
 
 def restore_version(slug, vid):
