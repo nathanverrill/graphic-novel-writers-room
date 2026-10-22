@@ -442,6 +442,11 @@ def page_prompt(spec, ctx):
         by_panel.setdefault(item.get("panel"), []).append(item)
     for n, p in enumerate(panel_specs, 1):
         out += [panel_block(n, p, by_panel.get(n, []), dict(spec, text_layer=layer, sfx_art=sfx_art)), ""]
+    notes = spec.get("art_notes") or []
+    if isinstance(notes, str):
+        notes = [notes]
+    if notes:      # production's art direction for this page; kept out of the script document
+        out += ["**Art notes for this page (follow these exactly):**", "", *[f"- {t}" for t in notes], ""]
     if layer:
         out += [
             ("**Rules:** draw NO text anywhere on this page except the sound effects listed, lettered exactly "
