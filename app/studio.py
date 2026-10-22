@@ -1065,6 +1065,9 @@ def _apply_words(slug, n, words):
         if "text" in ch and " ".join(str(ch["text"]).split()) != " ".join(str(old).split()):
             c["text"] = str(ch["text"])
             notes.append(f'the {items[i]["type"]} that read "{old}" now reads "{" ".join(str(ch["text"]).split())}"')
+        elif "text" in ch:      # the layout already says it, so the drawn lettering is what's wrong
+            notes.append(f'the {items[i]["type"]} must read exactly "{" ".join(str(old).split())}"; '
+                         f'the page as lettered now gets it wrong')
         if ch.get("at"):
             c["at"] = ch["at"]
             notes.append(f'move "{old}" to the {ch["at"]} of its panel')
