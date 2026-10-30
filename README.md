@@ -12,10 +12,10 @@ CU Boulder creative hackathon.*
 > production use.
 
 A web-based, agentic writers' room for graphic novels: **fifteen agents across ten phases**,
-on six models from three labs, with the showrunner approving every stage. It writes the book,
+on four models from three labs, with the showrunner approving every stage. It writes the book,
 lays out every page as a **page packet** (a complete brief for an image model, with **no text
-on the page**), draws the pages at `/renders` with an art check on every drawing, and letters
-them itself as a separate layer over the art. The words can change, or be translated, without
+on the page**), draws the pages with an art check on every drawing, and letters them itself
+as a separate layer over the art. The words can change, or be translated, without
 redrawing anything.
 
 ### Why it is built this way
@@ -37,6 +37,30 @@ process (script, layouts, art, lettering), built on six principles:
   page, and an art check sends back any drawing that drifts.
 - **Many readers, fast.** Agents work side by side, two writers audition, and two cold readers
   and an analyst read the script before anything is drawn.
+
+### How a book gets made
+
+```mermaid
+flowchart LR
+  M[Your material<br/>input/ rules/ drafts/ references/] --> I[Intake<br/>Script Coordinator]
+  I -->|open items, you answer| G1{{evoke}}
+  G1 --> D[Development<br/>Director, Plotter,<br/>Character Designer]
+  D --> A[Audition<br/>Writer A vs Writer B]
+  A -->|First Reader| W[Writing]
+  W --> C[Cold read x2<br/>+ Analyst]
+  C -->|cut pass| W
+  C --> L[Layouts<br/>one JSON block a page]
+  L --> P[Draw<br/>Sunburst]
+  P --> K{Art check<br/>Opus 5.5}
+  K -->|major problem, up to 3 tries| P
+  K --> B[Balloons placed<br/>Opus 5.5]
+  B --> T[Lettering layer<br/>code, $0]
+  T --> O[Pages: art / overlay / lettered]
+```
+
+Each box is a phase you can rerun alone, and the showrunner holds the gate after each one.
+Words live in `layouts.md` and are drawn over the art by code, so the loop from **T** back to
+itself (change a line, letter it again) costs nothing; only **P** spends money.
 
 ## Quick start
 
@@ -143,18 +167,39 @@ chat client or an editor can work on a book without the screen.
 
 Each agent has its own model and temperature (`agents/<id>/agent.json`, see **Per-agent
 settings**), chosen per job, and the room mixes labs on purpose: the two writers run on
-different models so their voices differ, the two cold readers come from different labs so they
-do not share blind spots, and the art check finds problems with one model and confirms them
-with another. As committed:
+different models so their voices differ, and the two cold readers come from different labs so
+they do not share blind spots. In short: GPT does the routine work, GPT Image draws, Claude
+does quality control, and Llama is the second opinion. As committed:
 
 | Model | Used by |
 |---|---|
 | OpenAI GPT-5.6 Luna | Script Coordinator, Director, Plotter, Character Designer, Draft Editor, Layout Agent, Letterer, Press Check, Continuity Editor |
 | OpenAI GPT-5.6 Luna Pro | Writer B |
-| Google Gemini 3.1 Pro | Writer A, Second Cold Reader, the art check's first look |
-| Anthropic Claude Opus 5.5 | First Reader, Cold Reader, Analyst, Riff, the structure check, the lock comparison, the art check's confirmation |
-| OpenAI GPT Image 2.5 Sunburst | every page and every character lock |
-| Google Gemini 3.1 Flash Image | the second model on `/renders`, to compare |
+| Meta Llama 4 Maverick | Writer A, Second Cold Reader, Voices (it borrows the picked writer's model) |
+| Anthropic Claude Opus 5.5 | First Reader, Cold Reader, Analyst, Riff, the structure check, the lock comparison, the art check and its close-up confirmation, balloon placement |
+| OpenAI GPT Image 2.5 Sunburst | every page and every character lock: the only drawing model |
+
+No Gemini, anywhere: it was dropped on 2026-10-17 (drawing, art review, Writer A and the Second
+Cold Reader), and every `google/` image model is excluded from the pickers.
+
+```mermaid
+flowchart TB
+  subgraph OpenAI
+    Luna[GPT-5.6 Luna<br/>9 production roles]
+    Pro[GPT-5.6 Luna Pro<br/>Writer B]
+    Sun[GPT Image 2.5 Sunburst<br/>every drawing]
+  end
+  subgraph Meta
+    Llama[Llama 4 Maverick<br/>Writer A, Second Cold Reader]
+  end
+  subgraph Anthropic
+    Opus[Claude Opus 5.5<br/>readers, Analyst, art check,<br/>balloon placement, Riff]
+  end
+  Luna --> Sun
+  Pro --> Opus
+  Llama --> Opus
+  Sun --> Opus
+```
 
 Around the fifteen agents sit five supporting tools on the same models: **Riff**, the
 **structure check** and the **lock comparison** (all on the Story desk), the **art check**
@@ -172,9 +217,17 @@ the packets. **Page 1 first** stops at a proof of page 1 instead. From the comma
 **Packets** tab has every page to copy, and the whole set as a zip; the **Lettering** tab takes
 the art back, page by page, runs the Letterer, and downloads each lettered page as a PNG.
 
-**`/` is the front door**: doors to pre-production, production, the room, the one-button
-phone screen (`/quick`), Voices, the Art Department (`/art`), Renders and Sheets (the LoRA
-sheet builder, its own container reached as `/sheets`).
+**`/` is the front door**: doors to the **Studio** (`/studio`), pre-production, production,
+the room, the **Easy desk** (`/easy`), the one-button phone screen (`/quick`), Voices, the Art
+Department (`/art`), Renders and Sheets (the LoRA sheet builder, its own container reached as
+`/sheets`).
+
+**`/studio` is the simplest way in**, and where a book's pages are worked on now: see **The
+Studio** below. **`/easy`** is one book, where it stands (still being written, ready to draw,
+or drawn), and only what fits: draw the book, fix one page, check the flagged pages, change a
+character's look and redraw just their pages, edit a page's words, download. Every spend asks
+twice. **`/showrunner`** is a reading room for a showrunner who only drops notes: turn the
+spreads, note them, run again.
 
 **`/quick` is one button.** It runs the phase the Prosperity book is in — **Start intake**,
 then **Run audition**, and so on: a line for each agent in that phase with the one at work
@@ -184,6 +237,69 @@ Writer B**. After execution it shows the lettered pages. Built for a phone, noth
 **`/room` is everything else** — every writer, every file, every round — and the rest of this
 document is about that screen. The two link to each other: the footer on `/`, the title on
 `/room`.
+
+## The Studio
+
+`/studio` puts every book on one shelf and opens one book at a time in four modes, with the
+room's machinery out of sight (`app/studio.py`, state under `campaigns/<slug>/studio/`):
+
+| Mode | What it does |
+|---|---|
+| **Create** | one chat box. Anything in it can be saved as material (`input/`), research (`references/`), a rule, or a character's art lock (`style/locks/<name>-sunburst/`), drawn by Sunburst from the words or taken as a dropped image |
+| **Run** | one button with a budget: intake (taking the suggested answers), production, a preview page as early as the book allows, then every page drawn in order, four at a time. A bar, an ETA, the dollars spent, and a stop that keeps whatever is finished. It stops before going over the budget (a page is counted at about $0.40) |
+| **Pages** | the book as one long scroll: drawn where drawn, the script set as a page where not. Each page is its own editor (below) |
+| **Versions** | a named copy of the book's words and pages, to compare and to bring back |
+
+```mermaid
+flowchart LR
+  S[Script page] -->|Lay out| L[Layout block<br/>layouts.md]
+  L -->|Draw| A[art/]
+  A -->|art check| A
+  A -->|Opus places balloons| O[overlay/<br/>SVG + PNG]
+  O --> X[lettered/]
+  X -->|edit words: free| O
+  X -->|chat or note: redraw| A
+```
+
+**The page editor.** A page opens at its own address (`/studio?b=<slug>&m=pages&p=N`). It
+shows the page, its words as plain fields, and a chat that sees the page:
+
+- **Words.** Edit a balloon or caption, or strike it to remove it, and **Update page**: the
+  fields say exactly which words change, and the page is lettered again for free. Word edits
+  keep `layouts.md`'s time, so a later run does not redraw the page for them.
+- **Chat.** Say what is wrong. Lettering fixes apply at once; art fixes redraw the page from
+  itself, with the note, and a copy of the drawing before is kept first. A word fix whose text
+  the layout already has still letters the page again, since the drawn lettering is what is wrong.
+- **Undrawn pages.** A page with a script and no layout can be laid out on its own, then drawn,
+  with progress by step and time left.
+- **Edited outside the editor.** A page whose layout block was changed by hand can be redrawn to
+  match (with a note) or lettered again (without one).
+- **Art check notes** show on the page: a count and hover in the list, the full list in the
+  editor, and a button that puts them in the chat box.
+- **Bringing a page back.** Every drawing is copied to `renders/sunburst/previous/` before it
+  is drawn again, with the words it had, so restoring a page restores its lettering too.
+
+**A finished page is three files**: `art/` (the drawing), `overlay/` (the lettering layer as SVG
+and transparent PNG) and `lettered/` (the two together). When Sunburst lettered a page whole and
+that is the newest, the Studio shows it from `lettered-model/`.
+
+**Sound effects are drawn in.** Sunburst draws them as part of the scene, and the art check reads
+their spelling; balloons and captions stay on the lettering layer, exact and free to change.
+The round setting `"sfx": "layer"` puts sound effects back on the layer.
+
+**Balloons are placed on the drawn page.** After each drawing, one look by Claude Opus 5.5
+places every balloon in calm space, off faces, and aims its tail.
+
+**Art direction per page.** A page's layout block can carry `"art_notes": [...]`: production's
+art direction, added to the drawing prompt and kept out of the script document. A page can also
+pin its own lock folders with `"locks": {"ALEX": ["alex-2070"]}` (the prologue's older Alex,
+`style/locks/alex-2070-sunburst/`; a list when a page shows someone at two ages); otherwise a speaker finds its lock by name, or by the last word of its canon name
+(DAUGHTER, SUPERVISOR).
+
+**Downloads.** `/api/studio/<slug>/pages.zip` is the whole book as lettered PNGs; with
+`production/chapters.json` (`[{"name": "chapter-1", "first": 1, "last": 16}, ...]`) the Studio
+offers one zip per chapter (`?first=1&last=16&name=chapter-1`). One page is
+`/api/studio/<slug>/page/pNN.png`, and `?kind=art` gives it unlettered.
 
 ## The Story desk
 
@@ -439,6 +555,43 @@ docker compose -f docker-compose.yml -f override.yml up -d --no-deps app
 
 Another independent instance of the whole room — its own campaigns, agents and index — is
 `scripts/instance.sh <name> <port>` (see `docker-compose.instance.yml`).
+
+## On a GCP VM
+
+`deploy/gcp/deploy.sh` stands the room up on one Compute Engine VM (project
+`voltaic-quest-502915-u7`, `us-central1-a`, `e2-standard-2`, Debian 12): a static IP, a
+`<ip>.sslip.io` host name, firewall rules for 80 and 443 only, Docker, and the repo cloned.
+It is idempotent: rerunning reuses the IP, firewall and VM, and redeploys the app.
+
+```mermaid
+flowchart LR
+  U[Browser] -->|HTTPS| C[Caddy]
+  C -->|Basic Auth, or Keycloak<br/>via oauth2-proxy| APP[app :8000<br/>room, Studio, Easy]
+  C --> FB[File Browser<br/>files. host]
+  APP --> CAMP[(campaigns/<br/>bind-mounted)]
+  FB --> CAMP
+  APP -->|OpenRouter| M[Luna, Llama,<br/>Opus, Sunburst]
+```
+
+- **`deploy/gcp/caddy.yml`** puts Caddy in front of the app with HTTPS and a Basic Auth
+  popup, runs the writing containers as the VM user (so everything the room makes can be edited
+  over SSH), and adds **File Browser** at `files.<host>`: `campaigns/` and `agents/` in the
+  browser, behind the same door, with no terminal and no reach into `secrets/`.
+- **`deploy/gcp/keycloak.yml`** swaps Basic Auth for **Keycloak** sign-in, one login per person:
+  Keycloak, its Postgres and oauth2-proxy, with `Caddyfile.sso` copied to `deploy/gcp/Caddyfile`.
+  `.env` carries `ROOM_HOST` and the four secrets it names; people are added at `auth.<host>/admin`.
+- **Saved versions and renders stay out of the image**: `campaigns/` is mounted, and copying
+  it into the build filled the VM's disk.
+- **Pages and scripts are revalidated on every load** (`Cache-Control: no-cache` on HTML, JS
+  and CSS), so a deploy shows without a hard refresh.
+
+To redeploy after a push, pull on the VM and rebuild the app:
+
+```sh
+gcloud compute ssh writers-room --zone us-central1-a --project voltaic-quest-502915-u7 --command \
+  'cd /home/nathan/writers-room && sudo -u nathan git pull -q --ff-only && \
+   sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml up -d --build app'
+```
 
 ## The sprint tools
 
@@ -768,19 +921,23 @@ draws (`/api/projects/<slug>/needs`), with the pages each is on, against every m
 plate - kept, missing, or not in the cast yet (add it in one click). Choose the models on every roll. Projects live in `art/data/` (not committed); every roll records
 what each model was shown.
 
-**Renders** (`/renders`) draw the whole book with each image model - GPT Image 2.5 Sunburst (the
-room's default) and Gemini 3.1 Flash Image - art only, with no lettering on it. Every page is drawn from its packet with
+**Renders** (`/renders`) draw the whole book with GPT Image 2.5 Sunburst, the only drawing
+model, art only, with no lettering on it. Every page is drawn from its packet with
 reference images: Sheets' style plate (the book's look), the page's key art when it has one, and
 that model's own kept lock of every character on the page - built in Sheets, kept with the
 campaign under `campaigns/<slug>/style/locks/<name>-<model>/`, like the style plate at
 `campaigns/<slug>/style/plate.*`; a plate or lock is one book's look and is never shared
-across campaigns. Pages are drawn eight at a time per model (`RENDER_WORKERS` in `.env`; the provider's rate limit is the ceiling), both models side by side;
-drawn pages are kept, and one page can be drawn again.
+across campaigns. Pages are drawn eight at a time (`RENDER_WORKERS` in `.env`; the provider's rate limit is the
+ceiling); drawn pages are kept, and one page can be drawn again.
 
-**Every drawing is art-checked** (`app/artcheck.py`): Gemini 3.1 Pro looks for extra or missing
-fingers, broken limbs, bad faces, cloned figures, stray text and characters off their locks, and
-Claude Opus 5.5 confirms each problem it finds. A page with a confirmed major problem is drawn
-again with the problems named, up to three tries; the report is kept beside the page. On
+**Every drawing is art-checked** (`app/artcheck.py`): Claude Opus 5.5 looks for extra or missing
+fingers, broken limbs, bad faces, cloned figures, stray text and characters off their locks,
+against the page's own layout block (not `script.md`, whose page numbers drift after edits). A
+major hands, body or face problem is confirmed by a second Opus call on an enlarged crop; one
+the close-up does not bear out is kept as minor. A page with a confirmed major problem is drawn
+again with the problems named, up to three tries; the report is kept beside the page. (The
+first look was Gemini until 2026-10-17 and Llama 4 Maverick until 2026-10-21; Opus finds fewer
+false problems, so fewer pages are redrawn for nothing.) On
 Prosperity a page costs about $0.19 to draw and $0.09 to check, and about 4 in 10 pages need a
 second try, so a page averages **about $0.40 and two minutes**, and a 72-page book **about
 $28** (about $14 without the check).
@@ -1167,8 +1324,7 @@ in about 15 seconds.
    .venv/bin/python scripts/translate.py apply prosperity lines-es.csv out/es
    ```
 
-   One lettered PNG per page that has art (`renders/sunburst/art`; `--model gemini` for the
-   other model's). In Docker, put the CSV in the repo and run
+   One lettered PNG per page that has art (`renders/sunburst/art`). In Docker, put the CSV in the repo and run
    `docker compose exec app python scripts/translate.py apply prosperity /app/lines-es.csv /app/out/es`.
 
 4. **Read the pages.** Translations run longer (German and Spanish often by a fifth or more),
@@ -1230,6 +1386,9 @@ Click **Model** on an agent's card. Up front: **provider** (OpenAI, OpenRouter, 
 Gemini, Groq, Together, Mistral, DeepSeek, Ollama, LM Studio, or a custom URL), **API key**
 and **model** — with **Load models** (the provider's own list), **Test connection**, and
 **Use this provider & model for all agents**. **Show advanced** reveals everything else.
+
+**No key yet?** The room's **no API key** warning is a button: paste an OpenRouter key there,
+it is checked with OpenRouter, and every role, the renderer, Art and Sheets use it.
 
 **Keys are saved per provider**, in `secrets/keys.json` (git-ignored, owner-only, mounted into
 the container). One OpenRouter key serves every agent — and every model — on OpenRouter, and a
