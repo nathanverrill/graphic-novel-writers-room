@@ -393,20 +393,37 @@ floor - near its speaker, never over a face, a hand, or the thing the panel is a
 the line read first sits higher and further left. A caption goes against a panel corner or edge.
 For each speech balloon also give "speaker": where the speaker's mouth is (or their head, if the
 mouth isn't visible), as page fractions; or "offpanel": true if they aren't drawn in that panel.
+Find the speaker by their look - never aim at whoever happens to stand where the script put them:
+{cast}
 
 {lines}
 
 Reply with ONLY JSON: {{"items": [{{"item": <number>, "spot": [x, y], "speaker": [x, y]}} or {{"item": <number>, "spot": [x, y], "offpanel": true}}]}}"""
 
 TAILED = ("balloon", "whisper", "shout", "thought")
+
+
+def _cast(slug, items):
+    """Each speaker on the page and how they look, from characters.md's visual locks."""
+    md = projects.read_artifact(slug, "characters.md") or ""
+    looks = {}
+    for m in re.finditer(r"^###\s+(.+?)\s*$(.*?)(?=^###\s|\Z)", md, re.M | re.S):
+        v = re.search(r"\*\*Visual lock\*\*\s*[—-]\s*(.+)", m.group(2))
+        if v:
+            looks[m.group(1).strip().upper()] = v.group(1).strip()[:300]
+    out = []
+    for who in sorted({(i.get("speaker") or "").upper().split(" (")[0] for i in items if i.get("speaker")}):
+        look = looks.get(who) or next((v for k, v in looks.items() if who and (who in k.split() or k.startswith(who))), "")
+        out.append(f"- {who}: {look or 'see the page'}")
+    return "\n".join(out) or "- (no speakers)"
 PLACED = TAILED + ("caption", "screen", "sign", "headline")     # the location header always sits top-left
 
 
-def place_lettering(slug, tag, pages=None, redo=False):
+def place_lettering(slug, tag, pages=None, redo=False, tails_only=False):
     """One look at each drawn page places its balloons and captions in the drawing's calm space
     and points each tail at its speaker. Written into layouts.md as x/y and tail_x/tail_y
     (percent of the panel), so lettering again costs nothing and the editor can still move them.
-    redo=False leaves items already placed. {page: result}."""
+    redo=False leaves items already placed; tails_only=True moves no balloon, only aims the tails. {page: result}."""
     key = api_key()
     specs = {s["page"]: s for s in book(slug)}
     todo = sorted(int(p) for p in (pages or specs))
@@ -430,7 +447,8 @@ def place_lettering(slug, tag, pages=None, redo=False):
             who = f' {i["speaker"]}' if i.get("speaker") and i["type"] in TAILED else ""
             lines.append(f'- item {i["i"]}: {i["type"]}{who}, panel {i.get("panel")}{size}: "{i.get("text", "")[:120]}"')
         t0 = time.time()
-        answer, cost = artcheck._ask([{"type": "text", "text": PLACE_ASK.format(panels=panels, lines="\n".join(lines))},
+        answer, cost = artcheck._ask([{"type": "text", "text": PLACE_ASK.format(panels=panels, lines="\n".join(lines),
+                                                                               cast=_cast(slug, want))},
                                       {"type": "image_url", "image_url": {"url": data_url(art)}}], key, PLACE_MODEL)
         usage.ledger(slug, "letterer", "place", PLACE_MODEL, cost, time.time() - t0, page=n)
         found = {int(r["item"]): r for r in ((artcheck._json(answer) or {}).get("items") or [])
@@ -442,7 +460,7 @@ def place_lettering(slug, tag, pages=None, redo=False):
             pct = lambda pt: (round((float(pt[0]) - x0) / w * 100, 1), round((float(pt[1]) - y0) / h * 100, 1))
             c = {}
             try:
-                if r and isinstance(r.get("spot"), list) and len(r["spot"]) == 2:
+                if r and not tails_only and isinstance(r.get("spot"), list) and len(r["spot"]) == 2:
                     c["x"], c["y"] = pct(r["spot"])
                 if r and i["type"] in TAILED and i.get("speaker") and i.get("tail") != "none" and not r.get("offpanel") \
                         and isinstance(r.get("speaker"), list) and len(r["speaker"]) == 2:

@@ -728,12 +728,26 @@ def get_lettering(slug: str, page: int, version: str | None = None):
     return _lettering(slug, page, version)
 
 
+def _proof_changed(slug, page):
+    """A proof edit: the page's overlay and the candidate script follow it, off the request."""
+    from . import studio
+    threading.Thread(target=lambda: _quiet(studio._proof_refresh, slug, page), daemon=True).start()
+
+
+def _quiet(fn, *args):
+    try:
+        fn(*args)
+    except Exception:      # noqa: BLE001 - the proof shows the edit already; the files catch up next time
+        pass
+
+
 @app.put("/api/projects/{slug}/lettering/{page}")
 def put_lettering(slug: str, page: int, edit: LetteringEdit):
     try:
         lettering.set_items(slug, page, edit.changes)
     except ValueError as e:
         raise HTTPException(400, str(e))
+    _proof_changed(slug, page)
     return _lettering(slug, page)
 
 
@@ -744,6 +758,7 @@ def delete_lettering_item(slug: str, page: int, index: int):
         lettering.delete_item(slug, page, index)
     except ValueError as e:
         raise HTTPException(400, str(e))
+    _proof_changed(slug, page)
     return _lettering(slug, page)
 
 
@@ -766,6 +781,7 @@ def add_lettering_item(slug: str, page: int, item: NewLetteringItem):
         index = lettering.add_item(slug, page, item.model_dump())
     except ValueError as e:
         raise HTTPException(400, str(e))
+    _proof_changed(slug, page)
     return {**_lettering(slug, page), "added": index}
 
 
@@ -1538,6 +1554,75 @@ def _st(fn, *args):
         return not_found(fn, *args)
     except RuntimeError as e:
         raise HTTPException(409, str(e))
+
+
+# ---- the proof: the page made right cheaply, approved and locked, then lettered by Sunburst last (app/proof.py) ----
+
+from . import proof  # noqa: E402
+
+
+@app.get("/api/projects/{slug}/proof")
+def proof_book(slug: str):
+    """Which pages are approved, the book's chapters, the pages worked on in the page editor (newest
+    first), and the final lettering's progress."""
+    d = studio._dir(slug) / "pages"
+    worked = [int(f.stem[1:]) for f in sorted(d.glob("p*.json"), key=lambda f: -f.stat().st_mtime)] if d.is_dir() else []
+    return {**not_found(proof.status, slug), "chapters": studio.chapters(slug), "worked": worked,
+            "final": studio.final_state(slug)}
+
+
+@app.get("/api/projects/{slug}/proof/{page}")
+def proof_page(slug: str, page: int):
+    """One page's proof state: locked or not, the showrunner's draft of it, an art redraw running."""
+    st = (render.status(slug)["models"].get(studio.TAG, {}).get("pages", {}).get(str(page)) or {})
+    return {"page": page, "locked": proof.is_locked(slug, page), "draft": not_found(proof.draft, slug, page),
+            "fix": studio._fix_jobs.get((slug, page)) or {},
+            "progress": {k: st.get(k) for k in ("state", "stage", "attempt", "started")},
+            "check": st.get("check") or {}, "error": st.get("error")}
+
+
+@app.post("/api/projects/{slug}/proof/{page}/lock")
+def proof_lock(slug: str, page: int):
+    out = not_found(proof.lock, slug, page)
+    _quiet(proof.write_candidate, slug)
+    return out
+
+
+@app.post("/api/projects/{slug}/proof/{page}/unlock")
+def proof_unlock(slug: str, page: int):
+    return not_found(proof.unlock, slug, page)
+
+
+class ProofArt(BaseModel):
+    note: str
+
+
+@app.post("/api/projects/{slug}/proof/{page}/art")
+def proof_art(slug: str, page: int, body: ProofArt):
+    """Redraw the art alone from a note - the bubbles are an overlay and stay where they are."""
+    if not body.note.strip():
+        raise HTTPException(400, "say what should change in the art")
+    return _st(studio.fix_page, slug, page, body.note.strip())
+
+
+@app.post("/api/projects/{slug}/proof/{page}/place")
+def proof_place(slug: str, page: int, tails_only: bool = True):
+    """One look at the drawn page aims every tail at its speaker - and, with tails_only=false, puts
+    every balloon in calm space too (a few cents). A starting point to correct by hand."""
+    not_found(proof.check_unlocked, slug, page)
+    result = render.place_lettering(slug, studio.TAG, [page], redo=True, tails_only=tails_only)
+    _proof_changed(slug, page)
+    return {"result": result, **_lettering(slug, page)}
+
+
+class ProofFinal(BaseModel):
+    pages: list[int]
+
+
+@app.post("/api/projects/{slug}/proof/final")
+def proof_final(slug: str, body: ProofFinal):
+    """The last step: Sunburst letters these approved pages."""
+    return _st(studio.final_letter, slug, body.pages)
 
 
 @app.get("/studio")

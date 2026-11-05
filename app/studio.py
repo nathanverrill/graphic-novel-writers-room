@@ -685,8 +685,11 @@ def _draw_pages(slug, pages, redo=False):
     render._update(slug, TAG, state="running", total=len(todo), started=time.time(), finished=None)
     render._threads[(slug, TAG)] = threading.current_thread()
 
+    from . import proof
+    approved = set(proof.locked(slug))
+
     def one(spec):
-        if slug in _stops:
+        if slug in _stops or spec["page"] in approved:      # an approved page is not drawn over
             return
         render.page(slug, TAG, spec, ctx, key)
         try:
@@ -860,12 +863,14 @@ def restore_version(slug, vid):
 PAGE_SYSTEM = """You help the showrunner of {title} fix one finished comic page: page {n}. The page as it is
 now is attached: drawn art with the lettering over it.
 
+The page is a proof: its balloons are an overlay on the drawn art. The final lettering comes last,
+only when the showrunner approves the page, so never promise it here.
+
 Two kinds of fix:
-- WORDS: a balloon's words, its spot, its tail, or the balloon itself. The page is then lettered
-  again by the artist from the clean art, keeping the other balloons, about ${cost:.2f}.
-- ART: anything in the drawing - hands, fingers, poses, faces, props, who is where. The page is then
-  redrawn from itself with only that change, then lettered again, about ${cost2:.2f}, and the page
-  before is kept. Words and art in one reply cost the same as the art alone.
+- WORDS: a balloon's words, its speaker, its spot, its tail, or the balloon itself. The proof
+  updates at once and costs nothing. The words in the proof ARE the script.
+- ART: anything in the drawing - hands, fingers, poses, faces, props, who is where. The art alone is
+  redrawn from itself with only that change, about ${cost:.2f}, and the page before is kept.
 - SOUND EFFECTS: any redraw draws every sound effect into the art, big and hand-lettered, spelled as
   the layout has it, and takes it off the lettering layer. So to make a sound effect bigger, bolder or
   move it, send an ART fix and keep the item (change its "text" if the spelling changes) - never
@@ -878,12 +883,13 @@ the script's words unless the showrunner asks for new words.
 To apply, end your reply with one fenced block, and say in one plain line before it what you did:
 
 ```apply
-{{"words": {{"<item number>": {{"text": "new words"}} | {{"delete": true}} | {{"tail": [x, y]}} | {{"tail": "none"}} | {{"at": "<spot>"}}}},
+{{"words": {{"<item number>": {{"text": "new words"}} | {{"speaker": "NAME"}} | {{"delete": true}} | {{"tail": [x, y]}} | {{"tail": "none"}} | {{"at": "<spot>"}}}},
  "art": "for the artist: exactly what to change, where (panel, character, which hand), and what to keep"}}
 ```
 
 Use only the keys you need ("words", "art" or both). "tail": [x, y] points the tail at that spot,
 in percent of the whole page (0,0 top-left; 100,100 bottom-right) - aim at the speaker's mouth or head.
+When a line moves to another character, set "speaker" as well as the tail: the speaker is who says it.
 A spot is one of: {spots}. Keep "art" concrete and visual: "Panel 3: Min points with her RIGHT index finger;
 her left hand rests on the table, five fingers" - never a story note.
 
@@ -1001,6 +1007,8 @@ def page_say(slug, n, text, texts=None, delete=None):
         raise ValueError("say what should change")
     if not text:
         return save_words(slug, n, texts, delete)
+    from . import proof
+    proof.check_unlocked(slug, n)
     _check_free(slug, n)
     key = riff._key()
     from . import easy
@@ -1025,10 +1033,11 @@ def page_say(slug, n, text, texts=None, delete=None):
     m = re.search(r"```apply\s*(\{.*?\})\s*```", reply, re.S)
     if m:
         shown = (reply[:m.start()] + reply[m.end():]).strip()
-        try:
-            act = json.loads(m.group(1))
+        try:   # the first whole object: a stray brace or note after it is not the change
+            act = json.JSONDecoder(strict=False).raw_decode(m.group(1))[0]
         except ValueError:
             act = None
+            shown = "I couldn't apply that change, so nothing on the page changed. Please say it again."
             done.append("couldn't read the change - say it again")
         if isinstance(act, dict):
             if act.get("words") and (act.get("art") or "").strip():
@@ -1048,22 +1057,13 @@ def page_say(slug, n, text, texts=None, delete=None):
                     done.append(f"words not changed: {e}")
             if (act.get("art") or "").strip():
                 try:
-                    fix_page(slug, n, act["art"].strip(), note, kept=kept)
-                    done.append("redrawing the page")
+                    fix_page(slug, n, act["art"].strip(), kept=kept, letter=False)
+                    done.append("redrawing the art")
                 except ValueError as e:
                     done.append(f"not redrawn: {e}")
-            elif note and _art(slug, "art", n).is_file():
-                try:
-                    reletter(slug, n, note, kept=kept)
-                    done.append("lettering the page again")
-                except ValueError as e:
-                    done.append(f"not lettered: {e}")
-    if fnote and not done and _art(slug, "art", n).is_file():
-        try:
-            reletter(slug, n, fnote, kept=kept)
-            done.append("lettering the page again")
-        except ValueError as e:
-            done.append(f"not lettered: {e}")
+    if (fnote or any(d.startswith("changed") for d in done)) and _art(slug, "art", n).is_file():
+        _proof_refresh(slug, n)
+        done.append("proof updated")
     hist.append({"role": "assistant", "content": shown or "Done.", "t": time.time(), "cost": cost, "done": done,
                  "art": (act.get("art") if m and isinstance(act, dict) else None)})
     _page_file(slug, n).write_text(json.dumps(hist, indent=1))
@@ -1094,6 +1094,9 @@ def _apply_words(slug, n, words):
         elif "text" in ch:      # the layout already says it, so the drawn lettering is what's wrong
             notes.append(f'the {items[i]["type"]} must read exactly "{" ".join(str(old).split())}"; '
                          f'the page as lettered now gets it wrong')
+        if (ch.get("speaker") or "").strip() and ch["speaker"].strip().upper() != (items[i].get("speaker") or "").upper():
+            c["speaker"] = ch["speaker"].strip().upper()
+            notes.append(f'"{old}" is now said by {c["speaker"]}')
         if ch.get("at"):
             c["at"] = ch["at"]
             notes.append(f'move "{old}" to the {ch["at"]} of its panel')
@@ -1130,7 +1133,7 @@ def save_words(slug, n, texts, delete):
         easy._keep_copy(slug, [n])      # before the words change, so the copy has the words it showed
     _, note = _apply_words(slug, n, words)
     if note and drawn:
-        reletter(slug, n, note, kept=True)
+        _proof_refresh(slug, n)
     return page_state(slug, n)
 
 
@@ -1215,23 +1218,84 @@ def reletter(slug, n, note, kept=False):
 _fix_jobs = {}
 
 
+def _proof_refresh(slug, n):
+    """The proof after a change: the overlay over the art again (the page shows it), and the
+    candidate script rewritten from the layouts."""
+    from . import proof
+    render.letter_pages(slug, TAG, [n])
+    proof.write_candidate(slug)
+
+
+_final = {}
+
+
+def final_letter(slug, pages):
+    """The last step: Sunburst letters approved (locked) pages, one after another, from their
+    approved layouts. Pages that aren't locked are refused."""
+    from . import easy, proof
+    key = render.api_key()
+    if not key:
+        raise ValueError("no OpenRouter key")
+    lk = set(proof.locked(slug))
+    pages = sorted({int(p) for p in pages})
+    if not pages:
+        raise ValueError("no pages chosen")
+    bad = [p for p in pages if p not in lk]
+    if bad:
+        raise ValueError(f"approve and lock these pages first: {', '.join(map(str, bad))}")
+    if (_final.get(slug) or {}).get("state") == "running":
+        raise ValueError("final lettering is already running")
+    job = _final[slug] = {"state": "running", "pages": pages, "done": [], "failed": {}, "cost": 0.0,
+                          "started": time.time()}
+
+    def work():
+        for n in pages:
+            if not _art(slug, "art", n).is_file():
+                job["failed"][n] = "no art"
+                continue
+            jk = (slug, n)
+            easy._keep_copy(slug, [n])
+            _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": "final lettering"}
+            render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="letter", started=time.time())
+            try:
+                c = _letter_with_model(slug, n, "Letter the page with exactly the words listed, in the order listed, "
+                                                "each balloon where the page as lettered now has it, its tail on its speaker.", key)
+                job["cost"] += c
+                job["done"].append(n)
+                render._update(slug, TAG, n, state="done", stage=None, error=None)
+                _fix_jobs[jk] = {"state": "done", "cost": c}
+            except Exception as e:      # noqa: BLE001 - shown on the page
+                job["failed"][n] = str(e)[:200]
+                render._update(slug, TAG, n, state="done", stage=None, error=str(e)[:400])
+                _fix_jobs[jk] = {"state": "failed", "error": str(e)[:300]}
+        job["state"] = "done"
+
+    threading.Thread(target=work, daemon=True).start()
+    return job
+
+
+def final_state(slug):
+    return _final.get(slug) or {}
+
+
 def fix_from_layout(slug, n, note="", letter_note=""):
     """The page drawn again to match its layout after an edit made outside the editor: with a note,
     the art redrawn and lettered; without one, lettered only. The page before is kept."""
     from . import easy
     _check_free(slug, n)
     kept = bool(easy._keep_copy(slug, [n]))
-    letter = letter_note or "Letter the page with exactly the words listed, in the order listed."
     if (note or "").strip():
-        fix_page(slug, n, note.strip(), letter, kept=kept)
+        fix_page(slug, n, note.strip(), kept=kept)
     else:
-        reletter(slug, n, letter, kept=kept)
+        _proof_refresh(slug, n)
     return page_state(slug, n)
 
 
-def fix_page(slug, n, note, letter_note="", kept=False):
-    """Redraw page n from its own drawing with one change, art-checked; the drawing before is kept."""
-    from . import easy, prompts
+def fix_page(slug, n, note, letter_note="", kept=False, letter=False):
+    """Redraw page n's art from its own drawing with one change, art-checked; the drawing before is
+    kept. The proof's overlay is put back over the new art; Sunburst letters it only with letter=True."""
+    from . import easy, prompts, proof
+    proof.check_unlocked(slug, n)
     key = render.api_key()
     if not key:
         raise ValueError("no OpenRouter key")
@@ -1272,8 +1336,9 @@ def fix_page(slug, n, note, letter_note="", kept=False):
             usage.ledger(slug, "studio", "page-fix", render.MODELS[TAG], cost, time.time() - t0, page=n,
                          tries=len(report["attempts"]), check_pass=report["pass"])
             render.after_drawing(slug, TAG, n)      # the overlay files, balloons where the user placed them
-            render._update(slug, TAG, n, stage="drawing", attempt=1, job="fix-letter")
-            cost += _letter_with_model(slug, n, letter_note, key)      # and the page lettered whole
+            if letter:
+                render._update(slug, TAG, n, stage="drawing", attempt=1, job="fix-letter")
+                cost += _letter_with_model(slug, n, letter_note, key)      # and the page lettered whole
             render._update(slug, TAG, n, state="done", stage=None, seconds=round(time.time() - t0))
             _fix_jobs[jk] = {"state": "done", "cost": cost}
         except Exception as e:      # noqa: BLE001 - shown on the page

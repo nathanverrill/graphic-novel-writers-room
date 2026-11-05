@@ -512,7 +512,10 @@ def delete_item(slug, page, index):
 
 def write_spec(slug, page, spec):
     """Save the page's layout block, and redraw the sketch, which is drawn from it. layouts.md keeps
-    its time: a lettering edit is not a new layout, so a run must not redraw the drawn pages for it."""
+    its time: a lettering edit is not a new layout, so a run must not redraw the drawn pages for it.
+    A page approved in the proof is locked: it raises until the page is unlocked."""
+    from . import proof
+    proof.check_unlocked(slug, page)
     md = projects.read_artifact(slug, "layouts.md") or ""
     layouts = replace_block(md, page, spec)
     path = projects.project_dir(slug) / "layouts.md"

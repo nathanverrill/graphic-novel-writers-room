@@ -118,6 +118,8 @@ def restore(slug, n):
     undone the same way."""
     if running(slug):
         raise ValueError("wait for the drawing to finish first")
+    from . import proof
+    proof.check_unlocked(slug, n)      # an approved page is not swapped for an older one
     src = _earlier(slug, n)
     if not src:
         raise FileNotFoundError(f"no earlier drawing of page {n}")

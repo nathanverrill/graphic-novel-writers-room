@@ -382,7 +382,11 @@ def read_reference(slug, name, version=None):
 
 
 def write_artifact(slug, name, content, desk=PROD):
-    """Manual edit of the working copy (the next run's version will include it)."""
+    """Manual edit of the working copy (the next run's version will include it). Pages approved in
+    the proof keep their layout blocks whoever writes layouts.md."""
+    if name == "layouts.md" and desk == PROD:
+        from . import proof
+        content = proof.keep_locked(slug, content)
     (project_dir(slug, desk) / check_name(name)).write_text(content)
 
 
@@ -503,6 +507,9 @@ def restore_version(slug, version, desk=PROD):
             p.unlink()
     for name, src in files.items():
         shutil.copyfile(src, root / name)
+    if desk == PROD and "layouts.md" in files:      # approved pages keep their layouts
+        from . import proof
+        (root / "layouts.md").write_text(proof.keep_locked(slug, (root / "layouts.md").read_text()))
 
 
 class Round:
@@ -567,6 +574,9 @@ class Round:
         """A book file: working copy and round. Agents running side by side write through
         the same lock, so two of them never interleave a file or the run's record."""
         check_name(name)
+        if name == "layouts.md" and self.root == project_dir(self.slug, PROD):
+            from . import proof
+            content = proof.keep_locked(self.slug, content)      # approved pages keep their layouts
         with self._lock:
             (self.root / name).write_text(content)
             self.path(name).write_text(content)
