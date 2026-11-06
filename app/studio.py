@@ -1229,7 +1229,7 @@ def _proof_refresh(slug, n):
 _final = {}
 
 
-FINAL_WORKERS = int(os.getenv("FINAL_WORKERS") or 4)   # pages lettered at a time; OpenRouter publishes no cap, so ours is the limit
+FINAL_WORKERS = int(os.getenv("FINAL_WORKERS") or 8)   # pages lettered at a time; OpenRouter publishes no cap, so ours is the limit
 _BUSY = ("429", "rate limit", "rate_limit", "in_flight_budget", "in-flight")   # wait and go again
 _BROKE = ("openrouter_credits", "insufficient credits")                        # stop the run
 

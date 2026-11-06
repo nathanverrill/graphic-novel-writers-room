@@ -263,7 +263,8 @@ async function loadBook() {
   const chs = (book.chapters || []).length ? book.chapters : [{name: "Pages", first: Math.min(...pages), last: Math.max(...pages)}];
   $("#pages").innerHTML = chs.map(c => `<div class="chap"><b>${c.name}</b>${pages.filter(n => n >= c.first && n <= c.last).map(btn).join("")}</div>`).join("");
   $("#pages").onclick = e => { const b = e.target.closest("button"); if (b) { page = +b.dataset.p; sel = null; loadPage(); } };
-  const want = +(new URLSearchParams(location.search).get("page") || localStorage.getItem("letter-page-" + slug) || (book.worked || [])[0] || pages[0]);
+  const want = +(location.hash.replace("#", "") || new URLSearchParams(location.search).get("page") ||
+                 localStorage.getItem("letter-page-" + slug) || (book.worked || [])[0] || pages[0]);
   page = pages.includes(want) ? want : (pages[0] ?? null);
   await loadPage();
 }
@@ -272,6 +273,7 @@ async function loadPage() {
   if (page == null) { $("#items").innerHTML = "<p class='note'>no laid-out pages yet</p>"; return; }
   for (const b of $("#pages").querySelectorAll("button")) b.toggleAttribute("aria-current", +b.dataset.p === page);
   localStorage.setItem("letter-page-" + slug, page);
+  if (location.hash !== "#" + page) history.replaceState(null, "", "#" + page);      // the page is in the link: …/letter?p=book#38
   const ch = (book.chapters || []).find(c => page >= c.first && page <= c.last);
   $("#ptitle").textContent = `Page ${page}` + (ch ? ` · ${ch.name}` : "");
   [d, pf] = await Promise.all([api("GET", `/api/projects/${slug}/lettering/${page}`),
@@ -754,6 +756,11 @@ window.addEventListener("keydown", async e => {
     if (k >= 0 && k < pages.length) { page = pages[k]; sel = null; loadPage(); }
   }
   if (e.key === "n" || e.key === "N") toggle("t-names", "nonames");
+});
+
+window.addEventListener("hashchange", () => {      // a #38 typed or pasted into the address bar
+  const n = +location.hash.replace("#", "");
+  if (pages.includes(n) && n !== page) { page = n; sel = null; loadPage(); }
 });
 
 boot().then(drawAddBar);
