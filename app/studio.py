@@ -1230,13 +1230,15 @@ _final = {}
 
 
 FINAL_WORKERS = int(os.getenv("FINAL_WORKERS") or 4)   # pages lettered at a time; OpenRouter publishes no cap, so ours is the limit
-_BUSY = ("429", "402", "rate limit", "rate_limit", "in_flight", "in-flight")
+_BUSY = ("429", "rate limit", "rate_limit", "in_flight_budget", "in-flight")   # wait and go again
+_BROKE = ("openrouter_credits", "insufficient credits")                        # stop the run
 
 
 def final_letter(slug, pages):
     """The last step: Sunburst letters approved (locked) pages, FINAL_WORKERS at a time, from their
     approved layouts. Pages that aren't locked are refused. A page turned away by the provider for
-    being busy (429, or OpenRouter's in-flight budget, 402) waits and goes again, twice at most."""
+    being busy (429, or OpenRouter's in-flight budget) waits and goes again, twice at most; once the
+    account is out of credits the run stops, and the pages not started say so."""
     from . import easy, proof
     key = render.api_key()
     if not key:
@@ -1253,8 +1255,13 @@ def final_letter(slug, pages):
     job = _final[slug] = {"state": "running", "pages": pages, "done": [], "failed": {}, "cost": 0.0,
                           "started": time.time(), "workers": FINAL_WORKERS}
     tally = threading.Lock()
+    broke = threading.Event()
 
     def one(n):
+        if broke.is_set():
+            with tally:
+                job["failed"][n] = "not started: the OpenRouter account is out of credits"
+            return
         if not _art(slug, "art", n).is_file():
             with tally:
                 job["failed"][n] = "no art"
@@ -1274,7 +1281,10 @@ def final_letter(slug, pages):
                 _fix_jobs[jk] = {"state": "done", "cost": c}
                 return
             except Exception as e:      # noqa: BLE001 - shown on the page
-                if wait and any(b in str(e).lower() for b in _BUSY):
+                low = str(e).lower()
+                if any(b in low for b in _BROKE):
+                    broke.set()
+                elif wait and any(b in low for b in _BUSY):
                     render._update(slug, TAG, n, stage=f"provider busy, trying again in {wait} s")
                     time.sleep(wait)
                     continue
@@ -1287,7 +1297,7 @@ def final_letter(slug, pages):
     def work():
         with concurrent.futures.ThreadPoolExecutor(max_workers=FINAL_WORKERS) as pool:
             list(pool.map(one, pages))
-        job["state"] = "done"
+        job["state"] = "stopped: out of credits" if broke.is_set() else "done"
 
     threading.Thread(target=work, daemon=True).start()
     return job
