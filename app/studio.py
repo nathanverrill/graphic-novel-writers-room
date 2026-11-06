@@ -1229,9 +1229,14 @@ def _proof_refresh(slug, n):
 _final = {}
 
 
+FINAL_WORKERS = int(os.getenv("FINAL_WORKERS") or 4)   # pages lettered at a time; OpenRouter publishes no cap, so ours is the limit
+_BUSY = ("429", "402", "rate limit", "rate_limit", "in_flight", "in-flight")
+
+
 def final_letter(slug, pages):
-    """The last step: Sunburst letters approved (locked) pages, one after another, from their
-    approved layouts. Pages that aren't locked are refused."""
+    """The last step: Sunburst letters approved (locked) pages, FINAL_WORKERS at a time, from their
+    approved layouts. Pages that aren't locked are refused. A page turned away by the provider for
+    being busy (429, or OpenRouter's in-flight budget, 402) waits and goes again, twice at most."""
     from . import easy, proof
     key = render.api_key()
     if not key:
@@ -1246,28 +1251,42 @@ def final_letter(slug, pages):
     if (_final.get(slug) or {}).get("state") == "running":
         raise ValueError("final lettering is already running")
     job = _final[slug] = {"state": "running", "pages": pages, "done": [], "failed": {}, "cost": 0.0,
-                          "started": time.time()}
+                          "started": time.time(), "workers": FINAL_WORKERS}
+    tally = threading.Lock()
 
-    def work():
-        for n in pages:
-            if not _art(slug, "art", n).is_file():
+    def one(n):
+        if not _art(slug, "art", n).is_file():
+            with tally:
                 job["failed"][n] = "no art"
-                continue
-            jk = (slug, n)
-            easy._keep_copy(slug, [n])
-            _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": "final lettering"}
-            render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="letter", started=time.time())
+            return
+        jk = (slug, n)
+        easy._keep_copy(slug, [n])
+        _fix_jobs[jk] = {"state": "running", "started": time.time(), "note": "final lettering"}
+        render._update(slug, TAG, n, state="drawing", stage="drawing", attempt=1, job="letter", started=time.time())
+        for wait in (60, 180, None):
             try:
                 c = _letter_with_model(slug, n, "Letter the page with exactly the words listed, in the order listed, "
                                                 "each balloon where the page as lettered now has it, its tail on its speaker.", key)
-                job["cost"] += c
-                job["done"].append(n)
+                with tally:
+                    job["cost"] += c
+                    job["done"].append(n)
                 render._update(slug, TAG, n, state="done", stage=None, error=None)
                 _fix_jobs[jk] = {"state": "done", "cost": c}
+                return
             except Exception as e:      # noqa: BLE001 - shown on the page
-                job["failed"][n] = str(e)[:200]
+                if wait and any(b in str(e).lower() for b in _BUSY):
+                    render._update(slug, TAG, n, stage=f"provider busy, trying again in {wait} s")
+                    time.sleep(wait)
+                    continue
+                with tally:
+                    job["failed"][n] = str(e)[:200]
                 render._update(slug, TAG, n, state="done", stage=None, error=str(e)[:400])
                 _fix_jobs[jk] = {"state": "failed", "error": str(e)[:300]}
+                return
+
+    def work():
+        with concurrent.futures.ThreadPoolExecutor(max_workers=FINAL_WORKERS) as pool:
+            list(pool.map(one, pages))
         job["state"] = "done"
 
     threading.Thread(target=work, daemon=True).start()
