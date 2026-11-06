@@ -9,7 +9,7 @@ Read this before changing the VM, the proof or the lettering.
 |---|---|
 | Site | https://34-123-63-255.sslip.io (signed in) |
 | GCP | project `voltaic-quest-502915-u7`, zone `us-central1-a`, instance `writers-room` |
-| Repo on the VM | `/home/nathan/writers-room`. The checkout is `prosperity-showrunner` (8a861ae) plus files copied in by hand |
+| Repo on the VM | `/home/nathan/writers-room`, on branch `prosperity-showrunner`, matching git (33582c5 on 2026-11-06, the same commit as `main`). Only the book's own files show as modified: that's live work |
 | Book | `campaigns/prosperity-book` (about 10 GB, mostly renders) |
 | Containers | `writers-room-app-1` (the app), plus caddy, opensearch, seaweedfs, sheets, art and filebrowser |
 | Disk | 49 GB, about 19 GB free (2026-11-06) |
@@ -86,7 +86,7 @@ The order, cheapest first:
 - **Cost**: $0.27 a page on the first try, up to about $0.89 after 3 tries. The average is **$0.74 a page**: chapter 3 cost $17.71 for 24 pages.
 - **Each try takes about 100–130 s.** Sunburst redraws the whole page, then a second model checks it, and it tries again up to 3 times.
 - **Pass rate is about 1 in 3.** Chapter 3 passed 8 of 24 (39, 40, 44, 51, 52, 55, 56, 57), and 60–61 both failed. A page that fails the check is still lettered, so look at it by eye.
-- **8 pages at a time** (`FINAL_WORKERS`, default 8 in git; the VM ran 4 as of 2026-11-06). 15 pages took 19 minutes; one at a time it would have been about 75.
+- **8 pages at a time** (`FINAL_WORKERS`, default 8; live on the VM since 2026-11-06). 15 pages took 19 minutes at 4 at a time; one at a time it would have been about 75.
 - **Busy errors** (429, or OpenRouter's in-flight budget) wait 60 s, then 180 s, then try again.
 - **Out of credits** (402 with `openrouter_credits`, "Insufficient credits") stops the run, and the pages not started say so. That happened on 2026-11-06: pages 45–59 failed within seconds before the fix.
 - **OpenRouter's limits**: OpenRouter publishes no cap for paid models on requests at the same time. The real limit is the credit balance, so keep it well above the cost of a run.
@@ -134,8 +134,8 @@ To restore other pages, copy the script and change `PAGES` and the source layout
   - There's no Ollama on the VM for the meaning-based search.
   - The log fills with `search: reindex failed: ... Connection refused`.
   - Nothing else depends on search.
-- **The VM's code doesn't match git.** The VM checkout is `prosperity-showrunner` plus copied files. Its live code is `proof-approval` (b1046ea), apart from `letter.html`'s page-number-in-the-URL change, which is deployed but not committed.
-- **`proof-approval` is merged into `prosperity-showrunner`** (2026-11-06) and pushed; its worktree is under `/private/tmp/...`, so it can be wiped. Use the main checkout.
+- **Keep the VM's code in step with git.** Deploy from a pushed commit: `sudo git fetch origin <branch>` then `sudo git merge --ff-only FETCH_HEAD` on the VM, then `docker cp` the changed files into the app and restart. Copying files by hand leaves the checkout out of step, as happened until 2026-11-06.
+- **Branches**: `proof-approval` is merged into `prosperity-showrunner` and `main` (all at 33582c5, 2026-11-06). Its old worktree under `/private/tmp/...` can be wiped; use the main checkout.
 - **Page 37, panel 2**: "Anything not worth having" still has no tail drawn by Sunburst.
 - **The proof's QA findings for 36–59 were never applied** (tails pointing at the wrong figure, reading order, covered faces). Bob's punctuation changes on p39 and p44 were flagged, not changed.
 
@@ -148,6 +148,7 @@ To restore other pages, copy the script and change `PAGES` and the source layout
 | `letter.html.before-hash` | The page-number-in-the-URL change |
 | `20261106-before-parallel-lettering/` | The parallel lettering: app code, the app inside the container, the book's `production/` and `drafts/`, and status files (15 MB) |
 | `20261106-ch4-checkpoint/` | Tonight's chapter 4 edits (§4) |
+| `20261106-before-git-update/` | Bringing the VM's checkout up to git: code, the app inside the container, `production/` and `drafts/`, and the earlier uncommitted changes as a diff |
 
 A full tar of the book is about 10 GB. Back up `production/` and `drafts/` (15 MB) unless the art itself is changing.
 
