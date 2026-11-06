@@ -264,3 +264,20 @@ canon/data/
 # generated per-VM by deploy/gcp/deploy.sh (hostname + password hash)
 deploy/gcp/Caddyfile
 deploy/gcp/filebrowser/
+
+# generated output, large and remade by the room: never committed (tracked files stay tracked)
+# copies kept before each redraw or lettering, and the call logs of each run (app/studio.py)
+campaigns/*/production/previous/
+campaigns/*/preproduction/previous/
+# lettered pages and key page images (app/lettering.py, app/keypages.py)
+campaigns/*/production/pages/*.svg
+campaigns/*/keypages/*.jpg
+campaigns/*/keypages/*.png
+# morgue images: old designs and reference scans
+campaigns/_morgue/**/*.png
+campaigns/_morgue/**/*.jpg
+# lock history and candidate images the Studio writes while locking a character (generated)
+campaigns/*/style/locks/*/previous/
+campaigns/*/style/locks/*/previous-v*.png
+campaigns/*/style/locks/*/candidates/
+campaigns/*/style/props/previous-v*.png
