@@ -129,10 +129,10 @@ To restore other pages, copy the script and change `PAGES` and the source layout
 
 ## 5. Known problems (not fixed)
 
-- **Search on the VM doesn't work.**
-  - `OPENSEARCH_URL` inside the app is `http://localhost:9200`; it should be `http://opensearch:9200`. It's probably set in the VM's `.env`.
-  - There's no Ollama on the VM for the meaning-based search.
-  - The log fills with `search: reindex failed: ... Connection refused`.
+- **Search on the VM doesn't work until the next deploy.**
+  - The repo's `.env.example` now says `OPENSEARCH_URL=http://opensearch:9200`. The VM's `.env` still has `http://localhost:9200` (copied from the old example, and it overrides the Compose default). Fix the line in the VM's `.env` when deploying.
+  - There's no Ollama on the VM. Search now falls back to keywords (`mode: keywords` in results), so it works once OpenSearch is reachable.
+  - Until then the log fills with `search: reindex failed: ... Connection refused`.
   - Nothing else depends on search.
 - **Keep the VM's code in step with git.** Deploy from a pushed commit: `sudo git fetch origin <branch>` then `sudo git merge --ff-only FETCH_HEAD` on the VM, then `docker cp` the changed files into the app and restart. Copying files by hand leaves the checkout out of step, as happened until 2026-11-06.
 - **Branches**: `proof-approval` is merged into `prosperity-showrunner` and `main` (all at 33582c5, 2026-11-06). Its old worktree under `/private/tmp/...` can be wiped; use the main checkout.

@@ -70,6 +70,15 @@ def embed(texts, timeout=300, batch=16):
     return out
 
 
+def vectors_ready():
+    """Ollama answers and has the embedding model. Without it the room indexes and searches by keyword."""
+    try:
+        names = [m["name"] for m in _json(f"{ollama_url()}/api/tags", timeout=3).get("models", [])]
+    except Exception:
+        return False
+    return any(n.split(":")[0] == embed_model().split(":")[0] for n in names)
+
+
 def health():
     """What is up and what is not, for the UI and for a clear error rather than a stack trace."""
     state = {"opensearch": None, "ollama": None, "model": embed_model(), "indexed": 0}
@@ -257,6 +266,7 @@ def index(slug=None, on_progress=lambda msg: None, files=None, prune=True):
         corpus_df, docs = _CORPUS["df"], _CORPUS["docs"]
 
     known = indexed_hashes()
+    use_vectors = vectors_ready()
     seen, lines, to_embed = set(), [], []
     for row in parsed:
         part = row["part"]
@@ -264,25 +274,35 @@ def index(slug=None, on_progress=lambda msg: None, files=None, prune=True):
                               f"{part['text'][:80]}".encode()).hexdigest()[:24]
         body_hash = hashlib.sha1(part["text"].encode()).hexdigest()[:16]
         seen.add(doc_id)
-        if known.get(doc_id) == body_hash:
+        have = known.get(doc_id)      # "-kw": written without a vector, embed it once Ollama is back
+        if have == body_hash or (not use_vectors and have == f"{body_hash}-kw"):
             continue
         to_embed.append((doc_id, body_hash, row))
 
     on_progress(f"{len(parsed)} chunks, {len(to_embed)} new or changed")
     for start in range(0, len(to_embed), 16):
         group = to_embed[start:start + 16]
-        vectors = embed([f"{row['title']} — {' › '.join(row['part']['headings'])}\n{row['part']['text']}"
-                         for _, _, row in group])
-        for (doc_id, body_hash, row), vector in zip(group, vectors):
+        found = [None] * len(group)
+        if use_vectors:
+            try:
+                found = embed([f"{row['title']} — {' › '.join(row['part']['headings'])}\n{row['part']['text']}"
+                               for _, _, row in group])
+            except Exception as e:      # no Ollama, or no embedding model: keywords now, vectors on a later pass
+                use_vectors = False
+                on_progress(f"no embeddings ({type(e).__name__}): indexing keywords only")
+        for (doc_id, body_hash, row), vector in zip(group, found):
             part = row["part"]
-            lines.append(json.dumps({"index": {"_index": INDEX, "_id": doc_id}}))
-            lines.append(json.dumps({
+            doc = {
                 "file": row["name"], "scope": row["scope"], "kind": row["kind"], "title": row["title"],
                 "headings": " › ".join(part["headings"]), "heading_path": " › ".join(part["headings"]),
                 "keywords": " ".join(keywords(part["text"], part["headings"], row["doc_terms"],
                                               corpus_df, max(docs, 1))),
-                "text": part["text"], "hash": body_hash, "vector": vector,
-            }))
+                "text": part["text"], "hash": body_hash if vector else f"{body_hash}-kw",
+            }
+            if vector:
+                doc["vector"] = vector
+            lines.append(json.dumps({"index": {"_index": INDEX, "_id": doc_id}}))
+            lines.append(json.dumps(doc))
         on_progress(f"embedded {min(start + 16, len(to_embed))} of {len(to_embed)}")
     if lines:
         req = urllib.request.Request(f"{opensearch_url()}/_bulk",
@@ -428,10 +448,15 @@ def search(query, limit=8, scope=None, kind=None, mode="hybrid"):
     lexical = {"bool": {"must": [{"multi_match": {
         "query": query, "fields": ["text", "keywords^2", "headings^2", "title^2"]}}],
         "filter": filters}}
+    vector = None
+    if mode != "keywords":
+        try:
+            vector = embed([query])[0]
+        except Exception:               # no Ollama: the keyword side still answers, and says so
+            mode = "keywords"
     if mode == "keywords":
         body, params = {"query": lexical}, ""
     else:
-        vector = embed([query])[0]
         knn = {"bool": {"must": [{"knn": {"vector": {"vector": vector, "k": max(limit * 4, 20)}}}],
                         "filter": filters}}
         if mode == "vectors":
@@ -442,7 +467,7 @@ def search(query, limit=8, scope=None, kind=None, mode="hybrid"):
 
     body |= {"size": limit, "_source": ["file", "scope", "kind", "title", "headings", "keywords", "text"]}
     hits = _json(f"{opensearch_url()}/{INDEX}/_search{params}", body, timeout=60)["hits"]["hits"]
-    return [{"score": round(h["_score"], 4), "where": f"{h['_source']['file']}"
+    return [{"score": round(h["_score"], 4), "mode": mode, "where": f"{h['_source']['file']}"
              + (f" › {h['_source']['headings']}" if h["_source"].get("headings") else ""),
              **h["_source"]} for h in hits]
 

@@ -479,9 +479,9 @@ cp .env.example .env        # set OPENAI_BASE_URL, OPENAI_API_KEY, OPENAI_MODEL
 
 Open http://localhost:8000.
 
-Search is optional and needs two more things: OpenSearch (`docker compose up -d opensearch`, or
-the whole stack) and Ollama on your machine with `ollama pull embeddinggemma`. Without them the
-room runs exactly as before.
+Search is optional. OpenSearch (`docker compose up -d opensearch`, or the whole stack) does the
+keyword side. Ollama on your machine with `ollama pull embeddinggemma` adds the meaning side. With
+OpenSearch but no Ollama, search runs on keywords alone; with neither, the room runs exactly as before.
 
 To try it with no key and no bill, use the mock endpoint (it fakes chat, images and token usage;
 `MOCK_REPORT_COST=1` imitates a provider that reports its own cost):
