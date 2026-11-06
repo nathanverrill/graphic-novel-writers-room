@@ -1,0 +1,350 @@
+<title>Prosperity Production Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a shop manual - a sticky contents rail on wide screens, numbered procedures down a single reading column. */
+:root{
+  --paper:#f5f3ee; --sheet:#fffdf8; --ink:#1d1f22; --dim:#5d6168; --rule:#d9d4c8; --rust:#a8522a; --teal:#1f6f6a; --warn:#8a5a00; --warnbg:#fbf1d9; --code:#efece4;
+  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif; --body:"Source Serif 4",Georgia,serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--paper:#15171b;--sheet:#1c1f24;--ink:#e8e4da;--dim:#9a9ea6;--rule:#30343b;--rust:#e08a5a;--teal:#5fc0b8;--warn:#f0c060;--warnbg:#2b2618;--code:#23272d;color-scheme:dark}}
+:root[data-theme="dark"]{--paper:#15171b;--sheet:#1c1f24;--ink:#e8e4da;--dim:#9a9ea6;--rule:#30343b;--rust:#e08a5a;--teal:#5fc0b8;--warn:#f0c060;--warnbg:#2b2618;--code:#23272d;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:17px/1.6 var(--body)}
+.layout{max-width:1180px;margin:0 auto;padding-inline:16px;padding-block:32px 96px;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+@media (min-width:980px){.layout{grid-template-columns:230px minmax(0,1fr)}}
+nav.toc{font:14px/1.5 var(--mono)}
+@media (min-width:980px){nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;max-height:calc(100vh - 48px);overflow:auto}}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:4px;counter-reset:t}
+nav.toc li{counter-increment:t}
+nav.toc a{color:var(--dim);text-decoration:none;display:block;padding:2px 0}
+nav.toc a::before{content:counter(t,decimal-leading-zero) "  ";color:var(--rust)}
+nav.toc a:hover,nav.toc a:focus-visible{color:var(--ink)}
+main{min-width:0;max-width:760px}
+header h1{font:800 clamp(2.4rem,7vw,4.2rem)/.92 var(--display);text-transform:uppercase;letter-spacing:.01em;margin:0 0 12px;text-wrap:balance}
+.lede{font-size:1.1rem;color:var(--dim);margin:0;max-width:62ch}
+.meta{font:13px var(--mono);color:var(--dim);margin-top:14px}
+section{padding-top:28px;margin-top:28px;border-top:2px solid var(--ink)}
+h2{font:800 1.9rem/1 var(--display);text-transform:uppercase;letter-spacing:.03em;margin:0 0 14px;text-wrap:balance}
+h2 .n{color:var(--rust);margin-right:10px;font-variant-numeric:tabular-nums}
+h3{font:700 1.25rem/1.2 var(--display);text-transform:uppercase;letter-spacing:.05em;margin:26px 0 8px;color:var(--teal)}
+p,li{max-width:66ch}
+a{color:var(--teal)}
+ol.steps{padding-left:0;list-style:none;counter-reset:s;display:grid;gap:12px}
+ol.steps>li{counter-increment:s;position:relative;padding-left:40px}
+ol.steps>li::before{content:counter(s);position:absolute;left:0;top:1px;width:26px;height:26px;border:1.5px solid var(--ink);border-radius:50%;font:600 13px/23px var(--mono);text-align:center}
+code{font:0.86em var(--mono);background:var(--code);padding:1px 5px;border-radius:3px;overflow-wrap:anywhere}
+.cmd{position:relative;margin:10px 0 14px}
+.cmd pre{margin:0;background:var(--code);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;padding-right:72px;overflow-x:auto;font:13.5px/1.55 var(--mono);white-space:pre}
+.cmd button{position:absolute;top:8px;right:8px;font:12px var(--mono);background:var(--sheet);color:var(--ink);border:1px solid var(--rule);border-radius:3px;padding:3px 8px;cursor:pointer}
+.cmd button:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.tbl{overflow-x:auto;margin:12px 0}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--rule)}
+th{font:600 12px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--dim)}
+td code{white-space:nowrap}
+.note{border-left:4px solid var(--warn);background:var(--warnbg);padding:10px 14px;margin:14px 0;border-radius:0 4px 4px 0}
+.note b{color:var(--warn)}
+.who{display:inline-block;font:600 11px var(--mono);text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--rust);color:var(--rust);padding:1px 6px;border-radius:2px;margin-right:6px;vertical-align:2px}
+@media (prefers-reduced-motion:no-preference){a{transition:color .15s}}
+</style>
+
+<div class="layout">
+<nav class="toc" aria-label="Contents"><ol>
+<li><a href="#access">Getting in</a></li>
+<li><a href="#where">Where things live</a></li>
+<li><a href="#rules">Rules of the book</a></li>
+<li><a href="#script">Changing the script</a></li>
+<li><a href="#room">Running the room</a></li>
+<li><a href="#locks">Character locks</a></li>
+<li><a href="#setup">Page tools: setup</a></li>
+<li><a href="#layouts">Drafts to layouts</a></li>
+<li><a href="#draw">Drawing pages</a></li>
+<li><a href="#fix">Fixing a page</a></li>
+<li><a href="#qa">Art QA</a></li>
+<li><a href="#share">PDF and sharing</a></li>
+<li><a href="#deploy">Updating GCP</a></li>
+<li><a href="#logins">Logins</a></li>
+<li><a href="#costs">Costs and known issues</a></li>
+</ol></nav>
+
+<main>
+<header>
+<h1>Prosperity production guide</h1>
+<p class="lede">How the Prosperity graphic novel is written, drawn, checked and shared, and how the writers' room on GCP is kept up to date. Written for Nathan and Bob.</p>
+<p class="meta">16 October 2026 · campaign <code>prosperity-book</code> · 62 pages: prologue + chapters 1–3</p>
+</header>
+
+<section id="access">
+<h2><span class="n">01</span>Getting in</h2>
+<p>The writers' room runs on one Google Cloud VM called <code>writers-room</code> (project <code>voltaic-quest-502915-u7</code>, zone <code>us-central1-a</code>). Every page sits behind a browser password popup.</p>
+<div class="tbl"><table>
+<tr><th>What</th><th>Address</th><th>Use it for</th></tr>
+<tr><td>The room</td><td><code>https://34-123-63-255.sslip.io</code></td><td>Pre-production, production, the Story desk, renders</td></tr>
+<tr><td>File browser</td><td><code>https://files.34-123-63-255.sslip.io</code></td><td>Reading and editing the campaign files: drafts, rules, layouts</td></tr>
+<tr><td>Book reader</td><td><a href="https://claude.ai/artifact/P1Kzniwjjq6FenWngf7im1">62-page reader</a></td><td>Reading the drawn pages (they are not on the VM)</td></tr>
+<tr><td>Prologue reader</td><td><a href="https://claude.ai/artifact/AdEjCvj1YSvMSvBhAUZ2pF">Prologue</a></td><td>The four reviewed prologue pages</td></tr>
+</table></div>
+<ol class="steps">
+<li>Open the room's address. The popup asks for a user and password.</li>
+<li><span class="who">Bob</span> User <code>bob</code>; the password comes from Nathan, sent on its own. <span class="who">Nathan</span> User <code>nathan</code>, password from the original deploy. Bob's is saved in <code>secrets/bob-login.txt</code> on Nathan's laptop.</li>
+<li>The same login works for the file browser.</li>
+</ol>
+<div class="note"><b>Spending.</b> Every run started in the room is billed to Nathan's OpenRouter key, which is saved on the VM. Check the room's Stats panel to see what has been spent.</div>
+</section>
+
+<section id="where">
+<h2><span class="n">02</span>Where things live</h2>
+<p>Everything for the book is in one folder: <code>campaigns/prosperity-book/</code> in the repo (on the VM: <code>/home/nathan/writers-room/campaigns/prosperity-book/</code>; on Nathan's laptop: <code>~/writers-room/campaigns/prosperity-book/</code>).</p>
+<div class="tbl"><table>
+<tr><th>Path</th><th>What it holds</th></tr>
+<tr><td><code>drafts/00-prologue.md</code></td><td>The prologue, "The Wall", with the showrunner's edits</td></tr>
+<tr><td><code>drafts/01-chapter-01.md</code> … <code>03-chapter-03.md</code></td><td>Bob's chapters, word for word, repaginated (page breaks only)</td></tr>
+<tr><td><code>drafts/alt/02-chapter-02-pipe-ending.md</code></td><td>The alternate Chapter 2 ending, out through the pipe instead of the train (not drawn yet)</td></tr>
+<tr><td><code>drafts/_versions/</code></td><td>Every earlier version of the drafts (v10, v11 …)</td></tr>
+<tr><td><code>production/draft-final.md</code></td><td>The whole script in one file</td></tr>
+<tr><td><code>production/layouts.md</code></td><td>The script split into 62 pages and their panels, with every balloon, caption and sound effect. The pages are drawn from this</td></tr>
+<tr><td><code>tools/prologue-layouts.md</code></td><td>The hand-tuned layouts the prologue pages 1–4 were drawn from</td></tr>
+<tr><td><code>rules/decisions.md</code></td><td>Every showrunner decision: names, the watch, the prologue, house colours</td></tr>
+<tr><td><code>rules/art-checklist.md</code></td><td>The standing art checklist every page is checked against</td></tr>
+<tr><td><code>rules/</code> (other files)</td><td>Characters, hard-SF rules, reader, vocabulary, ancestry, look</td></tr>
+<tr><td><code>style/locks/&lt;name&gt;-sunburst/lock.png</code></td><td>Character locks: Alex, Alex in 2070, Ada, Adrian, Bi11bot, Grandmother, Alex's daughter</td></tr>
+<tr><td><code>style/props/</code>, <code>style/plate.png</code></td><td>Adrian's watch, the Keel pump, and the style plate</td></tr>
+<tr><td><code>tools/</code></td><td>The page pipeline scripts (sections 07–12)</td></tr>
+<tr><td><code>renders/sunburst/</code></td><td>Laptop only: <code>art/</code> (no lettering), <code>overlay/</code> (editable SVG lettering), <code>lettered-model/</code> (final pages), the PDFs, and backups <code>_v1</code>…<code>_v6</code>, <code>_preqa</code></td></tr>
+</table></div>
+<div class="note"><b>Renders stay off GitHub and the VM.</b> They are large and git-ignored. Share drawn pages through the reader or the PDF (section 12).</div>
+</section>
+
+<section id="rules">
+<h2><span class="n">03</span>Rules of the book</h2>
+<ol class="steps">
+<li><b>Bob's words are never changed.</b> No rewording, no punctuation or typo cleanup, no canon fixes. Where canon disagrees with Bob, flag it to the showrunner. Only an explicit showrunner decision overrides (recorded in <code>rules/decisions.md</code>).</li>
+<li><b>Version on feedback.</b> Before applying script feedback, snapshot the drafts to <code>drafts/_versions/vN</code>. Versions continue Bob's numbering. The shared script doc is titled "Prosperity Script" with the line "Version N · timestamp" under it.</li>
+<li><b>Art is drawn by GPT Image 2.5 Sunburst</b> (<code>openai/gpt-image-2.5-sunburst</code>), never Gemini.</li>
+<li><b>Art is reviewed by Gemini 4 Argon</b> (<code>google/gemini-4-argon</code>) against the checklist below, and then by a person.</li>
+<li><b>The Charter Houses</b> are Helion (deep amber-orange), Aqualis (cool jade-teal) and Astra (pale steel-violet).</li>
+</ol>
+<h3>The standing art checklist</h3>
+<p>Every item is a must-fix. New kinds of mistake go into <code>ALWAYS</code> in <code>app/artcheck.py</code> and <code>rules/art-checklist.md</code>, so they are both prevented in the drawing prompt and caught in review.</p>
+<ul>
+<li>One left hand on the left arm, one right hand on the right arm, five fingers. Never two right hands.</li>
+<li>Nobody balances on a railing, floats or passes through things.</li>
+<li>Speakers face and look at whoever they talk to; no awkward looks.</li>
+<li>Photos, papers and screens a character looks at face the character, not the reader.</li>
+<li>No body part beside another character's face; two-shots are face to face.</li>
+<li>People who are together stay together.</li>
+<li>Light, place and mood hold through one continuous moment.</li>
+<li>The setting and tone match the script (the home stays the home; hard times are not drawn happy).</li>
+<li>Characters match their locks; the daughter is never drawn as Ada.</li>
+<li>Lettering: tails point at the speaker, nothing covers any part of a face, no invented text, every word exact.</li>
+</ul>
+</section>
+
+<section id="script">
+<h2><span class="n">04</span>Changing the script</h2>
+<h3>Small edits, directly</h3>
+<ol class="steps">
+<li>Open the file browser and go to <code>campaigns/prosperity-book/drafts/</code>.</li>
+<li>Copy the current drafts into a new <code>_versions/vN/</code> folder first.</li>
+<li>Edit the chapter file. Keep the page headings (<code>## PAGE 7: TITLE</code>) and the panel labels (<code>**P1**</code>, <code>**P2**</code> …); the page tools read them.</li>
+<li>Rebuild the layouts (section 08), then redraw only the pages that changed (section 09).</li>
+</ol>
+<h3>Feedback through a shared Google Doc</h3>
+<ol class="steps">
+<li>The script goes into one Google Doc, "Prosperity Script", with "Version N · timestamp" under the title. The same doc is kept across versions.</li>
+<li>Bob edits and comments in the doc.</li>
+<li>Ask Claude to read the doc's edits and comments into the drafts. It snapshots a new version first, applies Bob's edits word for word, and lists every comment that needs a decision.</li>
+<li>Rebuild layouts and redraw the affected pages.</li>
+</ol>
+</section>
+
+<section id="room">
+<h2><span class="n">05</span>Running the room</h2>
+<p>The room is the web app. For Prosperity it runs in <b>edit mode</b>: Bob's drafts are the script, so the room brings them into the canon rather than writing new ones.</p>
+<ol class="steps">
+<li><b>Pre-production</b> (<code>/preproduction</code>): press <b>Run intake</b>. Answer the open items it raises (approve, edit, defer or leave), press <b>Update canon</b>, answer what is left, and update again.</li>
+<li>Before approving, open the <b>Story desk</b> (<code>/story</code>): the outline as a board, a structure check against the hero's journey, the character locks beside their descriptions, and <b>Riff</b> for brainstorming edits section by section.</li>
+<li>Approve by typing <code>evoke</code>. Check that approval succeeded before going on; a failed approval leaves production on the old canon.</li>
+<li><b>Production</b> (<code>/production</code>): one button runs development, the draft edit and the pages. Settings live in <code>production/round-settings.json</code> (62 pages, <code>draft_mode: "edit"</code>, at most 7 panels and 3 characters a panel).</li>
+</ol>
+<div class="note"><b>Two known problems in edit mode.</b> The room's Draft Editor has reworded Bob's lines, and its writer stopped at 41 of 62 pages. For this book the draft edit is bypassed (<code>draft.md</code> copied to <code>draft-edited.md</code> and <code>draft-final.md</code>) and the layouts come from the deterministic tool in section 08, not the room's Layout Agent.</div>
+</section>
+
+<section id="locks">
+<h2><span class="n">06</span>Character locks</h2>
+<p>A lock is the reference drawing every page uses for a character. The pages match a lock by its folder name.</p>
+<ol class="steps">
+<li>Draw or redraw locks in <b>Easel</b> (<code>easel/</code> in the repo; Sunburst only) or with <b>Redraw</b> on the Story desk's Locks tab.</li>
+<li>Save the chosen image as <code>style/locks/&lt;name&gt;-sunburst/lock.png</code>. Move the old one into <code>previous/</code> beside it.</li>
+<li>Props (the watch, the pump) go in <code>style/props/</code>; the overall look is <code>style/plate.png</code>.</li>
+<li>Redraw any page the change affects.</li>
+</ol>
+</section>
+
+<section id="setup">
+<h2><span class="n">07</span>Page tools: setup</h2>
+<p>The finished pages are made with five scripts in <code>tools/</code>, run on Nathan's laptop from the repo root. They talk to OpenRouter directly; the room does not need to be running.</p>
+<div class="tbl"><table>
+<tr><th>Script</th><th>Does</th></tr>
+<tr><td><code>repage.py</code></td><td>Moves page breaks only, so no page is crowded (at most 130 words, 6 panels). Refuses to save if any line changed</td></tr>
+<tr><td><code>drafts2layouts.py</code></td><td>Turns the drafts into <code>layouts.md</code>, word for word</td></tr>
+<tr><td><code>book_pages.py</code></td><td>Draws pages: art with no lettering → art check → SVG overlay → image-model lettering</td></tr>
+<tr><td><code>reletter.py</code></td><td>Letters existing art again, without redrawing it</td></tr>
+<tr><td><code>qa_fix.py</code></td><td>The strict Argon review, with up to 3 rounds of automatic fixes</td></tr>
+<tr><td><code>make_pdf.py</code></td><td>Compiles the lettered pages into one PDF</td></tr>
+</table></div>
+<p>Open a terminal in the repo and set these once per session. The three addresses switch off services the scripts do not need.</p>
+<div class="cmd"><pre>cd ~/writers-room
+export OPENSEARCH_URL=http://127.0.0.1:1 OLLAMA_URL=http://127.0.0.1:1 S3_ENDPOINT=
+T=campaigns/prosperity-book/tools
+L=campaigns/prosperity-book/production/layouts.md</pre><button type="button">Copy</button></div>
+<p>The OpenRouter key is read from <code>OPENROUTER_API_KEY</code> if set, otherwise from <code>secrets/keys.json</code>, where the room saves the key pasted into its settings.</p>
+</section>
+
+<section id="layouts">
+<h2><span class="n">08</span>Drafts to layouts</h2>
+<ol class="steps">
+<li>If a chapter feels crowded, repaginate it. This only moves page breaks:
+<div class="cmd"><pre>.venv/bin/python $T/repage.py campaigns/prosperity-book/drafts/01-chapter-01.md</pre><button type="button">Copy</button></div></li>
+<li>Back up the current layouts, then rebuild them from all four drafts:
+<div class="cmd"><pre>cp $L $L.bak
+.venv/bin/python $T/drafts2layouts.py $L</pre><button type="button">Copy</button></div></li>
+<li>The alternate pipe ending gets its own layouts file. Pass the file and FIRST, the book page number its first page should take (the Chapter 2 page where the endings split):
+<div class="cmd"><pre>.venv/bin/python $T/drafts2layouts.py campaigns/prosperity-book/production/layouts-pipe.md alt/02-chapter-02-pipe-ending.md FIRST</pre><button type="button">Copy</button></div></li>
+</ol>
+<div class="note"><b>Hand edits are overwritten.</b> Rebuilding replaces any edits made directly in <code>layouts.md</code> (for example the prologue's page 3 and 4 descriptions). The prologue is drawn from <code>tools/prologue-layouts.md</code>, which the rebuild does not touch.</div>
+</section>
+
+<section id="draw">
+<h2><span class="n">09</span>Drawing pages</h2>
+<p>Each page costs about $1–2 and takes 5–15 minutes. Several pages run side by side.</p>
+<ol class="steps">
+<li>Back up the pages you are about to replace:
+<div class="cmd"><pre>R=campaigns/prosperity-book/renders/sunburst; mkdir -p $R/_v7
+for n in 07 08; do cp $R/art/p$n.png $R/_v7/art-p$n.png; cp $R/lettered-model/p$n.png $R/_v7/lettered-model-p$n.png; done</pre><button type="button">Copy</button></div></li>
+<li>Draw. <code>PAGES</code> is a comma list; <code>WORKERS</code> is how many at once:
+<div class="cmd"><pre>PAGES=7,8 LAYOUTS=$L WORKERS=2 .venv/bin/python $T/book_pages.py</pre><button type="button">Copy</button></div></li>
+<li>For the prologue, use its own layouts:
+<div class="cmd"><pre>PAGES=1,2,3,4 LAYOUTS=$T/prologue-layouts.md WORKERS=4 .venv/bin/python $T/book_pages.py</pre><button type="button">Copy</button></div></li>
+<li>Each page prints one line: page, cost, whether the art and lettering passed the art check, and what was flagged.</li>
+<li>Results land in <code>renders/sunburst/</code>: <code>art/pNN.png</code>, <code>overlay/pNN.svg</code>, <code>lettered/pNN.png</code> (SVG lettering) and <code>lettered-model/pNN.png</code> (the final page).</li>
+<li>Look at every page yourself before showing it to anyone.</li>
+</ol>
+</section>
+
+<section id="fix">
+<h2><span class="n">10</span>Fixing a page with notes</h2>
+<p>Notes are short JSON files keyed by page number. <code>NOTES</code> changes the drawing; <code>LNOTES</code> changes the lettering. <code>EARLIER</code> points at a backup folder so the redraw keeps the old page and changes only what the notes say.</p>
+<ol class="steps">
+<li>Write the notes. Name the panel, what is wrong, and what it should be:
+<div class="cmd"><pre>cat &gt; /tmp/notes.json &lt;&lt;'JSON'
+{"8": "PAGE 8 (overrides below): keep the attached earlier version except: panel 1 Alex holds the photograph facing HIMSELF; panel 4 is a close two-shot, face to face at eye level."}
+JSON
+cat &gt; /tmp/lnotes.json &lt;&lt;'JSON'
+{"8": "Every balloon sits above or beside heads, never over a face. Panel 2's lines are ALEX's."}
+JSON</pre><button type="button">Copy</button></div></li>
+<li>Redraw against the backup from section 09:
+<div class="cmd"><pre>PAGES=8 EARLIER=sunburst/_v7 LAYOUTS=$L NOTES="$(cat /tmp/notes.json)" LNOTES="$(cat /tmp/lnotes.json)" .venv/bin/python $T/book_pages.py</pre><button type="button">Copy</button></div></li>
+<li>If only the lettering is wrong, keep the art and re-letter (about $0.20):
+<div class="cmd"><pre>PAGES=8 LAYOUTS=$L LNOTES="$(cat /tmp/lnotes.json)" .venv/bin/python $T/reletter.py</pre><button type="button">Copy</button></div></li>
+</ol>
+<p>Saved examples are in <code>tools/notes/</code>. If a line is spoken by the wrong character, say who speaks it by appearance ("ALEX, black wavy hair"), since the image model goes by what it sees.</p>
+</section>
+
+<section id="qa">
+<h2><span class="n">11</span>Art QA</h2>
+<p><code>qa_fix.py</code> asks Gemini 4 Argon to check a page against the checklist. If it finds problems, it redraws or re-letters with the problems named, then checks again, up to three rounds. It overwrites the page files in place, so back up first.</p>
+<div class="cmd"><pre>mkdir -p $R/_preqa2 &amp;&amp; cp $R/lettered-model/p*.png $R/_preqa2/
+PAGES=5,6,7 LAYOUTS=$L .venv/bin/python $T/qa_fix.py 2&gt;&amp;1 | grep --line-buffered -v Warning | tee qa.log</pre><button type="button">Copy</button></div>
+<p>Each page prints <code>page cost [(art, lettering) per round] [problems left]</code>. <code>(0, 0)</code> in the last round means clean.</p>
+<div class="note"><b>What we learned.</b> Whole-page redraws trade one mistake for another: after three rounds, 13 of 58 chapter pages came out clean, at about $140. Fixing one panel at a time and using the SVG lettering layer on pages that still fail are the next steps. Keep <code>--line-buffered</code>, or the log shows nothing until the run ends.</div>
+</section>
+
+<section id="share">
+<h2><span class="n">12</span>PDF and sharing</h2>
+<ol class="steps">
+<li>Full PDF (about 36 MB) and a smaller copy under 30 MB:
+<div class="cmd"><pre>.venv/bin/python $T/make_pdf.py
+.venv/bin/python $T/make_pdf.py 900 campaigns/prosperity-book/renders/sunburst/prosperity-book-draft-small.pdf</pre><button type="button">Copy</button></div></li>
+<li>Upload to the private bucket. It replaces the file at the same name:
+<div class="cmd"><pre>gcloud storage cp campaigns/prosperity-book/renders/sunburst/prosperity-book-draft.pdf gs://prosperity-drafts-voltaic-quest-502915-u7/prosperity-book-draft-2026-10-15.pdf</pre><button type="button">Copy</button></div>
+Download it, signed in: <a href="https://console.cloud.google.com/storage/browser/_details/prosperity-drafts-voltaic-quest-502915-u7/prosperity-book-draft-2026-10-15.pdf">bucket file</a>. To let someone else download it, share it with their Google account from that page.</li>
+<li>The readers are claude.ai artifacts. Ask Claude to republish the 62-page reader after pages change; its link stays the same, and anyone with the link sees the update.</li>
+</ol>
+</section>
+
+<section id="deploy">
+<h2><span class="n">13</span>Updating the room on GCP</h2>
+<p>The VM runs the <code>prosperity-showrunner</code> branch, which has the showrunner reading room and other features not on <code>main</code>. New work goes onto <code>main</code> first, then <code>main</code> is merged into that branch.</p>
+<ol class="steps">
+<li>Commit and push the code and text. Images, PDFs and call logs stay out:
+<div class="cmd"><pre>git add app easel agents tests README.md campaigns/*/drafts campaigns/*/rules campaigns/*/production/*.md campaigns/prosperity-book/tools
+git status --short | grep -E '\.(png|jpe?g|pdf|svg)$'   # should print nothing staged
+git commit -m "What changed"
+git push origin main</pre><button type="button">Copy</button></div></li>
+<li>Merge <code>main</code> into the VM's branch and push it. If git reports a conflict, resolve it before pushing:
+<div class="cmd"><pre>git fetch origin
+git worktree add /tmp/wr-showrunner origin/prosperity-showrunner -b showrunner-merge
+cd /tmp/wr-showrunner &amp;&amp; git merge origin/main &amp;&amp; git push origin showrunner-merge:prosperity-showrunner
+cd ~/writers-room &amp;&amp; git worktree remove /tmp/wr-showrunner &amp;&amp; git branch -D showrunner-merge</pre><button type="button">Copy</button></div></li>
+<li>Pull on the VM:
+<div class="cmd"><pre>gcloud compute ssh writers-room --zone us-central1-a --command "cd /home/nathan/writers-room &amp;&amp; sudo -u nathan git pull --ff-only"</pre><button type="button">Copy</button></div></li>
+<li>Copy locks, props and the plate (not in git):
+<div class="cmd"><pre>tar --exclude='*/previous/*' -czf /tmp/style.tgz campaigns/prosperity-book/style
+gcloud compute scp /tmp/style.tgz writers-room:/tmp/style.tgz --zone us-central1-a
+gcloud compute ssh writers-room --zone us-central1-a --command "sudo tar -xzf /tmp/style.tgz -C /home/nathan/writers-room &amp;&amp; sudo chown -R nathan: /home/nathan/writers-room/campaigns/prosperity-book &amp;&amp; rm /tmp/style.tgz"</pre><button type="button">Copy</button></div></li>
+<li>Rebuild and restart. The room is down for a few minutes:
+<div class="cmd"><pre>gcloud compute ssh writers-room --zone us-central1-a --command "cd /home/nathan/writers-room &amp;&amp; sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml up -d --build &amp;&amp; sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml restart caddy"</pre><button type="button">Copy</button></div></li>
+<li>Open the room and sign in to check it loads.</li>
+</ol>
+<p>Setting up a VM from nothing: <code>deploy/gcp/deploy.sh</code> creates the IP, firewall, VM, HTTPS and password, and prints the address.</p>
+</section>
+
+<section id="logins">
+<h2><span class="n">14</span>Adding or removing a login</h2>
+<p>Logins are lines in <code>deploy/gcp/Caddyfile</code> on the VM, one under each <code>basic_auth {</code> block (the room and the file browser). Each line is a user name and a password hash.</p>
+<ol class="steps">
+<li>Add a user (replace <code>NAME</code> and <code>PASSWORD</code>):
+<div class="cmd"><pre>gcloud compute ssh writers-room --zone us-central1-a --command '
+cd /home/nathan/writers-room
+H=$(sudo docker run --rm caddy:2 caddy hash-password --plaintext "PASSWORD")
+sudo sed -i "/basic_auth {/a\        NAME $H" deploy/gcp/Caddyfile
+sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml restart caddy'</pre><button type="button">Copy</button></div></li>
+<li>Remove a user, for example Bob:
+<div class="cmd"><pre>gcloud compute ssh writers-room --zone us-central1-a --command '
+cd /home/nathan/writers-room
+sudo sed -i "/^ *bob /d" deploy/gcp/Caddyfile
+sudo docker compose -f docker-compose.yml -f deploy/gcp/caddy.yml restart caddy'</pre><button type="button">Copy</button></div></li>
+</ol>
+</section>
+
+<section id="costs">
+<h2><span class="n">15</span>Costs and known issues</h2>
+<div class="tbl"><table>
+<tr><th>Step</th><th>Typical cost</th></tr>
+<tr><td>Draw and letter one page</td><td>$1–2</td></tr>
+<tr><td>Re-letter one page</td><td>about $0.20</td></tr>
+<tr><td>Strict QA, one page, up to 3 rounds</td><td>$1–3</td></tr>
+<tr><td>Full first pass, pages 5–62</td><td>about $70</td></tr>
+<tr><td>Story desk structure check</td><td>$0.15–0.20</td></tr>
+</table></div>
+<ul>
+<li>Hands are the image model's weakest point; check every one.</li>
+<li>Papers and photos are often drawn facing the reader. Name who holds them and which way they face.</li>
+<li>Image-model lettering sometimes puts a line in the wrong panel, the wrong order, or lowercase. Re-letter with a note; ask for UPPERCASE.</li>
+<li>Page 9, panel 2: Alex's eyes are closed because Bob's art note asks for it. Change it only by a showrunner decision.</li>
+<li>Prologue page 4: Alex holds a blank sheet in panels 1 and 3.</li>
+<li>Pages 5–62 still carry flagged mistakes after QA; see the list in section 11.</li>
+</ul>
+</section>
+</main>
+</div>
+<script>
+document.querySelectorAll('.cmd button').forEach(b=>b.addEventListener('click',()=>{
+  const t=b.previousElementSibling.textContent;
+  const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(done,()=>sel(b))}else sel(b);
+}));
+function sel(b){const r=document.createRange();r.selectNodeContents(b.previousElementSibling);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent='Press ⌘C'}
+</script>
