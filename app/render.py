@@ -241,6 +241,8 @@ def page(slug, tag, spec, ctx, key):
         _update(slug, tag, n, cost=cost, error=None, sfx_art=bool(sfx),
                 check={"pass": report["pass"], "problems": report["problems"], "tries": len(report["attempts"])})
         after_drawing(slug, tag, n, redo=True)
+        from . import proof
+        proof.lock(slug, n)
         seconds = round(time.time() - _page_started(slug, tag, n))
         _update(slug, tag, n, state="done", stage=None, seconds=seconds)
         usage.ledger(slug, "renderer", "page", MODELS[tag], cost, seconds, page=n,
@@ -350,9 +352,12 @@ def start(slug, tags=None, pages=None, redo=False):
     key = api_key()
     if not key:
         raise ValueError("no OpenRouter key: save one in the room's model settings")
-    specs = [s for s in book(slug) if not pages or s["page"] in pages]
+    from . import proof
+    locked = set(proof.locked(slug))
+    specs = [s for s in book(slug) if (not pages or s["page"] in pages) and s["page"] not in locked]
     if not specs:
-        raise ValueError("layouts.md has no pages yet - lay the book out first")
+        raise ValueError("every page asked for is locked - unlock a page to redraw it"
+                         if locked else "layouts.md has no pages yet - lay the book out first")
     ctx = {**prompts.context(slug), "slug": slug, "lettering": "layer"}
     started = []
     for tag in tags or list(MODELS):

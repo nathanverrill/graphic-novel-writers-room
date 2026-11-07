@@ -3,9 +3,9 @@
 Art checked with the bubbles off and redrawn from a note; words edited in place; balloons and tails
 dragged to the right speaker - all over the drawn art, all free but the art redraws. What the proof
 says is the script: every edit rewrites the candidate script (script.md), which starts as the
-showrunner's draft. A page the showrunner approves is locked: nothing - an editor, the page chat, a
-layout run, a bring back - changes its layout until it is unlocked. Sunburst letters locked pages
-only, and only when asked: it is the last step.
+showrunner's draft. A page is locked once it is drawn (render.page locks it), and nothing - an editor,
+the page chat, a layout run, a bring back, a redraw - changes it until it is unlocked; locking it again
+keeps it as it then is. Sunburst letters locked pages only, and only when asked: it is the last step.
 
     production/proof.json   {"pages": {"37": {"locked": true, "at": "...", "spec": {...}}}}
 """

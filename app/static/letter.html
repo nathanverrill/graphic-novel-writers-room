@@ -144,12 +144,12 @@ dialog.final::backdrop { background: rgba(0,0,0,.35); }
       <button class="tog" id="t-names" aria-pressed="true" title="N: who says each bubble">Speakers</button>
       <button id="aim" title="One look at the art points every tail at its speaker (a few cents). Bubbles stay put.">Aim tails</button>
       <span class="spacer" style="flex:1"></span>
-      <button id="lock" title="Approve this page as it is: its words and placement are locked. Click again to unlock.">Approve &amp; lock page</button>
+      <button id="lock" title="Lock this page as it is: nothing can change its words, placement or art. Click again to unlock.">Lock page</button>
       <button class="go" id="final" style="width:auto" title="The last step: Sunburst letters approved pages">Final lettering…</button>
     </div>
     <div id="pages"></div>
     <div class="pagehead"><h2 id="ptitle"></h2><span class="note">◀ ▶ arrow keys for the previous and next page · a dot marks pages worked on in the page editor</span></div>
-    <div class="lockbar" id="lockbar">Approved and locked. Its words, speakers and placement are the script for this page and nothing can change them. <a href="#" id="unlock">Unlock to edit</a></div>
+    <div class="lockbar" id="lockbar">Locked. Its words, speakers, placement and art are the script for this page and nothing can change them. <a href="#" id="unlock">Unlock to edit</a>, then lock it again when you are done.</div>
     <div class="stage" id="stage">
       <div class="noart" id="noart" hidden>no rendered art for this page yet — the layer is shown on white</div>
       <img id="art" alt="" draggable="false">
@@ -259,7 +259,7 @@ async function loadBook() {
   if (!all.includes(tag)) tag = all[0];
   $("#tag").value = tag;
   book = await api("GET", `/api/projects/${slug}/proof`).catch(() => ({locked: [], chapters: [], worked: []}));
-  const btn = n => `<button data-p="${n}" class="${book.locked.includes(n) ? "locked" : ""} ${(book.worked || []).includes(n) ? "worked" : ""}" title="${book.locked.includes(n) ? "approved" : ""}">${n}</button>`;
+  const btn = n => `<button data-p="${n}" class="${book.locked.includes(n) ? "locked" : ""} ${(book.worked || []).includes(n) ? "worked" : ""}" title="${book.locked.includes(n) ? "locked" : "unlocked"}">${n}</button>`;
   const chs = (book.chapters || []).length ? book.chapters : [{name: "Pages", first: Math.min(...pages), last: Math.max(...pages)}];
   $("#pages").innerHTML = chs.map(c => `<div class="chap"><b>${c.name}</b>${pages.filter(n => n >= c.first && n <= c.last).map(btn).join("")}</div>`).join("");
   $("#pages").onclick = e => { const b = e.target.closest("button"); if (b) { page = +b.dataset.p; sel = null; loadPage(); } };
@@ -282,7 +282,7 @@ async function loadPage() {
   $("#stage").classList.toggle("locked", locked);
   $("#lockbar").classList.toggle("on", locked);
   $("#lock").classList.toggle("on", locked);
-  $("#lock").textContent = locked ? "🔒 Approved — click to unlock" : "Approve & lock page";
+  $("#lock").textContent = locked ? "🔒 Locked — click to unlock" : "Lock page";
   for (const id of ["aim", "art-go"]) $("#" + id).disabled = locked;
   $("#art-note").disabled = locked;
   pins = loadPins();
@@ -715,7 +715,7 @@ async function openFinal() {
   const lk = book.locked, f = book.final || {};
   $("#final-pages").innerHTML = lk.length
     ? `<b>${lk.length}</b> approved page${lk.length === 1 ? "" : "s"}: ${lk.join(", ")}<br>about $${(lk.length * 0.5).toFixed(2)}–${(lk.length * 0.85).toFixed(2)}`
-    : "No pages are approved yet. Approve and lock pages first.";
+    : "No pages are locked yet. Lock pages first.";
   $("#final-go").disabled = !lk.length || f.state === "running";
   $("#final-said").textContent = f.state ? finalLine(f) : "";
   $("#final-dlg").showModal();
