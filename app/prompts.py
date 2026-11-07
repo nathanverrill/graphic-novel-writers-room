@@ -590,6 +590,7 @@ def context(slug, version=None):
         "chapter": chapter,
         "lettering": settings.get("lettering") or "layer",
         "sfx": settings.get("sfx") or "art",
+        "font": settings.get("font"),     # the lettering font, app/fonts/<font>.json; None is lettering.DEFAULT_FONT
         "style": section(read("brief.md"), "visual", "style", "look"),
         # straight apostrophes, so "ALEX'S DAUGHTER" in a layout finds "### ALEX’S DAUGHTER" in the bible
         "bible": read("characters.md").replace("\u2019", "'").replace("\u2018", "'"),
